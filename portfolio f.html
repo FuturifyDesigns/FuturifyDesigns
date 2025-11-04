@@ -1377,9 +1377,14 @@
             const images = card.querySelectorAll('.slideshow-image');
             let currentIndex = 0;
             let slideshowInterval = null;
+            let isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+            let slideshowActive = false;
 
-            // Start slideshow on hover
-            card.addEventListener('mouseenter', () => {
+            // Function to start slideshow
+            function startSlideshow() {
+                if (slideshowActive) return; // Already running
+                slideshowActive = true;
+                
                 slideshowInterval = setInterval(() => {
                     // Remove active class from current image
                     images[currentIndex].classList.remove('active');
@@ -1390,11 +1395,12 @@
                     // Add active class to new image
                     images[currentIndex].classList.add('active');
                 }, 1500); // Change image every 1.5 seconds
-            });
+            }
 
-            // Stop slideshow on mouse leave and reset to first image
-            card.addEventListener('mouseleave', () => {
+            // Function to stop slideshow
+            function stopSlideshow() {
                 clearInterval(slideshowInterval);
+                slideshowActive = false;
                 
                 // Remove active from all images
                 images.forEach(img => img.classList.remove('active'));
@@ -1402,7 +1408,46 @@
                 // Reset to first image
                 currentIndex = 0;
                 images[0].classList.add('active');
+            }
+
+            // For Desktop: Use hover (mouseenter/mouseleave)
+            card.addEventListener('mouseenter', () => {
+                if (!isMobile) {
+                    startSlideshow();
+                }
             });
+
+            card.addEventListener('mouseleave', () => {
+                if (!isMobile) {
+                    stopSlideshow();
+                }
+            });
+
+            // For Mobile: Use tap/click to toggle slideshow
+            if (isMobile) {
+                let isSliding = false;
+                
+                card.addEventListener('click', (e) => {
+                    // Don't trigger if clicking the "View Demo" button
+                    if (e.target.closest('.demo-button')) {
+                        return;
+                    }
+                    
+                    e.preventDefault();
+                    
+                    if (!isSliding) {
+                        // Start slideshow
+                        isSliding = true;
+                        card.classList.add('slideshow-active');
+                        startSlideshow();
+                    } else {
+                        // Stop slideshow
+                        isSliding = false;
+                        card.classList.remove('slideshow-active');
+                        stopSlideshow();
+                    }
+                });
+            }
         });
 
         // Disclaimer Popup Logic
