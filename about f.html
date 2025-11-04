@@ -1,0 +1,1454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About - Futurify Designs</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+
+        /* Opening Animation */
+        .opening-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+            animation: fadeOut 0.8s ease-in-out 2.5s forwards;
+        }
+
+        .opening-content {
+            text-align: center;
+            animation: scaleIn 1s ease-out;
+        }
+
+        .opening-logo {
+            font-size: 120px;
+            font-weight: 900;
+            background: linear-gradient(45deg, #fff, #e0e0ff, #fff);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shimmer 2s ease-in-out infinite, pulse 2s ease-in-out infinite;
+            text-shadow: 0 0 60px rgba(255, 255, 255, 0.8);
+            letter-spacing: 5px;
+        }
+
+        .opening-text {
+            font-size: 40px;
+            font-weight: 700;
+            color: white;
+            margin-top: -10px;
+            letter-spacing: 20px;
+            animation: slideIn 1s ease-out 0.5s backwards;
+            text-shadow: 0 0 30px rgba(255, 255, 255, 0.6);
+        }
+
+        @keyframes scaleIn {
+            0% {
+                transform: scale(0.5);
+                opacity: 0;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        @keyframes shimmer {
+            0%, 100% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        @keyframes slideIn {
+            0% {
+                transform: translateY(30px);
+                opacity: 0;
+            }
+            100% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeOut {
+            0% {
+                opacity: 1;
+                visibility: visible;
+            }
+            99% {
+                opacity: 0;
+                visibility: visible;
+            }
+            100% {
+                opacity: 0;
+                visibility: hidden;
+            }
+        }
+
+        /* Animated Background Particles */
+        .particles {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            animation: float 15s infinite ease-in-out;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0) translateX(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh) translateX(100px);
+                opacity: 0;
+            }
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 20px 50px;
+            z-index: 100;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .nav-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 20px;
+            font-weight: 900;
+            color: #fff;
+            text-decoration: none;
+            letter-spacing: 2px;
+            transition: all 0.3s ease;
+            display: inline-block;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            position: relative;
+        }
+
+        .logo:hover {
+            animation: logoPulse 0.8s ease-in-out infinite;
+            transform: scale(1.15);
+            color: #fff;
+        }
+
+        @keyframes logoPulse {
+            0%, 100% {
+                text-shadow: 0 0 15px rgba(255, 255, 255, 1),
+                             0 0 30px rgba(255, 255, 255, 0.8),
+                             0 0 45px rgba(168, 237, 234, 0.9),
+                             0 0 60px rgba(168, 237, 234, 0.7);
+                filter: brightness(1.2);
+            }
+            50% {
+                text-shadow: 0 0 25px rgba(255, 255, 255, 1),
+                             0 0 50px rgba(255, 255, 255, 1),
+                             0 0 75px rgba(168, 237, 234, 1),
+                             0 0 100px rgba(168, 237, 234, 0.8),
+                             0 0 125px rgba(168, 237, 234, 0.6);
+                filter: brightness(1.5);
+            }
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #fff;
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
+        /* About Container */
+        .about-container {
+            max-width: 1100px;
+            margin: 100px auto 60px;
+            padding: 0 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .page-title {
+            text-align: center;
+            margin-bottom: 15px;
+            opacity: 0;
+            animation: fadeInDown 1s ease-out forwards;
+        }
+
+        .page-title h1 {
+            font-size: 40px;
+            color: #fff;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-shadow: 0 0 30px rgba(255, 255, 255, 0.3);
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .page-subtitle {
+            text-align: center;
+            font-size: 16px;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 40px;
+            opacity: 0;
+            animation: fadeInDown 1s ease-out 0.2s forwards;
+        }
+
+        /* Story Section */
+        .story-section {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            padding: 32px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            margin-bottom: 30px;
+            opacity: 0;
+            animation: fadeInUp 1s ease-out 0.4s forwards, floatBox 6s ease-in-out 1s infinite;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes floatBox {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        .section-title {
+            font-size: 20px;
+            color: #fff;
+            margin-bottom: 20px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .section-title i {
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .story-content p {
+            font-size: 15px;
+            line-height: 1.8;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 18px;
+        }
+
+        .story-content p:last-child {
+            margin-bottom: 0;
+        }
+
+        .highlight {
+            color: #fff;
+            font-weight: 600;
+        }
+
+        /* Services Showcase Section */
+        .services-showcase {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            padding: 32px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            margin-bottom: 30px;
+            opacity: 0;
+            animation: fadeInUp 1s ease-out 0.5s forwards, floatBox 6s ease-in-out 1.5s infinite;
+        }
+
+        .services-intro {
+            text-align: center;
+            font-size: 15px;
+            color: rgba(255, 255, 255, 0.85);
+            margin-bottom: 35px;
+            line-height: 1.6;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+        }
+
+        .service-card {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 15px;
+            padding: 20px 18px;
+            text-align: center;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .service-card:hover::before {
+            left: 100%;
+        }
+
+        .service-card:hover {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(255, 255, 255, 0.3);
+            transform: translateY(-10px) scale(1.03);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        .service-icon {
+            font-size: 38px;
+            color: rgba(168, 237, 234, 0.9);
+            margin-bottom: 18px;
+            transition: all 0.4s ease;
+        }
+
+        .service-card:hover .service-icon {
+            transform: scale(1.15) rotateY(360deg);
+            color: rgba(168, 237, 234, 1);
+            filter: drop-shadow(0 0 15px rgba(168, 237, 234, 0.8));
+        }
+
+        .service-title {
+            font-size: 16px;
+            color: #fff;
+            font-weight: 600;
+            margin-bottom: 10px;
+            transition: color 0.3s ease;
+        }
+
+        .service-card:hover .service-title {
+            color: rgba(168, 237, 234, 1);
+        }
+
+        .service-description {
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.75);
+            line-height: 1.6;
+            transition: color 0.3s ease;
+        }
+
+        .service-card:hover .service-description {
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        /* Backend Integration Section */
+        .backend-integration-section {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            padding: 32px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            margin-bottom: 30px;
+            opacity: 0;
+            animation: fadeInUp 1s ease-out 0.7s forwards, floatBox 6s ease-in-out 2.5s infinite;
+        }
+
+        .integration-note {
+            margin-top: 35px;
+            padding: 20px;
+            background: rgba(168, 237, 234, 0.15);
+            border-left: 4px solid rgba(168, 237, 234, 0.8);
+            border-radius: 10px;
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+        }
+
+        .integration-note i {
+            font-size: 20px;
+            color: rgba(168, 237, 234, 1);
+            margin-top: 2px;
+            flex-shrink: 0;
+        }
+
+        .integration-note p {
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.9);
+            line-height: 1.7;
+            margin: 0;
+        }
+
+        .integration-note strong {
+            color: #fff;
+            font-weight: 600;
+        }
+
+        /* Skills & Vision Grid */
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+            margin-bottom: 30px;
+        }
+
+        .info-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            padding: 24px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            opacity: 0;
+            animation: fadeInUp 1s ease-out 0.6s forwards, floatBox 6s ease-in-out 2s infinite;
+        }
+
+        .info-card:nth-child(2) {
+            animation: fadeInUp 1s ease-out 0.8s forwards, floatBox 6s ease-in-out 3s infinite;
+        }
+
+        .card-title {
+            font-size: 20px;
+            color: #fff;
+            margin-bottom: 18px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .card-title i {
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .skills-list {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+
+        .skill-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 14px;
+        }
+
+        .skill-item i {
+            color: rgba(168, 237, 234, 0.9);
+            font-size: 12px;
+        }
+
+        .vision-content p {
+            font-size: 14px;
+            line-height: 1.8;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 14px;
+        }
+
+        .vision-content p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            padding: 28px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            opacity: 0;
+            animation: fadeInUp 1s ease-out 1s forwards, floatBox 6s ease-in-out 4s infinite;
+        }
+
+        .cta-title {
+            font-size: 26px;
+            color: #fff;
+            margin-bottom: 14px;
+            font-weight: 600;
+        }
+
+        .cta-text {
+            font-size: 15px;
+            color: rgba(255, 255, 255, 0.85);
+            margin-bottom: 25px;
+            line-height: 1.6;
+        }
+
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            padding: 16px 35px;
+            background: rgba(255, 255, 255, 0.95);
+            color: #667eea;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 16px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.4);
+            background: #fff;
+        }
+
+        .cta-button i {
+            font-size: 16px;
+            transition: transform 0.3s ease;
+        }
+
+        .cta-button:hover i {
+            transform: translateX(5px);
+        }
+
+        /* Footer */
+        .footer {
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(20px);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 60px 20px 30px;
+            margin-top: 80px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .footer-container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 32px;
+            margin-bottom: 40px;
+        }
+
+        .footer-section h3,
+        .footer-section h4 {
+            color: #fff;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .footer-logo {
+            font-size: 20px;
+            font-weight: 900;
+            background: linear-gradient(45deg, #ffffff, #a8edea);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+        }
+
+        .footer-tagline {
+            font-size: 16px;
+            color: #fff;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .footer-description {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.6;
+        }
+
+        .footer-title {
+            font-size: 16px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .footer-links,
+        .footer-contact {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-links li,
+        .footer-contact li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+
+        .footer-links a:hover {
+            color: #fff;
+            transform: translateX(5px);
+        }
+
+        .footer-contact li {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .footer-contact i {
+            width: 18px;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .footer-social a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            color: #fff;
+            font-size: 16px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .footer-social a:hover {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: #fff;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(255, 255, 255, 0.3);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer-bottom p {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+
+        .heart {
+            color: #ff6b6b;
+            animation: heartbeat 1.5s ease-in-out infinite;
+        }
+
+        @keyframes heartbeat {
+            0%, 100% {
+                transform: scale(1);
+            }
+            10%, 30% {
+                transform: scale(1.1);
+            }
+            20%, 40% {
+                transform: scale(0.9);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 968px) {
+            .info-grid {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+
+            .services-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 16px;
+            }
+
+            .nav-links {
+                gap: 16px;
+            }
+
+            nav {
+                padding: 20px 30px;
+            }
+
+            .page-title h1 {
+                font-size: 38px;
+            }
+
+            .story-section,
+            .services-showcase,
+            .backend-integration-section,
+            .info-card,
+            .cta-section {
+                padding: 28px;
+            }
+
+            .skills-list {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-content {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 24px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 0;
+            }
+
+            .about-container {
+                margin: 90px auto 40px;
+                padding: 0 20px;
+            }
+
+            .page-title h1 {
+                font-size: 20px;
+            }
+
+            .page-subtitle {
+                font-size: 16px;
+            }
+
+            .services-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 18px;
+            }
+
+            .service-card {
+                padding: 20px 18px;
+            }
+
+            .service-icon {
+                font-size: 20px;
+            }
+
+            .story-section,
+            .services-showcase,
+            .backend-integration-section,
+            .info-card,
+            .cta-section {
+                padding: 24px;
+            }
+
+            .section-title,
+            .card-title {
+                font-size: 20px;
+            }
+
+            .cta-title {
+                font-size: 20px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            nav {
+                padding: 15px 20px;
+            }
+
+            .logo {
+                font-size: 20px;
+            }
+
+            .nav-links {
+                gap: 12px;
+            }
+
+            .nav-links a {
+                font-size: 13px;
+            }
+
+            .page-title h1 {
+                font-size: 20px;
+            }
+
+            .page-subtitle {
+                font-size: 14px;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+
+            .service-card {
+                padding: 20px;
+            }
+
+            .story-section,
+            .services-showcase,
+            .backend-integration-section,
+            .info-card,
+            .cta-section {
+                padding: 20px;
+            }
+
+            .integration-note {
+                flex-direction: column;
+                padding: 20px;
+            }
+
+            .integration-note i {
+                font-size: 20px;
+            }
+
+            .integration-note p {
+                font-size: 13px;
+            }
+
+            .section-title,
+            .card-title {
+                font-size: 20px;
+            }
+
+            .story-content p,
+            .vision-content p {
+                font-size: 15px;
+            }
+
+            .skill-item {
+                font-size: 14px;
+            }
+
+            .cta-button {
+                padding: 16px 35px;
+                font-size: 16px;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 24px;
+                text-align: center;
+            }
+
+            .footer-links a:hover {
+                transform: none;
+            }
+
+            .footer-contact li {
+                justify-content: center;
+            }
+
+            .footer-social {
+                justify-content: center;
+            }
+
+            .footer {
+                padding: 32px 20px 20px;
+                margin-top: 60px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .page-title h1 {
+                font-size: 20px;
+            }
+
+            .nav-links a {
+                font-size: 12px;
+            }
+
+            .section-title,
+            .card-title {
+                font-size: 20px;
+                flex-direction: column;
+                gap: 8px;
+            }
+
+            .service-title {
+                font-size: 16px;
+            }
+
+            .service-description {
+                font-size: 12px;
+            }
+
+            .cta-button {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Opening Animation -->
+    <div class="opening-animation">
+        <div class="opening-content">
+            <div class="opening-logo">A</div>
+            <div class="opening-text">BOUT</div>
+        </div>
+    </div>
+
+    <!-- Animated Background Particles -->
+    <div class="particles" id="particles"></div>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <a href="home.html" class="logo">F</a>
+            <ul class="nav-links">
+                <li><a href="home.html">Home</a></li>
+                <li><a href="portfolio.html">Portfolio</a></li>
+                <li><a href="about.html" class="active">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- About Container -->
+    <div class="about-container">
+        <div class="page-title">
+            <h1>About Me</h1>
+        </div>
+        <p class="page-subtitle">My Journey in Creating Digital Experiences</p>
+
+        <!-- Story Section -->
+        <div class="story-section">
+            <h2 class="section-title"><i class="fas fa-book-open"></i> My Story</h2>
+            <div class="story-content">
+                <p>
+                    My name is <span class="highlight">Leon Maunge</span>, and I'm a 4th-year Computer Science student at the <span class="highlight">University of Botswana</span>. Originally from Zambia, I now call Botswana home, where I've been pursuing my passion for technology and digital innovation.
+                </p>
+                <p>
+                    My journey into web design began during my <span class="highlight">Web Development and Technology</span> course. What started as academic learning quickly transformed into a burning passion. I was captivated by the power of design—how colors, layouts, and interactions could tell stories, evoke emotions, and create unforgettable user experiences.
+                </p>
+                <p>
+                    Since that pivotal moment, I've been on a relentless quest to master the art of creating <span class="highlight">dynamic and interactive websites</span>. Every project is an opportunity to experiment, learn, and push the boundaries of what's possible on the web. From sleek landing pages to complex interactive applications, I've dedicated countless hours to perfecting my craft.
+                </p>
+                <p>
+                    I specialize in creating <span class="highlight">stunning informational websites</span> that captivate and engage. Whether it's a personal portfolio to showcase your work, a business website to establish your online presence, a restaurant site with beautiful menus, an event landing page, a real estate showcase, educational platforms, blog sites, or creative agency portfolios—I bring ideas to life with style and functionality.
+                </p>
+                <p>
+                    What drives me is the belief that <span class="highlight">great design can change the world</span>. A well-crafted website isn't just beautiful—it's functional, accessible, and built with purpose. I strive to create digital experiences that don't just meet expectations but exceed them, leaving lasting impressions on every visitor.
+                </p>
+                <p>
+                    Currently, I specialize in <span class="highlight">frontend development</span>, crafting stunning user interfaces with modern technologies and animations. While I'm proficient in backend development, I've chosen to focus my services on creating exceptional frontend experiences for now. However, my vision is to become a <span class="highlight">full-stack developer</span>, offering complete end-to-end solutions with database integration and server-side functionality in the near future.
+                </p>
+            </div>
+        </div>
+
+        <!-- Services Showcase Section -->
+        <div class="services-showcase">
+            <h2 class="section-title"><i class="fas fa-palette"></i> What I Create</h2>
+            <p class="services-intro">Stunning informational websites tailored to your needs—no backend processing required, just pure frontend excellence!</p>
+            
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-user-tie"></i>
+                    </div>
+                    <h3 class="service-title">Personal Portfolios</h3>
+                    <p class="service-description">Showcase your work, skills, and achievements with a stunning portfolio that stands out.</p>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-briefcase"></i>
+                    </div>
+                    <h3 class="service-title">Business Websites</h3>
+                    <p class="service-description">Establish your brand's online presence with professional, conversion-focused websites.</p>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-utensils"></i>
+                    </div>
+                    <h3 class="service-title">Restaurant Sites</h3>
+                    <p class="service-description">Beautiful menus, galleries, and location info that make mouths water.</p>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-calendar-alt"></i>
+                    </div>
+                    <h3 class="service-title">Event Landing Pages</h3>
+                    <p class="service-description">Eye-catching pages for conferences, weddings, concerts, and special occasions.</p>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-home"></i>
+                    </div>
+                    <h3 class="service-title">Real Estate Showcases</h3>
+                    <p class="service-description">Property listings with stunning galleries and virtual tour integrations.</p>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <h3 class="service-title">Educational Platforms</h3>
+                    <p class="service-description">Course catalogs, teacher bios, and informational educational sites.</p>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-blog"></i>
+                    </div>
+                    <h3 class="service-title">Blog & Magazine Sites</h3>
+                    <p class="service-description">Content-rich platforms with beautiful typography and reading experiences.</p>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-paint-brush"></i>
+                    </div>
+                    <h3 class="service-title">Creative Agency Sites</h3>
+                    <p class="service-description">Bold, artistic websites that showcase creativity and innovation.</p>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-store"></i>
+                    </div>
+                    <h3 class="service-title">Product Showcases</h3>
+                    <p class="service-description">Display your products beautifully with interactive galleries and details.</p>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <h3 class="service-title">Startup Landing Pages</h3>
+                    <p class="service-description">Convert visitors into customers with compelling startup homepages.</p>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-camera"></i>
+                    </div>
+                    <h3 class="service-title">Photography Portfolios</h3>
+                    <p class="service-description">Gallery-focused sites that let your images shine in full glory.</p>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <h3 class="service-title">Non-Profit Websites</h3>
+                    <p class="service-description">Mission-driven sites that inspire action and showcase your cause.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Frontend Designs for Backend Integration -->
+        <div class="backend-integration-section">
+            <h2 class="section-title"><i class="fas fa-plug"></i> Frontend Designs Ready for Backend Integration</h2>
+            <p class="services-intro">Complete frontend designs that your developers can easily integrate with any backend system. I deliver pixel-perfect, production-ready code!</p>
+            
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-shopping-cart"></i>
+                    </div>
+                    <h3 class="service-title">E-Commerce Storefronts</h3>
+                    <p class="service-description">Complete shopping interfaces with product listings, cart, checkout flows—ready for payment gateway integration.</p>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-credit-card"></i>
+                    </div>
+                    <h3 class="service-title">Payment Processing Pages</h3>
+                    <p class="service-description">Beautiful checkout pages and payment forms ready for Stripe, PayPal, or any payment API.</p>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-user-circle"></i>
+                    </div>
+                    <h3 class="service-title">User Authentication Pages</h3>
+                    <p class="service-description">Login, signup, password reset, and profile pages ready for your authentication backend.</p>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-tachometer-alt"></i>
+                    </div>
+                    <h3 class="service-title">Admin Dashboards</h3>
+                    <p class="service-description">Complete admin panels with charts, tables, and controls ready for your database connections.</p>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <h3 class="service-title">Search & Filter Interfaces</h3>
+                    <p class="service-description">Advanced search pages with filters, sorting, and pagination ready for API integration.</p>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-envelope-open-text"></i>
+                    </div>
+                    <h3 class="service-title">Form Collection Pages</h3>
+                    <p class="service-description">Contact forms, surveys, applications—complete with validation, ready for backend processing.</p>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-comments"></i>
+                    </div>
+                    <h3 class="service-title">Social Features UI</h3>
+                    <p class="service-description">Comments, likes, shares, messaging interfaces ready for real-time backend integration.</p>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-calendar-check"></i>
+                    </div>
+                    <h3 class="service-title">Booking Systems</h3>
+                    <p class="service-description">Appointment schedulers, reservation pages ready for calendar and database integration.</p>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3 class="service-title">Analytics Dashboards</h3>
+                    <p class="service-description">Data visualization pages with charts and metrics ready for your analytics backend.</p>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-file-upload"></i>
+                    </div>
+                    <h3 class="service-title">File Upload Interfaces</h3>
+                    <p class="service-description">Drag-and-drop upload pages, progress bars ready for cloud storage integration.</p>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-newspaper"></i>
+                    </div>
+                    <h3 class="service-title">Content Management UI</h3>
+                    <p class="service-description">CMS interfaces for creating, editing posts and pages—ready for database integration.</p>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-users-cog"></i>
+                    </div>
+                    <h3 class="service-title">User Management Systems</h3>
+                    <p class="service-description">User profiles, permissions, settings pages ready for backend user management APIs.</p>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-bell"></i>
+                    </div>
+                    <h3 class="service-title">Notification Centers</h3>
+                    <p class="service-description">Alert systems, notification panels ready for real-time backend push notifications.</p>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-map-marked-alt"></i>
+                    </div>
+                    <h3 class="service-title">Location-Based Pages</h3>
+                    <p class="service-description">Map integrations, location finders ready for geolocation backend services.</p>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-dollar-sign"></i>
+                    </div>
+                    <h3 class="service-title">Pricing & Subscription Pages</h3>
+                    <p class="service-description">Pricing tables, plan comparisons ready for subscription management systems.</p>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-box"></i>
+                    </div>
+                    <h3 class="service-title">Inventory Management UI</h3>
+                    <p class="service-description">Stock management, product catalogs ready for inventory database integration.</p>
+                </div>
+            </div>
+
+            <div class="integration-note">
+                <i class="fas fa-info-circle"></i>
+                <p><strong>What You Get:</strong> Clean, semantic HTML/CSS/JavaScript code, responsive design, form validations, API-ready structure, comprehensive documentation, and deployment-ready files. Your backend team can seamlessly integrate their systems!</p>
+            </div>
+        </div>
+
+        <!-- Skills & Vision Grid -->
+        <div class="info-grid">
+            <!-- Skills Card -->
+            <div class="info-card">
+                <h3 class="card-title"><i class="fas fa-code"></i> My Skills</h3>
+                <div class="skills-list">
+                    <div class="skill-item">
+                        <i class="fas fa-check-circle"></i>
+                        <span>HTML5 & CSS3</span>
+                    </div>
+                    <div class="skill-item">
+                        <i class="fas fa-check-circle"></i>
+                        <span>JavaScript & React</span>
+                    </div>
+                    <div class="skill-item">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Responsive Design</span>
+                    </div>
+                    <div class="skill-item">
+                        <i class="fas fa-check-circle"></i>
+                        <span>UI/UX Design</span>
+                    </div>
+                    <div class="skill-item">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Animations & Effects</span>
+                    </div>
+                    <div class="skill-item">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Web Performance</span>
+                    </div>
+                    <div class="skill-item">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Backend Knowledge</span>
+                    </div>
+                    <div class="skill-item">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Database Design</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Vision Card -->
+            <div class="info-card">
+                <h3 class="card-title"><i class="fas fa-lightbulb"></i> My Vision</h3>
+                <div class="vision-content">
+                    <p>
+                        <span class="highlight">Futurify Designs</span> is more than just a portfolio—it's a commitment to excellence. While I'm currently a solo operation, my vision extends far beyond today.
+                    </p>
+                    <p>
+                        I'm building a foundation for growth, with plans to expand into a full-fledged <span class="highlight">design and development agency</span>. My goal is to assemble a talented team of creators, developers, and designers who share my passion for innovation.
+                    </p>
+                    <p>
+                        In the near future, I'll be offering <span class="highlight">full-stack development services</span>, providing complete solutions from concept to deployment. Until then, I'm focused on delivering exceptional frontend experiences that make businesses stand out in the digital landscape.
+                    </p>
+                    <p>
+                        Every website I create is a step toward that future—a testament to what's possible when creativity meets technical excellence.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- CTA Section -->
+        <div class="cta-section">
+            <h2 class="cta-title">Let's Create Something Amazing Together</h2>
+            <p class="cta-text">
+                Ready to bring your vision to life? I'm here to turn your ideas into stunning digital realities. 
+                Whether it's a personal portfolio, business website, or an interactive web application—let's make it happen!
+            </p>
+            <a href="contact.html" class="cta-button">
+                <span>Get Started</span>
+                <i class="fas fa-arrow-right"></i>
+            </a>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3 class="footer-logo">F</h3>
+                    <p class="footer-tagline">Futurify Designs</p>
+                    <p class="footer-description">Crafting Tomorrow's Digital Experiences</p>
+                </div>
+
+                <div class="footer-section">
+                    <h4 class="footer-title">Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="home f.html">Home</a></li>
+                        <li><a href="portfolio f.html">Portfolio</a></li>
+                        <li><a href="about f.html">About</a></li>
+                        <li><a href="contact f.html">Contact</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4 class="footer-title">Get In Touch</h4>
+                    <ul class="footer-contact">
+                        <li><i class="fas fa-envelope"></i> futurifydesigns@gmail.com</li>
+                        <li><i class="fas fa-phone"></i> +267 777 83823</li>
+                        <li><i class="fas fa-map-marker-alt"></i> Gaborone, Botswana</li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4 class="footer-title">Follow Me</h4>
+                    <div class="footer-social">
+                        <a href="https://www.linkedin.com/in/leon-maunge-6153b2212" target="_blank" title="LinkedIn">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                        <a href="https://www.instagram.com/futurifydesigns" target="_blank" title="Instagram">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="https://www.tiktok.com/@futurifydesigns" target="_blank" title="TikTok">
+                            <i class="fab fa-tiktok"></i>
+                        </a>
+                        <a href="https://wa.me/26777783823" target="_blank" title="WhatsApp">
+                            <i class="fab fa-whatsapp"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2025 Futurify Designs. All rights reserved.</p>
+                <p>Designed & Built in Botswana</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Create floating particles
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 50;
+
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                
+                // Random horizontal position
+                particle.style.left = Math.random() * 100 + '%';
+                
+                // Position particles randomly across the full height so they're already floating
+                particle.style.top = Math.random() * 120 + '%';
+                
+                // Random animation delay for staggered effect
+                particle.style.animationDelay = -(Math.random() * 15) + 's';
+                particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
+                
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        createParticles();
+    </script>
+</body>
+</html>

@@ -1,0 +1,852 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Futurify Designs - Crafting Digital Experiences</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow: hidden;
+            background: #0a0a0a;
+        }
+
+        /* Landing Page Container */
+        .landing-container {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            transition: background 2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Animated Background Particles */
+        .particles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            opacity: 0;
+            animation: float 15s infinite ease-in-out;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0) translateX(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh) translateX(100px);
+                opacity: 0;
+            }
+        }
+
+        /* Logo Animation */
+        .logo-container {
+            position: relative;
+            z-index: 2;
+            opacity: 0;
+            animation: fadeInLogo 2s ease-out forwards;
+        }
+
+        @keyframes fadeInLogo {
+            to {
+                opacity: 1;
+            }
+        }
+
+        .logo {
+            font-size: 140px;
+            font-weight: 900;
+            color: #fff;
+            letter-spacing: 5px;
+            font-family: 'Arial Black', sans-serif;
+            background: linear-gradient(45deg, #ffffff, #a8edea, #fed6e3, #ffffff);
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: pulseGlow 4s cubic-bezier(0.4, 0, 0.6, 1) infinite, gradientShift 6s ease-in-out infinite;
+            filter: drop-shadow(0 0 30px rgba(255, 255, 255, 0.8));
+            position: relative;
+            display: inline-block;
+            will-change: transform, filter;
+        }
+
+        .logo::before {
+            content: 'F';
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            background: linear-gradient(45deg, #667eea, #764ba2, #f093fb, #667eea);
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradientShift 6s ease-in-out infinite reverse;
+            filter: blur(20px);
+            opacity: 0.7;
+        }
+
+        @keyframes pulseGlow {
+            0%, 100% {
+                transform: scale(1);
+                filter: drop-shadow(0 0 30px rgba(255, 255, 255, 0.8));
+            }
+            50% {
+                transform: scale(1.05);
+                filter: drop-shadow(0 0 60px rgba(255, 255, 255, 1)) drop-shadow(0 0 100px rgba(167, 139, 250, 0.6));
+            }
+        }
+
+        @keyframes gradientShift {
+            0%, 100% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+        }
+
+        @keyframes glow {
+            from {
+                filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.8));
+            }
+            to {
+                filter: drop-shadow(0 0 40px rgba(255, 255, 255, 1));
+            }
+        }
+
+        .company-name {
+            font-size: 32px;
+            color: #fff;
+            margin-top: 20px;
+            letter-spacing: 8px;
+            opacity: 0;
+            animation: slideInText 2s cubic-bezier(0.22, 1, 0.36, 1) 1s forwards;
+            text-transform: uppercase;
+            font-weight: 300;
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.6);
+        }
+
+        @keyframes slideInText {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .tagline {
+            font-size: 18px;
+            color: rgba(255, 255, 255, 0.9);
+            margin-top: 15px;
+            letter-spacing: 3px;
+            opacity: 0;
+            animation: slideInText 2s cubic-bezier(0.22, 1, 0.36, 1) 1.5s forwards;
+            font-weight: 300;
+            text-shadow: 0 0 15px rgba(255, 255, 255, 0.4);
+        }
+
+        /* Enter Button */
+        .enter-btn-container {
+            opacity: 0;
+            animation: fadeInButton 1.5s cubic-bezier(0.22, 1, 0.36, 1) 2.5s forwards;
+            margin-top: 60px;
+            z-index: 2;
+        }
+
+        @keyframes fadeInButton {
+            to {
+                opacity: 1;
+            }
+        }
+
+        .enter-btn {
+            padding: 20px 60px;
+            font-size: 22px;
+            color: #fff;
+            background: rgba(255, 255, 255, 0.15);
+            border: 2px solid rgba(255, 255, 255, 0.6);
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            backdrop-filter: blur(10px);
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            font-weight: 600;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+        }
+
+        .enter-btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            transform: translate(-50%, -50%);
+            transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1), height 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .enter-btn:hover::before {
+            width: 400px;
+            height: 400px;
+        }
+
+        .enter-btn:hover {
+            border-color: #fff;
+            transform: scale(1.05);
+            box-shadow: 0 0 40px rgba(255, 255, 255, 0.7);
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .enter-btn span {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Background color changes on hover */
+        .landing-container.hover-active {
+            animation: backgroundSlideshow 15s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+        }
+
+        @keyframes backgroundSlideshow {
+            0% {
+                background: linear-gradient(135deg, #3a4a7a 0%, #4a335e 100%);
+            }
+            20% {
+                background: linear-gradient(135deg, #8a4d78 0%, #7a2f3e 100%);
+            }
+            40% {
+                background: linear-gradient(135deg, #2d5f7c 0%, #005866 100%);
+            }
+            60% {
+                background: linear-gradient(135deg, #2a7a4a 0%, #1f665f 100%);
+            }
+            80% {
+                background: linear-gradient(135deg, #8a4d5c 0%, #9a7a28 100%);
+            }
+            100% {
+                background: linear-gradient(135deg, #3a4a7a 0%, #4a335e 100%);
+            }
+        }
+
+        .landing-container.hover-gradient-1 {
+            background: linear-gradient(135deg, #8a4d78 0%, #7a2f3e 100%);
+        }
+
+        .landing-container.hover-gradient-2 {
+            background: linear-gradient(135deg, #2d5f7c 0%, #005866 100%);
+        }
+
+        .landing-container.hover-gradient-3 {
+            background: linear-gradient(135deg, #2a7a4a 0%, #1f665f 100%);
+        }
+
+        .landing-container.hover-gradient-4 {
+            background: linear-gradient(135deg, #8a4d5c 0%, #9a7a28 100%);
+        }
+
+        .landing-container.hover-gradient-5 {
+            background: linear-gradient(135deg, #1d4a5a 0%, #1a1a3a 100%);
+        }
+
+        /* Inspiration Message */
+        .inspiration-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: radial-gradient(circle at center, rgba(20, 20, 50, 0.98) 0%, rgba(0, 0, 0, 0.99) 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 1s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .inspiration-overlay.show {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .inspiration-overlay::before {
+            content: '';
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(102, 126, 234, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 80% 50%, rgba(240, 147, 251, 0.08) 0%, transparent 50%);
+            animation: moveBackground 20s ease-in-out infinite;
+        }
+
+        @keyframes moveBackground {
+            0%, 100% {
+                transform: translate(-50%, -50%) rotate(0deg);
+            }
+            50% {
+                transform: translate(-50%, -50%) rotate(180deg);
+            }
+        }
+
+        .inspiration-content {
+            text-align: center;
+            max-width: 1000px;
+            padding: 80px 60px;
+            transform: scale(0.7) translateY(50px);
+            transition: all 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+            position: relative;
+            z-index: 2;
+            opacity: 0;
+        }
+
+        .inspiration-overlay.show .inspiration-content {
+            transform: scale(1) translateY(0);
+            opacity: 1;
+        }
+
+        /* Decorative lines */
+        .inspiration-content::before,
+        .inspiration-content::after {
+            content: '';
+            position: absolute;
+            height: 1px;
+            width: 0;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.5), transparent);
+            left: 50%;
+            transform: translateX(-50%);
+            transition: width 1.5s cubic-bezier(0.22, 1, 0.36, 1) 0.5s;
+        }
+
+        .inspiration-content::before {
+            top: 0;
+        }
+
+        .inspiration-content::after {
+            bottom: 0;
+        }
+
+        .inspiration-overlay.show .inspiration-content::before,
+        .inspiration-overlay.show .inspiration-content::after {
+            width: 80%;
+        }
+
+        .inspiration-message {
+            font-size: 52px;
+            color: #fff;
+            line-height: 1.6;
+            margin-bottom: 50px;
+            font-weight: 300;
+            letter-spacing: 2px;
+            background: linear-gradient(135deg, #ffffff 0%, #a8edea 50%, #fed6e3 100%);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: flowingGradient 8s ease-in-out infinite;
+            filter: drop-shadow(0 0 30px rgba(168, 237, 234, 0.3));
+            position: relative;
+            text-rendering: optimizeLegibility;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        @keyframes flowingGradient {
+            0%, 100% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+        }
+
+        /* Quote marks */
+        .inspiration-message::before,
+        .inspiration-message::after {
+            font-size: 80px;
+            line-height: 0;
+            color: rgba(168, 237, 234, 0.3);
+            font-family: Georgia, serif;
+            position: absolute;
+            opacity: 0;
+            animation: fadeInQuotes 1s cubic-bezier(0.22, 1, 0.36, 1) 0.8s forwards;
+        }
+
+        .inspiration-message::before {
+            content: '"';
+            top: -30px;
+            left: -60px;
+        }
+
+        .inspiration-message::after {
+            content: '"';
+            bottom: -60px;
+            right: -60px;
+        }
+
+        @keyframes fadeInQuotes {
+            to {
+                opacity: 1;
+            }
+        }
+
+        .inspiration-author {
+            font-size: 26px;
+            color: rgba(255, 255, 255, 0.85);
+            font-style: italic;
+            letter-spacing: 3px;
+            opacity: 0;
+            animation: fadeInAuthor 1.2s cubic-bezier(0.22, 1, 0.36, 1) 1s forwards;
+            text-shadow: 0 0 20px rgba(168, 237, 234, 0.2);
+            font-weight: 300;
+        }
+
+        @keyframes fadeInAuthor {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Enhanced floating sparkles */
+        .sparkle {
+            position: absolute;
+            border-radius: 50%;
+            pointer-events: none;
+            opacity: 0;
+            animation: floatSparkle 4s ease-in-out infinite;
+        }
+
+        .sparkle::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.9) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+        @keyframes floatSparkle {
+            0%, 100% {
+                transform: translate(0, 0) scale(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            50% {
+                transform: translate(var(--sparkle-x), var(--sparkle-y)) scale(1);
+                opacity: 0.8;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translate(calc(var(--sparkle-x) * 2), calc(var(--sparkle-y) * 2)) scale(0);
+                opacity: 0;
+            }
+        }
+
+        /* Ripple Effect */
+        .ripple {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            transform: scale(0);
+            animation: ripple-animation 0.8s ease-out;
+            pointer-events: none;
+        }
+
+        @keyframes ripple-animation {
+            to {
+                transform: scale(4);
+                opacity: 0;
+            }
+        }
+
+        /* Fade Out Animation */
+        .fade-out {
+            animation: fadeOut 1.2s cubic-bezier(0.4, 0, 1, 1) forwards;
+        }
+
+        @keyframes fadeOut {
+            to {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 968px) {
+            .logo {
+                font-size: 100px;
+            }
+
+            .company-name {
+                font-size: 26px;
+                letter-spacing: 6px;
+            }
+
+            .tagline {
+                font-size: 16px;
+            }
+
+            .enter-btn {
+                padding: 18px 50px;
+                font-size: 20px;
+            }
+
+            .inspiration-message {
+                font-size: 42px;
+            }
+
+            .inspiration-author {
+                font-size: 22px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .logo {
+                font-size: 80px;
+            }
+
+            .company-name {
+                font-size: 22px;
+                letter-spacing: 4px;
+                margin-top: 15px;
+            }
+
+            .tagline {
+                font-size: 14px;
+                letter-spacing: 2px;
+            }
+
+            .enter-btn {
+                padding: 16px 40px;
+                font-size: 18px;
+            }
+
+            .enter-btn-container {
+                margin-top: 50px;
+            }
+
+            .inspiration-message {
+                font-size: 36px;
+                margin-bottom: 35px;
+            }
+
+            .inspiration-message::before,
+            .inspiration-message::after {
+                font-size: 60px;
+            }
+
+            .inspiration-message::before {
+                left: -40px;
+            }
+
+            .inspiration-message::after {
+                right: -40px;
+            }
+
+            .inspiration-author {
+                font-size: 20px;
+            }
+
+            .inspiration-content {
+                padding: 60px 40px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .logo {
+                font-size: 70px;
+            }
+
+            .company-name {
+                font-size: 18px;
+                letter-spacing: 3px;
+            }
+
+            .tagline {
+                font-size: 12px;
+            }
+
+            .enter-btn {
+                padding: 14px 35px;
+                font-size: 16px;
+                letter-spacing: 2px;
+            }
+
+            .inspiration-message {
+                font-size: 28px;
+                line-height: 1.5;
+            }
+
+            .inspiration-message::before,
+            .inspiration-message::after {
+                font-size: 50px;
+            }
+
+            .inspiration-message::before {
+                left: -30px;
+                top: -20px;
+            }
+
+            .inspiration-message::after {
+                right: -30px;
+                bottom: -50px;
+            }
+
+            .inspiration-author {
+                font-size: 18px;
+                letter-spacing: 2px;
+            }
+
+            .inspiration-content {
+                padding: 50px 30px;
+                max-width: 95%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo {
+                font-size: 60px;
+            }
+
+            .company-name {
+                font-size: 16px;
+                letter-spacing: 2px;
+            }
+
+            .tagline {
+                font-size: 11px;
+                letter-spacing: 1px;
+            }
+
+            .enter-btn {
+                padding: 12px 30px;
+                font-size: 14px;
+            }
+
+            .inspiration-message {
+                font-size: 24px;
+            }
+
+            .inspiration-message::before {
+                left: -20px;
+            }
+
+            .inspiration-message::after {
+                right: -20px;
+            }
+
+            .inspiration-author {
+                font-size: 16px;
+            }
+
+            .inspiration-content {
+                padding: 40px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="landing-container" id="landingContainer">
+        <!-- Particles Background -->
+        <div class="particles" id="particles"></div>
+
+        <!-- Logo and Company Name -->
+        <div class="logo-container">
+            <div class="logo">F</div>
+            <div class="company-name">Futurify Designs</div>
+            <div class="tagline">Crafting Tomorrow's Digital Experiences</div>
+        </div>
+
+        <!-- Enter Button -->
+        <div class="enter-btn-container">
+            <button class="enter-btn" id="enterBtn">
+                <span>Enter</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Inspiration Message Overlay -->
+    <div class="inspiration-overlay" id="inspirationOverlay">
+        <div class="inspiration-content">
+            <div class="inspiration-message">
+                "Design is not just what it looks like and feels like.<br>
+                Design is how it works."
+            </div>
+            <div class="inspiration-author">— Steve Jobs</div>
+        </div>
+    </div>
+
+    <script>
+        // Create floating particles with proper animation
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 50;
+
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                
+                // Random horizontal position
+                particle.style.left = Math.random() * 100 + '%';
+                
+                // Position at random heights but ensure they start below viewport or mid-screen
+                // This prevents them from appearing static at the top initially
+                const startHeight = 50 + Math.random() * 60; // Between 50% and 110% (some below screen)
+                particle.style.top = startHeight + '%';
+                
+                // Random animation delay and duration
+                const animationDelay = Math.random() * 15 + 's';
+                const animationDuration = (Math.random() * 10 + 10) + 's';
+                
+                particle.style.animationDelay = animationDelay;
+                particle.style.animationDuration = animationDuration;
+                
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        createParticles();
+
+        // Background slideshow on hover
+        const enterBtn = document.getElementById('enterBtn');
+        const landingContainer = document.getElementById('landingContainer');
+        let isHovering = false;
+
+        enterBtn.addEventListener('mouseenter', () => {
+            isHovering = true;
+            landingContainer.classList.add('hover-active');
+        });
+
+        enterBtn.addEventListener('mouseleave', () => {
+            isHovering = false;
+            landingContainer.classList.remove('hover-active');
+        });
+
+        // Create enhanced sparkles for inspiration overlay
+        function createSparkles() {
+            const overlay = document.getElementById('inspirationOverlay');
+            const sparkleCount = 30;
+
+            for (let i = 0; i < sparkleCount; i++) {
+                const sparkle = document.createElement('div');
+                sparkle.className = 'sparkle';
+                
+                // Random size
+                const size = 2 + Math.random() * 4;
+                sparkle.style.width = size + 'px';
+                sparkle.style.height = size + 'px';
+                
+                // Random position
+                sparkle.style.left = Math.random() * 100 + '%';
+                sparkle.style.top = Math.random() * 100 + '%';
+                
+                // Random movement
+                const moveX = (Math.random() - 0.5) * 200;
+                const moveY = (Math.random() - 0.5) * 200;
+                sparkle.style.setProperty('--sparkle-x', moveX + 'px');
+                sparkle.style.setProperty('--sparkle-y', moveY + 'px');
+                
+                // Random delay and duration
+                sparkle.style.animationDelay = Math.random() * 3 + 's';
+                sparkle.style.animationDuration = (3 + Math.random() * 3) + 's';
+                
+                overlay.appendChild(sparkle);
+            }
+        }
+
+        // Ripple effect on button click
+        enterBtn.addEventListener('click', function(e) {
+            const rect = this.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+
+            const ripple = document.createElement('span');
+            ripple.className = 'ripple';
+            ripple.style.left = x + 'px';
+            ripple.style.top = y + 'px';
+            ripple.style.width = '10px';
+            ripple.style.height = '10px';
+
+            this.appendChild(ripple);
+
+            setTimeout(() => ripple.remove(), 800);
+
+            // Show inspiration message
+            const inspirationOverlay = document.getElementById('inspirationOverlay');
+            createSparkles();
+            
+            setTimeout(() => {
+                inspirationOverlay.classList.add('show');
+            }, 200);
+
+            // Navigate to home page after 5.5 seconds
+            setTimeout(() => {
+                inspirationOverlay.classList.remove('show');
+                landingContainer.classList.add('fade-out');
+                
+                setTimeout(() => {
+                    window.location.href = 'home f.html';
+                }, 1200);
+            }, 5500);
+        });
+    </script>
+</body>
+</html>
