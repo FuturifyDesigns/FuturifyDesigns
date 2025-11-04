@@ -1,0 +1,1440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio - Futurify Designs</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Disclaimer Popup */
+        .disclaimer-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(8px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .disclaimer-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .disclaimer-box {
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 600px;
+            width: 90%;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            transform: scale(0.8);
+            transition: transform 0.3s ease;
+            position: relative;
+            border: 2px solid rgba(102, 126, 234, 0.2);
+        }
+
+        .disclaimer-overlay.active .disclaimer-box {
+            transform: scale(1);
+        }
+
+        .disclaimer-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .disclaimer-icon i {
+            color: white;
+            font-size: 28px;
+        }
+
+        .disclaimer-title {
+            font-size: 26px;
+            font-weight: 700;
+            color: #2d3748;
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        .disclaimer-text {
+            font-size: 15px;
+            line-height: 1.7;
+            color: #4a5568;
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .disclaimer-button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 14px 40px;
+            border-radius: 50px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            display: block;
+            margin: 0 auto;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .disclaimer-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .disclaimer-note {
+            font-size: 13px;
+            color: #718096;
+            text-align: center;
+            margin-top: 15px;
+            font-style: italic;
+        }
+
+        /* Animated Background Particles */
+
+        /* Opening Animation */
+        .opening-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+            animation: fadeOut 0.8s ease-in-out 2.5s forwards;
+        }
+
+        .opening-content {
+            text-align: center;
+            animation: scaleIn 1s ease-out;
+        }
+
+        .opening-logo {
+            font-size: 120px;
+            font-weight: 900;
+            background: linear-gradient(45deg, #fff, #e0e0ff, #fff);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shimmer 2s ease-in-out infinite, pulse 2s ease-in-out infinite;
+            text-shadow: 0 0 60px rgba(255, 255, 255, 0.8);
+            letter-spacing: 5px;
+        }
+
+        .opening-text {
+            font-size: 40px;
+            font-weight: 700;
+            color: white;
+            margin-top: -10px;
+            letter-spacing: 20px;
+            animation: slideIn 1s ease-out 0.5s backwards;
+            text-shadow: 0 0 30px rgba(255, 255, 255, 0.6);
+        }
+
+        @keyframes scaleIn {
+            0% {
+                transform: scale(0.5);
+                opacity: 0;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        @keyframes shimmer {
+            0%, 100% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        @keyframes slideIn {
+            0% {
+                transform: translateY(30px);
+                opacity: 0;
+            }
+            100% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeOut {
+            0% {
+                opacity: 1;
+                visibility: visible;
+            }
+            99% {
+                opacity: 0;
+                visibility: visible;
+            }
+            100% {
+                opacity: 0;
+                visibility: hidden;
+            }
+        }
+
+        .particles {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            animation: float 15s infinite ease-in-out;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0) translateX(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh) translateX(100px);
+                opacity: 0;
+            }
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 20px 50px;
+            z-index: 100;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .nav-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 20px;
+            font-weight: 900;
+            color: #fff;
+            text-decoration: none;
+            letter-spacing: 2px;
+            transition: all 0.3s ease;
+            display: inline-block;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            position: relative;
+        }
+
+        .logo:hover {
+            animation: logoPulse 0.8s ease-in-out infinite;
+            transform: scale(1.15);
+            color: #fff;
+        }
+
+        @keyframes logoPulse {
+            0%, 100% {
+                text-shadow: 0 0 15px rgba(255, 255, 255, 1),
+                             0 0 30px rgba(255, 255, 255, 0.8),
+                             0 0 45px rgba(168, 237, 234, 0.9),
+                             0 0 60px rgba(168, 237, 234, 0.7);
+                filter: brightness(1.2);
+            }
+            50% {
+                text-shadow: 0 0 25px rgba(255, 255, 255, 1),
+                             0 0 50px rgba(255, 255, 255, 1),
+                             0 0 75px rgba(168, 237, 234, 1),
+                             0 0 100px rgba(168, 237, 234, 0.8),
+                             0 0 125px rgba(168, 237, 234, 0.6);
+                filter: brightness(1.5);
+            }
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #fff;
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
+        /* Portfolio Container */
+        .portfolio-container {
+            max-width: 1100px;
+            margin: 100px auto 60px;
+            padding: 0 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .page-title {
+            text-align: center;
+            margin-bottom: 15px;
+            opacity: 0;
+            animation: fadeInDown 1s ease-out forwards;
+        }
+
+        .page-title h1 {
+            font-size: 40px;
+            color: #fff;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-shadow: 0 0 30px rgba(255, 255, 255, 0.3);
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .page-subtitle {
+            text-align: center;
+            font-size: 16px;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 60px;
+            opacity: 0;
+            animation: fadeInDown 1s ease-out 0.2s forwards;
+        }
+
+        /* Portfolio Grid */
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 35px;
+            margin-bottom: 60px;
+        }
+
+        /* Project Card */
+        .project-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            opacity: 0;
+            animation: fadeInUp 0.8s ease-out forwards;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .project-card:nth-child(1) { animation-delay: 0.2s; }
+        .project-card:nth-child(2) { animation-delay: 0.3s; }
+        .project-card:nth-child(3) { animation-delay: 0.4s; }
+        .project-card:nth-child(4) { animation-delay: 0.5s; }
+        .project-card:nth-child(5) { animation-delay: 0.6s; }
+        .project-card:nth-child(6) { animation-delay: 0.7s; }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transition: left 0.7s ease;
+            z-index: 1;
+        }
+
+        .project-card:hover::before {
+            left: 100%;
+        }
+
+        .project-card:hover {
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5);
+            border-color: rgba(255, 255, 255, 0.4);
+        }
+
+        /* Project Thumbnail with Slideshow */
+        .project-thumbnail {
+            width: 100%;
+            height: 280px;
+            position: relative;
+            overflow: hidden;
+            background: #000;
+            border-radius: 8px;
+            box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Video Player Overlay */
+        .video-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.3);
+            z-index: 3;
+            pointer-events: none;
+            opacity: 1;
+            transition: opacity 0.3s ease;
+        }
+
+        .project-card:hover .video-overlay {
+            opacity: 0;
+        }
+
+        /* Play Button */
+        .play-button {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 70px;
+            height: 70px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 4;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4);
+            cursor: pointer;
+        }
+
+        .play-button::before {
+            content: '';
+            width: 0;
+            height: 0;
+            border-left: 20px solid #667eea;
+            border-top: 12px solid transparent;
+            border-bottom: 12px solid transparent;
+            margin-left: 5px;
+        }
+
+        .project-card:hover .play-button {
+            opacity: 0;
+            transform: translate(-50%, -50%) scale(1.2);
+        }
+
+        /* Video Progress Bar */
+        .video-progress {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0%;
+            height: 4px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            z-index: 5;
+            transition: width 0.1s linear;
+            box-shadow: 0 0 10px rgba(102, 126, 234, 0.8);
+        }
+
+        .project-card:hover .video-progress {
+            animation: progressBar 4.5s linear infinite;
+        }
+
+        @keyframes progressBar {
+            0% {
+                width: 0%;
+            }
+            100% {
+                width: 100%;
+            }
+        }
+
+        /* Video Frame Effect */
+        .video-frame {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            pointer-events: none;
+            z-index: 6;
+        }
+
+        /* Scanline Effect */
+        .scanline {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                to bottom,
+                transparent 50%,
+                rgba(255, 255, 255, 0.03) 50%
+            );
+            background-size: 100% 4px;
+            z-index: 2;
+            pointer-events: none;
+            opacity: 0.5;
+        }
+
+        /* Recording Indicator */
+        .recording-dot {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            width: 12px;
+            height: 12px;
+            background: #ff4757;
+            border-radius: 50%;
+            z-index: 7;
+            opacity: 0;
+            box-shadow: 0 0 10px rgba(255, 71, 87, 0.8);
+        }
+
+        .project-card:hover .recording-dot {
+            opacity: 1;
+            animation: recording-pulse 1.5s ease-in-out infinite;
+        }
+
+        @keyframes recording-pulse {
+            0%, 100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 0.5;
+                transform: scale(1.1);
+            }
+        }
+
+        .slideshow-container {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .slideshow-image {
+            max-width: 95%;
+            max-height: 95%;
+            width: auto;
+            height: auto;
+            object-fit: contain;
+            object-position: center;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+            border-radius: 4px;
+        }
+
+        .slideshow-image.active {
+            opacity: 1;
+        }
+
+        .project-thumbnail::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 60%;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
+            z-index: 1;
+        }
+
+        /* Project Badge */
+        .project-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(168, 237, 234, 0.9);
+            color: #1a1a2e;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            z-index: 2;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* Project Content */
+        .project-content {
+            padding: 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .project-title {
+            font-size: 20px;
+            color: #fff;
+            font-weight: 600;
+            margin-bottom: 10px;
+            transition: color 0.3s ease;
+        }
+
+        .project-card:hover .project-title {
+            color: rgba(168, 237, 234, 1);
+        }
+
+        .project-description {
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.6;
+            margin-bottom: 16px;
+        }
+
+        .project-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-bottom: 16px;
+        }
+
+        .project-tag {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: rgba(255, 255, 255, 0.9);
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 10px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .project-card:hover .project-tag {
+            background: rgba(168, 237, 234, 0.2);
+            border-color: rgba(168, 237, 234, 0.5);
+            color: rgba(168, 237, 234, 1);
+        }
+
+        /* View Demo Button */
+        .view-demo-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 24px;
+            background: rgba(255, 255, 255, 0.95);
+            color: #667eea;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: 600;
+            font-size: 13px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .view-demo-btn:hover {
+            transform: translateX(5px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+            background: #fff;
+        }
+
+        .view-demo-btn i {
+            font-size: 14px;
+            transition: transform 0.3s ease;
+        }
+
+        .view-demo-btn:hover i {
+            transform: translateX(5px);
+        }
+
+        /* Footer */
+        .footer {
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(20px);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 60px 20px 30px;
+            margin-top: 80px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .footer-container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 32px;
+            margin-bottom: 40px;
+        }
+
+        .footer-section h3,
+        .footer-section h4 {
+            color: #fff;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .footer-logo {
+            font-size: 20px;
+            font-weight: 900;
+            background: linear-gradient(45deg, #ffffff, #a8edea);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+        }
+
+        .footer-tagline {
+            font-size: 16px;
+            color: #fff;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .footer-description {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.6;
+        }
+
+        .footer-title {
+            font-size: 16px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .footer-links,
+        .footer-contact {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-links li,
+        .footer-contact li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+
+        .footer-links a:hover {
+            color: #fff;
+            transform: translateX(5px);
+        }
+
+        .footer-contact li {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .footer-contact i {
+            width: 18px;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .footer-social a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            color: #fff;
+            font-size: 16px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .footer-social a:hover {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: #fff;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(255, 255, 255, 0.3);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer-bottom p {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+
+        .heart {
+            color: #ff6b6b;
+            animation: heartbeat 1.5s ease-in-out infinite;
+        }
+
+        @keyframes heartbeat {
+            0%, 100% {
+                transform: scale(1);
+            }
+            10%, 30% {
+                transform: scale(1.1);
+            }
+            20%, 40% {
+                transform: scale(0.9);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1100px) {
+            .portfolio-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 24px;
+            }
+        }
+
+        @media (max-width: 968px) {
+            .nav-links {
+                gap: 16px;
+            }
+
+            nav {
+                padding: 20px 30px;
+            }
+
+            .page-title h1 {
+                font-size: 38px;
+            }
+
+            .footer-content {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 24px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .disclaimer-box {
+                padding: 32px 24px;
+                max-width: 90%;
+            }
+
+            .disclaimer-icon {
+                width: 50px;
+                height: 50px;
+            }
+
+            .disclaimer-icon i {
+                font-size: 24px;
+            }
+
+            .disclaimer-title {
+                font-size: 22px;
+                margin-bottom: 12px;
+            }
+
+            .disclaimer-text {
+                font-size: 14px;
+                margin-bottom: 20px;
+            }
+
+            .disclaimer-button {
+                padding: 12px 32px;
+                font-size: 15px;
+            }
+
+            .disclaimer-note {
+                font-size: 12px;
+            }
+
+            .portfolio-container {
+                margin: 90px auto 40px;
+                padding: 0 20px;
+            }
+
+            .page-title h1 {
+                font-size: 20px;
+            }
+
+            .page-subtitle {
+                font-size: 16px;
+            }
+
+            .portfolio-grid {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+
+            .project-thumbnail {
+                height: 250px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            nav {
+                padding: 15px 20px;
+            }
+
+            .logo {
+                font-size: 20px;
+            }
+
+            .nav-links {
+                gap: 12px;
+            }
+
+            .nav-links a {
+                font-size: 13px;
+            }
+
+            .page-title h1 {
+                font-size: 20px;
+            }
+
+            .page-subtitle {
+                font-size: 14px;
+            }
+
+            .project-content {
+                padding: 20px;
+            }
+
+            .project-title {
+                font-size: 20px;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 24px;
+                text-align: center;
+            }
+
+            .footer-links a:hover {
+                transform: none;
+            }
+
+            .footer-contact li {
+                justify-content: center;
+            }
+
+            .footer-social {
+                justify-content: center;
+            }
+
+            .footer {
+                padding: 32px 20px 20px;
+                margin-top: 60px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .page-title h1 {
+                font-size: 20px;
+            }
+
+            .nav-links a {
+                font-size: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Opening Animation -->
+    <div class="opening-animation">
+        <div class="opening-content">
+            <div class="opening-logo">P</div>
+            <div class="opening-text">ORTFOLIO</div>
+        </div>
+    </div>
+
+    <!-- Disclaimer Popup -->
+    <div class="disclaimer-overlay" id="disclaimerOverlay">
+        <div class="disclaimer-box">
+            <div class="disclaimer-icon">
+                <i class="fas fa-info-circle"></i>
+            </div>
+            <h2 class="disclaimer-title">Demo Portfolio Notice</h2>
+            <p class="disclaimer-text">
+                The following project demonstrations are designed to showcase front-end design capabilities, user interface aesthetics, and interactive elements. Please note that certain backend functionalities, server-side operations, or database integrations may be simulated or non-functional in these demonstrations.
+            </p>
+            <p class="disclaimer-text">
+                These projects represent visual design concepts and are intended for portfolio presentation purposes.
+            </p>
+            <button class="disclaimer-button" id="disclaimerButton">I Understand</button>
+            <p class="disclaimer-note">Click to continue to portfolio</p>
+        </div>
+    </div>
+
+    <!-- Animated Background Particles -->
+    <div class="particles" id="particles"></div>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <a href="home.html" class="logo">F</a>
+            <ul class="nav-links">
+                <li><a href="home f.html">Home</a></li>
+                <li><a href="portfolio f.html" class="active">Portfolio</a></li>
+                <li><a href="about f.html">About</a></li>
+                <li><a href="contact f.html">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Portfolio Container -->
+    <div class="portfolio-container">
+        <div class="page-title">
+            <h1>My Portfolio</h1>
+        </div>
+        <p class="page-subtitle">Explore my collection of stunning website designs</p>
+
+        <!-- Portfolio Grid -->
+        <div class="portfolio-grid">
+            <!-- AquaWorld Project -->
+            <div class="project-card" data-project="aquaworld">
+                <div class="project-thumbnail">
+                    <div class="slideshow-container">
+                        <img src="mainpageaqua.png" class="slideshow-image active" alt="AquaWorld Main">
+                        <img src="secondpageaqua.png" class="slideshow-image" alt="AquaWorld Second">
+                        <img src="lastpageaqua.png" class="slideshow-image" alt="AquaWorld Last">
+                    </div>
+                    <div class="video-overlay"></div>
+                    <div class="play-button"></div>
+                    <div class="video-progress"></div>
+                    <div class="video-frame"></div>
+                    <div class="scanline"></div>
+                    <div class="recording-dot"></div>
+                    <span class="project-badge">Interactive</span>
+                </div>
+                <div class="project-content">
+                    <h3 class="project-title">AquaWorld</h3>
+                    <p class="project-description">An immersive ocean exploration experience with interactive animations and smooth scrolling effects.</p>
+                    <div class="project-tags">
+                        <span class="project-tag">HTML5</span>
+                        <span class="project-tag">CSS3</span>
+                        <span class="project-tag">JavaScript</span>
+                        <span class="project-tag">Animations</span>
+                    </div>
+                    <a href="AquaWorld_Website.html" class="view-demo-btn" target="_blank">
+                        <span>View Demo</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Bitemaster Project -->
+            <div class="project-card" data-project="bitemaster">
+                <div class="project-thumbnail">
+                    <div class="slideshow-container">
+                        <img src="mainpagebitemasters.png" class="slideshow-image active" alt="Bitemaster Main">
+                        <img src="secondpagebitemasters.png" class="slideshow-image" alt="Bitemaster Second">
+                        <img src="lastpagebitemasters.png" class="slideshow-image" alt="Bitemaster Last">
+                    </div>
+                    <div class="video-overlay"></div>
+                    <div class="play-button"></div>
+                    <div class="video-progress"></div>
+                    <div class="video-frame"></div>
+                    <div class="scanline"></div>
+                    <div class="recording-dot"></div>
+                    <span class="project-badge">Restaurant</span>
+                </div>
+                <div class="project-content">
+                    <h3 class="project-title">Bitemaster</h3>
+                    <p class="project-description">A modern restaurant website with elegant menu displays and mouth-watering food photography.</p>
+                    <div class="project-tags">
+                        <span class="project-tag">Responsive</span>
+                        <span class="project-tag">Modern UI</span>
+                        <span class="project-tag">Food Gallery</span>
+                    </div>
+                    <a href="Bitemaster%20website.html" class="view-demo-btn" target="_blank">
+                        <span>View Demo</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Fashion Project -->
+            <div class="project-card" data-project="fashion">
+                <div class="project-thumbnail">
+                    <div class="slideshow-container">
+                        <img src="mainpagefashionbloom.png" class="slideshow-image active" alt="Fashion Bloom Main">
+                        <img src="secondpagefashionbloom.png" class="slideshow-image" alt="Fashion Bloom Second">
+                        <img src="lastpagefashionbloom.png" class="slideshow-image" alt="Fashion Bloom Last">
+                    </div>
+                    <div class="video-overlay"></div>
+                    <div class="play-button"></div>
+                    <div class="video-progress"></div>
+                    <div class="video-frame"></div>
+                    <div class="scanline"></div>
+                    <div class="recording-dot"></div>
+                    <span class="project-badge">E-Commerce</span>
+                </div>
+                <div class="project-content">
+                    <h3 class="project-title">Fashion Bloom</h3>
+                    <p class="project-description">Stylish fashion e-commerce interface with product showcases and trendy design aesthetics.</p>
+                    <div class="project-tags">
+                        <span class="project-tag">Fashion</span>
+                        <span class="project-tag">Shopping</span>
+                        <span class="project-tag">Modern</span>
+                    </div>
+                    <a href="Fashion%20website.html" class="view-demo-btn" target="_blank">
+                        <span>View Demo</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Luxe Project -->
+            <div class="project-card" data-project="luxe">
+                <div class="project-thumbnail">
+                    <div class="slideshow-container">
+                        <img src="mainpageluxe.png" class="slideshow-image active" alt="Luxe Main">
+                        <img src="secondpageluxe.png" class="slideshow-image" alt="Luxe Second">
+                        <img src="lastpageluxe.png" class="slideshow-image" alt="Luxe Last">
+                    </div>
+                    <div class="video-overlay"></div>
+                    <div class="play-button"></div>
+                    <div class="video-progress"></div>
+                    <div class="video-frame"></div>
+                    <div class="scanline"></div>
+                    <div class="recording-dot"></div>
+                    <span class="project-badge">Furniture</span>
+                </div>
+                <div class="project-content">
+                    <h3 class="project-title">Luxe</h3>
+                    <p class="project-description">Premium furniture e-commerce store featuring elegant home furnishings with sophisticated design.</p>
+                    <div class="project-tags">
+                        <span class="project-tag">Furniture</span>
+                        <span class="project-tag">E-Commerce</span>
+                        <span class="project-tag">Premium</span>
+                    </div>
+                    <a href="Luxe%20website.html" class="view-demo-btn" target="_blank">
+                        <span>View Demo</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Nexus Project -->
+            <div class="project-card" data-project="nexus">
+                <div class="project-thumbnail">
+                    <div class="slideshow-container">
+                        <img src="mainpagenexus.png" class="slideshow-image active" alt="Nexus Main">
+                        <img src="secondpagenexus.png" class="slideshow-image" alt="Nexus Second">
+                        <img src="lastpagenexus.png" class="slideshow-image" alt="Nexus Last">
+                    </div>
+                    <div class="video-overlay"></div>
+                    <div class="play-button"></div>
+                    <div class="video-progress"></div>
+                    <div class="video-frame"></div>
+                    <div class="scanline"></div>
+                    <div class="recording-dot"></div>
+                    <span class="project-badge">Gaming</span>
+                </div>
+                <div class="project-content">
+                    <h3 class="project-title">Nexus</h3>
+                    <p class="project-description">Dynamic video gaming e-commerce platform featuring the latest games, consoles, and gaming accessories.</p>
+                    <div class="project-tags">
+                        <span class="project-tag">Gaming</span>
+                        <span class="project-tag">E-Commerce</span>
+                        <span class="project-tag">Interactive</span>
+                    </div>
+                    <a href="Nexus%20Website.html" class="view-demo-btn" target="_blank">
+                        <span>View Demo</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- MindEase Project -->
+            <div class="project-card" data-project="mindease">
+                <div class="project-thumbnail">
+                    <div class="slideshow-container">
+                        <img src="mainpagemindease.png" class="slideshow-image active" alt="MindEase Main">
+                        <img src="secondpagemindease.png" class="slideshow-image" alt="MindEase Second">
+                        <img src="lastpagemindease.png" class="slideshow-image" alt="MindEase Last">
+                    </div>
+                    <div class="video-overlay"></div>
+                    <div class="play-button"></div>
+                    <div class="video-progress"></div>
+                    <div class="video-frame"></div>
+                    <div class="scanline"></div>
+                    <div class="recording-dot"></div>
+                    <span class="project-badge">Wellness</span>
+                </div>
+                <div class="project-content">
+                    <h3 class="project-title">MindEase</h3>
+                    <p class="project-description">Calming mental wellness platform with soothing design and mindfulness-focused user experience.</p>
+                    <div class="project-tags">
+                        <span class="project-tag">Wellness</span>
+                        <span class="project-tag">Calm Design</span>
+                        <span class="project-tag">Health</span>
+                    </div>
+                    <a href="mindease%20website.html" class="view-demo-btn" target="_blank">
+                        <span>View Demo</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3 class="footer-logo">F</h3>
+                    <p class="footer-tagline">Futurify Designs</p>
+                    <p class="footer-description">Crafting Tomorrow's Digital Experiences</p>
+                </div>
+
+                <div class="footer-section">
+                    <h4 class="footer-title">Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="home f.html">Home</a></li>
+                        <li><a href="portfolio f.html">Portfolio</a></li>
+                        <li><a href="about f.html">About</a></li>
+                        <li><a href="contact f.html">Contact</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4 class="footer-title">Get In Touch</h4>
+                    <ul class="footer-contact">
+                        <li><i class="fas fa-envelope"></i> futurifydesigns@gmail.com</li>
+                        <li><i class="fas fa-phone"></i> +267 777 83823</li>
+                        <li><i class="fas fa-map-marker-alt"></i> Gaborone, Botswana</li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4 class="footer-title">Follow Me</h4>
+                    <div class="footer-social">
+                        <a href="https://www.linkedin.com/in/leon-maunge-6153b2212" target="_blank" title="LinkedIn">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                        <a href="https://www.instagram.com/futurifydesigns" target="_blank" title="Instagram">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="https://www.tiktok.com/@futurifydesigns" target="_blank" title="TikTok">
+                            <i class="fab fa-tiktok"></i>
+                        </a>
+                        <a href="https://wa.me/26777783823" target="_blank" title="WhatsApp">
+                            <i class="fab fa-whatsapp"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2025 Futurify Designs. All rights reserved.</p>
+                <p>Designed & Built in Botswana</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Create floating particles
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 50;
+
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                
+                // Random horizontal position
+                particle.style.left = Math.random() * 100 + '%';
+                
+                // Position particles randomly across the full height so they're already floating
+                particle.style.top = Math.random() * 120 + '%';
+                
+                // Random animation delay for staggered effect
+                particle.style.animationDelay = -(Math.random() * 15) + 's';
+                particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
+                
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        createParticles();
+
+        // Slideshow functionality
+        const projectCards = document.querySelectorAll('.project-card');
+
+        projectCards.forEach(card => {
+            const images = card.querySelectorAll('.slideshow-image');
+            let currentIndex = 0;
+            let slideshowInterval = null;
+
+            // Start slideshow on hover
+            card.addEventListener('mouseenter', () => {
+                slideshowInterval = setInterval(() => {
+                    // Remove active class from current image
+                    images[currentIndex].classList.remove('active');
+                    
+                    // Move to next image
+                    currentIndex = (currentIndex + 1) % images.length;
+                    
+                    // Add active class to new image
+                    images[currentIndex].classList.add('active');
+                }, 1500); // Change image every 1.5 seconds
+            });
+
+            // Stop slideshow on mouse leave and reset to first image
+            card.addEventListener('mouseleave', () => {
+                clearInterval(slideshowInterval);
+                
+                // Remove active from all images
+                images.forEach(img => img.classList.remove('active'));
+                
+                // Reset to first image
+                currentIndex = 0;
+                images[0].classList.add('active');
+            });
+        });
+
+        // Disclaimer Popup Logic
+        const disclaimerOverlay = document.getElementById('disclaimerOverlay');
+        const disclaimerButton = document.getElementById('disclaimerButton');
+
+        // Check if user has already seen the disclaimer in this session
+        const hasSeenDisclaimer = sessionStorage.getItem('portfolioDisclaimerSeen');
+
+        // Only show disclaimer if user hasn't seen it in this session
+        if (!hasSeenDisclaimer) {
+            // Show disclaimer after opening animation completes (3.3 seconds)
+            setTimeout(() => {
+                disclaimerOverlay.classList.add('active');
+            }, 3300); // Opening animation duration (2.5s) + fade out (0.8s)
+        }
+
+        // Close disclaimer when button is clicked
+        disclaimerButton.addEventListener('click', () => {
+            disclaimerOverlay.classList.remove('active');
+            // Remember that user has seen the disclaimer in this session
+            sessionStorage.setItem('portfolioDisclaimerSeen', 'true');
+        });
+
+        // Close disclaimer when clicking outside the box
+        disclaimerOverlay.addEventListener('click', (e) => {
+            if (e.target === disclaimerOverlay) {
+                disclaimerOverlay.classList.remove('active');
+                // Remember that user has seen the disclaimer in this session
+                sessionStorage.setItem('portfolioDisclaimerSeen', 'true');
+            }
+        });
+    </script>
+</body>
+</html>
