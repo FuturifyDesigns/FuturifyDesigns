@@ -1,0 +1,1822 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Showroom | LUXE Furniture</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <style>
+        /* Shared styles from homepage */
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap');
+        
+        :root {
+            --navy: #0a1a2f;
+            --gold: #d4af37;
+            --rich-gold: #f9e6a1;
+            --dark-gold: #b87333;
+            --cream: #f8f4e9;
+            --leather: #3d2b1f;
+            --shadow: 0 25px 50px rgba(0, 0, 0, 0.25);
+            --transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            --gold-gradient: linear-gradient(135deg, #f9e6a1 0%, #d4af37 50%, #b87333 100%);
+        }
+        
+        * {
+            -webkit-tap-highlight-color: transparent;
+            -webkit-touch-callout: none;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--cream);
+            color: var(--navy);
+            overscroll-behavior: none;
+            position: relative;
+            overflow-x: hidden;
+            line-height: 1.7;
+        }
+        
+
+        /* Remove tap highlight on all interactive elements */
+        a, button, input, select, textarea, [role="button"], .nav-links a, .cart-icon {
+            -webkit-tap-highlight-color: transparent;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            user-select: none;
+            outline: none;
+        }
+
+        button:focus, a:focus, input:focus, select:focus, textarea:focus {
+            outline: none;
+        }
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 22px 45px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            background: rgba(248, 244, 233, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 5px 30px rgba(0, 0, 0, 0.05);
+            transition: var(--transition);
+        }
+        
+        nav.scrolled {
+            padding: 15px 50px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            background: rgba(248, 244, 233, 0.98);
+        }
+        
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            font-weight: 900;
+            background: var(--gold-gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: 3px;
+            transition: var(--transition);
+            text-shadow: 0 2px 10px rgba(212, 175, 55, 0.3);
+        }
+        
+        .logo:hover {
+            transform: scale(1.05);
+            text-shadow: 0 5px 15px rgba(212, 175, 55, 0.5);
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 40px;
+            align-items: center;
+        }
+        
+        .nav-links a {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.05rem;
+            font-weight: 500;
+            color: var(--navy);
+            text-decoration: none;
+            position: relative;
+            padding: 5px 0;
+            transition: var(--transition);
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gold-gradient);
+            transition: var(--transition);
+        }
+        
+        .nav-links a:hover {
+            color: var(--gold);
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        .nav-links a.active {
+            color: var(--gold);
+            font-weight: 600;
+        }
+        
+        .nav-links a.active::after {
+            width: 100%;
+        }
+        
+        .cart-icon {
+            position: relative;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 1.05rem;
+        }
+        
+        .cart-count {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background: var(--gold);
+            color: var(--navy);
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: 700;
+            transition: var(--transition);
+            animation: scaleIn 0.3s ease-out;
+        }
+        
+        @keyframes scaleIn {
+            0% { transform: scale(0); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+        
+        /* Showroom Hero */
+        .showroom-hero {
+            height: 85vh;
+            min-height: 800px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: var(--cream);
+            margin-top: 0;
+            padding: 0 20px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-slideshow {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+        
+        .hero-slide {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            image-rendering: -webkit-optimize-contrast;
+            image-rendering: crisp-edges;
+            opacity: 0;
+            transition: opacity 1.5s ease-in-out;
+            transform: scale(1);
+            transition: all 8s ease-in-out;
+        }
+        
+        .hero-slide.active {
+            opacity: 1;
+            transform: scale(1.05);
+        }
+        
+        .hero-slide::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(rgba(10, 26, 47, 0.7), rgba(10, 26, 47, 0.7));
+        }
+        
+        .hero-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            transform: translateY(50px);
+            opacity: 0;
+            transition: all 1s ease-out;
+        }
+        
+        .hero-content.visible {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        
+        .showroom-hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 5.5rem;
+            font-weight: 900;
+            margin-bottom: 30px;
+            background: var(--gold-gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 5px 15px rgba(212, 175, 55, 0.3);
+            line-height: 1.1;
+        }
+        
+        .showroom-hero p {
+            font-size: 1.35rem;
+            max-width: 800px;
+            margin: 0 auto 40px;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+        
+        .hero-btn {
+            padding: 16px 36px;
+            background: var(--gold-gradient);
+            color: var(--navy);
+            border: none;
+            border-radius: 6px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.05rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 20px 50px rgba(212, 175, 55, 0.3);
+            text-decoration: none;
+            display: inline-block;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+        
+        .hero-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(145deg, var(--dark-gold), var(--gold));
+            opacity: 0;
+            transition: var(--transition);
+            z-index: -1;
+        }
+        
+        .hero-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 30px 60px rgba(212, 175, 55, 0.4);
+        }
+        
+        .hero-btn:hover::before {
+            opacity: 1;
+        }
+        
+        .scroll-indicator {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: var(--cream);
+            font-size: 1.35rem;
+            animation: bounce 2s infinite;
+            cursor: pointer;
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0) translateX(-50%);
+            }
+            40% {
+                transform: translateY(-20px) translateX(-50%);
+            }
+            60% {
+                transform: translateY(-10px) translateX(-50%);
+            }
+        }
+        
+        /* Showroom Sections */
+        .showroom-container {
+            max-width: 1600px;
+            margin: 100px auto;
+            padding: 0 50px;
+        }
+        
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.6rem;
+            font-weight: 700;
+            margin-bottom: 60px;
+            color: var(--navy);
+            text-align: center;
+            position: relative;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+        
+        .section-title.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 120px;
+            height: 4px;
+            background: var(--gold-gradient);
+            margin: 20px auto 0;
+            border-radius: 2px;
+        }
+        
+        /* Room Displays */
+        .room-displays {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 40px;
+            margin-bottom: 100px;
+        }
+        
+        .room-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            position: relative;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease-out;
+        }
+        
+        .room-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .room-card:hover {
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: 0 35px 60px rgba(0, 0, 0, 0.25);
+        }
+        
+        .room-image {
+            height: 300px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            transition: all 0.8s ease-out;
+        }
+        
+        .room-card:hover .room-image {
+            transform: scale(1.05);
+        }
+        
+        .room-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(10, 26, 47, 0.9);
+            color: white;
+            padding: 30px;
+            opacity: 0;
+            transition: var(--transition);
+            transform: translateY(20px);
+        }
+        
+        .room-card:hover .room-overlay {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .room-info {
+            padding: 30px;
+            position: relative;
+            z-index: 2;
+            background: white;
+        }
+        
+        .room-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: var(--navy);
+            position: relative;
+        }
+        
+        .room-name::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: var(--gold-gradient);
+            transition: var(--transition);
+        }
+        
+        .room-card:hover .room-name::after {
+            width: 80px;
+        }
+        
+        .room-style {
+            display: inline-block;
+            background: var(--gold-gradient);
+            color: var(--navy);
+            padding: 6px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3);
+        }
+        
+        .room-desc {
+            margin-bottom: 25px;
+            color: var(--navy);
+            opacity: 0.8;
+            font-size: 1.05rem;
+        }
+        
+        .room-link {
+            display: inline-flex;
+            align-items: center;
+            color: var(--gold);
+            font-weight: 600;
+            text-decoration: none;
+            transition: var(--transition);
+            position: relative;
+            padding-right: 25px;
+        }
+        
+        .room-link::after {
+            content: '→';
+            position: absolute;
+            right: 0;
+            transition: var(--transition);
+        }
+        
+        .room-link:hover {
+            color: var(--dark-gold);
+            padding-right: 30px;
+        }
+        
+        .room-link:hover::after {
+            right: -5px;
+        }
+        
+        /* Showroom Features */
+        .showroom-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 50px;
+            margin-bottom: 100px;
+        }
+        
+        .feature-card {
+            text-align: center;
+            padding: 40px 30px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease-out;
+        }
+        
+        .feature-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-15px) scale(1.03);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.2);
+        }
+        
+        .feature-icon {
+            width: 100px;
+            height: 100px;
+            background: var(--gold-gradient);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 30px;
+            color: var(--navy);
+            font-size: 2.2rem;
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.3);
+            transition: var(--transition);
+        }
+        
+        .feature-card:hover .feature-icon {
+            transform: rotate(10deg) scale(1.1);
+        }
+        
+        .feature-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: var(--navy);
+            position: relative;
+            display: inline-block;
+        }
+        
+        .feature-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 3px;
+            background: var(--gold-gradient);
+            transition: var(--transition);
+        }
+        
+        .feature-card:hover .feature-title::after {
+            width: 80px;
+        }
+        
+        .feature-desc {
+            color: var(--navy);
+            opacity: 0.8;
+            font-size: 1.05rem;
+        }
+        
+        /* Appointment Section */
+        .appointment-section {
+            background: var(--navy);
+            color: var(--cream);
+            padding: 100px 50px;
+            border-radius: 20px;
+            margin-bottom: 100px;
+            position: relative;
+            overflow: hidden;
+            background-image: url('https://www.transparenttextures.com/patterns/concrete-wall.png');
+        }
+        
+        .appointment-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(10, 26, 47, 0.9) 0%, rgba(10, 26, 47, 0.95) 100%);
+            z-index: 1;
+        }
+        
+        .appointment-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .appointment-info {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+        
+        .appointment-info h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.6rem;
+            font-weight: 700;
+            margin-bottom: 30px;
+            background: var(--gold-gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1.2;
+        }
+        
+        .appointment-info p {
+            margin-bottom: 40px;
+            opacity: 0.9;
+            line-height: 1.8;
+            font-size: 1.05rem;
+            font-weight: 300;
+        }
+        
+        .location-details {
+            margin-bottom: 40px;
+        }
+        
+        .detail-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+        
+        .detail-icon {
+            width: 50px;
+            height: 50px;
+            background: rgba(212, 175, 55, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 20px;
+            color: var(--gold);
+            font-size: 1.05rem;
+            flex-shrink: 0;
+            transition: var(--transition);
+        }
+        
+        .detail-item:hover .detail-icon {
+            background: var(--gold);
+            color: var(--navy);
+            transform: rotate(10deg);
+        }
+        
+        .detail-text p {
+            margin: 0;
+            font-weight: 400;
+        }
+        
+        .detail-text strong {
+            font-weight: 600;
+            color: var(--gold);
+        }
+        
+        .location-image-container {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            min-height: 300px;
+            position: relative;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+        
+        .location-image {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .location-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 8s ease-out;
+        }
+        
+        .location-image-container:hover img {
+            transform: scale(1.1);
+        }
+        
+        .appointment-form {
+            background: white;
+            padding: 50px;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .appointment-form::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: var(--gold-gradient);
+        }
+        
+        .form-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: var(--navy);
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+            position: relative;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 600;
+            color: var(--navy);
+        }
+        
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 15px 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-family: 'Montserrat', sans-serif;
+            transition: var(--transition);
+            background: rgba(248, 244, 233, 0.3);
+            font-size: 1rem;
+        }
+        
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--gold);
+            box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.2);
+            background: white;
+        }
+        
+        .form-submit {
+            width: 100%;
+            padding: 18px;
+            background: var(--gold-gradient);
+            color: var(--navy);
+            border: none;
+            border-radius: 8px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.05rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.3);
+        }
+        
+        .form-submit::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(145deg, var(--dark-gold), var(--gold));
+            opacity: 0;
+            transition: var(--transition);
+            z-index: -1;
+        }
+        
+        .form-submit:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(212, 175, 55, 0.4);
+        }
+        
+        .form-submit:hover::before {
+            opacity: 1;
+        }
+        
+        /* Confirmation Message */
+        .confirmation-message {
+            display: none;
+            background: white;
+            padding: 50px;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .confirmation-message::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: var(--gold-gradient);
+        }
+        
+        .confirmation-message h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            color: var(--navy);
+            margin-bottom: 20px;
+            background: var(--gold-gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .confirmation-message p {
+            color: var(--navy);
+            margin-bottom: 30px;
+            font-size: 1.05rem;
+            line-height: 1.8;
+        }
+        
+        .confirmation-icon {
+            font-size: 4.2rem;
+            color: var(--gold);
+            margin-bottom: 30px;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+        
+        /* Virtual Tour Section */
+        .virtual-tour {
+            margin-bottom: 100px;
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            height: 600px;
+        }
+        
+        .virtual-tour-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(10, 26, 47, 0.3);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: white;
+            padding: 0 20px;
+            z-index: 2;
+        }
+        
+        .virtual-tour h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.6rem;
+            margin-bottom: 20px;
+            background: var(--gold-gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .virtual-tour p {
+            font-size: 1.05rem;
+            max-width: 700px;
+            margin-bottom: 40px;
+            opacity: 0.9;
+        }
+        
+        .tour-btn {
+            padding: 16px 36px;
+            background: transparent;
+            color: white;
+            border: 2px solid var(--gold);
+            border-radius: 6px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.05rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            text-decoration: none;
+            display: inline-block;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+        
+        .tour-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--gold);
+            z-index: -1;
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        
+        .tour-btn:hover {
+            color: var(--navy);
+        }
+        
+        .tour-btn:hover::before {
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--navy);
+            color: var(--cream);
+            padding: 120px 100px 50px;
+            position: relative;
+            overflow: hidden;
+            background-image: url('https://www.transparenttextures.com/patterns/concrete-wall.png');
+        }
+        
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(10, 26, 47, 0.9) 0%, rgba(10, 26, 47, 0.95) 100%);
+            z-index: 1;
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 80px;
+            margin-bottom: 80px;
+            position: relative;
+            z-index: 10;
+        }
+        
+        .footer-col h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 30px;
+            background: var(--gold-gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .footer-col p {
+            margin-bottom: 25px;
+            line-height: 1.8;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+        
+        .footer-col ul {
+            list-style: none;
+        }
+        
+        .footer-col li {
+            margin-bottom: 18px;
+        }
+        
+        .footer-col a {
+            color: var(--cream);
+            text-decoration: none;
+            transition: var(--transition);
+            position: relative;
+            padding-bottom: 5px;
+            opacity: 0.9;
+            font-weight: 300;
+            display: inline-block;
+        }
+        
+        .footer-col a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--gold);
+            transition: var(--transition);
+        }
+        
+        .footer-col a:hover {
+            color: var(--gold);
+            opacity: 1;
+            transform: translateX(5px);
+        }
+        
+        .footer-col a:hover::after {
+            width: 100%;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 20px;
+            margin-top: 30px;
+        }
+        
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: rgba(212, 175, 55, 0.1);
+            color: var(--gold);
+            transition: var(--transition);
+            font-size: 1.05rem;
+        }
+        
+        .social-links a:hover {
+            background: var(--gold);
+            color: var(--navy);
+            transform: translateY(-5px) scale(1.1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        .footer-bottom {
+            border-top: 1px solid rgba(212, 175, 55, 0.1);
+            padding-top: 30px;
+            text-align: center;
+            font-size: 0.9rem;
+            opacity: 0.7;
+            position: relative;
+            z-index: 10;
+        }
+        
+        .footer-bottom a {
+            color: var(--gold);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .footer-bottom a:hover {
+            opacity: 1;
+            text-decoration: underline;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 1400px) {
+            .showroom-hero h1 {
+                font-size: 3.8rem;
+            }
+            
+            .virtual-tour h2 {
+                font-size: 2.6rem;
+            }
+        }
+        
+        @media (max-width: 1200px) {
+            .showroom-container {
+                padding: 0 40px;
+            }
+            
+            .appointment-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .appointment-info {
+                text-align: center;
+            }
+            
+            .location-image-container {
+                min-height: 340px;
+            }
+            
+            .virtual-tour {
+                height: 420px;
+            }
+        }
+        
+        @media (max-width: 992px) {
+            .showroom-hero h1 {
+                font-size: 3.8rem;
+            }
+            
+            .section-title {
+                font-size: 2.2rem;
+            }
+            
+            .appointment-info h2 {
+                font-size: 2.2rem;
+            }
+            
+            .virtual-tour h2 {
+                font-size: 2.2rem;
+            }
+            
+            .virtual-tour p {
+                font-size: 1.05rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            nav {
+                padding: 15px 30px;
+            }
+            
+            nav.scrolled {
+                padding: 10px 30px;
+            }
+            
+            .logo {
+                font-size: 1.8rem;
+            }
+            
+            .nav-links {
+                gap: 20px;
+            }
+            
+            .showroom-hero {
+                height: 90vh;
+                min-height: 700px;
+            }
+            
+            .showroom-hero h1 {
+                font-size: 2.6rem;
+            }
+            
+            .showroom-hero p {
+                font-size: 1.05rem;
+            }
+            
+            .section-title {
+                font-size: 2.2rem;
+            }
+            
+            .room-displays {
+                grid-template-columns: 1fr;
+            }
+            
+            .room-card {
+                max-width: 500px;
+                margin: 0 auto;
+            }
+            
+            .virtual-tour {
+                height: 340px;
+            }
+            
+            .virtual-tour h2 {
+                font-size: 2.2rem;
+            }
+            
+            footer {
+                padding: 80px 40px 40px;
+            }
+            
+            .footer-grid {
+                gap: 50px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .nav-links {
+                gap: 15px;
+            }
+            
+            .nav-links a {
+                font-size: 0.9rem;
+            }
+            
+            .showroom-hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .showroom-hero p {
+                font-size: 1.05rem;
+            }
+            
+            .showroom-container {
+                padding: 0 20px;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .appointment-section {
+                padding: 60px 20px;
+            }
+            
+            .appointment-form {
+                padding: 30px;
+            }
+            
+            .virtual-tour {
+                height: 300px;
+                margin-bottom: 60px;
+            }
+            
+            .virtual-tour h2 {
+                font-size: 1.8rem;
+            }
+            
+            .virtual-tour p {
+                font-size: 1rem;
+                margin-bottom: 30px;
+            }
+            
+            .tour-btn {
+                padding: 15px 30px;
+            }
+            
+            footer {
+                padding: 60px 20px 30px;
+            }
+            
+            .footer-col h3 {
+                font-size: 1.35rem;
+                margin-bottom: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav id="mainNav">
+        <div class="logo">LUXE</div>
+        <div class="nav-links">
+            <a href="homepage.html">Home</a>
+            <a href="collections.html">Collections</a>
+            <a href="showroom.html" class="active">Showroom</a>
+            <a href="about.html">About</a>
+            <a href="contact.html">Contact</a>
+            <div class="cart-icon">
+                <i class="fas fa-shopping-bag"></i>
+                <div class="cart-count">0</div>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Showroom Hero -->
+    <section class="showroom-hero">
+        <div class="hero-slideshow">
+            <div class="hero-slide active" style="background-image: url('https://images.unsplash.com/photo-1600210492493-0946911123ea?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80')"></div>
+            <div class="hero-slide" style="background-image: url('https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2000&q=80')"></div>
+            <div class="hero-slide" style="background-image: url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80')"></div>
+        </div>
+        <div class="hero-content">
+            <h1>Experience LUXE in Person</h1>
+            <p>Immerse yourself in our exquisite showroom where every piece tells a story of craftsmanship and luxury. Touch, feel, and experience the quality that sets LUXE apart.</p>
+            <a href="#appointment" class="hero-btn animate__animated animate__pulse animate__infinite">Schedule Private Viewing</a>
+        </div>
+        <div class="scroll-indicator animate__animated animate__fadeIn animate__infinite">
+            <i class="fas fa-chevron-down"></i>
+        </div>
+    </section>
+    
+    <!-- Showroom Container -->
+    <div class="showroom-container">
+        <!-- Room Displays -->
+        <section>
+            <h2 class="section-title">Curated Room Settings</h2>
+            <div class="room-displays">
+                <div class="room-card">
+                    <div class="room-image" style="background-image: url('https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1632&q=80')">
+                        <div class="room-overlay">
+                            <p>Explore this contemporary living room setup featuring our Horizon Sofa Collection with premium Italian leather upholstery and handcrafted brushed metal accents.</p>
+                        </div>
+                    </div>
+                    <div class="room-info">
+                        <h3 class="room-name">Modern Living Room</h3>
+                        <span class="room-style">Contemporary</span>
+                        <p class="room-desc">A showcase of clean lines and luxurious comfort, featuring modular seating options that can be customized to fit any space. The Horizon Collection represents the pinnacle of modern furniture design.</p>
+                        <a href="collections.html" class="room-link">Explore Collection</a>
+                    </div>
+                </div>
+                
+                <div class="room-card">
+                    <div class="room-image" style="background-image: url('./industrial.jpg');">
+                        <div class="room-overlay">
+                            <p>Discover our industrial-chic dining space featuring the Foundry Collection with reclaimed oak tables and hand-forged iron bases.</p>
+                        </div>
+                    </div>
+                    <div class="room-info">
+                        <h3 class="room-name">Industrial Dining Space</h3>
+                        <span class="room-style">Industrial</span>
+                        <p class="room-desc">Raw materials meet refined craftsmanship in this striking dining setting. Each piece in the Foundry Collection is unique, with natural variations in the wood and metal that tell the story of its creation.</p>
+                        <a href="collections.html" class="room-link">Explore Collection</a>
+                    </div>
+                </div>
+                
+                <div class="room-card">
+                    <div class="room-image" style="background-image: url('./classic.jpg')">
+                        <div class="room-overlay">
+                            <p>Experience timeless luxury in our classic bedroom suite featuring hand-carved details and the finest upholstery fabrics.</p>
+                        </div>
+                    </div>
+                    <div class="room-info">
+                        <h3 class="room-name">Classic Bedroom Suite</h3>
+                        <span class="room-style">Traditional</span>
+                        <p class="room-desc">The Heritage Collection brings old-world craftsmanship to modern bedrooms. Each piece is hand-finished by our master artisans using techniques passed down through generations.</p>
+                        <a href="collections.html" class="room-link">Explore Collection</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Showroom Features -->
+        <section>
+            <h2 class="section-title">The LUXE Experience</h2>
+            <div class="showroom-features">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-couch"></i>
+                    </div>
+                    <h3 class="feature-title">Tactile Luxury</h3>
+                    <p class="feature-desc">Feel the difference of premium materials - from the supple Italian leathers to the hand-rubbed wood finishes. Our showroom lets you experience the quality that defines LUXE.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-palette"></i>
+                    </div>
+                    <h3 class="feature-title">Endless Customization</h3>
+                    <p class="feature-desc">With over 200 fabric options, 50 wood finishes, and countless configuration possibilities, our design specialists will help you create furniture that's uniquely yours.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-user-tie"></i>
+                    </div>
+                    <h3 class="feature-title">Expert Guidance</h3>
+                    <p class="feature-desc">Our interior design consultants have decades of combined experience helping clients create spaces that reflect their personal style and meet their lifestyle needs.</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Virtual Tour Section -->
+        <section class="virtual-tour">
+            <div style="position:absolute;width:100%;height:100%;background-image:url('https://images.unsplash.com/photo-1617806118233-18e1de247200?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1932&q=80');background-size:cover;background-position:center;"></div>
+            <div class="virtual-tour-overlay">
+                <h2>Can't Visit in Person?</h2>
+                <p>Take our immersive 360° virtual tour to explore the LUXE showroom from the comfort of your home.</p>
+                <a href="#" class="tour-btn">Start Virtual Tour</a>
+            </div>
+        </section>
+        
+        <!-- Appointment Section -->
+        <section class="appointment-section" id="appointment">
+            <div class="appointment-container">
+                <div class="appointment-info">
+                    <h2>Schedule Your Private Viewing</h2>
+                    <p>Book an exclusive appointment to experience the LUXE showroom at your leisure. We'll prepare a personalized selection based on your style preferences and arrange for one of our design specialists to guide you through the collections.</p>
+                    
+                    <div class="location-details">
+                        <div class="detail-item">
+                            <div class="detail-icon">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div class="detail-text">
+                                <p><strong>Flagship Showroom</strong><br>
+                                123 Design District Avenue<br>
+                                New York, NY 10001</p>
+                            </div>
+                        </div>
+                        
+                        <div class="detail-item">
+                            <div class="detail-icon">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <div class="detail-text">
+                                <p><strong>Showroom Hours</strong><br>
+                                Monday-Friday: 10AM - 6PM<br>
+                                Saturday: 10AM - 5PM<br>
+                                Sunday: Private Appointments Only</p>
+                            </div>
+                        </div>
+                        
+                        <div class="detail-item">
+                            <div class="detail-icon">
+                                <i class="fas fa-phone-alt"></i>
+                            </div>
+                            <div class="detail-text">
+                                <p><strong>Contact</strong><br>
+                                +1 (212) 555-7890<br>
+                                showroom@luxefurniture.com</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="location-image-container">
+                        <div class="location-image">
+                            <img src="https://images.unsplash.com/photo-1485871981521-5b1fd3805eee?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="LUXE Showroom Location">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="appointment-form" id="appointmentForm">
+                    <form id="bookingForm">
+                        <h3 class="form-title">Book Your Visit</h3>
+                        <div class="form-group">
+                            <label for="name">Full Name</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Phone Number</label>
+                            <input type="tel" id="phone" name="phone">
+                        </div>
+                        <div class="form-group">
+                            <label for="date">Preferred Date</label>
+                            <input type="date" id="date" name="date" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="time">Preferred Time</label>
+                            <select id="time" name="time" required>
+                                <option value="">Select a time</option>
+                                <option value="10:00 AM">10:00 AM</option>
+                                <option value="11:00 AM">11:00 AM</option>
+                                <option value="12:00 PM">12:00 PM</option>
+                                <option value="1:00 PM">1:00 PM</option>
+                                <option value="2:00 PM">2:00 PM</option>
+                                <option value="3:00 PM">3:00 PM</option>
+                                <option value="4:00 PM">4:00 PM</option>
+                                <option value="5:00 PM">5:00 PM</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="interest">Primary Interest</label>
+                            <select id="interest" name="interest">
+                                <option value="">Select an option</option>
+                                <option value="living-room">Living Room</option>
+                                <option value="bedroom">Bedroom</option>
+                                <option value="dining-room">Dining Room</option>
+                                <option value="office">Home Office</option>
+                                <option value="outdoor">Outdoor Furniture</option>
+                                <option value="custom">Custom Design</option>
+                                <option value="full-home">Full Home Consultation</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="notes">Special Requests</label>
+                            <textarea id="notes" name="notes" rows="3" placeholder="Any specific collections or designers you'd like to see?"></textarea>
+                        </div>
+                        <button type="submit" class="form-submit">Reserve Your Appointment</button>
+                    </form>
+                    <div class="confirmation-message" id="confirmationMessage">
+                        <div class="confirmation-icon">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <h3>Your Private Viewing Is Confirmed!</h3>
+                        <p>Thank you for scheduling your visit to the LUXE showroom. We've sent a confirmation to your email with all the details, including directions and parking information.</p>
+                        <p>Our team is preparing a personalized selection based on your interests and will be ready to welcome you to an exclusive experience of luxury craftsmanship.</p>
+                        <button class="form-submit" onclick="resetForm()">Book Another Appointment</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h3>LUXE</h3>
+                <p>Where timeless elegance meets modern craftsmanship in every piece we create. Since 1985, we've been redefining luxury furniture with uncompromising quality.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-pinterest-p"></i></a>
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h3>Explore</h3>
+                <ul>
+                    <li><a href="collections.html">Collections</a></li>
+                    <li><a href="showroom.html">Showroom</a></li>
+                    <li><a href="about.html">Our Story</a></li>
+                    <li><a href="blog.html">Design Journal</a></li>
+                    <li><a href="events.html">Exclusive Events</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3>Services</h3>
+                <ul>
+                    <li><a href="interior-design.html">Interior Design</a></li>
+                    <li><a href="custom-furniture.html">Custom Furniture</a></li>
+                    <li><a href="delivery.html">White Glove Delivery</a></li>
+                    <li><a href="care.html">Care & Maintenance</a></li>
+                    <li><a href="trade-program.html">Trade Program</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3>Contact</h3>
+                <ul>
+                    <li><a href="tel:+18005551234">+1 (800) 555-1234</a></li>
+                    <li><a href="mailto:info@luxefurniture.com">info@luxefurniture.com</a></li>
+                    <li><a href="contact.html">Contact Form</a></li>
+                    <li><a href="appointment.html">Book Appointment</a></li>
+                    <li><a href="directions.html">Directions</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2023 LUXE Furniture. All rights reserved. | <a href="privacy.html">Privacy Policy</a> | <a href="terms.html">Terms of Service</a> | <a href="accessibility.html">Accessibility</a></p>
+        </div>
+    </footer>
+    
+    <script>
+        // Enhanced Cart Management System
+        class CartManager {
+            constructor() {
+                this.cartItems = this.loadCart();
+                this.cartObservers = [];
+                this.initializeCart();
+            }
+
+            loadCart() {
+                try {
+                    const cartData = localStorage.getItem('cartItems');
+                    return cartData ? JSON.parse(cartData) : [];
+                } catch (error) {
+                    console.error('Error loading cart:', error);
+                    return [];
+                }
+            }
+
+            saveCart() {
+                try {
+                    localStorage.setItem('cartItems', JSON.stringify(this.cartItems));
+                    this.notifyObservers();
+                } catch (error) {
+                    console.error('Error saving cart:', error);
+                }
+            }
+
+            addObserver(callback) {
+                this.cartObservers.push(callback);
+            }
+
+            notifyObservers() {
+                this.cartObservers.forEach(callback => {
+                    try {
+                        callback(this.cartItems);
+                    } catch (error) {
+                        console.error('Error in cart observer:', error);
+                    }
+                });
+            }
+
+            getTotalItems() {
+                return this.cartItems.reduce((total, item) => total + (item.quantity || 1), 0);
+            }
+
+            addItem(item) {
+                const existingItemIndex = this.cartItems.findIndex(cartItem => cartItem.id === item.id);
+                
+                if (existingItemIndex >= 0) {
+                    this.cartItems[existingItemIndex].quantity = (this.cartItems[existingItemIndex].quantity || 1) + 1;
+                } else {
+                    this.cartItems.push({
+                        ...item,
+                        quantity: 1,
+                        id: item.id || Date.now() + Math.random()
+                    });
+                }
+                
+                this.saveCart();
+                this.animateCartCount();
+                return true;
+            }
+
+            removeItem(itemId) {
+                this.cartItems = this.cartItems.filter(item => item.id !== itemId);
+                this.saveCart();
+            }
+
+            updateQuantity(itemId, quantity) {
+                const itemIndex = this.cartItems.findIndex(item => item.id === itemId);
+                if (itemIndex >= 0) {
+                    if (quantity <= 0) {
+                        this.removeItem(itemId);
+                    } else {
+                        this.cartItems[itemIndex].quantity = quantity;
+                        this.saveCart();
+                    }
+                }
+            }
+
+            clearCart() {
+                this.cartItems = [];
+                this.saveCart();
+            }
+
+            getCartItems() {
+                return this.cartItems;
+            }
+
+            initializeCart() {
+                this.updateCartDisplay();
+                
+                // Add observer to update cart count
+                this.addObserver(() => {
+                    this.updateCartDisplay();
+                });
+            }
+
+            updateCartDisplay() {
+                const cartCountElement = document.querySelector('.cart-count');
+                if (cartCountElement) {
+                    const totalItems = this.getTotalItems();
+                    cartCountElement.textContent = totalItems;
+                    
+                    // Hide cart count if 0 items
+                    if (totalItems === 0) {
+                        cartCountElement.style.display = 'none';
+                    } else {
+                        cartCountElement.style.display = 'flex';
+                    }
+                }
+            }
+
+            animateCartCount() {
+                const cartIcon = document.querySelector('.cart-icon');
+                const cartCount = document.querySelector('.cart-count');
+                
+                if (cartIcon && cartCount) {
+                    // Animate cart icon
+                    cartIcon.style.transform = 'scale(1.2)';
+                    setTimeout(() => {
+                        cartIcon.style.transform = 'scale(1)';
+                    }, 200);
+
+                    // Animate cart count
+                    cartCount.style.animation = 'none';
+                    setTimeout(() => {
+                        cartCount.style.animation = 'scaleIn 0.3s ease-out';
+                    }, 10);
+                }
+            }
+        }
+
+        // Initialize cart manager
+        const cartManager = new CartManager();
+
+        // Make cart accessible globally
+        window.cartManager = cartManager;
+
+        // Cart icon click handler
+        document.querySelector('.cart-icon').addEventListener('click', function() {
+            window.location.href = 'cart.html';
+        });
+
+        // Nav scroll effect
+        window.addEventListener('scroll', function() {
+            const nav = document.getElementById('mainNav');
+            if (window.scrollY > 50) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        });
+        
+        // Update active nav link
+        function updateActiveNav() {
+            const navLinks = document.querySelectorAll('.nav-links a');
+            navLinks.forEach(link => {
+                if (link.href === window.location.href) {
+                    link.classList.add('active');
+                }
+            });
+        }
+        
+        // Hero slideshow
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.hero-slide');
+        
+        function showSlide(index) {
+            slides.forEach(slide => slide.classList.remove('active'));
+            slides[index].classList.add('active');
+            
+            // Reset all slides to scale 1
+            slides.forEach(slide => {
+                slide.style.transform = 'scale(1)';
+            });
+            
+            // After a short delay, scale up the active slide
+            setTimeout(() => {
+                slides[index].style.transform = 'scale(1.05)';
+            }, 100);
+        }
+        
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % slides.length;
+            showSlide(currentSlide);
+        }
+        
+        // Show hero content after slide loads
+        window.addEventListener('load', function() {
+            const heroContent = document.querySelector('.hero-content');
+            setTimeout(() => {
+                heroContent.classList.add('visible');
+            }, 500);
+        });
+        
+        // Change slide every 6 seconds
+        setInterval(nextSlide, 6000);
+        
+        // Initialize slideshow
+        showSlide(0);
+        
+        // Scroll to sections
+        document.querySelector('.scroll-indicator').addEventListener('click', function() {
+            document.querySelector('.showroom-container').scrollIntoView({ 
+                behavior: 'smooth' 
+            });
+        });
+        
+        // Appointment form handling
+        const bookingForm = document.getElementById('bookingForm');
+        const confirmationMessage = document.getElementById('confirmationMessage');
+        
+        bookingForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Here you would normally send the form data to a server
+            // For this example, we'll just show the confirmation message
+            
+            // Hide form and show confirmation
+            bookingForm.style.display = 'none';
+            confirmationMessage.style.display = 'block';
+            
+            // Scroll to confirmation message
+            confirmationMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        });
+        
+        function resetForm() {
+            bookingForm.reset();
+            bookingForm.style.display = 'block';
+            confirmationMessage.style.display = 'none';
+        }
+        
+        // Intersection Observer for scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+        
+        // Observe elements
+        document.querySelectorAll('.section-title, .room-card, .feature-card').forEach(el => {
+            observer.observe(el);
+        });
+        
+        // Initialize the page
+        updateActiveNav();
+        
+        // Set minimum date for appointment booking to tomorrow
+        document.addEventListener('DOMContentLoaded', function() {
+            const dateInput = document.getElementById('date');
+            if (dateInput) {
+                const tomorrow = new Date();
+                tomorrow.setDate(tomorrow.getDate() + 1);
+                const minDate = tomorrow.toISOString().split('T')[0];
+                dateInput.setAttribute('min', minDate);
+            }
+        });
+    </script>
+</body>
+</html>

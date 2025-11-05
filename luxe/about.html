@@ -1,0 +1,1576 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About | LUXE Furniture</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
+    <style>
+        /* Shared styles from homepage */
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Montserrat:wght@300;400;500;600;700&display=swap');
+        
+        :root {
+            --navy: #0a1a2f;
+            --gold: #d4af37;
+            --rich-gold: #f9e6a1;
+            --dark-gold: #b87333;
+            --cream: #f8f4e9;
+            --leather: #3d2b1f;
+            --shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+            --transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        
+        * {
+            -webkit-tap-highlight-color: transparent;
+            -webkit-touch-callout: none;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--cream);
+            color: var(--navy);
+            overscroll-behavior: none;
+            position: relative;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+        
+
+        /* Remove tap highlight on all interactive elements */
+        a, button, input, select, textarea, [role="button"], .nav-links a, .cart-icon {
+            -webkit-tap-highlight-color: transparent;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            user-select: none;
+            outline: none;
+        }
+
+        button:focus, a:focus, input:focus, select:focus, textarea:focus {
+            outline: none;
+        }
+        /* Navigation (same as homepage) */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 22px 45px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            background: rgba(248, 244, 233, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 5px 30px rgba(0, 0, 0, 0.05);
+            transition: var(--transition);
+        }
+        
+        nav.scrolled {
+            padding: 15px 50px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+        }
+        
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            font-weight: 900;
+            background: linear-gradient(145deg, #f9e6a1, #d4af37, #b87333);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: 3px;
+            transition: var(--transition);
+            text-shadow: 0 2px 10px rgba(212, 175, 55, 0.3);
+        }
+        
+        .logo:hover {
+            transform: scale(1.05);
+            text-shadow: 0 5px 15px rgba(212, 175, 55, 0.5);
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 40px;
+            align-items: center;
+        }
+        
+        .nav-links a {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.05rem;
+            font-weight: 500;
+            color: var(--navy);
+            text-decoration: none;
+            position: relative;
+            padding: 5px 0;
+            transition: var(--transition);
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--gold), var(--dark-gold));
+            transition: var(--transition);
+        }
+        
+        .nav-links a:hover {
+            color: var(--gold);
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        .cart-icon {
+            position: relative;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .cart-count {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background: var(--gold);
+            color: var(--navy);
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: 700;
+        }
+        
+        /* About Page Specific Styles */
+        .hero-slideshow {
+            position: relative;
+            width: 100%;
+            height: 90vh;
+            margin-top: 80px;
+            overflow: hidden;
+        }
+        
+        .hero-slide {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: var(--cream);
+        }
+        
+        .hero-slide::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(10, 26, 47, 0.4);
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            background: rgba(10, 26, 47, 0.7);
+            padding: 60px;
+            max-width: 900px;
+            border-radius: 15px;
+            transform: translateY(30px);
+            opacity: 0;
+            transition: all 1s ease 0.3s;
+        }
+        
+        .swiper-slide-active .hero-content {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        
+        .hero-content h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.8rem;
+            font-weight: 900;
+            margin-bottom: 20px;
+            background: linear-gradient(145deg, #f9e6a1, #d4af37);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 5px 15px rgba(212, 175, 55, 0.3);
+        }
+        
+        .hero-content p {
+            font-size: 1.35rem;
+            opacity: 0.9;
+            margin-bottom: 30px;
+        }
+        
+        .hero-btn {
+            display: inline-block;
+            padding: 14px 32px;
+            background: var(--gold);
+            color: var(--navy);
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: var(--transition);
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.3);
+        }
+        
+        .hero-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(212, 175, 55, 0.4);
+        }
+        
+        .swiper-pagination-bullet {
+            width: 12px;
+            height: 12px;
+            background: rgba(255, 255, 255, 0.5);
+            opacity: 1;
+            transition: var(--transition);
+        }
+        
+        .swiper-pagination-bullet-active {
+            background: var(--gold);
+            transform: scale(1.3);
+        }
+        
+        .swiper-button-next, 
+        .swiper-button-prev {
+            color: var(--gold);
+            width: 60px;
+            height: 60px;
+            background: rgba(10, 26, 47, 0.5);
+            border-radius: 50%;
+            backdrop-filter: blur(5px);
+            transition: var(--transition);
+        }
+        
+        .swiper-button-next:hover, 
+        .swiper-button-prev:hover {
+            background: rgba(10, 26, 47, 0.8);
+            transform: scale(1.1);
+        }
+        
+        .swiper-button-next::after, 
+        .swiper-button-prev::after {
+            font-size: 1.35rem;
+            font-weight: bold;
+        }
+        
+        .about-content {
+            max-width: 1400px;
+            margin: 100px auto;
+            padding: 0 50px;
+        }
+        
+        .about-section {
+            margin-bottom: 100px;
+            display: flex;
+            align-items: center;
+            gap: 60px;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s ease;
+        }
+        
+        .about-section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .about-section:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+        
+        .about-text {
+            flex: 1;
+        }
+        
+        .about-image {
+            flex: 1;
+            height: 600px;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            position: relative;
+        }
+        
+        .about-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+        
+        .about-image:hover img {
+            transform: scale(1.05);
+        }
+        
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.6rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: var(--navy);
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--gold), var(--dark-gold));
+            border-radius: 2px;
+        }
+        
+        .section-subtitle {
+            font-size: 1.05rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: var(--gold);
+            letter-spacing: 1px;
+        }
+        
+        .section-desc {
+            font-size: 1.05rem;
+            line-height: 1.8;
+            margin-bottom: 30px;
+            color: var(--navy);
+            opacity: 0.9;
+        }
+        
+        .craftsmanship-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+        
+        .craftsmanship-item {
+            background: white;
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            transform-style: preserve-3d;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+        
+        .craftsmanship-item.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .craftsmanship-item:hover {
+            transform: translateY(-10px) translateZ(10px);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.15);
+        }
+        
+        .craftsmanship-icon {
+            width: 70px;
+            height: 70px;
+            background: var(--gold);
+            color: var(--navy);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            margin-bottom: 25px;
+            transition: var(--transition);
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.3);
+        }
+        
+        .craftsmanship-item:hover .craftsmanship-icon {
+            transform: rotateY(180deg);
+            background: var(--navy);
+            color: var(--gold);
+        }
+        
+        .craftsmanship-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: var(--navy);
+            transition: var(--transition);
+        }
+        
+        .craftsmanship-item:hover .craftsmanship-title {
+            color: var(--gold);
+        }
+        
+        .craftsmanship-desc {
+            font-size: 1.05rem;
+            line-height: 1.7;
+            color: var(--navy);
+            opacity: 0.8;
+        }
+        
+        /* Updated Team Section - Slider Layout */
+        .team-section {
+            text-align: center;
+            margin: 120px 0;
+            padding: 0 50px;
+        }
+        
+        .team-slider {
+            margin-top: 60px;
+            padding-bottom: 60px;
+        }
+        
+        .team-slide {
+            padding: 0 15px;
+            height: auto;
+        }
+        
+        .team-member {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            height: 100%;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+        
+        .team-member.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .team-member:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.15);
+        }
+        
+        .team-image {
+            height: 340px;
+            width: 100%;
+            background-size: cover;
+            background-position: center;
+            transition: var(--transition);
+        }
+        
+        .team-member:hover .team-image {
+            transform: scale(1.05);
+        }
+        
+        .team-info {
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .member-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: var(--navy);
+        }
+        
+        .member-role {
+            font-size: 1.05rem;
+            color: var(--gold);
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+        
+        .member-desc {
+            font-size: 1.05rem;
+            line-height: 1.7;
+            margin-bottom: 25px;
+            color: var(--navy);
+            opacity: 0.8;
+        }
+        
+        .team-social-links {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+        
+        .team-social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: rgba(212, 175, 55, 0.2);
+            color: var(--gold);
+            transition: var(--transition);
+            font-size: 1.05rem;
+        }
+        
+        .team-social-links a:hover {
+            background: var(--gold);
+            color: var(--navy);
+            transform: translateY(-5px);
+        }
+        
+        /* Timeline Section */
+        .timeline-section {
+            margin: 100px 0;
+            position: relative;
+        }
+        
+        .timeline-container {
+            position: relative;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 0;
+        }
+        
+        .timeline-container::after {
+            content: '';
+            position: absolute;
+            width: 6px;
+            background: linear-gradient(to bottom, var(--gold), var(--dark-gold));
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -3px;
+            border-radius: 3px;
+        }
+        
+        .timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            width: 50%;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+        
+        .timeline-item.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            right: -12px;
+            background: var(--gold);
+            border: 4px solid var(--cream);
+            top: 30px;
+            border-radius: 50%;
+            z-index: 1;
+        }
+        
+        .timeline-item.left {
+            left: 0;
+        }
+        
+        .timeline-item.right {
+            left: 50%;
+        }
+        
+        .timeline-item.right::after {
+            left: -12px;
+        }
+        
+        .timeline-content {
+            padding: 30px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            position: relative;
+        }
+        
+        .timeline-year {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--gold);
+            margin-bottom: 10px;
+        }
+        
+        .timeline-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.35rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: var(--navy);
+        }
+        
+        .timeline-desc {
+            font-size: 1.05rem;
+            line-height: 1.7;
+            color: var(--navy);
+            opacity: 0.8;
+        }
+        
+        /* Gallery Section */
+        .gallery-section {
+            margin: 100px 0;
+        }
+        
+        .gallery-slider {
+            margin-top: 60px;
+            padding-bottom: 60px;
+        }
+        
+        .gallery-slide {
+            height: 420px;
+            border-radius: 15px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .gallery-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.8s ease;
+        }
+        
+        .gallery-slide:hover img {
+            transform: scale(1.1);
+        }
+        
+        .gallery-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 30px;
+            background: linear-gradient(to top, rgba(10, 26, 47, 0.8), transparent);
+            color: white;
+            transform: translateY(20px);
+            opacity: 0;
+            transition: all 0.6s ease;
+        }
+        
+        .gallery-slide:hover .gallery-caption {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        
+        .gallery-caption h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+        }
+        
+        /* Footer (same as homepage) */
+        footer {
+            background: var(--navy);
+            color: var(--cream);
+            padding: 120px 100px 50px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 80px;
+            margin-bottom: 80px;
+            position: relative;
+            z-index: 10;
+        }
+        
+        .footer-col h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 30px;
+            background: linear-gradient(145deg, #f9e6a1, #d4af37);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .footer-col p {
+            margin-bottom: 25px;
+            line-height: 1.7;
+            opacity: 0.9;
+            font-size: 1.05rem;
+        }
+        
+        .footer-col ul {
+            list-style: none;
+        }
+        
+        .footer-col li {
+            margin-bottom: 18px;
+        }
+        
+        .footer-col a {
+            color: var(--cream);
+            text-decoration: none;
+            transition: var(--transition);
+            position: relative;
+            padding-bottom: 5px;
+            opacity: 0.9;
+            font-size: 1.05rem;
+        }
+        
+        .footer-col a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--gold);
+            transition: var(--transition);
+        }
+        
+        .footer-col a:hover {
+            color: var(--gold);
+            opacity: 1;
+        }
+        
+        .footer-col a:hover::after {
+            width: 100%;
+        }
+        
+        .social-links-footer {
+            display: flex;
+            gap: 20px;
+            margin-top: 30px;
+        }
+        
+        .social-links-footer a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: rgba(212, 175, 55, 0.1);
+            color: var(--gold);
+            transition: var(--transition);
+            font-size: 1.05rem;
+        }
+        
+        .social-links-footer a:hover {
+            background: var(--gold);
+            color: var(--navy);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .footer-bottom {
+            border-top: 1px solid rgba(212, 175, 55, 0.1);
+            padding-top: 40px;
+            text-align: center;
+            font-size: 1rem;
+            opacity: 0.7;
+            position: relative;
+            z-index: 10;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 1400px) {
+            .about-content {
+                max-width: 1200px;
+            }
+            
+            .hero-content h1 {
+                font-size: 3.8rem;
+            }
+        }
+        
+        @media (max-width: 1200px) {
+            .about-content {
+                padding: 0 40px;
+            }
+            
+            .hero-content h1 {
+                font-size: 2.6rem;
+            }
+            
+            .timeline-container::after {
+                left: 31px;
+            }
+            
+            .timeline-item {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 25px;
+            }
+            
+            .timeline-item::after {
+                left: 18px;
+            }
+            
+            .timeline-item.left, 
+            .timeline-item.right {
+                left: 0;
+            }
+        }
+        
+        @media (max-width: 992px) {
+            .hero-slideshow {
+                height: 70vh;
+            }
+            
+            .hero-content h1 {
+                font-size: 2.6rem;
+            }
+            
+            .hero-content p {
+                font-size: 1.05rem;
+            }
+            
+            .about-section {
+                flex-direction: column;
+            }
+            
+            .about-section:nth-child(even) {
+                flex-direction: column;
+            }
+            
+            .about-image {
+                width: 100%;
+                height: 420px;
+            }
+            
+            .section-title {
+                font-size: 2.2rem;
+            }
+            
+            .gallery-slide {
+                height: 340px;
+            }
+            
+            .team-image {
+                height: 300px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            nav {
+                padding: 15px 30px;
+            }
+            
+            nav.scrolled {
+                padding: 10px 30px;
+            }
+            
+            .logo {
+                font-size: 1.8rem;
+            }
+            
+            .nav-links {
+                gap: 20px;
+            }
+            
+            .hero-slideshow {
+                height: 60vh;
+                margin-top: 70px;
+            }
+            
+            .hero-content {
+                padding: 30px;
+            }
+            
+            .hero-content h1 {
+                font-size: 2.2rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .about-image {
+                height: 340px;
+            }
+            
+            .craftsmanship-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .team-section {
+                padding: 0 30px;
+            }
+            
+            .team-image {
+                height: 300px;
+            }
+            
+            .member-name {
+                font-size: 1.8rem;
+            }
+            
+            .member-desc {
+                font-size: 1rem;
+            }
+            
+            footer {
+                padding: 80px 40px 40px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .nav-links {
+                gap: 15px;
+            }
+            
+            .nav-links a {
+                font-size: 0.9rem;
+            }
+            
+            .hero-slideshow {
+                height: 50vh;
+            }
+            
+            .hero-content h1 {
+                font-size: 2rem;
+            }
+            
+            .hero-content p {
+                font-size: 1.05rem;
+            }
+            
+            .about-image {
+                height: 300px;
+            }
+            
+            .gallery-slide {
+                height: 300px;
+            }
+            
+            .team-image {
+                height: 250px;
+            }
+            
+            .member-name {
+                font-size: 1.35rem;
+            }
+            
+            .member-role {
+                font-size: 1rem;
+            }
+            
+            .member-desc {
+                font-size: 0.9rem;
+                margin-bottom: 15px;
+            }
+            
+            .team-social-links a {
+                width: 35px;
+                height: 35px;
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav id="mainNav">
+        <div class="logo">LUXE</div>
+        <div class="nav-links">
+            <a href="homepage.html">Home</a>
+            <a href="collections.html">Collections</a>
+            <a href="showroom.html">Showroom</a>
+            <a href="about.html" class="active">About</a>
+            <a href="contact.html">Contact</a>
+            <div class="cart-icon" onclick="window.location.href='cart.html'">
+                <i class="fas fa-shopping-bag"></i>
+                <div class="cart-count">0</div>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Hero Slideshow -->
+    <div class="swiper hero-slideshow">
+        <div class="swiper-wrapper">
+            <!-- Slide 1 -->
+            <div class="swiper-slide hero-slide" style="background-image: url('https://images.unsplash.com/photo-1606744837616-56c9a5c6a6eb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1471&q=80')">
+                <div class="hero-content">
+                    <h1>Our Heritage</h1>
+                    <p>Three generations of master craftsmanship since 1985</p>
+                    <a href="#heritage" class="hero-btn">Explore Our Story</a>
+                </div>
+            </div>
+            
+            <!-- Slide 2 -->
+            <div class="swiper-slide hero-slide" style="background-image: url('https://images.unsplash.com/photo-1602872030490-4a484a7b3ba6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80')">
+                <div class="hero-content">
+                    <h1>Artisan Excellence</h1>
+                    <p>Each piece handcrafted with precision and passion</p>
+                    <a href="#craftsmanship" class="hero-btn">Discover Our Craft</a>
+                </div>
+            </div>
+            
+            <!-- Slide 3 -->
+            <div class="swiper-slide hero-slide" style="background-image: url('https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1415&q=80')">
+                <div class="hero-content">
+                    <h1>Sustainable Luxury</h1>
+                    <p>Ethically sourced materials for a better tomorrow</p>
+                    <a href="#sustainability" class="hero-btn">Our Commitment</a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Navigation -->
+        <div class="swiper-pagination"></div>
+        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div>
+    </div>
+    
+    <!-- About Content -->
+    <div class="about-content">
+        <!-- Heritage Section -->
+        <section class="about-section" id="heritage">
+            <div class="about-text">
+                <h2 class="section-title">A Legacy of Craftsmanship</h2>
+                <p class="section-subtitle">Since 1985</p>
+                <p class="section-desc">Founded in a small workshop in Florence, LUXE began with a simple mission: to create furniture that stands the test of time. Our founder, Giovanni Rossi, believed that true luxury lies in the details - the hand-carved embellishments, the carefully selected materials, and the passion poured into every piece.</p>
+                <p class="section-desc">Today, we continue this tradition with a team of master craftsmen who combine time-honored techniques with contemporary design. Each piece in our collection tells a story of dedication, from the initial sketch to the final polish.</p>
+            </div>
+            <div class="about-image">
+                <img src="https://images.unsplash.com/photo-1606744837616-56c9a5c6a6eb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1471&q=80" alt="LUXE Workshop">
+            </div>
+        </section>
+        
+        <!-- Timeline Section -->
+        <section class="timeline-section">
+            <div class="about-text" style="text-align: center; margin-bottom: 60px;">
+                <h2 class="section-title">Our Journey</h2>
+                <p class="section-subtitle">Milestones in Excellence</p>
+                <p class="section-desc">From humble beginnings to international recognition, our journey is marked by dedication to craftsmanship and innovation.</p>
+            </div>
+            
+            <div class="timeline-container">
+                <div class="timeline-item left">
+                    <div class="timeline-content">
+                        <div class="timeline-year">1985</div>
+                        <h3 class="timeline-title">Founding of LUXE</h3>
+                        <p class="timeline-desc">Giovanni Rossi establishes his workshop in Florence, specializing in handcrafted wooden furniture with renaissance influences.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item right">
+                    <div class="timeline-content">
+                        <div class="timeline-year">1992</div>
+                        <h3 class="timeline-title">First International Exhibition</h3>
+                        <p class="timeline-desc">Our pieces debut at the Milan Furniture Fair, earning critical acclaim and our first international clients.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item left">
+                    <div class="timeline-content">
+                        <div class="timeline-year">2001</div>
+                        <h3 class="timeline-title">Expansion to New York</h3>
+                        <p class="timeline-desc">Opening of our first showroom outside Italy, marking the beginning of our global presence.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item right">
+                    <div class="timeline-content">
+                        <div class="timeline-year">2010</div>
+                        <h3 class="timeline-title">Sustainable Practices</h3>
+                        <p class="timeline-desc">Full transition to ethically sourced materials and implementation of zero-waste production processes.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item left">
+                    <div class="timeline-content">
+                        <div class="timeline-year">2020</div>
+                        <h3 class="timeline-title">Third Generation</h3>
+                        <p class="timeline-desc">Isabella Rossi joins the company, bringing fresh perspectives while preserving traditional techniques.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Craftsmanship Section -->
+        <section class="about-section" id="craftsmanship">
+            <div class="about-text">
+                <h2 class="section-title">The Art of Furniture Making</h2>
+                <p class="section-subtitle">Where Tradition Meets Innovation</p>
+                <p class="section-desc">At LUXE, we believe furniture should be more than functional—it should be a work of art. Our process begins with sustainably sourced materials from trusted suppliers around the world. From there, our artisans employ techniques passed down through generations.</p>
+                
+                <div class="craftsmanship-grid">
+                    <div class="craftsmanship-item">
+                        <div class="craftsmanship-icon">
+                            <i class="fas fa-tree"></i>
+                        </div>
+                        <h3 class="craftsmanship-title">Material Selection</h3>
+                        <p class="craftsmanship-desc">Only the finest hardwoods, metals, and fabrics are selected for their quality and durability. Each material is carefully inspected for grain, color, and structural integrity.</p>
+                    </div>
+                    <div class="craftsmanship-item">
+                        <div class="craftsmanship-icon">
+                            <i class="fas fa-hammer"></i>
+                        </div>
+                        <h3 class="craftsmanship-title">Handcrafted Details</h3>
+                        <p class="craftsmanship-desc">Each piece is shaped and assembled by hand, ensuring perfect joints and seamless finishes. Our artisans spend up to 200 hours on a single piece.</p>
+                    </div>
+                    <div class="craftsmanship-item">
+                        <div class="craftsmanship-icon">
+                            <i class="fas fa-paint-roller"></i>
+                        </div>
+                        <h3 class="craftsmanship-title">Finishing Touches</h3>
+                        <p class="craftsmanship-desc">Our proprietary finishing techniques enhance natural beauty while protecting your furniture for generations. Each finish is hand-applied and polished to perfection.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="about-image">
+                <img src="https://images.unsplash.com/photo-1602872030490-4a484a7b3ba6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Craftsmanship">
+            </div>
+        </section>
+        
+        <!-- Gallery Section -->
+        <section class="gallery-section">
+            <div class="about-text" style="text-align: center; margin-bottom: 60px;">
+                <h2 class="section-title">Our Workshop</h2>
+                <p class="section-subtitle">Where Magic Happens</p>
+                <p class="section-desc">A glimpse into our creative process and the environment where our furniture comes to life.</p>
+            </div>
+            
+            <div class="swiper gallery-slider">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide gallery-slide">
+                        <img src="./Design.jpg" alt="Design Studio" style="width: 100%; height: 100%; object-fit: cover;">
+                        <div class="gallery-caption">
+                            <h3>Design Studio</h3>
+                            <p>Where concepts become reality through sketches and 3D models</p>
+                        </div>
+                    </div>
+                    <div class="swiper-slide gallery-slide">
+                        <img src="./furniture.jpg" alt="Woodworking" style="width: 100%; height: 100%; object-fit: cover;">
+                        <div class="gallery-caption">
+                            <h3>Woodworking</h3>
+                            <p>Master craftsmen shaping raw materials into functional art</p>
+                        </div>
+                    </div>
+                    <div class="swiper-slide gallery-slide">
+                        <img src="./upholstery.webp" alt="Upholstery" style="width: 100%; height: 100%; object-fit: cover;">
+                        <div class="gallery-caption">
+                            <h3>Upholstery</h3>
+                            <p>Precision work with the finest fabrics and leathers</p>
+                        </div>
+                    </div>
+                    <div class="swiper-slide gallery-slide">
+                        <img src="./finishing.jpg" alt="Finishing" style="width: 100%; height: 100%; object-fit: cover;">
+                        <div class="gallery-caption">
+                            <h3>Finishing</h3>
+                            <p>Applying our signature protective and decorative finishes</p>
+                        </div>
+                    </div>
+                    <div class="swiper-slide gallery-slide">
+                        <img src="./quality%20control.jpg" alt="Quality Control" style="width: 100%; height: 100%; object-fit: cover;">
+                        <div class="gallery-caption">
+                            <h3>Quality Control</h3>
+                            <p>Every piece undergoes rigorous inspection before shipping</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-pagination"></div>
+                <div class="swiper-button-next"></div>
+                <div class="swiper-button-prev"></div>
+            </div>
+        </section>
+        
+        <!-- Updated Team Section - Slider Layout -->
+        <section class="team-section">
+            <h2 class="section-title">Meet Our Artisans</h2>
+            <p class="section-subtitle">The Hands Behind the Craft</p>
+            <p class="section-desc">Our team of skilled craftsmen and designers bring decades of experience and passion to every piece we create.</p>
+            
+            <div class="swiper team-slider">
+                <div class="swiper-wrapper">
+                    <!-- Team Member 1 -->
+                    <div class="swiper-slide team-slide">
+                        <div class="team-member">
+                            <div class="team-image" style="background-image: url('./1stpfp.jpg')"></div>
+                            <div class="team-info">
+                                <h3 class="member-name">Marco Bianchi</h3>
+                                <p class="member-role">Master Woodworker</p>
+                                <p class="member-desc">With over 40 years of experience, Marco specializes in traditional joinery techniques. His expertise in selecting and working with rare woods is unmatched in the industry.</p>
+                                <div class="team-social-links">
+                                    <a href="#"><i class="fab fa-instagram"></i></a>
+                                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Team Member 2 -->
+                    <div class="swiper-slide team-slide">
+                        <div class="team-member">
+                            <div class="team-image" style="background-image: url('./2ndpfp.jpg')"></div>
+                            <div class="team-info">
+                                <h3 class="member-name">Sophie Laurent</h3>
+                                <p class="member-role">Lead Designer</p>
+                                <p class="member-desc">Sophie blends contemporary aesthetics with timeless functionality in every design. Her innovative approach has won multiple international design awards.</p>
+                                <div class="team-social-links">
+                                    <a href="#"><i class="fab fa-instagram"></i></a>
+                                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Team Member 3 -->
+                    <div class="swiper-slide team-slide">
+                        <div class="team-member">
+                            <div class="team-image" style="background-image: url('https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80')"></div>
+                            <div class="team-info">
+                                <h3 class="member-name">James Wilson</h3>
+                                <p class="member-role">Metalwork Specialist</p>
+                                <p class="member-desc">James brings industrial elements to life with precision metal fabrication. His custom hardware designs are signature elements of our collections.</p>
+                                <div class="team-social-links">
+                                    <a href="#"><i class="fab fa-instagram"></i></a>
+                                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Team Member 4 -->
+                    <div class="swiper-slide team-slide">
+                        <div class="team-member">
+                            <div class="team-image" style="background-image: url('https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=761&q=80')"></div>
+                            <div class="team-info">
+                                <h3 class="member-name">Elena Moretti</h3>
+                                <p class="member-role">Upholstery Expert</p>
+                                <p class="member-desc">Elena's meticulous attention to detail ensures perfect upholstery every time. She sources only the finest European fabrics and leathers.</p>
+                                <div class="team-social-links">
+                                    <a href="#"><i class="fab fa-instagram"></i></a>
+                                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Team Member 5 -->
+                    <div class="swiper-slide team-slide">
+                        <div class="team-member">
+                            <div class="team-image" style="background-image: url('./5thpfp.jpg')"></div>
+                            <div class="team-info">
+                                <h3 class="member-name">Thomas Müller</h3>
+                                <p class="member-role">Finishing Master</p>
+                                <p class="member-desc">Thomas applies our signature finishes using techniques perfected over 30 years. His work brings out the natural beauty of every material.</p>
+                                <div class="team-social-links">
+                                    <a href="#"><i class="fab fa-instagram"></i></a>
+                                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Team Member 6 -->
+                    <div class="swiper-slide team-slide">
+                        <div class="team-member">
+                            <div class="team-image" style="background-image: url('./4thpfp.jpg')"></div>
+                            <div class="team-info">
+                                <h3 class="member-name">Isabella Rossi</h3>
+                                <p class="member-role">Quality Control</p>
+                                <p class="member-desc">Granddaughter of our founder, Isabella ensures every piece meets our exacting standards before leaving the workshop.</p>
+                                <div class="team-social-links">
+                                    <a href="#"><i class="fab fa-instagram"></i></a>
+                                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-pagination"></div>
+                <div class="swiper-button-next"></div>
+                <div class="swiper-button-prev"></div>
+            </div>
+        </section>
+        
+        <!-- Sustainability Section -->
+        <section class="about-section" id="sustainability">
+            <div class="about-text">
+                <h2 class="section-title">Sustainable Luxury</h2>
+                <p class="section-subtitle">Responsible Craftsmanship</p>
+                <p class="section-desc">At LUXE, we believe true luxury must be sustainable. That's why we source materials responsibly, minimize waste in our production process, and create pieces designed to last for generations.</p>
+                <p class="section-desc">We partner with organizations that plant trees for every piece sold and use only non-toxic finishes that are safe for your family and the environment. Our workshop runs on 100% renewable energy, and we've reduced our carbon footprint by 65% since 2010.</p>
+            </div>
+            <div class="about-image">
+                <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1415&q=80" alt="Sustainability">
+            </div>
+        </section>
+    </div>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h3>LUXE</h3>
+                <p>Where timeless elegance meets modern craftsmanship in every piece we create.</p>
+                <div class="social-links-footer">
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-pinterest-p"></i></a>
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h3>Explore</h3>
+                <ul>
+                    <li><a href="collections.html">Collections</a></li>
+                    <li><a href="custom.html">Custom Builder</a></li>
+                    <li><a href="showrooms.html">Showrooms</a></li>
+                    <li><a href="blog.html">Design Blog</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3>Services</h3>
+                <ul>
+                    <li><a href="interior-design.html">Interior Design</a></li>
+                    <li><a href="delivery.html">Delivery & Installation</a></li>
+                    <li><a href="care.html">Care & Maintenance</a></li>
+                    <li><a href="warranty.html">Warranty</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3>Contact</h3>
+                <ul>
+                    <li><a href="tel:+18005551234">+1 (800) 555-1234</a></li>
+                    <li><a href="mailto:info@luxefurniture.com">info@luxefurniture.com</a></li>
+                    <li><a href="contact.html">Contact Form</a></li>
+                    <li><a href="appointment.html">Book Appointment</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2023 LUXE Furniture. All rights reserved. | <a href="privacy.html">Privacy Policy</a> | <a href="terms.html">Terms of Service</a></p>
+        </div>
+    </footer>
+    
+    <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+    <script>
+        // Centralized Cart Management System
+        class CartManager {
+            constructor() {
+                this.cartItems = this.loadCartFromStorage();
+                this.observers = [];
+            }
+
+            loadCartFromStorage() {
+                try {
+                    const stored = localStorage.getItem('cartItems');
+                    return stored ? JSON.parse(stored) : [];
+                } catch (error) {
+                    console.error('Error loading cart from storage:', error);
+                    return [];
+                }
+            }
+
+            saveCartToStorage() {
+                try {
+                    localStorage.setItem('cartItems', JSON.stringify(this.cartItems));
+                    this.notifyObservers();
+                } catch (error) {
+                    console.error('Error saving cart to storage:', error);
+                }
+            }
+
+            addObserver(callback) {
+                this.observers.push(callback);
+            }
+
+            notifyObservers() {
+                this.observers.forEach(callback => callback(this.cartItems));
+            }
+
+            getItems() {
+                return this.cartItems;
+            }
+
+            getTotalCount() {
+                return this.cartItems.reduce((total, item) => total + item.quantity, 0);
+            }
+        }
+
+        // Initialize cart manager
+        const cartManager = new CartManager();
+
+        // Initialize all sliders
+        function initSliders() {
+            // Hero Slideshow
+            const heroSlider = new Swiper('.hero-slideshow', {
+                loop: true,
+                autoplay: {
+                    delay: 6000,
+                    disableOnInteraction: false,
+                },
+                effect: 'fade',
+                fadeEffect: {
+                    crossFade: true
+                },
+                speed: 1000,
+                pagination: {
+                    el: '.hero-slideshow .swiper-pagination',
+                    clickable: true,
+                },
+                navigation: {
+                    nextEl: '.hero-slideshow .swiper-button-next',
+                    prevEl: '.hero-slideshow .swiper-button-prev',
+                },
+            });
+            
+            // Gallery Slider
+            const gallerySlider = new Swiper('.gallery-slider', {
+                slidesPerView: 1,
+                spaceBetween: 30,
+                loop: true,
+                autoplay: {
+                    delay: 4000,
+                    disableOnInteraction: false,
+                },
+                breakpoints: {
+                    992: {
+                        slidesPerView: 2,
+                    }
+                },
+                pagination: {
+                    el: '.gallery-slider .swiper-pagination',
+                    clickable: true,
+                },
+                navigation: {
+                    nextEl: '.gallery-slider .swiper-button-next',
+                    prevEl: '.gallery-slider .swiper-button-prev',
+                },
+            });
+            
+            // Team Slider
+            const teamSlider = new Swiper('.team-slider', {
+                slidesPerView: 1,
+                spaceBetween: 30,
+                loop: true,
+                autoplay: {
+                    delay: 5000,
+                    disableOnInteraction: false,
+                },
+                breakpoints: {
+                    768: {
+                        slidesPerView: 2,
+                    },
+                    1200: {
+                        slidesPerView: 3,
+                    }
+                },
+                pagination: {
+                    el: '.team-slider .swiper-pagination',
+                    clickable: true,
+                },
+                navigation: {
+                    nextEl: '.team-slider .swiper-button-next',
+                    prevEl: '.team-slider .swiper-button-prev',
+                },
+            });
+        }
+        
+        // Scroll animation
+        function setupScrollAnimation() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            const items = document.querySelectorAll('.about-section, .craftsmanship-item, .timeline-item, .team-member');
+            items.forEach(item => {
+                observer.observe(item);
+            });
+        }
+        
+        // Update active nav link
+        function updateActiveNav() {
+            const navLinks = document.querySelectorAll('.nav-links a');
+            navLinks.forEach(link => {
+                if (link.href === window.location.href) {
+                    link.classList.add('active');
+                }
+            });
+        }
+        
+        // Update cart count
+        function updateCartCount() {
+            const count = cartManager.getTotalCount();
+            const cartCountElement = document.querySelector('.cart-count');
+            if (cartCountElement) {
+                cartCountElement.textContent = count;
+            }
+        }
+        
+        // Nav scroll effect
+        function setupNavScroll() {
+            const nav = document.getElementById('mainNav');
+            window.addEventListener('scroll', function() {
+                if (window.scrollY > 50) {
+                    nav.classList.add('scrolled');
+                } else {
+                    nav.classList.remove('scrolled');
+                }
+            });
+        }
+        
+        // Smooth scrolling for anchor links
+        function setupSmoothScrolling() {
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#') return;
+                    
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 100,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+        }
+        
+        // Initialize the page
+        function init() {
+            initSliders();
+            setupScrollAnimation();
+            updateActiveNav();
+            setupNavScroll();
+            setupSmoothScrolling();
+            updateCartCount();
+            
+            // Add cart observer
+            cartManager.addObserver(() => {
+                updateCartCount();
+            });
+        }
+        
+        // Initialize when DOM is loaded
+        document.addEventListener('DOMContentLoaded', init);
+
+        // Export cart manager for consistency
+        window.cartManager = cartManager;
+    </script>
+</body>
+</html>

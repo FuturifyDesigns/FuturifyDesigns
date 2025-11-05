@@ -1,0 +1,1902 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LUXE | Premium Furniture Atelier</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Montserrat:wght@300;400;500;600;700&display=swap');
+        
+        :root {
+            --navy: #0a1a2f;
+            --gold: #d4af37;
+            --rich-gold: #f9e6a1;
+            --dark-gold: #b87333;
+            --cream: #f8f4e9;
+            --leather: #3d2b1f;
+            --shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+            --transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        
+        * {
+            -webkit-tap-highlight-color: transparent;
+            -webkit-touch-callout: none;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--cream);
+            color: var(--navy);
+            overscroll-behavior: none;
+            position: relative;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+        
+
+        /* Remove tap highlight on all interactive elements */
+        a, button, input, select, textarea, [role="button"], .nav-links a, .cart-icon {
+            -webkit-tap-highlight-color: transparent;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            user-select: none;
+            outline: none;
+        }
+
+        button:focus, a:focus, input:focus, select:focus, textarea:focus {
+            outline: none;
+        }
+        /* Enhanced Navigation with Cart */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 22px 45px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            background: rgba(248, 244, 233, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 5px 30px rgba(0, 0, 0, 0.05);
+            transition: var(--transition);
+        }
+        
+        nav.scrolled {
+            padding: 15px 50px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+        }
+        
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            font-weight: 900;
+            background: linear-gradient(145deg, #f9e6a1, #d4af37, #b87333);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: 3px;
+            transition: var(--transition);
+            text-shadow: 0 2px 10px rgba(212, 175, 55, 0.3);
+        }
+        
+        .logo:hover {
+            transform: scale(1.05);
+            text-shadow: 0 5px 15px rgba(212, 175, 55, 0.5);
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 40px;
+            align-items: center;
+        }
+        
+        .nav-links a {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.05rem;
+            font-weight: 500;
+            color: var(--navy);
+            text-decoration: none;
+            position: relative;
+            padding: 5px 0;
+            transition: var(--transition);
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--gold), var(--dark-gold));
+            transition: var(--transition);
+        }
+        
+        .nav-links a:hover {
+            color: var(--gold);
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        .nav-links a.active {
+            color: var(--gold);
+        }
+        
+        .nav-links a.active::after {
+            width: 100%;
+        }
+        
+        .cart-icon {
+            position: relative;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .cart-count {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background: var(--gold);
+            color: var(--navy);
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: 700;
+        }
+        
+        /* Hero Section with 3D Effect - Fixed overlapping */
+        .hero {
+            height: 85vh;
+            display: flex;
+            align-items: center;
+            padding: 0 100px;
+            position: relative;
+            margin-top: 80px;
+            overflow: hidden;
+            perspective: 1000px;
+        }
+        
+        .hero-content {
+            max-width: 600px;
+            z-index: 10;
+            transform: translateY(50px) translateZ(50px);
+            opacity: 0;
+            transition: all 1s ease 0.3s;
+            margin-bottom: 40px;
+            padding-right: 30px;
+        }
+        
+        .hero-content.visible {
+            transform: translateY(0) translateZ(0);
+            opacity: 1;
+        }
+        
+        .hero-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 4.2rem;
+            font-weight: 900;
+            margin-bottom: 30px;
+            background: linear-gradient(145deg, #f9e6a1, #d4af37, #b87333);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1.1;
+            text-shadow: 0 5px 15px rgba(212, 175, 55, 0.3);
+            transform-style: preserve-3d;
+            transition: var(--transition);
+        }
+        
+        .hero-title:hover {
+            transform: translateZ(20px);
+            text-shadow: 0 10px 25px rgba(212, 175, 55, 0.5);
+        }
+        
+        .hero-subtitle {
+            font-size: 1.05rem;
+            line-height: 1.6;
+            margin-bottom: 40px;
+            color: var(--navy);
+            opacity: 0.9;
+            transform-style: preserve-3d;
+            transition: var(--transition);
+        }
+        
+        .hero-btn {
+            padding: 18px 50px;
+            background: linear-gradient(145deg, var(--gold), var(--dark-gold));
+            color: var(--navy);
+            border: none;
+            border-radius: 6px;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.05rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 20px 50px rgba(212, 175, 55, 0.3);
+            position: relative;
+            overflow: hidden;
+            transform-style: preserve-3d;
+        }
+        
+        .hero-btn:hover {
+            transform: translateY(-5px) translateZ(10px);
+            box-shadow: 0 30px 60px rgba(212, 175, 55, 0.4);
+        }
+        
+        .hero-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(255, 255, 255, 0.4),
+                transparent
+            );
+            transition: 0.8s;
+        }
+        
+        .hero-btn:hover::before {
+            left: 100%;
+        }
+        
+        .hero-image {
+            position: absolute;
+            right: 100px;
+            width: 50%;
+            height: 80%;
+            background: url('https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1600&q=80') center/cover;
+            border-radius: 20px;
+            box-shadow: 
+                0 40px 80px rgba(0, 0, 0, 0.2),
+                0 0 0 15px rgba(248, 244, 233, 0.9);
+            transform: perspective(1000px) rotateY(15deg) translateX(100px);
+            transition: var(--transition);
+            opacity: 0;
+            z-index: 5;
+            filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.3));
+            will-change: transform;
+        }
+        
+        .hero-image.visible {
+            opacity: 1;
+            transform: perspective(1000px) rotateY(0deg) translateX(0);
+        }
+        
+        .hero-image:hover {
+            transform: perspective(1000px) rotateY(5deg) scale(1.02) translateZ(20px);
+            box-shadow: 
+                0 50px 100px rgba(0, 0, 0, 0.3),
+                0 0 0 15px rgba(248, 244, 233, 0.9);
+        }
+        
+        /* Featured Collections - Interactive 3D Grid */
+        .collections {
+            padding: 150px 100px;
+            background: linear-gradient(135deg, rgba(248, 244, 233, 0.95), rgba(248, 244, 233, 0.98));
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.6rem;
+            font-weight: 900;
+            margin-bottom: 80px;
+            background: linear-gradient(145deg, #f9e6a1, #d4af37, #b87333);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-align: center;
+            position: relative;
+            z-index: 10;
+            text-shadow: 0 5px 15px rgba(212, 175, 55, 0.3);
+            transform-style: preserve-3d;
+            transition: var(--transition);
+        }
+        
+        .section-title:hover {
+            transform: translateZ(10px);
+            text-shadow: 0 10px 25px rgba(212, 175, 55, 0.5);
+        }
+        
+        .collection-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 50px;
+            position: relative;
+            z-index: 10;
+        }
+        
+        .collection-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            position: relative;
+            transform: translateY(50px) rotateX(15deg);
+            opacity: 0;
+            transform-style: preserve-3d;
+            will-change: transform, box-shadow;
+        }
+        
+        .collection-card.visible {
+            transform: translateY(0) rotateX(0);
+            opacity: 1;
+        }
+        
+        .collection-card:nth-child(1) { transition-delay: 0.1s; }
+        .collection-card:nth-child(2) { transition-delay: 0.2s; }
+        .collection-card:nth-child(3) { transition-delay: 0.3s; }
+        
+        .collection-card:hover {
+            transform: translateY(-15px) scale(1.02) translateZ(20px);
+            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.2);
+        }
+        
+        .collection-img {
+            height: 300px;
+            background-size: cover;
+            background-position: center;
+            transition: var(--transition);
+            transform-style: preserve-3d;
+            will-change: transform;
+        }
+        
+        .collection-card:hover .collection-img {
+            transform: scale(1.05) translateZ(10px);
+        }
+        
+        .collection-info {
+            padding: 30px;
+            position: relative;
+            z-index: 2;
+            background: white;
+            transform-style: preserve-3d;
+        }
+        
+        .collection-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: var(--navy);
+            transition: var(--transition);
+        }
+        
+        .collection-card:hover .collection-name {
+            background: linear-gradient(145deg, #f9e6a1, #d4af37);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .collection-desc {
+            font-size: 1.05rem;
+            line-height: 1.6;
+            color: var(--navy);
+            margin-bottom: 25px;
+            opacity: 0.8;
+        }
+        
+        .collection-price {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: var(--gold);
+            margin-bottom: 20px;
+        }
+        
+        .collection-actions {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .collection-link {
+            display: inline-block;
+            padding: 12px 30px;
+            background: transparent;
+            color: var(--navy);
+            border: 2px solid var(--gold);
+            border-radius: 6px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            flex: 1;
+            text-align: center;
+        }
+        
+        .collection-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.2), transparent);
+            transition: 0.8s;
+        }
+        
+        .collection-link:hover {
+            background: var(--gold);
+            color: var(--navy);
+            transform: translateY(-3px) translateZ(5px);
+        }
+        
+        .collection-link:hover::before {
+            left: 100%;
+        }
+        
+        .add-to-cart {
+            background: var(--gold);
+            color: var(--navy);
+            border: 2px solid var(--gold);
+        }
+        
+        .add-to-cart:hover {
+            background: var(--dark-gold);
+            border-color: var(--dark-gold);
+        }
+        
+        /* Showroom Section - Replaced Custom Builder */
+        .showroom-section {
+            padding: 80px 50px;
+            background: url('https://images.unsplash.com/photo-1556909114-44e1cd616c8f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80') center/cover fixed;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .showroom-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(10, 26, 47, 0.9), rgba(10, 26, 47, 0.8));
+        }
+
+        .showroom-container {
+            position: relative;
+            z-index: 10;
+            max-width: 900px;
+            margin: 0 auto;
+            background: rgba(248, 244, 233, 0.95);
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: var(--shadow);
+            transform-style: preserve-3d;
+            transform: perspective(1000px) rotateX(5deg);
+            transition: var(--transition);
+            will-change: transform, box-shadow;
+        }
+
+        .showroom-container:hover {
+            transform: perspective(1000px) rotateX(0deg) translateZ(20px);
+            box-shadow: 0 50px 100px rgba(0, 0, 0, 0.3);
+        }
+
+        .showroom-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            font-weight: 900;
+            margin-bottom: 15px;
+            background: linear-gradient(145deg, #f9e6a1, #d4af37);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-align: center;
+        }
+
+        .showroom-subtitle {
+            font-size: 1rem;
+            text-align: center;
+            margin-bottom: 30px;
+            color: var(--navy);
+        }
+
+        .showroom-features {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 30px;
+            gap: 20px;
+        }
+
+        .showroom-feature {
+            flex: 1;
+            text-align: center;
+            transform-style: preserve-3d;
+            transition: var(--transition);
+            will-change: transform;
+        }
+
+        .showroom-feature:hover {
+            transform: translateY(-10px) translateZ(10px);
+        }
+
+        .feature-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--gold);
+            color: var(--navy);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.05rem;
+            font-weight: 700;
+            margin: 0 auto 10px;
+            box-shadow: 0 10px 20px rgba(212, 175, 55, 0.3);
+        }
+
+        .feature-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: var(--navy);
+        }
+
+        .feature-desc {
+            font-size: 0.85rem;
+            color: var(--navy);
+            opacity: 0.8;
+        }
+
+        .showroom-btn {
+            display: block;
+            width: fit-content;
+            margin: 0 auto;
+            padding: 14px 40px;
+            background: linear-gradient(145deg, var(--gold), var(--dark-gold));
+            color: var(--navy);
+            border: none;
+            border-radius: 6px;
+            font-family: 'Playfair Display', serif;
+            font-size: 1rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 20px 50px rgba(212, 175, 55, 0.3);
+            position: relative;
+            overflow: hidden;
+            transform-style: preserve-3d;
+            will-change: transform, box-shadow;
+            text-decoration: none;
+        }
+
+        .showroom-btn:hover {
+            transform: translateY(-5px) translateZ(10px);
+            box-shadow: 0 30px 60px rgba(212, 175, 55, 0.4);
+        }
+
+        /* Responsive adjustments for showroom section */
+        @media (max-width: 768px) {
+            .showroom-section {
+                padding: 60px 20px;
+            }
+            
+            .showroom-container {
+                padding: 30px 20px;
+            }
+            
+            .showroom-title {
+                font-size: 1.8rem;
+            }
+            
+            .showroom-features {
+                flex-direction: column;
+                gap: 25px;
+            }
+        }
+        
+        /* Testimonials with Parallax */
+        .testimonials {
+            padding: 150px 100px;
+            background: linear-gradient(rgba(248, 244, 233, 0.9), rgba(248, 244, 233, 0.9)), url('https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1632&q=80') center/cover fixed;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 50px;
+            position: relative;
+            z-index: 10;
+        }
+        
+        .testimonial-card {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            position: relative;
+            transform: translateY(50px) rotateY(15deg);
+            opacity: 0;
+            transition: var(--transition);
+            transform-style: preserve-3d;
+            will-change: transform, box-shadow;
+        }
+        
+        .testimonial-card.visible {
+            transform: translateY(0) rotateY(0);
+            opacity: 1;
+        }
+        
+        .testimonial-card:nth-child(1) { transition-delay: 0.1s; }
+        .testimonial-card:nth-child(2) { transition-delay: 0.2s; }
+        .testimonial-card:nth-child(3) { transition-delay: 0.3s; }
+        
+        .testimonial-card:hover {
+            transform: translateY(-10px) translateZ(20px);
+            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.2);
+        }
+        
+        .testimonial-card::before {
+            content: '"';
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-family: 'Playfair Display', serif;
+            font-size: 6rem;
+            color: rgba(212, 175, 55, 0.1);
+            line-height: 1;
+            z-index: 1;
+        }
+        
+        .testimonial-text {
+            font-size: 1.05rem;
+            line-height: 1.8;
+            margin-bottom: 30px;
+            font-style: italic;
+            position: relative;
+            z-index: 2;
+            color: var(--navy);
+        }
+        
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+        }
+        
+        .author-img {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background-size: cover;
+            background-position: center;
+            margin-right: 20px;
+            border: 2px solid var(--gold);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .author-info h4 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.05rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+            color: var(--navy);
+        }
+        
+        .author-info p {
+            font-size: 0.9rem;
+            opacity: 0.7;
+            color: var(--navy);
+        }
+        
+        /* Enhanced Footer */
+        footer {
+            background: var(--navy);
+            color: var(--cream);
+            padding: 100px 100px 40px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 60px;
+            margin-bottom: 80px;
+            position: relative;
+            z-index: 10;
+        }
+        
+        .footer-col h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.35rem;
+            font-weight: 700;
+            margin-bottom: 25px;
+            background: linear-gradient(145deg, #f9e6a1, #d4af37);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .footer-col p {
+            margin-bottom: 20px;
+            line-height: 1.6;
+            opacity: 0.9;
+        }
+        
+        .footer-col ul {
+            list-style: none;
+        }
+        
+        .footer-col li {
+            margin-bottom: 15px;
+        }
+        
+        .footer-col a {
+            color: var(--cream);
+            text-decoration: none;
+            transition: var(--transition);
+            position: relative;
+            padding-bottom: 5px;
+            opacity: 0.9;
+        }
+        
+        .footer-col a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--gold);
+            transition: var(--transition);
+        }
+        
+        .footer-col a:hover {
+            color: var(--gold);
+            opacity: 1;
+        }
+        
+        .footer-col a:hover::after {
+            width: 100%;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: rgba(212, 175, 55, 0.1);
+            color: var(--gold);
+            transition: var(--transition);
+            font-size: 1.05rem;
+        }
+        
+        .social-links a:hover {
+            background: var(--gold);
+            color: var(--navy);
+            transform: translateY(-5px) translateZ(5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .footer-bottom {
+            border-top: 1px solid rgba(212, 175, 55, 0.1);
+            padding-top: 30px;
+            text-align: center;
+            font-size: 0.9rem;
+            opacity: 0.7;
+            position: relative;
+            z-index: 10;
+        }
+        
+        /* View Details Modal */
+        .details-modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(10, 26, 47, 0.95);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+            backdrop-filter: blur(5px);
+        }
+        
+        .details-modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .details-modal-container {
+            background: var(--cream);
+            border-radius: 15px;
+            width: 90%;
+            max-width: 800px;
+            padding: 40px;
+            position: relative;
+            transform: translateY(20px) scale(0.95);
+            transition: var(--transition);
+            opacity: 0;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        
+        .details-modal-overlay.active .details-modal-container {
+            transform: translateY(0) scale(1);
+            opacity: 1;
+        }
+        
+        .close-details-modal {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 1.35rem;
+            cursor: pointer;
+            color: var(--navy);
+            transition: var(--transition);
+        }
+        
+        .close-details-modal:hover {
+            color: var(--gold);
+            transform: rotate(90deg);
+        }
+        
+        .details-modal-content {
+            display: flex;
+            gap: 40px;
+        }
+        
+        .details-modal-img {
+            flex: 1;
+            min-height: 340px;
+            border-radius: 10px;
+            background-size: cover;
+            background-position: center;
+            transition: var(--transition);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .details-modal-img:hover {
+            transform: scale(1.02);
+        }
+        
+        .details-modal-info {
+            flex: 1;
+        }
+        
+        .details-modal-category {
+            display: inline-block;
+            padding: 5px 15px;
+            background: var(--gold);
+            color: var(--navy);
+            border-radius: 30px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+        
+        .details-modal-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: var(--navy);
+            transition: var(--transition);
+        }
+        
+        .details-modal-name:hover {
+            background: linear-gradient(145deg, #f9e6a1, #d4af37);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .details-modal-price {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--gold);
+            margin-bottom: 20px;
+        }
+        
+        .details-modal-description {
+            margin-bottom: 30px;
+            line-height: 1.7;
+            font-size: 1.05rem;
+        }
+        
+        .details-modal-history {
+            background: rgba(212, 175, 55, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            border-left: 4px solid var(--gold);
+        }
+        
+        .details-modal-history h3 {
+            font-family: 'Playfair Display', serif;
+            margin-bottom: 10px;
+            color: var(--navy);
+        }
+        
+        .details-modal-history p {
+            line-height: 1.7;
+            font-size: 1rem;
+        }
+        
+        .details-modal-actions {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .details-continue-shopping {
+            padding: 15px 30px;
+            border-radius: 6px;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            background: transparent;
+            color: var(--navy);
+            border: 2px solid var(--navy);
+            cursor: pointer;
+            transition: var(--transition);
+            flex: 1;
+        }
+        
+        .details-continue-shopping:hover {
+            background: var(--navy);
+            color: var(--cream);
+        }
+        
+        .details-add-to-cart {
+            padding: 15px 30px;
+            border-radius: 6px;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            background: var(--gold);
+            color: var(--navy);
+            border: 2px solid var(--gold);
+            cursor: pointer;
+            transition: var(--transition);
+            flex: 1;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .details-add-to-cart:hover {
+            background: var(--navy);
+            color: var(--gold);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.4);
+        }
+        
+        /* Add to Cart Modal */
+        .cart-modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(10, 26, 47, 0.9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+            backdrop-filter: blur(5px);
+        }
+        
+        .cart-modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .cart-modal-container {
+            background: var(--cream);
+            border-radius: 15px;
+            width: 90%;
+            max-width: 600px;
+            padding: 40px;
+            position: relative;
+            transform: translateY(20px) scale(0.95);
+            transition: var(--transition);
+            opacity: 0;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
+        }
+        
+        .cart-modal-overlay.active .cart-modal-container {
+            transform: translateY(0) scale(1);
+            opacity: 1;
+        }
+        
+        .close-cart-modal {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 1.35rem;
+            cursor: pointer;
+            color: var(--navy);
+            transition: var(--transition);
+        }
+        
+        .close-cart-modal:hover {
+            color: var(--gold);
+            transform: rotate(90deg);
+        }
+        
+        .cart-modal-content {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+        
+        .cart-modal-img {
+            height: 200px;
+            border-radius: 10px;
+            background-size: cover;
+            background-position: center;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .cart-modal-info {
+            text-align: center;
+        }
+        
+        .cart-modal-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: var(--navy);
+        }
+        
+        .cart-modal-price {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: var(--gold);
+            margin-bottom: 20px;
+        }
+        
+        .quantity-selector {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        
+        .quantity-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--navy);
+            color: var(--cream);
+            border: none;
+            font-size: 1.05rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+        
+        .quantity-btn:hover {
+            background: var(--gold);
+            color: var(--navy);
+            transform: scale(1.1);
+        }
+        
+        .quantity {
+            font-size: 1.05rem;
+            width: 60px;
+            text-align: center;
+            border: 1px solid var(--gold);
+            border-radius: 5px;
+            padding: 8px;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+        }
+        
+        .cart-modal-actions {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .cart-continue-shopping {
+            padding: 15px 30px;
+            border-radius: 6px;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            background: transparent;
+            color: var(--navy);
+            border: 2px solid var(--navy);
+            cursor: pointer;
+            transition: var(--transition);
+            flex: 1;
+        }
+        
+        .cart-continue-shopping:hover {
+            background: var(--navy);
+            color: var(--cream);
+        }
+        
+        .cart-modal-add-to-cart {
+            padding: 15px 30px;
+            border-radius: 6px;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            background: var(--gold);
+            color: var(--navy);
+            border: 2px solid var(--gold);
+            cursor: pointer;
+            transition: var(--transition);
+            flex: 1;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .cart-modal-add-to-cart:hover {
+            background: var(--navy);
+            color: var(--gold);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.4);
+        }
+        
+        /* Add to Cart Animation */
+        .cart-notification {
+            position: fixed;
+            top: 120px;
+            right: 30px;
+            background: var(--gold);
+            color: var(--navy);
+            padding: 15px 25px;
+            border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.4);
+            z-index: 3000;
+            transform: translateX(200%);
+            transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 600;
+        }
+        
+        .cart-notification.active {
+            transform: translateX(0);
+        }
+        
+        .cart-notification i {
+            font-size: 1.05rem;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .hero {
+                padding: 0 50px;
+            }
+            
+            .hero-image {
+                right: 50px;
+                width: 45%;
+            }
+            
+            .collections, .showroom-section, .testimonials, footer {
+                padding: 100px 50px;
+            }
+        }
+        
+        @media (max-width: 992px) {
+            .hero {
+                flex-direction: column;
+                text-align: center;
+                justify-content: center;
+                padding: 0 30px;
+                height: auto;
+                padding-top: 150px;
+                padding-bottom: 80px;
+            }
+            
+            .hero-content {
+                max-width: 100%;
+                margin-bottom: 50px;
+                text-align: center;
+                padding-right: 0;
+            }
+            
+            .hero-image {
+                position: relative;
+                right: auto;
+                width: 100%;
+                max-width: 600px;
+                height: 340px;
+                margin: 0 auto;
+            }
+            
+            .collections, .testimonials {
+                padding: 80px 30px;
+            }
+            
+            .section-title {
+                font-size: 2.6rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            nav {
+                padding: 15px 30px;
+            }
+            
+            nav.scrolled {
+                padding: 10px 30px;
+            }
+            
+            .logo {
+                font-size: 1.8rem;
+            }
+            
+            .nav-links {
+                gap: 20px;
+            }
+            
+            .hero-title {
+                font-size: 2.6rem;
+            }
+            
+            .section-title {
+                font-size: 2.2rem;
+                margin-bottom: 50px;
+            }
+            
+            .collection-grid, .testimonial-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            footer {
+                padding: 60px 30px 30px;
+            }
+            
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            
+            /* Modal adjustments */
+            .details-modal-content {
+                flex-direction: column;
+            }
+            
+            .details-modal-img {
+                min-height: 300px;
+            }
+            
+            .details-modal-actions,
+            .cart-modal-actions {
+                flex-direction: column;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .nav-links {
+                gap: 15px;
+            }
+            
+            .nav-links a {
+                font-size: 0.9rem;
+            }
+            
+            .hero-title {
+                font-size: 2.4rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.05rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .hero-btn, .showroom-btn {
+                padding: 15px 40px;
+                font-size: 1rem;
+            }
+            
+            .details-modal-container,
+            .cart-modal-container {
+                padding: 20px;
+            }
+            
+            .cart-notification {
+                top: 100px;
+                right: 15px;
+                width: calc(100% - 30px);
+                max-width: 350px;
+            }
+        }
+    </style>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation with Cart -->
+    <nav id="mainNav">
+        <div class="logo">LUXE</div>
+        <div class="nav-links">
+            <a href="homepage.html" class="active">Home</a>
+            <a href="collections.html">Collections</a>
+            <a href="showroom.html">Showroom</a>
+            <a href="about.html">About</a>
+            <a href="contact.html">Contact</a>
+            <div class="cart-icon" onclick="window.location.href='cart.html'">
+                <i class="fas fa-shopping-bag"></i>
+                <div class="cart-count">0</div>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content" id="heroContent">
+            <h1 class="hero-title">Craft Your Dream Furniture</h1>
+            <p class="hero-subtitle">Experience bespoke luxury with our handcrafted collections or visit our stunning showroom.</p>
+            <button class="hero-btn" id="exploreBtn">Explore Collections</button>
+        </div>
+        <div class="hero-image" id="heroImage"></div>
+    </section>
+    
+    <!-- Featured Collections -->
+    <section class="collections">
+        <h2 class="section-title">Our Signature Collections</h2>
+        <div class="collection-grid" id="collectionGrid">
+            <div class="collection-card">
+                <div class="collection-img" style="background-image: url('./royal.jpg');"></div>
+                <div class="collection-info">
+                    <h3 class="collection-name">Royal Heritage</h3>
+                    <p class="collection-desc">Inspired by 18th century European craftsmanship with modern functionality.</p>
+                    <div class="collection-price">From $2,499</div>
+                    <div class="collection-actions">
+                        <button class="collection-link view-details" data-id="1">View Details</button>
+                        <button class="collection-link add-to-cart" data-id="1">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+            <div class="collection-card">
+                <div class="collection-img" style="background-image: url('https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80');"></div>
+                <div class="collection-info">
+                    <h3 class="collection-name">Modern Opulence</h3>
+                    <p class="collection-desc">Sleek designs with luxurious materials for the contemporary home.</p>
+                    <div class="collection-price">From $1,899</div>
+                    <div class="collection-actions">
+                        <button class="collection-link view-details" data-id="2">View Details</button>
+                        <button class="collection-link add-to-cart" data-id="2">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+            <div class="collection-card">
+                <div class="collection-img" style="background-image: url('https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1527&q=80');"></div>
+                <div class="collection-info">
+                    <h3 class="collection-name">Artisan Series</h3>
+                    <p class="collection-desc">Hand-carved pieces showcasing exceptional craftsmanship and detail.</p>
+                    <div class="collection-price">From $3,299</div>
+                    <div class="collection-actions">
+                        <button class="collection-link view-details" data-id="3">View Details</button>
+                        <button class="collection-link add-to-cart" data-id="3">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Showroom Section - Replaced Custom Builder -->
+    <section class="showroom-section">
+        <div class="showroom-container">
+            <h2 class="showroom-title">Visit Our Showroom</h2>
+            <p class="showroom-subtitle">Experience our furniture in beautifully designed room settings</p>
+            
+            <div class="showroom-features">
+                <div class="showroom-feature">
+                    <div class="feature-icon">
+                        <i class="fas fa-couch"></i>
+                    </div>
+                    <h3 class="feature-title">Hands-On Experience</h3>
+                    <p class="feature-desc">Test comfort and quality before you buy</p>
+                </div>
+                <div class="showroom-feature">
+                    <div class="feature-icon">
+                        <i class="fas fa-palette"></i>
+                    </div>
+                    <h3 class="feature-title">Material Samples</h3>
+                    <p class="feature-desc">See all available fabrics and finishes</p>
+                </div>
+                <div class="showroom-feature">
+                    <div class="feature-icon">
+                        <i class="fas fa-user-tie"></i>
+                    </div>
+                    <h3 class="feature-title">Design Experts</h3>
+                    <p class="feature-desc">Get personalized recommendations</p>
+                </div>
+            </div>
+            
+            <a href="showroom.html" class="showroom-btn">Schedule Your Visit</a>
+        </div>
+    </section>
+    
+    <!-- Testimonials -->
+    <section class="testimonials">
+        <h2 class="section-title">Client Testimonials</h2>
+        <div class="testimonial-grid" id="testimonialGrid">
+            <div class="testimonial-card">
+                <p class="testimonial-text">The Royal Heritage dining set has transformed our home. The craftsmanship is unparalleled, and it's become the centerpiece of our family gatherings.</p>
+                <div class="testimonial-author">
+                    <div class="author-img" style="background-image: url('https://randomuser.me/api/portraits/women/45.jpg');"></div>
+                    <div class="author-info">
+                        <h4>Elizabeth Windsor</h4>
+                        <p>London, UK</p>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-card">
+                <p class="testimonial-text">Working with Luxe to furnish our penthouse was an exceptional experience. Their attention to detail and quality is matched only by their stunning designs.</p>
+                <div class="testimonial-author">
+                    <div class="author-img" style="background-image: url('https://randomuser.me/api/portraits/men/32.jpg');"></div>
+                    <div class="author-info">
+                        <h4>James Vanderbilt</h4>
+                        <p>New York, USA</p>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-card">
+                <p class="testimonial-text">Visiting the Luxe showroom made all the difference. Seeing the furniture in person helped us make the perfect choices for our home.</p>
+                <div class="testimonial-author">
+                    <div class="author-img" style="background-image: url('https://randomuser.me/api/portraits/women/68.jpg');"></div>
+                    <div class="author-info">
+                        <h4>Sophia Laurent</h4>
+                        <p>Paris, France</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h3>LUXE</h3>
+                <p>Where timeless elegance meets modern craftsmanship in every piece we create.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-pinterest-p"></i></a>
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h3>Explore</h3>
+                <ul>
+                    <li><a href="collections.html">Collections</a></li>
+                    <li><a href="showroom.html">Showroom</a></li>
+                    <li><a href="about.html">Our Story</a></li>
+                    <li><a href="blog.html">Design Blog</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3>Services</h3>
+                <ul>
+                    <li><a href="interior-design.html">Interior Design</a></li>
+                    <li><a href="delivery.html">Delivery & Installation</a></li>
+                    <li><a href="care.html">Care & Maintenance</a></li>
+                    <li><a href="warranty.html">Warranty</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3>Contact</h3>
+                <ul>
+                    <li><a href="tel:+18005551234">+1 (800) 555-1234</a></li>
+                    <li><a href="mailto:info@luxefurniture.com">info@luxefurniture.com</a></li>
+                    <li><a href="contact.html">Contact Form</a></li>
+                    <li><a href="appointment.html">Book Appointment</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2023 LUXE Furniture. All rights reserved. | <a href="privacy.html">Privacy Policy</a> | <a href="terms.html">Terms of Service</a></p>
+        </div>
+    </footer>
+    
+    <!-- View Details Modal -->
+    <div class="details-modal-overlay" id="detailsModalOverlay">
+        <div class="details-modal-container">
+            <span class="close-details-modal" id="closeDetailsModal">&times;</span>
+            <div class="details-modal-content" id="detailsModalContent">
+                <!-- Modal content will be added by JavaScript -->
+            </div>
+        </div>
+    </div>
+    
+    <!-- Add to Cart Modal -->
+    <div class="cart-modal-overlay" id="cartModalOverlay">
+        <div class="cart-modal-container">
+            <span class="close-cart-modal" id="closeCartModal">&times;</span>
+            <div class="cart-modal-content" id="cartModalContent">
+                <!-- Modal content will be added by JavaScript -->
+            </div>
+        </div>
+    </div>
+    
+    <!-- Add to Cart Notification -->
+    <div class="cart-notification" id="cartNotification">
+        <i class="fas fa-check-circle"></i>
+        <span id="notificationText">Item added to cart!</span>
+    </div>
+    
+    <script>
+        // Collection data for homepage featured items
+        const featuredCollections = [
+            {
+                id: 1,
+                name: "Royal Heritage",
+                price: 2499,
+                image: "./royal.jpg",
+                description: "Inspired by 18th century European craftsmanship with modern functionality.",
+                history: "This collection draws inspiration from the royal courts of Europe, blending traditional craftsmanship with contemporary comfort. Each piece is handcrafted by our master artisans using techniques passed down through generations."
+            },
+            {
+                id: 2,
+                name: "Modern Opulence",
+                price: 1899,
+                image: "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
+                description: "Sleek designs with luxurious materials for the contemporary home.",
+                history: "Our Modern Opulence line was developed in collaboration with award-winning designers to create pieces that embody minimalist luxury. The collection features sustainable materials and innovative construction techniques."
+            },
+            {
+                id: 3,
+                name: "Artisan Series",
+                price: 3299,
+                image: "https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1527&q=80",
+                description: "Hand-carved pieces showcasing exceptional craftsmanship and detail.",
+                history: "Each piece in our Artisan Series is a unique work of art, signed by the craftsman who created it. Limited to 100 pieces per design, these heirloom-quality items are made using traditional techniques with premium materials."
+            }
+        ];
+
+        // DOM elements
+        const cartModalOverlay = document.getElementById('cartModalOverlay');
+        const closeCartModal = document.getElementById('closeCartModal');
+        const cartModalContent = document.getElementById('cartModalContent');
+        const cartCount = document.querySelector('.cart-count');
+        const mainNav = document.getElementById('mainNav');
+        const cartNotification = document.getElementById('cartNotification');
+        const notificationText = document.getElementById('notificationText');
+        const addToCartButtons = document.querySelectorAll('.add-to-cart');
+        const viewDetailsButtons = document.querySelectorAll('.view-details');
+        const detailsModalOverlay = document.getElementById('detailsModalOverlay');
+        const closeDetailsModal = document.getElementById('closeDetailsModal');
+        const detailsModalContent = document.getElementById('detailsModalContent');
+        
+        // Cart state
+        let cart = JSON.parse(localStorage.getItem('cartItems')) || [];
+        let currentItem = null;
+        
+        // Initialize the page
+        function init() {
+            setupEventListeners();
+            checkNavScroll();
+            updateCartCount();
+        }
+
+        function setupEventListeners() {
+            // Add to cart buttons
+            addToCartButtons.forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const itemId = parseInt(this.dataset.id);
+                    showAddToCartModal(itemId);
+                });
+            });
+            
+            // View details buttons
+            viewDetailsButtons.forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const itemId = parseInt(this.dataset.id);
+                    showDetailsModal(itemId);
+                });
+            });
+            
+            // Modal close buttons
+            closeCartModal.addEventListener('click', closeAddToCartModal);
+            closeDetailsModal.addEventListener('click', closeDetailsModalFunc);
+            
+            // Close modals when clicking outside
+            cartModalOverlay.addEventListener('click', function(e) {
+                if (e.target === cartModalOverlay) {
+                    closeAddToCartModal();
+                }
+            });
+            
+            detailsModalOverlay.addEventListener('click', function(e) {
+                if (e.target === detailsModalOverlay) {
+                    closeDetailsModalFunc();
+                }
+            });
+            
+            // Nav scroll effect
+            window.addEventListener('scroll', checkNavScroll);
+            
+            // Hero button click
+            document.getElementById('exploreBtn').addEventListener('click', function() {
+                window.location.href = 'collections.html';
+            });
+        }
+        
+        function checkNavScroll() {
+            if (window.scrollY > 50) {
+                mainNav.classList.add('scrolled');
+            } else {
+                mainNav.classList.remove('scrolled');
+            }
+        }
+        
+        function showDetailsModal(itemId) {
+            currentItem = featuredCollections.find(item => item.id === itemId);
+            
+            if (!currentItem) return;
+            
+            const priceFormatted = `$${currentItem.price.toLocaleString()}`;
+            
+            detailsModalContent.innerHTML = `
+                <div class="details-modal-img" style="background-image: url('${currentItem.image}')"></div>
+                <div class="details-modal-info">
+                    <h2 class="details-modal-name">${currentItem.name}</h2>
+                    <div class="details-modal-price">${priceFormatted}</div>
+                    <p class="details-modal-description">${currentItem.description}</p>
+                    
+                    <div class="details-modal-history">
+                        <h3>Collection Story</h3>
+                        <p>${currentItem.history}</p>
+                    </div>
+                    
+                    <div class="details-modal-actions">
+                        <button class="details-continue-shopping" id="detailsContinueShopping">Continue Shopping</button>
+                        <button class="details-add-to-cart" id="detailsAddToCart">Add to Cart</button>
+                    </div>
+                </div>
+            `;
+            
+            // Add event listeners to modal buttons
+            document.getElementById('detailsAddToCart').addEventListener('click', () => {
+                closeDetailsModalFunc();
+                showAddToCartModal(currentItem.id);
+            });
+            
+            document.getElementById('detailsContinueShopping').addEventListener('click', closeDetailsModalFunc);
+            
+            // Show modal with animation
+            detailsModalOverlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        
+        function closeDetailsModalFunc() {
+            detailsModalOverlay.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+        
+        function showAddToCartModal(itemId) {
+            currentItem = featuredCollections.find(item => item.id === itemId);
+            
+            if (!currentItem) return;
+            
+            const priceFormatted = `$${currentItem.price.toLocaleString()}`;
+            
+            cartModalContent.innerHTML = `
+                <div class="cart-modal-img" style="background-image: url('${currentItem.image}')"></div>
+                <div class="cart-modal-info">
+                    <h2 class="cart-modal-name">${currentItem.name}</h2>
+                    <div class="cart-modal-price">${priceFormatted}</div>
+                    <p class="details-modal-description">${currentItem.description}</p>
+                    
+                    <div class="quantity-selector">
+                        <button class="quantity-btn minus">-</button>
+                        <input type="text" class="quantity" value="1" readonly>
+                        <button class="quantity-btn plus">+</button>
+                    </div>
+                    
+                    <div class="cart-modal-actions">
+                        <button class="cart-continue-shopping" id="cartContinueShopping">Continue Shopping</button>
+                        <button class="cart-modal-add-to-cart" id="cartModalAddToCart">Add to Cart</button>
+                    </div>
+                </div>
+            `;
+            
+            // Add event listeners to modal buttons
+            document.getElementById('cartModalAddToCart').addEventListener('click', addToCart);
+            document.getElementById('cartContinueShopping').addEventListener('click', closeAddToCartModal);
+            
+            // Quantity controls
+            const minusBtn = document.querySelector('.quantity-btn.minus');
+            const plusBtn = document.querySelector('.quantity-btn.plus');
+            const quantityInput = document.querySelector('.quantity');
+            
+            let quantity = 1;
+            
+            minusBtn.addEventListener('click', function() {
+                if (quantity > 1) {
+                    quantity--;
+                    quantityInput.value = quantity;
+                }
+            });
+            
+            plusBtn.addEventListener('click', function() {
+                quantity++;
+                quantityInput.value = quantity;
+            });
+            
+            // Show modal with animation
+            cartModalOverlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        
+        function closeAddToCartModal() {
+            cartModalOverlay.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+        
+        function addToCart() {
+            if (!currentItem) return;
+            
+            const quantity = parseInt(document.querySelector('.quantity').value);
+            
+            // Check if item already exists in cart
+            const existingItemIndex = cart.findIndex(item => item.id === currentItem.id);
+            
+            if (existingItemIndex >= 0) {
+                // Update quantity if item exists
+                cart[existingItemIndex].quantity += quantity;
+            } else {
+                // Add new item to cart
+                cart.push({
+                    ...currentItem,
+                    quantity: quantity
+                });
+            }
+            
+            // Update localStorage and cart count
+            localStorage.setItem('cartItems', JSON.stringify(cart));
+            updateCartCount();
+            
+            // Show notification
+            showCartNotification(`${currentItem.name} (${quantity}x) added to cart!`);
+            
+            // Close modal
+            closeAddToCartModal();
+        }
+        
+        function showCartNotification(message) {
+            notificationText.textContent = message;
+            cartNotification.classList.add('active');
+            
+            setTimeout(() => {
+                cartNotification.classList.remove('active');
+            }, 3000);
+        }
+        
+        function updateCartCount() {
+            const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
+            cartCount.textContent = totalItems;
+            
+            // Add animation to cart icon
+            const cartIcon = document.querySelector('.cart-icon');
+            cartIcon.style.transform = 'scale(1.2)';
+            setTimeout(() => {
+                cartIcon.style.transform = 'scale(1)';
+            }, 300);
+        }
+
+        // Scroll animations
+        const animateOnScroll = function() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+            
+            const elements = document.querySelectorAll('.hero-content, .hero-image, .collection-card, .testimonial-card, .showroom-feature, .showroom-container');
+            elements.forEach(element => {
+                observer.observe(element);
+            });
+        };
+        
+        // Initialize when DOM is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            init();
+            animateOnScroll();
+            
+            // Make hero content visible immediately
+            document.querySelector('.hero-content').classList.add('visible');
+            document.querySelector('.hero-image').classList.add('visible');
+            
+            // Set active nav link
+            const currentPage = window.location.pathname.split('/').pop() || 'homepage.html';
+            const navLinks = document.querySelectorAll('.nav-links a');
+            
+            navLinks.forEach(link => {
+                const linkPage = link.getAttribute('href');
+                if (currentPage === linkPage) {
+                    link.classList.add('active');
+                } else {
+                    link.classList.remove('active');
+                }
+            });
+        });
+        
+        // Optimized parallax effect with requestAnimationFrame
+        let lastScroll = 0;
+        const heroSection = document.querySelector('.hero');
+        
+        const handleParallax = function() {
+            if (!heroSection) return;
+            
+            const rect = heroSection.getBoundingClientRect();
+            const isInView = rect.top < window.innerHeight && rect.bottom >= 0;
+            
+            if (isInView) {
+                requestAnimationFrame(() => {
+                    heroSection.addEventListener('mousemove', (e) => {
+                        const xAxis = (window.innerWidth / 2 - e.pageX) / 25;
+                        const yAxis = (window.innerHeight / 2 - e.pageY) / 25;
+                        document.querySelector('.hero-content').style.transform = `translateY(0) translateX(${xAxis}px) translateY(${yAxis}px)`;
+                        document.querySelector('.hero-image').style.transform = `perspective(1000px) rotateY(0deg) translateX(${-xAxis}px) translateY(${yAxis}px)`;
+                    });
+                });
+            }
+        };
+        
+        window.addEventListener('scroll', function() {
+            const currentScroll = window.pageYOffset;
+            if (Math.abs(lastScroll - currentScroll) <= 5) return;
+            lastScroll = currentScroll;
+            handleParallax();
+        });
+        
+        handleParallax();
+    </script>
+</body>
+</html>
