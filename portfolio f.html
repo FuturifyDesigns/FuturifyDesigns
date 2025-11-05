@@ -1429,11 +1429,9 @@
                 
                 card.addEventListener('click', (e) => {
                     // Don't trigger if clicking the "View Demo" button
-                    if (e.target.closest('.demo-button')) {
+                    if (e.target.closest('.view-demo-btn')) {
                         return;
                     }
-                    
-                    e.preventDefault();
                     
                     if (!isSliding) {
                         // Start slideshow
