@@ -1,0 +1,996 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>AquaWorld - Explore Aquatic Life</title>
+<style>
+    :root {
+      --dark-blue: #0a2647;
+      --medium-blue: #144272;
+      --light-blue: #205295;
+      --highlight-blue: #2C74B3;
+      --white: #f8f9fa;
+      --off-white: #e9ecef;
+      --text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+      --font-smooth: antialiased;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Montserrat', sans-serif;
+      -webkit-font-smoothing: var(--font-smooth);
+      -moz-osx-font-smoothing: grayscale;
+    }
+    
+    body {
+      background: linear-gradient(135deg, var(--dark-blue), var(--medium-blue));
+      color: var(--off-white);
+      min-height: 100vh;
+      line-height: 1.7;
+      font-weight: 400;
+      text-rendering: optimizeLegibility;
+    }
+    
+    /* Water wave animation */
+    .water-wave-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -2;
+      overflow: hidden;
+    }
+    
+    .wave-layer {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 200%;
+      height: 100%;
+      background-repeat: repeat-x;
+      opacity: 0.1;
+      animation: waveAnimation 15s linear infinite;
+    }
+    
+    .wave-layer-1 {
+      background: url('data:image/svg+xml;utf8,<svg viewBox="0 0 1200 120" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"><path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z" fill="%232C74B3" opacity=".25"/><path d="M0,0V15.81C13,36.92,27.64,56.86,47.69,72.05,99.41,111.27,165,111,224.58,91.58c31.15-10.15,60.09-26.07,89.67-39.8,40.92-19,84.73-46,130.83-49.67,36.26-2.85,70.9,9.42,98.6,31.56,31.77,25.39,62.32,62,103.63,73,40.44,10.79,81.35-6.69,119.13-24.28s75.16-39,116.92-43.05c59.73-5.85,113.28,22.88,168.9,38.84,30.2,8.66,59,6.17,87.09-7.5,22.43-10.89,48-26.93,60.65-49.24V0Z" fill="%232C74B3" opacity=".5"/><path d="M0,0V5.63C149.93,59,314.09,71.32,475.83,42.57c43-7.64,84.23-20.12,127.61-26.46,59-8.63,112.48,12.24,165.56,35.4C827.93,77.22,886,95.24,951.2,90c86.53-7,172.46-45.71,248.8-84.81V0Z" fill="%232C74B3"/></svg>');
+      animation-duration: 15s;
+    }
+    
+    .wave-layer-2 {
+      background: url('data:image/svg+xml;utf8,<svg viewBox="0 0 1200 120" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"><path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z" fill="%232C74B3" opacity=".25"/><path d="M0,0V15.81C13,36.92,27.64,56.86,47.69,72.05,99.41,111.27,165,111,224.58,91.58c31.15-10.15,60.09-26.07,89.67-39.8,40.92-19,84.73-46,130.83-49.67,36.26-2.85,70.9,9.42,98.6,31.56,31.77,25.39,62.32,62,103.63,73,40.44,10.79,81.35-6.69,119.13-24.28s75.16-39,116.92-43.05c59.73-5.85,113.28,22.88,168.9,38.84,30.2,8.66,59,6.17,87.09-7.5,22.43-10.89,48-26.93,60.65-49.24V0Z" fill="%232C74B3" opacity=".5"/><path d="M0,0V5.63C149.93,59,314.09,71.32,475.83,42.57c43-7.64,84.23-20.12,127.61-26.46,59-8.63,112.48,12.24,165.56,35.4C827.93,77.22,886,95.24,951.2,90c86.53-7,172.46-45.71,248.8-84.81V0Z" fill="%232C74B3"/></svg>');
+      animation-duration: 20s;
+      animation-direction: reverse;
+      opacity: 0.15;
+    }
+    
+    .wave-layer-3 {
+      background: url('data:image/svg+xml;utf8,<svg viewBox="0 0 1200 120" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"><path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z" fill="%232C74B3" opacity=".25"/><path d="M0,0V15.81C13,36.92,27.64,56.86,47.69,72.05,99.41,111.27,165,111,224.58,91.58c31.15-10.15,60.09-26.07,89.67-39.8,40.92-19,84.73-46,130.83-49.67,36.26-2.85,70.9,9.42,98.6,31.56,31.77,25.39,62.32,62,103.63,73,40.44,10.79,81.35-6.69,119.13-24.28s75.16-39,116.92-43.05c59.73-5.85,113.28,22.88,168.9,38.84,30.2,8.66,59,6.17,87.09-7.5,22.43-10.89,48-26.93,60.65-49.24V0Z" fill="%232C74B3" opacity=".5"/><path d="M0,0V5.63C149.93,59,314.09,71.32,475.83,42.57c43-7.64,84.23-20.12,127.61-26.46,59-8.63,112.48,12.24,165.56,35.4C827.93,77.22,886,95.24,951.2,90c86.53-7,172.46-45.71,248.8-84.81V0Z" fill="%232C74B3"/></svg>');
+      animation-duration: 25s;
+      opacity: 0.1;
+    }
+    
+    @keyframes waveAnimation {
+      0% {
+        transform: translateX(0);
+      }
+      100% {
+        transform: translateX(-50%);
+      }
+    }
+    
+    .container {
+      width: 90%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px 0;
+    }
+    
+    /* Enhanced Typography */
+    h1, h2, h3, h4, h5, h6 {
+      font-weight: 700;
+      line-height: 1.2;
+      letter-spacing: -0.5px;
+      margin-bottom: 0.8em;
+      color: var(--white);
+    }
+    
+    h1 {
+      font-size: clamp(2.5rem, 5vw, 3.8rem);
+      font-weight: 800;
+      letter-spacing: -1px;
+    }
+    
+    h2 {
+      font-size: clamp(2rem, 4vw, 2.8rem);
+    }
+    
+    h3 {
+      font-size: clamp(1.5rem, 3vw, 1.9rem);
+    }
+    
+    p {
+      font-size: clamp(1rem, 2vw, 1.15rem);
+      margin-bottom: 1.5em;
+      font-weight: 400;
+      color: var(--off-white);
+      opacity: 0.95;
+    }
+    
+    /* Header Styles */
+    header {
+      background: rgba(10, 38, 71, 0.9);
+      padding: 20px 0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+      transition: transform 0.3s ease;
+    }
+    
+    .header-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .logo-icon {
+      width: 40px;
+      height: 40px;
+      background: var(--highlight-blue);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 20px;
+      transition: all 0.3s ease;
+    }
+    
+    .logo-text {
+      font-size: 24px;
+      font-weight: 700;
+      position: relative;
+      transition: all 0.3s ease;
+    }
+    
+    /* Enhanced Logo Hover Effects */
+    .logo a {
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 5px 10px;
+      border-radius: 5px;
+      text-decoration: none;
+      color: var(--white);
+      transition: all 0.3s ease;
+    }
+    
+    .logo:hover a {
+      text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+    }
+    
+    .logo:hover .logo-icon {
+      transform: scale(1.1);
+    }
+    
+    .logo:hover .logo-icon::before {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      background: var(--highlight-blue);
+      animation: pulse 1.5s infinite;
+      z-index: -1;
+    }
+    
+    @keyframes pulse {
+      0% {
+        transform: scale(0.95);
+        box-shadow: 0 0 0 0 rgba(44, 116, 179, 0.7);
+      }
+      70% {
+        transform: scale(1);
+        box-shadow: 0 0 0 10px rgba(44, 116, 179, 0);
+      }
+      100% {
+        transform: scale(0.95);
+        box-shadow: 0 0 0 0 rgba(44, 116, 179, 0);
+      }
+    }
+    
+    .logo-text::before {
+      content: '';
+      position: absolute;
+      top: -5px;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: var(--highlight-blue);
+      transform: scaleX(0);
+      transform-origin: right;
+      transition: transform 0.5s ease;
+    }
+    
+    .logo-text::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: var(--highlight-blue);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.5s ease;
+    }
+    
+    .logo:hover .logo-text::before,
+    .logo:hover .logo-text::after {
+      transform: scaleX(1);
+      transform-origin: left;
+    }
+    
+    nav ul {
+      display: flex;
+      list-style: none;
+      gap: 20px;
+    }
+    
+    nav a {
+      color: var(--white);
+      text-decoration: none;
+      font-weight: 500;
+      padding: 5px 10px;
+      border-radius: 5px;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+      font-size: 1.05rem;
+      letter-spacing: 0.5px;
+    }
+    
+    /* Water Wave Hover Effect */
+    nav a::before {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: var(--highlight-blue);
+      transform: scaleX(0);
+      transform-origin: right;
+      transition: transform 0.5s ease;
+      z-index: -1;
+    }
+    
+    nav a:hover::before {
+      transform: scaleX(1);
+      transform-origin: left;
+    }
+    
+    /* Bubble Ripple Effect */
+    nav a::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 5px;
+      height: 5px;
+      background: rgba(255, 255, 255, 0.4);
+      opacity: 0;
+      border-radius: 100%;
+      transform: scale(1, 1) translate(-50%);
+      transform-origin: 50% 50%;
+    }
+    
+    nav a:hover::after {
+      animation: ripple 1s ease-out;
+    }
+    
+    @keyframes ripple {
+      0% {
+        transform: scale(0, 0);
+        opacity: 0.5;
+      }
+      100% {
+        transform: scale(20, 20);
+        opacity: 0;
+      }
+    }
+    
+    nav a:hover {
+      background: rgba(255, 255, 255, 0.1);
+      transform: translateY(-2px);
+    }
+    
+    .active {
+      background: var(--highlight-blue);
+      box-shadow: 0 0 10px rgba(44, 116, 179, 0.7);
+    }
+    
+    .active:hover {
+      transform: none;
+    }
+    
+    /* Hero Section */
+    .hero {
+      height: 90vh;
+      display: flex;
+      align-items: center;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle, rgba(44, 116, 179, 0.2) 0%, rgba(10, 38, 71, 0.8) 70%);
+      z-index: -1;
+    }
+    
+    .hero-content {
+      width: 100%;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    
+    .hero h1 {
+      font-size: clamp(2.5rem, 5vw, 3.8rem);
+      margin-bottom: 1.5rem;
+      text-shadow: var(--text-shadow);
+      font-weight: 800;
+      line-height: 1.2;
+      letter-spacing: -1.5px;
+    }
+    
+    .hero p {
+      font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+      max-width: 700px;
+      margin: 0 auto 2.5rem;
+      opacity: 0.95;
+      text-shadow: var(--text-shadow);
+      font-weight: 400;
+      line-height: 1.6;
+    }
+    
+    .btn {
+      display: inline-block;
+      background: var(--highlight-blue);
+      color: var(--white);
+      padding: 14px 32px;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      border: none;
+      cursor: pointer;
+      font-size: 1.1rem;
+      text-shadow: var(--text-shadow);
+      letter-spacing: 0.5px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
+    
+    .btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+      background: #1a6bb4;
+    }
+    
+    /* Preview Sections */
+    .preview-section {
+      padding: 80px 0;
+    }
+    
+    .section-title {
+      text-align: center;
+      margin-bottom: 60px;
+      font-size: clamp(2rem, 4vw, 2.8rem);
+      position: relative;
+      text-shadow: var(--text-shadow);
+    }
+    
+    .section-title::after {
+      content: '';
+      display: block;
+      width: 100px;
+      height: 5px;
+      background: var(--highlight-blue);
+      margin: 20px auto 0;
+      border-radius: 3px;
+      box-shadow: 0 2px 10px rgba(44, 116, 179, 0.5);
+    }
+    
+    /* Enhanced section title with sparkle effect */
+ .section-title-wrapper {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  text-align: center; 
+}
+    
+    .section-title-sparkle {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      overflow: hidden;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    
+    .section-title-sparkle span {
+      position: absolute;
+      display: block;
+      width: 10px;
+      height: 10px;
+      background: rgba(255, 255, 255, 0.8);
+      border-radius: 50%;
+      filter: blur(1px);
+      animation: sparkle 2s infinite;
+      opacity: 0;
+    }
+    
+    @keyframes sparkle {
+      0% {
+        transform: translate(0, 0) scale(0);
+        opacity: 0;
+      }
+      50% {
+        opacity: 1;
+      }
+      100% {
+        transform: translate(var(--sparkle-x), var(--sparkle-y)) scale(1);
+        opacity: 0;
+      }
+    }
+    
+    .preview-content {
+      display: flex;
+      align-items: center;
+      gap: 50px;
+      background: rgba(255, 255, 255, 0.05);
+      padding: 40px;
+      border-radius: 15px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+      position: relative;
+      overflow: hidden;
+      transition: all 0.3s ease;
+      border: 1px solid rgba(44, 116, 179, 0.3);
+    }
+    
+    /* Enhanced Water pulse animation for preview boxes */
+    .preview-content::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border-radius: 15px;
+      background: transparent;
+      z-index: -1;
+      transition: all 0.5s ease;
+      box-shadow: 0 0 20px rgba(44, 116, 179, 0);
+    }
+    
+    .preview-content:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
+      background: rgba(255, 255, 255, 0.08);
+      border-color: rgba(44, 116, 179, 0.5);
+    }
+    
+    .preview-content:hover::before {
+      animation: waterPulse 2s infinite;
+      box-shadow: 0 0 30px rgba(44, 116, 179, 0.6);
+    }
+    
+    @keyframes waterPulse {
+      0% {
+        box-shadow: 0 0 0 0 rgba(44, 116, 179, 0.6),
+                    0 0 30px rgba(44, 116, 179, 0.6);
+      }
+      70% {
+        box-shadow: 0 0 0 20px rgba(44, 116, 179, 0),
+                    0 0 30px rgba(44, 116, 179, 0.6);
+      }
+      100% {
+        box-shadow: 0 0 0 0 rgba(44, 116, 179, 0),
+                    0 0 30px rgba(44, 116, 179, 0.6);
+      }
+    }
+    
+    /* Glowing border effect */
+    .preview-content::after {
+      content: '';
+      position: absolute;
+      top: -2px;
+      left: -2px;
+      right: -2px;
+      bottom: -2px;
+      border-radius: 17px;
+      background: linear-gradient(45deg, 
+                    rgba(44, 116, 179, 0.8), 
+                    rgba(44, 116, 179, 0.4), 
+                    rgba(44, 116, 179, 0.8));
+      z-index: -1;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    
+    .preview-content:hover::after {
+      opacity: 1;
+      animation: borderGlow 3s linear infinite;
+    }
+    
+    @keyframes borderGlow {
+      0% {
+        background-position: 0% 50%;
+      }
+      50% {
+        background-position: 100% 50%;
+      }
+      100% {
+        background-position: 0% 50%;
+      }
+    }
+    
+    .preview-text {
+      flex: 1;
+      position: relative;
+    }
+    
+    .preview-text h3 {
+      font-size: clamp(1.5rem, 3vw, 1.9rem);
+      margin-bottom: 1.5rem;
+      color: var(--highlight-blue);
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+      transition: all 0.3s ease;
+      position: relative;
+    }
+    
+    /* Text illumination effect */
+    .preview-content:hover .preview-text h3 {
+      color: var(--white);
+      text-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
+    }
+    
+    .preview-content:hover .preview-text p {
+      color: var(--white);
+      text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+    }
+    
+    .preview-text p {
+      margin-bottom: 1.8rem;
+      font-size: clamp(1rem, 2vw, 1.15rem);
+      line-height: 1.7;
+      color: var(--off-white);
+      transition: all 0.3s ease;
+    }
+    
+    .preview-image {
+      flex: 1;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+      transition: transform 0.3s ease;
+    }
+    
+    /* Added image hover effect from Catalog page */
+    .preview-image img {
+      width: 100%;
+      height: auto;
+      display: block;
+      transition: transform 0.5s ease;
+    }
+    
+    .preview-content:hover .preview-image {
+      transform: translateY(-8px);
+    }
+    
+    .preview-content:hover .preview-image img {
+      transform: scale(1.1);
+    }
+    
+    /* Sparkle effect for section titles on hover */
+    .preview-section:hover .section-title-sparkle {
+      opacity: 1;
+    }
+    
+    /* Footer */
+    footer {
+      background: var(--dark-blue);
+      padding: 60px 0 40px;
+      text-align: center;
+    }
+    
+    .footer-content {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 40px;
+      margin-bottom: 40px;
+    }
+    
+    .footer-section {
+      flex: 1;
+      min-width: 250px;
+      text-align: left;
+    }
+    
+    .footer-section h3 {
+      margin-bottom: 1.5rem;
+      font-size: 1.4rem;
+      position: relative;
+      display: inline-block;
+    }
+    
+    .footer-section h3::after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      left: 0;
+      width: 50px;
+      height: 3px;
+      background: var(--highlight-blue);
+    }
+    
+    .footer-section ul {
+      list-style: none;
+    }
+    
+    .footer-section ul li {
+      margin-bottom: 12px;
+      line-height: 1.6;
+    }
+    
+    .footer-section a {
+      color: var(--off-white);
+      text-decoration: none;
+      opacity: 0.9;
+      transition: all 0.3s ease;
+      font-size: 1.05rem;
+    }
+    
+    .footer-section a:hover {
+      opacity: 1;
+      color: var(--white);
+      padding-left: 5px;
+    }
+    
+    .social-links {
+      display: flex;
+      justify-content: flex-start;
+      gap: 15px;
+      margin-top: 20px;
+    }
+    
+    .social-links a {
+      display: inline-block;
+      width: 45px;
+      height: 45px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+      color: var(--white);
+      font-size: 1.2rem;
+    }
+    
+    .social-links a:hover {
+      background: var(--highlight-blue);
+      transform: translateY(-5px);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+    
+    .copyright {
+      margin-top: 40px;
+      opacity: 0.8;
+      font-size: 0.95rem;
+      color: var(--off-white);
+    }
+    
+    /* Responsive Styles */
+    @media (max-width: 992px) {
+      .preview-content {
+        flex-direction: column;
+      }
+      
+      .hero h1 {
+        font-size: 2.8rem;
+      }
+      
+      .preview-text, .preview-image {
+        width: 100%;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .header-container {
+        flex-direction: column;
+        gap: 20px;
+      }
+      
+      nav ul {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      
+      .hero h1 {
+        font-size: 2.4rem;
+      }
+      
+      .hero p {
+        font-size: 1.1rem;
+      }
+      
+      .preview-section {
+        padding: 60px 0;
+      }
+      
+      .preview-content {
+        padding: 30px;
+      }
+    }
+    
+    @media (max-width: 576px) {
+      .hero {
+        height: 85vh;
+      }
+      
+      .section-title {
+        font-size: 2rem;
+        margin-bottom: 40px;
+      }
+      
+      .btn {
+        padding: 12px 25px;
+      }
+      
+      .footer-section {
+        text-align: center;
+      }
+      
+      .footer-section h3::after {
+        left: 50%;
+        transform: translateX(-50%);
+      }
+      
+      .social-links {
+        justify-content: center;
+      }
+    }
+  </style>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet"/>
+</head>
+<body>
+<!-- Water wave background animation -->
+<div class="water-wave-bg">
+<div class="wave-layer wave-layer-1"></div>
+<div class="wave-layer wave-layer-2"></div>
+<div class="wave-layer wave-layer-3"></div>
+</div>
+<!-- Header -->
+<header>
+<div class="container header-container">
+<div class="logo">
+<a href="AquaWorld%20Website.html">
+<div class="logo-icon">A</div>
+<div class="logo-text">AquaWorld</div>
+</a>
+</div>
+<nav>
+<ul>
+<li><a class="active" href="Homepage%20AquaWorld.html">Home</a></li>
+<li><a href="About%20us%20aqua.html">About</a></li>
+<li><a href="Catalog.html">Catalog</a></li>
+<li><a href="Creatures.html">Creatures</a></li>
+</ul>
+</nav>
+</div>
+</header>
+<!-- Hero Section -->
+<section class="hero">
+<div class="container hero-content">
+<h1>Discover the Wonders of Aquatic Life</h1>
+<p>Explore the fascinating world beneath the waves with our comprehensive guide to marine and freshwater species from around the globe.</p>
+<a class="btn" href="Creatures.html">Explore Creatures</a>
+</div>
+</section>
+<!-- About Preview -->
+<section class="preview-section" style="background: linear-gradient(to bottom, var(--medium-blue), var(--light-blue));">
+<div class="container">
+<div class="section-title-wrapper">
+<h2 class="section-title">About AquaWorld</h2>
+<div class="section-title-sparkle" id="about-sparkle"></div>
+</div>
+<div class="preview-content">
+<div class="preview-text">
+<h3>Our Mission</h3>
+<p>AquaWorld is dedicated to educating people about the incredible diversity of aquatic life. Our goal is to inspire conservation efforts and foster appreciation for these amazing creatures and their habitats.</p>
+<p>Founded in 2023 by marine biologists and conservationists, we provide accurate, up-to-date information about marine and freshwater species from around the world.</p>
+<a class="btn" href="About%20us%20aqua.html">Learn More</a>
+</div>
+<div class="preview-image">
+<img alt="Diver surveying coral reef" src="Marine_Our Mission.png"/>
+</div>
+</div>
+</div>
+</section>
+<!-- Catalog Preview -->
+<section class="preview-section" style="background: linear-gradient(to bottom, var(--light-blue), var(--dark-blue));">
+<div class="container">
+<div class="section-title-wrapper">
+<h2 class="section-title">Aquatic Life Catalog</h2>
+<div class="section-title-sparkle" id="catalog-sparkle"></div>
+</div>
+<div class="preview-content">
+<div class="preview-image">
+<img alt="Coral Reef Ecosystem" src="wave.jpg" style="width: 100%; height: auto; display: block; object-fit: cover;"/>
+</div>
+<div class="preview-text">
+<h3>Explore Our Collections</h3>
+<p>Discover the vibrant ecosystems of coral reefs, the mysterious creatures of the deep sea, and the diverse species that thrive in freshwater environments around the world.</p>
+<p>Our comprehensive catalog provides detailed information about habitats, behaviors, and conservation status of various aquatic species.</p>
+<a class="btn" href="Catalog.html">View Catalog</a>
+</div>
+</div>
+</div>
+</section>
+<!-- Creatures Preview -->
+<section class="preview-section" style="background: linear-gradient(to bottom, var(--dark-blue), var(--medium-blue));">
+<div class="container">
+<h2 class="section-title">Featured Aquatic Creatures</h2>
+<div class="preview-content">
+<div class="preview-text">
+<h3>Meet Our Marine Life</h3>
+<p>Learn about fascinating aquatic creatures including clownfish, seahorses, octopuses, sea turtles, jellyfish, whale sharks, and dolphins.</p>
+<p>Each profile includes detailed information about their habitat, behavior, diet, and unique characteristics that make them special.</p>
+<a class="btn" href="Creatures.html">View Creatures</a>
+</div>
+<div class="preview-image">
+<img alt="Clownfish in anemone" src="marine life.jpg" style="width: 100%; height: auto; display: block; object-fit: cover;"/>
+</div>
+</div>
+</div>
+</section>
+<!-- Footer -->
+<footer>
+<div class="container">
+<div class="footer-content">
+<div class="footer-section">
+<h3>AquaWorld</h3>
+<p>Dedicated to marine conservation and education through accessible information about aquatic life.</p>
+<div class="social-links">
+<a href="#"><i class="fab fa-facebook-f"></i></a>
+<a href="#"><i class="fab fa-twitter"></i></a>
+<a href="#"><i class="fab fa-instagram"></i></a>
+<a href="#"><i class="fab fa-youtube"></i></a>
+</div>
+</div>
+<div class="footer-section">
+<h3>Quick Links</h3>
+<ul>
+<li><a href="Homepage%20AquaWorld.html">Home</a></li>
+<li><a href="About%20us%20aqua.html">About Us</a></li>
+<li><a href="Catalog.html">Catalog</a></li>
+<li><a href="Creatures.html">Creatures</a></li>
+</ul>
+</div>
+<div class="footer-section">
+<h3>Contact</h3>
+<ul>
+<li>Email: info@aquaworld.com</li>
+<li>Phone: (555) 123-4567</li>
+<li>Address: 123 Ocean Drive, Marine City</li>
+</ul>
+</div>
+</div>
+<div class="copyright">
+<p>© 2023 AquaWorld. All rights reserved.</p>
+</div>
+</div>
+</footer>
+<script>
+    // Header scroll effect
+    const header = document.querySelector('header');
+    let lastScroll = 0;
+    
+    window.addEventListener('scroll', function() {
+      const currentScroll = window.pageYOffset;
+      
+      if (currentScroll <= 0) {
+        header.style.transform = 'translateY(0)';
+        return;
+      }
+      
+      if (currentScroll > lastScroll && currentScroll > 100) {
+        // Scrolling down
+        header.style.transform = 'translateY(-100%)';
+      } else if (currentScroll < lastScroll) {
+        // Scrolling up
+        header.style.transform = 'translateY(0)';
+      }
+      
+      lastScroll = currentScroll;
+    });
+    
+    // Animation on scroll
+    const animateOnScroll = function() {
+      const elements = document.querySelectorAll('.preview-content');
+      
+      elements.forEach(element => {
+        const elementPosition = element.getBoundingClientRect().top;
+        const screenPosition = window.innerHeight / 1.3;
+        
+        if (elementPosition < screenPosition) {
+          element.style.opacity = '1';
+          element.style.transform = 'translateY(0)';
+        }
+      });
+    };
+    
+    // Set initial state for animation
+    document.querySelectorAll('.preview-content').forEach(el => {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(20px)';
+      el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+    });
+    
+    window.addEventListener('scroll', animateOnScroll);
+    animateOnScroll(); // Run once on load
+  </script>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const body = document.body;
+  body.style.opacity = 0;
+  body.style.transition = "opacity 1s ease-in-out";
+
+  setTimeout(() => {
+    body.style.opacity = 1;
+  }, 100);
+
+  const anchors = document.querySelectorAll("a[href]");
+  anchors.forEach(anchor => {
+    anchor.addEventListener("click", function (e) {
+      const url = this.getAttribute("href");
+      if (url.startsWith("#") || url.startsWith("mailto:") || url.startsWith("tel:")) return;
+
+      e.preventDefault();
+      body.style.opacity = 0;
+      setTimeout(() => {
+        window.location.href = url;
+      }, 500);
+    });
+  });
+});
+</script></body>
+</html>
