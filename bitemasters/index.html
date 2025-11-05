@@ -172,13 +172,17 @@
             height: 80vh;
             position: relative;
             overflow: hidden;
+            min-height: 500px;
         }
         
         .hero-slideshow {
             width: 100%;
             height: 100%;
-            position: relative;
+            position: absolute;
+            top: 0;
+            left: 0;
             overflow: hidden;
+            background-color: #1a1a1a;
         }
         
         .hero-slide {
@@ -187,20 +191,26 @@
             position: absolute;
             top: 0;
             left: 0;
+            right: 0;
+            bottom: 0;
             opacity: 0;
-            transition: opacity 1s ease-in-out;
+            visibility: hidden;
+            transition: opacity 1.5s ease-in-out, visibility 0s linear 1.5s;
             background-size: cover;
-            background-position: center;
+            background-position: center center;
             background-repeat: no-repeat;
             will-change: opacity;
             -webkit-backface-visibility: hidden;
             backface-visibility: hidden;
             transform: translateZ(0);
+            -webkit-transform: translateZ(0);
         }
         
         .hero-slide.active {
             opacity: 1;
+            visibility: visible;
             z-index: 1;
+            transition: opacity 1.5s ease-in-out, visibility 0s linear 0s;
         }
         
         .hero-content {
@@ -210,7 +220,7 @@
             transform: translate(-50%, -50%);
             text-align: center;
             color: white;
-            z-index: 2;
+            z-index: 10;
             width: 80%;
             max-width: 800px;
         }
@@ -983,9 +993,9 @@
 
     <section class="hero">
         <div class="hero-slideshow">
-            <div class="hero-slide active" style="background-image: url('https://images.unsplash.com/photo-1568901346375-23c9450c58cd?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');"></div>
-            <div class="hero-slide" style="background-image: url('https://images.unsplash.com/photo-1553979459-d2229ba7433b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');"></div>
-            <div class="hero-slide" style="background-image: url('https://images.unsplash.com/photo-1561758033-d89a9ad46330?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');"></div>
+            <div class="hero-slide active" style="background-image: url('https://images.unsplash.com/photo-1568901346375-23c9450c58cd?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');" data-bg="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"></div>
+            <div class="hero-slide" style="background-image: url('https://images.unsplash.com/photo-1553979459-d2229ba7433b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');" data-bg="https://images.unsplash.com/photo-1553979459-d2229ba7433b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"></div>
+            <div class="hero-slide" style="background-image: url('https://images.unsplash.com/photo-1561758033-d89a9ad46330?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');" data-bg="https://images.unsplash.com/photo-1561758033-d89a9ad46330?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"></div>
         </div>
         <div class="hero-content">
             <h1>Irresistible. Unforgettable. BiteMasters.</h1>
@@ -1123,6 +1133,20 @@
     <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 
     <script>
+        // Preload hero images for better mobile performance
+        (function() {
+            const heroImages = [
+                'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80',
+                'https://images.unsplash.com/photo-1553979459-d2229ba7433b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80',
+                'https://images.unsplash.com/photo-1561758033-d89a9ad46330?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80'
+            ];
+            
+            heroImages.forEach(function(src) {
+                const img = new Image();
+                img.src = src;
+            });
+        })();
+        
         // Loading screen transition
         window.addEventListener('load', function() {
             setTimeout(function() {
@@ -1133,64 +1157,152 @@
             }, 3000);
         });
 
-        // Hero slideshow - Initialize after DOM is ready
-        let currentHeroSlide = 0;
-        let heroSlideInterval = null;
-        const heroSlides = document.querySelectorAll('.hero-slide');
-        
-        function showHeroSlide(n) {
-            heroSlides.forEach(slide => slide.classList.remove('active'));
-            currentHeroSlide = (n + heroSlides.length) % heroSlides.length;
-            heroSlides[currentHeroSlide].classList.add('active');
-        }
-        
-        function nextHeroSlide() {
-            showHeroSlide(currentHeroSlide + 1);
-        }
-        
-        // Start hero slideshow after a short delay to ensure images are loaded
-        function startHeroSlideshow() {
-            if (heroSlideInterval) {
-                clearInterval(heroSlideInterval);
+        // Hero slideshow - Robust mobile-friendly implementation
+        (function() {
+            let currentHeroSlide = 0;
+            let heroSlideInterval = null;
+            const heroSlides = document.querySelectorAll('.hero-slide');
+            
+            console.log('Hero slides found:', heroSlides.length);
+            
+            function showHeroSlide(index) {
+                // Remove active from all slides
+                for (let i = 0; i < heroSlides.length; i++) {
+                    heroSlides[i].classList.remove('active');
+                }
+                
+                // Calculate index with wrap-around
+                currentHeroSlide = ((index % heroSlides.length) + heroSlides.length) % heroSlides.length;
+                
+                // Add active to current slide
+                heroSlides[currentHeroSlide].classList.add('active');
+                
+                console.log('Showing slide:', currentHeroSlide);
             }
-            // Initial slide is already active, start interval for next slides
-            heroSlideInterval = setInterval(nextHeroSlide, 5000);
-        }
-        
-        // Initialize slideshow when DOM is ready and images start loading
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', function() {
-                setTimeout(startHeroSlideshow, 100);
-            });
-        } else {
-            // DOM already loaded
-            setTimeout(startHeroSlideshow, 100);
-        }
-        
-        // Pause/resume slideshow when page visibility changes (better mobile performance)
-        document.addEventListener('visibilitychange', function() {
-            if (document.hidden) {
-                // Page is hidden, pause slideshow
+            
+            function nextHeroSlide() {
+                showHeroSlide(currentHeroSlide + 1);
+            }
+            
+            function startHeroSlideshow() {
+                // Clear any existing interval
                 if (heroSlideInterval) {
                     clearInterval(heroSlideInterval);
+                    heroSlideInterval = null;
                 }
-            } else {
-                // Page is visible again, resume slideshow
-                startHeroSlideshow();
+                
+                // Make sure first slide is active
+                if (heroSlides.length > 0) {
+                    showHeroSlide(0);
+                    
+                    // Start the interval
+                    heroSlideInterval = setInterval(nextHeroSlide, 5000);
+                    console.log('Hero slideshow started');
+                }
             }
-        });
-        
-        // Ensure slideshow works after orientation change on mobile
-        window.addEventListener('orientationchange', function() {
-            setTimeout(function() {
-                // Force a repaint
-                heroSlides.forEach(function(slide) {
-                    slide.style.display = 'none';
-                    slide.offsetHeight; // Trigger reflow
-                    slide.style.display = '';
+            
+            function stopHeroSlideshow() {
+                if (heroSlideInterval) {
+                    clearInterval(heroSlideInterval);
+                    heroSlideInterval = null;
+                    console.log('Hero slideshow stopped');
+                }
+            }
+            
+            // Start slideshow when page is fully loaded
+            function initSlideshow() {
+                console.log('Initializing hero slideshow...');
+                setTimeout(startHeroSlideshow, 500);
+            }
+            
+            // Multiple initialization points for better mobile compatibility
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', initSlideshow);
+            } else if (document.readyState === 'interactive') {
+                setTimeout(initSlideshow, 100);
+            } else {
+                initSlideshow();
+            }
+            
+            // Also try on window load as backup
+            window.addEventListener('load', function() {
+                if (!heroSlideInterval) {
+                    console.log('Backup initialization triggered');
+                    initSlideshow();
+                }
+            });
+            
+            // Handle page visibility changes (pause when hidden)
+            document.addEventListener('visibilitychange', function() {
+                if (document.hidden) {
+                    stopHeroSlideshow();
+                } else {
+                    startHeroSlideshow();
+                }
+            });
+            
+            // Handle orientation change on mobile
+            if (window.matchMedia) {
+                window.matchMedia('(orientation: portrait)').addListener(function() {
+                    setTimeout(function() {
+                        if (heroSlideInterval) {
+                            startHeroSlideshow();
+                        }
+                    }, 300);
                 });
-            }, 100);
-        });
+                
+                window.matchMedia('(orientation: landscape)').addListener(function() {
+                    setTimeout(function() {
+                        if (heroSlideInterval) {
+                            startHeroSlideshow();
+                        }
+                    }, 300);
+                });
+            }
+            
+            // Fallback for older mobile browsers
+            window.addEventListener('orientationchange', function() {
+                setTimeout(function() {
+                    if (heroSlideInterval) {
+                        startHeroSlideshow();
+                    }
+                }, 300);
+            });
+            
+            // Touch event to manually test (for debugging)
+            if ('ontouchstart' in window) {
+                let touchStartX = 0;
+                let touchEndX = 0;
+                
+                const heroSection = document.querySelector('.hero');
+                if (heroSection) {
+                    heroSection.addEventListener('touchstart', function(e) {
+                        touchStartX = e.changedTouches[0].screenX;
+                    }, { passive: true });
+                    
+                    heroSection.addEventListener('touchend', function(e) {
+                        touchEndX = e.changedTouches[0].screenX;
+                        handleSwipe();
+                    }, { passive: true });
+                }
+                
+                function handleSwipe() {
+                    const swipeThreshold = 50;
+                    if (touchEndX < touchStartX - swipeThreshold) {
+                        // Swipe left - next slide
+                        nextHeroSlide();
+                        stopHeroSlideshow();
+                        setTimeout(startHeroSlideshow, 3000);
+                    }
+                    if (touchEndX > touchStartX + swipeThreshold) {
+                        // Swipe right - previous slide
+                        showHeroSlide(currentHeroSlide - 1);
+                        stopHeroSlideshow();
+                        setTimeout(startHeroSlideshow, 3000);
+                    }
+                }
+            }
+        })();
         
         // Synchronized burger card slideshows
         let currentBurgerSlide = 0;
