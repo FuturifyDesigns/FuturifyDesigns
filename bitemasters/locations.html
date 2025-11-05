@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BiteMasters - Our Locations</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Open Sans', sans-serif;
+            overflow-x: hidden;
+            background-color: #f8f8f8;
+        }
+        
+        h1, h2, h3 {
+            font-family: 'Fredoka One', cursive;
+        }
+        
+        header {
+            background-color: #1a1a1a;
+            color: white;
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .logo {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #FF3D00;
+            text-decoration: none;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: #FFC600;
+        }
+        
+        .cart-link {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            position: relative;
+        }
+        
+        .cart-count {
+            background-color: #FF3D00;
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 0.8rem;
+        }
+        
+      .locations-header {
+           background-image: url('https://images.unsplash.com/photo-1449824913935-59a10b8d2000?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');
+           background-size: cover;
+           background-position: center;
+           height: 300px;
+           display: flex;
+           align-items: center;
+           justify-content: center;
+           position: relative;
+       }
+
+        
+        .locations-header::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+        
+        .locations-header h1 {
+            color: white;
+            font-size: 4rem;
+            z-index: 1;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        
+        .locations-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            font-size: 2.5rem;
+            color: #1a1a1a;
+        }
+        
+        .locations-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+        
+        .location-card {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+        
+        .location-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+        
+        .location-img-container {
+            height: 200px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .location-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .location-card:hover .location-img {
+            transform: scale(1.05);
+        }
+        
+        .location-info {
+            padding: 1.5rem;
+        }
+        
+        .location-name {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: #1a1a1a;
+        }
+        
+        .location-address {
+            color: #666;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .location-hours {
+            color: #666;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .location-contact {
+            color: #666;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .location-btn {
+            background-color: #FF3D00;
+            color: white;
+            border: none;
+            padding: 0.8rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            width: 100%;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+        
+        .location-btn:hover {
+            background-color: #FF6D00;
+        }
+        
+        .map-container {
+            margin-top: 4rem;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            height: 500px;
+        }
+        
+        .map-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        
+     footer {
+    background-color: #1a1a1a;
+    color: white;
+    padding: 3rem 2rem;
+    text-align: center;
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+}
+
+.footer-section h3 {
+    margin-bottom: 1rem;
+    color: #FFC600;
+}
+
+/* ADD THESE NEW RULES BELOW YOUR EXISTING FOOTER CSS */
+.footer-section ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-section ul li {
+    margin-bottom: 0.5rem;
+}
+
+.footer-section a,
+.footer-section a:link,
+.footer-section a:visited,
+.footer-section a:active {
+    color: white !important;
+    text-decoration: none !important;
+}
+
+.footer-section a:hover {
+    color: #FFC600 !important;
+}
+
+
+.footer-section .add-to-cart:hover {
+    background: linear-gradient(135deg, #FF6D00 0%, #FF8A65 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(255, 61, 0, 0.3);
+}
+        
+        .newsletter input {
+            padding: 0.8rem;
+            border-radius: 50px;
+            border: none;
+            width: 100%;
+            margin-bottom: 1rem;
+        }
+        
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .social-icons a {
+            color: white;
+            font-size: 1.5rem;
+            transition: color 0.3s;
+        }
+        
+        .social-icons a:hover {
+            color: #FFC600;
+        }
+        
+        .copyright {
+            margin-top: 2rem;
+            padding-top: 1rem;
+            border-top: 1px solid #444;
+        }
+        
+        @media (max-width: 768px) {
+            .locations-header h1 {
+                font-size: 2.5rem;
+            }
+            
+            nav {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .nav-links {
+                gap: 1rem;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .locations-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .map-container {
+                height: 300px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="Bitemaster website.html" class="logo">BiteMasters</a>
+            <div class="nav-links">
+                <a href="Bitemaster website.html">Home</a>
+                <a href="menu.html">Menu</a>
+                <a href="locations.html" class="active">Locations</a>
+                <a href="rewards.html">Rewards</a>
+                <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
+                <a href="order.html" class="cart-link">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-count">0</span>
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <section class="locations-header">
+        <h1>Our Locations</h1>
+    </section>
+
+    <main class="locations-container">
+        <h2 class="section-title">Find a BiteMasters Near You</h2>
+        
+        <div class="locations-grid">
+            <!-- Downtown Location -->
+            <div class="location-card">
+                <div class="location-img-container">
+                    <img src="https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Downtown Location" class="location-img">
+                </div>
+                <div class="location-info">
+                    <h3 class="location-name">Downtown</h3>
+                    <p class="location-address">
+                        <i class="fas fa-map-marker-alt"></i>
+                        123 Burger Street, Downtown
+                    </p>
+                    <p class="location-hours">
+                        <i class="fas fa-clock"></i>
+                        Mon-Fri: 10am-10pm<br>
+                        Sat-Sun: 11am-11pm
+                    </p>
+                    <p class="location-contact">
+                        <i class="fas fa-phone"></i>
+                        (555) 123-4567
+                    </p>
+                    <button class="location-btn">
+                        <i class="fas fa-directions"></i>
+                        Get Directions
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Uptown Location -->
+            <div class="location-card">
+                <div class="location-img-container">
+                    <img src="https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Uptown Location" class="location-img">
+                </div>
+                <div class="location-info">
+                    <h3 class="location-name">Uptown</h3>
+                    <p class="location-address">
+                        <i class="fas fa-map-marker-alt"></i>
+                        456 Patty Avenue, Uptown
+                    </p>
+                    <p class="location-hours">
+                        <i class="fas fa-clock"></i>
+                        Mon-Fri: 11am-10pm<br>
+                        Sat-Sun: 11am-11pm
+                    </p>
+                    <p class="location-contact">
+                        <i class="fas fa-phone"></i>
+                        (555) 234-5678
+                    </p>
+                    <button class="location-btn">
+                        <i class="fas fa-directions"></i>
+                        Get Directions
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Westside Location -->
+            <div class="location-card">
+                <div class="location-img-container">
+                    <img src="https://images.unsplash.com/photo-1480714378408-67cf0d13bc1b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Westside Location" class="location-img">
+                </div>
+                <div class="location-info">
+                    <h3 class="location-name">Westside</h3>
+                    <p class="location-address">
+                        <i class="fas fa-map-marker-alt"></i>
+                        789 Fries Boulevard, Westside
+                    </p>
+                    <p class="location-hours">
+                        <i class="fas fa-clock"></i>
+                        Mon-Sun: 11am-11pm
+                    </p>
+                    <p class="location-contact">
+                        <i class="fas fa-phone"></i>
+                        (555) 345-6789
+                    </p>
+                    <button class="location-btn">
+                        <i class="fas fa-directions"></i>
+                        Get Directions
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="map-container">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3022.215573291327!2d-73.9878449244373!3d40.75798597138947!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c25855c6480299%3A0x55194ec5a1ae072e!2sTimes%20Square!5e0!3m2!1sen!2sus!4v1689875400004!5m2!1sen!2sus" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>About Us</h3>
+                <p>BiteMasters is dedicated to serving the most delicious burgers with high-quality ingredients and exceptional service.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="Bitemaster website.html">Home</a></li>
+                    <li><a href="menu.html">Menu</a></li>
+                    <li><a href="locations.html">Locations</a></li>
+                    <li><a href="rewards.html">Rewards</a></li>
+                </ul>
+            </div>
+            <div class="footer-section newsletter">
+    <h3>Newsletter</h3>
+    <p>Subscribe to get updates on special offers and events.</p>
+    <input type="email" placeholder="Your email address">
+    <button class="add-to-cart" style="
+        background: linear-gradient(135deg, #FF3D00 0%, #FF6D00 100%);
+        color: white;
+        border: none;
+        padding: 0.8rem;
+        border-radius: 5px;
+        cursor: pointer;
+        width: 100%;
+        font-weight: bold;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 8px rgba(255, 61, 0, 0.2);
+    ">Subscribe</button>
+</div>
+            <div class="footer-section">
+                <h3>Connect With Us</h3>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2023 BiteMasters. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Cart count functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check if cart exists in localStorage
+            const cart = JSON.parse(localStorage.getItem('biteMastersCart')) || [];
+            document.querySelectorAll('.cart-count').forEach(el => {
+                el.textContent = cart.length;
+            });
+            
+            // Get Directions button functionality
+            const directionBtns = document.querySelectorAll('.location-btn');
+            directionBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const locationCard = this.closest('.location-card');
+                    const locationName = locationCard.querySelector('.location-name').textContent;
+                    
+                    // In a real implementation, this would open the actual location in Google Maps
+                    alert(`Opening directions to ${locationName} in Google Maps!`);
+                });
+            });
+        });
+    </script>
+</body>
+</html>
