@@ -11,6 +11,8 @@
     <style>
         /* Global Styles */
         * {
+            -webkit-tap-highlight-color: transparent;
+            -webkit-touch-callout: none;
             margin: 0;
             padding: 0;
             box-sizing: border-box;
@@ -22,6 +24,19 @@
             background-color: #f8f8f8;
         }
         
+
+        /* Remove tap highlight and focus outline on all interactive elements */
+        a, button, input, select, textarea, [role="button"] {
+            -webkit-tap-highlight-color: transparent;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            user-select: none;
+            outline: none;
+        }
+
+        button:focus, a:focus, input:focus, select:focus, textarea:focus {
+            outline: none;
+        }
         h1, h2, h3 {
             font-family: 'Fredoka One', cursive;
         }

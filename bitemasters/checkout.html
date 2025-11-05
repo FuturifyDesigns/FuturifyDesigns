@@ -10,6 +10,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         * {
+            -webkit-tap-highlight-color: transparent;
+            -webkit-touch-callout: none;
             margin: 0;
             padding: 0;
             box-sizing: border-box;
@@ -23,6 +25,19 @@
             min-height: 100vh;
         }
         
+
+        /* Remove tap highlight and focus outline on all interactive elements */
+        a, button, input, select, textarea, [role="button"] {
+            -webkit-tap-highlight-color: transparent;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            user-select: none;
+            outline: none;
+        }
+
+        button:focus, a:focus, input:focus, select:focus, textarea:focus {
+            outline: none;
+        }
         h1, h2, h3 {
             font-family: 'Fredoka One', cursive;
         }
