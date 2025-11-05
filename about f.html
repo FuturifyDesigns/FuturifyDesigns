@@ -13,6 +13,8 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+            -webkit-touch-callout: none;
         }
 
         body {
@@ -21,6 +23,19 @@
             min-height: 100vh;
             position: relative;
             overflow-x: hidden;
+        }
+
+        /* Remove tap highlight and focus outline on all interactive elements */
+        a, button, input, select, textarea, [role="button"] {
+            -webkit-tap-highlight-color: transparent;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            user-select: none;
+            outline: none;
+        }
+
+        button:focus, a:focus, input:focus, select:focus, textarea:focus {
+            outline: none;
         }
 
 
