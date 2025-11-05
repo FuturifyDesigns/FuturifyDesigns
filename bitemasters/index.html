@@ -178,6 +178,7 @@
             width: 100%;
             height: 100%;
             position: relative;
+            overflow: hidden;
         }
         
         .hero-slide {
@@ -187,13 +188,19 @@
             top: 0;
             left: 0;
             opacity: 0;
-            transition: opacity 1s ease;
+            transition: opacity 1s ease-in-out;
             background-size: cover;
             background-position: center;
+            background-repeat: no-repeat;
+            will-change: opacity;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            transform: translateZ(0);
         }
         
         .hero-slide.active {
             opacity: 1;
+            z-index: 1;
         }
         
         .hero-content {
@@ -1126,8 +1133,9 @@
             }, 3000);
         });
 
-        // Hero slideshow
+        // Hero slideshow - Initialize after DOM is ready
         let currentHeroSlide = 0;
+        let heroSlideInterval = null;
         const heroSlides = document.querySelectorAll('.hero-slide');
         
         function showHeroSlide(n) {
@@ -1140,8 +1148,49 @@
             showHeroSlide(currentHeroSlide + 1);
         }
         
-        // Change hero slide every 5 seconds
-        setInterval(nextHeroSlide, 5000);
+        // Start hero slideshow after a short delay to ensure images are loaded
+        function startHeroSlideshow() {
+            if (heroSlideInterval) {
+                clearInterval(heroSlideInterval);
+            }
+            // Initial slide is already active, start interval for next slides
+            heroSlideInterval = setInterval(nextHeroSlide, 5000);
+        }
+        
+        // Initialize slideshow when DOM is ready and images start loading
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', function() {
+                setTimeout(startHeroSlideshow, 100);
+            });
+        } else {
+            // DOM already loaded
+            setTimeout(startHeroSlideshow, 100);
+        }
+        
+        // Pause/resume slideshow when page visibility changes (better mobile performance)
+        document.addEventListener('visibilitychange', function() {
+            if (document.hidden) {
+                // Page is hidden, pause slideshow
+                if (heroSlideInterval) {
+                    clearInterval(heroSlideInterval);
+                }
+            } else {
+                // Page is visible again, resume slideshow
+                startHeroSlideshow();
+            }
+        });
+        
+        // Ensure slideshow works after orientation change on mobile
+        window.addEventListener('orientationchange', function() {
+            setTimeout(function() {
+                // Force a repaint
+                heroSlides.forEach(function(slide) {
+                    slide.style.display = 'none';
+                    slide.offsetHeight; // Trigger reflow
+                    slide.style.display = '';
+                });
+            }, 100);
+        });
         
         // Synchronized burger card slideshows
         let currentBurgerSlide = 0;
