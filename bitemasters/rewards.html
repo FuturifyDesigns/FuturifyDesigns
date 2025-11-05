@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BiteMasters - Rewards</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Open Sans', sans-serif;
+            overflow-x: hidden;
+            background-color: #f8f8f8;
+        }
+        
+        h1, h2, h3 {
+            font-family: 'Fredoka One', cursive;
+        }
+        
+        header {
+            background-color: #1a1a1a;
+            color: white;
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .logo {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #FF3D00;
+            text-decoration: none;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: #FFC600;
+        }
+        
+        .cart-link {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            position: relative;
+        }
+        
+        .cart-count {
+            background-color: #FF3D00;
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 0.8rem;
+        }
+        
+        .rewards-header {
+background-image: url('https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');
+            background-size: cover;
+            background-position: center;
+            height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        
+        .rewards-header::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+        
+        .rewards-header h1 {
+            color: white;
+            font-size: 4rem;
+            z-index: 1;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        
+        .rewards-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            font-size: 2.5rem;
+            color: #1a1a1a;
+        }
+        
+        .rewards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .reward-card {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+            padding: 2rem;
+            text-align: center;
+        }
+        
+        .reward-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+        
+        .reward-icon {
+            font-size: 3rem;
+            color: #FF3D00;
+            margin-bottom: 1rem;
+        }
+        
+        .reward-title {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #1a1a1a;
+        }
+        
+        .reward-desc {
+            color: #666;
+            margin-bottom: 1.5rem;
+        }
+        
+        .progress-container {
+            width: 100%;
+            height: 10px;
+            background-color: #f0f0f0;
+            border-radius: 5px;
+            margin-bottom: 1.5rem;
+            overflow: hidden;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(to right, #FF3D00, #FFC600);
+            border-radius: 5px;
+            transition: width 0.5s ease;
+        }
+        
+        .progress-text {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 1.5rem;
+        }
+        
+        .redeem-btn {
+            background-color: #FF3D00;
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            font-weight: bold;
+        }
+        
+        .redeem-btn:hover {
+            background-color: #FF6D00;
+        }
+        
+        .redeem-btn:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+        
+        .how-it-works {
+            margin-top: 4rem;
+            background-color: #1a1a1a;
+            color: white;
+            padding: 3rem 2rem;
+            border-radius: 10px;
+        }
+        
+        .steps {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* Force 4 equal columns */
+    gap: 2rem;
+    margin-top: 2rem;
+    justify-items: center; /* Center content horizontally */
+}
+        
+        .step {
+    text-align: center;
+    padding: 1.5rem;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    width: 100%; /* Make steps fill their grid cells */
+    height: 100%; /* Make steps equal height */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+        
+        .step-number {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            background-color: #FF3D00;
+            color: white;
+            border-radius: 50%;
+            line-height: 40px;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+        
+        footer {
+    background-color: #1a1a1a;
+    color: white;
+    padding: 3rem 2rem;
+    text-align: center;
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+}
+
+.footer-section h3 {
+    margin-bottom: 1rem;
+    color: #FFC600;
+}
+
+/* ADD THESE NEW RULES BELOW YOUR EXISTING FOOTER CSS */
+.footer-section ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-section ul li {
+    margin-bottom: 0.5rem;
+}
+
+.footer-section a,
+.footer-section a:link,
+.footer-section a:visited,
+.footer-section a:active {
+    color: white !important;
+    text-decoration: none !important;
+}
+
+.footer-section a:hover {
+    color: #FFC600 !important;
+}
+
+
+.footer-section .add-to-cart:hover {
+    background: linear-gradient(135deg, #FF6D00 0%, #FF8A65 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(255, 61, 0, 0.3);
+}
+
+        
+        .newsletter input {
+            padding: 0.8rem;
+            border-radius: 50px;
+            border: none;
+            width: 100%;
+            margin-bottom: 1rem;
+        }
+        
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .social-icons a {
+            color: white;
+            font-size: 1.5rem;
+            transition: color 0.3s;
+        }
+        
+        .social-icons a:hover {
+            color: #FFC600;
+        }
+        
+        .copyright {
+            margin-top: 2rem;
+            padding-top: 1rem;
+            border-top: 1px solid #444;
+        }
+        
+        @media (max-width: 768px) {
+            .rewards-header h1 {
+                font-size: 2.5rem;
+            }
+            
+            nav {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .nav-links {
+                gap: 1rem;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .rewards-grid {
+                grid-template-columns: 1fr;
+            }
+@media (max-width: 1000px) {
+    .steps {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .steps {
+        grid-template-columns: 1fr;
+    }
+}
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="Bitemaster website.html" class="logo">BiteMasters</a>
+            <div class="nav-links">
+                <a href="Bitemaster website.html">Home</a>
+                <a href="menu.html">Menu</a>
+                <a href="locations.html">Locations</a>
+                <a href="rewards.html" class="active">Rewards</a>
+                <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
+                <a href="order.html" class="cart-link">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-count">0</span>
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <section class="rewards-header">
+        <h1>Rewards Program</h1>
+    </section>
+
+    <main class="rewards-container">
+        <h2 class="section-title">Earn Points, Get Rewards</h2>
+        
+        <div class="rewards-grid">
+            <div class="reward-card">
+                <div class="reward-icon">🍔</div>
+                <h3 class="reward-title">Free Burger</h3>
+                <p class="reward-desc">Earn 100 points to get a free burger of your choice</p>
+                <div class="progress-container">
+                    <div class="progress-bar" style="width: 45%;"></div>
+                </div>
+                <p class="progress-text">45/100 points</p>
+                <button class="redeem-btn" disabled>Redeem</button>
+            </div>
+            
+            <div class="reward-card">
+                <div class="reward-icon">🍟</div>
+                <h3 class="reward-title">Free Fries</h3>
+                <p class="reward-desc">Earn 50 points to get a free side of fries</p>
+                <div class="progress-container">
+                    <div class="progress-bar" style="width: 90%;"></div>
+                </div>
+                <p class="progress-text">45/50 points</p>
+                <button class="redeem-btn">Redeem</button>
+            </div>
+            
+            <div class="reward-card">
+                <div class="reward-icon">🥤</div>
+                <h3 class="reward-title">Free Drink</h3>
+                <p class="reward-desc">Earn 30 points to get a free drink</p>
+                <div class="progress-container">
+                    <div class="progress-bar" style="width: 100%;"></div>
+                </div>
+                <p class="progress-text">30/30 points</p>
+                <button class="redeem-btn">Redeem</button>
+            </div>
+        </div>
+        
+        <div class="how-it-works">
+            <h2 class="section-title" style="color: white;">How It Works</h2>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3>Sign Up</h3>
+                    <p>Create a free account to start earning points</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3>Earn Points</h3>
+                    <p>Get 1 point for every $1 spent at BiteMasters</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3>Redeem Rewards</h3>
+                    <p>Use your points to get free food and discounts</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <h3>Exclusive Offers</h3>
+                    <p>Get special deals just for rewards members</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>About Us</h3>
+                <p>BiteMasters is dedicated to serving the most delicious burgers with high-quality ingredients and exceptional service.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="Bitemaster website.html">Home</a></li>
+                    <li><a href="menu.html">Menu</a></li>
+                    <li><a href="locations.html">Locations</a></li>
+                    <li><a href="rewards.html">Rewards</a></li>
+                </ul>
+            </div>
+  <div class="footer-section newsletter">
+    <h3>Newsletter</h3>
+    <p>Subscribe to get updates on special offers and events.</p>
+    <input type="email" placeholder="Your email address">
+    <button class="add-to-cart" style="
+        background: linear-gradient(135deg, #FF3D00 0%, #FF6D00 100%);
+        color: white;
+        border: none;
+        padding: 0.8rem;
+        border-radius: 5px;
+        cursor: pointer;
+        width: 100%;
+        font-weight: bold;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 8px rgba(255, 61, 0, 0.2);
+    ">Subscribe</button>
+</div>
+            <div class="footer-section">
+                <h3>Connect With Us</h3>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2023 BiteMasters. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Cart count functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check if cart exists in localStorage
+            const cart = JSON.parse(localStorage.getItem('biteMastersCart')) || [];
+            document.querySelectorAll('.cart-count').forEach(el => {
+                el.textContent = cart.length;
+            });
+            
+            // Redeem button functionality
+            const redeemBtns = document.querySelectorAll('.redeem-btn');
+            redeemBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    if (!this.disabled) {
+                        alert('Reward redeemed successfully!');
+                        this.disabled = true;
+                        this.textContent = 'Redeemed';
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

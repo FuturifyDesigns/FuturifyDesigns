@@ -1,0 +1,1162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BiteMasters - Irresistible Burgers</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Global Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Open Sans', sans-serif;
+            overflow-x: hidden;
+            background-color: #f8f8f8;
+        }
+        
+        h1, h2, h3 {
+            font-family: 'Fredoka One', cursive;
+        }
+        
+        /* Loading Screen */
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(26, 26, 26, 0.9);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease;
+        }
+        
+        .loading-logo {
+            font-size: 5rem;
+            color: #FF3D00;
+            margin-bottom: 2rem;
+            position: relative;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .loading-slideshow {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            overflow: hidden;
+        }
+        
+        .loading-slideshow img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.7;
+            position: absolute;
+            top: 0;
+            left: 0;
+            animation: slide 16s infinite;
+        }
+        
+        .loading-slideshow img:nth-child(1) { animation-delay: 0s; }
+        .loading-slideshow img:nth-child(2) { animation-delay: 4s; }
+        .loading-slideshow img:nth-child(3) { animation-delay: 8s; }
+        .loading-slideshow img:nth-child(4) { animation-delay: 12s; }
+        
+        @keyframes slide {
+            0% { opacity: 0; transform: scale(1); }
+            5% { opacity: 1; }
+            25% { opacity: 1; transform: scale(1.05); }
+            30% { opacity: 0; transform: scale(1.1); }
+            100% { opacity: 0; transform: scale(1); }
+        }
+        
+        .loading-bar {
+            width: 300px;
+            height: 10px;
+            background-color: #444;
+            border-radius: 5px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .loading-progress {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(to right, #FF3D00, #FFC600);
+            animation: load 3s ease-in-out forwards;
+        }
+        
+        @keyframes load {
+            0% { width: 0%; }
+            100% { width: 100%; }
+        }
+        
+        /* Header & Navigation */
+        header {
+            background-color: #1a1a1a;
+            color: white;
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .logo {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #FF3D00;
+            text-decoration: none;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: #FFC600;
+        }
+        
+        .cart-link {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            position: relative;
+        }
+        
+        .cart-count {
+            background-color: #FF3D00;
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 0.8rem;
+        }
+        
+        /* Hero Section */
+        .hero {
+            height: 80vh;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-slideshow {
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+        
+        .hero-slide {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 0;
+            transition: opacity 1s ease;
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .hero-slide.active {
+            opacity: 1;
+        }
+        
+        .hero-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            color: white;
+            z-index: 2;
+            width: 80%;
+            max-width: 800px;
+        }
+        
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        
+        .hero p {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background-color: #FFC600;
+            color: #1a1a1a;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.2rem;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+        }
+        
+        /* Burger Showcase */
+        .showcase {
+            padding: 5rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            font-size: 2.5rem;
+            color: #1a1a1a;
+        }
+        
+        .burgers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+        
+        .burger-card {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+        
+        .burger-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .burger-slideshow {
+            height: 200px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .burger-slide {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 0.8s ease-in-out;
+        }
+        
+        .burger-slide.active {
+            opacity: 1;
+        }
+        
+        .burger-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .burger-info {
+            padding: 1.5rem;
+        }
+        
+        .burger-name {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: #1a1a1a;
+            transition: transform 0.3s;
+        }
+        
+        .burger-desc {
+            color: #666;
+            margin-bottom: 1rem;
+        }
+        
+        .burger-price {
+            font-weight: bold;
+            color: #FF3D00;
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+        
+        .add-to-cart {
+            background-color: #FF3D00;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            width: 100%;
+            font-weight: bold;
+        }
+        
+        .add-to-cart:hover {
+            background-color: #FF6D00;
+        }
+        
+        /* Ingredients Section */
+        .ingredients {
+            padding: 5rem 2rem;
+            background-color: #1a1a1a;
+            color: white;
+            position: relative;
+            overflow: hidden;
+            min-height: 400px;
+        }
+        
+        .ingredients-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+            text-align: center;
+        }
+        
+        .ingredients .section-title {
+            color: white;
+        }
+        
+        .ingredients p {
+            text-align: center;
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto 3rem;
+        }
+        
+        .ingredient {
+            position: absolute;
+            width: 80px;
+            height: 80px;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            z-index: 1;
+            filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.3));
+            animation: float 8s infinite ease-in-out;
+            opacity: 0.9;
+            transition: transform 0.3s;
+        }
+        
+        .ingredient:hover {
+            transform: scale(1.2);
+            filter: drop-shadow(0 0 12px rgba(255, 201, 0, 0.6));
+            opacity: 1;
+        }
+        
+        @keyframes float {
+            0%, 100% { 
+                transform: translateY(0) rotate(0deg); 
+            }
+            25% { 
+                transform: translateY(-20px) rotate(5deg); 
+            }
+            50% { 
+                transform: translateY(0) rotate(0deg); 
+            }
+            75% { 
+                transform: translateY(-15px) rotate(-5deg); 
+            }
+        }
+        
+        /* Footer */
+        footer {
+            background-color: #1a1a1a;
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+        
+        .footer-section h3 {
+            margin-bottom: 1rem;
+            color: #FFC600;
+        }
+        
+        .newsletter input {
+            padding: 0.8rem;
+            border-radius: 50px;
+            border: none;
+            width: 100%;
+            margin-bottom: 1rem;
+        }
+        
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .social-icons a {
+            color: white;
+            font-size: 1.5rem;
+            transition: color 0.3s;
+        }
+        
+        .social-icons a:hover {
+            color: #FFC600;
+        }
+        
+        .copyright {
+            margin-top: 2rem;
+            padding-top: 1rem;
+            border-top: 1px solid #444;
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero p {
+                font-size: 1.2rem;
+            }
+            
+            nav {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .nav-links {
+                gap: 1rem;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .loading-logo {
+                font-size: 3rem;
+            }
+            
+            .ingredient {
+                width: 50px;
+                height: 50px;
+            }
+        }
+
+        /* Modal Styles (Added for cart functionality) */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .cart-modal {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            width: 90%;
+            max-width: 600px;
+            transform: translateY(50px);
+            transition: transform 0.4s ease, opacity 0.4s ease;
+            opacity: 0;
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.3);
+            position: relative;
+        }
+
+        .modal-overlay.active .cart-modal {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .modal-header {
+            background: linear-gradient(135deg, #FF3D00 0%, #FF6D00 100%);
+            color: white;
+            padding: 1.5rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .modal-header h3 {
+            font-size: 1.8rem;
+            margin: 0;
+            font-family: 'Fredoka One', cursive;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .close-modal:hover {
+            transform: rotate(90deg);
+        }
+
+        .modal-content {
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .modal-img-container {
+            width: 100%;
+            height: 250px;
+            position: relative;
+            overflow: hidden;
+            border-radius: 15px;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .modal-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+
+        .modal-img.active {
+            opacity: 1;
+        }
+
+        .modal-item-name {
+            font-size: 1.8rem;
+            color: #1a1a1a;
+            margin-bottom: 0.5rem;
+            text-align: center;
+            font-family: 'Fredoka One', cursive;
+        }
+
+        .modal-item-desc {
+            color: #666;
+            text-align: center;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+            line-height: 1.5;
+        }
+
+        .modal-item-price {
+            font-size: 1.8rem;
+            color: #FF3D00;
+            font-weight: bold;
+            margin-bottom: 1.5rem;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .modal-confirmation-text {
+            font-size: 1.2rem;
+            color: #555;
+            margin-bottom: 2rem;
+            text-align: center;
+            font-weight: bold;
+            position: relative;
+        }
+
+        .modal-confirmation-text::before,
+        .modal-confirmation-text::after {
+            content: "🍔";
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.5rem;
+        }
+
+        .modal-confirmation-text::before {
+            left: -40px;
+        }
+
+        .modal-confirmation-text::after {
+            right: -40px;
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 1rem;
+            width: 100%;
+            justify-content: center;
+        }
+
+        .modal-btn {
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 50px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1.1rem;
+            flex: 1;
+            max-width: 200px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .modal-btn-confirm {
+            background: linear-gradient(135deg, #4CAF50 0%, #66BB6A 100%);
+            color: white;
+        }
+
+        .modal-btn-confirm:hover {
+            background: linear-gradient(135deg, #66BB6A 0%, #81C784 100%);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(76, 175, 80, 0.4);
+        }
+
+        .modal-btn-cancel {
+            background: linear-gradient(135deg, #f44336 0%, #EF5350 100%);
+            color: white;
+        }
+
+        .modal-btn-cancel:hover {
+            background: linear-gradient(135deg, #EF5350 0%, #E57373 100%);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(244, 67, 54, 0.4);
+        }
+
+        /* Floating food particles for modal */
+        .modal-food-particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: -1;
+        }
+
+        .modal-particle {
+            position: absolute;
+            font-size: 1.5rem;
+            opacity: 0;
+            animation: floatModal 6s linear infinite;
+        }
+
+        @keyframes floatModal {
+            0% { 
+                opacity: 0;
+                transform: translateY(100%) rotate(0deg) scale(0.5);
+            }
+            20% { opacity: 1; }
+            100% { 
+                opacity: 0;
+                transform: translateY(-100%) rotate(360deg) scale(1.5);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .modal-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .modal-btn {
+                max-width: 100%;
+                width: 100%;
+            }
+
+            .modal-confirmation-text::before,
+            .modal-confirmation-text::after {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Add to Cart Modal -->
+    <div class="modal-overlay" id="cart-modal-overlay">
+        <div class="cart-modal">
+            <div class="modal-header">
+                <h3>Add to Cart</h3>
+                <button class="close-modal" id="close-modal">&times;</button>
+            </div>
+            <div class="modal-content">
+                <div class="modal-img-container" id="modal-img-container">
+                    <!-- Images will be added dynamically -->
+                </div>
+                <h3 class="modal-item-name" id="modal-item-name"></h3>
+                <p class="modal-item-desc" id="modal-item-desc"></p>
+                <span class="modal-item-price" id="modal-item-price"></span>
+                <p class="modal-confirmation-text">Are you sure you want to add this delicious item to your cart?</p>
+                <div class="modal-buttons">
+                    <button class="modal-btn modal-btn-confirm" id="modal-confirm-btn">Yes, Add It!</button>
+                    <button class="modal-btn modal-btn-cancel" id="modal-cancel-btn">No, Maybe Later</button>
+                </div>
+                <div class="modal-food-particles" id="modal-food-particles"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Screen -->
+    <div class="loading-screen">
+        <div class="loading-slideshow">
+            <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Burger">
+            <img src="https://images.unsplash.com/photo-1553979459-d2229ba7433b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Burger">
+            <img src="https://images.unsplash.com/photo-1561758033-d89a9ad46330?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Burger">
+            <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Burger">
+        </div>
+        <h1 class="loading-logo">BiteMasters</h1>
+        <div class="loading-bar">
+            <div class="loading-progress"></div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <header>
+        <nav>
+            <a href="Bitemaster website.html" class="logo">BiteMasters</a>
+            <div class="nav-links">
+                <a href="Bitemaster website.html">Home</a>
+                <a href="menu.html">Menu</a>
+                <a href="locations.html">Locations</a>
+                <a href="rewards.html">Rewards</a>
+                <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
+                <a href="order.html" class="cart-link">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-count">0</span>
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="hero-slideshow">
+            <div class="hero-slide active" style="background-image: url('https://images.unsplash.com/photo-1568901346375-23c9450c58cd?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');"></div>
+            <div class="hero-slide" style="background-image: url('https://images.unsplash.com/photo-1553979459-d2229ba7433b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');"></div>
+            <div class="hero-slide" style="background-image: url('https://images.unsplash.com/photo-1561758033-d89a9ad46330?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');"></div>
+        </div>
+        <div class="hero-content">
+            <h1>Irresistible. Unforgettable. BiteMasters.</h1>
+            <p>Handcrafted burgers, loaded fries & shakes that hit different.</p>
+            <a href="menu.html" class="cta-button">Order Now</a>
+        </div>
+    </section>
+
+    <section class="showcase">
+        <h2 class="section-title">Our Burgers</h2>
+        <div class="burgers-grid">
+            <!-- Bacon Beast -->
+            <div class="burger-card" data-name="Bacon Beast" data-desc="Double patty, crispy bacon, cheddar, and our signature sauce" data-price="12.99">
+                <div class="burger-slideshow">
+                    <div class="burger-slide active">
+                        <img src="Bacon 1.jpg" alt="Bacon Beast Burger">
+                    </div>
+                    <div class="burger-slide">
+                        <img src="Bacon 2.webp" alt="Crispy Bacon">
+                    </div>
+                </div>
+                <div class="burger-info">
+                    <h3 class="burger-name">Bacon Beast</h3>
+                    <p class="burger-desc">Double patty, crispy bacon, cheddar, and our signature sauce</p>
+                    <span class="burger-price">$12.99</span>
+                    <button class="add-to-cart">Add to Cart</button>
+                </div>
+            </div>
+            
+            <!-- Big Bite -->
+            <div class="burger-card" data-name="Big Bite" data-desc="Triple stacked angus beef with all the fixings" data-price="14.99">
+                <div class="burger-slideshow">
+                    <div class="burger-slide active">
+                        <img src="Triple stack 1.jpeg" alt="Big Bite Burger">
+                    </div>
+                    <div class="burger-slide">
+                        <img src="Triple stack 2.png" alt="Triple Stack">
+                    </div>
+                </div>
+                <div class="burger-info">
+                    <h3 class="burger-name">Big Bite</h3>
+                    <p class="burger-desc">Triple stacked angus beef with all the fixings</p>
+                    <span class="burger-price">$14.99</span>
+                    <button class="add-to-cart">Add to Cart</button>
+                </div>
+            </div>
+            
+            <!-- Black Bean -->
+            <div class="burger-card" data-name="Black Bean" data-desc="Spicy black bean patty with avocado and chipotle mayo" data-price="11.99">
+                <div class="burger-slideshow">
+                    <div class="burger-slide active">
+                        <img src="Black Bean 1.jpg" alt="Black Bean Burger">
+                    </div>
+                    <div class="burger-slide">
+                        <img src="Black Bean 2.jpg" alt="Avocado">
+                    </div>
+                </div>
+                <div class="burger-info">
+                    <h3 class="burger-name">Black Bean</h3>
+                    <p class="burger-desc">Spicy black bean patty with avocado and chipotle mayo</p>
+                    <span class="burger-price">$11.99</span>
+                    <button class="add-to-cart">Add to Cart</button>
+                </div>
+            </div>
+            
+            <!-- BBQ Blaster -->
+            <div class="burger-card" data-name="BBQ Blaster" data-desc="Smoky BBQ sauce, onion rings, and pepper jack cheese" data-price="13.99">
+                <div class="burger-slideshow">
+                    <div class="burger-slide active">
+                        <img src="bbq 1.jpg" alt="BBQ Blaster Burger">
+                    </div>
+                    <div class="burger-slide">
+                        <img src="bbq 2.jpg" alt="BBQ Sauce">
+                    </div>
+                </div>
+                <div class="burger-info">
+                    <h3 class="burger-name">BBQ Blaster</h3>
+                    <p class="burger-desc">Smoky BBQ sauce, onion rings, and pepper jack cheese</p>
+                    <span class="burger-price">$13.99</span>
+                    <button class="add-to-cart">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="ingredients">
+        <!-- Floating Ingredients -->
+        <div class="ingredient" style="top: 20%; left: 5%; animation-delay: 0s; background-image: url('https://www.freepnglogos.com/uploads/tomato-png/tomato-png-transparent-images-png-only-28.png');"></div>
+        <div class="ingredient" style="top: 70%; left: 10%; animation-delay: 0.5s; background-image: url('https://www.freepnglogos.com/uploads/cheese-png/cheese-slice-png-transparent-image-pngpix-0.png');"></div>
+        <div class="ingredient" style="top: 30%; right: 8%; animation-delay: 1s; background-image: url('https://www.freepnglogos.com/uploads/lettuce-png/lettuce-transparent-png-stickpng-0.png');"></div>
+        <div class="ingredient" style="bottom: 20%; right: 10%; animation-delay: 1.5s; background-image: url('https://www.freepnglogos.com/uploads/onion-png/red-onion-png-transparent-image-pngpix-0.png');"></div>
+        <div class="ingredient" style="top: 50%; left: 3%; animation-delay: 2s; background-image: url('https://www.freepnglogos.com/uploads/burger-png/burger-png-transparent-image-pngpix-0.png');"></div>
+        <div class="ingredient" style="top: 60%; right: 3%; animation-delay: 2.5s; background-image: url('https://www.freepnglogos.com/uploads/bacon-png/bacon-png-transparent-images-png-only-3.png');"></div>
+        <div class="ingredient" style="top: 15%; left: 50%; animation-delay: 3s; background-image: url('https://www.freepnglogos.com/uploads/pickle-png/pickle-png-transparent-images-png-only-31.png');"></div>
+        <div class="ingredient" style="bottom: 30%; left: 20%; animation-delay: 3.5s; background-image: url('https://www.freepnglogos.com/uploads/bun-png/bun-png-transparent-images-png-only-11.png');"></div>
+        
+        <!-- Main Content -->
+        <div class="ingredients-content">
+            <h2 class="section-title">Fresh Ingredients</h2>
+            <p>We source only the freshest, highest quality ingredients for our burgers. From farm-fresh vegetables to premium cuts of meat, every bite is packed with flavor and quality you can taste.</p>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>BiteMasters</h3>
+                <p>Handcrafted burgers made with passion since 2023.</p>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-tiktok"></i></a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3>Locations</h3>
+                <p>123 Burger Street</p>
+                <p>456 Patty Avenue</p>
+                <p>789 Fries Boulevard</p>
+            </div>
+            <div class="footer-section newsletter">
+                <h3>Get 10% Off</h3>
+                <p>Subscribe to our newsletter for exclusive deals!</p>
+                <input type="email" placeholder="Your email">
+                <a href="#" class="cta-button">Subscribe</a>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2023 BiteMasters. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Font Awesome for icons -->
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+
+    <script>
+        // Loading screen transition
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                document.querySelector('.loading-screen').style.opacity = '0';
+                setTimeout(function() {
+                    document.querySelector('.loading-screen').style.display = 'none';
+                }, 500);
+            }, 3000);
+        });
+
+        // Hero slideshow
+        let currentHeroSlide = 0;
+        const heroSlides = document.querySelectorAll('.hero-slide');
+        
+        function showHeroSlide(n) {
+            heroSlides.forEach(slide => slide.classList.remove('active'));
+            currentHeroSlide = (n + heroSlides.length) % heroSlides.length;
+            heroSlides[currentHeroSlide].classList.add('active');
+        }
+        
+        function nextHeroSlide() {
+            showHeroSlide(currentHeroSlide + 1);
+        }
+        
+        // Change hero slide every 5 seconds
+        setInterval(nextHeroSlide, 5000);
+        
+        // Synchronized burger card slideshows
+        let currentBurgerSlide = 0;
+        const allBurgerSlideshows = document.querySelectorAll('.burger-slideshow');
+        
+        function syncBurgerSlides() {
+            // Increment slide index
+            currentBurgerSlide = (currentBurgerSlide + 1) % 2; // Only 2 slides per burger
+            
+            // Update all burger slideshows
+            allBurgerSlideshows.forEach(slideshow => {
+                const slides = slideshow.querySelectorAll('.burger-slide');
+                slides.forEach(slide => slide.classList.remove('active'));
+                slides[currentBurgerSlide].classList.add('active');
+            });
+        }
+        
+        // Change all burger slides every 3 seconds
+        setInterval(syncBurgerSlides, 3000);
+        
+        // Pause on hover for each burger slideshow
+        allBurgerSlideshows.forEach(slideshow => {
+            slideshow.addEventListener('mouseenter', function() {
+                clearInterval(window.burgerSlideInterval);
+            });
+            
+            slideshow.addEventListener('mouseleave', function() {
+                window.burgerSlideInterval = setInterval(syncBurgerSlides, 3000);
+            });
+        });
+        
+        // Burger name animation on hover
+        const burgerNames = document.querySelectorAll('.burger-name');
+        burgerNames.forEach(name => {
+            name.addEventListener('mouseover', function() {
+                this.style.transform = 'rotate(2deg)';
+            });
+            name.addEventListener('mouseout', function() {
+                this.style.transform = 'rotate(0)';
+            });
+        });
+
+        // Cart functionality
+        function updateCartCount() {
+            const cart = JSON.parse(localStorage.getItem('biteMastersCart')) || [];
+            document.querySelectorAll('.cart-count').forEach(el => {
+                el.textContent = cart.length;
+            });
+        }
+
+        // Initialize cart count
+        updateCartCount();
+
+        // Modal elements
+        const modalOverlay = document.getElementById('cart-modal-overlay');
+        const closeModalBtn = document.getElementById('close-modal');
+        const modalConfirmBtn = document.getElementById('modal-confirm-btn');
+        const modalCancelBtn = document.getElementById('modal-cancel-btn');
+        const modalImgContainer = document.getElementById('modal-img-container');
+        const modalItemName = document.getElementById('modal-item-name');
+        const modalItemDesc = document.getElementById('modal-item-desc');
+        const modalItemPrice = document.getElementById('modal-item-price');
+        const modalFoodParticles = document.getElementById('modal-food-particles');
+
+        // Current item to be added to cart
+        let currentItemToAdd = null;
+
+        // Show modal with item details
+        function showAddToCartModal(itemElement) {
+            const menuItem = itemElement.closest('.burger-card');
+            const itemName = menuItem.dataset.name;
+            const itemPrice = menuItem.dataset.price;
+            const itemDesc = menuItem.dataset.desc;
+            const itemImages = menuItem.querySelectorAll('.burger-slide img');
+            
+            // Clear previous images
+            modalImgContainer.innerHTML = '';
+            
+            // Add all images to modal
+            itemImages.forEach(img => {
+                const modalImg = document.createElement('img');
+                modalImg.src = img.src;
+                modalImg.alt = itemName;
+                modalImg.className = 'modal-img';
+                if (img.parentElement.classList.contains('active')) {
+                    modalImg.classList.add('active');
+                }
+                modalImgContainer.appendChild(modalImg);
+            });
+
+            // Set modal content
+            modalItemName.textContent = itemName;
+            modalItemDesc.textContent = itemDesc;
+            modalItemPrice.textContent = `$${itemPrice}`;
+            
+            // Store reference to the menu item
+            currentItemToAdd = {
+                item: itemName,
+                price: itemPrice,
+                desc: itemDesc,
+                img: itemImages[0].src
+            };
+            
+            // Create floating food particles
+            createModalFoodParticles();
+            
+            // Show modal
+            modalOverlay.classList.add('active');
+            
+            // Start image cycling in modal
+            const modalImages = modalImgContainer.querySelectorAll('.modal-img');
+            let currentModalIndex = 0;
+            
+            if (modalImages.length > 1) {
+                setInterval(() => {
+                    modalImages[currentModalIndex].classList.remove('active');
+                    currentModalIndex = (currentModalIndex + 1) % modalImages.length;
+                    modalImages[currentModalIndex].classList.add('active');
+                }, 3000);
+            }
+        }
+
+        // Close modal
+        function closeModal() {
+            modalOverlay.classList.remove('active');
+            currentItemToAdd = null;
+        }
+
+        // Confirm adding to cart
+        function confirmAddToCart() {
+            if (currentItemToAdd) {
+                let cart = JSON.parse(localStorage.getItem('biteMastersCart')) || [];
+                cart.push(currentItemToAdd);
+                localStorage.setItem('biteMastersCart', JSON.stringify(cart));
+                updateCartCount();
+                
+                // Animation for button click
+                const addToCartBtn = document.querySelector(`.burger-card[data-name="${currentItemToAdd.item}"] .add-to-cart`);
+                if (addToCartBtn) {
+                    addToCartBtn.textContent = 'Added!';
+                    addToCartBtn.style.backgroundColor = '#4CAF50';
+                    
+                    setTimeout(() => {
+                        addToCartBtn.textContent = 'Add to Cart';
+                        addToCartBtn.style.backgroundColor = '#FF3D00';
+                    }, 1000);
+                }
+            }
+            closeModal();
+        }
+
+        // Create floating food particles for modal
+        function createModalFoodParticles() {
+            modalFoodParticles.innerHTML = '';
+            const foodIcons = ['🍔', '🍟', '🌭', '🍕', '🥪', '🌮', '🍗', '🍖', '🧀', '🥓'];
+            
+            for (let i = 0; i < 15; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'modal-particle';
+                particle.textContent = foodIcons[Math.floor(Math.random() * foodIcons.length)];
+                particle.style.left = `${Math.random() * 100}%`;
+                particle.style.animationDuration = `${4 + Math.random() * 4}s`;
+                particle.style.animationDelay = `${Math.random() * 2}s`;
+                modalFoodParticles.appendChild(particle);
+            }
+        }
+
+        // Event listeners
+        const addToCartBtns = document.querySelectorAll('.add-to-cart');
+        addToCartBtns.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                showAddToCartModal(e.target);
+            });
+        });
+
+        closeModalBtn.addEventListener('click', closeModal);
+        modalConfirmBtn.addEventListener('click', confirmAddToCart);
+        modalCancelBtn.addEventListener('click', closeModal);
+
+        // Close modal when clicking outside
+        modalOverlay.addEventListener('click', (e) => {
+            if (e.target === modalOverlay) {
+                closeModal();
+            }
+        });
+
+        // Enhanced ingredient animations
+        const ingredients = document.querySelectorAll('.ingredient');
+        ingredients.forEach((ingredient, index) => {
+            // Randomize animation duration and delay
+            const duration = 8 + Math.random() * 4;
+            const delay = index * 0.5 + Math.random() * 2;
+            
+            // Apply random positions if not already set
+            if (!ingredient.style.top || !ingredient.style.left) {
+                ingredient.style.top = `${Math.random() * 80 + 10}%`;
+                ingredient.style.left = `${Math.random() * 80 + 10}%`;
+            }
+            
+            // Apply animation properties
+            ingredient.style.animationDuration = `${duration}s`;
+            ingredient.style.animationDelay = `${delay}s`;
+        });
+    </script>
+</body>
+</html>

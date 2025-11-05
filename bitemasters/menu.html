@@ -1,0 +1,2192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BiteMasters - Our Menu</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Open Sans', sans-serif;
+            overflow-x: hidden;
+            background-color: #f8f8f8;
+        }
+        
+        h1, h2, h3 {
+            font-family: 'Fredoka One', cursive;
+        }
+        
+        header {
+            background-color: #1a1a1a;
+            color: white;
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .logo {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #FF3D00;
+            text-decoration: none;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: #FFC600;
+        }
+        
+        .cart-link {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            position: relative;
+        }
+        
+        .cart-count {
+            background-color: #FF3D00;
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 0.8rem;
+        }
+        
+        .menu-header {
+            background-image: url('https://images.unsplash.com/photo-1568901346375-23c9450c58cd?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');
+            background-size: cover;
+            background-position: center;
+            height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        
+        .menu-header::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+        
+        .menu-header h1 {
+            color: white;
+            font-size: 4rem;
+            z-index: 1;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        
+        .menu-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+        
+        .menu-categories {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+        
+        .category-btn {
+            padding: 0.8rem 1.5rem;
+            background-color: #f0f0f0;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+        
+        .category-btn.active, .category-btn:hover {
+            background-color: #FF3D00;
+            color: white;
+        }
+        
+        .menu-section {
+            display: none;
+            animation: fadeIn 0.5s;
+            margin-bottom: 4rem;
+        }
+        
+        .menu-section.active {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            font-size: 2.5rem;
+            color: #1a1a1a;
+        }
+        
+        .category-title {
+            text-align: center;
+            margin: 2rem 0;
+            font-size: 2rem;
+            color: #FF3D00;
+            text-decoration: underline;
+            text-underline-offset: 10px;
+        }
+        
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .menu-item {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+        
+        .menu-item:hover {
+            transform: translateY(-5px);
+        }
+        
+        .menu-item-img-container {
+            height: 200px;
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .menu-item-img {
+            height: 100%;
+            width: 100%;
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+        
+        .menu-item-img.active {
+            opacity: 1;
+        }
+        
+        .menu-item-info {
+            padding: 1.5rem;
+        }
+        
+        .menu-item-name {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: #1a1a1a;
+        }
+        
+        .menu-item-desc {
+            color: #666;
+            margin-bottom: 1rem;
+        }
+        
+        .menu-item-price {
+            font-weight: bold;
+            color: #FF3D00;
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+        
+        .add-to-cart {
+            background-color: #FF3D00;
+            color: white;
+            border: none;
+            padding: 0.8rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            width: 100%;
+            font-weight: bold;
+        }
+        
+        .add-to-cart:hover {
+            background-color: #FF6D00;
+        }
+        
+      footer {
+    background-color: #1a1a1a;
+    color: white;
+    padding: 3rem 2rem;
+    text-align: center;
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+}
+
+.footer-section h3 {
+    margin-bottom: 1rem;
+    color: #FFC600;
+}
+
+/* ADD THESE NEW RULES BELOW YOUR EXISTING FOOTER CSS */
+.footer-section ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-section ul li {
+    margin-bottom: 0.5rem;
+}
+
+.footer-section a,
+.footer-section a:link,
+.footer-section a:visited,
+.footer-section a:active {
+    color: white !important;
+    text-decoration: none !important;
+}
+
+.footer-section a:hover {
+    color: #FFC600 !important;
+}
+
+.footer-section .add-to-cart:hover {
+    background: linear-gradient(135deg, #FF6D00 0%, #FF8A65 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(255, 61, 0, 0.3);
+}
+        .newsletter input {
+            padding: 0.8rem;
+            border-radius: 50px;
+            border: none;
+            width: 100%;
+            margin-bottom: 1rem;
+        }
+        
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .social-icons a {
+            color: white;
+            font-size: 1.5rem;
+            transition: color 0.3s;
+        }
+        
+        .social-icons a:hover {
+            color: #FFC600;
+        }
+        
+        .copyright {
+            margin-top: 2rem;
+            padding-top: 1rem;
+            border-top: 1px solid #444;
+        }
+
+        /* Enhanced Spin the Wheel Styles */
+        .spin-container {
+            text-align: center;
+            margin: 2rem 0;
+            padding: 3rem;
+            background: linear-gradient(135deg, #FFE0B2 0%, #FFCC80 50%, #FFB74D 100%);
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(255, 61, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .spin-container::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+            animation: shimmer 3s ease-in-out infinite;
+        }
+
+        @keyframes shimmer {
+            0%, 100% { transform: rotate(0deg); }
+            50% { transform: rotate(180deg); }
+        }
+
+        .spin-title {
+            font-size: 2.5rem;
+            color: #D84315;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+            position: relative;
+            z-index: 2;
+        }
+
+        .spin-subtitle {
+            font-size: 1.3rem;
+            color: #F57C00;
+            margin-bottom: 2rem;
+            font-weight: 600;
+            position: relative;
+            z-index: 2;
+        }
+
+        .wheel-container {
+            position: relative;
+            width: 350px;
+            height: 350px;
+            margin: 0 auto 2rem;
+            z-index: 2;
+        }
+
+        .wheel {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            position: relative;
+            overflow: hidden;
+            border: 12px solid #8D4E00;
+            box-shadow: 
+                0 0 0 6px #FFB300,
+                0 0 0 12px #D84315,
+                0 0 30px rgba(0, 0, 0, 0.4),
+                inset 0 0 20px rgba(0, 0, 0, 0.2);
+            transition: transform 4s cubic-bezier(0.17, 0.67, 0.12, 0.99);
+            transform: rotate(0deg);
+            background: conic-gradient(
+                #FF6B35 0deg,
+                #F7931E 45deg,
+                #FFD23F 90deg,
+                #06FFA5 135deg,
+                #4ECDC4 180deg,
+                #45B7D1 225deg,
+                #A8E6CF 270deg,
+                #FF8A80 315deg
+            );
+            filter: brightness(1);
+            transition: filter 0.3s ease;
+        }
+
+        .wheel.spinning {
+            animation: none;
+            transition: transform 4s cubic-bezier(0.17, 0.67, 0.12, 0.99);
+            filter: brightness(1.2) drop-shadow(0 0 20px rgba(255, 215, 0, 0.7));
+        }
+
+        .wheel-section {
+            position: absolute;
+            width: 50%;
+            height: 50%;
+            transform-origin: bottom right;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .wheel.spinning .wheel-section {
+            animation: wheelSectionPulse 0.5s infinite alternate;
+        }
+
+        @keyframes wheelSectionPulse {
+            0% { opacity: 0.9; }
+            100% { opacity: 1; }
+        }
+
+        .wheel-pointer {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 25px solid transparent;
+            border-right: 25px solid transparent;
+            border-top: 50px solid #D84315;
+            z-index: 10;
+            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.4));
+            animation: pointerBounce 2s ease-in-out infinite;
+        }
+
+        @keyframes pointerBounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(-5px); }
+        }
+
+        .wheel-center {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80px;
+            height: 80px;
+            background: radial-gradient(circle, #FFD700 0%, #FFA500 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            z-index: 20;
+            box-shadow: 
+                0 0 20px rgba(255, 215, 0, 0.6),
+                inset 0 0 20px rgba(255, 255, 255, 0.3);
+            border: 4px solid #FF8C00;
+            transition: all 0.3s ease;
+        }
+
+        .wheel.spinning .wheel-center {
+            animation: wheelCenterSpin 0.5s infinite alternate;
+            box-shadow: 
+                0 0 30px rgba(255, 215, 0, 0.9),
+                inset 0 0 20px rgba(255, 255, 255, 0.5);
+        }
+
+        @keyframes wheelCenterSpin {
+            0% { transform: translate(-50%, -50%) scale(1); }
+            100% { transform: translate(-50%, -50%) scale(1.1); }
+        }
+
+        .progress-tracker {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 2rem;
+            gap: 1rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .progress-step {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #E0E0E0 0%, #BDBDBD 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: #666;
+            transition: all 0.3s ease;
+            border: 3px solid #999;
+            position: relative;
+        }
+
+        .progress-step.active {
+            background: linear-gradient(135deg, #FF6B35 0%, #FF3D00 100%);
+            color: white;
+            border-color: #D84315;
+            box-shadow: 0 0 20px rgba(255, 61, 0, 0.5);
+            animation: pulse 1.5s infinite;
+        }
+
+        .progress-step.completed {
+            background: linear-gradient(135deg, #66BB6A 0%, #4CAF50 100%);
+            color: white;
+            border-color: #388E3C;
+            box-shadow: 0 0 15px rgba(76, 175, 80, 0.4);
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .spin-btn {
+            background: linear-gradient(135deg, #FF6B35 0%, #FF3D00 100%);
+            color: white;
+            border: none;
+            padding: 1.2rem 2.5rem;
+            font-size: 1.4rem;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
+            margin: 0 0.5rem;
+            position: relative;
+            z-index: 2;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 8px 20px rgba(255, 61, 0, 0.3);
+        }
+
+        .spin-btn:hover {
+            background: linear-gradient(135deg, #FF8A65 0%, #FF5722 100%);
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 12px 30px rgba(255, 61, 0, 0.4);
+        }
+
+        .spin-btn:disabled {
+            background: linear-gradient(135deg, #BDBDBD 0%, #9E9E9E 100%);
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .final-selection {
+            margin-top: 2rem;
+            padding: 2rem;
+            background: linear-gradient(135deg, #E8F5E8 0%, #C8E6C9 100%);
+            border-radius: 15px;
+            display: none;
+            position: relative;
+            z-index: 2;
+            box-shadow: 0 8px 25px rgba(76, 175, 80, 0.2);
+            border: 2px solid #4CAF50;
+        }
+
+        .final-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            padding: 1.5rem;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .final-item:hover {
+            transform: translateX(5px);
+        }
+
+        .final-item-img {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Food particles animation */
+        .food-particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            font-size: 1.5rem;
+            animation: float 4s linear infinite;
+            opacity: 0;
+        }
+
+        @keyframes float {
+            0% { 
+                opacity: 1;
+                transform: translateY(100%) rotate(0deg);
+            }
+            100% { 
+                opacity: 0;
+                transform: translateY(-100%) rotate(360deg);
+            }
+        }
+
+        /* Light beams animation */
+        .light-beams {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .light-beam {
+            position: absolute;
+            width: 2px;
+            height: 200%;
+            background: linear-gradient(to bottom, 
+                rgba(255,255,255,0) 0%,
+                rgba(255,255,255,0.8) 50%,
+                rgba(255,255,255,0) 100%);
+            transform-origin: center top;
+            animation: beamRotate 4s linear infinite;
+        }
+
+        @keyframes beamRotate {
+            0% { transform: rotate(0deg) translateY(-50%); }
+            100% { transform: rotate(360deg) translateY(-50%); }
+        }
+
+        /* Wheel glow effect */
+        .wheel-glow {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 120%;
+            height: 120%;
+            background: radial-gradient(circle, 
+                rgba(255,215,0,0.3) 0%, 
+                rgba(255,215,0,0.1) 50%, 
+                rgba(255,215,0,0) 70%);
+            border-radius: 50%;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            pointer-events: none;
+        }
+
+        .wheel.spinning ~ .wheel-glow {
+            opacity: 1;
+            animation: wheelGlowPulse 1s infinite alternate;
+        }
+
+        @keyframes wheelGlowPulse {
+            0% { transform: translate(-50%, -50%) scale(1); opacity: 0.7; }
+            100% { transform: translate(-50%, -50%) scale(1.1); opacity: 1; }
+        }
+
+        /* Confetti effect */
+        .confetti-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 30;
+        }
+
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: #f00;
+            opacity: 0;
+        }
+
+        /* Add to Cart Modal Styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .cart-modal {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            width: 90%;
+            max-width: 600px;
+            transform: translateY(50px);
+            transition: transform 0.4s ease, opacity 0.4s ease;
+            opacity: 0;
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.3);
+            position: relative;
+        }
+
+        .modal-overlay.active .cart-modal {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .modal-header {
+            background: linear-gradient(135deg, #FF3D00 0%, #FF6D00 100%);
+            color: white;
+            padding: 1.5rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .modal-header h3 {
+            font-size: 1.8rem;
+            margin: 0;
+            font-family: 'Fredoka One', cursive;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .close-modal:hover {
+            transform: rotate(90deg);
+        }
+
+        .modal-content {
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .modal-img-container {
+            width: 100%;
+            height: 250px;
+            position: relative;
+            overflow: hidden;
+            border-radius: 15px;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .modal-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+
+        .modal-img.active {
+            opacity: 1;
+        }
+
+        .modal-item-name {
+            font-size: 1.8rem;
+            color: #1a1a1a;
+            margin-bottom: 0.5rem;
+            text-align: center;
+            font-family: 'Fredoka One', cursive;
+        }
+
+        .modal-item-desc {
+            color: #666;
+            text-align: center;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+            line-height: 1.5;
+        }
+
+        .modal-item-price {
+            font-size: 1.8rem;
+            color: #FF3D00;
+            font-weight: bold;
+            margin-bottom: 1.5rem;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .modal-confirmation-text {
+            font-size: 1.2rem;
+            color: #555;
+            margin-bottom: 2rem;
+            text-align: center;
+            font-weight: bold;
+            position: relative;
+        }
+
+        .modal-confirmation-text::before,
+        .modal-confirmation-text::after {
+            content: "🍔";
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.5rem;
+        }
+
+        .modal-confirmation-text::before {
+            left: -40px;
+        }
+
+        .modal-confirmation-text::after {
+            right: -40px;
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 1rem;
+            width: 100%;
+            justify-content: center;
+        }
+
+        .modal-btn {
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 50px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1.1rem;
+            flex: 1;
+            max-width: 200px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .modal-btn-confirm {
+            background: linear-gradient(135deg, #4CAF50 0%, #66BB6A 100%);
+            color: white;
+        }
+
+        .modal-btn-confirm:hover {
+            background: linear-gradient(135deg, #66BB6A 0%, #81C784 100%);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(76, 175, 80, 0.4);
+        }
+
+        .modal-btn-cancel {
+            background: linear-gradient(135deg, #f44336 0%, #EF5350 100%);
+            color: white;
+        }
+
+        .modal-btn-cancel:hover {
+            background: linear-gradient(135deg, #EF5350 0%, #E57373 100%);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(244, 67, 54, 0.4);
+        }
+
+        /* Floating food particles for modal */
+        .modal-food-particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: -1;
+        }
+
+        .modal-particle {
+            position: absolute;
+            font-size: 1.5rem;
+            opacity: 0;
+            animation: floatModal 6s linear infinite;
+        }
+
+        @keyframes floatModal {
+            0% { 
+                opacity: 0;
+                transform: translateY(100%) rotate(0deg) scale(0.5);
+            }
+            20% { opacity: 1; }
+            100% { 
+                opacity: 0;
+                transform: translateY(-100%) rotate(360deg) scale(1.5);
+            }
+        }
+
+        /* Wheel Selection Modal */
+        .wheel-selection-modal {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            width: 90%;
+            max-width: 600px;
+            transform: translateY(50px);
+            transition: transform 0.4s ease, opacity 0.4s ease;
+            opacity: 0;
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.3);
+            position: relative;
+        }
+
+        .modal-overlay.active .wheel-selection-modal {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .wheel-modal-header {
+            background: linear-gradient(135deg, #FF9800 0%, #FF5722 100%);
+            color: white;
+            padding: 1.5rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .wheel-modal-header h3 {
+            font-size: 1.8rem;
+            margin: 0;
+            font-family: 'Fredoka One', cursive;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+        }
+
+        .wheel-modal-content {
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .wheel-selection-text {
+            font-size: 1.2rem;
+            color: #555;
+            margin-bottom: 2rem;
+            text-align: center;
+            font-weight: bold;
+            position: relative;
+        }
+
+        .wheel-selection-text::before,
+        .wheel-selection-text::after {
+            content: "🎯";
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.5rem;
+        }
+
+        .wheel-selection-text::before {
+            left: -40px;
+        }
+
+        .wheel-selection-text::after {
+            right: -40px;
+        }
+
+        .wheel-modal-buttons {
+            display: flex;
+            gap: 1rem;
+            width: 100%;
+            justify-content: center;
+        }
+
+        .wheel-modal-btn {
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 50px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1.1rem;
+            flex: 1;
+            max-width: 200px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .wheel-accept-btn {
+            background: linear-gradient(135deg, #4CAF50 0%, #66BB6A 100%);
+            color: white;
+        }
+
+        .wheel-accept-btn:hover {
+            background: linear-gradient(135deg, #66BB6A 0%, #81C784 100%);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(76, 175, 80, 0.4);
+        }
+
+        .wheel-reject-btn {
+            background: linear-gradient(135deg, #f44336 0%, #EF5350 100%);
+            color: white;
+        }
+
+        .wheel-reject-btn:hover {
+            background: linear-gradient(135deg, #EF5350 0%, #E57373 100%);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(244, 67, 54, 0.4);
+        }
+
+        @media (max-width: 768px) {
+            .menu-header h1 {
+                font-size: 2.5rem;
+            }
+            
+            nav {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .nav-links {
+                gap: 1rem;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .menu-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .wheel-container {
+                width: 280px;
+                height: 280px;
+            }
+
+            .spin-title {
+                font-size: 2rem;
+            }
+
+            .spin-container {
+                padding: 2rem;
+            }
+
+            .modal-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .modal-btn {
+                max-width: 100%;
+                width: 100%;
+            }
+
+            .modal-confirmation-text::before,
+            .modal-confirmation-text::after {
+                display: none;
+            }
+
+            .wheel-selection-text::before,
+            .wheel-selection-text::after {
+                display: none;
+            }
+
+            .wheel-modal-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .wheel-modal-btn {
+                max-width: 100%;
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Add to Cart Modal -->
+    <div class="modal-overlay" id="cart-modal-overlay">
+        <div class="cart-modal">
+            <div class="modal-header">
+                <h3>Add to Cart</h3>
+                <button class="close-modal" id="close-modal">&times;</button>
+            </div>
+            <div class="modal-content">
+                <div class="modal-img-container" id="modal-img-container">
+                    <!-- Images will be added dynamically -->
+                </div>
+                <h3 class="modal-item-name" id="modal-item-name"></h3>
+                <p class="modal-item-desc" id="modal-item-desc"></p>
+                <span class="modal-item-price" id="modal-item-price"></span>
+                <p class="modal-confirmation-text">Are you sure you want to add this delicious item to your cart?</p>
+                <div class="modal-buttons">
+                    <button class="modal-btn modal-btn-confirm" id="modal-confirm-btn">Yes, Add It!</button>
+                    <button class="modal-btn modal-btn-cancel" id="modal-cancel-btn">No, Maybe Later</button>
+                </div>
+                <div class="modal-food-particles" id="modal-food-particles"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Wheel Selection Modal -->
+    <div class="modal-overlay" id="wheel-modal-overlay">
+        <div class="wheel-selection-modal">
+            <div class="wheel-modal-header">
+                <h3>Your Lucky Pick!</h3>
+                <button class="close-modal" id="close-wheel-modal">&times;</button>
+            </div>
+            <div class="wheel-modal-content">
+                <div class="modal-img-container" id="wheel-modal-img-container">
+                    <!-- Image will be added dynamically -->
+                </div>
+                <h3 class="modal-item-name" id="wheel-item-name"></h3>
+                <p class="modal-item-desc" id="wheel-item-desc"></p>
+                <span class="modal-item-price" id="wheel-item-price"></span>
+                <p class="wheel-selection-text">Do you want to keep this selection?</p>
+                <div class="wheel-modal-buttons">
+                    <button class="wheel-modal-btn wheel-accept-btn" id="wheel-accept-btn">✅ Keep It!</button>
+                    <button class="wheel-modal-btn wheel-reject-btn" id="wheel-reject-btn">❌ Spin Again</button>
+                </div>
+                <div class="modal-food-particles" id="wheel-food-particles"></div>
+            </div>
+        </div>
+    </div>
+
+    <header>
+        <nav>
+            <a href="index.html" class="logo">BiteMasters</a>
+            <div class="nav-links">
+                <a href="Bitemaster website.html">Home</a>
+                <a href="menu.html" class="active">Menu</a>
+                <a href="locations.html">Locations</a>
+                <a href="rewards.html">Rewards</a>
+                <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
+                <a href="order.html" class="cart-link">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-count">0</span>
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <section class="menu-header">
+        <h1>Our Full Menu</h1>
+    </section>
+
+    <main class="menu-container">
+        <!-- Enhanced Spin the Wheel Section -->
+        <div class="spin-container">
+            <div class="food-particles" id="food-particles"></div>
+            <div class="light-beams" id="light-beams"></div>
+            <div class="confetti-container" id="confetti-container"></div>
+            
+            <h2 class="spin-title">🍔 Flavor Roulette 🍟</h2>
+            <p class="spin-subtitle">Let the wheel of deliciousness decide your perfect meal!</p>
+            
+            <div class="progress-tracker">
+                <div class="progress-step" id="step-burgers">🍔</div>
+                <div class="progress-step" id="step-sides">🍟</div>
+                <div class="progress-step" id="step-drinks">🥤</div>
+                <div class="progress-step" id="step-desserts">🍰</div>
+            </div>
+            
+            <div class="wheel-container">
+                <div class="wheel" id="wheel"></div>
+                <div class="wheel-glow"></div>
+                <div class="wheel-pointer"></div>
+                <div class="wheel-center">🍽️</div>
+            </div>
+            
+            <button class="spin-btn" id="spin-btn">🎲 SPIN THE WHEEL! 🎲</button>
+            
+            <div class="final-selection" id="final-selection">
+                <h3>🏆 Your Complete Feast:</h3>
+                <div id="final-items-container"></div>
+                <button class="spin-btn" id="add-all-to-cart">🛒 Add All to Cart</button>
+            </div>
+        </div>
+
+        <!-- Menu Categories -->
+        <div class="menu-categories">
+            <button class="category-btn active" data-category="burgers">Burgers</button>
+            <button class="category-btn" data-category="sides">Sides</button>
+            <button class="category-btn" data-category="drinks">Drinks</button>
+            <button class="category-btn" data-category="desserts">Desserts</button>
+        </div>
+        
+        <!-- Burgers Section -->
+        <div class="menu-section active" id="burgers">
+            <h2 class="section-title">Signature Burgers</h2>
+            <div class="menu-grid">
+                <!-- Bacon Beast -->
+                <div class="menu-item" data-category="burgers" data-name="Bacon Beast" data-desc="Double patty, crispy bacon, cheddar, and our signature sauce" data-price="12.99" data-img="Bacon 1.jpg">
+                    <div class="menu-item-img-container">
+                        <img src="Bacon 1.jpg" alt="Bacon Beast Burger" class="menu-item-img active">
+                        <img src="Bacon 2.webp" alt="Bacon Beast Burger" class="menu-item-img">
+                    </div>
+                    <div class="menu-item-info">
+                        <h3 class="menu-item-name">Bacon Beast</h3>
+                        <p class="menu-item-desc">Double patty, crispy bacon, cheddar, and our signature sauce</p>
+                        <span class="menu-item-price">$12.99</span>
+                        <button class="add-to-cart">Add to Cart</button>
+                    </div>
+                </div>
+                
+                <!-- BBQ Blaster -->
+                <div class="menu-item" data-category="burgers" data-name="BBQ Blaster" data-desc="Smoky BBQ sauce, onion rings, and pepper jack cheese" data-price="13.99" data-img="bbq 1.jpg">
+                    <div class="menu-item-img-container">
+                        <img src="bbq 1.jpg" alt="BBQ Blaster Burger" class="menu-item-img active">
+                        <img src="bbq 2.jpg" alt="BBQ Blaster Burger" class="menu-item-img">
+                    </div>
+                    <div class="menu-item-info">
+                        <h3 class="menu-item-name">BBQ Blaster</h3>
+                        <p class="menu-item-desc">Smoky BBQ sauce, onion rings, and pepper jack cheese</p>
+                        <span class="menu-item-price">$13.99</span>
+                        <button class="add-to-cart">Add to Cart</button>
+                    </div>
+                </div>
+                
+                <!-- Mushroom Swiss -->
+                <div class="menu-item" data-category="burgers" data-name="Mushroom Swiss" data-desc="Sautéed mushrooms, Swiss cheese, and garlic aioli" data-price="12.49" data-img="mushroom swiss 1.jpg">
+                    <div class="menu-item-img-container">
+                        <img src="mushroom swiss 1.jpg" alt="Mushroom Swiss Burger" class="menu-item-img active">
+                        <img src="mushroom swiss 2.jpg" alt="Mushroom Swiss Burger" class="menu-item-img">
+                    </div>
+                    <div class="menu-item-info">
+                        <h3 class="menu-item-name">Mushroom Swiss</h3>
+                        <p class="menu-item-desc">Sautéed mushrooms, Swiss cheese, and garlic aioli</p>
+                        <span class="menu-item-price">$12.49</span>
+                        <button class="add-to-cart">Add to Cart</button>
+                    </div>
+                </div>
+                
+                <!-- Spicy Jalapeño -->
+                <div class="menu-item" data-category="burgers" data-name="Spicy Jalapeño" data-desc="Pepper jack cheese, jalapeños, and chipotle mayo" data-price="13.49" data-img="spicy j.jpg">
+                    <div class="menu-item-img-container">
+                        <img src="spicy j.jpg" alt="Spicy Jalapeño Burger" class="menu-item-img active">
+                        <img src="spicy j 2.webp" alt="Spicy Jalapeño Burger" class="menu-item-img">
+                    </div>
+                    <div class="menu-item-info">
+                        <h3 class="menu-item-name">Spicy Jalapeño</h3>
+                        <p class="menu-item-desc">Pepper jack cheese, jalapeños, and chipotle mayo</p>
+                        <span class="menu-item-price">$13.49</span>
+                        <button class="add-to-cart">Add to Cart</button>
+                    </div>
+                </div>
+                
+                <!-- Big Bite -->
+                <div class="menu-item" data-category="burgers" data-name="Big Bite" data-desc="Triple stacked angus beef with all the fixings" data-price="14.99" data-img="Triple stack 1.jpeg">
+                    <div class="menu-item-img-container">
+                        <img src="Triple stack 1.jpeg" alt="Big Bite Burger" class="menu-item-img active">
+                        <img src="Triple stack 2.png" alt="Big Bite Burger" class="menu-item-img">
+                    </div>
+                    <div class="menu-item-info">
+                        <h3 class="menu-item-name">Big Bite</h3>
+                        <p class="menu-item-desc">Triple stacked angus beef with all the fixings</p>
+                        <span class="menu-item-price">$14.99</span>
+                        <button class="add-to-cart">Add to Cart</button>
+                    </div>
+                </div>
+                
+                <!-- Black Bean -->
+                <div class="menu-item" data-category="burgers" data-name="Black Bean" data-desc="Spicy black bean patty with avocado and chipotle mayo" data-price="11.99" data-img="Black Bean 1.jpg">
+                    <div class="menu-item-img-container">
+                        <img src="Black Bean 1.jpg" alt="Black Bean Burger" class="menu-item-img active">
+                        <img src="Black Bean 2.jpg" alt="Black Bean Burger" class="menu-item-img">
+                    </div>
+                    <div class="menu-item-info">
+                        <h3 class="menu-item-name">Black Bean</h3>
+                        <p class="menu-item-desc">Spicy black bean patty with avocado and chipotle mayo</p>
+                        <span class="menu-item-price">$11.99</span>
+                        <button class="add-to-cart">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+            
+            <h3 class="category-title">Chicken Burgers</h3>
+            <div class="menu-grid">
+                <!-- Crispy Chicken -->
+                <div class="menu-item" data-category="burgers" data-name="Crispy Chicken" data-desc="Buttermilk fried chicken with coleslaw and pickles" data-price="11.99" data-img="crispy c 1.webp">
+                    <div class="menu-item-img-container">
+                       <img src="crispy c 1.webp" alt="Crispy Chicken Burger" class="menu-item-img active">
+                        <img src="crispy c 2.jpg" alt="Crispy Chicken Burger" class="menu-item-img">
+                    </div>
+                    <div class="menu-item-info">
+                        <h3 class="menu-item-name">Crispy Chicken</h3>
+                        <p class="menu-item-desc">Buttermilk fried chicken with coleslaw and pickles</p>
+                        <span class="menu-item-price">$11.99</span>
+                        <button class="add-to-cart">Add to Cart</button>
+                    </div>
+                </div>   
+                <!-- Buffalo Chicken -->
+                <div class="menu-item" data-category="burgers" data-name="Buffalo Chicken" data-desc="Spicy buffalo sauce, blue cheese, and celery" data-price="12.99" data-img="buffalo chicken.jpg">
+                    <div class="menu-item-img-container">
+                                             <img src="buffalo chicken.jpg" alt="Buffalo Chicken Burger" class="menu-item-img active">
+                        <img src="buffalo chicken 2.jpg" alt="Buffalo Chicken Burger" class="menu-item-img">
+                    </div>
+                    <div class="menu-item-info">
+                        <h3 class="menu-item-name">Buffalo Chicken</h3>
+                        <p class="menu-item-desc">Spicy buffalo sauce, blue cheese, and celery</p>
+                        <span class="menu-item-price">$12.99</span>
+                        <button class="add-to-cart">Add to Cart</button>
+                    </div>
+                </div>         
+                <!-- Grilled Chicken -->
+                <div class="menu-item" data-category="burgers" data-name="Grilled Chicken" data-desc="Juicy grilled chicken with avocado and honey mustard" data-price="12.49" data-img="grilled chicken.jpg">
+                    <div class="menu-item-img-container">
+                                          <img src="grilled chicken.jpg" alt="Grilled Chicken Burger" class="menu-item-img active">
+                        <img src="grilled chicken 2.jpg" alt="Grilled Chicken Burger" class="menu-item-img">
+
+                    </div>
+                    <div class="menu-item-info">
+                        <h3 class="menu-item-name">Grilled Chicken</h3>
+                        <p class="menu-item-desc">Juicy grilled chicken with avocado and honey mustard</p>
+                        <span class="menu-item-price">$12.49</span>
+                        <button class="add-to-cart">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+            
+            <h3 class="category-title">Veggie Burgers</h3>
+            <div class="menu-grid">
+                <!-- Beyond Burger -->
+                <div class="menu-item" data-category="burgers" data-name="Beyond Burger" data-desc="Plant-based patty with all the classic toppings" data-price="13.49" data-img="plant 1.webp">
+                    <div class="menu-item-img-container">            
+                       <img src="plant 1.webp" alt="Beyond Burger" class="menu-item-img active">
+                        <img src="plant 2.png" alt="Beyond Burger" class="menu-item-img">
+
+                    </div>
+                    <div class="menu-item-info">
+                        <h3 class="menu-item-name">Beyond Burger</h3>
+                        <p class="menu-item-desc">Plant-based patty with all the classic toppings</p>
+                        <span class="menu-item-price">$13.49</span>
+                        <button class="add-to-cart">Add to Cart</button>
+                    </div>
+                </div>
+                
+                <!-- Portobello Mushroom -->
+                <div class="menu-item" data-category="burgers" data-name="Portobello Mushroom" data-desc="Grilled portobello with roasted peppers and goat cheese" data-price="12.99" data-img="port 1.jpg">
+                    <div class="menu-item-img-container">
+                        <img src="port 1.jpg" alt="Portobello Mushroom Burger" class="menu-item-img active">
+                        <img src="port 2.jpg" alt="Portobello Mushroom Burger" class="menu-item-img">
+                    </div>
+                    <div class="menu-item-info">
+                        <h3 class="menu-item-name">Portobello Mushroom</h3>
+                        <p class="menu-item-desc">Grilled portobello with roasted peppers and goat cheese</p>
+                        <span class="menu-item-price">$12.99</span>
+                        <button class="add-to-cart">Add to Cart</button>
+                    </div>
+                </div>
+                
+                <!-- Falafel Burger -->
+                <div class="menu-item" data-category="burgers" data-name="Falafel Burger" data-desc="Crispy falafel patty with tahini sauce and veggies" data-price="11.49" data-img="f 1.webp">
+                    <div class="menu-item-img-container">
+                               <img src="f 1.webp" alt="Falafel Burger" class="menu-item-img active">
+                        <img src="f 2.jpg" alt="Falafel Burger" class="menu-item-img">
+                    </div>
+                    <div class="menu-item-info">
+                        <h3 class="menu-item-name">Falafel Burger</h3>
+                        <p class="menu-item-desc">Crispy falafel patty with tahini sauce and veggies</p>
+                        <span class="menu-item-price">$11.49</span>
+                        <button class="add-to-cart">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Sides Section -->
+        <div class="menu-section" id="sides">
+            <h2 class="section-title">Sides & Extras</h2>
+            <div class="menu-grid">
+                <!-- Loaded Fries -->
+                <div class="menu-item" data-category="sides" data-name="Loaded Fries" data-desc="Crispy fries topped with cheese, bacon, and our special sauce" data-price="6.99" data-img="loaded fries 1.jpg">
+                    <div class="menu-item-img-container">
+                                  <img src="loaded fries 1.jpg" alt="Loaded Fries" class="menu-item-img active">
+                        <img src="loaded fries 2.jpg" alt="Loaded Fries" class="menu-item-img">
+                    </div>
+                    <div class="menu-item-info">
+                        <h3 class="menu-item-name">Loaded Fries</h3>
+                        <p class="menu-item-desc">Crispy fries topped with cheese, bacon, and our special sauce</p>
+                        <span class="menu-item-price">$6.99</span>
+                        <button class="add-to-cart">Add to Cart</button>
+                    </div>
+                </div>
+                <!-- Onion Rings -->
+                <div class="menu-item" data-category="sides" data-name="Onion Rings" data-desc="Crispy beer-battered onion rings with ranch dipping sauce" data-price="5.99" data-img="Onion rings 1.jpg">
+                    <div class="menu-item-img-container">
+                                     <img src="Onion rings 1.jpg" alt="Onion Rings" class="menu-item-img active">
+                        <img src="Onion rings 2.webp" alt="Onion Rings" class="menu-item-img">
+                    </div>
+                    <div class="menu-item-info">
+                        <h3 class="menu-item-name">Onion Rings</h3>
+                        <p class="menu-item-desc">Crispy beer-battered onion rings with ranch dipping sauce</p>
+                        <span class="menu-item-price">$5.99</span>
+                        <button class="add-to-cart">Add to Cart</button>
+                    </div>
+                </div>
+                
+                <!-- Sweet Potato Fries -->
+                <div class="menu-item" data-category="sides" data-name="Sweet Potato Fries" data-desc="Crispy sweet potato fries with maple dipping sauce" data-price="5.49" data-img="sweet 1.webp">
+                    <div class="menu-item-img-container">
+               <img src="sweet 1.webp" alt="Sweet Potato Fries" class="menu-item-img active">
+                        <img src="sweet 2.jpg" alt="Sweet Potato Fries" class="menu-item-img">
+                    </div>
+                    <div class="menu-item-info">
+                        <h3 class="menu-item-name">Sweet Potato Fries</h3>
+                        <p class="menu-item-desc">Crispy sweet potato fries with maple dipping sauce</p>
+                        <span class="menu-item-price">$5.49</span>
+                        <button class="add-to-cart">Add to Cart</button>
+                    </div>
+                </div>
+                
+                <!-- Mozzarella Sticks -->
+                <div class="menu-item" data-category="sides" data-name="Mozzarella Sticks" data-desc="Breaded mozzarella sticks with marinara sauce" data-price="6.49" data-img="moza 1.jpg">
+                    <div class="menu-item-img-container">
+                        <img src="moza 1.jpg" alt="Mozzarella Sticks" class="menu-item-img active">
+                        <img src="moza 2.jpg" alt="Mozzarella Sticks" class="menu-item-img">
+                    </div>
+                    <div class="menu-item-info">
+                        <h3 class="menu-item-name">Mozzarella Sticks</h3>
+                        <p class="menu-item-desc">Breaded mozzarella sticks with marinara sauce</p>
+                        <span class="menu-item-price">$6.49</span>
+                        <button class="add-to-cart">Add to Cart</button>
+                    </div>
+                </div>
+                
+                <!-- Coleslaw -->
+                <div class="menu-item" data-category="sides" data-name="Coleslaw" data-desc="Creamy homemade coleslaw with a tangy twist" data-price="3.99" data-img="col 1.jpg">
+                    <div class="menu-item-img-container">
+                        <img src="col 1.jpg" alt="Coleslaw" class="menu-item-img active">
+                        <img src="col 2.png" alt="Coleslaw" class="menu-item-img">
+                    </div>
+                    <div class="menu-item-info">
+                        <h3 class="menu-item-name">Coleslaw</h3>
+                        <p class="menu-item-desc">Creamy homemade coleslaw with a tangy twist</p>
+                        <span class="menu-item-price">$3.99</span>
+                        <button class="add-to-cart">Add to Cart</button>
+                    </div>
+                </div>
+                
+                <!-- Garlic Bread -->
+                <div class="menu-item" data-category="sides" data-name="Garlic Bread" data-desc="Toasted bread with garlic butter and herbs" data-price="4.49" data-img="garlic 1.jpg">
+                    <div class="menu-item-img-container">
+                        <img src="garlic 1.jpg" alt="Garlic Bread" class="menu-item-img active">
+                        <img src="garlic 2.webp" alt="Garlic Bread" class="menu-item-img">
+                    </div>
+                    <div class="menu-item-info">
+                        <h3 class="menu-item-name">Garlic Bread</h3>
+                        <p class="menu-item-desc">Toasted bread with garlic butter and herbs</p>
+                        <span class="menu-item-price">$4.49</span>
+                        <button class="add-to-cart">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Drinks Section -->
+        <div class="menu-section" id="drinks">
+            <h2 class="section-title">Drinks</h2>
+            <div class="menu-grid">
+                <!-- Classic Shakes -->
+                <div class="menu-item" data-category="drinks" data-name="Classic Shakes" data-desc="Vanilla, chocolate, or strawberry" data-price="5.99" data-img="shake 1.jpg">
+                    <div class="menu-item-img-container">
+                        <img src="shake 1.jpg" alt="Classic Shakes" class="menu-item-img active">
+                        <img src="shake 2.jpg" alt="Classic Shakes" class="menu-item-img">
+                    </div>
+                    <div class="menu-item-info">
+                        <h3 class="menu-item-name">Classic Shakes</h3>
+                        <p class="menu-item-desc">Vanilla, chocolate, or strawberry</p>
+                        <span class="menu-item-price">$5.99</span>
+                        <button class="add-to-cart">Add to Cart</button>
+                    </div>
+                </div>
+                
+                <!-- Cold Brew -->
+                <div class="menu-item" data-category="drinks" data-name="Cold Brew" data-desc="Smooth 12-hour cold brewed coffee" data-price="4.49" data-img="cold 1.jpeg">
+                    <div class="menu-item-img-container">
+                        <img src="cold 1.jpeg" alt="Cold Brew" class="menu-item-img active">
+                        <img src="cold 2.jpg" alt="Cold Brew" class="menu-item-img">
+                    </div>
+                    <div class="menu-item-info">
+                        <h3 class="menu-item-name">Cold Brew</h3>
+                        <p class="menu-item-desc">Smooth 12-hour cold brewed coffee</p>
+                        <span class="menu-item-price">$4.49</span>
+                        <button class="add-to-cart">Add to Cart</button>
+                    </div>
+                </div>
+                
+                <!-- Iced Tea -->
+                <div class="menu-item" data-category="drinks" data-name="Iced Tea" data-desc="Freshly brewed iced tea, sweetened or unsweetened" data-price="3.49" data-img="iced 1.jpg">
+                    <div class="menu-item-img-container">
+                        <img src="iced 1.jpg" alt="Iced Tea" class="menu-item-img active">
+                        <img src="iced 2.jpg" alt="Iced Tea" class="menu-item-img">
+                    </div>
+                    <div class="menu-item-info">
+                        <h3 class="menu-item-name">Iced Tea</h3>
+                        <p class="menu-item-desc">Freshly brewed iced tea, sweetened or unsweetened</p>
+                        <span class="menu-item-price">$3.49</span>
+                        <button class="add-to-cart">Add to Cart</button>
+                    </div>
+                </div>
+                
+                <!-- Lemonade -->
+                <div class="menu-item" data-category="drinks" data-name="Lemonade" data-desc="Homemade lemonade, regular or strawberry" data-price="3.99" data-img="lemon 1.jpg">
+                    <div class="menu-item-img-container">
+                        <img src="lemon 1.jpg" alt="Lemonade" class="menu-item-img active">
+                        <img src="lemon 2.webp" alt="Lemonade" class="menu-item-img">
+                    </div>
+                    <div class="menu-item-info">
+                        <h3 class="menu-item-name">Lemonade</h3>
+                        <p class="menu-item-desc">Homemade lemonade, regular or strawberry</p>
+                        <span class="menu-item-price">$3.99</span>
+                        <button class="add-to-cart">Add to Cart</button>
+                    </div>
+                </div>
+                
+                <!-- Soda -->
+                <div class="menu-item" data-category="drinks" data-name="Soda" data-desc="Coke, Diet Coke, Sprite, Dr. Pepper, or Root Beer" data-price="2.99" data-img="cola 2.jpg">
+                    <div class="menu-item-img-container">
+                        <img src="cola 2.jpg" alt="Soda" class="menu-item-img active">
+                        <img src="cola 3.jpg" alt="Soda" class="menu-item-img">
+                    </div>
+                    <div class="menu-item-info">
+                        <h3 class="menu-item-name">Soda</h3>
+                        <p class="menu-item-desc">Coke, Diet Coke, Sprite, Dr. Pepper, or Root Beer</p>
+                        <span class="menu-item-price">$2.99</span>
+                        <button class="add-to-cart">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Desserts Section -->
+        <div class="menu-section" id="desserts">
+            <h2 class="section-title">Desserts</h2>
+            <div class="menu-grid">
+                <!-- Chocolate Brownie -->
+                <div class="menu-item" data-category="desserts" data-name="Chocolate Brownie" data-desc="Warm chocolate brownie with vanilla ice cream" data-price="6.99" data-img="brownee 1.jpeg">
+                    <div class="menu-item-img-container">
+                        <img src="brownee 1.jpeg" alt="Chocolate Brownie" class="menu-item-img active">
+                        <img src="brownee 2.webp" alt="Chocolate Brownie" class="menu-item-img">
+                    </div>
+                    <div class="menu-item-info">
+                        <h3 class="menu-item-name">Chocolate Brownie</h3>
+                        <p class="menu-item-desc">Warm chocolate brownie with vanilla ice cream</p>
+                        <span class="menu-item-price">$6.99</span>
+                        <button class="add-to-cart">Add to Cart</button>
+                    </div>
+                </div>
+                
+                <!-- Apple Pie -->
+                <div class="menu-item" data-category="desserts" data-name="Apple Pie" data-desc="Homemade apple pie with cinnamon ice cream" data-price="7.49" data-img="apple 1.jpg">
+                    <div class="menu-item-img-container">
+                        <img src="apple 1.jpg" alt="Apple Pie" class="menu-item-img active">
+                        <img src="apple 2.jpg" alt="Apple Pie" class="menu-item-img">
+                    </div>
+                    <div class="menu-item-info">
+                        <h3 class="menu-item-name">Apple Pie</h3>
+                        <p class="menu-item-desc">Homemade apple pie with cinnamon ice cream</p>
+                        <span class="menu-item-price">$7.49</span>
+                        <button class="add-to-cart">Add to Cart</button>
+                    </div>
+                </div>
+                
+                <!-- Chocolate Chip Cookie -->
+                <div class="menu-item" data-category="desserts" data-name="Chocolate Chip Cookie" data-desc="Warm, gooey chocolate chip cookie" data-price="3.99" data-img="choco 1.jpg">
+                    <div class="menu-item-img-container">
+                        <img src="choco 1.jpg" alt="Chocolate Chip Cookie" class="menu-item-img active">
+                        <img src="choco 2.jpg" alt="Chocolate Chip Cookie" class="menu-item-img">
+                    </div>
+                    <div class="menu-item-info">
+                        <h3 class="menu-item-name">Chocolate Chip Cookie</h3>
+                        <p class="menu-item-desc">Warm, gooey chocolate chip cookie</p>
+                        <span class="menu-item-price">$3.99</span>
+                        <button class="add-to-cart">Add to Cart</button>
+                    </div>
+                </div>
+                
+                <!-- Ice Cream Sundae -->
+                <div class="menu-item" data-category="desserts" data-name="Ice Cream Sundae" data-desc="Vanilla ice cream with hot fudge, whipped cream, and a cherry" data-price="5.99" data-img="ice 1.jpg">
+                    <div class="menu-item-img-container">
+                        <img src="ice 1.jpg" alt="Ice Cream Sundae" class="menu-item-img active">
+                        <img src="ice 2.jpg" alt="Ice Cream Sundae" class="menu-item-img">
+                    </div>
+                    <div class="menu-item-info">
+                        <h3 class="menu-item-name">Ice Cream Sundae</h3>
+                        <p class="menu-item-desc">Vanilla ice cream with hot fudge, whipped cream, and a cherry</p>
+                        <span class="menu-item-price">$5.99</span>
+                        <button class="add-to-cart">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>About Us</h3>
+                <p>BiteMasters is dedicated to serving the most delicious burgers with high-quality ingredients and exceptional service.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="Bitemaster website.html">Home</a></li>
+                    <li><a href="menu.html">Menu</a></li>
+                    <li><a href="locations.html">Locations</a></li>
+                    <li><a href="rewards.html">Rewards</a></li>
+                </ul>
+            </div>
+            <div class="footer-section newsletter">
+                <h3>Newsletter</h3>
+                <p>Subscribe to get updates on special offers and events.</p>
+                <input type="email" placeholder="Your email address">
+                <button class="add-to-cart" style="
+                    background: linear-gradient(135deg, #FF3D00 0%, #FF6D00 100%);
+                    color: white;
+                    border: none;
+                    padding: 0.8rem;
+                    border-radius: 5px;
+                    cursor: pointer;
+                    width: 100%;
+                    font-weight: bold;
+                    transition: all 0.3s ease;
+                    box-shadow: 0 4px 8px rgba(255, 61, 0, 0.2);
+                ">Subscribe</button>
+            </div>
+            <div class="footer-section">
+                <h3>Connect With Us</h3>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2023 BiteMasters. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Menu category switching
+        const categoryBtns = document.querySelectorAll('.category-btn');
+        const menuSections = document.querySelectorAll('.menu-section');
+
+        categoryBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Remove active class from all buttons
+                categoryBtns.forEach(b => b.classList.remove('active'));
+                // Add active class to clicked button
+                btn.classList.add('active');
+                
+                // Get the category to show
+                const category = btn.dataset.category;
+                
+                // Hide all menu sections
+                menuSections.forEach(section => {
+                    section.classList.remove('active');
+                });
+                
+                // Show the selected category
+                document.getElementById(category).classList.add('active');
+            });
+        });
+
+        // Image cycling for menu items
+        const menuItems = document.querySelectorAll('.menu-item');
+        
+        menuItems.forEach(item => {
+            const images = item.querySelectorAll('.menu-item-img');
+            let currentIndex = 0;
+            
+            if (images.length > 1) {
+                setInterval(() => {
+                    images[currentIndex].classList.remove('active');
+                    currentIndex = (currentIndex + 1) % images.length;
+                    images[currentIndex].classList.add('active');
+                }, 3000);
+            }
+        });
+
+        // Cart functionality
+        const addToCartBtns = document.querySelectorAll('.add-to-cart');
+        const cartCount = document.querySelector('.cart-count');
+        
+        // Load cart from localStorage
+        let cart = JSON.parse(localStorage.getItem('biteMastersCart')) || [];
+        updateCartCount();
+
+        // Modal elements
+        const modalOverlay = document.getElementById('cart-modal-overlay');
+        const closeModalBtn = document.getElementById('close-modal');
+        const modalConfirmBtn = document.getElementById('modal-confirm-btn');
+        const modalCancelBtn = document.getElementById('modal-cancel-btn');
+        const modalImgContainer = document.getElementById('modal-img-container');
+        const modalItemName = document.getElementById('modal-item-name');
+        const modalItemDesc = document.getElementById('modal-item-desc');
+        const modalItemPrice = document.getElementById('modal-item-price');
+        const modalFoodParticles = document.getElementById('modal-food-particles');
+
+        // Current item to be added to cart
+        let currentItemToAdd = null;
+
+        // Show modal with item details
+        function showAddToCartModal(itemElement) {
+            // Get item details from the clicked element
+            const menuItem = itemElement.closest('.menu-item');
+            const itemName = menuItem.dataset.name;
+            const itemPrice = menuItem.dataset.price;
+            const itemDesc = menuItem.dataset.desc;
+            const itemImages = menuItem.querySelectorAll('.menu-item-img');
+            const itemImg = menuItem.dataset.img;
+            
+            // Clear previous images
+            modalImgContainer.innerHTML = '';
+            
+            // Add all images to modal
+            itemImages.forEach(img => {
+                const modalImg = document.createElement('img');
+                modalImg.src = img.src;
+                modalImg.alt = itemName;
+                modalImg.className = 'modal-img';
+                if (img.classList.contains('active')) {
+                    modalImg.classList.add('active');
+                }
+                modalImgContainer.appendChild(modalImg);
+            });
+
+            // Set modal content
+            modalItemName.textContent = itemName;
+            modalItemDesc.textContent = itemDesc;
+            modalItemPrice.textContent = `$${itemPrice}`;
+            
+            // Store reference to the menu item
+            currentItemToAdd = {
+                item: itemName,
+                price: itemPrice,
+                desc: itemDesc,
+                img: itemImg
+            };
+            
+            // Create floating food particles
+            createModalFoodParticles();
+            
+            // Show modal
+            modalOverlay.classList.add('active');
+            
+            // Start image cycling in modal
+            const modalImages = modalImgContainer.querySelectorAll('.modal-img');
+            let currentModalIndex = 0;
+            
+            if (modalImages.length > 1) {
+                setInterval(() => {
+                    modalImages[currentModalIndex].classList.remove('active');
+                    currentModalIndex = (currentModalIndex + 1) % modalImages.length;
+                    modalImages[currentModalIndex].classList.add('active');
+                }, 3000);
+            }
+        }
+
+        // Close modal
+        function closeModal() {
+            modalOverlay.classList.remove('active');
+            currentItemToAdd = null;
+        }
+
+        // Confirm adding to cart
+        function confirmAddToCart() {
+            if (currentItemToAdd) {
+                cart.push(currentItemToAdd);
+                localStorage.setItem('biteMastersCart', JSON.stringify(cart));
+                updateCartCount();
+                
+                // Animation for button click
+                const addToCartBtn = document.querySelector(`.menu-item[data-name="${currentItemToAdd.item}"] .add-to-cart`);
+                if (addToCartBtn) {
+                    addToCartBtn.textContent = 'Added!';
+                    addToCartBtn.style.backgroundColor = '#4CAF50';
+                    
+                    setTimeout(() => {
+                        addToCartBtn.textContent = 'Add to Cart';
+                        addToCartBtn.style.backgroundColor = '#FF3D00';
+                    }, 1000);
+                }
+            }
+            closeModal();
+        }
+
+        // Create floating food particles for modal
+        function createModalFoodParticles() {
+            modalFoodParticles.innerHTML = '';
+            const foodIcons = ['🍔', '🍟', '🌭', '🍕', '🥪', '🌮', '🍗', '🍖', '🧀', '🥓'];
+            
+            for (let i = 0; i < 15; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'modal-particle';
+                particle.textContent = foodIcons[Math.floor(Math.random() * foodIcons.length)];
+                particle.style.left = `${Math.random() * 100}%`;
+                particle.style.animationDuration = `${4 + Math.random() * 4}s`;
+                particle.style.animationDelay = `${Math.random() * 2}s`;
+                modalFoodParticles.appendChild(particle);
+            }
+        }
+
+        // Update cart count
+        function updateCartCount() {
+            const count = cart.length;
+            document.querySelectorAll('.cart-count').forEach(el => {
+                el.textContent = count;
+            });
+        }
+
+        // Event listeners
+        addToCartBtns.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                showAddToCartModal(e.target);
+            });
+        });
+
+        closeModalBtn.addEventListener('click', closeModal);
+        modalConfirmBtn.addEventListener('click', confirmAddToCart);
+        modalCancelBtn.addEventListener('click', closeModal);
+
+        // Close modal when clicking outside
+        modalOverlay.addEventListener('click', (e) => {
+            if (e.target === modalOverlay) {
+                closeModal();
+            }
+        });
+
+    // Spin the Wheel functionality
+    const wheel = document.getElementById('wheel');
+    const spinBtn = document.getElementById('spin-btn');
+    const wheelModalOverlay = document.getElementById('wheel-modal-overlay');
+    const closeWheelModalBtn = document.getElementById('close-wheel-modal');
+    const wheelAcceptBtn = document.getElementById('wheel-accept-btn');
+    const wheelRejectBtn = document.getElementById('wheel-reject-btn');
+    const wheelModalImgContainer = document.getElementById('wheel-modal-img-container');
+    const wheelItemName = document.getElementById('wheel-item-name');
+    const wheelItemDesc = document.getElementById('wheel-item-desc');
+    const wheelItemPrice = document.getElementById('wheel-item-price');
+    const wheelFoodParticles = document.getElementById('wheel-food-particles');
+    const foodParticles = document.getElementById('food-particles');
+    const lightBeams = document.getElementById('light-beams');
+    const confettiContainer = document.getElementById('confetti-container');
+    const finalSelection = document.getElementById('final-selection');
+    
+    // Categories for the wheel
+    const categories = ['burgers', 'sides', 'drinks', 'desserts'];
+    let currentCategoryIndex = 0;
+    let selectedItems = [];
+    let isSpinning = false;
+    let currentSelectedItem = null;
+    
+    // Initialize wheel
+    function initWheel() {
+        wheel.innerHTML = '';
+        const items = Array.from(document.querySelectorAll(`.menu-item[data-category="${categories[currentCategoryIndex]}"]`));
+        
+        if (items.length === 0) return;
+        
+        const angle = 360 / items.length;
+        
+        items.forEach((item, index) => {
+            const section = document.createElement('div');
+            section.className = 'wheel-section';
+            section.style.transform = `rotate(${angle * index}deg)`;
+            section.dataset.item = JSON.stringify({
+                name: item.dataset.name,
+                desc: item.dataset.desc,
+                price: item.dataset.price,
+                img: item.dataset.img,  // This was missing in your original code
+                // Store the first active image source
+                activeImg: item.querySelector('.menu-item-img.active').src
+            });
+            wheel.appendChild(section);
+        });
+        
+        // Update progress steps
+        document.querySelectorAll('.progress-step').forEach((step, index) => {
+            step.classList.remove('active', 'completed');
+            if (index === currentCategoryIndex) {
+                step.classList.add('active');
+            } else if (index < currentCategoryIndex) {
+                step.classList.add('completed');
+            }
+        });
+    }
+        
+        // Create light beams
+        function createLightBeams() {
+            lightBeams.innerHTML = '';
+            for (let i = 0; i < 8; i++) {
+                const beam = document.createElement('div');
+                beam.className = 'light-beam';
+                beam.style.transform = `rotate(${i * 45}deg)`;
+                beam.style.animationDelay = `${i * 0.1}s`;
+                lightBeams.appendChild(beam);
+            }
+        }
+        
+        // Create confetti
+        function createConfetti() {
+            confettiContainer.innerHTML = '';
+            const colors = ['#f00', '#0f0', '#00f', '#ff0', '#f0f', '#0ff'];
+            
+            for (let i = 0; i < 100; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.left = `${Math.random() * 100}%`;
+                confetti.style.top = `-10px`;
+                confetti.style.opacity = '0';
+                confetti.style.transform = `rotate(${Math.random() * 360}deg)`;
+                confetti.style.animation = `confettiFall ${2 + Math.random() * 3}s linear forwards`;
+                confetti.style.animationDelay = `${Math.random() * 0.5}s`;
+                confettiContainer.appendChild(confetti);
+            }
+        }
+        
+        // Show wheel selection modal
+        function showWheelSelectionModal(itemData) {
+            // Clear previous image
+            wheelModalImgContainer.innerHTML = '';
+            
+            // Add image to modal
+            const modalImg = document.createElement('img');
+            modalImg.src = itemData.activeImg; // Use the stored active image
+            modalImg.alt = itemData.name;
+            modalImg.className = 'modal-img active';
+            wheelModalImgContainer.appendChild(modalImg);
+            
+            // Set modal content
+            wheelItemName.textContent = itemData.name;
+            wheelItemDesc.textContent = itemData.desc;
+            wheelItemPrice.textContent = `$${itemData.price}`;
+            
+            // Create floating food particles
+            createWheelFoodParticles();
+            
+            // Show modal
+            wheelModalOverlay.classList.add('active');
+        }
+        
+        // Close wheel modal
+        function closeWheelModal() {
+            wheelModalOverlay.classList.remove('active');
+        }
+        
+        // Create floating food particles for wheel modal
+        function createWheelFoodParticles() {
+            wheelFoodParticles.innerHTML = '';
+            const foodIcons = ['🍔', '🍟', '🌭', '🍕', '🥪', '🌮', '🍗', '🍖', '🧀', '🥓'];
+            
+            for (let i = 0; i < 15; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'modal-particle';
+                particle.textContent = foodIcons[Math.floor(Math.random() * foodIcons.length)];
+                particle.style.left = `${Math.random() * 100}%`;
+                particle.style.animationDuration = `${4 + Math.random() * 4}s`;
+                particle.style.animationDelay = `${Math.random() * 2}s`;
+                wheelFoodParticles.appendChild(particle);
+            }
+        }
+        
+        // Spin the wheel
+        spinBtn.addEventListener('click', () => {
+            if (isSpinning) return;
+            
+            const items = Array.from(document.querySelectorAll(`.menu-item[data-category="${categories[currentCategoryIndex]}"]`));
+            if (items.length === 0) return;
+            
+            isSpinning = true;
+            spinBtn.disabled = true;
+            
+            // Reset rotation to 0 before spinning again
+            wheel.style.transition = 'none';
+            wheel.style.transform = 'rotate(0deg)';
+            
+            // Force reflow to apply the reset
+            void wheel.offsetWidth;
+            
+            // Activate light beams and glow
+            lightBeams.style.opacity = '1';
+            createLightBeams();
+            
+            // Now apply the spin with transition
+            wheel.style.transition = 'transform 4s cubic-bezier(0.17, 0.67, 0.12, 0.99)';
+            const spinDegrees = 360 * 5 + Math.floor(Math.random() * 360);
+            wheel.style.transform = `rotate(${-spinDegrees}deg)`;
+            wheel.classList.add('spinning');
+            
+            // Create food particles
+            createFoodParticles();
+            
+            setTimeout(() => {
+                isSpinning = false;
+                wheel.classList.remove('spinning');
+                lightBeams.style.opacity = '0';
+                
+                // Calculate which item was selected
+                const normalizedDegree = spinDegrees % 360;
+                const angle = 360 / items.length;
+                const selectedIndex = Math.floor(normalizedDegree / angle);
+                
+                const selectedSection = wheel.children[selectedIndex];
+                const itemData = JSON.parse(selectedSection.dataset.item);
+                
+                // Store the selected item
+                currentSelectedItem = itemData;
+                
+                // Show selected item in modal
+                showWheelSelectionModal(itemData);
+                
+                // Create confetti when selection is made
+                createConfetti();
+            }, 4000);
+        });
+        
+        // Accept selection
+        wheelAcceptBtn.addEventListener('click', () => {
+            if (currentSelectedItem) {
+                selectedItems.push(currentSelectedItem);
+                
+                // Move to next category or show final selection
+                currentCategoryIndex++;
+                
+                if (currentCategoryIndex < categories.length) {
+                    initWheel();
+                } else {
+                    // Show final selection
+                    showFinalSelection();
+                }
+                
+                spinBtn.disabled = false;
+                closeWheelModal();
+            }
+        });
+        
+        // Reject selection
+        wheelRejectBtn.addEventListener('click', () => {
+            spinBtn.disabled = false;
+            closeWheelModal();
+        });
+        
+       // Show final selection
+    function showFinalSelection() {
+        const container = document.getElementById('final-items-container');
+        container.innerHTML = '';
+        
+        selectedItems.forEach(item => {
+            const itemElement = document.createElement('div');
+            itemElement.className = 'final-item';
+            itemElement.innerHTML = `
+                <img src="${item.img || item.activeImg}" alt="${item.name}" class="final-item-img">
+                <div>
+                    <h4>${item.name}</h4>
+                    <p>${item.desc}</p>
+                    <p>$${item.price}</p>
+                </div>
+            `;
+            container.appendChild(itemElement);
+        });
+        
+        finalSelection.style.display = 'block';
+    }
+    
+    // Add all to cart
+    document.getElementById('add-all-to-cart').addEventListener('click', () => {
+        selectedItems.forEach(item => {
+            // Make sure we're adding all required properties to the cart
+            cart.push({
+                item: item.name,
+                price: item.price,
+                desc: item.desc,
+                img: item.img || item.activeImg  // Fallback to activeImg if img isn't set
+            });
+        });
+        localStorage.setItem('biteMastersCart', JSON.stringify(cart));
+        updateCartCount();
+        
+        finalSelection.style.display = 'none';
+        
+        // Reset the wheel
+        currentCategoryIndex = 0;
+        selectedItems = [];
+        initWheel();
+        spinBtn.disabled = false;
+    });
+        
+        // Create food particles animation
+        function createFoodParticles() {
+            foodParticles.innerHTML = '';
+            const foodIcons = ['🍔', '🍟', '🌭', '🍕', '🥪', '🌮', '🍗', '🍖', '🧀', '🥓'];
+            
+            for (let i = 0; i < 20; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.textContent = foodIcons[Math.floor(Math.random() * foodIcons.length)];
+                particle.style.left = `${Math.random() * 100}%`;
+                particle.style.animationDuration = `${3 + Math.random() * 3}s`;
+                particle.style.animationDelay = `${Math.random() * 2}s`;
+                foodParticles.appendChild(particle);
+            }
+        }
+
+        // Add confetti fall animation
+        const style = document.createElement('style');
+        style.innerHTML = `
+            @keyframes confettiFall {
+                0% { 
+                    opacity: 1;
+                    transform: translateY(-10px) rotate(0deg);
+                }
+                100% { 
+                    opacity: 0;
+                    transform: translateY(100vh) rotate(360deg);
+                }
+            }
+            @keyframes floatModal {
+                0% { 
+                    opacity: 0;
+                    transform: translateY(100%) rotate(0deg) scale(0.5);
+                }
+                20% { opacity: 1; }
+                100% { 
+                    opacity: 0;
+                    transform: translateY(-100%) rotate(360deg) scale(1.5);
+                }
+            }
+        `;
+        document.head.appendChild(style);
+        
+        // Close wheel modal when clicking outside
+        wheelModalOverlay.addEventListener('click', (e) => {
+            if (e.target === wheelModalOverlay) {
+                closeWheelModal();
+            }
+        });
+
+        closeWheelModalBtn.addEventListener('click', closeWheelModal);
+        
+        // Initialize the wheel on page load
+        initWheel();
+    </script>
+</body>
+</html>

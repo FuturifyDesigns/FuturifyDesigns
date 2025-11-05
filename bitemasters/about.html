@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BiteMasters - About Us</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Open Sans', sans-serif;
+            overflow-x: hidden;
+            background-color: #f8f8f8;
+        }
+        
+        h1, h2, h3 {
+            font-family: 'Fredoka One', cursive;
+        }
+        
+        header {
+            background-color: #1a1a1a;
+            color: white;
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .logo {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #FF3D00;
+            text-decoration: none;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: #FFC600;
+        }
+        
+        .cart-link {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            position: relative;
+        }
+        
+        .cart-count {
+            background-color: #FF3D00;
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 0.8rem;
+        }
+        
+        .about-header {
+  background-image: url('https://images.unsplash.com/photo-1607013251379-e6eecfffe234?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');  
+            background-size: cover;
+            background-position: center;
+            height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        
+        .about-header::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+        
+        .about-header h1 {
+            color: white;
+            font-size: 4rem;
+            z-index: 1;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        
+        .about-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            font-size: 2.5rem;
+            color: #1a1a1a;
+        }
+        
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            margin-bottom: 4rem;
+        }
+        
+        .about-text {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .about-text p {
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+            color: #555;
+        }
+        
+        .about-image {
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .about-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .about-image:hover img {
+            transform: scale(1.05);
+        }
+        
+        .team-section {
+            margin-top: 4rem;
+        }
+        
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .team-member {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+        
+        .team-member:hover {
+            transform: translateY(-10px);
+        }
+        
+        .member-image {
+            height: 300px;
+            overflow: hidden;
+        }
+        
+        .member-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .team-member:hover .member-image img {
+            transform: scale(1.1);
+        }
+        
+        .member-info {
+            padding: 1.5rem;
+            text-align: center;
+        }
+        
+        .member-name {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: #1a1a1a;
+        }
+        
+        .member-role {
+            color: #FF3D00;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+        
+        .member-desc {
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .social-links a {
+            color: #1a1a1a;
+            transition: color 0.3s;
+        }
+        
+        .social-links a:hover {
+            color: #FF3D00;
+        }
+        
+      footer {
+    background-color: #1a1a1a;
+    color: white;
+    padding: 3rem 2rem;
+    text-align: center;
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+}
+
+.footer-section h3 {
+    margin-bottom: 1rem;
+    color: #FFC600;
+}
+
+/* ADD THESE NEW RULES BELOW YOUR EXISTING FOOTER CSS */
+.footer-section ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-section ul li {
+    margin-bottom: 0.5rem;
+}
+
+.footer-section a,
+.footer-section a:link,
+.footer-section a:visited,
+.footer-section a:active {
+    color: white !important;
+    text-decoration: none !important;
+}
+
+.footer-section a:hover {
+    color: #FFC600 !important;
+}
+
+.footer-section .add-to-cart:hover {
+    background: linear-gradient(135deg, #FF6D00 0%, #FF8A65 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(255, 61, 0, 0.3);
+}
+        
+        .newsletter input {
+            padding: 0.8rem;
+            border-radius: 50px;
+            border: none;
+            width: 100%;
+            margin-bottom: 1rem;
+        }
+        
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .social-icons a {
+            color: white;
+            font-size: 1.5rem;
+            transition: color 0.3s;
+        }
+        
+        .social-icons a:hover {
+            color: #FFC600;
+        }
+        
+        .copyright {
+            margin-top: 2rem;
+            padding-top: 1rem;
+            border-top: 1px solid #444;
+        }
+        
+        @media (max-width: 768px) {
+            .about-header h1 {
+                font-size: 2.5rem;
+            }
+            
+            nav {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .nav-links {
+                gap: 1rem;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .about-image {
+                height: 300px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="Bitemaster website.html" class="logo">BiteMasters</a>
+            <div class="nav-links">
+                <a href="Bitemaster website.html">Home</a>
+                <a href="menu.html">Menu</a>
+                <a href="locations.html">Locations</a>
+                <a href="rewards.html">Rewards</a>
+                <a href="about.html" class="active">About</a>
+                <a href="contact.html">Contact</a>
+                <a href="order.html" class="cart-link">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-count">0</span>
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <section class="about-header">
+        <h1>Our Story</h1>
+    </section>
+
+    <main class="about-container">
+        <h2 class="section-title">About BiteMasters</h2>
+        
+        <div class="about-content">
+            <div class="about-text">
+                <p>Founded in 2023, BiteMasters began as a small food truck with a big dream - to serve the most delicious, high-quality burgers in town. What started as a passion project between three friends quickly grew into a beloved local chain.</p>
+                <p>Our philosophy is simple: use only the freshest ingredients, prepare everything with care, and serve it with a smile. We source our beef from local farms, bake our buns daily, and create all our sauces in-house.</p>
+                <p>At BiteMasters, we believe a great burger is more than just a meal - it's an experience. That's why we put so much love into every detail, from our perfectly seasoned patties to our hand-cut fries.</p>
+            </div>
+            <div class="about-image">
+              <img src="our story.jpg" alt="Our Story">
+            </div>
+        </div>
+        
+        <div class="team-section">
+            <h2 class="section-title">Meet Our Team</h2>
+            <div class="team-grid">
+                <div class="team-member">
+                    <div class="member-image">
+                        <img src="business 1.jpg" alt="Chef Michael">
+                    </div>
+                    <div class="member-info">
+                        <h3 class="member-name">Michael Johnson</h3>
+                        <p class="member-role">Head Chef</p>
+                        <p class="member-desc">With over 15 years of culinary experience, Michael brings creativity and precision to every burger we serve.</p>
+                        <div class="social-links">
+                            <a href="#"><i class="fab fa-instagram"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                            <a href="#"><i class="fab fa-linkedin"></i></a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="team-member">
+                    <div class="member-image">
+                        <img src="female.jpg" alt="Sarah Williams">
+                    </div>
+                    <div class="member-info">
+                        <h3 class="member-name">Sarah Williams</h3>
+                        <p class="member-role">Operations Manager</p>
+                        <p class="member-desc">Sarah keeps everything running smoothly behind the scenes with her exceptional organizational skills.</p>
+                        <div class="social-links">
+                            <a href="#"><i class="fab fa-instagram"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                            <a href="#"><i class="fab fa-linkedin"></i></a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="team-member">
+                    <div class="member-image">
+                        <img src="male 2.jpg" alt="David Chen">
+                    </div>
+                    <div class="member-info">
+                        <h3 class="member-name">David Chen</h3>
+                        <p class="member-role">Marketing Director</p>
+                        <p class="member-desc">David's innovative marketing strategies have helped BiteMasters become a household name in our community.</p>
+                        <div class="social-links">
+                            <a href="#"><i class="fab fa-instagram"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                            <a href="#"><i class="fab fa-linkedin"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>About Us</h3>
+                <p>BiteMasters is dedicated to serving the most delicious burgers with high-quality ingredients and exceptional service.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="Bitemaster website.html">Home</a></li>
+                    <li><a href="menu.html">Menu</a></li>
+                    <li><a href="locations.html">Locations</a></li>
+                    <li><a href="rewards.html">Rewards</a></li>
+                </ul>
+            </div>
+<div class="footer-section newsletter">
+    <h3>Newsletter</h3>
+    <p>Subscribe to get updates on special offers and events.</p>
+    <input type="email" placeholder="Your email address">
+    <button class="add-to-cart" style="
+        background: linear-gradient(135deg, #FF3D00 0%, #FF6D00 100%);
+        color: white;
+        border: none;
+        padding: 0.8rem;
+        border-radius: 5px;
+        cursor: pointer;
+        width: 100%;
+        font-weight: bold;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 8px rgba(255, 61, 0, 0.2);
+    ">Subscribe</button>
+</div>
+            <div class="footer-section">
+                <h3>Connect With Us</h3>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2023 BiteMasters. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Cart count functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check if cart exists in localStorage
+            const cart = JSON.parse(localStorage.getItem('biteMastersCart')) || [];
+            document.querySelectorAll('.cart-count').forEach(el => {
+                el.textContent = cart.length;
+            });
+        });
+    </script>
+</body>
+</html>
