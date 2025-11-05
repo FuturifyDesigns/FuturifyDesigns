@@ -313,8 +313,12 @@
         }
         
         @media (max-width: 768px) {
-            .locations-header h1 {
-                font-size: 2.5rem;
+            header {
+                padding: 1rem;
+            }
+            
+            .logo {
+                font-size: 1.8rem;
             }
             
             nav {
@@ -323,17 +327,123 @@
             }
             
             .nav-links {
-                gap: 1rem;
+                gap: 0.8rem;
                 flex-wrap: wrap;
                 justify-content: center;
             }
             
+            .nav-links a {
+                font-size: 0.95rem;
+                padding: 0.4rem 0.8rem;
+            }
+            
+            .locations-header {
+                padding: 4rem 1rem;
+            }
+            
+            .locations-header h1 {
+                font-size: 2.5rem;
+            }
+            
+            .locations-header p {
+                font-size: 1rem;
+            }
+            
+            .locations-section {
+                padding: 3rem 1rem;
+            }
+            
             .locations-grid {
                 grid-template-columns: 1fr;
+                gap: 2rem;
             }
             
             .map-container {
                 height: 300px;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+                text-align: center;
+            }
+            
+            .social-links {
+                justify-content: center;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            header {
+                padding: 0.8rem;
+            }
+            
+            .logo {
+                font-size: 1.5rem;
+            }
+            
+            .nav-links {
+                gap: 0.5rem;
+            }
+            
+            .nav-links a {
+                font-size: 0.85rem;
+                padding: 0.4rem 0.7rem;
+            }
+            
+            .locations-header {
+                padding: 3rem 1rem;
+            }
+            
+            .locations-header h1 {
+                font-size: 2rem;
+            }
+            
+            .locations-header p {
+                font-size: 0.95rem;
+            }
+            
+            .locations-section {
+                padding: 2rem 1rem;
+            }
+            
+            .location-card {
+                padding: 1.5rem;
+            }
+            
+            .location-card h3 {
+                font-size: 1.2rem;
+            }
+            
+            .location-info p {
+                font-size: 0.9rem;
+            }
+            
+            .map-container {
+                height: 250px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .logo {
+                font-size: 1.3rem;
+            }
+            
+            .nav-links a {
+                font-size: 0.8rem;
+                padding: 0.3rem 0.6rem;
+            }
+            
+            .locations-header h1 {
+                font-size: 1.6rem;
+            }
+            
+            .locations-header p {
+                font-size: 0.9rem;
+            }
+            
+            .location-card h3 {
+                font-size: 1.1rem;
             }
         }
     </style>

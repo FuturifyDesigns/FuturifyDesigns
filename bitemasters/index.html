@@ -451,13 +451,20 @@
         }
 
         /* Mobile Responsiveness */
-        @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 2.5rem;
+        @media (max-width: 992px) {
+            .features-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 2rem;
             }
             
-            .hero p {
-                font-size: 1.2rem;
+            .menu-preview-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            header {
+                padding: 1rem;
             }
             
             nav {
@@ -465,19 +472,200 @@
                 gap: 1rem;
             }
             
+            .logo {
+                font-size: 1.8rem;
+            }
+            
             .nav-links {
-                gap: 1rem;
+                gap: 0.8rem;
                 flex-wrap: wrap;
                 justify-content: center;
+            }
+            
+            .nav-links a {
+                font-size: 0.95rem;
+                padding: 0.4rem 0.8rem;
+            }
+            
+            .hero {
+                height: 70vh;
+                min-height: 500px;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+                margin-bottom: 1rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+                margin-bottom: 1.5rem;
+            }
+            
+            .cta-button {
+                padding: 0.9rem 2rem;
+                font-size: 1rem;
+            }
+            
+            .loading-logo {
+                font-size: 3.5rem;
+            }
+            
+            .loading-bar {
+                width: 250px;
+            }
+            
+            .ingredient {
+                width: 50px;
+                height: 50px;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+                padding: 0 1rem;
+            }
+            
+            .menu-preview-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .section-title {
+                font-size: 2.2rem;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+                text-align: center;
+            }
+            
+            .social-links {
+                justify-content: center;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            header {
+                padding: 0.8rem;
+            }
+            
+            .logo {
+                font-size: 1.5rem;
+            }
+            
+            .nav-links {
+                gap: 0.5rem;
+            }
+            
+            .nav-links a {
+                font-size: 0.85rem;
+                padding: 0.4rem 0.7rem;
+            }
+            
+            .hero {
+                height: auto;
+                min-height: 450px;
+                padding: 3rem 1rem;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+                margin-bottom: 0.8rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+                margin-bottom: 1.2rem;
+            }
+            
+            .cta-button {
+                padding: 0.8rem 1.5rem;
+                font-size: 0.95rem;
+                width: 90%;
+                max-width: 300px;
             }
             
             .loading-logo {
                 font-size: 3rem;
             }
             
+            .loading-bar {
+                width: 200px;
+                height: 8px;
+            }
+            
+            section {
+                padding: 3rem 1rem;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+                margin-bottom: 2rem;
+            }
+            
+            .features-grid,
+            .menu-preview-grid {
+                gap: 1.5rem;
+            }
+            
+            .feature-card,
+            .menu-item {
+                padding: 1.5rem;
+            }
+            
+            .feature-icon {
+                font-size: 2.5rem;
+                margin-bottom: 1rem;
+            }
+            
+            .feature-card h3,
+            .menu-item h3 {
+                font-size: 1.3rem;
+            }
+            
             .ingredient {
-                width: 50px;
-                height: 50px;
+                width: 40px;
+                height: 40px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .logo {
+                font-size: 1.3rem;
+            }
+            
+            .nav-links a {
+                font-size: 0.8rem;
+                padding: 0.3rem 0.6rem;
+            }
+            
+            .hero h1 {
+                font-size: 1.6rem;
+            }
+            
+            .hero p {
+                font-size: 0.9rem;
+            }
+            
+            .cta-button {
+                padding: 0.7rem 1.3rem;
+                font-size: 0.9rem;
+            }
+            
+            .section-title {
+                font-size: 1.5rem;
+            }
+            
+            .feature-card h3,
+            .menu-item h3 {
+                font-size: 1.2rem;
+            }
+            
+            .feature-card p,
+            .menu-item p {
+                font-size: 0.9rem;
             }
         }
 

@@ -330,8 +330,12 @@
         }
         
         @media (max-width: 768px) {
-            .contact-header h1 {
-                font-size: 2.5rem;
+            header {
+                padding: 1rem;
+            }
+            
+            .logo {
+                font-size: 1.8rem;
             }
             
             nav {
@@ -340,13 +344,130 @@
             }
             
             .nav-links {
-                gap: 1rem;
+                gap: 0.8rem;
                 flex-wrap: wrap;
                 justify-content: center;
             }
             
+            .nav-links a {
+                font-size: 0.95rem;
+                padding: 0.4rem 0.8rem;
+            }
+            
+            .contact-header {
+                padding: 4rem 1rem;
+            }
+            
+            .contact-header h1 {
+                font-size: 2.5rem;
+            }
+            
+            .contact-header p {
+                font-size: 1rem;
+            }
+            
+            .contact-section {
+                padding: 3rem 1rem;
+            }
+            
             .contact-content {
                 grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+                text-align: center;
+            }
+            
+            .social-links {
+                justify-content: center;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            header {
+                padding: 0.8rem;
+            }
+            
+            .logo {
+                font-size: 1.5rem;
+            }
+            
+            .nav-links {
+                gap: 0.5rem;
+            }
+            
+            .nav-links a {
+                font-size: 0.85rem;
+                padding: 0.4rem 0.7rem;
+            }
+            
+            .contact-header {
+                padding: 3rem 1rem;
+            }
+            
+            .contact-header h1 {
+                font-size: 2rem;
+            }
+            
+            .contact-header p {
+                font-size: 0.95rem;
+            }
+            
+            .contact-section {
+                padding: 2rem 1rem;
+            }
+            
+            .contact-card {
+                padding: 1.5rem;
+            }
+            
+            .contact-card h3 {
+                font-size: 1.2rem;
+            }
+            
+            .contact-card p {
+                font-size: 0.9rem;
+            }
+            
+            .form-group input,
+            .form-group textarea {
+                font-size: 0.95rem;
+            }
+            
+            .submit-btn {
+                padding: 0.9rem 2rem;
+                font-size: 0.95rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .logo {
+                font-size: 1.3rem;
+            }
+            
+            .nav-links a {
+                font-size: 0.8rem;
+                padding: 0.3rem 0.6rem;
+            }
+            
+            .contact-header h1 {
+                font-size: 1.6rem;
+            }
+            
+            .contact-header p {
+                font-size: 0.9rem;
+            }
+            
+            .contact-icon {
+                font-size: 2rem;
+            }
+            
+            .submit-btn {
+                padding: 0.8rem 1.5rem;
+                font-size: 0.9rem;
             }
         }
     </style>

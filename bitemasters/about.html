@@ -320,8 +320,12 @@
         }
         
         @media (max-width: 768px) {
-            .about-header h1 {
-                font-size: 2.5rem;
+            header {
+                padding: 1rem;
+            }
+            
+            .logo {
+                font-size: 1.8rem;
             }
             
             nav {
@@ -330,17 +334,139 @@
             }
             
             .nav-links {
-                gap: 1rem;
+                gap: 0.8rem;
                 flex-wrap: wrap;
                 justify-content: center;
             }
             
+            .nav-links a {
+                font-size: 0.95rem;
+                padding: 0.4rem 0.8rem;
+            }
+            
+            .about-header {
+                padding: 4rem 1rem;
+            }
+            
+            .about-header h1 {
+                font-size: 2.5rem;
+            }
+            
+            .about-header p {
+                font-size: 1rem;
+            }
+            
+            .about-section {
+                padding: 3rem 1rem;
+            }
+            
             .about-content {
                 grid-template-columns: 1fr;
+                gap: 2rem;
             }
             
             .about-image {
                 height: 300px;
+            }
+            
+            .team-grid,
+            .values-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+                text-align: center;
+            }
+            
+            .social-links {
+                justify-content: center;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            header {
+                padding: 0.8rem;
+            }
+            
+            .logo {
+                font-size: 1.5rem;
+            }
+            
+            .nav-links {
+                gap: 0.5rem;
+            }
+            
+            .nav-links a {
+                font-size: 0.85rem;
+                padding: 0.4rem 0.7rem;
+            }
+            
+            .about-header {
+                padding: 3rem 1rem;
+            }
+            
+            .about-header h1 {
+                font-size: 2rem;
+            }
+            
+            .about-header p {
+                font-size: 0.95rem;
+            }
+            
+            .about-section {
+                padding: 2rem 1rem;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+            }
+            
+            .about-text h3 {
+                font-size: 1.3rem;
+            }
+            
+            .about-text p {
+                font-size: 0.95rem;
+            }
+            
+            .about-image {
+                height: 250px;
+            }
+            
+            .team-member h3,
+            .value-card h3 {
+                font-size: 1.2rem;
+            }
+            
+            .team-member p,
+            .value-card p {
+                font-size: 0.9rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .logo {
+                font-size: 1.3rem;
+            }
+            
+            .nav-links a {
+                font-size: 0.8rem;
+                padding: 0.3rem 0.6rem;
+            }
+            
+            .about-header h1 {
+                font-size: 1.6rem;
+            }
+            
+            .about-header p {
+                font-size: 0.9rem;
+            }
+            
+            .section-title {
+                font-size: 1.5rem;
             }
         }
     </style>

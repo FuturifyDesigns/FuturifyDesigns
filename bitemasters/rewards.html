@@ -329,9 +329,19 @@ background-image: url('https://images.unsplash.com/photo-1556742049-0cfed4f6a45d
             border-top: 1px solid #444;
         }
         
+        @media (max-width: 1000px) {
+            .steps {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
         @media (max-width: 768px) {
-            .rewards-header h1 {
-                font-size: 2.5rem;
+            header {
+                padding: 1rem;
+            }
+            
+            .logo {
+                font-size: 1.8rem;
             }
             
             nav {
@@ -340,25 +350,142 @@ background-image: url('https://images.unsplash.com/photo-1556742049-0cfed4f6a45d
             }
             
             .nav-links {
-                gap: 1rem;
+                gap: 0.8rem;
                 flex-wrap: wrap;
                 justify-content: center;
             }
             
+            .nav-links a {
+                font-size: 0.95rem;
+                padding: 0.4rem 0.8rem;
+            }
+            
+            .rewards-header {
+                padding: 4rem 1rem;
+            }
+            
+            .rewards-header h1 {
+                font-size: 2.5rem;
+            }
+            
+            .rewards-header p {
+                font-size: 1rem;
+            }
+            
+            .rewards-section {
+                padding: 3rem 1rem;
+            }
+            
             .rewards-grid {
                 grid-template-columns: 1fr;
+                gap: 2rem;
             }
-@media (max-width: 1000px) {
-    .steps {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+                text-align: center;
+            }
+            
+            .social-links {
+                justify-content: center;
+            }
+        }
 
-@media (max-width: 600px) {
-    .steps {
-        grid-template-columns: 1fr;
-    }
-}
+        @media (max-width: 600px) {
+            .steps {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            header {
+                padding: 0.8rem;
+            }
+            
+            .logo {
+                font-size: 1.5rem;
+            }
+            
+            .nav-links {
+                gap: 0.5rem;
+            }
+            
+            .nav-links a {
+                font-size: 0.85rem;
+                padding: 0.4rem 0.7rem;
+            }
+            
+            .rewards-header {
+                padding: 3rem 1rem;
+            }
+            
+            .rewards-header h1 {
+                font-size: 2rem;
+            }
+            
+            .rewards-header p {
+                font-size: 0.95rem;
+            }
+            
+            .rewards-section {
+                padding: 2rem 1rem;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+            }
+            
+            .reward-card {
+                padding: 1.5rem;
+            }
+            
+            .reward-card h3 {
+                font-size: 1.2rem;
+            }
+            
+            .reward-card p {
+                font-size: 0.9rem;
+            }
+            
+            .points {
+                font-size: 1rem;
+            }
+            
+            .step h3 {
+                font-size: 1.1rem;
+            }
+            
+            .step p {
+                font-size: 0.9rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .logo {
+                font-size: 1.3rem;
+            }
+            
+            .nav-links a {
+                font-size: 0.8rem;
+                padding: 0.3rem 0.6rem;
+            }
+            
+            .rewards-header h1 {
+                font-size: 1.6rem;
+            }
+            
+            .rewards-header p {
+                font-size: 0.9rem;
+            }
+            
+            .section-title {
+                font-size: 1.5rem;
+            }
+            
+            .reward-icon {
+                font-size: 2rem;
+            }
         }
     </style>
 </head>
