@@ -726,30 +726,75 @@
       
       .catalog-grid {
         grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 25px;
       }
     }
     
     @media (max-width: 768px) {
+      .container {
+        width: 95%;
+        padding: 15px 0;
+      }
+      
       .header-container {
         flex-direction: column;
-        gap: 20px;
+        gap: 15px;
+      }
+      
+      header {
+        padding: 15px 0;
+      }
+      
+      .logo-text {
+        font-size: 20px;
+      }
+      
+      .logo-icon {
+        width: 35px;
+        height: 35px;
+        font-size: 18px;
       }
       
       nav ul {
         flex-wrap: wrap;
         justify-content: center;
+        gap: 10px;
+      }
+      
+      nav a {
+        font-size: 0.95rem;
+        padding: 8px 15px;
+      }
+      
+      .hero {
+        padding: 60px 20px;
       }
       
       .hero h1 {
-        font-size: 2.4rem;
+        font-size: 2rem;
       }
       
       .hero p {
-        font-size: 1.1rem;
+        font-size: 1rem;
+        margin-bottom: 25px;
       }
       
       .preview-section {
-        padding: 60px 0;
+        padding: 50px 0;
+      }
+      
+      .section-title {
+        font-size: 1.8rem;
+      }
+      
+      .catalog-grid {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 20px;
+      }
+      
+      .footer-content {
+        grid-template-columns: 1fr;
+        gap: 30px;
       }
       
       .footer-section {
@@ -767,21 +812,107 @@
     }
     
     @media (max-width: 576px) {
+      .container {
+        width: 95%;
+        padding: 10px 0;
+      }
+      
       .hero {
-        height: 85vh;
+        height: auto;
+        min-height: 70vh;
+        padding: 40px 15px;
+      }
+      
+      .hero h1 {
+        font-size: 1.75rem;
+        margin-bottom: 15px;
+      }
+      
+      .hero p {
+        font-size: 0.95rem;
+        margin-bottom: 20px;
       }
       
       .section-title {
-        font-size: 2rem;
-        margin-bottom: 40px;
+        font-size: 1.5rem;
+        margin-bottom: 30px;
       }
       
       .btn {
         padding: 12px 25px;
+        font-size: 0.95rem;
+        width: 100%;
+        max-width: 250px;
+        display: block;
+        text-align: center;
+        margin: 0 auto;
       }
       
       .catalog-grid {
         grid-template-columns: 1fr;
+        gap: 15px;
+      }
+      
+      .catalog-card h3 {
+        font-size: 1.3rem;
+      }
+      
+      .catalog-card p {
+        font-size: 0.9rem;
+      }
+      
+      .preview-section {
+        padding: 40px 0;
+      }
+      
+      .footer-section h3 {
+        font-size: 1.2rem;
+      }
+      
+      .footer-section ul {
+        font-size: 0.9rem;
+      }
+      
+      .copyright {
+        font-size: 0.85rem;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .logo-text {
+        font-size: 18px;
+      }
+      
+      .logo-icon {
+        width: 30px;
+        height: 30px;
+        font-size: 16px;
+      }
+      
+      nav ul {
+        gap: 8px;
+      }
+      
+      nav a {
+        font-size: 0.85rem;
+        padding: 6px 12px;
+      }
+      
+      .hero h1 {
+        font-size: 1.5rem;
+      }
+      
+      .hero p {
+        font-size: 0.9rem;
+      }
+      
+      .section-title {
+        font-size: 1.3rem;
+      }
+      
+      .btn {
+        padding: 10px 20px;
+        font-size: 0.9rem;
       }
     }
   </style>

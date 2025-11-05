@@ -743,51 +743,177 @@
     }
     
     @media (max-width: 768px) {
+      .container {
+        width: 95%;
+        padding: 15px 0;
+      }
+      
       .header-container {
         flex-direction: column;
-        gap: 20px;
+        gap: 15px;
+      }
+      
+      header {
+        padding: 15px 0;
+      }
+      
+      .logo-text {
+        font-size: 20px;
+      }
+      
+      .logo-icon {
+        width: 35px;
+        height: 35px;
+        font-size: 18px;
       }
       
       nav ul {
         flex-wrap: wrap;
         justify-content: center;
+        gap: 10px;
       }
       
-      .section-title {
-        font-size: 2rem;
+      nav a {
+        font-size: 0.95rem;
+        padding: 8px 15px;
       }
       
-      .tab-btn {
-        padding: 10px 20px;
-      }
-      
-      .creature-content {
-        padding: 30px;
-      }
-    }
-    
-    @media (max-width: 576px) {
       .section-title {
         font-size: 1.8rem;
       }
       
+      .tab-container {
+        flex-wrap: wrap;
+        gap: 10px;
+        justify-content: center;
+      }
+      
       .tab-btn {
-        padding: 8px 15px;
-        font-size: 0.9rem;
+        padding: 10px 20px;
+        font-size: 0.95rem;
       }
       
       .creature-content {
-        padding: 20px;
+        padding: 25px;
+      }
+      
+      .creature-detail {
+        gap: 25px;
+      }
+      
+      .footer-content {
+        grid-template-columns: 1fr;
+        gap: 30px;
+      }
+    }
+    
+    @media (max-width: 576px) {
+      .container {
+        width: 95%;
+        padding: 10px 0;
+      }
+      
+      .section-title {
+        font-size: 1.5rem;
+        margin-bottom: 25px;
+      }
+      
+      .tab-container {
+        gap: 8px;
+      }
+      
+      .tab-btn {
+        padding: 8px 15px;
+        font-size: 0.85rem;
+        flex: 1 1 calc(50% - 8px);
+        min-width: 120px;
+      }
+      
+      .creature-content {
+        padding: 15px;
+      }
+      
+      .creature-image {
+        max-height: 250px;
+      }
+      
+      .creature-title {
+        font-size: 1.5rem;
+      }
+      
+      .creature-info h3 {
+        font-size: 1.2rem;
+      }
+      
+      .creature-info p,
+      .creature-info li {
+        font-size: 0.9rem;
       }
       
       .footer-section {
         text-align: center;
       }
       
+      .footer-section h3 {
+        font-size: 1.2rem;
+      }
+      
       .footer-section h3::after {
         left: 50%;
         transform: translateX(-50%);
       }
+      
+      .footer-section ul {
+        font-size: 0.9rem;
+      }
+      
+      .social-links {
+        justify-content: center;
+      }
+      
+      .copyright {
+        font-size: 0.85rem;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .logo-text {
+        font-size: 18px;
+      }
+      
+      .logo-icon {
+        width: 30px;
+        height: 30px;
+        font-size: 16px;
+      }
+      
+      nav ul {
+        gap: 8px;
+      }
+      
+      nav a {
+        font-size: 0.85rem;
+        padding: 6px 12px;
+      }
+      
+      .section-title {
+        font-size: 1.3rem;
+      }
+      
+      .tab-btn {
+        padding: 7px 12px;
+        font-size: 0.8rem;
+        min-width: 100px;
+      }
+      
+      .creature-title {
+        font-size: 1.3rem;
+      }
+      
+      .creature-info h3 {
+        font-size: 1.1rem;
+      }
+    }
       
       .social-links {
         justify-content: center;
