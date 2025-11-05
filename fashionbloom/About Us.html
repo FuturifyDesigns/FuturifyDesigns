@@ -814,6 +814,53 @@
                 font-size: 1.8rem;
             }
         }
+
+    /* About Page Content Fixes for Mobile */
+    .about-content, .story, .story-item {
+      padding: 20px;
+      max-width: 100%;
+    }
+    
+    .about-content p, .story p {
+      line-height: 1.8;
+      margin-bottom: 1.5rem;
+      text-align: justify;
+      padding: 0 10px;
+    }
+    
+    @media (max-width: 768px) {
+      .about-content, .story, .story-item {
+        padding: 15px;
+      }
+      
+      .about-content p, .story p {
+        font-size: 1rem;
+        line-height: 1.7;
+        text-align: left;
+        padding: 0 5px;
+        margin-bottom: 1.2rem;
+      }
+      
+      .about-header, .story-header {
+        padding: 20px 10px;
+      }
+      
+      h2 {
+        font-size: 1.8rem !important;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .about-content p, .story p {
+        font-size: 0.95rem;
+        line-height: 1.6;
+        margin-bottom: 1rem;
+      }
+      
+      h2 {
+        font-size: 1.5rem !important;
+      }
+    }
     </style>
 </head>
 <body>
