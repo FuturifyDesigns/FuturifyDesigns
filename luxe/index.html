@@ -26,6 +26,8 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+            -webkit-touch-callout: none;
         }
         
         body {
@@ -34,6 +36,19 @@
             background-color: var(--cream);
             color: var(--navy);
             overscroll-behavior: none;
+        }
+        
+        /* Remove tap highlight on all interactive elements */
+        a, button, input, select, textarea, [role="button"], .enter-button, .tape-tab {
+            -webkit-tap-highlight-color: transparent;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            user-select: none;
+            outline: none;
+        }
+        
+        button:focus, a:focus, input:focus, select:focus, textarea:focus {
+            outline: none;
         }
         
         .container {
@@ -977,41 +992,189 @@
         
         @media (max-width: 768px) {
             .cover-text {
-                font-size: 3rem;
+                font-size: 2.5rem;
+                padding: 0 20px;
             }
             
             .cover-subtitle {
-                font-size: 1.1rem;
+                font-size: 1rem;
+                padding: 0 20px;
             }
             
             .enter-button {
-                padding: 20px 50px;
-                font-size: 1.3rem;
+                padding: 18px 45px;
+                font-size: 1.2rem;
             }
             
             .logo {
-                font-size: 2rem;
+                font-size: 1.8rem;
             }
             
             .logo-tagline {
-                font-size: 0.9rem;
+                font-size: 0.85rem;
+                padding: 0 20px;
+                text-align: center;
             }
             
             .loading-text {
-                font-size: 2rem;
+                font-size: 1.8rem;
             }
             
             .progress-container {
-                width: 300px;
+                width: 280px;
             }
             
             .tape-tab {
-                width: 85px;
-                height: 38px;
+                width: 80px;
+                height: 36px;
             }
             
             .tape-main {
+                width: 60px;
+            }
+            
+            .cover-panel {
+                width: 50%;
+            }
+        }
+        
+        /* Enhanced Mobile Responsive - Small Tablets & Large Phones */
+        @media (max-width: 576px) {
+            .cover-text {
+                font-size: 2rem;
+                padding: 0 15px;
+            }
+            
+            .cover-subtitle {
+                font-size: 0.9rem;
+                padding: 0 15px;
+            }
+            
+            .enter-button {
+                padding: 16px 40px;
+                font-size: 1.1rem;
+            }
+            
+            .logo {
+                font-size: 1.6rem;
+            }
+            
+            .logo-tagline {
+                font-size: 0.8rem;
+                padding: 0 15px;
+            }
+            
+            .loading-text {
+                font-size: 1.6rem;
+            }
+            
+            .progress-container {
+                width: 250px;
+            }
+            
+            .tape-tab {
+                width: 75px;
+                height: 34px;
+            }
+            
+            .tape-main {
+                width: 55px;
+            }
+        }
+        
+        /* Enhanced Mobile Responsive - Mobile Phones */
+        @media (max-width: 480px) {
+            .cover-text {
+                font-size: 1.6rem;
+                padding: 0 10px;
+            }
+            
+            .cover-subtitle {
+                font-size: 0.8rem;
+                padding: 0 10px;
+            }
+            
+            .enter-button {
+                padding: 14px 35px;
+                font-size: 1rem;
+            }
+            
+            .logo {
+                font-size: 1.4rem;
+            }
+            
+            .logo-tagline {
+                font-size: 0.7rem;
+                padding: 0 10px;
+            }
+            
+            .loading-text {
+                font-size: 1.4rem;
+            }
+            
+            .progress-container {
+                width: 220px;
+            }
+            
+            .progress-bar {
+                height: 6px;
+            }
+            
+            .tape-tab {
+                width: 70px;
+                height: 32px;
+            }
+            
+            .tape-main {
+                width: 50px;
+            }
+        }
+        
+        /* Enhanced Mobile Responsive - Small Mobile Phones */
+        @media (max-width: 380px) {
+            .cover-text {
+                font-size: 1.4rem;
+                padding: 0 8px;
+            }
+            
+            .cover-subtitle {
+                font-size: 0.75rem;
+                padding: 0 8px;
+            }
+            
+            .enter-button {
+                padding: 12px 30px;
+                font-size: 0.95rem;
+            }
+            
+            .logo {
+                font-size: 1.2rem;
+            }
+            
+            .logo-tagline {
+                font-size: 0.65rem;
+                padding: 0 8px;
+            }
+            
+            .loading-text {
+                font-size: 1.2rem;
+            }
+            
+            .progress-container {
+                width: 200px;
+            }
+            
+            .progress-bar {
+                height: 5px;
+            }
+            
+            .tape-tab {
                 width: 65px;
+                height: 30px;
+            }
+            
+            .tape-main {
+                width: 45px;
             }
         }
     </style>
