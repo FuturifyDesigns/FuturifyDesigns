@@ -1,0 +1,1010 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fashion Bloom – Collections</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Cormorant+Garamond:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --gold: #d4af37;
+            --light-gold: #f4d03f;
+            --black: #0a0a0a;
+            --cream: #e4d5b7;
+            --dark-gray: #1a1a1a;
+        }
+
+        * {
+      -webkit-tap-highlight-color: transparent;
+      -webkit-touch-callout: none;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--black);
+            color: var(--cream);
+            font-family: 'Cormorant Garamond', serif;
+            overflow-x: hidden;
+            font-size: 16px;
+        }
+
+
+    /* Remove tap highlight and focus outline on all interactive elements */
+    a, button, input, select, textarea, [role="button"] {
+      -webkit-tap-highlight-color: transparent;
+      -webkit-touch-callout: none;
+      -webkit-user-select: none;
+      user-select: none;
+      outline: none;
+    }
+
+    button:focus, a:focus, input:focus, select:focus, textarea:focus {
+      outline: none;
+    }
+        /* Header Styles */
+        header {
+            background: rgba(10, 10, 10, 0.9);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 40px;
+            box-shadow: 0 2px 10px rgba(212, 175, 55, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(5px);
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--gold);
+            text-decoration: none;
+            position: relative;
+            transition: all 0.4s ease;
+        }
+
+        .logo:hover {
+            text-shadow: 0 0 10px var(--gold), 0 0 30px rgba(212, 175, 55, 0.4);
+        }
+
+        .logo:hover::after {
+            content: '✨';
+            position: absolute;
+            right: -20px;
+            animation: sparkle 1s infinite alternate;
+        }
+
+        @keyframes sparkle {
+            0% { opacity: 0; transform: scale(0.5); }
+            100% { opacity: 1; transform: scale(1.3) rotate(15deg); }
+        }
+
+        nav a {
+            color: var(--cream);
+            text-decoration: none;
+            margin-left: 25px;
+            font-weight: 500;
+            position: relative;
+            transition: all 0.3s ease;
+            padding: 6px 10px;
+            border-radius: 4px;
+            font-size: 0.95rem;
+        }
+
+        nav a.active {
+            color: var(--gold);
+            background: rgba(212, 175, 55, 0.1);
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gold);
+            transition: width 0.3s ease;
+        }
+
+        nav a:hover, nav a.active {
+            color: var(--gold);
+            background: rgba(212, 175, 55, 0.1);
+        }
+
+        nav a:hover::after, nav a.active::after {
+            width: 100%;
+        }
+
+        /* Collections Hero */
+        .collections-hero {
+            height: 50vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(rgba(10, 10, 10, 0.7), rgba(10, 10, 10, 0.7)), 
+                        url('https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=1600&q=80');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            padding: 30px;
+            background: rgba(10, 10, 10, 0.8);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .hero-content h1 {
+            font-size: 2.6rem;
+            color: var(--gold);
+            font-family: 'Playfair Display', serif;
+            margin-bottom: 15px;
+            text-shadow: 0 4px 15px rgba(0, 0, 0, 0.8);
+            position: relative;
+        }
+
+        .hero-content p {
+            font-size: 1.05rem;
+            color: var(--cream);
+            max-width: 500px;
+            margin: 0 auto;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
+            line-height: 1.5;
+        }
+
+        /* Collection Categories Grid */
+        .collections-grid {
+            padding: 60px 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .collections-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: repeat(3, 350px);
+            gap: 25px;
+            margin-bottom: 60px;
+        }
+
+        /* Specific grid placements */
+        .collection-card:nth-child(1) { grid-column: 1 / 3; grid-row: 1; }
+        .collection-card:nth-child(2) { grid-column: 3; grid-row: 1; }
+        .collection-card:nth-child(3) { grid-column: 1; grid-row: 2; }
+        .collection-card:nth-child(4) { grid-column: 2; grid-row: 2; }
+        .collection-card:nth-child(5) { grid-column: 3; grid-row: 2; }
+        .collection-card:nth-child(6) { grid-column: 1 / 3; grid-row: 3; }
+        .collection-card:nth-child(7) { grid-column: 3; grid-row: 3; }
+        .collection-card:nth-child(8) { grid-column: 1 / 4; grid-row: 4; height: 300px; }
+
+        .collection-card {
+            position: relative;
+            border-radius: 12px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            border: 2px solid rgba(212, 175, 55, 0.2);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .collection-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(212, 175, 55, 0.2);
+            border-color: rgba(212, 175, 55, 0.5);
+        }
+
+        .collection-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+            filter: brightness(0.8);
+        }
+
+        .collection-card:hover .collection-image {
+            transform: scale(1.08);
+            filter: brightness(1);
+        }
+
+        .collection-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                45deg,
+                rgba(10, 10, 10, 0.8) 0%,
+                rgba(26, 26, 26, 0.6) 50%,
+                rgba(10, 10, 10, 0.9) 100%
+            );
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            opacity: 0.9;
+            transition: all 0.4s ease;
+        }
+
+        .collection-card:hover .collection-overlay {
+            opacity: 0.95;
+            background: linear-gradient(
+                45deg,
+                rgba(212, 175, 55, 0.1) 0%,
+                rgba(26, 26, 26, 0.8) 50%,
+                rgba(212, 175, 55, 0.1) 100%
+            );
+        }
+
+        .collection-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--gold);
+            font-family: 'Playfair Display', serif;
+            margin-bottom: 12px;
+            text-shadow: 0 4px 15px rgba(0, 0, 0, 0.8);
+            transform: translateY(15px);
+            transition: all 0.4s ease;
+        }
+
+        .collection-card:nth-child(1) .collection-title,
+        .collection-card:nth-child(6) .collection-title,
+        .collection-card:nth-child(8) .collection-title {
+            font-size: 2.2rem;
+        }
+
+        .collection-card:hover .collection-title {
+            transform: translateY(0);
+            text-shadow: 0 0 20px rgba(212, 175, 55, 0.6);
+        }
+
+        .collection-description {
+            font-size: 1rem;
+            color: var(--cream);
+            max-width: 280px;
+            margin: 0 auto 20px;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
+            transform: translateY(15px);
+            opacity: 0.8;
+            transition: all 0.4s ease 0.1s;
+        }
+
+        .collection-card:nth-child(1) .collection-description,
+        .collection-card:nth-child(6) .collection-description,
+        .collection-card:nth-child(8) .collection-description {
+            font-size: 1.05rem;
+            max-width: 400px;
+        }
+
+        .collection-card:hover .collection-description {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .collection-btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background: transparent;
+            color: var(--gold);
+            border: 2px solid var(--gold);
+            border-radius: 25px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            transform: translateY(15px);
+            opacity: 0;
+        }
+
+        .collection-card:hover .collection-btn {
+            transform: translateY(0);
+            opacity: 1;
+            transition: all 0.4s ease 0.2s;
+        }
+
+        .collection-btn:hover {
+            background: var(--gold);
+            color: var(--black);
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.6);
+            transform: translateY(-3px);
+        }
+
+        .collection-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.4), transparent);
+            transition: 0.5s;
+        }
+
+        .collection-btn:hover::before {
+            left: 100%;
+        }
+
+        /* Sparkle Effects */
+        .sparkle-click {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: var(--gold);
+            border-radius: 50%;
+            pointer-events: none;
+            opacity: 0.8;
+            animation: sparkleFade 0.6s ease-out forwards;
+            box-shadow: 0 0 8px 1px rgba(212, 175, 55, 0.5);
+        }
+
+        @keyframes sparkleFade {
+            0% { transform: scale(0.5); opacity: 1; }
+            100% { transform: scale(2); opacity: 0; }
+        }
+
+        .floating-sparkle {
+            position: fixed;
+            width: 4px;
+            height: 4px;
+            background: var(--gold);
+            border-radius: 50%;
+            pointer-events: none;
+            opacity: 0;
+            z-index: 10;
+            box-shadow: 0 0 8px 1px rgba(212, 175, 55, 0.7);
+            animation: floatSparkle 4s ease-in-out infinite;
+        }
+
+        @keyframes floatSparkle {
+            0% { transform: translateY(0) scale(0.5); opacity: 0; }
+            20% { opacity: 0.8; }
+            50% { transform: translateY(-25px) scale(1); }
+            80% { opacity: 0.8; }
+            100% { transform: translateY(-50px) scale(0.5); opacity: 0; }
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 40px 30px;
+            background-color: #111;
+            color: var(--cream);
+            font-size: 0.9rem;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            max-width: 1000px;
+            margin: 0 auto 35px;
+            text-align: left;
+        }
+
+        .footer-column {
+            flex: 1;
+            min-width: 180px;
+            margin: 0 15px 25px;
+        }
+
+        .footer-column h3 {
+            color: var(--gold);
+            font-size: 1.05rem;
+            margin-bottom: 15px;
+            font-family: 'Playfair Display', serif;
+            position: relative;
+            display: inline-block;
+            transition: color 0.3s ease;
+            cursor: pointer;
+        }
+
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -5px;
+            width: 0%;
+            height: 2px;
+            background-color: var(--gold);
+            transition: width 0.3s ease;
+        }
+
+        .footer-column h3:hover {
+            color: var(--light-gold);
+        }
+
+        .footer-column h3:hover::after {
+            width: 100%;
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 8px;
+        }
+
+        .footer-column ul li a {
+            color: var(--cream);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            position: relative;
+            display: inline-block;
+            font-size: 0.85rem;
+        }
+
+        .footer-column ul li a::before {
+            content: '✨';
+            position: absolute;
+            left: -20px;
+            opacity: 0;
+            animation: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .footer-column ul li a:hover {
+            color: var(--gold);
+            transform: translateX(5px) scale(1.05);
+        }
+
+        .footer-column ul li a:hover::before {
+            opacity: 1;
+            animation: sparkleFixed 1.5s infinite alternate;
+        }
+
+        @keyframes sparkleFixed {
+            0% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.2) rotate(10deg); opacity: 1; }
+            100% { transform: scale(1); opacity: 0.5; }
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 25px;
+        }
+
+        .social-links a {
+            display: inline-block;
+            width: 35px;
+            height: 35px;
+            background: rgba(212, 175, 55, 0.1);
+            border-radius: 50%;
+            margin: 0 8px;
+            color: var(--gold);
+            text-align: center;
+            line-height: 35px;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .social-links a:hover {
+            background: var(--gold);
+            color: var(--black);
+            transform: translateY(-3px);
+        }
+
+        .copyright {
+            color: #999;
+            font-size: 0.8rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .collections-container {
+                grid-template-columns: repeat(2, 1fr);
+                grid-template-rows: repeat(4, 320px);
+            }
+            
+            .collection-card:nth-child(1) { grid-column: 1 / 3; grid-row: 1; }
+            .collection-card:nth-child(2) { grid-column: 1; grid-row: 2; }
+            .collection-card:nth-child(3) { grid-column: 2; grid-row: 2; }
+            .collection-card:nth-child(4) { grid-column: 1; grid-row: 3; }
+            .collection-card:nth-child(5) { grid-column: 2; grid-row: 3; }
+            .collection-card:nth-child(6) { grid-column: 1 / 3; grid-row: 4; }
+            .collection-card:nth-child(7) { grid-column: 1; grid-row: 5; }
+            .collection-card:nth-child(8) { grid-column: 2; grid-row: 5; }
+        }
+
+        @media (max-width: 768px) {
+            header {
+                padding: 12px 20px;
+                flex-direction: column;
+            }
+
+            nav {
+                margin-top: 12px;
+            }
+
+            nav a {
+                margin: 0 8px;
+                font-size: 0.9rem;
+            }
+
+            .logo {
+                font-size: 1.25rem;
+            }
+
+            .collections-hero {
+                height: 45vh;
+            }
+
+            .hero-content h1 {
+                font-size: 2.2rem;
+            }
+
+            .hero-content p {
+                font-size: 1rem;
+            }
+
+            .collections-grid {
+                padding: 40px 20px;
+            }
+
+            .collections-container {
+                grid-template-columns: 1fr;
+                grid-template-rows: repeat(8, 280px);
+                gap: 20px;
+            }
+
+            .collection-card:nth-child(1),
+            .collection-card:nth-child(2),
+            .collection-card:nth-child(3),
+            .collection-card:nth-child(4),
+            .collection-card:nth-child(5),
+            .collection-card:nth-child(6),
+            .collection-card:nth-child(7),
+            .collection-card:nth-child(8) {
+                grid-column: 1;
+                grid-row: auto;
+            }
+
+            .collection-title {
+                font-size: 1.6rem;
+            }
+
+            .collection-card:nth-child(1) .collection-title,
+            .collection-card:nth-child(6) .collection-title,
+            .collection-card:nth-child(8) .collection-title {
+                font-size: 1.8rem;
+            }
+
+            .footer-column {
+                min-width: 100%;
+                margin-bottom: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-content {
+                padding: 20px;
+            }
+
+            .hero-content h1 {
+                font-size: 1.8rem;
+            }
+
+            .collections-container {
+                grid-template-rows: repeat(8, 250px);
+            }
+
+            .collection-title {
+                font-size: 1.25rem;
+            }
+
+            .collection-description {
+                font-size: 0.9rem;
+                max-width: 250px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <a class="logo" href="index.html">FASHION BLOOM</a>
+        <nav>
+            <a href="Fashion homepage.html">Home</a>
+            <a href="Collections.html" class="active">Collections</a>
+            <a href="Sales.html">Sales</a>
+            <a href="About Us.html">About</a>
+        </nav>
+    </header>
+
+    <!-- Collections Hero -->
+    <section class="collections-hero">
+        <div class="hero-content">
+            <h1>Our Collections</h1>
+            <p>Explore our carefully curated selection of luxury fashion pieces, each collection telling its own story of elegance, sophistication, and timeless style.</p>
+        </div>
+    </section>
+
+    <!-- Collections Grid -->
+    <section class="collections-grid">
+        <div class="collections-container">
+            <!-- Signature Collection - Featured (spans 2 columns) -->
+            <div class="collection-card" data-collection="signature">
+                <img src="https://images.unsplash.com/photo-1469334031218-e382a71b716b?auto=format&fit=crop&w=1200&q=80" alt="Signature Collection" class="collection-image">
+                <div class="collection-overlay">
+                    <h2 class="collection-title">Signature Collection</h2>
+                    <p class="collection-description">Our most exclusive pieces, handcrafted with the finest materials and attention to detail. Limited edition designs that define luxury fashion.</p>
+                    <a href="Sales.html" class="collection-btn">Explore Signature</a>
+                </div>
+            </div>
+
+            <!-- Evening Elegance -->
+            <div class="collection-card" data-collection="evening">
+                <img src="https://images.unsplash.com/photo-1595777457583-95e059d581b8?auto=format&fit=crop&w=800&q=80" alt="Evening Elegance" class="collection-image">
+                <div class="collection-overlay">
+                    <h2 class="collection-title">Evening Elegance</h2>
+                    <p class="collection-description">Sophisticated gowns and formal wear for your most memorable occasions.</p>
+                    <a href="Sales.html" class="collection-btn">View Evening Wear</a>
+                </div>
+            </div>
+
+            <!-- Casual Luxury -->
+            <div class="collection-card" data-collection="casual">
+                <img src="https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?auto=format&fit=crop&w=800&q=80" alt="Casual Luxury" class="collection-image">
+                <div class="collection-overlay">
+                    <h2 class="collection-title">Casual Luxury</h2>
+                    <p class="collection-description">Everyday elegance with premium comfort and style for the modern lifestyle.</p>
+                    <a href="Sales.html" class="collection-btn">Shop Casual</a>
+                </div>
+            </div>
+
+            <!-- Accessories -->
+            <div class="collection-card" data-collection="accessories">
+                <img src="https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=800&q=80" alt="Luxury Accessories" class="collection-image">
+                <div class="collection-overlay">
+                    <h2 class="collection-title">Luxury Accessories</h2>
+                    <p class="collection-description">Exquisite handbags, jewelry, and accessories to complete your perfect look.</p>
+                    <a href="Sales.html" class="collection-btn">Browse Accessories</a>
+                </div>
+            </div>
+
+            <!-- Bridal Dreams -->
+            <div class="collection-card" data-collection="bridal">
+                <img src="https://images.unsplash.com/photo-1606800052052-a08af7148866?auto=format&fit=crop&w=800&q=80" alt="Bridal Dreams" class="collection-image">
+                <div class="collection-overlay">
+                    <h2 class="collection-title">Bridal Dreams</h2>
+                    <p class="collection-description">Ethereal wedding gowns and bridal accessories for your special day.</p>
+                    <a href="Sales.html" class="collection-btn">Discover Bridal</a>
+                </div>
+            </div>
+
+            <!-- Gentleman's Choice -->
+            <div class="collection-card" data-collection="mens">
+                <img src="https://images.unsplash.com/photo-1617127365659-c47fa864d8bc?auto=format&fit=crop&w=1200&q=80" alt="Gentleman's Choice" class="collection-image">
+                <div class="collection-overlay">
+                    <h2 class="collection-title">Gentleman's Choice</h2>
+                    <p class="collection-description">Sophisticated menswear featuring tailored suits, premium shirts, and luxury accessories designed for the modern gentleman.</p>
+                    <a href="Sales.html" class="collection-btn">Shop Men's</a>
+                </div>
+            </div>
+
+            <!-- Resort Escape -->
+            <div class="collection-card" data-collection="resort">
+                <img src="https://images.unsplash.com/photo-1502680390469-be75c86b636f?auto=format&fit=crop&w=800&q=80" alt="Resort Escape" class="collection-image">
+                <div class="collection-overlay">
+                    <h2 class="collection-title">Resort Escape</h2>
+                    <p class="collection-description">Luxurious vacation wear and beach essentials for your perfect getaway.</p>
+                    <a href="Sales.html" class="collection-btn">Explore Resort</a>
+                </div>
+            </div>
+
+            <!-- Limited Edition -->
+            <div class="collection-card" data-collection="limited">
+                <img src="https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&w=1200&q=80" alt="Limited Edition" class="collection-image">
+                <div class="collection-overlay">
+                    <h2 class="collection-title">Limited Edition</h2>
+                    <p class="collection-description">Rare and exclusive pieces available for a limited time only.</p>
+                    <a href="Sales.html" class="collection-btn">View Limited</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>Shop</h3>
+                <ul>
+                    <li><a href="#">New Arrivals</a></li>
+                    <li><a href="#">Best Sellers</a></li>
+                    <li><a href="Sales.html">Sale Items</a></li>
+                    <li><a href="#">Accessories</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Information</h3>
+                <ul>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Sustainability</a></li>
+                    <li><a href="#">Shipping Policy</a></li>
+                    <li><a href="#">Returns & Exchanges</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Customer Service</h3>
+                <ul>
+                    <li><a href="#">Contact Us</a></li>
+                    <li><a href="#">FAQs</a></li>
+                    <li><a href="#">Size Guide</a></li>
+                    <li><a href="#">Care Instructions</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Connect With Us</h3>
+                <ul>
+                    <li><a href="#">Instagram</a></li>
+                    <li><a href="#">Pinterest</a></li>
+                    <li><a href="#">Twitter</a></li>
+                    <li><a href="#">Facebook</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="social-links">
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-pinterest"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+        </div>
+        <p class="copyright">© 2025 Fashion Bloom. Designed for elegance and distinction.</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Navigation sparkle effect
+            document.querySelectorAll('nav a').forEach(link => {
+                link.addEventListener('click', (e) => {
+                    if (!link.getAttribute('href') || link.getAttribute('href') === '#') {
+                        e.preventDefault();
+                    }
+                    
+                    // Create multiple sparkles for richer effect
+                    for (let i = 0; i < 5; i++) {
+                        const sparkle = document.createElement('span');
+                        sparkle.className = 'sparkle-click';
+                        sparkle.style.left = (e.clientX + (Math.random() * 16 - 8)) + 'px';
+                        sparkle.style.top = (e.clientY + (Math.random() * 16 - 8)) + 'px';
+                        sparkle.style.width = (4 + Math.random() * 8) + 'px';
+                        sparkle.style.height = sparkle.style.width;
+                        sparkle.style.animationDelay = (Math.random() * 0.3) + 's';
+                        document.body.appendChild(sparkle);
+                        setTimeout(() => sparkle.remove(), 600);
+                    }
+                });
+            });
+
+            // Collection card click effects
+            document.querySelectorAll('.collection-card').forEach(card => {
+                card.addEventListener('click', (e) => {
+                    // Create sparkle effects on click
+                    for (let i = 0; i < 8; i++) {
+                        const sparkle = document.createElement('span');
+                        sparkle.className = 'sparkle-click';
+                        sparkle.style.left = (e.clientX + (Math.random() * 32 - 16)) + 'px';
+                        sparkle.style.top = (e.clientY + (Math.random() * 32 - 16)) + 'px';
+                        sparkle.style.width = (4 + Math.random() * 8) + 'px';
+                        sparkle.style.height = sparkle.style.width;
+                        sparkle.style.animationDelay = (Math.random() * 0.4) + 's';
+                        document.body.appendChild(sparkle);
+                        setTimeout(() => sparkle.remove(), 600);
+                    }
+                });
+
+                // Enhanced hover effects
+                card.addEventListener('mouseenter', () => {
+                    // Add some floating sparkles around the card
+                    createFloatingSparkles(card);
+                });
+            });
+
+            // Create floating sparkles around elements
+            function createFloatingSparkles(element) {
+                const rect = element.getBoundingClientRect();
+                
+                for (let i = 0; i < 3; i++) {
+                    setTimeout(() => {
+                        const sparkle = document.createElement('div');
+                        sparkle.className = 'floating-sparkle';
+                        
+                        // Position around the element
+                        const x = rect.left + Math.random() * rect.width;
+                        const y = rect.top + Math.random() * rect.height;
+                        
+                        sparkle.style.left = `${x}px`;
+                        sparkle.style.top = `${y}px`;
+                        
+                        // Random size
+                        const size = 3 + Math.random() * 4;
+                        sparkle.style.width = `${size}px`;
+                        sparkle.style.height = `${size}px`;
+                        
+                        document.body.appendChild(sparkle);
+                        
+                        // Remove after animation
+                        setTimeout(() => {
+                            if (sparkle.parentNode) {
+                                sparkle.parentNode.removeChild(sparkle);
+                            }
+                        }, 4000);
+                    }, i * 200);
+                }
+            }
+
+            // Random floating sparkles across the screen
+            function createRandomSparkle() {
+                const sparkle = document.createElement('div');
+                sparkle.className = 'floating-sparkle';
+                
+                // Random position within viewport
+                const x = Math.random() * window.innerWidth;
+                const y = Math.random() * window.innerHeight;
+                
+                sparkle.style.left = `${x}px`;
+                sparkle.style.top = `${y}px`;
+                
+                // Random size between 3-6px
+                const size = 3 + Math.random() * 3;
+                sparkle.style.width = `${size}px`;
+                sparkle.style.height = `${size}px`;
+                
+                document.body.appendChild(sparkle);
+                
+                // Remove after animation completes
+                setTimeout(() => {
+                    if (sparkle.parentNode) {
+                        sparkle.parentNode.removeChild(sparkle);
+                    }
+                }, 4000);
+            }
+
+            // Create initial sparkles
+            for (let i = 0; i < 12; i++) {
+                setTimeout(createRandomSparkle, Math.random() * 2000);
+            }
+
+            // Keep creating new sparkles
+            setInterval(() => {
+                if (Math.random() > 0.4) { // 60% chance
+                    createRandomSparkle();
+                    // Sometimes create multiple at once
+                    if (Math.random() > 0.8) {
+                        setTimeout(createRandomSparkle, 100);
+                        setTimeout(createRandomSparkle, 200);
+                    }
+                }
+            }, 500);
+
+            // Collection button hover effects
+            document.querySelectorAll('.collection-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    
+                    // Create burst of sparkles on button click
+                    for (let i = 0; i < 10; i++) {
+                        const sparkle = document.createElement('span');
+                        sparkle.className = 'sparkle-click';
+                        sparkle.style.left = (e.clientX + (Math.random() * 50 - 25)) + 'px';
+                        sparkle.style.top = (e.clientY + (Math.random() * 50 - 25)) + 'px';
+                        sparkle.style.width = (3 + Math.random() * 6) + 'px';
+                        sparkle.style.height = sparkle.style.width;
+                        sparkle.style.animationDelay = (Math.random() * 0.3) + 's';
+                        sparkle.style.background = Math.random() > 0.5 ? 'var(--gold)' : 'var(--light-gold)';
+                        document.body.appendChild(sparkle);
+                        setTimeout(() => sparkle.remove(), 600);
+                    }
+                    
+                    // Navigate to sales page after sparkle effect
+                    setTimeout(() => {
+                        window.location.href = 'Sales.html';
+                    }, 300);
+                });
+            });
+
+            // Enhanced logo hover effect
+            document.querySelector('.logo').addEventListener('mouseenter', () => {
+                // Create sparkles around logo
+                for (let i = 0; i < 5; i++) {
+                    setTimeout(() => {
+                        const logo = document.querySelector('.logo');
+                        const rect = logo.getBoundingClientRect();
+                        const sparkle = document.createElement('div');
+                        sparkle.className = 'floating-sparkle';
+                        
+                        const x = rect.left + Math.random() * rect.width;
+                        const y = rect.top + Math.random() * rect.height;
+                        
+                        sparkle.style.left = `${x}px`;
+                        sparkle.style.top = `${y}px`;
+                        sparkle.style.width = '5px';
+                        sparkle.style.height = '5px';
+                        
+                        document.body.appendChild(sparkle);
+                        
+                        setTimeout(() => {
+                            if (sparkle.parentNode) {
+                                sparkle.parentNode.removeChild(sparkle);
+                            }
+                        }, 2000);
+                    }, i * 100);
+                }
+            });
+
+            // Smooth scroll for any anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    const href = this.getAttribute('href');
+                    if (href !== '#') {
+                        e.preventDefault();
+                        const target = document.querySelector(href);
+                        if (target) {
+                            target.scrollIntoView({
+                                behavior: 'smooth',
+                                block: 'start'
+                            });
+                        }
+                    }
+                });
+            });
+
+            // Add parallax effect to hero background
+            window.addEventListener('scroll', () => {
+                const scrolled = window.pageYOffset;
+                const hero = document.querySelector('.collections-hero');
+                if (hero) {
+                    hero.style.transform = `translateY(${scrolled * 0.3}px)`;
+                }
+            });
+
+            // Intersection Observer for fade-in animations
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.1
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, observerOptions);
+
+            // Observe collection cards for scroll animations
+            document.querySelectorAll('.collection-card').forEach((card, index) => {
+                // Set initial state for animation
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                card.style.transition = `opacity 0.6s ease ${index * 0.1}s, transform 0.6s ease ${index * 0.1}s`;
+                
+                observer.observe(card);
+            });
+        });
+    </script>
+</body>
+</html>

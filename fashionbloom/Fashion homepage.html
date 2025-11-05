@@ -1,0 +1,1800 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Fashion Bloom – Home</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&amp;family=Cormorant+Garamond:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet"/>
+<style>
+.footer-column ul li a {
+  position: relative;
+  display: inline-block;
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.footer-column ul li a::before {
+  content: '✨';
+  position: absolute;
+  left: -20px;
+  opacity: 0;
+  animation: none;
+  transition: opacity 0.3s ease;
+}
+
+.footer-column ul li a:hover {
+  color: var(--gold);
+  transform: translateX(5px) scale(1.05);
+}
+
+.footer-column ul li a:hover::before {
+  opacity: 1;
+  animation: sparkleFixed 1.5s infinite alternate;
+}
+
+@keyframes sparkleFixed {
+  0% { transform: scale(1); opacity: 0.5; }
+  50% { transform: scale(1.2) rotate(10deg); opacity: 1; }
+  100% { transform: scale(1); opacity: 0.5; }
+}
+
+/* New: Hover underline animation for footer titles (h3) */
+.footer-column h3 {
+  position: relative;
+  display: inline-block;
+  transition: color 0.3s ease;
+  cursor: pointer;
+}
+
+.footer-column h3::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -5px;
+  width: 0%;
+  height: 2px;
+  background-color: var(--gold);
+  transition: width 0.3s ease;
+}
+
+.footer-column h3:hover {
+  color: var(--light-gold);
+}
+
+.footer-column h3:hover::after {
+
+    /* Enhanced Mobile Responsive - Tablets */
+    @media (max-width: 992px) {
+      .logo {
+        font-size: 1.6rem;
+      }
+      
+      header {
+        padding: 16px 35px;
+      }
+      
+      .hero h1 {
+        font-size: 3.2rem;
+      }
+      
+      .hero p {
+        font-size: 1.25rem;
+      }
+      
+      .section-title {
+        font-size: 2rem;
+      }
+    }
+
+    /* Enhanced Mobile Responsive - Mobile Devices */
+    @media (max-width: 576px) {
+      header {
+        padding: 12px 20px;
+      }
+      
+      .logo {
+        font-size: 1.4rem;
+      }
+      
+      nav a {
+        font-size: 0.9rem;
+        margin: 0 8px;
+      }
+      
+      .hero {
+        height: 65vh;
+      }
+      
+      .hero h1 {
+        font-size: 2.2rem;
+        padding: 0 15px;
+      }
+      
+      .hero p {
+        font-size: 1.1rem;
+        padding: 0 15px;
+      }
+      
+      .cta-button, .btn {
+        padding: 10px 22px;
+        font-size: 0.95rem;
+      }
+      
+      .section-title {
+        font-size: 1.8rem;
+      }
+      
+      .product-card, .collection-card {
+        height: 280px;
+      }
+      
+      .popup-content {
+        max-width: 95%;
+        padding: 20px;
+      }
+      
+      .popup-slideshow {
+        height: 280px;
+      }
+      
+      .popup-slide {
+        width: 220px;
+        height: 240px;
+      }
+    }
+
+    /* Enhanced Mobile Responsive - Small Mobile */
+    @media (max-width: 480px) {
+      header {
+        padding: 10px 15px;
+      }
+      
+      .logo {
+        font-size: 1.2rem;
+      }
+      
+      nav {
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+      
+      nav a {
+        font-size: 0.85rem;
+        margin: 0 5px;
+      }
+      
+      .hero {
+        height: 60vh;
+      }
+      
+      .hero h1 {
+        font-size: 1.8rem;
+      }
+      
+      .hero p {
+        font-size: 1rem;
+      }
+      
+      .cta-button, .btn {
+        padding: 9px 20px;
+        font-size: 0.9rem;
+      }
+      
+      .section-title {
+        font-size: 1.6rem;
+      }
+      
+      .product-card, .collection-card {
+        height: 250px;
+      }
+      
+      .popup-slideshow {
+        height: 240px;
+      }
+      
+      .popup-slide {
+        width: 180px;
+        height: 200px;
+      }
+    }
+  width: 100%;
+}
+
+    :root {
+      --gold: #d4af37;
+      --light-gold: #f4d03f;
+      --black: #0a0a0a;
+      --cream: #e4d5b7;
+      --dark-gray: #1a1a1a;
+    }
+
+    * {
+      -webkit-tap-highlight-color: transparent;
+      -webkit-touch-callout: none;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: var(--black);
+      color: var(--cream);
+      font-family: 'Cormorant Garamond', serif;
+      overflow-x: hidden;
+    }
+
+
+    /* Remove tap highlight and focus outline on all interactive elements */
+    a, button, input, select, textarea, [role="button"] {
+      -webkit-tap-highlight-color: transparent;
+      -webkit-touch-callout: none;
+      -webkit-user-select: none;
+      user-select: none;
+      outline: none;
+    }
+
+    button:focus, a:focus, input:focus, select:focus, textarea:focus {
+      outline: none;
+    }
+    header {
+      background: rgba(10, 10, 10, 0.9);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 18px 45px;
+      box-shadow: 0 2px 10px rgba(212, 175, 55, 0.1);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(5px);
+    }
+
+    .logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--gold);
+      text-decoration: none;
+      position: relative;
+      transition: all 0.4s ease;
+    }
+
+    .logo:hover {
+      text-shadow: 0 0 10px var(--gold), 0 0 30px rgba(212, 175, 55, 0.4);
+    }
+
+    .logo:hover::after {
+      content: '✨';
+      position: absolute;
+      right: -20px;
+      animation: sparkle 1s infinite alternate;
+    }
+
+    @keyframes sparkle {
+      0% { opacity: 0; transform: scale(0.5); }
+      100% { opacity: 1; transform: scale(1.3) rotate(15deg); }
+    }
+
+    nav a {
+      color: var(--cream);
+      text-decoration: none;
+      margin-left: 30px;
+      font-weight: 500;
+      position: relative;
+      transition: all 0.3s ease;
+      padding: 8px 12px;
+      border-radius: 4px;
+    }
+
+    nav a.active {
+      color: var(--gold);
+      background: rgba(212, 175, 55, 0.1);
+    }
+
+    nav a::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--gold);
+      transition: width 0.3s ease;
+    }
+
+    nav a:hover, nav a.active {
+      color: var(--gold);
+      background: rgba(212, 175, 55, 0.1);
+    }
+
+    nav a:hover::after, nav a.active::after {
+      width: 100%;
+    }
+
+    .sparkle-click {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background: var(--gold);
+      border-radius: 50%;
+      pointer-events: none;
+      opacity: 0.8;
+      animation: sparkleFade 0.6s ease-out forwards;
+      box-shadow: 0 0 10px 2px rgba(212, 175, 55, 0.5);
+    }
+
+    @keyframes sparkleFade {
+      0% { transform: scale(0.5); opacity: 1; }
+      100% { transform: scale(2); opacity: 0; }
+    }
+
+    /* Floating screen sparkles */
+    .screen-sparkle {
+      position: fixed;
+      width: 6px;
+      height: 6px;
+      background: var(--gold);
+      border-radius: 50%;
+      pointer-events: none;
+      opacity: 0;
+      z-index: 10;
+      box-shadow: 0 0 10px 2px rgba(212, 175, 55, 0.7);
+      animation: floatSparkle 4s ease-in-out infinite;
+    }
+
+    @keyframes floatSparkle {
+      0% { transform: translateY(0) scale(0.5); opacity: 0; }
+      20% { opacity: 0.8; }
+      50% { transform: translateY(-20px) scale(1); }
+      80% { opacity: 0.8; }
+      100% { transform: translateY(-40px) scale(0.5); opacity: 0; }
+    }
+
+    .hero {
+      height: 75vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-slides {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      background-size: cover;
+      background-position: center;
+      opacity: 0;
+      transition: opacity 1.5s ease-in-out;
+    }
+
+    .hero-slides.active {
+      opacity: 1;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      padding: 35px;
+      background: rgba(10, 10, 10, 0.7);
+      border-radius: 15px;
+      backdrop-filter: blur(5px);
+      border: 1px solid rgba(212, 175, 55, 0.3);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      max-width: 800px;
+      margin: 0 auto;
+      transition: all 0.4s ease;
+    }
+
+    .hero h1 {
+      font-size: 3.8rem;
+      color: var(--gold);
+      z-index: 1;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.7);
+      margin-bottom: 20px;
+      animation: fadeInUp 1s ease-out;
+      position: relative;
+      display: inline-block;
+      padding: 0 20px;
+      transition: all 0.4s ease;
+    }
+
+    .hero h1::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(45deg, transparent, rgba(212, 175, 55, 0.1), transparent);
+      z-index: -1;
+      border-radius: 10px;
+      transition: all 0.4s ease;
+    }
+
+    .hero p {
+      font-size: 1.35rem;
+      color: var(--cream);
+      max-width: 700px;
+      margin: 0 auto 30px;
+      z-index: 1;
+      animation: fadeInUp 1s ease-out 0.3s forwards;
+      opacity: 0;
+      text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
+      padding: 0 20px;
+      transition: all 0.4s ease;
+    }
+
+    /* Sparkle animation for the heading */
+    .sparkle {
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      background: var(--gold);
+      border-radius: 50%;
+      pointer-events: none;
+      opacity: 0;
+      animation: sparkleFloat 2s ease-out forwards;
+      box-shadow: 0 0 10px 2px rgba(212, 175, 55, 0.8);
+      z-index: -1;
+    }
+
+    @keyframes sparkleFloat {
+      0% { transform: translate(0, 0) scale(0.5); opacity: 1; }
+      50% { opacity: 0.8; }
+      100% { transform: translate(var(--tx, 0), var(--ty, -50px)) scale(0); opacity: 0; }
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 11px 26px;
+      background: transparent;
+      color: var(--gold);
+      border: 2px solid var(--gold);
+      border-radius: 30px;
+      font-size: 1.05rem;
+      font-weight: 500;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      z-index: 1;
+      animation: fadeInUp 1s ease-out 0.6s forwards;
+      opacity: 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn:hover {
+      background: var(--gold);
+      color: var(--black);
+      box-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
+    }
+
+    .btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.4), transparent);
+      transition: 0.5s;
+    }
+
+    .btn:hover::before {
+      left: 100%;
+    }
+
+    /* Hero text illumination on button hover */
+    .btn:hover ~ .hero-content h1,
+    .btn:hover ~ .hero-content p {
+      text-shadow: 0 0 15px rgba(212, 175, 55, 0.7);
+    }
+
+    .btn:hover ~ .hero-content h1::before {
+      background: linear-gradient(45deg, transparent, rgba(212, 175, 55, 0.3), transparent);
+    }
+
+    .btn:hover ~ .hero-content {
+      box-shadow: 0 0 30px rgba(212, 175, 55, 0.3);
+      border-color: rgba(212, 175, 55, 0.5);
+    }
+
+    /* Make the button container a sibling of the text elements */
+    .hero-text-container {
+      position: relative;
+    }
+
+    @keyframes fadeInUp {
+      0% { opacity: 0; transform: translateY(20px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+   .section-title {
+  font-size: 2.2rem;
+  text-align: center;
+  margin: 80px 0 40px;
+  color: var(--light-gold);
+  font-family: 'Playfair Display', serif;
+  position: relative;
+  width: 100%;
+}
+
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 3px;
+      background: var(--gold);
+    }
+
+    .products {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 40px;
+      padding: 0 50px 80px;
+    }
+
+    .product-card {
+      background: #111;
+      border: 1px solid rgba(212, 175, 55, 0.2);
+      border-radius: 10px;
+      overflow: hidden;
+      transition: all 0.4s ease;
+      position: relative;
+    }
+
+    .product-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 15px 30px rgba(212, 175, 55, 0.15);
+    }
+
+    .product-card:hover .product-overlay {
+      opacity: 1;
+    }
+
+    .product-card img {
+      width: 100%;
+      height: 300px;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    .product-card:hover img {
+      transform: scale(1.05);
+    }
+
+    .product-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(10, 10, 10, 0.7);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .product-overlay .btn {
+      margin-top: 15px;
+      padding: 8px 20px;
+      font-size: 0.9rem;
+      animation: none;
+      opacity: 1;
+    }
+
+    .product-info {
+      padding: 20px;
+      position: relative;
+    }
+
+    .product-info h3 {
+      font-size: 1.35rem;
+      margin-bottom: 10px;
+      color: var(--cream);
+    }
+
+    .product-info p {
+      font-size: 1.2rem;
+      color: var(--gold);
+      font-weight: 500;
+    }
+
+    .product-info del {
+      color: #777;
+      margin-left: 8px;
+      font-size: 1rem;
+    }
+
+    .ad-banner {
+      margin: 70px auto;
+      max-width: 1200px;
+      text-align: center;
+      background: linear-gradient(45deg, #1a1a1a, #2d2d2d);
+      padding: 35px;
+      border: 1px solid rgba(212, 175, 55, 0.2);
+      box-shadow: 0 0 30px rgba(212, 175, 55, 0.1);
+      border-radius: 10px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .ad-banner::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(
+        to bottom right,
+        transparent,
+        transparent,
+        transparent,
+        rgba(212, 175, 55, 0.1),
+        transparent,
+        transparent,
+        transparent
+      );
+      transform: rotate(30deg);
+      animation: shine 3s infinite;
+    }
+
+    @keyframes shine {
+      0% { transform: rotate(30deg) translate(-30%, -30%); }
+      100% { transform: rotate(30deg) translate(30%, 30%); }
+    }
+
+    .ad-banner h2 {
+      font-size: 2.2rem;
+      color: var(--light-gold);
+      margin-bottom: 15px;
+      position: relative;
+    }
+
+    .ad-banner p {
+      font-size: 1.2rem;
+      color: var(--cream);
+      margin-bottom: 25px;
+      position: relative;
+    }
+
+    .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 30px;
+      padding: 40px;
+      background: var(--dark-gray);
+      margin: 50px 0;
+    }
+
+    .feature-card {
+      text-align: center;
+      padding: 30px;
+      border-radius: 10px;
+      transition: transform 0.3s ease;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-5px);
+      background: rgba(212, 175, 55, 0.05);
+    }
+
+    .feature-icon {
+      font-size: 2.2rem;
+      color: var(--gold);
+      margin-bottom: 20px;
+    }
+
+    .feature-card h3 {
+      font-size: 1.35rem;
+      margin-bottom: 15px;
+      color: var(--cream);
+    }
+
+    .feature-card p {
+      font-size: 1.05rem;
+      color: var(--cream);
+      opacity: 0.8;
+    }
+
+    .testimonials {
+      padding: 80px 50px;
+      text-align: center;
+    }
+
+    .testimonial-slider {
+      max-width: 1000px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .testimonial {
+      background: #111;
+      padding: 35px;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+      margin: 20px;
+      border: 1px solid rgba(212, 175, 55, 0.2);
+      opacity: 0;
+      transition: opacity 0.5s ease;
+      position: absolute;
+      width: 100%;
+      left: 0;
+      top: 0;
+    }
+
+    .testimonial.active {
+      opacity: 1;
+      position: relative;
+    }
+
+    .testimonial img {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid var(--gold);
+      margin-bottom: 20px;
+    }
+
+    .testimonial p {
+      font-size: 1.2rem;
+      font-style: italic;
+      margin-bottom: 20px;
+      color: var(--cream);
+    }
+
+    .testimonial h4 {
+      color: var(--gold);
+      font-size: 1.2rem;
+      margin-bottom: 5px;
+    }
+
+    .testimonial span {
+      color: #999;
+      font-size: 1rem;
+    }
+
+    .newsletter {
+      background: linear-gradient(rgba(10, 10, 10, 0.9), rgba(10, 10, 10, 0.9)), url('https://images.unsplash.com/photo-1529139574466-a303027c1d8b?auto=format&fit=crop&w=1200&q=80');
+      background-size: cover;
+      background-position: center;
+      padding: 80px 20px;
+      text-align: center;
+    }
+
+    .newsletter h2 {
+      color: var(--gold);
+      font-size: 2.2rem;
+      margin-bottom: 20px;
+    }
+
+    .newsletter p {
+      color: var(--cream);
+      font-size: 1.2rem;
+      max-width: 600px;
+      margin: 0 auto 30px;
+    }
+
+    .newsletter-form {
+      display: flex;
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    .newsletter-form input {
+      flex: 1;
+      padding: 15px;
+      border: none;
+      border-radius: 30px 0 0 30px;
+      font-size: 1rem;
+      background: rgba(255, 255, 255, 0.9);
+    }
+
+    .newsletter-form button {
+      padding: 15px 25px;
+      background: var(--gold);
+      color: var(--black);
+      border: none;
+      border-radius: 0 30px 30px 0;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .newsletter-form button:hover {
+      background: var(--light-gold);
+    }
+
+    footer {
+      text-align: center;
+      padding: 50px 30px;
+      background-color: #111;
+      color: var(--cream);
+      font-size: 1rem;
+    }
+
+    .footer-content {
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+      max-width: 1200px;
+      margin: 0 auto 40px;
+      text-align: left;
+    }
+
+    .footer-column {
+      flex: 1;
+      min-width: 200px;
+      margin: 0 20px 30px;
+    }
+
+    .footer-column h3 {
+      color: var(--gold);
+      font-size: 1.2rem;
+      margin-bottom: 20px;
+      font-family: 'Playfair Display', serif;
+    }
+
+    .footer-column ul {
+      list-style: none;
+    }
+
+    .footer-column ul li {
+      margin-bottom: 10px;
+    }
+
+    .footer-column ul li a {
+      color: var(--cream);
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .footer-column ul li a:hover {
+      color: var(--gold);
+    }
+
+    .social-links {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 30px;
+    }
+
+    .social-links a {
+      display: inline-block;
+      width: 40px;
+      height: 40px;
+      background: rgba(212, 175, 55, 0.1);
+      border-radius: 50%;
+      margin: 0 10px;
+      color: var(--gold);
+      text-align: center;
+      line-height: 40px;
+      transition: all 0.3s ease;
+    }
+
+    .social-links a:hover {
+      background: var(--gold);
+      color: var(--black);
+      transform: translateY(-3px);
+    }
+
+    .copyright {
+      color: #999;
+      font-size: 0.9rem;
+    }
+
+    /* FIXED IMAGE SCALING FOR SLIDESHOW */
+    .slideshow-container {
+      position: relative;
+      height: 300px;
+      overflow: hidden;
+      border-radius: 10px 10px 0 0;
+    }
+
+    .product-slide {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      position: absolute;
+      top: 0;
+      left: 0;
+      transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+      opacity: 0;
+      transform: scale(1.05);
+      filter: blur(0px);
+    }
+
+    .product-slide.active {
+      opacity: 1;
+      transform: scale(1);
+      filter: blur(0px);
+    }
+
+    .product-slide.prev {
+      opacity: 0;
+      transform: scale(0.95);
+      filter: blur(2px);
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      header {
+        padding: 15px 20px;
+        flex-direction: column;
+      }
+
+      nav {
+        margin-top: 15px;
+      }
+
+      nav a {
+        margin: 0 10px;
+      }
+
+      .hero h1 {
+        font-size: 2.6rem;
+      }
+
+      .products {
+        grid-template-columns: 1fr;
+        padding: 0 20px 40px;
+      }
+
+      .features {
+        grid-template-columns: 1fr;
+        padding: 30px 20px;
+      }
+
+      .footer-column {
+        min-width: 100%;
+        margin-bottom: 30px;
+      }
+    }
+  
+/* === Popup Modal Styling === */
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(10, 10, 10, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  backdrop-filter: blur(5px);
+}
+
+.popup-content {
+  background: linear-gradient(145deg, #111, #1a1a1a);
+  border: 2px solid var(--gold);
+  border-radius: 20px;
+  padding: 25px;
+  max-width: 550px;
+  width: 90%;
+  position: relative;
+  text-align: center;
+  box-shadow: 
+    0 0 40px rgba(212, 175, 55, 0.4),
+    inset 0 1px 5px rgba(255, 255, 255, 0.1);
+  animation: elegantZoomIn 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.popup-slideshow {
+  position: relative;
+  height: 340px;
+  width: 100%;
+  overflow: hidden;
+  border-radius: 20px;
+  margin-bottom: 20px;
+  background: linear-gradient(45deg, #1a1a1a, #2d2d2d);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 
+    inset 0 0 50px rgba(0, 0, 0, 0.5),
+    0 0 30px rgba(212, 175, 55, 0.2);
+}
+
+.popup-slide-bg {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: blur(25px) brightness(0.2);
+  z-index: 0;
+  border-radius: 20px;
+  opacity: 0;
+  transition: opacity 2s ease-in-out;
+  transform: scale(1.1);
+}
+
+.popup-slide {
+  width: 280px;
+  height: 300px;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 25px;
+  position: absolute;
+  z-index: 1;
+  transition: all 2s cubic-bezier(0.4, 0, 0.2, 1);
+  opacity: 0;
+  box-shadow: 
+    0 15px 35px rgba(0, 0, 0, 0.6),
+    0 0 25px rgba(212, 175, 55, 0.4),
+    inset 0 2px 5px rgba(255, 255, 255, 0.1);
+  border: 2px solid rgba(212, 175, 55, 0.3);
+  transform: perspective(1000px) rotateX(5deg) rotateY(-2deg) scale(0.95);
+  image-rendering: crisp-edges;
+}
+
+.popup-slide.active,
+.popup-slide-bg.active {
+  opacity: 1;
+}
+
+.popup-slide:hover {
+  transform: perspective(1000px) rotateX(2deg) rotateY(-1deg) scale(1.02);
+  box-shadow: 
+    0 20px 45px rgba(0, 0, 0, 0.8),
+    0 0 35px rgba(212, 175, 55, 0.6),
+    inset 0 2px 8px rgba(255, 255, 255, 0.15);
+}
+
+.popup-info h3 {
+  font-size: 1.35rem;
+  color: var(--cream);
+  margin-bottom: 10px;
+}
+
+.popup-info p {
+  font-size: 1.2rem;
+  color: var(--gold);
+  font-weight: 500;
+  margin-bottom: 20px;
+}
+
+.popup-info del {
+  color: #777;
+  margin-left: 8px;
+  font-size: 1rem;
+}
+
+.popup-info .btn {
+  display: inline-block;
+  padding: 10px 25px;
+  background: transparent;
+  color: var(--gold);
+  border: 2px solid var(--gold);
+  border-radius: 30px;
+  font-size: 1rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.popup-info .btn:hover {
+  background: var(--gold);
+  color: var(--black);
+  box-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
+}
+
+.close-popup {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  font-size: 1.25rem;
+  color: var(--gold);
+  cursor: pointer;
+  background: #111;
+  border: 2px solid var(--gold);
+  border-radius: 50%;
+  padding: 8px;
+  z-index: 2;
+  transition: transform 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.close-popup:hover {
+  transform: rotate(180deg) scale(1.2);
+  color: var(--cream);
+  box-shadow: 0 0 10px var(--gold);
+}
+
+/* Sparkle bubble animation around popup box outline */
+.popup-sparkle {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background: var(--gold);
+  border-radius: 50%;
+  opacity: 0.9;
+  pointer-events: none;
+  animation: outlineSparkleAnim 2.5s ease-out forwards;
+  z-index: 10;
+}
+
+@keyframes outlineSparkleAnim {
+  0% {
+    transform: scale(0.5);
+    opacity: 0.6;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(0.3);
+    opacity: 0;
+  }
+}
+
+@keyframes elegantZoomIn {
+  0% {
+    transform: scale(0.3) rotate(-10deg);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.05) rotate(2deg);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(1) rotate(0deg);
+    opacity: 1;
+  }
+}
+
+.product-card:hover .product-overlay {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.product-card .product-overlay {
+  transition: all 0.5s ease;
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+</style>
+</head>
+<body>
+<header>
+<a class="logo" href="index.html">FASHION BLOOM</a>
+<nav>
+<a href="Fashion homepage.html" class="active">Home</a>
+<a href="Collections.html">Collections</a>
+<a href="Sales.html">Sales</a>
+<a href="About Us.html">About</a>
+</nav>
+</header>
+
+<section class="hero">
+<div class="hero-slides" style="background-image: url('https://images.unsplash.com/photo-1539109136881-3be0616acf4b?auto=format&amp;fit=crop&amp;w=1600&amp;q=80')"></div>
+<div class="hero-slides" style="background-image: url('https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&amp;fit=crop&amp;w=1600&amp;q=80')"></div>
+<div class="hero-slides" style="background-image: url('https://images.unsplash.com/photo-1525507119028-ed4c629a60a3?auto=format&amp;fit=crop&amp;w=1600&amp;q=80')"></div>
+<div class="hero-slides" style="background-image: url('https://images.unsplash.com/photo-1551232864-3f0890e580d9?auto=format&amp;fit=crop&amp;w=1600&amp;q=80')"></div>
+<div class="hero-content">
+<div class="hero-text-container">
+<h1 id="unveil-text">Unveil Royal Elegance</h1>
+<p>Discover our exquisite collection of luxury fashion that blends timeless elegance with contemporary style</p>
+</div>
+<a class="btn" href="Collections.html">Explore Collections</a>
+</div>
+</section>
+
+<h2 class="section-title">🌟 Best Sellers – On Sale</h2>
+<section class="products">
+<div class="product-card">
+<div class="slideshow-container">
+<img alt="Royal Velvet Gown" class="product-slide" src="velvet2.webp"/>
+<img alt="Royal Velvet Gown" class="product-slide" src="velvet1.jpg"/>
+</div>
+<div class="product-overlay">
+<h3>Royal Velvet Gown</h3>
+<p>$189 <del>$250</del></p>
+<a class="btn" href="#">Add to Cart</a>
+</div>
+<div class="product-info">
+<h3>Royal Velvet Gown</h3>
+<p>$189 <del>$250</del></p>
+</div>
+</div>
+
+<div class="product-card">
+<div class="slideshow-container">
+<img alt="Imperial Silk" class="product-slide" src="imperial_silk.jpeg"/>
+<img alt="Imperial Silk 2" class="product-slide" src="imperial_silk_alone.webp"/>
+</div>
+<div class="product-overlay">
+<h3>Imperial Silk Gown</h3>
+<p>$299 <del>$360</del></p>
+<a class="btn" href="#">Add to Cart</a>
+</div>
+<div class="product-info">
+<h3>Imperial Silk Gown</h3>
+<p>$299 <del>$360</del></p>
+</div>
+</div>
+
+<div class="product-card">
+<div class="slideshow-container">
+<img alt="Evening Suit 1" class="product-slide" src="majestic_suite.jfif"/>
+<img alt="Evening Suit 2" class="product-slide" src="majestic_suite_alone.png"/>
+</div>
+<div class="product-overlay">
+<h3>Majestic Evening Suit</h3>
+<p>$245 <del>$330</del></p>
+<a class="btn" href="#">Add to Cart</a>
+</div>
+<div class="product-info">
+<h3>Majestic Evening Suit</h3>
+<p>$245 <del>$330</del></p>
+</div>
+</div>
+
+<div class="product-card">
+<div class="slideshow-container">
+<img alt="Golden Dress 2" class="product-slide" src="golden_dress.jpg" style="object-position: center top;"/>
+<img alt="Golden Dress" class="product-slide" src="golden_dress_alone.jpg"/>
+</div>
+<div class="product-overlay">
+<h3>Golden Evening Dress</h3>
+<p>$349 <del>$420</del></p>
+<a class="btn" href="#">Add to Cart</a>
+</div>
+<div class="product-info">
+<h3>Golden Evening Dress</h3>
+<p>$349 <del>$420</del></p>
+</div>
+</div>
+</section>
+
+<div class="ad-banner">
+<h2>✨ Grand Summer Sale</h2>
+<p>Up to 50% off on selected royal styles. Shop Now &amp; Shine Always.</p>
+<a class="btn" href="Sales.html">Shop the Sale</a>
+</div>
+
+<section class="features">
+<div class="feature-card">
+<div class="feature-icon">
+<i class="fas fa-truck"></i>
+</div>
+<h3>Free Worldwide Shipping</h3>
+<p>On all orders over $200 with express delivery options available</p>
+</div>
+<div class="feature-card">
+<div class="feature-icon">
+<i class="fas fa-exchange-alt"></i>
+</div>
+<h3>Easy Returns</h3>
+<p>30-day return policy for your complete peace of mind</p>
+</div>
+<div class="feature-card">
+<div class="feature-icon">
+<i class="fas fa-gem"></i>
+</div>
+<h3>Luxury Quality</h3>
+<p>Handcrafted with premium materials for exceptional durability</p>
+</div>
+<div class="feature-card">
+<div class="feature-icon">
+<i class="fas fa-headset"></i>
+</div>
+<h3>24/7 Support</h3>
+<p>Our fashion consultants are always ready to assist you</p>
+</div>
+</section>
+
+<h2 class="section-title">💎 New Arrivals</h2>
+<section class="products">
+<div class="product-card">
+<div class="slideshow-container">
+<img alt="Golden Dress 2" class="product-slide" src="golden_dress.jpg"/>
+<img alt="Golden Dress" class="product-slide" src="golden_dress_alone.jpg" style="object-position: center top;"/> 
+</div>
+<div class="product-overlay">
+<h3>Golden Evening Dress</h3>
+<p>$349</p>
+<a class="btn" href="#">Add to Cart</a>
+</div>
+<div class="product-info">
+<h3>Golden Evening Dress</h3>
+<p>$349</p>
+</div>
+</div>
+
+<div class="product-card">
+<div class="slideshow-container">
+<img alt="Leather Jacket Model" class="product-slide" src="leather_jacket_model.webp"/>
+<img alt="Leather Jacket Solo" class="product-slide" src="leather_jacket_solo.jpg"/>
+</div>
+<div class="product-overlay">
+<h3>Premium Leather Jacket</h3>
+<p>$279</p>
+<a class="btn" href="#">Add to Cart</a>
+</div>
+<div class="product-info">
+<h3>Premium Leather Jacket</h3>
+<p>$279</p>
+</div>
+</div>
+
+<div class="product-card">
+<div class="slideshow-container">
+<img alt="Silk Scarf Model" class="product-slide" src="silk_scarf_model.webp"/>
+<img alt="Silk Scarf Solo" class="product-slide" src="silk_scarf_solo.webp"/>
+</div>
+<div class="product-overlay">
+<h3>Luxury Silk Scarf</h3>
+<p>$129</p>
+<a class="btn" href="#">Add to Cart</a>
+</div>
+<div class="product-info">
+<h3>Luxury Silk Scarf</h3>
+<p>$129</p>
+</div>
+</div>
+
+<div class="product-card">
+<div class="slideshow-container">
+<img alt="Designer Handbag Model" class="product-slide" src="designer_handbag_model.webp"/>
+<img alt="Designer Handbag Solo" class="product-slide" src="designer_handbag_solo.webp"/>
+</div>
+<div class="product-overlay">
+<h3>Designer Handbag</h3>
+<p>$399</p>
+<a class="btn" href="#">Add to Cart</a>
+</div>
+<div class="product-info">
+<h3>Designer Handbag</h3>
+<p>$399</p>
+</div>
+</div>
+</section>
+
+<section class="testimonials">
+<h2 class="section-title">👑 Client Testimonials</h2>
+<div class="testimonial-slider">
+<div class="testimonial active">
+<img alt="Client" src="https://randomuser.me/api/portraits/women/44.jpg"/>
+<p>"The quality of Fashion Bloom's garments is exceptional. I've never felt so confident and elegant. Their attention to detail is remarkable."</p>
+<h4>Sarah Johnson</h4>
+<span>Loyal Customer</span>
+</div>
+<div class="testimonial">
+<img alt="Client" src="https://randomuser.me/api/portraits/men/32.jpg"/>
+<p>"From the moment I put on their suit, I knew this was different. The fit, the fabric - everything is perfection. Worth every penny."</p>
+<h4>Michael Chen</h4>
+<span>Fashion Enthusiast</span>
+</div>
+<div class="testimonial">
+<img alt="Client" src="https://randomuser.me/api/portraits/women/68.jpg"/>
+<p>"The velvet coat I purchased has become my signature piece. I receive compliments every time I wear it. Fashion Bloom never disappoints."</p>
+<h4>Emily Rodriguez</h4>
+<span>Style Influencer</span>
+</div>
+</div>
+</section>
+
+<section class="newsletter">
+<h2>Join Our Exclusive Community</h2>
+<p>Subscribe to our newsletter for early access to new collections, private sales, and style inspiration.</p>
+<form class="newsletter-form">
+<input placeholder="Your email address" required="" type="email"/>
+<button type="submit">Subscribe</button>
+</form>
+</section>
+
+<footer>
+<div class="footer-content">
+<div class="footer-column">
+<h3>Shop</h3>
+<ul>
+<li><a href="#">New Arrivals</a></li>
+<li><a href="#">Best Sellers</a></li>
+<li><a href="#">Sale Items</a></li>
+<li><a href="#">Accessories</a></li>
+</ul>
+</div>
+<div class="footer-column">
+<h3>Information</h3>
+<ul>
+<li><a href="#">About Us</a></li>
+<li><a href="#">Sustainability</a></li>
+<li><a href="#">Shipping Policy</a></li>
+<li><a href="#">Returns &amp; Exchanges</a></li>
+</ul>
+</div>
+<div class="footer-column">
+<h3>Customer Service</h3>
+<ul>
+<li><a href="#">Contact Us</a></li>
+<li><a href="#">FAQs</a></li>
+<li><a href="#">Size Guide</a></li>
+<li><a href="#">Care Instructions</a></li>
+</ul>
+</div>
+<div class="footer-column">
+<h3>Connect With Us</h3>
+<ul>
+<li><a href="#">Instagram</a></li>
+<li><a href="#">Pinterest</a></li>
+<li><a href="#">Twitter</a></li>
+<li><a href="#">Facebook</a></li>
+</ul>
+</div>
+</div>
+<div class="social-links">
+<a href="#"><i class="fab fa-instagram"></i></a>
+<a href="#"><i class="fab fa-pinterest"></i></a>
+<a href="#"><i class="fab fa-twitter"></i></a>
+<a href="#"><i class="fab fa-facebook-f"></i></a>
+</div>
+<p class="copyright">© 2025 Fashion Bloom. Designed for elegance and distinction.</p>
+</footer>
+
+<!-- POPUP MODAL START -->
+<div class="popup-overlay" id="popup" style="display: none;">
+<div class="popup-content">
+<button class="close-popup" onclick="document.getElementById('popup').style.display='none'; clearInterval(popupInterval);">✖</button>
+<div class="popup-slideshow">
+<img class="popup-slide-bg active" src="velvet2.webp"/>
+<img class="popup-slide-bg" src="velvet1.jpg"/>
+<img class="popup-slide active" src="velvet2.webp"/>
+<img class="popup-slide" src="velvet1.jpg"/>
+</div>
+<div class="popup-info">
+<h3>Royal Velvet Gown</h3>
+<p>$189 <del>$250</del></p>
+<a class="btn" href="#">Add to Cart</a>
+</div>
+</div>
+</div>
+<!-- POPUP MODAL END -->
+
+<script>
+  // Navigation sparkle effect with proper navigation
+  document.querySelectorAll('nav a').forEach(link => {
+    link.addEventListener('click', (e) => {
+      // Only prevent default for placeholder links (#)
+      if (link.getAttribute('href') === '#') {
+        e.preventDefault();
+      }
+      
+      // Create multiple sparkles for richer effect
+      for (let i = 0; i < 5; i++) {
+        const sparkle = document.createElement('span');
+        sparkle.className = 'sparkle-click';
+        sparkle.style.left = (e.clientX + (Math.random() * 20 - 10)) + 'px';
+        sparkle.style.top = (e.clientY + (Math.random() * 20 - 10)) + 'px';
+        sparkle.style.width = (5 + Math.random() * 10) + 'px';
+        sparkle.style.height = sparkle.style.width;
+        sparkle.style.animationDelay = (Math.random() * 0.3) + 's';
+        document.body.appendChild(sparkle);
+        setTimeout(() => sparkle.remove(), 600);
+      }
+    });
+  });
+
+  // Hero slideshow
+  let currentSlide = 0;
+  const slides = document.querySelectorAll('.hero-slides');
+  
+  function showSlide(n) {
+    slides.forEach(slide => slide.classList.remove('active'));
+    currentSlide = (n + slides.length) % slides.length;
+    slides[currentSlide].classList.add('active');
+  }
+  
+  // Start slideshow
+  showSlide(0);
+  setInterval(() => showSlide(currentSlide + 1), 5000);
+
+  // Testimonial slider
+  let currentTestimonial = 0;
+  const testimonials = document.querySelectorAll('.testimonial');
+  
+  function showTestimonial(n) {
+    testimonials.forEach(testimonial => testimonial.classList.remove('active'));
+    currentTestimonial = (n + testimonials.length) % testimonials.length;
+    testimonials[currentTestimonial].classList.add('active');
+  }
+  
+  // Start testimonial rotation
+  showTestimonial(0);
+  setInterval(() => showTestimonial(currentTestimonial + 1), 8000);
+
+  // Universal Product Card Slideshow with Fluid Transitions
+  const productCards = document.querySelectorAll('.product-card');
+
+  productCards.forEach(card => {
+    const slides = card.querySelectorAll('.product-slide');
+    let currentIndex = 0;
+    let interval;
+    let isTransitioning = false;
+
+    // Initialize: Set first slide as active
+    const initializeSlides = () => {
+      slides.forEach((slide, i) => {
+        slide.classList.remove('active', 'prev');
+        if (i === 0) {
+          slide.classList.add('active');
+        }
+      });
+      currentIndex = 0;
+    };
+
+    const transitionToSlide = (nextIndex) => {
+      if (isTransitioning || nextIndex === currentIndex) return;
+      
+      isTransitioning = true;
+      const currentSlide = slides[currentIndex];
+      const nextSlide = slides[nextIndex];
+      
+      // Mark current slide as previous
+      currentSlide.classList.add('prev');
+      currentSlide.classList.remove('active');
+      
+      // Activate next slide
+      nextSlide.classList.remove('prev');
+      nextSlide.classList.add('active');
+      
+      currentIndex = nextIndex;
+      
+      // Reset transition flag after animation completes
+      setTimeout(() => {
+        isTransitioning = false;
+        // Clean up previous slide classes
+        slides.forEach(slide => {
+          if (!slide.classList.contains('active')) {
+            slide.classList.remove('prev');
+          }
+        });
+      }, 800);
+    };
+
+    const startSlideshow = () => {
+      if (slides.length <= 1) return;
+      
+      interval = setInterval(() => {
+        const nextIndex = (currentIndex + 1) % slides.length;
+        transitionToSlide(nextIndex);
+      }, 2500); // Slightly slower for smoother experience
+    };
+
+    const stopSlideshow = () => {
+      clearInterval(interval);
+      // Smoothly return to first slide if not already there
+      if (currentIndex !== 0) {
+        setTimeout(() => {
+          transitionToSlide(0);
+        }, 200);
+      }
+    };
+
+    // Event listeners
+    card.addEventListener('mouseenter', startSlideshow);
+    card.addEventListener('mouseleave', stopSlideshow);
+    
+    // Initialize slides
+    initializeSlides();
+  });
+
+  // Sparkle animation for the "Unveil Royal Elegance" text
+  const unveilText = document.getElementById('unveil-text');
+  const exploreBtn = document.querySelector('.hero-content .btn');
+  const heroContent = document.querySelector('.hero-content');
+  const heroText = document.querySelector('.hero-text-container');
+  
+  function createTextSparkle() {
+    const textRect = unveilText.getBoundingClientRect();
+    const sparkle = document.createElement('div');
+    sparkle.className = 'sparkle';
+    
+    // Position sparkle randomly within the text boundaries
+    const x = Math.random() * textRect.width;
+    const y = Math.random() * textRect.height;
+    
+    sparkle.style.left = `${x}px`;
+    sparkle.style.top = `${y}px`;
+    
+    // Random movement direction
+    sparkle.style.setProperty('--tx', `${(Math.random() - 0.5) * 100}px`);
+    sparkle.style.setProperty('--ty', `${-Math.random() * 100}px`);
+    
+    // Random size and delay
+    sparkle.style.width = `${5 + Math.random() * 10}px`;
+    sparkle.style.height = sparkle.style.width;
+    sparkle.style.animationDelay = `${Math.random() * 0.5}s`;
+    
+    unveilText.appendChild(sparkle);
+    
+    // Remove sparkle after animation completes
+    setTimeout(() => sparkle.remove(), 2000);
+  }
+  
+  // Create initial sparkles
+  for (let i = 0; i < 15; i++) {
+    setTimeout(createTextSparkle, i * 200);
+  }
+  
+  // Continue creating sparkles
+  setInterval(() => {
+    createTextSparkle();
+    // Create multiple sparkles at once occasionally
+    if (Math.random() > 0.7) {
+      setTimeout(createTextSparkle, 200);
+      setTimeout(createTextSparkle, 400);
+    }
+  }, 500);
+
+  // Text highlight effect on button hover
+  exploreBtn.addEventListener('mouseenter', () => {
+    heroContent.style.boxShadow = '0 0 30px rgba(212, 175, 55, 0.3)';
+    heroContent.style.borderColor = 'rgba(212, 175, 55, 0.5)';
+    heroText.querySelector('h1').style.textShadow = '0 0 15px rgba(212, 175, 55, 0.7)';
+    heroText.querySelector('p').style.textShadow = '0 0 10px rgba(212, 175, 55, 0.5)';
+    heroText.querySelector('h1').style.color = 'var(--light-gold)';
+  });
+
+  exploreBtn.addEventListener('mouseleave', () => {
+    heroContent.style.boxShadow = '0 10px 30px rgba(0, 0, 0, 0.5)';
+    heroContent.style.borderColor = 'rgba(212, 175, 55, 0.3)';
+    heroText.querySelector('h1').style.textShadow = '0 2px 10px rgba(0, 0, 0, 0.7)';
+    heroText.querySelector('p').style.textShadow = '0 1px 3px rgba(0, 0, 0, 0.8)';
+    heroText.querySelector('h1').style.color = 'var(--gold)';
+  });
+
+  // Random screen sparkles
+  function createRandomSparkle() {
+    const sparkle = document.createElement('div');
+    sparkle.className = 'screen-sparkle';
+    
+    // Random position within viewport
+    const x = Math.random() * window.innerWidth;
+    const y = Math.random() * window.innerHeight;
+    
+    sparkle.style.left = `${x}px`;
+    sparkle.style.top = `${y}px`;
+    
+    // Random size between 3-8px
+    const size = 3 + Math.random() * 5;
+    sparkle.style.width = `${size}px`;
+    sparkle.style.height = `${size}px`;
+    
+    // Random animation duration between 1-2s
+    const duration = 1 + Math.random();
+    sparkle.style.animationDuration = `${duration}s`;
+    
+    document.body.appendChild(sparkle);
+    
+    // Remove after animation completes
+    setTimeout(() => {
+        if (sparkle.parentNode) {
+            sparkle.parentNode.removeChild(sparkle);
+        }
+    }, duration * 1000);
+  }
+
+  // Create initial sparkles
+  for (let i = 0; i < 20; i++) {
+    setTimeout(createRandomSparkle, Math.random() * 1000);
+  }
+
+  // Keep creating new sparkles more frequently
+  const sparkleInterval = setInterval(() => {
+    if (Math.random() > 0.2) { // 80% chance to create new sparkles
+        createRandomSparkle();
+        // Sometimes create 2-3 at once
+        if (Math.random() > 0.7) {
+            setTimeout(createRandomSparkle, 100);
+            setTimeout(createRandomSparkle, 200);
+        }
+    }
+  }, 300); // Changed from 500ms to 300ms for more frequent sparkles
+
+  // POPUP MODAL SCRIPT
+  const popup = document.getElementById('popup');
+  const popupSlides = popup.querySelectorAll('.popup-slide');
+  const popupSlideBgs = popup.querySelectorAll('.popup-slide-bg');
+  const popupInfo = popup.querySelector('.popup-info');
+  const closeBtn = document.querySelector('.close-popup');
+  let popupIndex = 0;
+  let popupInterval;
+  let sparkleLoop;
+
+  document.querySelectorAll('.product-card .product-overlay .btn').forEach(button => {
+    button.addEventListener('click', (e) => {
+      e.preventDefault();
+
+      const card = button.closest('.product-card');
+      const productName = card.querySelector('.product-info h3')?.textContent.trim() || 'Product';
+      const priceHTML = card.querySelector('.product-info p')?.innerHTML || '$0';
+
+      popupInfo.querySelector('h3').textContent = productName;
+      popupInfo.querySelector('p').innerHTML = priceHTML;
+
+      const cardImages = card.querySelectorAll('.product-slide');
+      if (cardImages.length > 0) {
+        popupSlides.forEach((slide, i) => {
+          slide.src = cardImages[i % cardImages.length].src;
+        });
+        popupSlideBgs.forEach((slide, i) => {
+          slide.src = cardImages[i % cardImages.length].src;
+        });
+      }
+
+      popupSlides.forEach((slide, i) => {
+        slide.classList.toggle('active', i === 0);
+      });
+      popupSlideBgs.forEach((slide, i) => {
+        slide.classList.toggle('active', i === 0);
+      });
+
+      popupIndex = 0;
+      popup.style.display = 'flex';
+
+      popupInterval = setInterval(() => {
+        popupIndex = (popupIndex + 1) % popupSlides.length;
+        popupSlides.forEach((slide, i) => {
+          slide.classList.toggle('active', i === popupIndex);
+        });
+        popupSlideBgs.forEach((slide, i) => {
+          slide.classList.toggle('active', i === popupIndex);
+        });
+      }, 2000);
+
+      clearInterval(sparkleLoop);
+      sparkleLoop = setInterval(createPopupSparkle, 150);
+    });
+  });
+
+  closeBtn.addEventListener('click', () => {
+    popup.style.display = 'none';
+    clearInterval(popupInterval);
+    clearInterval(sparkleLoop);
+  });
+
+  function createPopupSparkle() {
+    const sparkle = document.createElement('div');
+    sparkle.className = 'popup-sparkle';
+    const popupBox = document.querySelector('.popup-content');
+    const overlay = document.querySelector('.popup-overlay');
+    const bounds = popupBox.getBoundingClientRect();
+    const side = Math.floor(Math.random() * 4);
+    let x = 0, y = 0;
+    const offset = 10 + Math.random() * 20;
+
+    switch(side) {
+      case 0: x = bounds.left + Math.random() * bounds.width; y = bounds.top - offset; break;
+      case 1: x = bounds.right + offset; y = bounds.top + Math.random() * bounds.height; break;
+      case 2: x = bounds.left + Math.random() * bounds.width; y = bounds.bottom + offset; break;
+      case 3: x = bounds.left - offset; y = bounds.top + Math.random() * bounds.height; break;
+    }
+
+    sparkle.style.left = `${x}px`;
+    sparkle.style.top = `${y}px`;
+    const size = 5 + Math.random() * 4;
+    sparkle.style.width = `${size}px`;
+    sparkle.style.height = `${size}px`;
+
+    overlay.appendChild(sparkle);
+    setTimeout(() => sparkle.remove(), 2500);
+  }
+</script>
+</body>
+</html>

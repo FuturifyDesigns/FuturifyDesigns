@@ -1,0 +1,1247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fashion Bloom | Luxury Apparel</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;700;900&family=Montserrat:wght@300;400;600;700&family=Cormorant+Garamond:wght@400;500;600;700&display=swap');
+        
+        * {
+      -webkit-tap-highlight-color: transparent;
+      -webkit-touch-callout: none;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html, body {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            font-family: 'Cormorant Garamond', serif;
+            background: #0a0a0a;
+            color: #e4d5b7;
+        }
+        
+
+    /* Remove tap highlight and focus outline on all interactive elements */
+    a, button, input, select, textarea, [role="button"] {
+      -webkit-tap-highlight-color: transparent;
+      -webkit-touch-callout: none;
+      -webkit-user-select: none;
+      user-select: none;
+      outline: none;
+    }
+
+    button:focus, a:focus, input:focus, select:focus, textarea:focus {
+      outline: none;
+    }
+        /* High Fashion Background */
+        .fashion-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 50%, #1a1a1a 100%);
+            z-index: 0;
+        }
+        
+        .fashion-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(212, 175, 55, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(218, 165, 32, 0.08) 0%, transparent 50%),
+                linear-gradient(45deg, rgba(255, 255, 255, 0.02) 0%, transparent 50%);
+            transition: all 0.8s ease;
+        }
+        
+        .fashion-pattern {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                repeating-linear-gradient(
+                    0deg,
+                    transparent,
+                    transparent 100px,
+                    rgba(255, 255, 255, 0.008) 100px,
+                    rgba(255, 255, 255, 0.008) 101px
+                ),
+                repeating-linear-gradient(
+                    90deg,
+                    transparent,
+                    transparent 100px,
+                    rgba(255, 255, 255, 0.008) 100px,
+                    rgba(255, 255, 255, 0.008) 101px
+                );
+            opacity: 0.3;
+        }
+        
+        .geometric-accent {
+            position: absolute;
+            width: 400px;
+            height: 340px;
+            border: 1px solid rgba(212, 175, 55, 0.1);
+            border-radius: 50%;
+            top: 20%;
+            right: 10%;
+            transform: rotate(45deg);
+            transition: all 0.8s ease;
+        }
+        
+        .geometric-accent::before {
+            content: '';
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            border: 1px solid rgba(218, 165, 32, 0.08);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+        }
+        
+        /* Enhanced Branding */
+        .branding {
+            position: absolute;
+            top: 50%;
+            left: 10%;
+            transform: translateY(-50%);
+            z-index: 10;
+            transition: all 0.8s ease;
+            padding: 35px;
+            background: rgba(10, 10, 10, 0.6);
+            backdrop-filter: blur(10px);
+            border-left: 4px solid #d4af37;
+            border-radius: 2px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+            max-width: 600px;
+        }
+        
+        .brand-name {
+            font-size: 5rem;
+            font-weight: 700;
+            letter-spacing: 4px;
+            color: #ffffff;
+            margin-bottom: 20px;
+            position: relative;
+            text-shadow: 
+                0 0 30px rgba(255, 255, 255, 0.1),
+                0 4px 8px rgba(0, 0, 0, 0.3);
+            font-family: 'Playfair Display', serif;
+            line-height: 1.1;
+        }
+        
+        .brand-name::after {
+            content: '';
+            position: absolute;
+            bottom: -12px;
+            left: 0;
+            width: 100px;
+            height: 2px;
+            background: linear-gradient(90deg, #d4af37, #f4d03f, transparent);
+            transition: width 0.6s ease;
+            box-shadow: 0 2px 10px rgba(212, 175, 55, 0.4);
+        }
+        
+        .branding:hover .brand-name::after {
+            width: 100%;
+        }
+        
+        .tagline {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.35rem;
+            letter-spacing: 2px;
+            color: #c4a97a;
+            font-weight: 400;
+            font-style: italic;
+            text-shadow: 0 2px 8px rgba(196, 169, 122, 0.2);
+            line-height: 1.6;
+            margin-top: 30px;
+        }
+        
+        /* Sparkle effects */
+        .sparkle {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background-color: #fff;
+            border-radius: 50%;
+            pointer-events: none;
+            opacity: 0;
+            transform: scale(0);
+            box-shadow: 0 0 10px 2px rgba(255, 255, 255, 0.8);
+            z-index: 11;
+            animation: sparkleFade 1.5s ease-out infinite;
+        }
+        
+        @keyframes sparkleFade {
+            0% {
+                opacity: 0;
+                transform: scale(0);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1.2);
+            }
+            100% {
+                opacity: 0;
+                transform: scale(0);
+            }
+        }
+
+        @keyframes screenShake {
+            0%, 100% { transform: translateX(0); }
+            10% { transform: translateX(-5px); }
+            20% { transform: translateX(5px); }
+            30% { transform: translateX(-3px); }
+            40% { transform: translateX(3px); }
+            50% { transform: translateX(-2px); }
+            60% { transform: translateX(2px); }
+            70% { transform: translateX(-1px); }
+            80% { transform: translateX(1px); }
+            90% { transform: translateX(0); }
+        }
+        
+        /* Animated Background Text */
+        .background-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 12vw;
+            font-weight: 900;
+            color: rgba(255, 255, 255, 0.02);
+            letter-spacing: 2vw;
+            white-space: nowrap;
+            pointer-events: none;
+            z-index: 1;
+            transition: all 0.8s ease;
+            font-family: 'Playfair Display', serif;
+            animation: textZoomIn 2.5s cubic-bezier(0.19, 1, 0.22, 1) forwards;
+            opacity: 0;
+            transform: translate(-50%, -50%) scale(0.5);
+        }
+        
+        @keyframes textZoomIn {
+            0% {
+                opacity: 0;
+                transform: translate(-50%, -50%) scale(0.5);
+            }
+            100% {
+                opacity: 1;
+                transform: translate(-50%, -50%) scale(1);
+            }
+        }
+        
+        /* Central Button */
+        .central-button-container {
+            position: absolute;
+            top: 50%;
+            right: 10%;
+            transform: translateY(-50%);
+            z-index: 20;
+            text-align: center;
+        }
+        
+        .luxury-button {
+            position: relative;
+            width: 240px;
+            height: 70px;
+            background: linear-gradient(135deg, #d4af37 0%, #f4d03f 100%);
+            border: none;
+            border-radius: 35px;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.2rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            color: #000;
+            cursor: pointer;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 
+                0 8px 32px rgba(212, 175, 55, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+        }
+        
+        .luxury-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            transition: left 0.6s ease;
+        }
+        
+        .luxury-button:hover::before {
+            left: 100%;
+        }
+        
+        .luxury-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 
+                0 12px 48px rgba(212, 175, 55, 0.5),
+                inset 0 1px 0 rgba(255, 255, 255, 0.3);
+        }
+        
+        .button-text {
+            position: relative;
+            z-index: 2;
+            font-style: italic;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+        }
+        
+        .cta-text {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.35rem;
+            font-weight: 500;
+            font-style: italic;
+            letter-spacing: 2px;
+            color: #c4a97a;
+            margin-top: 40px;
+            opacity: 0.9;
+            transition: all 0.5s ease;
+            text-shadow: 0 2px 10px rgba(196, 169, 122, 0.3);
+        }
+        
+        .luxury-button:hover + .cta-text {
+            color: #d4af37;
+            opacity: 1;
+            transform: translateY(-8px);
+            text-shadow: 0 4px 20px rgba(212, 175, 55, 0.5);
+        }
+        
+        /* Spotlight Effects */
+        .spotlight {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.4) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.6s ease;
+            z-index: 5;
+        }
+        
+        .spotlight-1 {
+            top: 20%;
+            left: 20%;
+            animation: spotlightMove1 8s ease-in-out infinite;
+        }
+        
+        .spotlight-2 {
+            top: 60%;
+            right: 25%;
+            animation: spotlightMove2 10s ease-in-out infinite;
+        }
+        
+        .spotlight-3 {
+            bottom: 20%;
+            left: 30%;
+            animation: spotlightMove3 12s ease-in-out infinite;
+        }
+        
+        /* Dim overlay for hover effect */
+        .dim-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            opacity: 0;
+            transition: opacity 0.6s ease;
+            z-index: 3;
+            pointer-events: none;
+        }
+        
+        /* Hover states */
+        .luxury-button:hover ~ .dim-overlay {
+            opacity: 1;
+        }
+        
+        .luxury-button:hover ~ .spotlight {
+            opacity: 1;
+        }
+        
+        .luxury-button:hover ~ .fashion-background .fashion-overlay {
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(212, 175, 55, 0.2) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(218, 165, 32, 0.15) 0%, transparent 50%),
+                linear-gradient(45deg, rgba(255, 255, 255, 0.05) 0%, transparent 50%);
+        }
+        
+        /* Loading Screen */
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 30% 40%, rgba(212, 175, 55, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 70% 60%, rgba(218, 165, 32, 0.08) 0%, transparent 50%),
+                linear-gradient(135deg, #000000, #1a1a1a, #000000);
+            z-index: 1000;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.8s ease;
+            overflow: hidden;
+        }
+        
+        .loading-screen.active {
+            display: flex;
+            opacity: 1;
+        }
+        
+        .loading-screen::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                repeating-linear-gradient(
+                    45deg,
+                    transparent,
+                    transparent 2px,
+                    rgba(212, 175, 55, 0.02) 2px,
+                    rgba(212, 175, 55, 0.02) 4px
+                );
+            animation: loadingPattern 20s linear infinite;
+        }
+        
+        .loading-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            z-index: 10;
+        }
+        
+        .loading-logo {
+            font-size: 5.5rem;
+            font-weight: 700;
+            color: #d4af37;
+            margin-bottom: 50px;
+            letter-spacing: 8px;
+            position: relative;
+            font-style: italic;
+            text-shadow: 
+                0 0 40px rgba(212, 175, 55, 0.6),
+                0 0 80px rgba(212, 175, 55, 0.3),
+                0 8px 16px rgba(0, 0, 0, 0.5);
+            animation: logoGlow 2s ease-in-out infinite alternate;
+            text-align: center;
+        }
+        
+        .loading-logo::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            animation: logoShimmer 3s ease-in-out infinite;
+            z-index: -1;
+        }
+        
+        .loading-logo::after {
+            content: '';
+            position: absolute;
+            bottom: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 200px;
+            height: 4px;
+            background: linear-gradient(90deg, transparent, #d4af37, #f4d03f, #d4af37, transparent);
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.8);
+            animation: underlineGlow 2s ease-in-out infinite alternate;
+        }
+        
+        .loading-bar-container {
+            width: 500px;
+            height: 6px;
+            background: rgba(212, 175, 55, 0.1);
+            margin-bottom: 40px;
+            overflow: hidden;
+            border-radius: 3px;
+            position: relative;
+            box-shadow: 
+                inset 0 2px 4px rgba(0, 0, 0, 0.3),
+                0 0 20px rgba(212, 175, 55, 0.2);
+        }
+        
+        .loading-bar-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.1), transparent);
+            animation: barShimmer 2s ease-in-out infinite;
+        }
+        
+        .loading-bar {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, #d4af37, #f4d03f, #d4af37);
+            transition: width 0.3s ease;
+            box-shadow: 
+                0 0 20px rgba(212, 175, 55, 0.8),
+                0 0 40px rgba(212, 175, 55, 0.4);
+            position: relative;
+        }
+        
+        .loading-bar::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 20px;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.6));
+            animation: barGlow 1s ease-in-out infinite;
+        }
+        
+        .loading-text {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.35rem;
+            letter-spacing: 4px;
+            color: #c4a97a;
+            font-weight: 500;
+            font-style: italic;
+            text-shadow: 
+                0 2px 10px rgba(196, 169, 122, 0.5),
+                0 0 20px rgba(196, 169, 122, 0.2);
+            animation: textPulse 2s ease-in-out infinite alternate;
+            text-align: center;
+        }
+        
+        /* Loading Spotlights */
+        .loading-spotlight {
+            position: absolute;
+            width: 400px;
+            height: 340px;
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.3) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+            opacity: 0.6;
+            z-index: 2;
+        }
+        
+        .loading-spotlight-1 {
+            top: 10%;
+            left: 15%;
+            animation: loadingSpotlightMove1 6s ease-in-out infinite;
+        }
+        
+        .loading-spotlight-2 {
+            top: 60%;
+            right: 20%;
+            animation: loadingSpotlightMove2 8s ease-in-out infinite;
+        }
+        
+        .loading-spotlight-3 {
+            bottom: 15%;
+            left: 25%;
+            animation: loadingSpotlightMove3 7s ease-in-out infinite;
+        }
+        
+        /* Fashion Images */
+        .fashion-image {
+            position: absolute;
+            width: 120px;
+            height: 180px;
+            background-size: cover;
+            background-position: center;
+            border-radius: 8px;
+            opacity: 0;
+            transform: scale(0.8);
+            box-shadow: 
+                0 10px 30px rgba(0, 0, 0, 0.5),
+                0 0 20px rgba(212, 175, 55, 0.2);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            pointer-events: none;
+            z-index: 3;
+            transition: all 0.3s ease;
+        }
+        
+        .fashion-image.show {
+            animation: fashionImagePop 2s ease-in-out forwards;
+        }
+        
+        /* Elegant Warp Transition */
+        .warp-transition {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.1) 0%, #000 70%);
+            z-index: 999;
+            opacity: 0;
+            pointer-events: none;
+            transform: scale(0);
+            transition: 
+                transform 3s cubic-bezier(0.25, 0.1, 0.25, 1),
+                opacity 2s ease;
+            overflow: hidden;
+        }
+        
+        .warp-transition.active {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .warp-transition::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, #d4af37 0%, #f4d03f 30%, transparent 70%);
+            border-radius: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            animation: none;
+            box-shadow: 
+                0 0 100px rgba(212, 175, 55, 0.8),
+                0 0 200px rgba(212, 175, 55, 0.6),
+                0 0 300px rgba(212, 175, 55, 0.4);
+        }
+
+        .warp-transition.active::before {
+            animation: elegantWarp 3s cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
+        }
+
+        .warp-transition::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: repeating-conic-gradient(
+                from 0deg at 50% 50%,
+                transparent 0deg,
+                rgba(212, 175, 55, 0.1) 45deg,
+                transparent 90deg
+            );
+            opacity: 0;
+            animation: none;
+        }
+
+        .warp-transition.active::after {
+            animation: warpLines 3s ease-out forwards;
+        }
+
+        /* Camera Flash Effects */
+        .camera-flash {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.9) 0%, transparent 70%);
+            z-index: 998;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .flash-burst {
+            position: fixed;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.8) 0%, transparent 70%);
+            border-radius: 50%;
+            opacity: 0;
+            pointer-events: none;
+            z-index: 997;
+        }
+
+        @keyframes elegantWarp {
+            0% { 
+                transform: translate(-50%, -50%) scale(0);
+                opacity: 0;
+            }
+            30% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 1;
+            }
+            70% {
+                transform: translate(-50%, -50%) scale(8);
+                opacity: 0.8;
+            }
+            100% {
+                transform: translate(-50%, -50%) scale(25);
+                opacity: 0;
+            }
+        }
+
+        @keyframes warpLines {
+            0% { 
+                opacity: 0;
+                transform: rotate(0deg) scale(0.5);
+            }
+            50% {
+                opacity: 0.6;
+                transform: rotate(180deg) scale(1.2);
+            }
+            100% {
+                opacity: 0;
+                transform: rotate(360deg) scale(2);
+            }
+        }
+
+        @keyframes cameraFlash {
+            0% { opacity: 0; }
+            15% { opacity: 0.6; }
+            30% { opacity: 0; }
+            50% { opacity: 0.4; }
+            70% { opacity: 0; }
+            85% { opacity: 0.5; }
+            100% { opacity: 0; }
+        }
+
+        @keyframes flashBurst {
+            0% { 
+                opacity: 0;
+                transform: scale(0);
+            }
+            50% {
+                opacity: 0.4;
+                transform: scale(1.2);
+            }
+            100% {
+                opacity: 0;
+                transform: scale(2);
+            }
+        }
+        
+        /* Animations */
+        @keyframes logoGlow {
+            0% { text-shadow: 
+                0 0 40px rgba(212, 175, 55, 0.6),
+                0 0 80px rgba(212, 175, 55, 0.3),
+                0 8px 16px rgba(0, 0, 0, 0.5); }
+            100% { text-shadow: 
+                0 0 60px rgba(212, 175, 55, 0.9),
+                0 0 120px rgba(212, 175, 55, 0.5),
+                0 8px 16px rgba(0, 0, 0, 0.5); }
+        }
+        
+        @keyframes logoShimmer {
+            0% { transform: translateX(-100%); }
+            50% { transform: translateX(100%); }
+            100% { transform: translateX(100%); }
+        }
+        
+        @keyframes underlineGlow {
+            0% { box-shadow: 0 0 20px rgba(212, 175, 55, 0.8); }
+            100% { box-shadow: 0 0 40px rgba(212, 175, 55, 1); }
+        }
+        
+        @keyframes loadingPattern {
+            0% { transform: translateX(-20px); }
+            100% { transform: translateX(20px); }
+        }
+        
+        @keyframes barShimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+        
+        @keyframes barGlow {
+            0% { opacity: 0.8; }
+            100% { opacity: 1; }
+        }
+        
+        @keyframes textPulse {
+            0% { opacity: 0.8; }
+            100% { opacity: 1; }
+        }
+        
+        @keyframes loadingSpotlightMove1 {
+            0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.6; }
+            50% { transform: translate(80px, -50px) scale(1.2); opacity: 0.8; }
+        }
+        
+        @keyframes loadingSpotlightMove2 {
+            0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.6; }
+            50% { transform: translate(-60px, 40px) scale(1.3); opacity: 0.9; }
+        }
+        
+        @keyframes loadingSpotlightMove3 {
+            0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.6; }
+            50% { transform: translate(70px, -30px) scale(1.1); opacity: 0.7; }
+        }
+        
+        @keyframes fashionImagePop {
+            0% { 
+                opacity: 0; 
+                transform: scale(0.6) rotate(-10deg); 
+            }
+            30% { 
+                opacity: 0.8; 
+                transform: scale(1.1) rotate(2deg); 
+            }
+            70% { 
+                opacity: 1; 
+                transform: scale(1) rotate(0deg); 
+            }
+            100% { 
+                opacity: 0; 
+                transform: scale(0.8) rotate(5deg); 
+            }
+        }
+        
+        @keyframes spotlightMove1 {
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(50px, -30px); }
+        }
+        
+        @keyframes spotlightMove2 {
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(-40px, 25px); }
+        }
+        
+        @keyframes spotlightMove3 {
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(30px, -20px); }
+        }
+        
+        @keyframes sparkleFade {
+            0% {
+                opacity: 0;
+                transform: scale(0);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1.2);
+            }
+            100% {
+                opacity: 0;
+                transform: scale(0);
+            }
+        }
+        
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .branding {
+                left: 5%;
+                max-width: 500px;
+            }
+            
+            .brand-name {
+                font-size: 2.6rem;
+            }
+            
+            .tagline {
+                font-size: 1.2rem;
+            }
+            
+            .central-button-container {
+                right: 5%;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .branding {
+                position: static;
+                transform: none;
+                width: 100%;
+                max-width: 100%;
+                padding: 30px;
+                margin-top: 40px;
+                background: rgba(10, 10, 10, 0.8);
+                border-left: none;
+                border-bottom: 3px solid #d4af37;
+            }
+            
+            .brand-name {
+                font-size: 2.6rem;
+                text-align: center;
+            }
+            
+            .tagline {
+                font-size: 1.2rem;
+                text-align: center;
+            }
+            
+            .central-button-container {
+                position: static;
+                transform: none;
+                margin: 40px auto;
+                width: 100%;
+                padding: 0 20px;
+            }
+            
+            .background-text {
+                font-size: 18vw;
+                letter-spacing: 1vw;
+            }
+            
+            .luxury-button {
+                width: 220px;
+                height: 65px;
+                font-size: 1.05rem;
+                display: block;
+                margin: 0 auto;
+            }
+            
+            .cta-text {
+                font-size: 1.2rem;
+                letter-spacing: 2px;
+                text-align: center;
+            }
+            
+            .geometric-accent {
+                width: 300px;
+                height: 300px;
+                right: 5%;
+            }
+            
+            .fashion-image {
+                width: 80px;
+                height: 120px;
+            }
+            
+            .loading-logo {
+                font-size: 2.6rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .brand-name {
+                font-size: 2.2rem;
+            }
+            
+            .tagline {
+                font-size: 1.05rem;
+            }
+            
+            .luxury-button {
+                width: 200px;
+                height: 60px;
+                font-size: 1rem;
+            }
+            
+            .loading-logo {
+                font-size: 2.2rem;
+                letter-spacing: 4px;
+            }
+            
+            .loading-bar-container {
+                width: 300px;
+            }
+            
+            .loading-text {
+                font-size: 1.2rem;
+            }
+            
+            .fashion-image {
+                width: 60px;
+                height: 90px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div class="loading-screen" id="loadingScreen">
+        <!-- Loading Spotlights -->
+        <div class="loading-spotlight loading-spotlight-1"></div>
+        <div class="loading-spotlight loading-spotlight-2"></div>
+        <div class="loading-spotlight loading-spotlight-3"></div>
+        
+        <div class="loading-content">
+            <div class="loading-logo">FASHION BLOOM</div>
+            <div class="loading-bar-container">
+                <div class="loading-bar" id="loadingBar"></div>
+            </div>
+            <div class="loading-text" id="loadingText">Preparing your luxury experience</div>
+        </div>
+    </div>
+    
+    <!-- Warp Transition -->
+    <div class="warp-transition" id="warpTransition"></div>
+    
+    <!-- Fashion Background -->
+    <div class="fashion-background">
+        <div class="fashion-overlay"></div>
+        <div class="fashion-pattern"></div>
+        <div class="geometric-accent"></div>
+    </div>
+    
+    <!-- Background Text -->
+    <div class="background-text">LUXURY</div>
+    
+    <!-- Branding -->
+    <div class="branding" id="branding">
+        <div class="brand-name">FASHION BLOOM</div>
+        <div class="tagline">Where Elegance Meets Innovation<br>Discover the Epitome of Sophistication</div>
+    </div>
+    
+    <!-- Central Button -->
+    <div class="central-button-container">
+        <button class="luxury-button" id="luxuryButton">
+            <span class="button-text">Enter Collection</span>
+        </button>
+        <div class="cta-text">A New World Awaits</div>
+    </div>
+    
+    <!-- Spotlight Effects -->
+    <div class="spotlight spotlight-1"></div>
+    <div class="spotlight spotlight-2"></div>
+    <div class="spotlight spotlight-3"></div>
+    
+    <!-- Dim Overlay -->
+    <div class="dim-overlay"></div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const luxuryButton = document.getElementById('luxuryButton');
+            const loadingScreen = document.getElementById('loadingScreen');
+            const loadingBar = document.getElementById('loadingBar');
+            const loadingText = document.getElementById('loadingText');
+            const branding = document.getElementById('branding');
+            const warpTransition = document.getElementById('warpTransition');
+            
+            // Array of fashion image URLs (you can replace these with your own images)
+            const fashionImages = [
+                'https://images.unsplash.com/photo-1539109136881-3be0616acf4b?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80',
+                'https://images.unsplash.com/photo-1489987707025-afc232f7ea0f?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80',
+                'https://images.unsplash.com/photo-1520367445093-50dc08a59d9d?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80',
+                'https://images.unsplash.com/photo-1551232864-3f0890e580d9?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80',
+                'https://images.unsplash.com/photo-1551232864-3f0890e580d9?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80',
+                'https://images.unsplash.com/photo-1551232864-3f0890e580d9?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80',
+                'https://images.unsplash.com/photo-1551232864-3f0890e580d9?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80',
+                'https://images.unsplash.com/photo-1551232864-3f0890e580d9?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80'
+            ];
+            
+            // Track active fashion images to prevent overlap
+            const activeFashionImages = [];
+            
+            // Function to create and show a random fashion image
+            function showRandomFashionImage() {
+                if (!loadingScreen.classList.contains('active')) return;
+                
+                const imgUrl = fashionImages[Math.floor(Math.random() * fashionImages.length)];
+                const img = document.createElement('div');
+                img.className = 'fashion-image';
+                img.style.backgroundImage = `url(${imgUrl})`;
+                
+                // Generate random position that doesn't overlap with existing images
+                let posX, posY, overlap;
+                let attempts = 0;
+                const maxAttempts = 20;
+                
+                do {
+                    overlap = false;
+                    posX = Math.random() * 80 + 10; // 10-90%
+                    posY = Math.random() * 80 + 10; // 10-90%
+                    
+                    // Check for overlap with existing images
+                    for (const activeImg of activeFashionImages) {
+                        const distance = Math.sqrt(
+                            Math.pow(posX - activeImg.x, 2) + 
+                            Math.pow(posY - activeImg.y, 2)
+                        );
+                        
+                        // Minimum distance between images (15% of viewport)
+                        if (distance < 15) {
+                            overlap = true;
+                            break;
+                        }
+                    }
+                    
+                    attempts++;
+                    if (attempts >= maxAttempts) break;
+                } while (overlap);
+                
+                // If we couldn't find a non-overlapping position after max attempts, skip this image
+                if (overlap && attempts >= maxAttempts) {
+                    return;
+                }
+                
+                img.style.left = `${posX}%`;
+                img.style.top = `${posY}%`;
+                
+                // Random rotation
+                const rotation = Math.random() * 40 - 20; // -20 to 20 degrees
+                img.style.transform = `rotate(${rotation}deg)`;
+                
+                loadingScreen.appendChild(img);
+                activeFashionImages.push({ x: posX, y: posY, element: img });
+                
+                // Trigger the animation
+                setTimeout(() => {
+                    img.classList.add('show');
+                }, 10);
+                
+                // Remove the element after animation completes
+                setTimeout(() => {
+                    img.remove();
+                    // Remove from active images array
+                    const index = activeFashionImages.findIndex(item => item.element === img);
+                    if (index !== -1) {
+                        activeFashionImages.splice(index, 1);
+                    }
+                }, 2000);
+            }
+            
+            // Function to create sparkle effects
+            function createSparkle() {
+                if (!isButtonHovered) return;
+                
+                const sparkle = document.createElement('div');
+                sparkle.className = 'sparkle';
+                
+                // Position sparkle randomly within the branding area
+                const brandingRect = branding.getBoundingClientRect();
+                const x = Math.random() * brandingRect.width;
+                const y = Math.random() * brandingRect.height;
+                
+                sparkle.style.left = `${x}px`;
+                sparkle.style.top = `${y}px`;
+                
+                branding.appendChild(sparkle);
+                
+                // Remove sparkle after animation completes
+                setTimeout(() => {
+                    sparkle.remove();
+                }, 1500);
+            }
+            
+            let sparkleInterval;
+            let isButtonHovered = false;
+            
+            // Button hover handlers for sparkle effects
+            luxuryButton.addEventListener('mouseenter', () => {
+                isButtonHovered = true;
+                // Start creating sparkles every 200ms
+                sparkleInterval = setInterval(createSparkle, 200);
+                
+                // Existing hover effects
+                document.querySelectorAll('.spotlight').forEach(spotlight => {
+                    spotlight.style.opacity = '1';
+                });
+                document.querySelector('.dim-overlay').style.opacity = '1';
+                document.querySelector('.background-text').style.color = 'rgba(255, 255, 255, 0.05)';
+                document.querySelector('.geometric-accent').style.borderColor = 'rgba(212, 175, 55, 0.2)';
+            });
+            
+            luxuryButton.addEventListener('mouseleave', () => {
+                isButtonHovered = false;
+                // Stop creating sparkles
+                clearInterval(sparkleInterval);
+                
+                // Existing hover effects
+                document.querySelectorAll('.spotlight').forEach(spotlight => {
+                    spotlight.style.opacity = '0';
+                });
+                document.querySelector('.dim-overlay').style.opacity = '0';
+                document.querySelector('.background-text').style.color = 'rgba(255, 255, 255, 0.02)';
+                document.querySelector('.geometric-accent').style.borderColor = 'rgba(212, 175, 55, 0.1)';
+            });
+            
+            // Button click handler - THIS IS WHERE THE LOADING AND TRANSITION SHOULD HAPPEN
+            luxuryButton.addEventListener('click', () => {
+                // Create camera flash effects first
+                createCameraFlashEffects();
+                
+                // Show loading screen after flash effects
+                setTimeout(() => {
+                    loadingScreen.classList.add('active');
+                    
+                    // Start showing random fashion images
+                    const imageInterval = setInterval(showRandomFashionImage, 500);
+                    
+                    // Simulate loading process
+                    let progress = 0;
+                    const loadingInterval = setInterval(() => {
+                        progress += Math.random() * 15 + 5;
+                        if (progress > 100) progress = 100;
+                        
+                        loadingBar.style.width = `${progress}%`;
+                        
+                        // Update loading text
+                        if (progress < 25) {
+                            loadingText.textContent = "Curating exclusive designs...";
+                        } else if (progress < 50) {
+                            loadingText.textContent = "Preparing haute couture...";
+                        } else if (progress < 75) {
+                            loadingText.textContent = "Finalizing your experience...";
+                        } else if (progress < 95) {
+                            loadingText.textContent = "Almost ready...";
+                        } else {
+                            loadingText.textContent = "Welcome to Fashion Bloom";
+                        }
+                        
+                        if (progress >= 100) {
+                            clearInterval(loadingInterval);
+                            clearInterval(imageInterval);
+                            
+                            // After loading completes, trigger elegant warp transition and redirect
+                            setTimeout(() => {
+                                warpTransition.classList.add('active');
+                                
+                                setTimeout(() => {
+                                    window.location.href = "Fashion homepage.html";
+                                }, 3000); // time for elegant warp effect
+                            }, 1000);
+                        }
+                    }, 150);
+                }, 800); // delay after camera flash
+            });
+
+            // Camera flash effects function
+            function createCameraFlashEffects() {
+                // Create main camera flash with reduced intensity
+                const cameraFlash = document.createElement('div');
+                cameraFlash.className = 'camera-flash';
+                cameraFlash.style.animation = 'cameraFlash 0.6s ease-out';
+                cameraFlash.style.background = 'radial-gradient(circle, rgba(255, 255, 255, 0.4) 0%, transparent 70%)';
+                document.body.appendChild(cameraFlash);
+
+                // Create fewer, gentler flash bursts
+                for (let i = 0; i < 3; i++) {
+                    setTimeout(() => {
+                        const flashBurst = document.createElement('div');
+                        flashBurst.className = 'flash-burst';
+                        flashBurst.style.left = Math.random() * window.innerWidth + 'px';
+                        flashBurst.style.top = Math.random() * window.innerHeight + 'px';
+                        flashBurst.style.animation = 'flashBurst 0.5s ease-out';
+                        flashBurst.style.background = 'radial-gradient(circle, rgba(255, 255, 255, 0.3) 0%, transparent 70%)';
+                        document.body.appendChild(flashBurst);
+
+                        setTimeout(() => flashBurst.remove(), 500);
+                    }, i * 150);
+                }
+
+                // Remove main flash after animation
+                setTimeout(() => cameraFlash.remove(), 600);
+            }
+        });
+    </script>
+</body>
+</html>

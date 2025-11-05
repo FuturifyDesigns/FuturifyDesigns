@@ -1,0 +1,1272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fashion Bloom – About Us</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Cormorant+Garamond:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --gold: #d4af37;
+            --light-gold: #f4d03f;
+            --black: #0a0a0a;
+            --cream: #e4d5b7;
+            --dark-gray: #1a1a1a;
+        }
+
+        * {
+      -webkit-tap-highlight-color: transparent;
+      -webkit-touch-callout: none;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--black);
+            color: var(--cream);
+            font-family: 'Cormorant Garamond', serif;
+            overflow-x: hidden;
+            font-size: 16px;
+        }
+
+
+    /* Remove tap highlight and focus outline on all interactive elements */
+    a, button, input, select, textarea, [role="button"] {
+      -webkit-tap-highlight-color: transparent;
+      -webkit-touch-callout: none;
+      -webkit-user-select: none;
+      user-select: none;
+      outline: none;
+    }
+
+    button:focus, a:focus, input:focus, select:focus, textarea:focus {
+      outline: none;
+    }
+        /* Header Styles */
+        header {
+            background: rgba(10, 10, 10, 0.9);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 40px;
+            box-shadow: 0 2px 10px rgba(212, 175, 55, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(5px);
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--gold);
+            text-decoration: none;
+            position: relative;
+            transition: all 0.4s ease;
+        }
+
+        .logo:hover {
+            text-shadow: 0 0 10px var(--gold), 0 0 30px rgba(212, 175, 55, 0.4);
+        }
+
+        .logo:hover::after {
+            content: '✨';
+            position: absolute;
+            right: -20px;
+            animation: sparkle 1s infinite alternate;
+        }
+
+        @keyframes sparkle {
+            0% { opacity: 0; transform: scale(0.5); }
+            100% { opacity: 1; transform: scale(1.3) rotate(15deg); }
+        }
+
+        nav a {
+            color: var(--cream);
+            text-decoration: none;
+            margin-left: 25px;
+            font-weight: 500;
+            position: relative;
+            transition: all 0.3s ease;
+            padding: 6px 10px;
+            border-radius: 4px;
+            font-size: 0.95rem;
+        }
+
+        nav a.active {
+            color: var(--gold);
+            background: rgba(212, 175, 55, 0.1);
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gold);
+            transition: width 0.3s ease;
+        }
+
+        nav a:hover, nav a.active {
+            color: var(--gold);
+            background: rgba(212, 175, 55, 0.1);
+        }
+
+        nav a:hover::after, nav a.active::after {
+            width: 100%;
+        }
+
+        /* About Hero Section */
+        .about-hero {
+            height: 60vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(rgba(10, 10, 10, 0.7), rgba(10, 10, 10, 0.7)), 
+                        url('https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=1600&q=80');
+            background-size: cover;
+            background-position: center;
+            animation: heroZoom 20s infinite alternate;
+        }
+
+        @keyframes heroZoom {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.05); }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            padding: 35px 40px;
+            background: rgba(10, 10, 10, 0.85);
+            border-radius: 20px;
+            backdrop-filter: blur(15px);
+            border: 2px solid rgba(212, 175, 55, 0.3);
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6);
+            max-width: 800px;
+            margin: 0 auto;
+            transition: all 0.5s ease;
+        }
+
+        .hero-content:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 35px 70px rgba(212, 175, 55, 0.2);
+        }
+
+        .hero-content h1 {
+            font-size: 2.6rem;
+            color: var(--gold);
+            font-family: 'Playfair Display', serif;
+            margin-bottom: 20px;
+            text-shadow: 0 4px 15px rgba(0, 0, 0, 0.8);
+            position: relative;
+            animation: textGlow 3s infinite alternate;
+        }
+
+        @keyframes textGlow {
+            0% { text-shadow: 0 0 10px rgba(212, 175, 55, 0.5); }
+            100% { text-shadow: 0 0 30px rgba(212, 175, 55, 0.8); }
+        }
+
+        .hero-content p {
+            font-size: 1.2rem;
+            color: var(--cream);
+            max-width: 600px;
+            margin: 0 auto;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
+            line-height: 1.6;
+        }
+
+        /* Section Styles */
+        .section {
+            padding: 80px 40px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 2.8rem;
+            text-align: center;
+            margin-bottom: 60px;
+            color: var(--gold);
+            font-family: 'Playfair Display', serif;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+            box-shadow: 0 2px 10px rgba(212, 175, 55, 0.5);
+        }
+
+        /* Our Story Section */
+        .our-story {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+            margin-bottom: 80px;
+        }
+
+        .story-text {
+            font-size: 1.05rem;
+            line-height: 1.8;
+            color: var(--cream);
+        }
+
+        .story-text p {
+            margin-bottom: 25px;
+        }
+
+        .story-image {
+            position: relative;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+            transition: all 0.5s ease;
+        }
+
+        .story-image:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 30px 60px rgba(212, 175, 55, 0.2);
+        }
+
+        .story-image img {
+            width: 100%;
+            height: 340px;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .story-image:hover img {
+            transform: scale(1.05);
+        }
+
+        /* Values Section */
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-bottom: 80px;
+        }
+
+        .value-card {
+            background: rgba(26, 26, 26, 0.8);
+            padding: 35px;
+            border-radius: 15px;
+            text-align: center;
+            transition: all 0.4s ease;
+            border: 2px solid rgba(212, 175, 55, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .value-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.1), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .value-card:hover::before {
+            left: 100%;
+        }
+
+        .value-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(212, 175, 55, 0.2);
+            border-color: rgba(212, 175, 55, 0.5);
+        }
+
+        .value-icon {
+            font-size: 2.6rem;
+            color: var(--gold);
+            margin-bottom: 25px;
+            transition: all 0.3s ease;
+        }
+
+        .value-card:hover .value-icon {
+            color: var(--light-gold);
+            transform: scale(1.1);
+        }
+
+        .value-title {
+            font-size: 1.8rem;
+            color: var(--gold);
+            font-family: 'Playfair Display', serif;
+            margin-bottom: 20px;
+        }
+
+        .value-description {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: var(--cream);
+        }
+
+        /* Team Section */
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 40px;
+            margin-bottom: 80px;
+        }
+
+        .team-member {
+            background: rgba(26, 26, 26, 0.8);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            border: 2px solid rgba(212, 175, 55, 0.2);
+            position: relative;
+        }
+
+        .team-member:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(212, 175, 55, 0.2);
+            border-color: rgba(212, 175, 55, 0.5);
+        }
+
+        .member-image {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .team-member:hover .member-image {
+            transform: scale(1.05);
+        }
+
+        .member-info {
+            padding: 30px;
+            text-align: center;
+        }
+
+        .member-name {
+            font-size: 1.35rem;
+            color: var(--gold);
+            font-family: 'Playfair Display', serif;
+            margin-bottom: 10px;
+        }
+
+        .member-role {
+            font-size: 1rem;
+            color: var(--light-gold);
+            margin-bottom: 15px;
+            font-style: italic;
+        }
+
+        .member-description {
+            font-size: 0.95rem;
+            line-height: 1.5;
+            color: var(--cream);
+        }
+
+        /* Sustainability Section */
+        .sustainability {
+            background: var(--dark-gray);
+            padding: 80px 40px;
+            margin: 0 -40px;
+            position: relative;
+        }
+
+        .sustainability::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(212, 175, 55, 0.05), transparent);
+            pointer-events: none;
+        }
+
+        .sustainability-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .sustainability-text {
+            font-size: 1.05rem;
+            line-height: 1.8;
+            color: var(--cream);
+        }
+
+        .sustainability-text h3 {
+            font-size: 2.2rem;
+            color: var(--gold);
+            font-family: 'Playfair Display', serif;
+            margin-bottom: 30px;
+        }
+
+        .sustainability-text p {
+            margin-bottom: 25px;
+        }
+
+        .sustainability-features {
+            list-style: none;
+            margin-top: 30px;
+        }
+
+        .sustainability-features li {
+            margin-bottom: 15px;
+            position: relative;
+            padding-left: 30px;
+            color: var(--cream);
+        }
+
+        .sustainability-features li::before {
+            content: '✨';
+            position: absolute;
+            left: 0;
+            color: var(--gold);
+            font-size: 1.2rem;
+        }
+
+        .sustainability-image {
+            position: relative;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+        }
+
+        .sustainability-image img {
+            width: 100%;
+            height: 340px;
+            object-fit: cover;
+        }
+
+        /* Contact CTA Section */
+        .contact-cta {
+            background: linear-gradient(rgba(10, 10, 10, 0.9), rgba(10, 10, 10, 0.9)), 
+                        url('https://images.unsplash.com/photo-1529139574466-a303027c1d8b?auto=format&fit=crop&w=1200&q=80');
+            background-size: cover;
+            background-position: center;
+            padding: 80px 40px;
+            text-align: center;
+            margin: 0 -40px;
+            position: relative;
+        }
+
+        .contact-cta::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(212, 175, 55, 0.1), rgba(233, 30, 99, 0.05));
+            pointer-events: none;
+        }
+
+        .cta-content {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .cta-content h2 {
+            font-size: 2.6rem;
+            color: var(--gold);
+            font-family: 'Playfair Display', serif;
+            margin-bottom: 25px;
+            text-shadow: 0 4px 15px rgba(0, 0, 0, 0.8);
+        }
+
+        .cta-content p {
+            font-size: 1.2rem;
+            color: var(--cream);
+            margin-bottom: 40px;
+            line-height: 1.6;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 15px 40px;
+            background: linear-gradient(135deg, var(--gold), var(--light-gold));
+            color: var(--black);
+            border: none;
+            border-radius: 35px;
+            font-size: 1.05rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 12px 35px rgba(212, 175, 55, 0.4);
+        }
+
+        .btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 18px 45px rgba(212, 175, 55, 0.6);
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            transition: 0.5s;
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        /* Sparkle Effects */
+        .sparkle-click {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: var(--gold);
+            border-radius: 50%;
+            pointer-events: none;
+            opacity: 0.8;
+            animation: sparkleFade 0.6s ease-out forwards;
+            box-shadow: 0 0 8px 1px rgba(212, 175, 55, 0.5);
+        }
+
+        @keyframes sparkleFade {
+            0% { transform: scale(0.5); opacity: 1; }
+            100% { transform: scale(2); opacity: 0; }
+        }
+
+        .floating-sparkle {
+            position: fixed;
+            width: 4px;
+            height: 4px;
+            background: var(--gold);
+            border-radius: 50%;
+            pointer-events: none;
+            opacity: 0;
+            z-index: 10;
+            box-shadow: 0 0 8px 1px rgba(212, 175, 55, 0.7);
+            animation: floatSparkle 4s ease-in-out infinite;
+        }
+
+        @keyframes floatSparkle {
+            0% { transform: translateY(0) scale(0.5); opacity: 0; }
+            20% { opacity: 0.8; }
+            50% { transform: translateY(-25px) scale(1); }
+            80% { opacity: 0.8; }
+            100% { transform: translateY(-50px) scale(0.5); opacity: 0; }
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 50px 30px;
+            background-color: #111;
+            color: var(--cream);
+            font-size: 0.9rem;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            max-width: 1200px;
+            margin: 0 auto 40px;
+            text-align: left;
+        }
+
+        .footer-column {
+            flex: 1;
+            min-width: 200px;
+            margin: 0 20px 30px;
+        }
+
+        .footer-column h3 {
+            color: var(--gold);
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            font-family: 'Playfair Display', serif;
+            position: relative;
+            display: inline-block;
+            transition: color 0.3s ease;
+            cursor: pointer;
+        }
+
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -5px;
+            width: 0%;
+            height: 2px;
+            background-color: var(--gold);
+            transition: width 0.3s ease;
+        }
+
+        .footer-column h3:hover {
+            color: var(--light-gold);
+        }
+
+        .footer-column h3:hover::after {
+            width: 100%;
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-column ul li a {
+            color: var(--cream);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            position: relative;
+            display: inline-block;
+            font-size: 0.9rem;
+        }
+
+        .footer-column ul li a::before {
+            content: '✨';
+            position: absolute;
+            left: -20px;
+            opacity: 0;
+            animation: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .footer-column ul li a:hover {
+            color: var(--gold);
+            transform: translateX(5px) scale(1.05);
+        }
+
+        .footer-column ul li a:hover::before {
+            opacity: 1;
+            animation: sparkleFixed 1.5s infinite alternate;
+        }
+
+        @keyframes sparkleFixed {
+            0% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.2) rotate(10deg); opacity: 1; }
+            100% { transform: scale(1); opacity: 0.5; }
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+
+        .social-links a {
+            display: inline-block;
+            width: 35px;
+            height: 35px;
+            background: rgba(212, 175, 55, 0.1);
+            border-radius: 50%;
+            margin: 0 8px;
+            color: var(--gold);
+            text-align: center;
+            line-height: 35px;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .social-links a:hover {
+            background: var(--gold);
+            color: var(--black);
+            transform: translateY(-3px);
+        }
+
+        .copyright {
+            color: #999;
+            font-size: 0.8rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .our-story,
+            .sustainability-content {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .story-image,
+            .sustainability-image {
+                order: -1;
+            }
+        }
+
+        @media (max-width: 768px) {
+            header {
+                padding: 12px 20px;
+                flex-direction: column;
+            }
+
+            nav {
+                margin-top: 12px;
+            }
+
+            nav a {
+                margin: 0 8px;
+                font-size: 0.9rem;
+            }
+
+            .logo {
+                font-size: 1.25rem;
+            }
+
+            .about-hero {
+                height: 50vh;
+            }
+
+            .hero-content {
+                padding: 25px;
+            }
+
+            .hero-content h1 {
+                font-size: 2.2rem;
+            }
+
+            .hero-content p {
+                font-size: 1rem;
+            }
+
+            .section {
+                padding: 60px 20px;
+            }
+
+            .section-title {
+                font-size: 2.2rem;
+            }
+
+            .values-grid,
+            .team-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .sustainability,
+            .contact-cta {
+                margin: 0 -20px;
+                padding: 60px 20px;
+            }
+
+            .cta-content h2 {
+                font-size: 2.2rem;
+            }
+
+            .cta-content p {
+                font-size: 1.05rem;
+            }
+
+            .footer-column {
+                min-width: 100%;
+                margin-bottom: 25px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-content {
+                padding: 20px;
+            }
+
+            .hero-content h1 {
+                font-size: 1.8rem;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+
+            .value-card,
+            .member-info {
+                padding: 25px;
+            }
+
+            .cta-content h2 {
+                font-size: 1.8rem;
+            }
+
+            .sustainability-text h3 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <a class="logo" href="index.html">FASHION BLOOM</a>
+        <nav>
+            <a href="Fashion homepage.html">Home</a>
+            <a href="Collections.html">Collections</a>
+            <a href="Sales.html">Sales</a>
+            <a href="About Us.html" class="active">About</a>
+        </nav>
+    </header>
+
+    <!-- About Hero -->
+    <section class="about-hero">
+        <div class="hero-content">
+            <h1>About Fashion Bloom</h1>
+            <p>Where luxury meets artistry, and every piece tells a story of elegance, innovation, and timeless sophistication.</p>
+        </div>
+    </section>
+
+    <!-- Our Story Section -->
+    <section class="section">
+        <h2 class="section-title">Our Story</h2>
+        
+        <div class="our-story">
+            <div class="story-text">
+                <p>Founded in 2015 by visionary designer Elena Rodriguez, Fashion Bloom emerged from a simple yet profound belief: that fashion should be an expression of one's inner beauty and confidence. What began as a small atelier in Milan has blossomed into a globally recognized luxury brand.</p>
+                
+                <p>Our journey started with Elena's passion for creating pieces that transcend seasonal trends. Drawing inspiration from the natural world, architectural marvels, and the rich tapestry of human emotion, each Fashion Bloom creation is a masterpiece that celebrates individuality while honoring timeless elegance.</p>
+                
+                <p>Today, Fashion Bloom stands as a beacon of sustainable luxury, combining traditional craftsmanship with innovative design techniques. Every piece in our collection is meticulously crafted by skilled artisans who share our commitment to excellence and environmental responsibility.</p>
+            </div>
+            
+            <div class="story-image">
+                <img src="https://images.unsplash.com/photo-1558769132-cb1aea458c5e?auto=format&fit=crop&w=800&q=80" alt="Fashion Bloom Atelier">
+            </div>
+        </div>
+    </section>
+
+    <!-- Our Values Section -->
+    <section class="section">
+        <h2 class="section-title">Our Values</h2>
+        
+        <div class="values-grid">
+            <div class="value-card">
+                <i class="fas fa-gem value-icon"></i>
+                <h3 class="value-title">Excellence</h3>
+                <p class="value-description">We pursue perfection in every stitch, every detail, and every interaction. Our commitment to excellence is unwavering, ensuring that each piece meets the highest standards of luxury fashion.</p>
+            </div>
+            
+            <div class="value-card">
+                <i class="fas fa-leaf value-icon"></i>
+                <h3 class="value-title">Sustainability</h3>
+                <p class="value-description">We believe luxury and sustainability go hand in hand. Our eco-conscious practices ensure that beauty doesn't come at the cost of our planet's well-being.</p>
+            </div>
+            
+            <div class="value-card">
+                <i class="fas fa-heart value-icon"></i>
+                <h3 class="value-title">Craftsmanship</h3>
+                <p class="value-description">Every piece is lovingly crafted by skilled artisans who bring decades of experience and passion to their work. Traditional techniques meet modern innovation in perfect harmony.</p>
+            </div>
+            
+            <div class="value-card">
+                <i class="fas fa-star value-icon"></i>
+                <h3 class="value-title">Innovation</h3>
+                <p class="value-description">We continuously push the boundaries of fashion design, incorporating cutting-edge techniques while respecting timeless aesthetics that will endure for generations.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Our Team Section -->
+    <section class="section">
+        <h2 class="section-title">Meet Our Visionaries</h2>
+        
+        <div class="team-grid">
+            <div class="team-member">
+                <img src="Elana.jpg" alt="Elena Rodriguez" class="member-image">
+                <div class="member-info">
+                    <h3 class="member-name">Elena Rodriguez</h3>
+                    <p class="member-role">Founder & Creative Director</p>
+                    <p class="member-description">With over 20 years in luxury fashion, Elena's vision drives every collection. Her background in architectural design influences Fashion Bloom's structural elegance and innovative silhouettes.</p>
+                </div>
+            </div>
+            
+            <div class="team-member">
+                <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=400&q=80" alt="Marcus Chen" class="member-image">
+                <div class="member-info">
+                    <h3 class="member-name">Marcus Chen</h3>
+                    <p class="member-role">Head of Sustainability</p>
+                    <p class="member-description">Marcus leads our environmental initiatives, ensuring that every piece reflects our commitment to sustainable luxury. His expertise in eco-friendly materials revolutionizes our production process.</p>
+                </div>
+            </div>
+            
+            <div class="team-member">
+                <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=400&q=80" alt="Sophia Laurent" class="member-image">
+                <div class="member-info">
+                    <h3 class="member-name">Sophia Laurent</h3>
+                    <p class="member-role">Master Craftsperson</p>
+                    <p class="member-description">A third-generation artisan from Paris, Sophia brings unparalleled expertise in haute couture techniques. Her attention to detail ensures every piece meets our exacting standards.</p>
+                </div>
+            </div>
+            
+            <div class="team-member">
+                <img src="allse.jpg" alt="Alessandro Fiore" class="member-image">
+                <div class="member-info">
+                    <h3 class="member-name">Alessandro Fiore</h3>
+                    <p class="member-role">Design Innovation Director</p>
+                    <p class="member-description">Alessandro pushes the boundaries of fashion technology, integrating smart textiles and innovative construction methods while maintaining the timeless appeal of Fashion Bloom's aesthetic.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sustainability Section -->
+    <section class="sustainability">
+        <div class="sustainability-content">
+            <div class="sustainability-text">
+                <h3>Commitment to Sustainability</h3>
+                <p>At Fashion Bloom, we believe that true luxury lies not just in beauty and craftsmanship, but in the responsibility we hold toward our planet and future generations. Our sustainable practices are woven into every aspect of our business, from sourcing to production to packaging.</p>
+                
+                <p>We work exclusively with suppliers who share our values, sourcing only the finest sustainable materials including organic silks, recycled precious metals, and ethically sourced gemstones. Our zero-waste philosophy ensures that every scrap of fabric finds purpose in our creative process.</p>
+                
+                <ul class="sustainability-features">
+                    <li>100% sustainable and ethically sourced materials</li>
+                    <li>Carbon-neutral shipping and packaging</li>
+                    <li>Zero-waste production processes</li>
+                    <li>Fair trade partnerships with artisan communities</li>
+                    <li>Lifetime repair and restoration services</li>
+                    <li>Circular fashion initiatives and upcycling programs</li>
+                </ul>
+            </div>
+            
+            <div class="sustainability-image">
+                <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=800&q=80" alt="Sustainable Fashion">
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact CTA Section -->
+    <section class="contact-cta">
+        <div class="cta-content">
+            <h2>Experience Fashion Bloom</h2>
+            <p>Step into our world of luxury and discover how we can create something extraordinary together. Visit our flagship boutique or schedule a private consultation with our design team.</p>
+            <a href="Sales.html" class="btn">Explore Collections</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>Shop</h3>
+                <ul>
+                    <li><a href="Collections.html">Collections</a></li>
+                    <li><a href="Fashion homepage.html">New Arrivals</a></li>
+                    <li><a href="Sales.html">Sale Items</a></li>
+                    <li><a href="Collections.html">Accessories</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Information</h3>
+                <ul>
+                    <li><a href="About Us.html">About Us</a></li>
+                    <li><a href="#">Sustainability</a></li>
+                    <li><a href="#">Shipping Policy</a></li>
+                    <li><a href="#">Returns & Exchanges</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Customer Service</h3>
+                <ul>
+                    <li><a href="#">Contact Us</a></li>
+                    <li><a href="#">FAQs</a></li>
+                    <li><a href="#">Size Guide</a></li>
+                    <li><a href="#">Care Instructions</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Connect With Us</h3>
+                <ul>
+                    <li><a href="#">Instagram</a></li>
+                    <li><a href="#">Pinterest</a></li>
+                    <li><a href="#">Twitter</a></li>
+                    <li><a href="#">Facebook</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="social-links">
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-pinterest"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-youtube"></i></a>
+        </div>
+        
+        <div class="copyright">
+            <p>&copy; 2025 Fashion Bloom. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Navigation sparkle effects
+            document.querySelectorAll('nav a').forEach(link => {
+                link.addEventListener('click', (e) => {
+                    // Create multiple sparkles for richer effect
+                    for (let i = 0; i < 5; i++) {
+                        const sparkle = document.createElement('span');
+                        sparkle.className = 'sparkle-click';
+                        sparkle.style.left = (e.clientX + (Math.random() * 16 - 8)) + 'px';
+                        sparkle.style.top = (e.clientY + (Math.random() * 16 - 8)) + 'px';
+                        sparkle.style.width = (4 + Math.random() * 8) + 'px';
+                        sparkle.style.height = sparkle.style.width;
+                        sparkle.style.animationDelay = (Math.random() * 0.3) + 's';
+                        document.body.appendChild(sparkle);
+                        setTimeout(() => sparkle.remove(), 600);
+                    }
+                });
+            });
+
+            // Value card hover effects
+            document.querySelectorAll('.value-card').forEach(card => {
+                card.addEventListener('mouseenter', () => {
+                    createFloatingSparkles(card);
+                });
+
+                card.addEventListener('click', (e) => {
+                    // Create sparkle effects on click
+                    for (let i = 0; i < 8; i++) {
+                        const sparkle = document.createElement('span');
+                        sparkle.className = 'sparkle-click';
+                        sparkle.style.left = (e.clientX + (Math.random() * 32 - 16)) + 'px';
+                        sparkle.style.top = (e.clientY + (Math.random() * 32 - 16)) + 'px';
+                        sparkle.style.width = (4 + Math.random() * 8) + 'px';
+                        sparkle.style.height = sparkle.style.width;
+                        sparkle.style.animationDelay = (Math.random() * 0.4) + 's';
+                        document.body.appendChild(sparkle);
+                        setTimeout(() => sparkle.remove(), 600);
+                    }
+                });
+            });
+
+            // Team member card hover effects
+            document.querySelectorAll('.team-member').forEach(card => {
+                card.addEventListener('mouseenter', () => {
+                    createFloatingSparkles(card);
+                });
+
+                card.addEventListener('click', (e) => {
+                    // Create sparkle effects on click
+                    for (let i = 0; i < 6; i++) {
+                        const sparkle = document.createElement('span');
+                        sparkle.className = 'sparkle-click';
+                        sparkle.style.left = (e.clientX + (Math.random() * 32 - 16)) + 'px';
+                        sparkle.style.top = (e.clientY + (Math.random() * 32 - 16)) + 'px';
+                        sparkle.style.width = (4 + Math.random() * 8) + 'px';
+                        sparkle.style.height = sparkle.style.width;
+                        sparkle.style.animationDelay = (Math.random() * 0.4) + 's';
+                        document.body.appendChild(sparkle);
+                        setTimeout(() => sparkle.remove(), 600);
+                    }
+                });
+            });
+
+            // CTA button sparkle effects
+            document.querySelector('.btn').addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                
+                // Create burst of sparkles on button click
+                for (let i = 0; i < 12; i++) {
+                    const sparkle = document.createElement('span');
+                    sparkle.className = 'sparkle-click';
+                    sparkle.style.left = (e.clientX + (Math.random() * 50 - 25)) + 'px';
+                    sparkle.style.top = (e.clientY + (Math.random() * 50 - 25)) + 'px';
+                    sparkle.style.width = (3 + Math.random() * 6) + 'px';
+                    sparkle.style.height = sparkle.style.width;
+                    sparkle.style.animationDelay = (Math.random() * 0.3) + 's';
+                    sparkle.style.background = Math.random() > 0.5 ? 'var(--gold)' : 'var(--light-gold)';
+                    document.body.appendChild(sparkle);
+                    setTimeout(() => sparkle.remove(), 600);
+                }
+                
+                // Navigate to sales page after sparkle effect
+                setTimeout(() => {
+                    window.location.href = 'Sales.html';
+                }, 300);
+            });
+
+            // Create floating sparkles around elements
+            function createFloatingSparkles(element) {
+                const rect = element.getBoundingClientRect();
+                
+                for (let i = 0; i < 3; i++) {
+                    setTimeout(() => {
+                        const sparkle = document.createElement('div');
+                        sparkle.className = 'floating-sparkle';
+                        
+                        // Position around the element
+                        const x = rect.left + Math.random() * rect.width;
+                        const y = rect.top + Math.random() * rect.height;
+                        
+                        sparkle.style.left = `${x}px`;
+                        sparkle.style.top = `${y}px`;
+                        
+                        // Random size
+                        const size = 3 + Math.random() * 4;
+                        sparkle.style.width = `${size}px`;
+                        sparkle.style.height = `${size}px`;
+                        
+                        document.body.appendChild(sparkle);
+                        
+                        // Remove after animation
+                        setTimeout(() => {
+                            if (sparkle.parentNode) {
+                                sparkle.parentNode.removeChild(sparkle);
+                            }
+                        }, 4000);
+                    }, i * 200);
+                }
+            }
+
+            // Random floating sparkles across the screen
+            function createRandomSparkle() {
+                const sparkle = document.createElement('div');
+                sparkle.className = 'floating-sparkle';
+                
+                // Random position within viewport
+                const x = Math.random() * window.innerWidth;
+                const y = Math.random() * window.innerHeight;
+                
+                sparkle.style.left = `${x}px`;
+                sparkle.style.top = `${y}px`;
+                
+                // Random size between 3-6px
+                const size = 3 + Math.random() * 3;
+                sparkle.style.width = `${size}px`;
+                sparkle.style.height = `${size}px`;
+                
+                document.body.appendChild(sparkle);
+                
+                // Remove after animation completes
+                setTimeout(() => {
+                    if (sparkle.parentNode) {
+                        sparkle.parentNode.removeChild(sparkle);
+                    }
+                }, 4000);
+            }
+
+            // Create initial sparkles
+            for (let i = 0; i < 10; i++) {
+                setTimeout(createRandomSparkle, Math.random() * 2000);
+            }
+
+            // Keep creating new sparkles
+            setInterval(() => {
+                if (Math.random() > 0.5) { // 50% chance
+                    createRandomSparkle();
+                    // Sometimes create multiple at once
+                    if (Math.random() > 0.8) {
+                        setTimeout(createRandomSparkle, 100);
+                        setTimeout(createRandomSparkle, 200);
+                    }
+                }
+            }, 600);
+
+            // Enhanced logo hover effect
+            document.querySelector('.logo').addEventListener('mouseenter', () => {
+                // Create sparkles around logo
+                for (let i = 0; i < 5; i++) {
+                    setTimeout(() => {
+                        const logo = document.querySelector('.logo');
+                        const rect = logo.getBoundingClientRect();
+                        const sparkle = document.createElement('div');
+                        sparkle.className = 'floating-sparkle';
+                        
+                        const x = rect.left + Math.random() * rect.width;
+                        const y = rect.top + Math.random() * rect.height;
+                        
+                        sparkle.style.left = `${x}px`;
+                        sparkle.style.top = `${y}px`;
+                        sparkle.style.width = '5px';
+                        sparkle.style.height = '5px';
+                        
+                        document.body.appendChild(sparkle);
+                        
+                        setTimeout(() => {
+                            if (sparkle.parentNode) {
+                                sparkle.parentNode.removeChild(sparkle);
+                            }
+                        }, 2000);
+                    }, i * 100);
+                }
+            });
+
+            // Parallax effect for hero background
+            window.addEventListener('scroll', () => {
+                const scrolled = window.pageYOffset;
+                const hero = document.querySelector('.about-hero');
+                if (hero) {
+                    hero.style.transform = `translateY(${scrolled * 0.3}px)`;
+                }
+            });
+
+            // Intersection Observer for fade-in animations
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.1
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, observerOptions);
+
+            // Observe cards for scroll animations
+            document.querySelectorAll('.value-card, .team-member').forEach((card, index) => {
+                // Set initial state for animation
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                card.style.transition = `opacity 0.6s ease ${index * 0.1}s, transform 0.6s ease ${index * 0.1}s`;
+                
+                observer.observe(card);
+            });
+
+            // Smooth reveal for story sections
+            document.querySelectorAll('.story-text, .sustainability-text').forEach((element, index) => {
+                element.style.opacity = '0';
+                element.style.transform = 'translateX(-20px)';
+                element.style.transition = `opacity 0.8s ease ${index * 0.2}s, transform 0.8s ease ${index * 0.2}s`;
+                
+                observer.observe(element);
+            });
+
+            document.querySelectorAll('.story-image, .sustainability-image').forEach((element, index) => {
+                element.style.opacity = '0';
+                element.style.transform = 'translateX(20px)';
+                element.style.transition = `opacity 0.8s ease ${index * 0.2}s, transform 0.8s ease ${index * 0.2}s`;
+                
+                observer.observe(element);
+            });
+        });
+    </script>
+</body>
+</html>
