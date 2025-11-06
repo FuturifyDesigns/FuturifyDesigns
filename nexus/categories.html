@@ -1425,8 +1425,8 @@
             }
             
             .grid, .games-grid, .categories-grid {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 1.5rem;
+                grid-template-columns: 1fr !important;  /* Single column on mobile, not 2! */
+                gap: 2rem;
                 padding: 0 1rem;
             }
             
@@ -1518,13 +1518,11 @@
             
             .grid, .games-grid, .categories-grid {
                 grid-template-columns: 1fr;
-                gap: 1.2rem;
-                padding: 0 0.8rem;
+                gap: 2rem;  /* Increased from 1.2rem for better spacing */
+                padding: 0 1rem;
             }
             
-            .card, .game-card, .category-card {
-                height: 300px;
-            }
+            /* Category card height: DO NOT set fixed height - using auto height with min-height from 576px breakpoint above */
             
             .btn, button {
                 padding: 0.75rem 1.5rem;
