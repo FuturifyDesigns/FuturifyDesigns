@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=0.8, maximum-scale=1.0, user-scalable=yes">
     <title>Futurify Designs - Crafting Tomorrow's Digital Experiences</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -644,6 +644,63 @@
         }
 
         /* Responsive */
+
+        /* Mobile Scaling - Reduce overall size to prevent zoom feeling */
+        @media (max-width: 768px) {
+            html {
+                font-size: 14px; /* Reduce base font size */
+            }
+            
+            body {
+                zoom: 0.85; /* Scale down entire page */
+                -moz-transform: scale(0.85);
+                -moz-transform-origin: 0 0;
+            }
+            
+            nav {
+                padding: 15px 30px;
+            }
+            
+            .logo {
+                font-size: 22px;
+            }
+            
+            .hero-title {
+                font-size: 26px;
+            }
+            
+            .hero-subtitle {
+                font-size: 16px;
+            }
+            
+            .cta-button {
+                padding: 12px 28px;
+                font-size: 14px;
+            }
+            
+            .section-title {
+                font-size: 28px;
+            }
+            
+            .service-card h3,
+            .portfolio-card h3 {
+                font-size: 18px;
+            }
+            
+            .service-card p,
+            .portfolio-card p {
+                font-size: 13px;
+            }
+            
+            .opening-logo {
+                font-size: 70px;
+            }
+            
+            .opening-tagline {
+                font-size: 14px;
+            }
+        }
+
         @media (max-width: 968px) {
             .hero-title {
                 font-size: 52px;
