@@ -6,7 +6,17 @@
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>AquaWorld - Interactive Experience</title>
 <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+    * { 
+      margin: 0; 
+      padding: 0; 
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+      -webkit-touch-callout: none;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+    }
 
     html, body {
       width: 100%;
@@ -617,10 +627,10 @@
       .bubble-cta {
         font-size: 1.1rem;
         padding: 10px 18px;
-        /* Center at top of bubble on mobile */
+        /* Center at top of bubble on mobile - moved higher */
         top: 50%;
         left: 50%;
-        transform: translate(-50%, -220px);
+        transform: translate(-50%, -260px);
         max-width: 90%;
         white-space: normal;
         text-align: center;
@@ -629,7 +639,19 @@
       
       .bubble:hover + .bubble-cta {
         opacity: 1;
-        transform: translate(-50%, -220px);
+        transform: translate(-50%, -260px);
+      }
+
+      /* Mobile: Face controlled by JavaScript, not hover */
+      @media (hover: none) and (pointer: coarse) {
+        .bubble:hover .face {
+          opacity: 0; /* Override hover, use JS instead */
+        }
+        
+        .face {
+          opacity: 0;
+          transition: opacity 0.3s ease;
+        }
       }
       
       .enter-btn {
@@ -679,8 +701,8 @@
       .bubble-cta {
         font-size: 0.95rem;
         padding: 8px 15px;
-        /* Center at top of bubble */
-        transform: translate(-50%, -200px);
+        /* Center at top of bubble - moved higher */
+        transform: translate(-50%, -240px);
         max-width: 85%;
         white-space: normal;
         text-align: center;
@@ -688,7 +710,7 @@
       
       .bubble:hover + .bubble-cta {
         opacity: 1;
-        transform: translate(-50%, -200px);
+        transform: translate(-50%, -240px);
       }
       
       .enter-btn {
@@ -736,8 +758,8 @@
       .bubble-cta {
         font-size: 0.85rem;
         padding: 7px 12px;
-        /* Center at top of bubble */
-        transform: translate(-50%, -180px);
+        /* Center at top of bubble - moved higher */
+        transform: translate(-50%, -215px);
         max-width: 80%;
         white-space: normal;
         text-align: center;
@@ -745,7 +767,7 @@
       
       .bubble:hover + .bubble-cta {
         opacity: 1;
-        transform: translate(-50%, -180px);
+        transform: translate(-50%, -215px);
       }
       
       .enter-btn {
@@ -779,8 +801,8 @@
       .bubble-cta {
         font-size: 0.8rem;
         padding: 6px 10px;
-        /* Center at top of bubble */
-        transform: translate(-50%, -165px);
+        /* Center at top of bubble - moved higher */
+        transform: translate(-50%, -195px);
         max-width: 75%;
         white-space: normal;
         text-align: center;
@@ -788,7 +810,7 @@
       
       .bubble:hover + .bubble-cta {
         opacity: 1;
-        transform: translate(-50%, -165px);
+        transform: translate(-50%, -195px);
       }
       
       .enter-btn {
@@ -944,6 +966,13 @@
     function showEffects() {
       document.getElementById('overlay').classList.add('active');
       document.getElementById('bubbleCta').style.opacity = '1';
+      
+      // Show the face on mobile
+      const face = document.querySelector('.face');
+      if (face) {
+        face.style.opacity = '1';
+      }
+      
       createStars();
       createBrandingSplash();
     }
@@ -951,6 +980,13 @@
     function hideEffects() {
       document.getElementById('overlay').classList.remove('active');
       document.getElementById('bubbleCta').style.opacity = '0';
+      
+      // Hide the face on mobile
+      const face = document.querySelector('.face');
+      if (face) {
+        face.style.opacity = '0';
+      }
+      
       stopBrandingSplash();
       
       stars.forEach(star => {
@@ -1139,24 +1175,27 @@
     });
   });
 
-  // Mobile touch support for bubble CTA
+  // Mobile touch support for bubble CTA and face
   const bubble = document.querySelector('.bubble');
   const bubbleCta = document.getElementById('bubbleCta');
+  const face = document.querySelector('.face');
   
   if (bubble && bubbleCta) {
+    let touchTimeout;
+    
     // Add touch event for mobile
     bubble.addEventListener('touchstart', function(e) {
+      // Prevent default to avoid blue highlight
+      e.preventDefault();
       showEffects();
     });
     
     bubble.addEventListener('touchend', function(e) {
-      // Keep showing for a moment on mobile
-      setTimeout(() => {
-        hideEffects();
-      }, 2000);
+      // Hide immediately when touch ends (like desktop hover behavior)
+      hideEffects();
     });
     
-    // Also handle click for desktop
+    // Also handle mouse events for desktop
     bubble.addEventListener('mouseenter', function(e) {
       showEffects();
     });
