@@ -667,10 +667,10 @@
 
         .chat-modal {
             position: fixed;
-            bottom: 120px;
+            bottom: 100px;
             right: 30px;
             width: 400px;
-            height: 500px;
+            max-height: 550px;
             background: var(--glass-bg);
             backdrop-filter: blur(25px);
             border: 1px solid rgba(255, 255, 255, 0.2);
@@ -1213,6 +1213,78 @@
         }
 
         @media (max-width: 768px) {
+            /* Mobile Navigation Fix - prevent overflow */
+            .navbar {
+                padding: 12px 10px !important;
+                flex-wrap: nowrap !important;
+                overflow-x: hidden !important;
+                display: flex !important;
+                align-items: center !important;
+            }
+
+            .logo {
+                font-size: 1.2rem !important;
+                flex-shrink: 0 !important;
+                margin-right: 8px !important;
+            }
+
+            .nav-links {
+                display: flex !important;
+                flex-wrap: nowrap !important;
+                overflow-x: auto !important;
+                -webkit-overflow-scrolling: touch !important;
+                gap: 3px !important;
+                padding: 0 !important;
+                margin: 0 !important;
+                flex: 1 !important;
+                scrollbar-width: none !important;
+                max-width: calc(100% - 150px) !important;
+            }
+
+            .nav-links::-webkit-scrollbar {
+                display: none !important;
+            }
+
+            .nav-link {
+                font-size: 0.75rem !important;
+                padding: 6px 10px !important;
+                margin: 0 !important;
+                white-space: nowrap !important;
+                flex-shrink: 0 !important;
+            }
+
+            .cta-button {
+                font-size: 0.8rem !important;
+                padding: 6px 12px !important;
+                white-space: nowrap !important;
+                flex-shrink: 0 !important;
+            }
+
+            /* Footer overflow fix */
+            .footer {
+                overflow-x: hidden !important;
+                width: 100% !important;
+            }
+
+            .footer-content {
+                width: 100% !important;
+                max-width: 100% !important;
+            }
+
+            .footer-section {
+                width: 100% !important;
+            }
+
+            .footer-bottom {
+                overflow: hidden !important;
+                width: 100% !important;
+            }
+
+            .footer-bottom-content {
+                width: 100% !important;
+            }
+
+
             .therapists-grid {
                 grid-template-columns: 1fr;
                 gap: 30px;
@@ -1360,8 +1432,11 @@
             }
 
             .therapist-photo {
-                width: 80px;
-                height: 80px;
+                width: 80px !important;
+                height: 80px !important;
+                border-radius: 50% !important;
+                object-fit: cover !important;
+                aspect-ratio: 1 / 1 !important;
                 margin-bottom: 12px;
             }
 
@@ -1519,8 +1594,11 @@
             }
 
             .therapist-photo {
-                width: 70px;
-                height: 70px;
+                width: 70px !important;
+                height: 70px !important;
+                border-radius: 50% !important;
+                object-fit: cover !important;
+                aspect-ratio: 1 / 1 !important;
             }
         }
     </style>
