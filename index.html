@@ -41,7 +41,7 @@
             justify-content: center;
             align-items: center;
             position: relative;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 15%, #e9ecef 30%, #dee2e6 45%, #adb5bd 60%, #6c757d 75%, #495057 85%, #343a40 95%, #000000 100%);
             transition: background 2s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
@@ -167,7 +167,7 @@
             opacity: 0;
             animation: slideInText 2s cubic-bezier(0.22, 1, 0.36, 1) 1s forwards;
             text-transform: uppercase;
-            font-weight: 300;
+            font-weight: 600;
             text-shadow: 0 0 20px rgba(255, 255, 255, 0.6);
         }
 
@@ -189,7 +189,7 @@
             letter-spacing: 3px;
             opacity: 0;
             animation: slideInText 2s cubic-bezier(0.22, 1, 0.36, 1) 1.5s forwards;
-            font-weight: 300;
+            font-weight: 600;
             text-shadow: 0 0 15px rgba(255, 255, 255, 0.4);
         }
 
@@ -390,7 +390,7 @@
             color: #fff;
             line-height: 1.6;
             margin-bottom: 50px;
-            font-weight: 300;
+            font-weight: 600;
             letter-spacing: 2px;
             background: linear-gradient(135deg, #ffffff 0%, #a8edea 50%, #fed6e3 100%);
             background-size: 200% 200%;
@@ -451,7 +451,7 @@
             opacity: 0;
             animation: fadeInAuthor 1.2s cubic-bezier(0.22, 1, 0.36, 1) 1s forwards;
             text-shadow: 0 0 20px rgba(168, 237, 234, 0.2);
-            font-weight: 300;
+            font-weight: 600;
         }
 
         @keyframes fadeInAuthor {
@@ -716,7 +716,66 @@
                 padding: 40px 20px;
             }
         }
-    </style>
+    
+        @media (prefers-color-scheme: dark) {
+            .landing-container {
+                background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 20%, #404040 40%, #1a1a1a 60%, #0d0d0d 80%, #000000 100%);
+            }
+        }
+
+        /* Hold to Enter Feature for Mobile */
+        .enter-btn {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .enter-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 100%;
+            background: linear-gradient(90deg, rgba(255,255,255,0.3), rgba(255,255,255,0.5));
+            transition: none;
+            z-index: 0;
+        }
+        
+        .enter-btn.holding::before {
+            animation: holdProgress 2s linear forwards;
+        }
+        
+        @keyframes holdProgress {
+            from { width: 0%; }
+            to { width: 100%; }
+        }
+        
+        .enter-btn span {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .hold-instruction {
+            position: absolute;
+            bottom: -40px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.8rem;
+            text-align: center;
+            opacity: 0;
+            transition: opacity 0.3s;
+            white-space: nowrap;
+        }
+        
+        @media (max-width: 768px) {
+            .hold-instruction {
+                opacity: 1;
+            }
+        }
+</style>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="shortcut icon" type="image/svg+xml" href="favicon.svg">
 </head>
 <body>
     <div class="landing-container" id="landingContainer">
@@ -862,6 +921,67 @@
                 }, 1200);
             }, 5500);
         });
+    </script>
+
+    
+
+    <script>
+    // Mobile hold with background change (like desktop hover)
+    (function() {
+        var enterBtn = document.querySelector('.enter-btn');
+        var container = document.querySelector('.landing-container');
+        var isMobile = window.innerWidth <= 768;
+        
+        function startHold(e) {
+            if (!isMobile) return;
+            
+            e.preventDefault();
+            
+            // Add hover-active class to trigger background change (like desktop hover!)
+            container.classList.add('hover-active');
+            
+            // Also add holding class for progress bar
+            enterBtn.classList.add('holding');
+            
+            // Navigate after 2 seconds
+            setTimeout(function() {
+                window.location.href = enterBtn.getAttribute('href');
+            }, 2000);
+        }
+        
+        function endHold() {
+            if (!isMobile) return;
+            
+            // Remove hover-active class (background returns to normal)
+            container.classList.remove('hover-active');
+            enterBtn.classList.remove('holding');
+        }
+        
+        // Desktop: use normal hover (already works)
+        if (!isMobile) {
+            // Desktop hover already triggers .hover-active in CSS
+        } else {
+            // Mobile: prevent default click
+            enterBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+            });
+            
+            // Mobile: hold triggers background change
+            enterBtn.addEventListener('touchstart', startHold);
+            enterBtn.addEventListener('touchend', endHold);
+            enterBtn.addEventListener('touchcancel', endHold);
+            
+            // Also support mouse for testing
+            enterBtn.addEventListener('mousedown', startHold);
+            enterBtn.addEventListener('mouseup', endHold);
+            enterBtn.addEventListener('mouseleave', endHold);
+        }
+        
+        // Update on resize
+        window.addEventListener('resize', function() {
+            isMobile = window.innerWidth <= 768;
+        });
+    })();
     </script>
 </body>
 </html>
