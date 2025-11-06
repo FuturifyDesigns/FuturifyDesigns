@@ -24,6 +24,8 @@
       font-family: 'Montserrat', sans-serif;
       -webkit-font-smoothing: var(--font-smooth);
       -moz-osx-font-smoothing: grayscale;
+      -webkit-tap-highlight-color: transparent;
+      -webkit-touch-callout: none;
     }
     
     body {
@@ -352,7 +354,7 @@
     
     .hero-content {
       width: 100%;
-      max-width: 800px;
+      max-width: 650px;
       margin: 0 auto;
       padding: 0 20px;
     }
@@ -368,7 +370,7 @@
     
     .hero p {
       font-size: clamp(1.1rem, 2.5vw, 1.4rem);
-      max-width: 700px;
+      max-width: 550px;
       margin: 0 auto 2.5rem;
       opacity: 0.95;
       text-shadow: var(--text-shadow);
@@ -472,15 +474,17 @@
     .preview-content {
       display: flex;
       align-items: center;
-      gap: 50px;
+      gap: 40px;
       background: rgba(255, 255, 255, 0.05);
-      padding: 40px;
+      padding: 30px;
       border-radius: 15px;
       box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
       position: relative;
       overflow: hidden;
       transition: all 0.3s ease;
       border: 1px solid rgba(44, 116, 179, 0.3);
+      max-width: 900px;
+      margin: 0 auto;
     }
     
     /* Enhanced Water pulse animation for preview boxes */
