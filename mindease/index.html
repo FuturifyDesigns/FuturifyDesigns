@@ -1,0 +1,1485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MindEase - Mental Health Assistance</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Crimson+Text:wght@400;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.7.1/gsap.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            overflow: hidden;
+            background: linear-gradient(135deg, #e0f7fa, #b2ebf2);
+            height: 100vh;
+            width: 100vw;
+            cursor: none;
+            transform: translateZ(0);
+            transition: background 0.2s ease-out;
+        }
+
+        #intro-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+            background: linear-gradient(135deg, #e0f7fa, #b2ebf2);
+            transition: all 1s ease;
+        }
+
+        #intro-animation {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+
+        .intro-content {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            color: #00363a;
+            padding: 20px;
+            max-width: 800px;
+            transition: all 0.8s ease;
+            transform: translateZ(0);
+        }
+
+        h1 {
+            font-family: 'Crimson Text', serif;
+            font-size: 5.5rem;
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+            text-shadow: 0 8px 32px rgba(0, 54, 58, 0.4), 0 4px 16px rgba(0, 96, 100, 0.3);
+            opacity: 0;
+            transform: translateY(60px) scale(0.8);
+            letter-spacing: 3px;
+            color: #00363a;
+            transition: all 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+            background: linear-gradient(135deg, #001a1d 0%, #00363a 30%, #006064 70%, #00838f 100%);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            position: relative;
+            text-align: center;
+            font-variant: small-caps;
+        }
+
+        p {
+            font-family: 'Inter', sans-serif;
+            font-size: 1.6rem;
+            margin-bottom: 2.5rem;
+            opacity: 0;
+            transform: translateY(40px) scale(0.9);
+            color: #004d5c;
+            transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
+            line-height: 1.9;
+            font-weight: 300;
+            text-shadow: 0 4px 20px rgba(0, 96, 100, 0.2);
+            max-width: 680px;
+            margin-left: auto;
+            margin-right: auto;
+            position: relative;
+            text-align: center;
+            font-style: italic;
+        }
+
+        p::after {
+            content: '';
+            position: absolute;
+            bottom: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, #00acc1, #80deea, #00acc1, transparent);
+            transition: width 1.5s ease, box-shadow 0.2s ease-out;
+            border-radius: 2px;
+        }
+
+        p.show-underline::after {
+            width: 250px;
+        }
+
+        .start-button {
+            position: relative;
+            padding: 20px 55px;
+            font-size: 1.4rem;
+            font-weight: 600;
+            font-family: 'Inter', sans-serif;
+            color: white;
+            background: linear-gradient(45deg, #006064, #00838f);
+            border: none;
+            border-radius: 30px;
+            cursor: none;
+            overflow: hidden;
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 15px 35px rgba(0, 96, 100, 0.4);
+            opacity: 0;
+            transform: translateY(50px) scale(0.8);
+            z-index: 10;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+
+        .start-button:hover {
+            transform: translateY(-12px) scale(1.05);
+            box-shadow: 0 25px 50px rgba(0, 96, 100, 0.5);
+            background: linear-gradient(45deg, #00838f, #00acc1);
+        }
+
+        .start-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: 0.8s;
+        }
+
+        .start-button:hover::before {
+            left: 100%;
+        }
+
+        .ripple {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            transform: scale(0);
+            animation: ripple 0.6s linear;
+            pointer-events: none;
+        }
+
+        @keyframes ripple {
+            to {
+                transform: scale(2.5);
+                opacity: 0;
+            }
+        }
+
+        #loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #001a1d, #00363a, #006064);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 200;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 2s ease, visibility 2s ease;
+        }
+
+        #loading-screen.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .loading-container {
+            position: relative;
+            width: 300px;
+            height: 300px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .loading-spinner {
+            position: relative;
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, transparent, transparent 40%, #00acc1);
+            animation: spin 2s linear infinite;
+        }
+
+        .loading-spinner::before {
+            content: '';
+            position: absolute;
+            top: 6px;
+            left: 6px;
+            right: 6px;
+            bottom: 6px;
+            background: linear-gradient(135deg, #001a1d, #00363a);
+            border-radius: 50%;
+            z-index: 2;
+        }
+
+        .loading-spinner::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, transparent, transparent 40%, #00acc1);
+            border-radius: 50%;
+            filter: blur(30px);
+        }
+
+        .loading-text {
+            font-family: 'Crimson Text', serif;
+            font-size: 1.8rem;
+            color: #80deea;
+            font-weight: 600;
+            text-align: center;
+            margin-top: 40px;
+            text-shadow: 0 0 10px rgba(128, 222, 234, 0.5);
+        }
+
+        .progress-text {
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            color: #b2ebf2;
+            margin-top: 20px;
+            opacity: 0.8;
+        }
+
+        .dot {
+            display: inline-block;
+            opacity: 0;
+            animation: dot-animation 1.5s infinite;
+        }
+
+        .dot:nth-child(1) {
+            animation-delay: 0s;
+        }
+        .dot:nth-child(2) {
+            animation-delay: 0.3s;
+        }
+        .dot:nth-child(3) {
+            animation-delay: 0.6s;
+        }
+
+        @keyframes dot-animation {
+            0% { opacity: 0; }
+            50% { opacity: 1; }
+            100% { opacity: 0; }
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); filter: hue-rotate(0deg); }
+            100% { transform: rotate(360deg); filter: hue-rotate(360deg); }
+        }
+
+        .floating-dots {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .floating-dots span {
+            position: absolute;
+            display: block;
+            width: 8px;
+            height: 8px;
+            background: rgba(128, 222, 234, 0.5);
+            border-radius: 50%;
+            animation: float-up 10s linear infinite;
+            bottom: -100px;
+        }
+
+        @keyframes float-up {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-1000px) rotate(720deg);
+                opacity: 0;
+            }
+        }
+
+        #homepage {
+            display: none;
+            opacity: 0;
+            transition: opacity 1s ease;
+            background: linear-gradient(135deg, #e0f7fa, #b2ebf2);
+            height: 100vh;
+            width: 100vw;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 50;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Inter', sans-serif;
+            font-size: 2rem;
+            color: #00363a;
+            text-align: center;
+        }
+
+        .floating-shapes {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            transform: translateZ(0);
+        }
+
+        .shape {
+            position: absolute;
+            opacity: 0.6;
+            width: 60px;
+            height: 60px;
+            border-radius: 15px;
+            background: linear-gradient(135deg, #00838f, #00acc1);
+            box-shadow: 0 12px 25px rgba(0, 96, 100, 0.25);
+            animation: float 15s infinite ease-in-out;
+            z-index: 1;
+            cursor: none;
+            pointer-events: auto;
+            transition: transform 0.15s ease-out, opacity 0.15s ease-out, box-shadow 0.15s ease-out;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0) rotate(0deg); }
+            33% { transform: translateY(-60px) rotate(5deg); }
+            66% { transform: translateY(-30px) rotate(-3deg); }
+            100% { transform: translateY(0) rotate(0deg); }
+        }
+
+        .shape:nth-child(1) {
+            top: 15%;
+            left: 10%;
+            width: 80px;
+            height: 80px;
+            border-radius: 20px;
+            background: linear-gradient(135deg, #006064, #00838f);
+            animation-delay: 0s;
+        }
+
+        .shape:nth-child(2) {
+            top: 65%;
+            left: 80%;
+            width: 100px;
+            height: 100px;
+            border-radius: 25px;
+            background: linear-gradient(135deg, #00acc1, #80deea);
+            animation-delay: 2s;
+        }
+
+        .shape:nth-child(3) {
+            top: 25%;
+            left: 75%;
+            width: 65px;
+            height: 65px;
+            border-radius: 16px;
+            background: linear-gradient(135deg, #00838f, #00bcd4);
+            animation-delay: 4s;
+        }
+
+        .shape:nth-child(4) {
+            top: 70%;
+            left: 15%;
+            width: 90px;
+            height: 90px;
+            border-radius: 22px;
+            background: linear-gradient(135deg, #006064, #00bcd4);
+            animation-delay: 6s;
+        }
+
+        .shape:nth-child(5) {
+            top: 40%;
+            left: 5%;
+            width: 55px;
+            height: 55px;
+            border-radius: 14px;
+            background: linear-gradient(135deg, #80deea, #b2ebf2);
+            animation-delay: 8s;
+        }
+
+        .shape:nth-child(6) {
+            top: 20%;
+            left: 45%;
+            width: 45px;
+            height: 45px;
+            border-radius: 11px;
+            background: linear-gradient(135deg, #00bcd4, #80deea);
+            animation-delay: 10s;
+        }
+
+        .shape:hover {
+            transform: scale(1.2) rotate(10deg);
+            opacity: 0.8;
+            box-shadow: 0 15px 30px rgba(0, 96, 100, 0.4);
+        }
+
+        .intro-content.illuminated h1 {
+            transform: scale(1.03);
+            text-shadow: 0 0 30px rgba(0, 54, 58, 0.6), 0 0 60px rgba(0, 131, 143, 0.4);
+            transition: transform 0.2s ease-out, text-shadow 0.2s ease-out;
+        }
+
+        .intro-content.illuminated p {
+            color: #001215;
+            font-weight: 500;
+            text-shadow: 0 0 20px rgba(0, 96, 100, 0.4);
+            transition: color 0.2s ease-out, font-weight 0.2s ease-out, text-shadow 0.2s ease-out;
+        }
+
+        .intro-content.illuminated p::after {
+            width: 300px;
+            box-shadow: 0 0 15px rgba(0, 96, 100, 0.6);
+        }
+
+        .floating-shapes.illuminated .shape {
+            transform: scale(1.3);
+            opacity: 0.8;
+            box-shadow: 0 15px 30px rgba(0, 96, 100, 0.4), 0 0 20px rgba(0, 96, 100, 0.5);
+            transition: transform 0.2s ease-out, opacity 0.2s ease-out, box-shadow 0.2s ease-out;
+        }
+
+        body.illuminated {
+            background: linear-gradient(135deg, #b2ebf2, #80deea, #4dd0e1, #26c6da);
+        }
+
+        .custom-cursor {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: rgba(0, 54, 58, 0.6);
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            transition: 
+                width 0.15s ease,
+                height 0.15s ease,
+                background 0.15s ease;
+        }
+
+        .custom-cursor.hover {
+            width: 32px;
+            height: 32px;
+            background: rgba(0, 54, 58, 0.8);
+        }
+
+        .custom-cursor.click {
+            width: 16px;
+            height: 16px;
+            background: rgba(0, 54, 58, 1);
+        }
+
+        ::selection {
+            background: rgba(0, 96, 100, 0.3);
+            text-shadow: 0 0 10px rgba(0, 96, 100, 0.5);
+        }
+
+        ::-moz-selection {
+            background: rgba(0, 96, 100, 0.3);
+            text-shadow: 0 0 10px rgba(0, 96, 100, 0.5);
+        }
+
+        /* Welcome message animation styles */
+        .welcome-message {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-family: 'Crimson Text', serif;
+            font-size: 2.5rem;
+            color: #00363a;
+            text-align: center;
+            opacity: 0;
+            z-index: 20;
+        }
+
+        /* Enhanced peaceful transition styles */
+        .peaceful-transition {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #e0f7fa 0%, #b2ebf2 25%, #80deea 50%, #4fc3f7 75%, #29b6f6 100%);
+            z-index: 300;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 2.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .peaceful-transition.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Hide any leftover elements that might show during animations */
+        .homepage-navbar,
+        .homepage-nav-links,
+        .homepage-logo,
+        .homepage-nav-link,
+        .homepage-cta-button,
+        .homepage-hero,
+        .homepage-hero-content,
+        .homepage-hero-title,
+        .homepage-hero-subtitle,
+        .homepage-buttons,
+        .homepage-btn-primary,
+        .homepage-btn-secondary,
+        .homepage-floating-elements,
+        .homepage-floating-shape {
+            display: none !important;
+            visibility: hidden !important;
+            opacity: 0 !important;
+        }
+
+        /* Ensure custom cursor is always visible */
+        .custom-cursor {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: rgba(0, 54, 58, 0.6);
+            pointer-events: none;
+            z-index: 99999;
+            transform: translate(-50%, -50%);
+            transition: 
+                width 0.15s ease,
+                height 0.15s ease,
+                background 0.15s ease;
+            display: block !important;
+            visibility: visible !important;
+        }
+
+        .custom-cursor.hover {
+            width: 32px;
+            height: 32px;
+            background: rgba(0, 54, 58, 0.8);
+        }
+
+        .custom-cursor.click {
+            width: 16px;
+            height: 16px;
+            background: rgba(0, 54, 58, 1);
+        }
+
+        /* Enhanced geometric patterns for transition */
+        .peaceful-pattern {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            opacity: 0.4;
+            overflow: hidden;
+        }
+
+        .peaceful-circle {
+            position: absolute;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.3) 0%, rgba(0, 172, 193, 0.2) 40%, transparent 70%);
+            animation: peacefulFloat 12s ease-in-out infinite;
+            backdrop-filter: blur(2px);
+            box-shadow: 0 0 40px rgba(0, 172, 193, 0.3);
+        }
+
+        @keyframes peacefulFloat {
+            0%, 100% { 
+                transform: translate(0, 0) scale(1) rotate(0deg); 
+                opacity: 0.3; 
+            }
+            25% { 
+                transform: translate(-30px, -40px) scale(1.1) rotate(90deg); 
+                opacity: 0.5; 
+            }
+            50% { 
+                transform: translate(20px, -60px) scale(1.2) rotate(180deg); 
+                opacity: 0.6; 
+            }
+            75% { 
+                transform: translate(-10px, -30px) scale(1.05) rotate(270deg); 
+                opacity: 0.4; 
+            }
+        }
+
+        /* Transition message styles */
+        .transition-message {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            color: #00363a;
+            font-family: 'Crimson Text', serif;
+            font-size: 3rem;
+            font-weight: 600;
+            opacity: 0;
+            transform: translateY(30px) scale(0.9);
+            transition: all 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            text-shadow: 0 4px 20px rgba(0, 54, 58, 0.3);
+        }
+
+        .transition-message.show {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
+        .transition-subtitle {
+            font-family: 'Inter', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 300;
+            margin-top: 20px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.3s;
+            font-style: italic;
+            color: #004d5c;
+        }
+
+        .transition-subtitle.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Floating elements during transition */
+        .floating-element {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: rgba(255, 255, 255, 0.6);
+            border-radius: 50%;
+            animation: gentleFloat 8s ease-in-out infinite;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+        }
+
+        @keyframes gentleFloat {
+            0%, 100% { 
+                transform: translateY(0) rotate(0deg);
+                opacity: 0.3;
+            }
+            50% { 
+                transform: translateY(-100px) rotate(180deg);
+                opacity: 0.8;
+            }
+        }
+
+        /* Breathing animation for peaceful effect */
+        .breathing-glow {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: radial-gradient(circle, transparent 40%, rgba(0, 172, 193, 0.1) 60%, transparent 80%);
+            animation: breathe 4s ease-in-out infinite;
+            opacity: 0;
+        }
+
+        @keyframes breathe {
+            0%, 100% { 
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 0.3;
+            }
+            50% { 
+                transform: translate(-50%, -50%) scale(1.5);
+                opacity: 0.6;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Intro Animation and Start Button -->
+    <div id="intro-container">
+        <div id="intro-animation"></div>
+        <div class="floating-shapes">
+            <div class="shape"></div>
+            <div class="shape"></div>
+            <div class="shape"></div>
+            <div class="shape"></div>
+            <div class="shape"></div>
+            <div class="shape"></div>
+        </div>
+        <div class="intro-content">
+            <h1>MindEase</h1>
+            <p>Your journey to mental wellness begins here. Connect with professionals, find support, and discover tools to nurture your mind.</p>
+            <button class="start-button" id="startButton">Begin Healing Journey</button>
+        </div>
+    </div>
+
+    <!-- Loading Screen -->
+    <div id="loading-screen">
+        <div class="floating-dots" id="floatingDots"></div>
+        <div class="loading-container">
+            <div class="loading-spinner"></div>
+        </div>
+        <div class="loading-text">
+            Preparing your peaceful space<span class="dot">.</span><span class="dot">.</span><span class="dot">.</span>
+        </div>
+        <div class="progress-text" id="progressText">Loading resources 0%</div>
+    </div>
+
+    <!-- Welcome Message Container -->
+    <div id="homepage">
+        <div class="welcome-message" id="welcomeMessage">
+            Welcome to your peaceful space! 🌱
+        </div>
+    </div>
+
+    <!-- Homepage Content (will be revealed smoothly) -->
+    <div class="homepage-content" id="homepageContent">
+        <!-- Navigation -->
+        <nav class="homepage-navbar" id="homepageNavbar">
+            <a href="#" class="homepage-logo">MindEase</a>
+            <ul class="homepage-nav-links">
+                <li><a href="#" class="homepage-nav-link">Home</a></li>
+                <li><a href="#" class="homepage-nav-link">Tools</a></li>
+                <li><a href="#" class="homepage-nav-link">Therapists</a></li>
+                <li><a href="#" class="homepage-nav-link">About</a></li>
+            </ul>
+            <a href="#" class="homepage-cta-button">Get Help Now</a>
+        </nav>
+
+        <!-- Hero Section -->
+        <section class="homepage-hero">
+            <div class="homepage-floating-elements">
+                <div class="homepage-floating-shape"></div>
+                <div class="homepage-floating-shape"></div>
+                <div class="homepage-floating-shape"></div>
+                <div class="homepage-floating-shape"></div>
+                <div class="homepage-floating-shape"></div>
+                <div class="homepage-floating-shape"></div>
+            </div>
+            
+            <div class="homepage-hero-content" id="homepageHeroContent">
+                <h1 class="homepage-hero-title">Your Mental Wellness Journey Starts Here</h1>
+                <p class="homepage-hero-subtitle">Transform your mental health with personalized tools, expert guidance, and AI-powered support</p>
+                <div class="homepage-buttons">
+                    <a href="#" class="homepage-btn-primary">Begin Your Journey</a>
+                    <a href="#" class="homepage-btn-secondary">Explore Our Features</a>
+                </div>
+            </div>
+        </section>
+    </div>
+    <div class="peaceful-transition" id="peacefulTransition">
+        <div class="peaceful-pattern">
+            <!-- Larger, more visible circles -->
+            <div class="peaceful-circle" style="top: 10%; left: 15%; width: 150px; height: 150px; animation-delay: 0s;"></div>
+            <div class="peaceful-circle" style="top: 60%; left: 70%; width: 200px; height: 200px; animation-delay: 1s;"></div>
+            <div class="peaceful-circle" style="top: 30%; left: 45%; width: 120px; height: 120px; animation-delay: 2s;"></div>
+            <div class="peaceful-circle" style="top: 75%; left: 20%; width: 180px; height: 180px; animation-delay: 3s;"></div>
+            <div class="peaceful-circle" style="top: 5%; left: 75%; width: 140px; height: 140px; animation-delay: 4s;"></div>
+            <div class="peaceful-circle" style="top: 45%; left: 10%; width: 100px; height: 100px; animation-delay: 2.5s;"></div>
+        </div>
+
+        <!-- Breathing glow effect -->
+        <div class="breathing-glow"></div>
+
+        <!-- Floating elements -->
+        <div class="floating-element" style="top: 20%; left: 10%; animation-delay: 0s;"></div>
+        <div class="floating-element" style="top: 30%; left: 80%; animation-delay: 1s;"></div>
+        <div class="floating-element" style="top: 70%; left: 60%; animation-delay: 2s;"></div>
+        <div class="floating-element" style="top: 60%; left: 25%; animation-delay: 3s;"></div>
+        <div class="floating-element" style="top: 15%; left: 50%; animation-delay: 1.5s;"></div>
+        <div class="floating-element" style="top: 80%; left: 85%; animation-delay: 2.5s;"></div>
+
+        <!-- Transition message -->
+        <div class="transition-message" id="transitionMessage">
+            Entering Your Sanctuary
+            <div class="transition-subtitle" id="transitionSubtitle">
+                A place of healing, growth, and inner peace awaits you
+            </div>
+        </div>
+    </div>
+
+    <!-- Custom cursor elements -->
+    <div class="custom-cursor"></div>
+
+    <script>
+        // Optimized Three.js animation for the intro
+        let scene, camera, renderer, particles;
+        let isHovering = false;
+        let baseRotationSpeed = 0.001;
+        let hoverRotationSpeed = 0.005; // Reduced from 0.008
+        
+        function initIntroAnimation() {
+            scene = new THREE.Scene();
+            camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            camera.position.z = 30;
+            
+            renderer = new THREE.WebGLRenderer({
+                alpha: true,
+                antialias: false,
+                powerPreference: "high-performance"
+            });
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            document.getElementById('intro-animation').appendChild(renderer.domElement);
+            
+            const geometry = new THREE.BufferGeometry();
+            const particleCount = 200; // Reduced from 400
+            
+            const positions = new Float32Array(particleCount * 3);
+            const colors = new Float32Array(particleCount * 3);
+            const sizes = new Float32Array(particleCount);
+            
+            const colorPalette = [
+                new THREE.Color(0x006064),
+                new THREE.Color(0x00838f),
+                new THREE.Color(0x00acc1),
+                new THREE.Color(0x80deea)
+            ];
+            
+            for (let i = 0; i < particleCount; i++) {
+                positions[i * 3] = (Math.random() - 0.5) * 100;
+                positions[i * 3 + 1] = (Math.random() - 0.5) * 100;
+                positions[i * 3 + 2] = (Math.random() - 0.5) * 100;
+                
+                const color = colorPalette[Math.floor(Math.random() * colorPalette.length)];
+                colors[i * 3] = color.r;
+                colors[i * 3 + 1] = color.g;
+                colors[i * 3 + 2] = color.b;
+                
+                sizes[i] = Math.random() * 2 + 1;
+            }
+            
+            geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+            geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+            geometry.setAttribute('size', new THREE.BufferAttribute(sizes, 1));
+            
+            const material = new THREE.PointsMaterial({
+                size: 1,
+                vertexColors: true,
+                transparent: true,
+                opacity: 0.8,
+                blending: THREE.AdditiveBlending
+            });
+            
+            particles = new THREE.Points(geometry, material);
+            scene.add(particles);
+            
+            // Custom cursor handling
+            const customCursor = document.querySelector('.custom-cursor');
+            let mouseX = window.innerWidth / 2, mouseY = window.innerHeight / 2;
+            
+            document.addEventListener('mousemove', (e) => {
+                mouseX = e.clientX;
+                mouseY = e.clientY;
+                customCursor.style.transform = `translate(${mouseX}px, ${mouseY}px)`;
+            }, { passive: true });
+            
+            // Hover effects
+            const button = document.getElementById('startButton');
+            const introContent = document.querySelector('.intro-content');
+            const shapes = document.querySelector('.floating-shapes');
+            const body = document.body;
+            
+            button.addEventListener('mouseenter', () => {
+                isHovering = true;
+                customCursor.classList.add('hover');
+                introContent.classList.add('illuminated');
+                shapes.classList.add('illuminated');
+                body.classList.add('illuminated');
+            });
+            
+            button.addEventListener('mouseleave', () => {
+                isHovering = false;
+                customCursor.classList.remove('hover');
+                introContent.classList.remove('illuminated');
+                shapes.classList.remove('illuminated');
+                body.classList.remove('illuminated');
+            });
+            
+            // Cursor click effect
+            document.addEventListener('mousedown', () => {
+                customCursor.classList.add('click');
+            });
+            
+            document.addEventListener('mouseup', () => {
+                customCursor.classList.remove('click');
+            });
+            
+            // Optimized Animation loop
+            let animationId;
+            const animate = () => {
+                particles.rotation.x += baseRotationSpeed;
+                particles.rotation.y += baseRotationSpeed;
+                
+                if (isHovering) {
+                    particles.rotation.x += hoverRotationSpeed;
+                    particles.rotation.y += hoverRotationSpeed;
+                }
+                
+                renderer.render(scene, camera);
+                animationId = requestAnimationFrame(animate);
+            };
+            
+            animate();
+            
+            // Window resize handler
+            window.addEventListener('resize', () => {
+                camera.aspect = window.innerWidth / window.innerHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(window.innerWidth, window.innerHeight);
+            }, { passive: true });
+            
+            // Cleanup function
+            window.stopAnimation = () => {
+                if (animationId) {
+                    cancelAnimationFrame(animationId);
+                }
+            };
+        }
+        
+        function createFloatingDots() {
+            const container = document.getElementById('floatingDots');
+            const dotCount = 12; // Reduced from 18
+            
+            for (let i = 0; i < dotCount; i++) {
+                const dot = document.createElement('span');
+                dot.style.left = `${Math.random() * 100}%`;
+                const size = Math.random() * 5 + 3;
+                dot.style.width = `${size}px`;
+                dot.style.height = `${size}px`;
+                dot.style.opacity = Math.random() * 0.4 + 0.1;
+                dot.style.animationDuration = `${Math.random() * 7 + 4}s`;
+                dot.style.animationDelay = `${Math.random() * 2}s`;
+                container.appendChild(dot);
+            }
+        }
+        
+        function createSmilingFace() {
+            const centerX = window.innerWidth / 2;
+            const centerY = window.innerHeight / 2;
+            const shapes = document.querySelectorAll('.shape');
+            
+            // Mental health inspired background - soft calming colors
+            gsap.to('body', {
+                background: 'linear-gradient(135deg, #a8e6cf 0%, #88d8c0 25%, #7fcdcd 50%, #81c784 75%, #aed581 100%)',
+                duration: 1.5,
+                ease: 'power2.out'
+            });
+            
+            // Use only the existing 6 shapes to create a vibrant smiley face
+            const facePositions = [
+                // Eyes (first 2 shapes)
+                { x: centerX - 65, y: centerY - 55 }, // Left eye
+                { x: centerX + 65, y: centerY - 55 }, // Right eye
+                // Smile arc (4 circles forming a beautiful curved smile)
+                { x: centerX - 40, y: centerY + 18 }, // Far left 
+                { x: centerX - 15, y: centerY + 28 }, // Left-center
+                { x: centerX + 15, y: centerY + 28 }, // Right-center
+                { x: centerX + 40, y: centerY + 18 }  // Far right
+            ];
+            
+            // Animate shapes to form the smiley face
+            shapes.forEach((shape, index) => {
+                const targetPos = facePositions[index];
+                const isEye = index < 2;
+                
+                if (targetPos) {
+                    gsap.to(shape, {
+                        left: targetPos.x - (isEye ? 20 : 16),
+                        top: targetPos.y - (isEye ? 20 : 16),
+                        width: isEye ? '40px' : '32px',
+                        height: isEye ? '40px' : '32px',
+                        borderRadius: '50%',
+                        scale: 1,
+                        rotation: 0,
+                        duration: 1.5,
+                        ease: 'back.out(1.2)',
+                        delay: index * 0.15,
+                        background: isEye ? 
+                            '#2e7d32' : 
+                            '#4caf50',
+                        boxShadow: isEye ? 
+                            '0 0 20px rgba(46, 125, 50, 0.6)' : 
+                            '0 0 20px rgba(76, 175, 80, 0.7)',
+                        opacity: 1,
+                        border: '2px solid rgba(255, 255, 255, 0.4)'
+                    });
+                }
+            });
+            
+            // Reduced floating hearts for performance
+            setTimeout(() => {
+                for (let i = 0; i < 4; i++) { // Reduced from 6
+                    const heart = document.createElement('div');
+                    heart.innerHTML = '💚';
+                    heart.style.position = 'absolute';
+                    heart.style.fontSize = '20px';
+                    heart.style.pointerEvents = 'none';
+                    heart.style.zIndex = '108';
+                    heart.style.opacity = '0';
+                    
+                    // Position hearts outside the circle around the face
+                    const angle = (i / 4) * Math.PI * 2;
+                    const radius = 180; // Increased from 120 to position outside
+                    heart.style.left = (centerX + Math.cos(angle) * radius) + 'px';
+                    heart.style.top = (centerY + Math.sin(angle) * radius) + 'px';
+                    
+                    document.body.appendChild(heart);
+                    
+                    gsap.fromTo(heart, {
+                        scale: 0,
+                        opacity: 0
+                    }, {
+                        scale: 1,
+                        opacity: 0.8,
+                        duration: 0.8,
+                        ease: 'back.out(1.5)',
+                        delay: i * 0.3
+                    });
+                    
+                    // Simple floating animation
+                    gsap.to(heart, {
+                        y: '-=20',
+                        duration: 2,
+                        ease: 'power1.inOut',
+                        yoyo: true,
+                        repeat: 2
+                    });
+                    
+                    // Fade out hearts before transition
+                    setTimeout(() => {
+                        gsap.to(heart, {
+                            scale: 0,
+                            opacity: 0,
+                            duration: 0.5,
+                            onComplete: () => heart.remove()
+                        });
+                    }, 3000);
+                }
+            }, 1000);
+            
+            // Reduced sparkles
+            setTimeout(() => {
+                for (let i = 0; i < 6; i++) { // Reduced from 8
+                    const sparkle = document.createElement('div');
+                    sparkle.innerHTML = '✨';
+                    sparkle.style.position = 'absolute';
+                    sparkle.style.fontSize = '16px';
+                    sparkle.style.pointerEvents = 'none';
+                    sparkle.style.zIndex = '115';
+                    sparkle.style.left = centerX + 'px';
+                    sparkle.style.top = centerY + 'px';
+                    
+                    document.body.appendChild(sparkle);
+                    
+                    const angle = (i / 6) * Math.PI * 2;
+                    const distance = 160; // Increased from 100 to position outside the face
+                    
+                    gsap.fromTo(sparkle, {
+                        scale: 0,
+                        opacity: 0
+                    }, {
+                        scale: 1.2,
+                        opacity: 1,
+                        x: Math.cos(angle) * distance,
+                        y: Math.sin(angle) * distance,
+                        duration: 1,
+                        ease: 'power2.out',
+                        delay: i * 0.15
+                    });
+                    
+                    gsap.to(sparkle, {
+                        scale: 0,
+                        opacity: 0,
+                        duration: 0.5,
+                        delay: 1.2,
+                        onComplete: () => sparkle.remove()
+                    });
+                }
+            }, 1800);
+            
+            // Simple enhanced eye blinking
+            setTimeout(() => {
+                const eyes = [shapes[0], shapes[1]];
+                
+                // First blink
+                gsap.to(eyes, {
+                    scaleY: 0.1,
+                    duration: 0.15,
+                    ease: 'power2.inOut',
+                    yoyo: true,
+                    repeat: 1
+                });
+                
+                // Second blink
+                setTimeout(() => {
+                    gsap.to(eyes, {
+                        scaleY: 0.1,
+                        duration: 0.15,
+                        ease: 'power2.inOut',
+                        yoyo: true,
+                        repeat: 1
+                    });
+                }, 800);
+                
+                // Final blink with smooth transition
+                setTimeout(() => {
+                    gsap.to(eyes, {
+                        scaleY: 0.1,
+                        duration: 0.15,
+                        ease: 'power2.inOut',
+                        yoyo: true,
+                        repeat: 1,
+                        onComplete: () => {
+                            // Clean transition
+                            gsap.to('#intro-container', {
+                                opacity: 0,
+                                scale: 0.95,
+                                duration: 1,
+                                ease: 'power2.inOut',
+                                onComplete: () => {
+                                    document.getElementById('loading-screen').classList.add('show');
+                                    createFloatingDots();
+                                }
+                            });
+                            
+                            // Reset background for loading screen
+                            setTimeout(() => {
+                                gsap.to('body', {
+                                    background: 'linear-gradient(135deg, #001a1d, #00363a, #006064)',
+                                    duration: 1,
+                                    ease: 'power2.inOut'
+                                });
+                            }, 300);
+                        }
+                    });
+                }, 1600);
+                
+            }, 3000);
+            
+            // Reduced sparkle effect around the face
+            setTimeout(() => {
+                for (let i = 0; i < 12; i++) { // Reduced from 20
+                    const sparkle = document.createElement('div');
+                    sparkle.style.position = 'absolute';
+                    sparkle.style.width = '6px';
+                    sparkle.style.height = '6px';
+                    sparkle.style.background = '#81c784';
+                    sparkle.style.borderRadius = '50%';
+                    sparkle.style.boxShadow = '0 0 12px #81c784';
+                    
+                    // Position sparkles outside the face circle
+                    const angle = (i / 12) * Math.PI * 2;
+                    const radius = 200; // Increased from 120 to position well outside the face
+                    sparkle.style.left = (centerX + Math.cos(angle) * radius) + 'px';
+                    sparkle.style.top = (centerY + Math.sin(angle) * radius) + 'px';
+                    sparkle.style.pointerEvents = 'none';
+                    sparkle.style.zIndex = '110';
+                    
+                    document.body.appendChild(sparkle);
+                    
+                    gsap.fromTo(sparkle, {
+                        scale: 0,
+                        opacity: 0
+                    }, {
+                        scale: 1.2,
+                        opacity: 1,
+                        duration: 0.6,
+                        ease: 'back.out(1.5)',
+                        delay: i * 0.1
+                    });
+                    
+                    gsap.to(sparkle, {
+                        scale: 0,
+                        opacity: 0,
+                        duration: 0.5,
+                        delay: 1.8 + i * 0.05,
+                        ease: 'power2.in',
+                        onComplete: () => sparkle.remove()
+                    });
+                }
+            }, 2500);
+        }
+
+        // Enhanced function for smooth homepage introduction (loads actual home.html content!)
+        function transitionToHomePage() {
+            // Show the peaceful transition overlay with enhanced animations
+            const peacefulTransition = document.getElementById('peacefulTransition');
+            const transitionMessage = document.getElementById('transitionMessage');
+            const transitionSubtitle = document.getElementById('transitionSubtitle');
+            
+            // Start the transition
+            peacefulTransition.classList.add('show');
+            
+            // Animate the breathing glow
+            setTimeout(() => {
+                gsap.to('.breathing-glow', {
+                    opacity: 1,
+                    duration: 2,
+                    ease: 'power2.out'
+                });
+            }, 500);
+            
+            // Show transition message with staggered animation
+            setTimeout(() => {
+                transitionMessage.classList.add('show');
+                
+                // Show subtitle after main message
+                setTimeout(() => {
+                    transitionSubtitle.classList.add('show');
+                }, 800);
+            }, 1000);
+            
+            // Gentle background color transitions during the overlay
+            setTimeout(() => {
+                gsap.to('.peaceful-transition', {
+                    background: 'linear-gradient(135deg, #e0f7fa 0%, #b2ebf2 20%, #80deea 40%, #4fc3f7 60%, #29b6f6 80%, #0277bd 100%)',
+                    duration: 3,
+                    ease: 'power1.inOut'
+                });
+            }, 1500);
+            
+            // Create additional floating elements during transition
+            setTimeout(() => {
+                for (let i = 0; i < 8; i++) {
+                    const element = document.createElement('div');
+                    element.style.position = 'absolute';
+                    element.style.width = '12px';
+                    element.style.height = '12px';
+                    element.style.background = 'rgba(255, 255, 255, 0.8)';
+                    element.style.borderRadius = '50%';
+                    element.style.left = Math.random() * 100 + '%';
+                    element.style.top = '100%';
+                    element.style.pointerEvents = 'none';
+                    element.style.zIndex = '5';
+                    element.style.boxShadow = '0 0 10px rgba(255, 255, 255, 0.6)';
+                    
+                    peacefulTransition.appendChild(element);
+                    
+                    gsap.to(element, {
+                        y: -window.innerHeight - 100,
+                        x: (Math.random() - 0.5) * 200,
+                        opacity: 0,
+                        duration: 6 + Math.random() * 3,
+                        ease: 'power1.out',
+                        delay: i * 0.3,
+                        onComplete: () => element.remove()
+                    });
+                }
+            }, 2000);
+            
+            // Gentle fade out of transition message
+            setTimeout(() => {
+                gsap.to([transitionMessage, transitionSubtitle], {
+                    opacity: 0,
+                    y: -30,
+                    duration: 1.5,
+                    ease: 'power2.inOut'
+                });
+                
+                gsap.to('.breathing-glow', {
+                    opacity: 0,
+                    scale: 2,
+                    duration: 1.5,
+                    ease: 'power2.inOut'
+                });
+            }, 4000);
+            
+            // Load the actual home.html content with beautiful animations
+            setTimeout(() => {
+                // Create smooth white fade before transitioning to home.html
+                gsap.to('.peaceful-transition', {
+                    background: 'linear-gradient(135deg, #ffffff 0%, #f8f9ff 100%)',
+                    duration: 2,
+                    ease: 'power2.inOut',
+                    onComplete: () => {
+                        // Now smoothly redirect to the actual home.html
+                        // Create a gentle fade out effect
+                        gsap.to('body', {
+                            opacity: 0,
+                            duration: 1,
+                            ease: 'power2.inOut',
+                            onComplete: () => {
+                                // Redirect to the actual home.html page
+                                window.location.href = 'home.html';
+                            }
+                        });
+                    }
+                });
+            }, 5500);
+        }
+        
+        // Function to create welcome sparkles (removed since we're redirecting to home.html)
+        // This function is no longer needed as we transition to the actual home.html page
+        
+        // Start button click handler
+        document.getElementById('startButton').addEventListener('click', function(e) {
+            const ripple = document.createElement('span');
+            ripple.classList.add('ripple');
+            this.appendChild(ripple);
+            
+            const x = e.clientX - e.target.getBoundingClientRect().left;
+            const y = e.clientY - e.target.getBoundingClientRect().top;
+            
+            ripple.style.left = `${x}px`;
+            ripple.style.top = `${y}px`;
+            
+            // Text disappearance animation
+            const textTimeline = gsap.timeline();
+            
+            textTimeline
+                .to('.start-button', {
+                    scale: 0.8,
+                    opacity: 0,
+                    y: 30,
+                    duration: 0.6,
+                    ease: 'power2.in'
+                })
+                .to('h1', {
+                    opacity: 0,
+                    y: -40,
+                    scale: 0.9,
+                    duration: 0.8,
+                    ease: 'power2.inOut'
+                }, '-=0.5')
+                .to('p', {
+                    opacity: 0,
+                    y: -30,
+                    scale: 0.9,
+                    duration: 0.7,
+                    ease: 'power2.inOut'
+                }, '-=0.6');
+            
+            // Stop floating animation and create smiling face
+            setTimeout(() => {
+                const shapes = document.querySelectorAll('.shape');
+                shapes.forEach(shape => {
+                    shape.style.animation = 'none';
+                });
+                
+                createSmilingFace();
+            }, 1000);
+            
+            // Particle explosion effect - optimized
+            if (particles) {
+                gsap.to(particles.material, { size: 6, duration: 0.5 }); // Reduced from 8
+                gsap.to(particles.position, {
+                    y: '+=60', // Reduced from 80
+                    z: '+=60', // Reduced from 80
+                    duration: 1.2,
+                    ease: 'power2.out'
+                });
+            }
+            
+            // Loading progress simulation - starts AFTER face animation completes
+            setTimeout(() => {
+                let progress = 0;
+                const progressInterval = setInterval(() => {
+                    progress += Math.random() * 8 + 4; // Faster progress
+                    if (progress > 100) progress = 100;
+                    document.getElementById('progressText').textContent = `Loading resources ${Math.floor(progress)}%`;
+                    
+                    if (progress === 100) {
+                        clearInterval(progressInterval);
+                        setTimeout(() => {
+                            // Hide loading screen completely first
+                            gsap.to('#loading-screen', {
+                                opacity: 0,
+                                duration: 1,
+                                ease: 'power2.inOut',
+                                onComplete: () => {
+                                    document.getElementById('loading-screen').classList.remove('show');
+                                    document.getElementById('loading-screen').style.display = 'none';
+                                    
+                                    // Show welcome message
+                                    document.getElementById('homepage').style.display = 'flex';
+                                    gsap.to('#homepage', { 
+                                        opacity: 1, 
+                                        duration: 1,
+                                        ease: 'power2.out'
+                                    });
+                                    
+                                    // Animate welcome message
+                                    gsap.to('#welcomeMessage', {
+                                        opacity: 1,
+                                        scale: 1,
+                                        duration: 1.5,
+                                        ease: 'back.out(1.2)',
+                                        delay: 0.5
+                                    });
+                                    
+                                    // Enhanced peaceful transition after showing message
+                                    setTimeout(() => {
+                                        transitionToHomePage();
+                                    }, 3000);
+                                }
+                            });
+                        }, 800);
+                    }
+                }, 120); // Faster intervals
+            }, 7000); // Start loading after face animation (increased from 4000 to ensure face completes)
+            
+            setTimeout(() => {
+                ripple.remove();
+            }, 600);
+        });
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            initIntroAnimation();
+            
+            const tl = gsap.timeline({
+                ease: "power3.out"
+            });
+            
+            gsap.set('body', { scale: 1.02 }); // Reduced from 1.03
+            gsap.to('body', { 
+                scale: 1, 
+                duration: 1.2, 
+                ease: 'power2.out' 
+            });
+            
+            tl.to('h1', { 
+                opacity: 1, 
+                y: 0, 
+                scale: 1,
+                duration: 1.5, 
+                delay: 0.5,
+                ease: 'back.out(1.5)'
+            })
+            .to('p', { 
+                opacity: 1, 
+                y: 0, 
+                scale: 1,
+                duration: 1.2, 
+                ease: 'power3.out',
+                onComplete: () => {
+                    document.querySelector('p').classList.add('show-underline');
+                }
+            }, '-=0.8')
+            .to('.start-button', { 
+                opacity: 1, 
+                y: 0, 
+                scale: 1,
+                duration: 1,
+                ease: 'back.out(1.5)'
+            }, '-=0.6');
+            
+            gsap.fromTo('.shape', 
+                { opacity: 0, scale: 0.8 },
+                { 
+                    opacity: 0.6, 
+                    scale: 1, 
+                    duration: 1.5,
+                    stagger: 0.15,
+                    ease: 'power2.out',
+                    delay: 1
+                }
+            );
+        });
+    </script>
+</body>
+</html>
