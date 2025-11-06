@@ -926,55 +926,70 @@
     
 
     <script>
-    // Mobile hold with background change (like desktop hover)
+    // Mobile tap interaction: first tap starts background change, second tap navigates
     (function() {
         var enterBtn = document.querySelector('.enter-btn');
         var container = document.querySelector('.landing-container');
         var isMobile = window.innerWidth <= 768;
-        
-        function startHold(e) {
-            if (!isMobile) return;
-            
-            e.preventDefault();
-            
-            // Add hover-active class to trigger background change (like desktop hover!)
-            container.classList.add('hover-active');
-            
-            // Also add holding class for progress bar
-            enterBtn.classList.add('holding');
-            
-            // Navigate after 2 seconds
-            setTimeout(function() {
-                window.location.href = enterBtn.getAttribute('href');
-            }, 2000);
-        }
-        
-        function endHold() {
-            if (!isMobile) return;
-            
-            // Remove hover-active class (background returns to normal)
-            container.classList.remove('hover-active');
-            enterBtn.classList.remove('holding');
-        }
+        var isBackgroundActive = false;
         
         // Desktop: use normal hover (already works)
         if (!isMobile) {
             // Desktop hover already triggers .hover-active in CSS
         } else {
-            // Mobile: prevent default click
+            // Mobile: custom tap behavior
             enterBtn.addEventListener('click', function(e) {
                 e.preventDefault();
+                
+                if (!isBackgroundActive) {
+                    // First tap: activate background change
+                    container.classList.add('hover-active');
+                    isBackgroundActive = true;
+                } else {
+                    // Second tap: navigate to next page
+                    // Trigger the normal click flow with ripple effect
+                    const rect = this.getBoundingClientRect();
+                    const x = e.clientX - rect.left || rect.width / 2;
+                    const y = e.clientY - rect.top || rect.height / 2;
+
+                    const ripple = document.createElement('span');
+                    ripple.className = 'ripple';
+                    ripple.style.left = x + 'px';
+                    ripple.style.top = y + 'px';
+                    ripple.style.width = '10px';
+                    ripple.style.height = '10px';
+
+                    this.appendChild(ripple);
+
+                    setTimeout(() => ripple.remove(), 800);
+
+                    // Show inspiration message
+                    const inspirationOverlay = document.getElementById('inspirationOverlay');
+                    createSparkles();
+                    
+                    setTimeout(() => {
+                        inspirationOverlay.classList.add('show');
+                    }, 200);
+
+                    // Navigate to home page after 5.5 seconds
+                    setTimeout(() => {
+                        inspirationOverlay.classList.remove('show');
+                        container.classList.add('fade-out');
+                        
+                        setTimeout(() => {
+                            window.location.href = 'home f.html';
+                        }, 1200);
+                    }, 5500);
+                }
             });
             
-            // Mobile: hold triggers background change
-            enterBtn.addEventListener('touchstart', startHold);
-            enterBtn.addEventListener('touchend', endHold);
-            enterBtn.addEventListener('touchcancel', endHold);
-            
-            // Also support mouse for testing
-            enterBtn.addEventListener('mousedown', startHold);
-            enterBtn.addEventListener('mouseup', endHold);
-            enterBtn.addEventListener('mouseleave', endHold);
+            // Tap anywhere else on screen (except the button) returns background to normal
+            document.addEventListener('click', function(e) {
+                if (isBackgroundActive && !enterBtn.contains(e.target)) {
+                    container.classList.remove('hover-active');
+                    isBackgroundActive = false;
+                }
+            });
         }
         
         // Update on resize
