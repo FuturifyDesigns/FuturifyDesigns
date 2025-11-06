@@ -1429,7 +1429,6 @@
             
             .nav-logo-text {
                 font-size: 1.1rem;
-                color: #fff !important;
             }
 
             .section-title {
@@ -1473,31 +1472,6 @@
             }
         }
 
-
-            /* Mobile card layout fix */
-            .game-card, .deal-card, .category-card, .featured-deal {
-                display: flex !important;
-                flex-direction: column !important;
-            }
-            .game-info, .deal-info, .category-info {
-                display: flex !important;
-                flex-direction: column !important;
-                flex: 1 !important;
-            }
-            .game-footer, .deal-footer {
-                display: flex !important;
-                flex-direction: row !important;
-                justify-content: space-between !important;
-                align-items: center !important;
-                margin-top: auto !important;
-                gap: 0.8rem !important;
-            }
-            .game-button, .deal-button, .add-to-cart {
-                flex-shrink: 0 !important;
-                white-space: nowrap !important;
-            }
-        }
-
         @media (max-width: 576px) {
             .hero-title {
                 font-size: 2.2rem;
@@ -1537,7 +1511,6 @@
             
             .nav-logo-text {
                 font-size: 1.3rem;
-                color: #fff !important;
             }
             
             .nav-links {
@@ -1576,8 +1549,6 @@
             .nav-logo-text {
                 font-size: 1.2rem;
                 letter-spacing: 2px;
-                color: #fff !important;
-                color: #fff !important;
             }
             
             .nav-links {
@@ -1618,7 +1589,111 @@
             }
             
             .card, .game-card, .category-card {
-                height: 320px;
+                height: auto !important;
+                min-height: 380px;
+            }
+            
+            /* Fix NEXUS text visibility */
+            .nav-logo-text {
+                color: #fff !important;
+                -webkit-text-fill-color: #fff !important;
+            }
+            
+            /* Game Card Mobile Fixes */
+            .game-card {
+                display: flex;
+                flex-direction: column;
+            }
+            
+            .game-media {
+                height: 180px;
+                flex-shrink: 0;
+            }
+            
+            .game-info {
+                display: flex;
+                flex-direction: column;
+                flex: 1;
+                padding: 1.2rem;
+            }
+            
+            .game-description {
+                font-size: 0.85rem !important;
+                line-height: 1.4;
+                display: -webkit-box;
+                -webkit-line-clamp: 2;
+                -webkit-box-orient: vertical;
+                overflow: hidden;
+                margin-bottom: 0.8rem;
+            }
+            
+            .game-footer {
+                display: flex !important;
+                flex-direction: row !important;
+                justify-content: space-between !important;
+                align-items: center !important;
+                margin-top: auto;
+                gap: 0.8rem;
+            }
+            
+            .game-price {
+                font-size: 1rem !important;
+                white-space: nowrap;
+            }
+            
+            .game-button, .add-to-cart {
+                padding: 0.6rem 1rem !important;
+                font-size: 0.8rem !important;
+                white-space: nowrap;
+                flex-shrink: 0;
+            }
+            
+            /* Category Card Mobile Fixes */
+            .category-card {
+                display: flex;
+                flex-direction: column;
+                height: auto !important;
+                min-height: 320px;
+            }
+            
+            .category-media {
+                height: 150px;
+                flex-shrink: 0;
+            }
+            
+            .category-info {
+                padding: 1rem;
+                display: flex;
+                flex-direction: column;
+                flex: 1;
+            }
+            
+            .category-title {
+                font-size: 1.1rem !important;
+                margin-bottom: 0.5rem;
+            }
+            
+            .category-count {
+                font-size: 0.85rem !important;
+            }
+            
+            .category-stats {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 0.5rem;
+                margin-top: auto;
+            }
+            
+            .stat-item {
+                padding: 0.4rem !important;
+            }
+            
+            .stat-value {
+                font-size: 0.9rem !important;
+            }
+            
+            .stat-label {
+                font-size: 0.7rem !important;
             }
             
             .btn, button {
@@ -1632,31 +1707,6 @@
         }
 
         /* Mobile Devices (576px) */
-
-            /* Mobile card layout fix */
-            .game-card, .deal-card, .category-card, .featured-deal {
-                display: flex !important;
-                flex-direction: column !important;
-            }
-            .game-info, .deal-info, .category-info {
-                display: flex !important;
-                flex-direction: column !important;
-                flex: 1 !important;
-            }
-            .game-footer, .deal-footer {
-                display: flex !important;
-                flex-direction: row !important;
-                justify-content: space-between !important;
-                align-items: center !important;
-                margin-top: auto !important;
-                gap: 0.8rem !important;
-            }
-            .game-button, .deal-button, .add-to-cart {
-                flex-shrink: 0 !important;
-                white-space: nowrap !important;
-            }
-        }
-
         @media (max-width: 576px) {
             .nav-container {
                 padding: 0.9rem 1rem;
@@ -1670,7 +1720,6 @@
             .nav-logo-text {
                 font-size: 1.1rem;
                 letter-spacing: 1px;
-                color: #fff !important;
             }
             
             .nav-links {
@@ -1712,7 +1761,121 @@
             }
             
             .card, .game-card, .category-card {
-                height: 300px;
+                height: auto !important;
+                min-height: 360px;
+            }
+            
+            /* Fix NEXUS text visibility */
+            .nav-logo-text {
+                color: #fff !important;
+                -webkit-text-fill-color: #fff !important;
+            }
+            
+            /* Game Card Mobile Fixes */
+            .game-card {
+                display: flex;
+                flex-direction: column;
+            }
+            
+            .game-media {
+                height: 160px;
+                flex-shrink: 0;
+            }
+            
+            .game-info {
+                display: flex;
+                flex-direction: column;
+                flex: 1;
+                padding: 1rem;
+            }
+            
+            .game-title {
+                font-size: 1rem !important;
+                margin-bottom: 0.4rem;
+            }
+            
+            .game-genre {
+                font-size: 0.8rem !important;
+            }
+            
+            .game-description {
+                font-size: 0.8rem !important;
+                line-height: 1.4;
+                display: -webkit-box;
+                -webkit-line-clamp: 2;
+                -webkit-box-orient: vertical;
+                overflow: hidden;
+                margin-bottom: 0.8rem;
+            }
+            
+            .game-footer {
+                display: flex !important;
+                flex-direction: row !important;
+                justify-content: space-between !important;
+                align-items: center !important;
+                margin-top: auto;
+                gap: 0.6rem;
+            }
+            
+            .game-price {
+                font-size: 0.95rem !important;
+                white-space: nowrap;
+            }
+            
+            .game-button, .add-to-cart {
+                padding: 0.55rem 0.9rem !important;
+                font-size: 0.75rem !important;
+                white-space: nowrap;
+                flex-shrink: 0;
+            }
+            
+            /* Category Card Mobile Fixes */
+            .category-card {
+                display: flex;
+                flex-direction: column;
+                height: auto !important;
+                min-height: 300px;
+            }
+            
+            .category-media {
+                height: 130px;
+                flex-shrink: 0;
+            }
+            
+            .category-info {
+                padding: 0.9rem;
+                display: flex;
+                flex-direction: column;
+                flex: 1;
+            }
+            
+            .category-title {
+                font-size: 1rem !important;
+                margin-bottom: 0.4rem;
+            }
+            
+            .category-count {
+                font-size: 0.8rem !important;
+                margin-bottom: 0.6rem;
+            }
+            
+            .category-stats {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 0.4rem;
+                margin-top: auto;
+            }
+            
+            .stat-item {
+                padding: 0.3rem !important;
+            }
+            
+            .stat-value {
+                font-size: 0.85rem !important;
+            }
+            
+            .stat-label {
+                font-size: 0.65rem !important;
             }
             
             .btn, button {
@@ -1733,27 +1896,6 @@
         }
 
         /* Small Mobile (480px) */
-
-            /* Mobile card layout fix */
-            .game-card, .deal-card, .category-card {
-                display: flex !important;
-                flex-direction: column !important;
-            }
-            .game-description, .deal-description {
-                display: -webkit-box !important;
-                -webkit-line-clamp: 2 !important;
-                -webkit-box-orient: vertical !important;
-                overflow: hidden !important;
-            }
-            .game-footer, .deal-footer {
-                display: flex !important;
-                flex-direction: row !important;
-                justify-content: space-between !important;
-                align-items: center !important;
-                gap: 0.6rem !important;
-            }
-        }
-
         @media (max-width: 480px) {
             .nav-container {
                 padding: 0.8rem 0.8rem;
@@ -1766,7 +1908,6 @@
             
             .nav-logo-text {
                 font-size: 1rem;
-                color: #fff !important;
             }
             
             .nav-links {
@@ -1791,7 +1932,119 @@
             }
             
             .card, .game-card, .category-card {
-                height: 280px;
+                height: auto !important;
+                min-height: 340px;
+            }
+            
+            /* Fix NEXUS text visibility */
+            .nav-logo-text {
+                color: #fff !important;
+                -webkit-text-fill-color: #fff !important;
+            }
+            
+            /* Game Card Mobile Fixes */
+            .game-card {
+                display: flex;
+                flex-direction: column;
+            }
+            
+            .game-media {
+                height: 140px;
+                flex-shrink: 0;
+            }
+            
+            .game-info {
+                display: flex;
+                flex-direction: column;
+                flex: 1;
+                padding: 0.9rem;
+            }
+            
+            .game-title {
+                font-size: 0.95rem !important;
+                margin-bottom: 0.3rem;
+            }
+            
+            .game-genre {
+                font-size: 0.75rem !important;
+            }
+            
+            .game-description {
+                font-size: 0.75rem !important;
+                line-height: 1.3;
+                display: -webkit-box;
+                -webkit-line-clamp: 2;
+                -webkit-box-orient: vertical;
+                overflow: hidden;
+                margin-bottom: 0.6rem;
+            }
+            
+            .game-footer {
+                display: flex !important;
+                flex-direction: column !important;
+                align-items: stretch !important;
+                margin-top: auto;
+                gap: 0.5rem;
+            }
+            
+            .game-price {
+                font-size: 0.9rem !important;
+                text-align: center;
+            }
+            
+            .game-button, .add-to-cart {
+                width: 100% !important;
+                padding: 0.6rem 1rem !important;
+                font-size: 0.75rem !important;
+            }
+            
+            /* Category Card Mobile Fixes */
+            .category-card {
+                display: flex;
+                flex-direction: column;
+                height: auto !important;
+                min-height: 280px;
+            }
+            
+            .category-media {
+                height: 110px;
+                flex-shrink: 0;
+            }
+            
+            .category-info {
+                padding: 0.8rem;
+                display: flex;
+                flex-direction: column;
+                flex: 1;
+            }
+            
+            .category-title {
+                font-size: 0.95rem !important;
+                margin-bottom: 0.3rem;
+            }
+            
+            .category-count {
+                font-size: 0.75rem !important;
+                margin-bottom: 0.5rem;
+            }
+            
+            .category-stats {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 0.3rem;
+                margin-top: auto;
+            }
+            
+            .stat-item {
+                padding: 0.25rem !important;
+            }
+            
+            .stat-value {
+                font-size: 0.8rem !important;
+            }
+            
+            .stat-label {
+                font-size: 0.6rem !important;
             }
             
             .btn, button {
@@ -1803,20 +2056,6 @@
                 padding: 2rem 0.8rem;
             }
         }
-
-            /* Mobile card layout fix */
-            .game-footer, .deal-footer {
-                flex-direction: column !important;
-                align-items: stretch !important;
-            }
-            .deal-price-container {
-                text-align: center !important;
-            }
-            .game-button, .deal-button, .add-to-cart {
-                width: 100% !important;
-            }
-        }
-
     </style>
 </head>
 <body>
