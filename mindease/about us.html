@@ -358,14 +358,14 @@
 
         /* Main Content */
         .main-content {
-            padding: 0 50px;
+            padding: 120px 50px 50px 50px;
             max-width: 1400px;
             margin: 0 auto;
         }
 
         /* Mission Section */
         .mission-section {
-            margin-bottom: 120px;
+            margin-bottom: 100px;
             text-align: center;
         }
 
@@ -475,7 +475,7 @@
 
         /* Stats Section */
         .stats-section {
-            margin-bottom: 120px;
+            margin-bottom: 100px;
             text-align: center;
         }
 
@@ -567,7 +567,7 @@
 
         /* Team Section */
         .team-section {
-            margin-bottom: 120px;
+            margin-bottom: 100px;
         }
 
         .team-grid {
@@ -680,7 +680,7 @@
 
         /* Journey Section */
         .journey-section {
-            margin-bottom: 120px;
+            margin-bottom: 100px;
         }
 
         .journey-timeline {
@@ -757,7 +757,7 @@
 
         /* Testimonials Section */
         .testimonials-section {
-            margin-bottom: 120px;
+            margin-bottom: 100px;
             text-align: center;
         }
 
@@ -892,10 +892,10 @@
 
         .chat-modal {
             position: fixed;
-            bottom: 120px;
+            bottom: 100px;
             right: 30px;
             width: 400px;
-            height: 500px;
+            max-height: 550px;
             background: var(--glass-bg);
             backdrop-filter: blur(25px);
             border: 1px solid rgba(255, 255, 255, 0.2);
@@ -1413,6 +1413,78 @@
         }
 
         @media (max-width: 768px) {
+            /* Mobile Navigation Fix - prevent overflow */
+            .navbar {
+                padding: 12px 10px !important;
+                flex-wrap: nowrap !important;
+                overflow-x: hidden !important;
+                display: flex !important;
+                align-items: center !important;
+            }
+
+            .logo {
+                font-size: 1.2rem !important;
+                flex-shrink: 0 !important;
+                margin-right: 8px !important;
+            }
+
+            .nav-links {
+                display: flex !important;
+                flex-wrap: nowrap !important;
+                overflow-x: auto !important;
+                -webkit-overflow-scrolling: touch !important;
+                gap: 3px !important;
+                padding: 0 !important;
+                margin: 0 !important;
+                flex: 1 !important;
+                scrollbar-width: none !important;
+                max-width: calc(100% - 150px) !important;
+            }
+
+            .nav-links::-webkit-scrollbar {
+                display: none !important;
+            }
+
+            .nav-link {
+                font-size: 0.75rem !important;
+                padding: 6px 10px !important;
+                margin: 0 !important;
+                white-space: nowrap !important;
+                flex-shrink: 0 !important;
+            }
+
+            .cta-button {
+                font-size: 0.8rem !important;
+                padding: 6px 12px !important;
+                white-space: nowrap !important;
+                flex-shrink: 0 !important;
+            }
+
+            /* Footer overflow fix */
+            .footer {
+                overflow-x: hidden !important;
+                width: 100% !important;
+            }
+
+            .footer-content {
+                width: 100% !important;
+                max-width: 100% !important;
+            }
+
+            .footer-section {
+                width: 100% !important;
+            }
+
+            .footer-bottom {
+                overflow: hidden !important;
+                width: 100% !important;
+            }
+
+            .footer-bottom-content {
+                width: 100% !important;
+            }
+
+
             .page-title { font-size: 2.5rem; }
             .mission-card { padding: 40px 30px; }
             .team-grid, .stats-grid { grid-template-columns: 1fr; }
@@ -1426,7 +1498,7 @@
             .timeline-item { flex-direction: column; text-align: center; }
             .timeline-item::before { display: none; }
             .timeline-icon { margin-bottom: 20px; }
-            .testimonial-slider { height: 500px; }
+            .testimonial-slider { max-height: 550px; }
             
             .footer-main {
                 padding: 80px 30px 0;
