@@ -1114,7 +1114,8 @@
         @media (max-width: 768px) {
             .nav-container {
                 padding: 1rem;
-    
+            }
+            
             /* MOBILE FIX: Trophy emoji positioning */
             .section-title::before {
                 position: relative !important;
@@ -1125,40 +1126,60 @@
                 font-size: 1.4rem !important;
             }
             
-            /* MOBILE FIX: Category card layout */
+            /* MOBILE FIX: Category card layout - matching featured.html */
             .category-card {
                 height: auto !important;
-                min-height: 320px;
+                min-height: 420px !important;
                 display: flex !important;
                 flex-direction: column !important;
             }
             
             .category-media {
-                height: 150px;
-                flex-shrink: 0;
+                height: 180px !important;
+                flex-shrink: 0 !important;
+                overflow: hidden !important;
             }
             
             .category-info {
                 display: flex !important;
                 flex-direction: column !important;
                 flex: 1 !important;
-                padding: 1rem;
+                padding: 1.5rem !important;
+                position: relative !important;
+            }
+            
+            .category-title {
+                font-size: 1.15rem !important;
+                margin-bottom: 0.7rem !important;
+            }
+            
+            .category-count {
+                font-size: 0.9rem !important;
+                margin-bottom: 1rem !important;
             }
             
             .category-stats {
-                grid-template-columns: repeat(3, 1fr) !important;
-                gap: 0.5rem;
-                margin-top: auto;
+                display: flex !important;
+                justify-content: space-between !important;
+                gap: 0.8rem !important;
+                margin-top: auto !important;
+                padding-top: 1rem !important;
+                border-top: 1px solid rgba(255,255,255,0.1) !important;
+            }
+            
+            .stat-item {
+                text-align: center;
+                flex: 1;
             }
             
             .stat-value {
-                font-size: 0.9rem !important;
+                font-size: 1rem !important;
             }
             
             .stat-label {
-                font-size: 0.7rem !important;
+                font-size: 0.75rem !important;
             }
-        }
+            
             .hero-title {
                 font-size: 2.6rem;
                 letter-spacing: 4px;
@@ -1182,10 +1203,6 @@
                 font-size: 1.1rem;
                 color: #fff !important;
             }
-
-            .category-card {
-                height: 360px;
-            }
             
             .popular-game {
                 flex: 0 0 280px;
@@ -1196,11 +1213,6 @@
                 margin-bottom: 3rem;
             }
 
-            .section-title::before {
-                left: -60px;
-                font-size: 1.8rem;
-            }
-
             .floating-particle {
                 display: none !important;
             }
@@ -1209,38 +1221,13 @@
                 animation: none !important;
             }
             
-            .category-card, .popular-game, .small-category-card {
+            .popular-game, .small-category-card {
                 transition: transform 0.2s ease, box-shadow 0.2s ease !important;
             }
             
             .category-card:hover, .popular-game:hover, .small-category-card:hover {
                 transform: translateY(-3px) !important;
                 transition: transform 0.2s ease !important;
-            }
-        }
-
-
-            /* Mobile card layout fix */
-            .game-card, .deal-card, .category-card, .featured-deal {
-                display: flex !important;
-                flex-direction: column !important;
-            }
-            .game-info, .deal-info, .category-info {
-                display: flex !important;
-                flex-direction: column !important;
-                flex: 1 !important;
-            }
-            .game-footer, .deal-footer {
-                display: flex !important;
-                flex-direction: row !important;
-                justify-content: space-between !important;
-                align-items: center !important;
-                margin-top: auto !important;
-                gap: 0.8rem !important;
-            }
-            .game-button, .deal-button, .add-to-cart {
-                flex-shrink: 0 !important;
-                white-space: nowrap !important;
             }
         }
 
@@ -1297,33 +1284,43 @@
                 font-size: 1.2rem !important;
             }
             
-            /* MOBILE FIX: Category card layout */
+            /* MOBILE FIX: Category card layout - matching featured.html */
             .category-card {
-                min-height: 300px;
+                height: auto !important;
+                min-height: 400px !important;
+                display: flex !important;
+                flex-direction: column !important;
             }
             
             .category-media {
-                height: 130px;
+                height: 170px !important;
+            }
+            
+            .category-info {
+                padding: 1.3rem !important;
             }
             
             .category-title {
-                font-size: 1rem !important;
+                font-size: 1.05rem !important;
+                margin-bottom: 0.6rem !important;
             }
             
             .category-count {
-                font-size: 0.8rem !important;
+                font-size: 0.85rem !important;
+                margin-bottom: 0.9rem !important;
             }
             
             .category-stats {
-                gap: 0.4rem;
+                display: flex !important;
+                gap: 0.7rem !important;
             }
             
             .stat-value {
-                font-size: 0.85rem !important;
+                font-size: 0.95rem !important;
             }
             
             .stat-label {
-                font-size: 0.65rem !important;
+                font-size: 0.7rem !important;
             }
         }
 
@@ -1613,18 +1610,49 @@
             section {
                 padding: 2rem 0.8rem;
             }
-        }
-
-            /* Mobile card layout fix */
-            .game-footer, .deal-footer {
-                flex-direction: column !important;
-                align-items: stretch !important;
+            
+            /* MOBILE FIX: Trophy emoji positioning */
+            .section-title::before {
+                position: relative !important;
+                left: 0 !important;
+                display: inline-block !important;
+                margin-right: 0.3rem !important;
+                transform: none !important;
+                font-size: 1rem !important;
             }
-            .deal-price-container {
-                text-align: center !important;
+            
+            /* MOBILE FIX: Category card layout */
+            .category-card {
+                height: auto !important;
+                min-height: 380px !important;
             }
-            .game-button, .deal-button, .add-to-cart {
-                width: 100% !important;
+            
+            .category-media {
+                height: 150px !important;
+            }
+            
+            .category-info {
+                padding: 1.1rem !important;
+            }
+            
+            .category-title {
+                font-size: 1rem !important;
+            }
+            
+            .category-count {
+                font-size: 0.8rem !important;
+            }
+            
+            .category-stats {
+                gap: 0.6rem !important;
+            }
+            
+            .stat-value {
+                font-size: 0.9rem !important;
+            }
+            
+            .stat-label {
+                font-size: 0.65rem !important;
             }
         }
 
