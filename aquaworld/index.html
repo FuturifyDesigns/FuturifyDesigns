@@ -6,7 +6,13 @@
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>AquaWorld - Interactive Experience</title>
 <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+    * { 
+      margin: 0; 
+      padding: 0; 
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+      -webkit-touch-callout: none;
+    }
 
     html, body {
       width: 100%;
@@ -751,6 +757,49 @@
         font-size: 0.8rem;
       }
     }
+
+    /* ===== MOBILE FIXES - Bubble CTA Above ===== */
+    @media (max-width: 768px) {
+      .bubble-cta {
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -260px) !important;
+        max-width: 85%;
+        text-align: center;
+        white-space: normal;
+        font-size: 0.95rem;
+        padding: 10px 15px;
+      }
+
+      .bubble:hover + .bubble-cta {
+        transform: translate(-50%, -260px) !important;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .bubble-cta {
+        transform: translate(-50%, -200px) !important;
+        font-size: 0.85rem;
+        padding: 8px 12px;
+      }
+
+      .bubble:hover + .bubble-cta {
+        transform: translate(-50%, -200px) !important;
+      }
+    }
+
+    @media (max-width: 380px) {
+      .bubble-cta {
+        transform: translate(-50%, -180px) !important;
+        font-size: 0.8rem;
+        padding: 7px 10px;
+      }
+
+      .bubble:hover + .bubble-cta {
+        transform: translate(-50%, -180px) !important;
+      }
+    }
+    /* ===== END MOBILE FIXES ===== */
   </style>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;700;800;900&amp;display=swap" rel="stylesheet"/>
 </head>
@@ -777,7 +826,7 @@
 <!-- Water reflection effect -->
 <div class="water-reflection"></div>
 <!-- Bubble with sparkle effect -->
-<div class="bubble" onmouseenter="showEffects()" onmouseleave="hideEffects()">
+<div class="bubble" onclick="popSplat(this)" onmouseenter="showEffects()" onmouseleave="hideEffects()">
 <div class="face">
 <div class="eye left"></div>
 <div class="eye right"></div>
@@ -1092,54 +1141,111 @@
     });
   });
 
-  // ===== MOBILE TOUCH SUPPORT FOR BUBBLE CLICK =====
-  // Ensure bubble click works on mobile devices
+  // ===== MOBILE TOUCH HANDLING - Three Scenarios =====
   const bubble = document.querySelector('.bubble');
+  const bubbleCta = document.getElementById('bubbleCta');
+  const face = document.querySelector('.face');
   
   if (bubble) {
-    // Variable to track if we're on a touch device
-    let isTouchDevice = false;
+    let touchStartTime = 0;
+    let touchDuration = 0;
+    let isAnimationPlaying = false;
+    let hasShownAnimation = false;
+    let touchStartX = 0;
+    let touchStartY = 0;
     
-    // Detect touch device
+    // Touch Start - Begin tracking
     bubble.addEventListener('touchstart', function(e) {
-      isTouchDevice = true;
-      // Show effects on touch
+      touchStartTime = Date.now();
+      touchStartX = e.touches[0].clientX;
+      touchStartY = e.touches[0].clientY;
+      
+      // Show effects immediately
       showEffects();
+      isAnimationPlaying = true;
     }, { passive: true });
     
-    // Handle touch end - trigger the popSplat function
+    // Touch End - Determine scenario
     bubble.addEventListener('touchend', function(e) {
-      if (isTouchDevice) {
-        e.preventDefault(); // Prevent mouse events from firing
-        // Trigger the popSplat function (same as desktop click)
-        popSplat(this);
-      }
-    });
-    
-    // Keep mouse events for desktop
-    bubble.addEventListener('mouseenter', function() {
-      if (!isTouchDevice) {
-        showEffects();
-      }
-    });
-    
-    bubble.addEventListener('mouseleave', function() {
-      if (!isTouchDevice) {
-        hideEffects();
-      }
-    });
-    
-    // Ensure click works on both touch and mouse devices
-    bubble.addEventListener('click', function(e) {
-      if (!isTouchDevice) {
-        // Desktop: onclick attribute will handle this
-        // But we can also call it here for safety
-        if (!this.classList.contains('popped')) {
+      touchDuration = Date.now() - touchStartTime;
+      
+      // Scenario 1 & 2: Hold and release (longer than 200ms)
+      if (touchDuration > 200) {
+        // This was a hold - animation is playing
+        hasShownAnimation = true;
+        isAnimationPlaying = true;
+        
+        // Animation stays until user taps elsewhere or taps bubble again
+        // (handled by document touch listener below)
+        
+      } else {
+        // Scenario 3: Quick tap (less than 200ms) - Go directly to next page
+        if (!hasShownAnimation) {
+          // Quick tap without previous animation - navigate immediately
+          popSplat(this);
+        } else {
+          // Scenario 2: Second tap after animation - navigate to next page
           popSplat(this);
         }
       }
     });
+    
+    // Listen for taps anywhere else on screen
+    document.addEventListener('touchend', function(e) {
+      // Check if tap was outside the bubble
+      const bubbleRect = bubble.getBoundingClientRect();
+      const touch = e.changedTouches[0];
+      
+      const isOutsideBubble = (
+        touch.clientX < bubbleRect.left ||
+        touch.clientX > bubbleRect.right ||
+        touch.clientY < bubbleRect.top ||
+        touch.clientY > bubbleRect.bottom
+      );
+      
+      // If tapped outside and animation is playing, stop it
+      if (isOutsideBubble && isAnimationPlaying) {
+        hideEffects();
+        isAnimationPlaying = false;
+        // Keep hasShownAnimation true so next bubble tap will navigate
+      }
+    });
+    
+    // Desktop mouse events (unchanged)
+    bubble.addEventListener('mouseenter', function() {
+      showEffects();
+    });
+    
+    bubble.addEventListener('mouseleave', function() {
+      hideEffects();
+    });
+    
+    bubble.addEventListener('click', function() {
+      // Desktop click - navigate
+      if (!('ontouchstart' in window)) {
+        popSplat(this);
+      }
+    });
   }
-  // ===== END MOBILE TOUCH SUPPORT =====
+  
+  // Update showEffects to control face visibility
+  const originalShowEffects = window.showEffects;
+  window.showEffects = function() {
+    if (originalShowEffects) originalShowEffects();
+    const face = document.querySelector('.face');
+    const bubbleCta = document.getElementById('bubbleCta');
+    if (face) face.style.opacity = '1';
+    if (bubbleCta) bubbleCta.style.opacity = '1';
+  };
+  
+  const originalHideEffects = window.hideEffects;
+  window.hideEffects = function() {
+    if (originalHideEffects) originalHideEffects();
+    const face = document.querySelector('.face');
+    const bubbleCta = document.getElementById('bubbleCta');
+    if (face) face.style.opacity = '0';
+    if (bubbleCta) bubbleCta.style.opacity = '0';
+  };
+  // ===== END MOBILE TOUCH HANDLING =====
 });</script></body>
 </html>
