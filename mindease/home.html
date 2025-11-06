@@ -564,7 +564,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 0 50px;
+            padding: 120px 50px 50px 50px;
             position: relative;
             z-index: 5;
         }
@@ -804,10 +804,10 @@
 
         .chat-modal {
             position: fixed;
-            bottom: 120px;
+            bottom: 100px;
             right: 30px;
             width: 400px;
-            height: 500px;
+            max-height: 550px;
             background: var(--glass-bg);
             backdrop-filter: blur(25px);
             border: 1px solid rgba(255, 255, 255, 0.2);
@@ -1855,20 +1855,47 @@
                 padding: 12px 15px;
             }
 
+            /* Navbar fixes */
+            .navbar {
+                padding: 12px 10px;
+                flex-wrap: nowrap;
+                overflow-x: hidden;
+            }
+
             .logo {
-                font-size: 1.3rem;
+                font-size: 1.2rem;
+                flex-shrink: 0;
+                margin-right: 8px;
+            }
+
+            .nav-links {
+                display: flex;
+                flex-wrap: nowrap;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+                gap: 3px;
+                padding: 0;
+                margin: 0;
+                flex: 1;
+                scrollbar-width: none; /* Firefox */
+            }
+
+            .nav-links::-webkit-scrollbar {
+                display: none; /* Chrome, Safari */
             }
 
             .nav-link {
-                font-size: 0.85rem;
-                padding: 8px 12px;
-                margin: 0 2px;
+                font-size: 0.75rem;
+                padding: 6px 10px;
+                margin: 0;
+                white-space: nowrap;
+                flex-shrink: 0;
             }
 
-            /* Hero section */
+            /* Hero section - push down significantly */
             .hero {
-                padding: 80px 20px 60px;
-                min-height: auto;
+                padding: 140px 20px 60px;
+                min-height: calc(100vh - 80px);
             }
 
             .hero-title {
@@ -2073,17 +2100,24 @@
             }
 
             /* Footer adjustments */
+            /* Footer adjustments */
             .footer {
-                padding: 30px 20px;
+                padding: 30px 15px;
+                overflow-x: hidden;
+                width: 100%;
             }
 
             .footer-content {
                 flex-direction: column;
                 gap: 20px;
+                width: 100%;
+                max-width: 100%;
             }
 
             .footer-section {
                 margin-bottom: 20px;
+                width: 100%;
+                padding: 0 5px;
             }
 
             .footer-section h3 {
@@ -2091,17 +2125,45 @@
                 margin-bottom: 12px;
             }
 
+            .footer-links {
+                display: flex;
+                flex-direction: column;
+                gap: 8px;
+            }
+
             .footer-links li {
                 margin-bottom: 8px;
+                list-style: none;
             }
 
             .footer-links a {
                 font-size: 0.85rem;
+                word-wrap: break-word;
+            }
+
+            .footer-bottom {
+                padding: 20px 15px;
+                overflow: hidden;
+                width: 100%;
+            }
+
+            .footer-bottom-content {
+                flex-direction: column;
+                text-align: center;
+                gap: 12px;
+                width: 100%;
+            }
+
+            .social-links {
+                justify-content: center;
+                flex-wrap: wrap;
+                gap: 10px;
             }
 
             /* Newsletter form */
             .newsletter-form {
                 flex-direction: column;
+                width: 100%;
             }
 
             .newsletter-input {
@@ -2109,6 +2171,7 @@
                 margin-bottom: 10px;
                 font-size: 0.9rem;
                 padding: 10px 15px;
+                box-sizing: border-box;
             }
 
             .newsletter-button {
