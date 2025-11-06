@@ -24,6 +24,8 @@
       font-family: 'Montserrat', sans-serif;
       -webkit-font-smoothing: var(--font-smooth);
       -moz-osx-font-smoothing: grayscale;
+      -webkit-tap-highlight-color: transparent;
+      -webkit-touch-callout: none;
     }
     
     body {
@@ -440,7 +442,7 @@
     .creature-content {
       display: none;
       background: rgba(255, 255, 255, 0.05);
-      padding: 40px;
+      padding: 30px;
       border-radius: 15px;
       box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
       animation: fadeIn 0.5s ease;
@@ -448,6 +450,8 @@
       overflow: hidden;
       border: 1px solid rgba(44, 116, 179, 0.3);
       transition: all 0.3s ease;
+      max-width: 1000px;
+      margin: 0 auto;
     }
     
     /* Water pulse animation */
