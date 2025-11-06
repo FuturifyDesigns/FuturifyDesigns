@@ -1114,8 +1114,51 @@
         @media (max-width: 768px) {
             .nav-container {
                 padding: 1rem;
+    
+            /* MOBILE FIX: Trophy emoji positioning */
+            .section-title::before {
+                position: relative !important;
+                left: 0 !important;
+                display: inline-block !important;
+                margin-right: 0.5rem !important;
+                transform: none !important;
+                font-size: 1.4rem !important;
             }
             
+            /* MOBILE FIX: Category card layout */
+            .category-card {
+                height: auto !important;
+                min-height: 320px;
+                display: flex !important;
+                flex-direction: column !important;
+            }
+            
+            .category-media {
+                height: 150px;
+                flex-shrink: 0;
+            }
+            
+            .category-info {
+                display: flex !important;
+                flex-direction: column !important;
+                flex: 1 !important;
+                padding: 1rem;
+            }
+            
+            .category-stats {
+                grid-template-columns: repeat(3, 1fr) !important;
+                gap: 0.5rem;
+                margin-top: auto;
+            }
+            
+            .stat-value {
+                font-size: 0.9rem !important;
+            }
+            
+            .stat-label {
+                font-size: 0.7rem !important;
+            }
+        }
             .hero-title {
                 font-size: 2.6rem;
                 letter-spacing: 4px;
@@ -1242,6 +1285,45 @@
             
             .category-card:hover, .popular-game:hover, .small-category-card:hover {
                 transform: none !important;
+            }
+            
+            /* MOBILE FIX: Trophy emoji positioning */
+            .section-title::before {
+                position: relative !important;
+                left: 0 !important;
+                display: inline-block !important;
+                margin-right: 0.4rem !important;
+                transform: none !important;
+                font-size: 1.2rem !important;
+            }
+            
+            /* MOBILE FIX: Category card layout */
+            .category-card {
+                min-height: 300px;
+            }
+            
+            .category-media {
+                height: 130px;
+            }
+            
+            .category-title {
+                font-size: 1rem !important;
+            }
+            
+            .category-count {
+                font-size: 0.8rem !important;
+            }
+            
+            .category-stats {
+                gap: 0.4rem;
+            }
+            
+            .stat-value {
+                font-size: 0.85rem !important;
+            }
+            
+            .stat-label {
+                font-size: 0.65rem !important;
             }
         }
 

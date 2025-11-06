@@ -1131,9 +1131,58 @@
                 margin-bottom: 3rem;
             }
 
+
+            /* MOBILE FIX: Trophy emoji positioning */
             .section-title::before {
-                left: -60px;
-                font-size: 1.8rem;
+                position: relative !important;
+                left: 0 !important;
+                display: inline-block !important;
+                margin-right: 0.5rem !important;
+                transform: none !important;
+                font-size: 1.4rem !important;
+            }
+            
+            /* MOBILE FIX: Game card layout */
+            .game-card, .featured-game-card {
+                height: auto !important;
+                min-height: 380px;
+                display: flex !important;
+                flex-direction: column !important;
+            }
+            
+            .game-media {
+                height: 180px;
+                flex-shrink: 0;
+            }
+            
+            .game-info {
+                display: flex !important;
+                flex-direction: column !important;
+                flex: 1 !important;
+                padding: 1.2rem;
+            }
+            
+            .game-description {
+                display: -webkit-box !important;
+                -webkit-line-clamp: 2 !important;
+                -webkit-box-orient: vertical !important;
+                overflow: hidden !important;
+            }
+            
+            .game-footer {
+                display: flex !important;
+                flex-direction: row !important;
+                justify-content: space-between !important;
+                align-items: center !important;
+                margin-top: auto !important;
+                gap: 0.8rem !important;
+            }
+            
+            .game-button {
+                padding: 0.6rem 1rem !important;
+                font-size: 0.85rem !important;
+                flex-shrink: 0 !important;
+                white-space: nowrap !important;
             }
         }
 

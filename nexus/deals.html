@@ -122,7 +122,57 @@
         @media (max-width: 576px) {
             .floating-particle {
                 display: none !important;
+    
+            
+            /* MOBILE FIX: Diamond emoji */
+            .section-title::before {
+                font-size: 1.2rem !important;
+                margin-right: 0.4rem !important;
             }
+            
+            /* MOBILE FIX: Deal timer compact */
+            .timer-title {
+                font-size: 1rem !important;
+            }
+            
+            .timer-units {
+                gap: 0.6rem !important;
+            }
+            
+            .timer-unit {
+                min-width: 55px !important;
+                padding: 0.5rem 0.7rem !important;
+            }
+            
+            .timer-value {
+                font-size: 1.3rem !important;
+            }
+            
+            .timer-label {
+                font-size: 0.65rem !important;
+            }
+            
+            /* MOBILE FIX: Deal cards */
+            .deal-card {
+                min-height: 380px;
+            }
+            
+            .deal-media {
+                height: 160px;
+            }
+            
+            .deal-info {
+                padding: 1rem;
+            }
+            
+            .deal-title {
+                font-size: 1rem !important;
+            }
+            
+            .deal-price {
+                font-size: 1.2rem !important;
+            }
+        }
             
             .deal-badge, .featured-deal-badge, .trending-rank {
                 animation: none !important;
@@ -1724,8 +1774,118 @@
                 transition-duration: 0.01ms !important;
                 scroll-behavior: auto !important;
             }
-        }
-        @media (max-width: 1200px) {
+
+            /* MOBILE FIX: Diamond emoji positioning */
+            .section-title::before {
+                position: relative !important;
+                left: 0 !important;
+                display: inline-block !important;
+                margin-right: 0.5rem !important;
+                transform: none !important;
+                font-size: 1.4rem !important;
+            }
+            
+            /* MOBILE FIX: Deal timer - horizontal layout */
+            .deal-timer {
+                padding: 1rem !important;
+                margin-bottom: 1.5rem;
+            }
+            
+            .timer-title {
+                font-size: 1.2rem !important;
+                margin-bottom: 0.8rem;
+            }
+            
+            .timer-units {
+                display: flex !important;
+                flex-direction: row !important;
+                justify-content: center !important;
+                gap: 0.8rem !important;
+                flex-wrap: wrap;
+            }
+            
+            .timer-unit {
+                min-width: 60px !important;
+                padding: 0.6rem 0.8rem !important;
+            }
+            
+            .timer-value {
+                font-size: 1.5rem !important;
+            }
+            
+            .timer-label {
+                font-size: 0.7rem !important;
+            }
+            
+            /* MOBILE FIX: Deal card layout */
+            .deal-card {
+                height: auto !important;
+                min-height: 400px;
+                display: flex !important;
+                flex-direction: column !important;
+            }
+            
+            .deal-media {
+                height: 180px;
+                flex-shrink: 0;
+            }
+            
+            .deal-info {
+                display: flex !important;
+                flex-direction: column !important;
+                flex: 1 !important;
+                padding: 1.2rem;
+            }
+            
+            .deal-badge {
+                font-size: 0.7rem !important;
+                padding: 0.3rem 0.7rem !important;
+            }
+            
+            .deal-title {
+                font-size: 1.1rem !important;
+                margin-bottom: 0.6rem !important;
+            }
+            
+            .deal-description {
+                display: -webkit-box !important;
+                -webkit-line-clamp: 2 !important;
+                -webkit-box-orient: vertical !important;
+                overflow: hidden !important;
+                font-size: 0.85rem !important;
+            }
+            
+            .deal-price-container {
+                margin-top: auto !important;
+                margin-bottom: 0.8rem !important;
+            }
+            
+            .original-price {
+                font-size: 0.9rem !important;
+            }
+            
+            .deal-price {
+                font-size: 1.3rem !important;
+            }
+            
+            .savings {
+                font-size: 0.75rem !important;
+            }
+            
+            .deal-footer {
+                display: flex !important;
+                flex-direction: row !important;
+                justify-content: space-between !important;
+                align-items: center !important;
+                gap: 0.8rem !important;
+            }
+            
+            .deal-button {
+                padding: 0.6rem 1rem !important;
+                font-size: 0.85rem !important;
+                flex-shrink: 0 !important;
+            }
+        }@media (max-width: 1200px) {
             .deals-grid {
                 grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
             }
@@ -2142,7 +2302,54 @@
         @media (max-width: 480px) {
             .nav-container {
                 padding: 0.8rem 0.8rem;
+    
+            
+            /* MOBILE FIX: Diamond emoji */
+            .section-title::before {
+                font-size: 1rem !important;
+                margin-right: 0.3rem !important;
             }
+            
+            /* MOBILE FIX: Deal timer very compact */
+            .timer-title {
+                font-size: 0.95rem !important;
+            }
+            
+            .timer-unit {
+                min-width: 50px !important;
+                padding: 0.4rem 0.6rem !important;
+            }
+            
+            .timer-value {
+                font-size: 1.1rem !important;
+            }
+            
+            /* MOBILE FIX: Deal cards - full width buttons */
+            .deal-card {
+                min-height: 360px;
+            }
+            
+            .deal-media {
+                height: 140px;
+            }
+            
+            .deal-info {
+                padding: 0.9rem;
+            }
+            
+            .deal-footer {
+                flex-direction: column !important;
+                align-items: stretch !important;
+            }
+            
+            .deal-price-container {
+                text-align: center;
+            }
+            
+            .deal-button {
+                width: 100% !important;
+            }
+        }
             
             .nav-logo svg {
                 width: 20px;
