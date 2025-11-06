@@ -800,6 +800,110 @@
       }
     }
     /* ===== END MOBILE FIXES ===== */
+
+    /* ===== FLOATING HINT - Bottom Center ===== */
+    .bubble-hint {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, 220px);
+      color: white;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 500;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8), 0 0 20px rgba(42, 116, 179, 0.6);
+      opacity: 1;
+      pointer-events: none;
+      z-index: 3;
+      padding: 12px 24px;
+      border-radius: 30px;
+      background: linear-gradient(135deg, rgba(42, 116, 179, 0.8), rgba(44, 116, 179, 0.6));
+      backdrop-filter: blur(10px);
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      box-shadow: 0 5px 25px rgba(0, 0, 0, 0.3), 0 0 40px rgba(42, 116, 179, 0.5);
+      animation: floatHint 3s ease-in-out infinite;
+      transition: opacity 0.4s ease;
+      white-space: nowrap;
+    }
+
+    @keyframes floatHint {
+      0%, 100% { 
+        transform: translate(-50%, 220px) scale(1);
+        opacity: 0.85;
+      }
+      50% { 
+        transform: translate(-50%, 210px) scale(1.05);
+        opacity: 1;
+      }
+    }
+
+    /* Hide hint when hovering/holding bubble */
+    .bubble:hover ~ .bubble-hint,
+    .bubble.active ~ .bubble-hint {
+      opacity: 0 !important;
+    }
+
+    /* Mobile adjustments */
+    @media (max-width: 768px) {
+      .bubble-hint {
+        font-size: 0.95rem;
+        padding: 10px 20px;
+        transform: translate(-50%, 200px);
+      }
+
+      @keyframes floatHint {
+        0%, 100% { 
+          transform: translate(-50%, 200px) scale(1);
+          opacity: 0.85;
+        }
+        50% { 
+          transform: translate(-50%, 190px) scale(1.05);
+          opacity: 1;
+        }
+      }
+    }
+
+    @media (max-width: 480px) {
+      .bubble-hint {
+        font-size: 0.85rem;
+        padding: 8px 16px;
+        transform: translate(-50%, 180px);
+        white-space: normal;
+        text-align: center;
+        max-width: 85%;
+      }
+
+      @keyframes floatHint {
+        0%, 100% { 
+          transform: translate(-50%, 180px) scale(1);
+          opacity: 0.85;
+        }
+        50% { 
+          transform: translate(-50%, 170px) scale(1.05);
+          opacity: 1;
+        }
+      }
+    }
+
+    @media (max-width: 380px) {
+      .bubble-hint {
+        font-size: 0.8rem;
+        padding: 7px 14px;
+        transform: translate(-50%, 160px);
+      }
+
+      @keyframes floatHint {
+        0%, 100% { 
+          transform: translate(-50%, 160px) scale(1);
+          opacity: 0.85;
+        }
+        50% { 
+          transform: translate(-50%, 150px) scale(1.05);
+          opacity: 1;
+        }
+      }
+    }
+    /* ===== END FLOATING HINT ===== */
   </style>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;700;800;900&amp;display=swap" rel="stylesheet"/>
 </head>
@@ -836,6 +940,8 @@
 </div>
 <!-- Bubble call-to-action with shine effect -->
 <div class="bubble-cta" id="bubbleCta">Click me! Let's explore the sea together</div>
+<!-- Floating hint at bottom center -->
+<div class="bubble-hint" id="bubbleHint">✨ Hover/Hold me for a surprise! ✨</div>
 <!-- Splash effect next to bubble -->
 <div class="splash"></div>
 <script>
@@ -1144,6 +1250,7 @@
   // ===== MOBILE TOUCH HANDLING - Three Scenarios =====
   const bubble = document.querySelector('.bubble');
   const bubbleCta = document.getElementById('bubbleCta');
+  const bubbleHint = document.getElementById('bubbleHint');
   const face = document.querySelector('.face');
   
   if (bubble) {
@@ -1160,9 +1267,13 @@
       touchStartX = e.touches[0].clientX;
       touchStartY = e.touches[0].clientY;
       
+      // Hide hint
+      if (bubbleHint) bubbleHint.style.opacity = '0';
+      
       // Show effects immediately
       showEffects();
       isAnimationPlaying = true;
+      bubble.classList.add('active');
     }, { passive: true });
     
     // Touch End - Determine scenario
@@ -1207,6 +1318,9 @@
       if (isOutsideBubble && isAnimationPlaying) {
         hideEffects();
         isAnimationPlaying = false;
+        bubble.classList.remove('active');
+        // Show hint again
+        if (bubbleHint) bubbleHint.style.opacity = '1';
         // Keep hasShownAnimation true so next bubble tap will navigate
       }
     });
@@ -1214,10 +1328,14 @@
     // Desktop mouse events (unchanged)
     bubble.addEventListener('mouseenter', function() {
       showEffects();
+      // Hide hint on hover (desktop)
+      if (bubbleHint) bubbleHint.style.opacity = '0';
     });
     
     bubble.addEventListener('mouseleave', function() {
       hideEffects();
+      // Show hint again when leaving hover (desktop)
+      if (bubbleHint) bubbleHint.style.opacity = '1';
     });
     
     bubble.addEventListener('click', function() {
@@ -1228,14 +1346,16 @@
     });
   }
   
-  // Update showEffects to control face visibility
+  // Update showEffects to control face visibility and hide hint
   const originalShowEffects = window.showEffects;
   window.showEffects = function() {
     if (originalShowEffects) originalShowEffects();
     const face = document.querySelector('.face');
     const bubbleCta = document.getElementById('bubbleCta');
+    const bubbleHint = document.getElementById('bubbleHint');
     if (face) face.style.opacity = '1';
     if (bubbleCta) bubbleCta.style.opacity = '1';
+    if (bubbleHint) bubbleHint.style.opacity = '0';
   };
   
   const originalHideEffects = window.hideEffects;
@@ -1243,8 +1363,10 @@
     if (originalHideEffects) originalHideEffects();
     const face = document.querySelector('.face');
     const bubbleCta = document.getElementById('bubbleCta');
+    const bubbleHint = document.getElementById('bubbleHint');
     if (face) face.style.opacity = '0';
     if (bubbleCta) bubbleCta.style.opacity = '0';
+    if (bubbleHint) bubbleHint.style.opacity = '1';
   };
   // ===== END MOBILE TOUCH HANDLING =====
 });</script></body>
