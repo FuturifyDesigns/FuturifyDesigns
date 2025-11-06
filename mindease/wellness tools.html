@@ -1767,20 +1767,41 @@
             }
 
             /* Progress Tracker */
-            .progress-stats {
+            .progress-stats,
+            .tool-stats {
                 gap: 12px;
+                grid-template-columns: 1fr !important;
+                padding: 0 10px;
+                width: 100%;
+                max-width: 100%;
+                overflow-x: hidden;
             }
 
             .stat-item {
-                padding: 15px;
+                padding: 15px 10px;
+                text-align: center;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                width: 100%;
+                max-width: 100%;
+                box-sizing: border-box;
             }
 
-            .stat-value {
+            .stat-value,
+            .stat-number {
                 font-size: 1.8rem;
+                text-align: center;
+                width: 100%;
             }
 
             .stat-label {
                 font-size: 0.8rem;
+                text-align: center;
+                width: 100%;
+                word-wrap: break-word;
+                padding: 0 5px;
             }
 
             /* Breathing Exercise */
