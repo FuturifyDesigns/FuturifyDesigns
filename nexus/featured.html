@@ -1142,24 +1142,35 @@
                 font-size: 1.4rem !important;
             }
             
-            /* MOBILE FIX: Game card layout */
+            /* MOBILE FIX: Game card layout - matching home.html */
             .game-card, .featured-game-card {
                 height: auto !important;
-                min-height: 380px;
+                min-height: 450px !important;
                 display: flex !important;
                 flex-direction: column !important;
             }
             
             .game-media {
-                height: 180px;
-                flex-shrink: 0;
+                height: 200px !important;
+                flex-shrink: 0 !important;
+                overflow: hidden !important;
             }
             
             .game-info {
                 display: flex !important;
                 flex-direction: column !important;
                 flex: 1 !important;
-                padding: 1.2rem;
+                padding: 1.5rem !important;
+            }
+            
+            .game-title {
+                font-size: 1.15rem !important;
+                margin-bottom: 0.7rem !important;
+            }
+            
+            .game-genre {
+                font-size: 0.9rem !important;
+                margin-bottom: 0.9rem !important;
             }
             
             .game-description {
@@ -1167,6 +1178,9 @@
                 -webkit-line-clamp: 2 !important;
                 -webkit-box-orient: vertical !important;
                 overflow: hidden !important;
+                margin-bottom: 1rem !important;
+                font-size: 0.875rem !important;
+                line-height: 1.5 !important;
             }
             
             .game-footer {
@@ -1175,39 +1189,19 @@
                 justify-content: space-between !important;
                 align-items: center !important;
                 margin-top: auto !important;
-                gap: 0.8rem !important;
+                gap: 1rem !important;
             }
             
-            .game-button {
-                padding: 0.6rem 1rem !important;
+            .game-price {
+                font-size: 1.2rem !important;
+            }
+            
+            .game-button, .add-to-cart {
+                padding: 0.75rem 1.2rem !important;
                 font-size: 0.85rem !important;
                 flex-shrink: 0 !important;
                 white-space: nowrap !important;
-            }
-        }
-
-
-            /* Mobile card layout fix */
-            .game-card, .deal-card, .category-card, .featured-deal {
-                display: flex !important;
-                flex-direction: column !important;
-            }
-            .game-info, .deal-info, .category-info {
-                display: flex !important;
-                flex-direction: column !important;
-                flex: 1 !important;
-            }
-            .game-footer, .deal-footer {
-                display: flex !important;
-                flex-direction: row !important;
-                justify-content: space-between !important;
-                align-items: center !important;
-                margin-top: auto !important;
-                gap: 0.8rem !important;
-            }
-            .game-button, .deal-button, .add-to-cart {
-                flex-shrink: 0 !important;
-                white-space: nowrap !important;
+                width: auto !important;
             }
         }
 
@@ -1337,31 +1331,6 @@
         }
 
         /* Mobile Devices (576px) */
-
-            /* Mobile card layout fix */
-            .game-card, .deal-card, .category-card, .featured-deal {
-                display: flex !important;
-                flex-direction: column !important;
-            }
-            .game-info, .deal-info, .category-info {
-                display: flex !important;
-                flex-direction: column !important;
-                flex: 1 !important;
-            }
-            .game-footer, .deal-footer {
-                display: flex !important;
-                flex-direction: row !important;
-                justify-content: space-between !important;
-                align-items: center !important;
-                margin-top: auto !important;
-                gap: 0.8rem !important;
-            }
-            .game-button, .deal-button, .add-to-cart {
-                flex-shrink: 0 !important;
-                white-space: nowrap !important;
-            }
-        }
-
         @media (max-width: 576px) {
             .nav-container {
                 padding: 0.9rem 1rem;
@@ -1435,30 +1404,72 @@
                 flex-direction: column;
                 text-align: center;
             }
-        }
-
-        /* Small Mobile (480px) */
-
-            /* Mobile card layout fix */
-            .game-card, .deal-card, .category-card {
+            
+            /* MOBILE FIX: Trophy emoji positioning */
+            .section-title::before {
+                position: relative !important;
+                left: 0 !important;
+                display: inline-block !important;
+                margin-right: 0.4rem !important;
+                transform: none !important;
+                font-size: 1.2rem !important;
+            }
+            
+            /* MOBILE FIX: Game card layout - matching home.html */
+            .game-card, .featured-game-card {
+                height: auto !important;
+                min-height: 420px !important;
                 display: flex !important;
                 flex-direction: column !important;
             }
-            .game-description, .deal-description {
+            
+            .game-media {
+                height: 180px !important;
+            }
+            
+            .game-info {
+                padding: 1.3rem !important;
+            }
+            
+            .game-title {
+                font-size: 1.05rem !important;
+                margin-bottom: 0.6rem !important;
+            }
+            
+            .game-genre {
+                font-size: 0.85rem !important;
+                margin-bottom: 0.8rem !important;
+            }
+            
+            .game-description {
                 display: -webkit-box !important;
                 -webkit-line-clamp: 2 !important;
                 -webkit-box-orient: vertical !important;
                 overflow: hidden !important;
+                font-size: 0.85rem !important;
+                margin-bottom: 0.9rem !important;
             }
-            .game-footer, .deal-footer {
+            
+            .game-footer {
                 display: flex !important;
                 flex-direction: row !important;
                 justify-content: space-between !important;
                 align-items: center !important;
-                gap: 0.6rem !important;
+                gap: 0.8rem !important;
+            }
+            
+            .game-price {
+                font-size: 1.1rem !important;
+            }
+            
+            .game-button, .add-to-cart {
+                padding: 0.7rem 1.1rem !important;
+                font-size: 0.8rem !important;
+                white-space: nowrap !important;
             }
         }
 
+        /* Small Mobile (480px) */
         @media (max-width: 480px) {
             .nav-container {
                 padding: 0.8rem 0.8rem;
@@ -1507,18 +1518,57 @@
             section {
                 padding: 2rem 0.8rem;
             }
-        }
-
-            /* Mobile card layout fix */
-            .game-footer, .deal-footer {
+            
+            /* MOBILE FIX: Trophy emoji positioning */
+            .section-title::before {
+                position: relative !important;
+                left: 0 !important;
+                display: inline-block !important;
+                margin-right: 0.3rem !important;
+                transform: none !important;
+                font-size: 1rem !important;
+            }
+            
+            /* MOBILE FIX: Game card layout - full width buttons */
+            .game-card, .featured-game-card {
+                height: auto !important;
+                min-height: 400px !important;
+            }
+            
+            .game-media {
+                height: 160px !important;
+            }
+            
+            .game-info {
+                padding: 1.1rem !important;
+            }
+            
+            .game-title {
+                font-size: 1rem !important;
+            }
+            
+            .game-genre {
+                font-size: 0.8rem !important;
+            }
+            
+            .game-description {
+                font-size: 0.8rem !important;
+            }
+            
+            .game-footer {
                 flex-direction: column !important;
                 align-items: stretch !important;
+                gap: 0.7rem !important;
             }
-            .deal-price-container {
-                text-align: center !important;
+            
+            .game-price {
+                text-align: center;
+                font-size: 1.1rem !important;
             }
-            .game-button, .deal-button, .add-to-cart {
+            
+            .game-button, .add-to-cart {
                 width: 100% !important;
+                padding: 0.7rem 1rem !important;
             }
         }
 
