@@ -1043,32 +1043,23 @@
         .notification {
             position: fixed;
             top: 100px;
-            right: 30px;
+            right: -400px;
             background: linear-gradient(135deg, #667eea, #764ba2);
             color: white;
             padding: 20px 30px;
             border-radius: 15px;
-            transform: translateX(400px);
-            transition: transform 0.4s ease;
+            transition: right 0.5s cubic-bezier(0.4, 0, 0.2, 1);
             z-index: 10001;
             max-width: 350px;
             box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+            opacity: 0;
+            visibility: hidden;
         }
         
         .notification.show {
-            transform: translateX(0);
-            animation: slideInNotification 0.4s ease-out;
-        }
-        
-        @keyframes slideInNotification {
-            from {
-                transform: translateX(400px);
-                opacity: 0;
-            }
-            to {
-                transform: translateX(0);
-                opacity: 1;
-            }
+            right: 30px;
+            opacity: 1;
+            visibility: visible;
         }
         
         .notification-close {
@@ -1123,9 +1114,63 @@
         @media (max-width: 768px) {
             .notification {
                 top: 80px;
-                right: 15px;
-                left: 15px;
+                right: -100%;
+                left: auto;
                 max-width: calc(100% - 30px);
+                width: calc(100% - 30px);
+            }
+            
+            .notification.show {
+                right: 15px;
+            }
+            
+            /* Chatbot mobile positioning */
+            #chatbotButton {
+                bottom: 20px !important;
+                right: 20px !important;
+                width: 50px !important;
+                height: 50px !important;
+            }
+            
+            #chatbotWindow {
+                top: 80px !important;
+                right: 10px !important;
+                left: 10px !important;
+                width: calc(100% - 20px) !important;
+                max-height: 400px !important;
+            }
+            
+            #chatbotWindow > div:first-child {
+                padding: 12px 15px !important;
+            }
+            
+            #chatbotWindow > div:first-child h3 {
+                font-size: 16px !important;
+            }
+            
+            #chatbotMessages {
+                padding: 12px !important;
+                font-size: 13px !important;
+            }
+            
+            #chatbotMessages > div {
+                font-size: 13px !important;
+                padding: 10px 12px !important;
+            }
+            
+            #chatbotWindow > div:last-child {
+                padding: 10px 15px !important;
+            }
+            
+            #chatbotInput {
+                padding: 10px 12px !important;
+                font-size: 13px !important;
+            }
+            
+            #chatbotSend {
+                width: 40px !important;
+                height: 40px !important;
+                font-size: 18px !important;
             }
         }
 </style>
