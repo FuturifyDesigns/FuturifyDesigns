@@ -1395,11 +1395,16 @@
 
         @media (max-width: 768px) {
             .page-title { font-size: 2.5rem; }
+            .page-header { padding-top: 180px; }
             .mission-card { padding: 40px 30px; }
             .team-grid, .stats-grid { grid-template-columns: 1fr; }
             .chat-modal { width: 350px; right: 20px; }
             .navbar { padding: 15px 20px; }
+            .navbar { flex-direction: column; align-items: center; gap: 15px; }
             .nav-links { gap: 15px; }
+            .nav-links { order: 2; }
+            .logo { font-size: 1.5rem; order: 1; }
+            .cta-button { padding: 10px 20px; font-size: 0.9rem; order: 0; }
             .ai-insights { display: none; }
             .main-content { padding: 0 20px; }
             .page-header { padding: 120px 20px 60px; }
@@ -1450,6 +1455,11 @@
         }
 
         @media (max-width: 480px) {
+            .nav-links { order: 2; }
+            .logo { font-size: 1.3rem; order: 1; }
+            .navbar { padding: 12px 15px; flex-direction: column; align-items: center; gap: 12px; }
+            .cta-button { padding: 8px 16px; font-size: 0.85rem; order: 0; }
+
             .chat-invitation {
                 right: 10px;
                 bottom: 90px;
