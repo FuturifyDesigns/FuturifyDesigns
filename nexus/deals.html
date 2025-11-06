@@ -122,7 +122,44 @@
         @media (max-width: 576px) {
             .floating-particle {
                 display: none !important;
-    
+            }
+            
+            /* MOBILE FIX: Hero section */
+            .hero {
+                margin-top: 4.5rem !important;
+                padding: 3rem 0.8rem 2rem !important;
+            }
+            
+            .hero-content {
+                margin-top: 2.5rem !important;
+            }
+            
+            .hero-title {
+                font-size: 2rem !important;
+                letter-spacing: 2px !important;
+            }
+            
+            .hero-title::before, .hero-title::after {
+                font-size: 1.2rem !important;
+            }
+            
+            .hero-subtitle {
+                font-size: 0.9rem !important;
+            }
+            
+            /* MOBILE FIX: Countdown timer */
+            .countdown-item {
+                padding: 0.8rem 0.7rem !important;
+                min-width: 65px !important;
+            }
+            
+            .countdown-value {
+                font-size: 1.4rem !important;
+            }
+            
+            .countdown-label {
+                font-size: 0.7rem !important;
+            }
             
             /* MOBILE FIX: Diamond emoji */
             .section-title::before {
@@ -154,23 +191,23 @@
             
             /* MOBILE FIX: Deal cards */
             .deal-card {
-                min-height: 380px;
+                min-height: 480px !important;
             }
             
             .deal-media {
-                height: 160px;
+                height: 190px !important;
             }
             
             .deal-info {
-                padding: 1rem;
+                padding: 1.3rem !important;
             }
             
             .deal-title {
-                font-size: 1rem !important;
+                font-size: 1.05rem !important;
             }
             
             .deal-price {
-                font-size: 1.2rem !important;
+                font-size: 1.3rem !important;
             }
         }
             
@@ -1775,6 +1812,79 @@
                 scroll-behavior: auto !important;
             }
 
+            /* MOBILE FIX: Hero section - move down to avoid navigation cropping */
+            .hero {
+                margin-top: 5rem !important;  /* Move down from nav */
+                height: auto !important;
+                min-height: 70vh !important;
+                padding: 4rem 1rem 3rem !important;
+            }
+            
+            .hero-content {
+                margin-top: 3rem !important;  /* Extra push down */
+                padding: 0 1rem !important;
+            }
+            
+            .hero-title {
+                font-size: 2.2rem !important;
+                letter-spacing: 3px !important;
+                color: #fff !important;
+                -webkit-text-fill-color: #fff !important;
+                margin-bottom: 1rem !important;
+            }
+            
+            /* MOBILE FIX: Hero emoji positioning */
+            .hero-title::before {
+                position: relative !important;
+                left: 0 !important;
+                display: inline-block !important;
+                margin-right: 0.5rem !important;
+                transform: none !important;
+                font-size: 1.4rem !important;
+                animation: none !important;
+            }
+            
+            .hero-title::after {
+                position: relative !important;
+                right: 0 !important;
+                display: inline-block !important;
+                margin-left: 0.5rem !important;
+                transform: none !important;
+                font-size: 1.4rem !important;
+                animation: none !important;
+            }
+            
+            .hero-subtitle {
+                font-size: 1rem !important;
+                letter-spacing: 2px !important;
+                margin-bottom: 1.5rem !important;
+            }
+            
+            /* MOBILE FIX: Countdown timer - horizontal layout */
+            .countdown-container {
+                display: flex !important;
+                flex-direction: row !important;
+                justify-content: center !important;
+                gap: 0.8rem !important;
+                flex-wrap: wrap !important;
+                margin-bottom: 2rem !important;
+            }
+            
+            .countdown-item {
+                padding: 1rem 0.8rem !important;
+                min-width: 70px !important;
+            }
+            
+            .countdown-value {
+                font-size: 1.6rem !important;
+                min-width: auto !important;
+            }
+            
+            .countdown-label {
+                font-size: 0.75rem !important;
+                letter-spacing: 1px !important;
+            }
+            
             /* MOBILE FIX: Diamond emoji positioning */
             .section-title::before {
                 position: relative !important;
@@ -1817,34 +1927,38 @@
                 font-size: 0.7rem !important;
             }
             
-            /* MOBILE FIX: Deal card layout */
+            /* MOBILE FIX: Deal card layout - increased height to prevent overlapping */
             .deal-card {
                 height: auto !important;
-                min-height: 400px;
+                min-height: 500px !important;  /* Increased from 400px to 500px */
                 display: flex !important;
                 flex-direction: column !important;
             }
             
             .deal-media {
-                height: 180px;
-                flex-shrink: 0;
+                height: 200px !important;  /* Increased from 180px */
+                flex-shrink: 0 !important;
             }
             
             .deal-info {
                 display: flex !important;
                 flex-direction: column !important;
                 flex: 1 !important;
-                padding: 1.2rem;
+                padding: 1.5rem !important;  /* Increased from 1.2rem */
             }
             
             .deal-badge {
-                font-size: 0.7rem !important;
-                padding: 0.3rem 0.7rem !important;
+                font-size: 0.75rem !important;
+                padding: 0.4rem 0.8rem !important;
+                top: 15px !important;
+                right: 15px !important;
             }
             
             .deal-title {
-                font-size: 1.1rem !important;
-                margin-bottom: 0.6rem !important;
+                font-size: 1.15rem !important;
+                margin-bottom: 0.8rem !important;
+                line-height: 1.3 !important;
+                margin-top: 0.5rem !important;  /* Space from badge */
             }
             
             .deal-description {
@@ -1853,23 +1967,26 @@
                 -webkit-box-orient: vertical !important;
                 overflow: hidden !important;
                 font-size: 0.85rem !important;
+                margin-bottom: 1rem !important;
             }
             
             .deal-price-container {
                 margin-top: auto !important;
-                margin-bottom: 0.8rem !important;
+                margin-bottom: 1rem !important;
+                padding: 0.8rem 0 !important;
             }
             
             .original-price {
-                font-size: 0.9rem !important;
+                font-size: 0.95rem !important;
             }
             
             .deal-price {
-                font-size: 1.3rem !important;
+                font-size: 1.4rem !important;
+                margin: 0.3rem 0 !important;
             }
             
             .savings {
-                font-size: 0.75rem !important;
+                font-size: 0.8rem !important;
             }
             
             .deal-footer {
@@ -1877,11 +1994,11 @@
                 flex-direction: row !important;
                 justify-content: space-between !important;
                 align-items: center !important;
-                gap: 0.8rem !important;
+                gap: 1rem !important;
             }
             
             .deal-button {
-                padding: 0.6rem 1rem !important;
+                padding: 0.7rem 1.2rem !important;
                 font-size: 0.85rem !important;
                 flex-shrink: 0 !important;
             }
@@ -2008,7 +2125,141 @@
                 grid-template-columns: 1fr;
             }
             
-            /* Mobile card layout fix */
+            /* MOBILE FIX: Hero content - move down to avoid nav cropping */
+            .hero-content {
+                margin-top: 5rem !important;
+                padding-top: 2rem !important;
+            }
+            
+            .hero-title {
+                padding-top: 1.5rem !important;
+            }
+            
+            /* MOBILE FIX: Diamond emoji positioning (💎) */
+            .section-title::before {
+                position: relative !important;
+                left: 0 !important;
+                display: inline-block !important;
+                margin-right: 0.5rem !important;
+                transform: none !important;
+                font-size: 1.4rem !important;
+            }
+            
+            /* MOBILE FIX: Deal timer - horizontal layout, move down */
+            .deal-timer {
+                padding: 1.5rem 1rem !important;
+                margin-top: 2rem !important;
+                margin-bottom: 2rem !important;
+            }
+            
+            .timer-title {
+                font-size: 1.2rem !important;
+                margin-bottom: 1rem !important;
+            }
+            
+            .timer-units {
+                display: flex !important;
+                flex-direction: row !important;
+                justify-content: center !important;
+                gap: 1rem !important;
+                flex-wrap: wrap;
+            }
+            
+            .timer-unit {
+                min-width: 70px !important;
+                padding: 0.8rem 1rem !important;
+            }
+            
+            .timer-value {
+                font-size: 1.6rem !important;
+                margin-bottom: 0.3rem !important;
+            }
+            
+            .timer-label {
+                font-size: 0.75rem !important;
+            }
+            
+            /* MOBILE FIX: Deal card layout - proper heights and spacing */
+            .deal-card {
+                height: auto !important;
+                min-height: 480px !important;
+                display: flex !important;
+                flex-direction: column !important;
+            }
+            
+            .deal-media {
+                height: 200px !important;
+                flex-shrink: 0 !important;
+            }
+            
+            .deal-info {
+                display: flex !important;
+                flex-direction: column !important;
+                flex: 1 !important;
+                padding: 1.8rem !important;
+            }
+            
+            .deal-badge {
+                font-size: 0.75rem !important;
+                padding: 0.4rem 0.8rem !important;
+                position: absolute !important;
+                top: 1rem !important;
+                right: 1rem !important;
+                z-index: 3 !important;
+            }
+            
+            .deal-title {
+                font-size: 1.15rem !important;
+                margin-bottom: 0.8rem !important;
+                margin-top: 0 !important;
+            }
+            
+            .deal-description {
+                display: -webkit-box !important;
+                -webkit-line-clamp: 2 !important;
+                -webkit-box-orient: vertical !important;
+                overflow: hidden !important;
+                font-size: 0.875rem !important;
+                margin-bottom: 1rem !important;
+            }
+            
+            .deal-price-container {
+                margin-top: auto !important;
+                margin-bottom: 1rem !important;
+                display: flex !important;
+                flex-direction: column !important;
+                gap: 0.5rem !important;
+            }
+            
+            .original-price {
+                font-size: 0.95rem !important;
+            }
+            
+            .deal-price {
+                font-size: 1.4rem !important;
+            }
+            
+            .savings {
+                font-size: 0.8rem !important;
+            }
+            
+            .deal-footer {
+                display: flex !important;
+                flex-direction: row !important;
+                justify-content: space-between !important;
+                align-items: center !important;
+                gap: 1rem !important;
+                margin-top: auto !important;
+            }
+            
+            .deal-button {
+                padding: 0.75rem 1.2rem !important;
+                font-size: 0.85rem !important;
+                flex-shrink: 0 !important;
+                white-space: nowrap !important;
+            }
+            
+            /* Remove old mobile card layout fix */
             .deal-card, .game-card, .featured-deal {
                 display: flex !important;
                 flex-direction: column !important;
@@ -2056,6 +2307,70 @@
 
             .newsletter-title {
                 font-size: 2.2rem;
+            }
+            
+            /* MOBILE FIX: Hero content spacing */
+            .hero-content {
+                margin-top: 4.5rem !important;
+            }
+            
+            /* MOBILE FIX: Diamond emoji */
+            .section-title::before {
+                font-size: 1.2rem !important;
+                margin-right: 0.4rem !important;
+            }
+            
+            /* MOBILE FIX: Timer compact */
+            .deal-timer {
+                padding: 1.2rem 0.8rem !important;
+                margin-top: 1.5rem !important;
+            }
+            
+            .timer-title {
+                font-size: 1.1rem !important;
+            }
+            
+            .timer-units {
+                gap: 0.8rem !important;
+            }
+            
+            .timer-unit {
+                min-width: 65px !important;
+                padding: 0.7rem 0.9rem !important;
+            }
+            
+            .timer-value {
+                font-size: 1.4rem !important;
+            }
+            
+            .timer-label {
+                font-size: 0.7rem !important;
+            }
+            
+            /* MOBILE FIX: Deal cards */
+            .deal-card {
+                min-height: 460px !important;
+            }
+            
+            .deal-media {
+                height: 190px !important;
+            }
+            
+            .deal-info {
+                padding: 1.6rem !important;
+            }
+            
+            .deal-title {
+                font-size: 1.1rem !important;
+            }
+            
+            .deal-price {
+                font-size: 1.3rem !important;
+            }
+            
+            .deal-button {
+                padding: 0.7rem 1.1rem !important;
+                font-size: 0.8rem !important;
             }
             
             /* Mobile card layout fix */
@@ -2302,54 +2617,7 @@
         @media (max-width: 480px) {
             .nav-container {
                 padding: 0.8rem 0.8rem;
-    
-            
-            /* MOBILE FIX: Diamond emoji */
-            .section-title::before {
-                font-size: 1rem !important;
-                margin-right: 0.3rem !important;
             }
-            
-            /* MOBILE FIX: Deal timer very compact */
-            .timer-title {
-                font-size: 0.95rem !important;
-            }
-            
-            .timer-unit {
-                min-width: 50px !important;
-                padding: 0.4rem 0.6rem !important;
-            }
-            
-            .timer-value {
-                font-size: 1.1rem !important;
-            }
-            
-            /* MOBILE FIX: Deal cards - full width buttons */
-            .deal-card {
-                min-height: 360px;
-            }
-            
-            .deal-media {
-                height: 140px;
-            }
-            
-            .deal-info {
-                padding: 0.9rem;
-            }
-            
-            .deal-footer {
-                flex-direction: column !important;
-                align-items: stretch !important;
-            }
-            
-            .deal-price-container {
-                text-align: center;
-            }
-            
-            .deal-button {
-                width: 100% !important;
-            }
-        }
             
             .nav-logo svg {
                 width: 20px;
@@ -2369,6 +2637,110 @@
                 font-size: 0.8rem;
                 padding: 0.3rem 0.6rem;
             }
+            
+            /* MOBILE FIX: Hero section */
+            .hero {
+                margin-top: 4rem !important;
+                padding: 2.5rem 0.6rem 2rem !important;
+            }
+            
+            .hero-content {
+                margin-top: 4rem !important;
+            }
+            
+            .hero-title {
+                font-size: 1.8rem !important;
+                letter-spacing: 1.5px !important;
+            }
+            
+            .hero-title::before, .hero-title::after {
+                font-size: 1rem !important;
+                margin: 0 0.3rem !important;
+            }
+            
+            .hero-subtitle {
+                font-size: 0.85rem !important;
+                letter-spacing: 1.5px !important;
+            }
+            
+            /* MOBILE FIX: Countdown timer */
+            .countdown-item {
+                padding: 0.7rem 0.6rem !important;
+                min-width: 60px !important;
+            }
+            
+            .countdown-value {
+                font-size: 1.2rem !important;
+            }
+            
+            .countdown-label {
+                font-size: 0.65rem !important;
+            }
+            
+            /* MOBILE FIX: Diamond emoji */
+            .section-title::before {
+                font-size: 1rem !important;
+                margin-right: 0.3rem !important;
+            }
+            
+            /* MOBILE FIX: Deal timer very compact */
+            .deal-timer {
+                padding: 1rem 0.6rem !important;
+                margin-top: 1rem !important;
+            }
+            
+            .timer-title {
+                font-size: 0.95rem !important;
+            }
+            
+            .timer-unit {
+                min-width: 60px !important;
+                padding: 0.6rem 0.8rem !important;
+            }
+            
+            .timer-value {
+                font-size: 1.2rem !important;
+            }
+            
+            .timer-label {
+                font-size: 0.65rem !important;
+            }
+            
+            /* MOBILE FIX: Deal cards - full width buttons */
+            .deal-card {
+                min-height: 440px !important;
+            }
+            
+            .deal-media {
+                height: 170px !important;
+            }
+            
+            .deal-info {
+                padding: 1.4rem !important;
+            }
+            
+            .deal-title {
+                font-size: 1.05rem !important;
+            }
+            
+            .deal-price {
+                font-size: 1.2rem !important;
+            }
+            
+            .deal-footer {
+                flex-direction: column !important;
+                align-items: stretch !important;
+            }
+            
+            .deal-price-container {
+                text-align: center;
+            }
+            
+            .deal-button {
+                width: 100% !important;
+                padding: 0.7rem 1rem !important;
+            }
+        }
             
             .hero, .banner {
                 height: 60vh;
