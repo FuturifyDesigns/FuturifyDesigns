@@ -1,0 +1,1481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout | NEXUS Gaming Marketplace</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Base Styles (consistent with main page) */
+        :root {
+            --primary: #ff4d00;
+            --primary-glow: #ff8c66;
+            --primary-dark: #e04500;
+            --dark: #0a0a0a;
+            --darker: #050505;
+            --darkest: #010101;
+            --light: #f5f5f5;
+            --gray: #1a1a1a;
+            --gray-light: #2a2a2a;
+            --neon-glow: 0 0 10px rgba(255, 77, 0, 0.7), 
+                          0 0 20px rgba(255, 77, 0, 0.5),
+                          0 0 30px rgba(255, 77, 0, 0.3);
+        }
+
+        * {
+            -webkit-tap-highlight-color: transparent;
+            -webkit-touch-callout: none;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Orbitron', 'Rajdhani', sans-serif;
+            background-color: var(--darkest);
+            color: var(--light);
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+
+        /* Remove tap highlight on all interactive elements */
+        a, button, input, select, textarea, [role="button"], .nav-link, .game-card, .category-card {
+            -webkit-tap-highlight-color: transparent;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            user-select: none;
+            outline: none;
+        }
+
+        button:focus, a:focus, input:focus, select:focus, textarea:focus {
+            outline: none;
+        }
+        /* Navigation */
+        .nav-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 1.3rem 2.6rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            background: linear-gradient(to bottom, rgba(5,5,5,0.9), rgba(1,1,1,0.2));
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255,77,0,0.1);
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .nav-logo svg {
+            width: 30px;
+            height: 30px;
+            fill: var(--primary);
+            margin-right: 12px;
+            filter: drop-shadow(0 0 5px var(--primary));
+            transition: all 0.3s ease;
+        }
+
+        .nav-logo:hover svg {
+            transform: rotate(15deg);
+        }
+
+        .nav-logo-text {
+            font-size: 1.35rem;
+            font-weight: 800;
+            letter-spacing: 3px;
+            background: linear-gradient(to right, #fff 0%, var(--primary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-link {
+            color: var(--light);
+            text-decoration: none;
+            font-weight: 600;
+            letter-spacing: 1px;
+            position: relative;
+            padding: 0.5rem 0;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--primary);
+            text-shadow: 0 0 10px var(--primary);
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .nav-link.active {
+            color: var(--primary);
+            text-shadow: 0 0 10px var(--primary);
+        }
+
+        .nav-link.active::after {
+            width: 100%;
+        }
+
+        /* Cart Icon */
+        .cart-icon {
+            position: relative;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .cart-icon svg {
+            width: 24px;
+            height: 24px;
+            stroke: var(--light);
+            transition: all 0.3s ease;
+        }
+
+        .cart-icon:hover svg {
+            stroke: var(--primary);
+            transform: scale(1.1);
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: var(--primary);
+            color: var(--darkest);
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 0.7rem;
+            font-weight: 800;
+            box-shadow: 0 0 5px var(--primary);
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 50vh;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 80px;
+            background: linear-gradient(135deg, var(--darkest) 0%, var(--gray) 50%, var(--darker) 100%);
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, transparent 0%, rgba(255, 77, 0, 0.1) 100%);
+            z-index: 1;
+        }
+
+        .hero-content {
+            text-align: center;
+            max-width: 800px;
+            padding: 0 2rem;
+            z-index: 2;
+            transform-style: preserve-3d;
+        }
+
+        .hero-title {
+            font-size: 3.6rem;
+            font-weight: 800;
+            letter-spacing: 8px;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(to right, #fff 0%, var(--primary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+            animation: titleGlow 4s ease-in-out infinite alternate;
+            position: relative;
+        }
+
+        @keyframes titleGlow {
+            0% { text-shadow: 0 5px 15px rgba(0, 0, 0, 0.5); }
+            100% { text-shadow: 0 5px 30px rgba(255, 77, 0, 0.7); }
+        }
+
+        .hero-title::before {
+            content: '🛒';
+            position: absolute;
+            left: -100px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 2.6rem;
+            animation: iconFloat 6s ease-in-out infinite;
+        }
+
+        .hero-title::after {
+            content: '💳';
+            position: absolute;
+            right: -100px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 2.6rem;
+            animation: iconFloat 6s ease-in-out infinite reverse;
+        }
+
+        @keyframes iconFloat {
+            0%, 100% { transform: translateY(-50%) translateX(0); }
+            50% { transform: translateY(-70%) translateX(20px); }
+        }
+
+        .hero-subtitle {
+            font-size: 1.35rem;
+            letter-spacing: 4px;
+            margin-bottom: 2rem;
+            color: var(--primary);
+            text-shadow: 0 0 15px var(--primary);
+            font-weight: 600;
+            animation: subtitlePulse 3s ease-in-out infinite;
+        }
+
+        @keyframes subtitlePulse {
+            0%, 100% { text-shadow: 0 0 15px var(--primary); }
+            50% { text-shadow: 0 0 30px var(--primary-glow); }
+        }
+
+        /* Progress Bar */
+        .checkout-progress {
+            padding: 2rem 3rem 0;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .progress-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+            margin-bottom: 3rem;
+        }
+
+        .progress-line {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: var(--gray);
+            z-index: 1;
+        }
+
+        .progress-line-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), var(--primary-glow));
+            width: 50%;
+            border-radius: 3px;
+            box-shadow: 0 0 10px var(--primary);
+            animation: progressGlow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes progressGlow {
+            0% { box-shadow: 0 0 10px var(--primary); }
+            100% { box-shadow: 0 0 20px var(--primary-glow); }
+        }
+
+        .progress-step {
+            background: var(--darker);
+            border: 3px solid var(--gray);
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            z-index: 2;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .progress-step.active {
+            border-color: var(--primary);
+            background: var(--primary);
+            color: var(--darkest);
+            box-shadow: 0 0 15px var(--primary);
+            transform: scale(1.1);
+        }
+
+        .progress-step.completed {
+            border-color: var(--primary);
+            background: var(--primary);
+            color: var(--darkest);
+        }
+
+        .progress-step-label {
+            position: absolute;
+            top: 60px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.9rem;
+            font-weight: 600;
+            white-space: nowrap;
+            color: var(--light);
+        }
+
+        .progress-step.active .progress-step-label {
+            color: var(--primary);
+            text-shadow: 0 0 10px var(--primary);
+        }
+
+        /* Checkout Section */
+        .checkout-section {
+            padding: 2rem 3rem 5rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .checkout-container {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 3rem;
+            align-items: start;
+        }
+
+        .checkout-form {
+            background: var(--darker);
+            border-radius: 15px;
+            padding: 2.5rem;
+            border: 2px solid rgba(255,77,0,0.2);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .checkout-form::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent 40%, rgba(255,77,0,0.05) 100%);
+            z-index: 0;
+        }
+
+        .checkout-form > * {
+            position: relative;
+            z-index: 1;
+        }
+
+        .order-summary {
+            background: var(--darker);
+            border-radius: 15px;
+            padding: 2.5rem;
+            border: 2px solid rgba(255,77,0,0.2);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            height: fit-content;
+            position: sticky;
+            top: 100px;
+        }
+
+        .checkout-title {
+            font-size: 2.2rem;
+            font-weight: 800;
+            margin-bottom: 2rem;
+            color: var(--light);
+            position: relative;
+            letter-spacing: 2px;
+        }
+
+        .checkout-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), transparent);
+            border-radius: 4px;
+            box-shadow: 0 0 10px var(--primary);
+        }
+
+        .form-section {
+            margin-bottom: 3rem;
+        }
+
+        .form-section-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            letter-spacing: 1px;
+        }
+
+        .form-section-title::before {
+            content: '';
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            background: var(--primary);
+            margin-right: 15px;
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--primary);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.8rem;
+            font-weight: 600;
+            color: var(--primary);
+            font-size: 0.95rem;
+            letter-spacing: 1px;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 1rem 1.2rem;
+            background: var(--gray);
+            border: 2px solid rgba(255,77,0,0.2);
+            border-radius: 8px;
+            color: var(--light);
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 15px rgba(255,77,0,0.3);
+            transform: translateY(-2px);
+            background: var(--gray-light);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        .payment-methods {
+            margin: 2rem 0;
+        }
+
+        .payment-method {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding: 1.5rem;
+            background: var(--gray);
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .payment-method::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent 40%, rgba(255,77,0,0.05) 100%);
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+
+        .payment-method:hover {
+            background: var(--gray-light);
+            border-color: rgba(255,77,0,0.3);
+            transform: translateY(-2px);
+        }
+
+        .payment-method:hover::before {
+            opacity: 1;
+        }
+
+        .payment-method.active {
+            border-color: var(--primary);
+            background: rgba(255,77,0,0.1);
+            box-shadow: 0 0 15px rgba(255,77,0,0.3);
+        }
+
+        .payment-method input {
+            margin-right: 1.5rem;
+            transform: scale(1.2);
+        }
+
+        .payment-method-label {
+            display: flex;
+            align-items: center;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .payment-method-icon {
+            margin-right: 1rem;
+            width: 35px;
+            height: 25px;
+            object-fit: contain;
+        }
+
+        .summary-title {
+            font-size: 1.6rem;
+            margin-bottom: 2rem;
+            color: var(--primary);
+            font-weight: 800;
+            letter-spacing: 2px;
+            text-align: center;
+        }
+
+        .order-items {
+            margin-bottom: 2rem;
+            max-height: 360px;
+            overflow-y: auto;
+            padding-right: 10px;
+        }
+
+        .order-items::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .order-items::-webkit-scrollbar-track {
+            background: var(--gray);
+            border-radius: 3px;
+        }
+
+        .order-items::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 3px;
+        }
+
+        .order-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding: 1.5rem;
+            background: rgba(255,255,255,0.05);
+            border-radius: 10px;
+            border: 1px solid rgba(255,77,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .order-item:hover {
+            background: rgba(255,255,255,0.08);
+            border-color: rgba(255,77,0,0.2);
+            transform: translateY(-2px);
+        }
+
+        .order-item-image {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-right: 1rem;
+            border: 2px solid rgba(255,77,0,0.2);
+        }
+
+        .order-item-details {
+            flex-grow: 1;
+        }
+
+        .order-item-name {
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--light);
+            font-size: 1rem;
+        }
+
+        .order-item-price {
+            color: var(--primary);
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        .order-item-quantity {
+            margin-left: auto;
+            background: var(--primary);
+            color: var(--darkest);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-weight: 800;
+            font-size: 0.9rem;
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            font-weight: 600;
+        }
+
+        .summary-total {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 800;
+            font-size: 1.25rem;
+            margin: 2rem 0;
+            padding: 1.5rem;
+            background: rgba(255,77,0,0.1);
+            border-radius: 10px;
+            border: 2px solid var(--primary);
+            box-shadow: 0 0 15px rgba(255,77,0,0.3);
+        }
+
+        .place-order-button {
+            width: 100%;
+            padding: 1.2rem;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-glow) 100%);
+            color: var(--darkest);
+            border: none;
+            border-radius: 10px;
+            font-weight: 800;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            font-size: 1.1rem;
+            box-shadow: 0 5px 20px rgba(255,77,0,0.4);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .place-order-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: 0.5s;
+        }
+
+        .place-order-button:hover {
+            background: linear-gradient(135deg, var(--light) 0%, #fff 100%);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(255,77,0,0.6);
+        }
+
+        .place-order-button:hover::before {
+            left: 100%;
+        }
+
+        .place-order-button:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .back-to-cart {
+            display: block;
+            text-align: center;
+            margin-top: 1.5rem;
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            padding: 0.5rem;
+            border-radius: 5px;
+        }
+
+        .back-to-cart:hover {
+            text-decoration: underline;
+            background: rgba(255,77,0,0.1);
+            transform: translateY(-2px);
+        }
+
+        .empty-cart {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 5rem 2rem;
+            background: var(--darker);
+            border-radius: 15px;
+            border: 2px solid rgba(255,77,0,0.2);
+        }
+
+        .empty-cart-title {
+            font-size: 2.2rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-weight: 800;
+        }
+
+        .empty-cart-text {
+            color: rgba(255,255,255,0.7);
+            margin-bottom: 2rem;
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 1.1rem;
+        }
+
+        .empty-cart-button {
+            background: var(--primary);
+            color: var(--darkest);
+            border: none;
+            padding: 0.9rem 1.8rem;
+            border-radius: 8px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            font-size: 1rem;
+        }
+
+        .empty-cart-button:hover {
+            background: var(--light);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 20px var(--primary);
+        }
+
+        /* Floating Particles */
+        .floating-particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .floating-particle {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background-color: var(--primary);
+            border-radius: 50%;
+            opacity: 0.5;
+            animation: float-particle 20s infinite linear;
+        }
+
+        @keyframes float-particle {
+            0% { transform: translateY(0) translateX(0); opacity: 0; }
+            10% { opacity: 0.7; }
+            90% { opacity: 0.7; }
+            100% { transform: translateY(-100vh) translateX(100px); opacity: 0; }
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 1200px) {
+            .checkout-container {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .order-summary {
+                position: static;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .hero-title {
+                font-size: 2.6rem;
+            }
+            
+            .hero-title::before,
+            .hero-title::after {
+                display: none;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-container {
+                padding: 1rem;
+            }
+            
+            .hero-title {
+                font-size: 2.2rem;
+                letter-spacing: 3px;
+            }
+            
+            .hero-subtitle {
+                font-size: 1rem;
+            }
+            
+            .nav-links {
+                gap: 1rem;
+            }
+            
+            .nav-logo-text {
+                font-size: 1.1rem;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .checkout-section {
+                padding: 2rem 1rem 5rem;
+            }
+
+            .checkout-form,
+            .order-summary {
+                padding: 1.5rem;
+            }
+
+            .progress-container {
+                flex-wrap: wrap;
+                gap: 1rem;
+                justify-content: center;
+            }
+
+            .progress-line {
+                display: none;
+            }
+        }
+
+        /* ========================================= */
+        /* COMPREHENSIVE MOBILE RESPONSIVE STYLES */
+        /* ========================================= */
+
+        /* Tablets - Landscape (992px) */
+        @media (max-width: 992px) {
+            .nav-container {
+                padding: 1.2rem 2rem;
+            }
+            
+            .nav-logo-text {
+                font-size: 1.3rem;
+            }
+            
+            .nav-links {
+                gap: 1.5rem;
+            }
+            
+            .nav-link {
+                font-size: 0.95rem;
+            }
+            
+            .hero, .banner {
+                height: 75vh;
+            }
+            
+            h1, .hero-title {
+                font-size: 3.2rem;
+            }
+            
+            h2, .section-title {
+                font-size: 2rem;
+            }
+            
+            .btn, button {
+                padding: 0.85rem 2rem;
+                font-size: 1rem;
+            }
+        }
+
+        /* Tablets - Portrait (768px) */
+        @media (max-width: 768px) {
+            .nav-container {
+                padding: 1rem 1.5rem;
+                flex-wrap: wrap;
+            }
+            
+            .nav-logo-text {
+                font-size: 1.2rem;
+                letter-spacing: 2px;
+            }
+            
+            .nav-links {
+                width: 100%;
+                justify-content: center;
+                gap: 1rem;
+                margin-top: 1rem;
+                flex-wrap: wrap;
+            }
+            
+            .nav-link {
+                font-size: 0.9rem;
+                padding: 0.5rem 1rem;
+            }
+            
+            .hero, .banner {
+                height: 70vh;
+            }
+            
+            h1, .hero-title {
+                font-size: 2.6rem;
+                padding: 0 1.5rem;
+            }
+            
+            h2, .section-title {
+                font-size: 1.8rem;
+            }
+            
+            p, .description {
+                font-size: 1rem;
+                padding: 0 1rem;
+            }
+            
+            .grid, .games-grid, .categories-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1.5rem;
+                padding: 0 1rem;
+            }
+            
+            .card, .game-card, .category-card {
+                height: 320px;
+            }
+            
+            .btn, button {
+                padding: 0.8rem 1.8rem;
+                font-size: 0.95rem;
+            }
+            
+            section {
+                padding: 3rem 1.5rem;
+            }
+        }
+
+        /* Mobile Devices (576px) */
+        @media (max-width: 576px) {
+            .nav-container {
+                padding: 0.9rem 1rem;
+            }
+            
+            .nav-logo svg {
+                width: 24px;
+                height: 24px;
+            }
+            
+            .nav-logo-text {
+                font-size: 1.1rem;
+                letter-spacing: 1px;
+            }
+            
+            .nav-links {
+                gap: 0.8rem;
+            }
+            
+            .nav-link {
+                font-size: 0.85rem;
+                padding: 0.4rem 0.8rem;
+            }
+            
+            .hero, .banner {
+                height: 65vh;
+            }
+            
+            h1, .hero-title {
+                font-size: 2rem;
+                padding: 0 1rem;
+                line-height: 1.2;
+            }
+            
+            h2, .section-title {
+                font-size: 1.6rem;
+            }
+            
+            h3 {
+                font-size: 1.2rem;
+            }
+            
+            p, .description {
+                font-size: 0.95rem;
+                line-height: 1.5;
+            }
+            
+            .grid, .games-grid, .categories-grid {
+                grid-template-columns: 1fr;
+                gap: 1.2rem;
+                padding: 0 0.8rem;
+            }
+            
+            .card, .game-card, .category-card {
+                height: 300px;
+            }
+            
+            .btn, button {
+                padding: 0.75rem 1.5rem;
+                font-size: 0.9rem;
+                width: 100%;
+                max-width: 280px;
+            }
+            
+            section {
+                padding: 2.5rem 1rem;
+            }
+            
+            .cart-item, .checkout-item {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+
+        /* Small Mobile (480px) */
+        @media (max-width: 480px) {
+            .nav-container {
+                padding: 0.8rem 0.8rem;
+            }
+            
+            .nav-logo svg {
+                width: 20px;
+                height: 20px;
+            }
+            
+            .nav-logo-text {
+                font-size: 1rem;
+            }
+            
+            .nav-links {
+                gap: 0.6rem;
+            }
+            
+            .nav-link {
+                font-size: 0.8rem;
+                padding: 0.3rem 0.6rem;
+            }
+            
+            .hero, .banner {
+                height: 60vh;
+            }
+            
+            h1, .hero-title {
+                font-size: 1.7rem;
+            }
+            
+            h2, .section-title {
+                font-size: 1.4rem;
+            }
+            
+            .card, .game-card, .category-card {
+                height: 280px;
+            }
+            
+            .btn, button {
+                padding: 0.7rem 1.3rem;
+                font-size: 0.85rem;
+            }
+            
+            section {
+                padding: 2rem 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav-container">
+        <div class="nav-logo" onclick="window.location.href='index.html'">
+            <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <path d="M50 10 L90 50 L50 90 L10 50 Z" fill="none" stroke="#ff4d00" stroke-width="8"/>
+                <path d="M30 50 L70 50 M50 30 L50 70" stroke="#ff4d00" stroke-width="8" stroke-linecap="round"/>
+            </svg>
+            <span class="nav-logo-text">NEXUS</span>
+        </div>
+        <div class="nav-links">
+            <a href="index.html" class="nav-link">Home</a>
+            <a href="featured.html" class="nav-link">Featured</a>
+            <a href="categories.html" class="nav-link">Categories</a>
+            <a href="deals.html" class="nav-link">Deals</a>
+            <a href="cart.html" class="nav-link">Cart</a>
+            <div class="cart-icon" onclick="window.location.href='cart.html'">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M6 2L3 6V20C3 20.5304 3.21071 21.0391 3.58579 21.4142C3.96086 21.7893 4.46957 22 5 22H19C19.5304 22 20.0391 21.7893 20.4142 21.4142C20.7893 21.0391 21 20.5304 21 20V6L18 2H6Z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M3 6H21" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M16 10C16 11.0609 15.5786 12.0783 14.8284 12.8284C14.0783 13.5786 13.0609 14 12 14C10.9391 14 9.92172 13.5786 9.17157 12.8284C8.42143 12.0783 8 11.0609 8 10" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="cart-count">0</span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="floating-particles" id="floating-particles"></div>
+        <div class="hero-content">
+            <h1 class="hero-title">CHECKOUT</h1>
+            <p class="hero-subtitle">SECURE & FAST PAYMENT</p>
+        </div>
+    </section>
+
+    <!-- Progress Bar -->
+    <section class="checkout-progress">
+        <div class="progress-container">
+            <div class="progress-line">
+                <div class="progress-line-fill"></div>
+            </div>
+            <div class="progress-step completed">
+                <span>1</span>
+                <div class="progress-step-label">Cart</div>
+            </div>
+            <div class="progress-step active">
+                <span>2</span>
+                <div class="progress-step-label">Checkout</div>
+            </div>
+            <div class="progress-step">
+                <span>3</span>
+                <div class="progress-step-label">Payment</div>
+            </div>
+            <div class="progress-step">
+                <span>4</span>
+                <div class="progress-step-label">Complete</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Checkout Section -->
+    <section class="checkout-section">
+        <div id="checkout-content">
+            <!-- Content will be loaded dynamically -->
+        </div>
+    </section>
+
+    <script>
+        // Cart functionality
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+        
+        // Update cart count display
+        function updateCartCount() {
+            const count = cart.reduce((total, item) => total + item.quantity, 0);
+            document.querySelector('.cart-count').textContent = count;
+        }
+        
+        // Render checkout content
+        function renderCheckout() {
+            const checkoutContent = document.getElementById('checkout-content');
+            
+            if (cart.length === 0) {
+                checkoutContent.innerHTML = `
+                    <div class="empty-cart">
+                        <h2 class="empty-cart-title">YOUR CART IS EMPTY</h2>
+                        <p class="empty-cart-text">Add some games to your cart before proceeding to checkout</p>
+                        <button class="empty-cart-button" onclick="window.location.href='featured.html'">Browse Games</button>
+                    </div>
+                `;
+                return;
+            }
+            
+            let subtotal = 0;
+            let orderItemsHtml = '';
+            
+            cart.forEach(item => {
+                const itemTotal = item.price * item.quantity;
+                subtotal += itemTotal;
+                
+                orderItemsHtml += `
+                    <div class="order-item">
+                        <img src="${item.image}" alt="${item.name}" class="order-item-image">
+                        <div class="order-item-details">
+                            <div class="order-item-name">${item.name}</div>
+                            <div class="order-item-price">${item.price.toFixed(2)}</div>
+                        </div>
+                        <div class="order-item-quantity">×${item.quantity}</div>
+                    </div>
+                `;
+            });
+            
+            const tax = subtotal * 0.08;
+            const total = subtotal + tax;
+            
+            checkoutContent.innerHTML = `
+                <div class="checkout-container">
+                    <div class="checkout-form">
+                        <h1 class="checkout-title">PAYMENT DETAILS</h1>
+                        <form id="payment-form">
+                            <div class="form-section">
+                                <h3 class="form-section-title">Contact Information</h3>
+                                <div class="form-group">
+                                    <label for="email" class="form-label">EMAIL ADDRESS</label>
+                                    <input type="email" id="email" class="form-input" placeholder="your@email.com" required>
+                                </div>
+                            </div>
+
+                            <div class="form-section">
+                                <h3 class="form-section-title">Billing Address</h3>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="first-name" class="form-label">FIRST NAME</label>
+                                        <input type="text" id="first-name" class="form-input" placeholder="John" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="last-name" class="form-label">LAST NAME</label>
+                                        <input type="text" id="last-name" class="form-input" placeholder="Doe" required>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="address" class="form-label">STREET ADDRESS</label>
+                                    <input type="text" id="address" class="form-input" placeholder="123 Gaming Street" required>
+                                </div>
+                                
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="city" class="form-label">CITY</label>
+                                        <input type="text" id="city" class="form-input" placeholder="New York" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="zip" class="form-label">ZIP CODE</label>
+                                        <input type="text" id="zip" class="form-input" placeholder="10001" required>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="country" class="form-label">COUNTRY</label>
+                                    <select id="country" class="form-input" required>
+                                        <option value="">Select Country</option>
+                                        <option value="US">United States</option>
+                                        <option value="CA">Canada</option>
+                                        <option value="UK">United Kingdom</option>
+                                        <option value="AU">Australia</option>
+                                        <option value="DE">Germany</option>
+                                        <option value="FR">France</option>
+                                        <option value="JP">Japan</option>
+                                        <option value="BR">Brazil</option>
+                                        <option value="IN">India</option>
+                                        <option value="CN">China</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-section">
+                                <h3 class="form-section-title">Payment Method</h3>
+                                <div class="payment-methods">
+                                    <label class="payment-method active">
+                                        <input type="radio" name="payment" value="credit" checked>
+                                        <span class="payment-method-label">
+                                            <svg class="payment-method-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <rect x="1" y="4" width="22" height="16" rx="2" stroke="#ff4d00" stroke-width="2"/>
+                                                <path d="M7 15h.01M11 15h4" stroke="#ff4d00" stroke-width="2" stroke-linecap="round"/>
+                                            </svg>
+                                            Credit/Debit Card
+                                        </span>
+                                    </label>
+                                    
+                                    <label class="payment-method">
+                                        <input type="radio" name="payment" value="paypal">
+                                        <span class="payment-method-label">
+                                            <svg class="payment-method-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M7.076 21c.55 0 1.06-.366 1.195-.9l1.453-5.723h3.415c1.68 0 3.065-1.24 3.288-2.943.224-1.702-.633-3.184-2.043-3.515" stroke="#ff4d00" stroke-width="2"/>
+                                                <path d="M9.68 4.5A4.5 4.5 0 0 1 14.18 0h2.32c2.622 0 4.75 2.128 4.75 4.75 0 2.622-2.128 4.75-4.75 4.75h-2.32a4.5 4.5 0 0 1-4.5-4.5z" stroke="#ff4d00" stroke-width="2"/>
+                                            </svg>
+                                            PayPal
+                                        </span>
+                                    </label>
+
+                                    <label class="payment-method">
+                                        <input type="radio" name="payment" value="crypto">
+                                        <span class="payment-method-label">
+                                            <svg class="payment-method-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <circle cx="12" cy="12" r="10" stroke="#ff4d00" stroke-width="2"/>
+                                                <path d="M8 12h8M12 8v8" stroke="#ff4d00" stroke-width="2"/>
+                                            </svg>
+                                            Cryptocurrency
+                                        </span>
+                                    </label>
+                                </div>
+
+                                <div id="credit-card-fields">
+                                    <div class="form-group">
+                                        <label for="card-number" class="form-label">CARD NUMBER</label>
+                                        <input type="text" id="card-number" class="form-input" placeholder="1234 5678 9012 3456" maxlength="19">
+                                    </div>
+                                    
+                                    <div class="form-row">
+                                        <div class="form-group">
+                                            <label for="expiry" class="form-label">EXPIRY DATE</label>
+                                            <input type="text" id="expiry" class="form-input" placeholder="MM/YY" maxlength="5">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="cvv" class="form-label">CVV</label>
+                                            <input type="text" id="cvv" class="form-input" placeholder="123" maxlength="4">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    
+                    <div class="order-summary">
+                        <h2 class="summary-title">ORDER SUMMARY</h2>
+                        <div class="order-items">
+                            ${orderItemsHtml}
+                        </div>
+                        
+                        <div class="summary-row">
+                            <span>Subtotal (${cart.reduce((total, item) => total + item.quantity, 0)} items):</span>
+                            <span>${subtotal.toFixed(2)}</span>
+                        </div>
+                        <div class="summary-row">
+                            <span>Shipping:</span>
+                            <span style="color: var(--primary); font-weight: 700;">FREE</span>
+                        </div>
+                        <div class="summary-row">
+                            <span>Tax:</span>
+                            <span>${tax.toFixed(2)}</span>
+                        </div>
+                        <div class="summary-total">
+                            <span>Total:</span>
+                            <span>${total.toFixed(2)}</span>
+                        </div>
+                        
+                        <button class="place-order-button" id="place-order">
+                            🛒 PLACE ORDER - ${total.toFixed(2)}
+                        </button>
+                        <a href="cart.html" class="back-to-cart">← Back to Cart</a>
+                    </div>
+                </div>
+            `;
+            
+            // Setup form interactions
+            setupFormInteractions();
+        }
+        
+        // Setup form interactions
+        function setupFormInteractions() {
+            // Payment method toggle
+            document.querySelectorAll('input[name="payment"]').forEach(radio => {
+                radio.addEventListener('change', function() {
+                    document.querySelectorAll('.payment-method').forEach(method => {
+                        method.classList.remove('active');
+                    });
+                    this.closest('.payment-method').classList.add('active');
+                    
+                    const creditCardFields = document.getElementById('credit-card-fields');
+                    if (this.value === 'credit') {
+                        creditCardFields.style.display = 'block';
+                    } else {
+                        creditCardFields.style.display = 'none';
+                    }
+                });
+            });
+            
+            // Card number formatting
+            const cardNumberInput = document.getElementById('card-number');
+            if (cardNumberInput) {
+                cardNumberInput.addEventListener('input', function(e) {
+                    let value = e.target.value.replace(/\s/g, '').replace(/[^0-9]/gi, '');
+                    let formattedValue = value.match(/.{1,4}/g)?.join(' ') || value;
+                    if (formattedValue.length > 19) formattedValue = formattedValue.substr(0, 19);
+                    e.target.value = formattedValue;
+                });
+            }
+            
+            // Expiry date formatting
+            const expiryInput = document.getElementById('expiry');
+            if (expiryInput) {
+                expiryInput.addEventListener('input', function(e) {
+                    let value = e.target.value.replace(/\D/g, '');
+                    if (value.length >= 2) {
+                        value = value.substring(0, 2) + '/' + value.substring(2, 4);
+                    }
+                    e.target.value = value;
+                });
+            }
+            
+            // CVV input restriction
+            const cvvInput = document.getElementById('cvv');
+            if (cvvInput) {
+                cvvInput.addEventListener('input', function(e) {
+                    e.target.value = e.target.value.replace(/\D/g, '');
+                });
+            }
+            
+            // Place order button
+            const placeOrderButton = document.getElementById('place-order');
+            if (placeOrderButton) {
+                placeOrderButton.addEventListener('click', function() {
+                    const form = document.getElementById('payment-form');
+                    if (form.checkValidity()) {
+                        // Simulate payment processing
+                        this.innerHTML = '⏳ Processing Payment...';
+                        this.disabled = true;
+                        
+                        // Calculate order totals
+                        const subtotal = cart.reduce((total, item) => total + (item.price * item.quantity), 0);
+                        const tax = subtotal * 0.08;
+                        const total = subtotal + tax;
+                        
+                        // Generate order number
+                        const orderNumber = `NXS-${Date.now().toString().slice(-6)}`;
+                        
+                        // Save order data for confirmation page
+                        localStorage.setItem('lastOrder', JSON.stringify(cart));
+                        
+                        setTimeout(() => {
+                            // Clear cart after successful order
+                            localStorage.removeItem('cart');
+                            cart = [];
+                            updateCartCount();
+                            
+                            // Redirect to confirmation page with order details
+                            window.location.href = `confirmation.html?order=${orderNumber}&total=${total.toFixed(2)}`;
+                        }, 2500);
+                    } else {
+                        form.reportValidity();
+                    }
+                });
+            }
+        }
+        
+        // Create floating particles
+        function createParticles() {
+            const particlesContainer = document.getElementById('floating-particles');
+            const particleCount = window.innerWidth < 768 ? 20 : 40;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('floating-particle');
+                particle.style.left = `${Math.random() * 100}%`;
+                particle.style.top = `${Math.random() * 100}%`;
+                particle.style.animationDelay = `${Math.random() * 20}s`;
+                particlesContainer.appendChild(particle);
+            }
+        }
+        
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', () => {
+            updateCartCount();
+            renderCheckout();
+            createParticles();
+        });
+        
+        // Handle page navigation
+        window.addEventListener('beforeunload', function(e) {
+            if (cart.length > 0) {
+                e.preventDefault();
+                e.returnValue = '';
+            }
+        });
+    </script>
+</body>
+</html>

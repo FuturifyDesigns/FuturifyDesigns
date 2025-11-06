@@ -1,0 +1,2101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Categories | NEXUS Gaming Marketplace</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Base Styles */
+        :root {
+            --primary: #ff4d00;
+            --primary-glow: #ff8c66;
+            --primary-dark: #e04500;
+            --dark: #0a0a0a;
+            --darker: #050505;
+            --darkest: #010101;
+            --light: #f5f5f5;
+            --gray: #1a1a1a;
+            --gray-light: #2a2a2a;
+            --neon-glow: 0 0 10px rgba(255, 77, 0, 0.7), 
+                          0 0 20px rgba(255, 77, 0, 0.5),
+                          0 0 30px rgba(255, 77, 0, 0.3);
+        }
+
+        * {
+            -webkit-tap-highlight-color: transparent;
+            -webkit-touch-callout: none;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Orbitron', 'Rajdhani', sans-serif;
+            background-color: var(--darkest);
+            color: var(--light);
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            contain: layout style paint;
+            overscroll-behavior: none;
+        }
+
+
+        /* Remove tap highlight on all interactive elements */
+        a, button, input, select, textarea, [role="button"], .nav-link, .game-card, .category-card {
+            -webkit-tap-highlight-color: transparent;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            user-select: none;
+            outline: none;
+        }
+
+        button:focus, a:focus, input:focus, select:focus, textarea:focus {
+            outline: none;
+        }
+        /* Scroll Performance Optimizations */
+        .scrolling {
+            animation-play-state: paused !important;
+        }
+
+        .scrolling .floating-particle {
+            display: none;
+        }
+
+        .scrolling .category-card.floating,
+        .scrolling .popular-game.floating,
+        .scrolling .small-category-card.floating {
+            animation: none !important;
+        }
+
+        /* Navigation - MATCHING HOME.HTML */
+        .nav-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 1.3rem 2.6rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            background: linear-gradient(to bottom, rgba(5,5,5,0.9), rgba(1,1,1,0.2));
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255,77,0,0.1);
+            transition: all 0.3s ease;
+            will-change: transform;
+        }
+
+        .nav-container.scrolled {
+            background: rgba(5,5,5,0.95);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.5);
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .nav-logo svg {
+            width: 30px;
+            height: 30px;
+            fill: var(--primary);
+            margin-right: 12px;
+            filter: drop-shadow(0 0 5px var(--primary));
+            transition: all 0.3s ease;
+        }
+
+        .nav-logo:hover svg {
+            transform: rotate(15deg);
+        }
+
+        .nav-logo-text {
+            font-size: 1.35rem;
+            font-weight: 800;
+            letter-spacing: 3px;
+            background: linear-gradient(to right, #fff 0%, var(--primary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .nav-logo:hover .nav-logo-text {
+            text-shadow: 0 0 15px var(--primary);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-link {
+            color: var(--light);
+            text-decoration: none;
+            font-weight: 600;
+            letter-spacing: 1px;
+            position: relative;
+            padding: 0.5rem 0;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--primary);
+            text-shadow: 0 0 10px var(--primary);
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .nav-link.active {
+            color: var(--primary);
+            text-shadow: 0 0 10px var(--primary);
+        }
+
+        .nav-link.active::after {
+            width: 100%;
+        }
+
+        /* Cart Icon */
+        .cart-icon {
+            position: relative;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .cart-icon svg {
+            width: 24px;
+            height: 24px;
+            stroke: var(--light);
+            transition: all 0.3s ease;
+        }
+
+        .cart-icon:hover svg {
+            stroke: var(--primary);
+            transform: scale(1.1);
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: var(--primary);
+            color: var(--darkest);
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 0.7rem;
+            font-weight: 800;
+            box-shadow: 0 0 5px var(--primary);
+            transition: all 0.3s ease;
+        }
+
+        .cart-icon:hover .cart-count {
+            transform: scale(1.2);
+        }
+
+        .cart-preview {
+            position: absolute;
+            top: 120%;
+            right: 0;
+            width: 300px;
+            background: var(--darker);
+            border: 1px solid rgba(255,77,0,0.2);
+            border-radius: 8px;
+            padding: 1rem;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 1000;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+        }
+
+        .cart-icon:hover .cart-preview {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .cart-preview-item {
+            display: flex;
+            align-items: center;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .cart-preview-item:last-child {
+            border-bottom: none;
+        }
+
+        .cart-preview-item img {
+            width: 40px;
+            height: 40px;
+            object-fit: cover;
+            border-radius: 4px;
+            margin-right: 1rem;
+        }
+
+        .cart-preview-item-name {
+            font-size: 0.8rem;
+            font-weight: 600;
+            flex-grow: 1;
+        }
+
+        .cart-preview-item-price {
+            font-size: 0.8rem;
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        .cart-preview-footer {
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .cart-preview-total {
+            display: flex;
+            justify-content: space-between;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .cart-preview-button {
+            width: 100%;
+            padding: 0.5rem;
+            background: var(--primary);
+            color: var(--darkest);
+            border: none;
+            border-radius: 4px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cart-preview-button:hover {
+            background: var(--light);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px var(--primary);
+        }
+
+        .cart-preview-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: 0.5s;
+        }
+
+        .cart-preview-button:hover::before {
+            left: 100%;
+        }
+
+        /* Hero Section - MATCHING HOME.HTML */
+        .hero {
+            height: 80vh;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 80px;
+            background: radial-gradient(circle at 20% 20%, rgba(255, 77, 0, 0.15) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 80%, rgba(255, 77, 0, 0.1) 0%, transparent 50%);
+        }
+
+        .hero-video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+            opacity: 0.4;
+        }
+
+        .hero-content {
+            text-align: center;
+            max-width: 900px;
+            padding: 0 2rem;
+            z-index: 1;
+        }
+
+        .hero-title {
+            font-size: 6rem;
+            font-weight: 800;
+            letter-spacing: 8px;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(to right, #fff 0%, var(--primary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+            animation: titleGlow 4s ease-in-out infinite alternate;
+            line-height: 1.1;
+            position: relative;
+        }
+
+        @keyframes titleGlow {
+            0% { text-shadow: 0 5px 15px rgba(0, 0, 0, 0.5); }
+            100% { text-shadow: 0 5px 30px rgba(255, 77, 0, 0.7); }
+        }
+
+        .hero-title::before {
+            content: '🎮';
+            position: absolute;
+            left: -120px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 3.4rem;
+            animation: floatLeft 5s ease-in-out infinite;
+        }
+
+        .hero-title::after {
+            content: '🌟';
+            position: absolute;
+            right: -120px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 3.4rem;
+            animation: floatRight 5s ease-in-out infinite;
+        }
+
+        @keyframes floatLeft {
+            0%, 100% { transform: translateY(-50%) translateX(0) rotate(0deg); }
+            50% { transform: translateY(-50%) translateX(-30px) rotate(-10deg); }
+        }
+
+        @keyframes floatRight {
+            0%, 100% { transform: translateY(-50%) translateX(0) rotate(0deg); }
+            50% { transform: translateY(-50%) translateX(30px) rotate(10deg); }
+        }
+
+        .hero-subtitle {
+            font-size: 1.6rem;
+            letter-spacing: 6px;
+            margin-bottom: 2rem;
+            color: var(--primary);
+            text-shadow: 0 0 15px var(--primary);
+            font-weight: 600;
+            animation: subtitlePulse 3s ease-in-out infinite;
+        }
+
+        @keyframes subtitlePulse {
+            0%, 100% { text-shadow: 0 0 15px var(--primary); }
+            50% { text-shadow: 0 0 30px var(--primary-glow); }
+        }
+
+        /* Section Title - Enhanced */
+        .section-title {
+            font-size: 2.6rem;
+            font-weight: 800;
+            letter-spacing: 6px;
+            margin-bottom: 5rem;
+            text-align: center;
+            position: relative;
+            display: inline-block;
+            left: 50%;
+            transform: translateX(-50%);
+            color: var(--light);
+            text-transform: uppercase;
+            animation: sectionTitleGlow 4s ease-in-out infinite alternate;
+        }
+
+        @keyframes sectionTitleGlow {
+            0% { 
+                text-shadow: 0 0 15px var(--primary);
+            }
+            100% { 
+                text-shadow: 0 0 40px var(--primary), 0 0 60px var(--primary-glow);
+            }
+        }
+
+        .section-title::before {
+            content: '🏆';
+            position: absolute;
+            left: -100px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 2.6rem;
+            animation: bounce 3s ease-in-out infinite;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 250px;
+            height: 6px;
+            background: linear-gradient(90deg, transparent, var(--primary), transparent);
+            border-radius: 6px;
+            box-shadow: 0 0 20px var(--primary);
+            animation: lineGlow 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(-50%); }
+            50% { transform: translateY(-70%); }
+        }
+
+        @keyframes lineGlow {
+            0% { box-shadow: 0 0 20px var(--primary); }
+            100% { box-shadow: 0 0 40px var(--primary-glow); }
+        }
+
+        /* Categories Section - Enhanced */
+        .categories-section {
+            padding: 6rem 3rem;
+            position: relative;
+            background: radial-gradient(circle at 25% 25%, rgba(255, 77, 0, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 75% 75%, rgba(255, 77, 0, 0.05) 0%, transparent 50%);
+        }
+
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 3rem;
+            margin-top: 3rem;
+            perspective: 1000px;
+        }
+
+        /* CONSISTENT 3D Category Cards with Floating Animation */
+        .category-card {
+            background: var(--darker);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+            position: relative;
+            border: 2px solid rgba(255,77,0,0.2);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+            height: 440px;
+            cursor: pointer;
+            transform-style: preserve-3d;
+            will-change: transform;
+        }
+
+        .category-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent 40%, rgba(255,77,0,0.1) 100%);
+            opacity: 0;
+            transition: all 0.6s ease;
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        .category-card.floating {
+            animation: cardFloat 6s ease-in-out infinite;
+        }
+
+        .category-card.floating:nth-child(even) {
+            animation: cardFloat 6s ease-in-out infinite reverse;
+        }
+
+        @keyframes cardFloat {
+            0%, 100% { transform: translateY(0) rotateZ(0deg); }
+            25% { transform: translateY(-5px) rotateZ(0.5deg); }
+            50% { transform: translateY(0) rotateZ(0deg); }
+            75% { transform: translateY(-3px) rotateZ(-0.5deg); }
+        }
+
+        .category-card:hover {
+            transform: translateY(-20px) rotateX(8deg) rotateY(8deg) scale(1.05);
+            box-shadow: 0 30px 60px rgba(255, 77, 0, 0.4), 
+                         0 0 80px rgba(255, 77, 0, 0.3);
+            border-color: rgba(255,77,0,0.6);
+            animation: none;
+        }
+
+        .category-card:hover::before {
+            opacity: 1;
+        }
+
+        .category-media {
+            position: relative;
+            height: 250px;
+            overflow: hidden;
+            transform-style: preserve-3d;
+        }
+
+        .category-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: all 0.8s cubic-bezier(0.215, 0.61, 0.355, 1);
+            transform-origin: center;
+            will-change: transform;
+        }
+
+        .category-card:hover .category-image {
+            transform: scale(1.3) rotate(3deg);
+        }
+
+        .category-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, transparent 30%, rgba(0,0,0,0.95) 90%);
+            z-index: 1;
+        }
+
+        /* Floating Badges */
+        .category-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: var(--primary);
+            color: var(--darkest);
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            z-index: 3;
+            box-shadow: 0 0 15px var(--primary);
+            transform: translateY(0);
+            transition: all 0.4s ease;
+            animation: badgeFloat 4s ease-in-out infinite;
+            will-change: transform;
+        }
+
+        @keyframes badgeFloat {
+            0%, 100% { transform: translateY(0) scale(1); }
+            25% { transform: translateY(-8px) scale(1.05); }
+            75% { transform: translateY(-4px) scale(1.02); }
+        }
+
+        .category-card:hover .category-badge {
+            animation: badgePulse 0.6s ease-in-out infinite alternate;
+            transform: scale(1.15);
+        }
+
+        @keyframes badgePulse {
+            from { box-shadow: 0 0 15px var(--primary); }
+            to { box-shadow: 0 0 30px var(--primary-glow), 0 0 50px var(--primary); }
+        }
+
+        .category-info {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 1.8rem;
+            z-index: 2;
+            transform: translateZ(30px);
+            height: calc(100% - 250px);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .category-title {
+            font-size: 1.25rem;
+            font-weight: 800;
+            margin-bottom: 0.8rem;
+            color: var(--light);
+            text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+            letter-spacing: 2px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .category-title::before {
+            content: '▶';
+            position: absolute;
+            left: -25px;
+            opacity: 0;
+            transform: translateX(-10px);
+            transition: all 0.3s ease;
+            color: var(--primary);
+        }
+
+        .category-card:hover .category-title {
+            color: var(--primary);
+            text-shadow: 0 0 25px var(--primary);
+            transform: translateX(10px);
+        }
+
+        .category-card:hover .category-title::before {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .category-count {
+            font-size: 0.95rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 600;
+        }
+
+        .category-count::before {
+            content: '';
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            background: var(--primary);
+            margin-right: 10px;
+            border-radius: 50%;
+            box-shadow: 0 0 8px var(--primary);
+            animation: pulse 2.5s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.3); opacity: 0.7; }
+        }
+
+        .category-stats {
+            display: flex;
+            justify-content: space-between;
+            margin-top: auto;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .stat-item {
+            text-align: center;
+            flex: 1;
+        }
+
+        .stat-value {
+            font-size: 1.1rem;
+            font-weight: 800;
+            color: var(--primary);
+            text-shadow: 0 0 8px var(--primary);
+            margin-bottom: 0.3rem;
+        }
+
+        .stat-label {
+            font-size: 0.7rem;
+            color: rgba(255,255,255,0.7);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            line-height: 1.2;
+        }
+
+        /* Popular Games Section */
+        .popular-section {
+            padding: 6rem 3rem;
+            max-width: 1600px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .popular-slider-container {
+            position: relative;
+            padding: 2rem 0;
+        }
+
+        .popular-slider {
+            display: flex;
+            gap: 3rem;
+            overflow-x: auto;
+            padding: 2rem 1rem;
+            scroll-snap-type: x mandatory;
+            scrollbar-width: none;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .popular-slider::-webkit-scrollbar {
+            display: none;
+        }
+
+        .popular-game {
+            flex: 0 0 320px;
+            scroll-snap-align: start;
+            background: var(--darker);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+            border: 2px solid rgba(255,77,0,0.2);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+            position: relative;
+            transform-style: preserve-3d;
+            height: 360px;
+            cursor: pointer;
+        }
+
+        .popular-game::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent 40%, rgba(255,77,0,0.1) 100%);
+            opacity: 0;
+            transition: all 0.6s ease;
+            z-index: 2;
+        }
+
+        .popular-game.floating {
+            animation: cardFloat 7s ease-in-out infinite;
+        }
+
+        .popular-game.floating:nth-child(even) {
+            animation: cardFloat 7s ease-in-out infinite reverse;
+        }
+
+        .popular-game:hover {
+            transform: translateY(-10px) rotateX(3deg) rotateY(2deg) scale(1.02);
+            box-shadow: 0 20px 40px rgba(255, 77, 0, 0.2);
+            border-color: rgba(255,77,0,0.4);
+            animation: none;
+        }
+
+        .popular-game:hover::before {
+            opacity: 1;
+        }
+
+        .popular-game-media {
+            position: relative;
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .popular-game-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+
+        .popular-game:hover .popular-game-image {
+            transform: scale(1.1) rotate(1deg);
+        }
+
+        .popular-game-badge {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: var(--primary);
+            color: var(--darkest);
+            padding: 0.3rem 0.8rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            z-index: 3;
+            box-shadow: 0 0 10px var(--primary);
+            animation: badgeFloat 3s ease-in-out infinite;
+        }
+
+        .popular-game-info {
+            padding: 1.2rem;
+            position: relative;
+            z-index: 2;
+            height: calc(100% - 200px);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .popular-game-title {
+            font-size: 1.1rem;
+            font-weight: 800;
+            margin-bottom: 0.6rem;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            letter-spacing: 0.5px;
+            color: var(--light);
+            transition: all 0.3s ease;
+            line-height: 1.3;
+            display: -webkit-box;
+            -webkit-line-clamp: 1;
+            -webkit-box-orient: vertical;
+        }
+
+        .popular-game:hover .popular-game-title {
+            color: var(--primary);
+            text-shadow: 0 0 12px var(--primary);
+        }
+
+        .popular-game-genre {
+            font-size: 0.85rem;
+            color: var(--primary);
+            margin-bottom: 0.8rem;
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            line-height: 1.2;
+        }
+
+        .popular-game-genre::before {
+            content: '';
+            display: inline-block;
+            width: 6px;
+            height: 6px;
+            background: var(--primary);
+            margin-right: 6px;
+            border-radius: 50%;
+            box-shadow: 0 0 4px var(--primary);
+        }
+
+        .popular-game-price {
+            font-weight: 800;
+            color: var(--light);
+            font-size: 1.1rem;
+            margin-top: auto;
+            line-height: 1.2;
+        }
+
+        .popular-game-price span {
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.5);
+            text-decoration: line-through;
+            margin-right: 0.4rem;
+        }
+
+        /* More Categories Section */
+        .more-categories {
+            padding: 6rem 3rem;
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        .more-categories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 3rem;
+            margin-top: 3rem;
+            perspective: 1000px;
+        }
+
+        .small-category-card {
+            background: var(--darker);
+            border-radius: 15px;
+            padding: 2rem;
+            transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+            border: 2px solid rgba(255,77,0,0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            height: 220px;
+            justify-content: center;
+            cursor: pointer;
+            transform-style: preserve-3d;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            position: relative;
+        }
+
+        .small-category-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent 40%, rgba(255,77,0,0.1) 100%);
+            opacity: 0;
+            transition: all 0.6s ease;
+            z-index: -1;
+            border-radius: 15px;
+        }
+
+        .small-category-card.floating {
+            animation: cardFloat 8s ease-in-out infinite;
+        }
+
+        .small-category-card.floating:nth-child(even) {
+            animation: cardFloat 8s ease-in-out infinite reverse;
+        }
+
+        .small-category-card:hover {
+            transform: translateY(-10px) rotateX(3deg) rotateY(2deg) scale(1.02);
+            box-shadow: 0 15px 30px rgba(255, 77, 0, 0.2);
+            border-color: rgba(255,77,0,0.3);
+            animation: none;
+        }
+
+        .small-category-card:hover::before {
+            opacity: 1;
+        }
+
+        .small-category-icon {
+            width: 60px;
+            height: 60px;
+            margin-bottom: 1rem;
+            fill: var(--primary);
+            filter: drop-shadow(0 0 10px var(--primary));
+            transition: all 0.3s ease;
+        }
+
+        .small-category-card:hover .small-category-icon {
+            transform: scale(1.2) rotate(10deg);
+            filter: drop-shadow(0 0 15px var(--primary-glow));
+        }
+
+        .small-category-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--light);
+            transition: all 0.3s ease;
+        }
+
+        .small-category-card:hover .small-category-title {
+            color: var(--primary);
+            text-shadow: 0 0 10px var(--primary);
+        }
+
+        .small-category-count {
+            font-size: 0.9rem;
+            color: var(--primary);
+            font-family: 'Rajdhani', sans-serif;
+        }
+
+        /* Scroll Indicators */
+        .scroll-indicator {
+            position: absolute;
+            bottom: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+        }
+
+        .indicator-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--gray);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .indicator-dot.active {
+            background: var(--primary);
+            transform: scale(1.2);
+            box-shadow: 0 0 10px var(--primary);
+        }
+
+        /* Floating Particles - Optimized */
+        .floating-particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .floating-particle {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background-color: var(--primary);
+            border-radius: 50%;
+            opacity: 0.6;
+            animation: float-particle 20s infinite linear;
+            will-change: transform;
+        }
+
+        @keyframes float-particle {
+            0% { 
+                transform: translateY(100vh) translateX(0) rotate(0deg); 
+                opacity: 0; 
+            }
+            10% { opacity: 0.8; }
+            90% { opacity: 0.8; }
+            100% { 
+                transform: translateY(-100px) translateX(200px) rotate(360deg); 
+                opacity: 0; 
+            }
+        }
+
+        .floating-particle:nth-child(2n) {
+            animation-duration: 25s;
+            background: var(--primary-glow);
+        }
+
+        .floating-particle:nth-child(3n) {
+            animation-duration: 18s;
+            width: 2px;
+            height: 2px;
+        }
+
+        /* Scroll performance optimization */
+        function handleScroll() {
+            if (!isScrolling) {
+                document.body.classList.add('scrolling');
+                isScrolling = true;
+            }
+            
+            clearTimeout(scrollTimeout);
+            scrollTimeout = setTimeout(() => {
+                document.body.classList.remove('scrolling');
+                isScrolling = false;
+            }, 150);
+            
+            // Update navbar on scroll
+            const nav = document.querySelector('.nav-container');
+            if (window.scrollY > 50) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 1200px) {
+            .categories-grid {
+                grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            }
+            
+            .popular-game {
+                flex: 0 0 300px;
+            }
+
+            .hero-title::before,
+            .hero-title::after {
+                display: none;
+            }
+
+            .section-title::before {
+                left: -80px;
+                font-size: 2.2rem;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .hero-title {
+                font-size: 3.4rem;
+                letter-spacing: 6px;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.25rem;
+                letter-spacing: 4px;
+            }
+            
+            .section-title {
+                font-size: 2.8rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-container {
+                padding: 1rem;
+            }
+            
+            .hero-title {
+                font-size: 2.6rem;
+                letter-spacing: 4px;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.1rem;
+                letter-spacing: 3px;
+            }
+            
+            .categories-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .nav-links {
+                gap: 1rem;
+            }
+            
+            .nav-logo-text {
+                font-size: 1.1rem;
+            }
+
+            .category-card {
+                height: 360px;
+            }
+            
+            .popular-game {
+                flex: 0 0 280px;
+            }
+
+            .section-title {
+                font-size: 2.2rem;
+                margin-bottom: 3rem;
+            }
+
+            .section-title::before {
+                left: -60px;
+                font-size: 1.8rem;
+            }
+
+            .floating-particle {
+                display: none !important;
+            }
+            
+            .category-card.floating, .popular-game.floating, .small-category-card.floating {
+                animation: none !important;
+            }
+            
+            .category-card, .popular-game, .small-category-card {
+                transition: transform 0.2s ease, box-shadow 0.2s ease !important;
+            }
+            
+            .category-card:hover, .popular-game:hover, .small-category-card:hover {
+                transform: translateY(-3px) !important;
+                transition: transform 0.2s ease !important;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero-title {
+                font-size: 2.2rem;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+                margin-bottom: 3rem;
+            }
+            
+            .category-title {
+                font-size: 1.35rem;
+            }
+            
+            .stat-value {
+                font-size: 1.1rem;
+            }
+
+            .more-categories-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .floating-particle {
+                display: none !important;
+            }
+            
+            .category-badge, .popular-game-badge {
+                animation: none !important;
+            }
+            
+            .hero-title, .hero-subtitle, .section-title {
+                animation: none !important;
+            }
+            
+            .category-card, .popular-game, .small-category-card {
+                transition: none !important;
+                transform: none !important;
+            }
+            
+            .category-card:hover, .popular-game:hover, .small-category-card:hover {
+                transform: none !important;
+            }
+        }
+
+        /* Performance optimizations for scroll */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        /* ========================================= */
+        /* COMPREHENSIVE MOBILE RESPONSIVE STYLES */
+        /* ========================================= */
+
+        /* Tablets - Landscape (992px) */
+        @media (max-width: 992px) {
+            .nav-container {
+                padding: 1.2rem 2rem;
+            }
+            
+            .nav-logo-text {
+                font-size: 1.3rem;
+            }
+            
+            .nav-links {
+                gap: 1.5rem;
+            }
+            
+            .nav-link {
+                font-size: 0.95rem;
+            }
+            
+            .hero, .banner {
+                height: 75vh;
+            }
+            
+            h1, .hero-title {
+                font-size: 3.2rem;
+            }
+            
+            h2, .section-title {
+                font-size: 2rem;
+            }
+            
+            .btn, button {
+                padding: 0.85rem 2rem;
+                font-size: 1rem;
+            }
+        }
+
+        /* Tablets - Portrait (768px) */
+        @media (max-width: 768px) {
+            .nav-container {
+                padding: 1rem 1.5rem;
+                flex-wrap: wrap;
+            }
+            
+            .nav-logo-text {
+                font-size: 1.2rem;
+                letter-spacing: 2px;
+            }
+            
+            .nav-links {
+                width: 100%;
+                justify-content: center;
+                gap: 1rem;
+                margin-top: 1rem;
+                flex-wrap: wrap;
+            }
+            
+            .nav-link {
+                font-size: 0.9rem;
+                padding: 0.5rem 1rem;
+            }
+            
+            .hero, .banner {
+                height: 70vh;
+            }
+            
+            h1, .hero-title {
+                font-size: 2.6rem;
+                padding: 0 1.5rem;
+            }
+            
+            h2, .section-title {
+                font-size: 1.8rem;
+            }
+            
+            p, .description {
+                font-size: 1rem;
+                padding: 0 1rem;
+            }
+            
+            .grid, .games-grid, .categories-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1.5rem;
+                padding: 0 1rem;
+            }
+            
+            .card, .game-card, .category-card {
+                height: 320px;
+            }
+            
+            .btn, button {
+                padding: 0.8rem 1.8rem;
+                font-size: 0.95rem;
+            }
+            
+            section {
+                padding: 3rem 1.5rem;
+            }
+        }
+
+        /* Mobile Devices (576px) */
+        @media (max-width: 576px) {
+            .nav-container {
+                padding: 0.9rem 1rem;
+            }
+            
+            .nav-logo svg {
+                width: 24px;
+                height: 24px;
+            }
+            
+            .nav-logo-text {
+                font-size: 1.1rem;
+                letter-spacing: 1px;
+            }
+            
+            .nav-links {
+                gap: 0.8rem;
+            }
+            
+            .nav-link {
+                font-size: 0.85rem;
+                padding: 0.4rem 0.8rem;
+            }
+            
+            .hero, .banner {
+                height: 65vh;
+            }
+            
+            h1, .hero-title {
+                font-size: 2rem;
+                padding: 0 1rem;
+                line-height: 1.2;
+            }
+            
+            h2, .section-title {
+                font-size: 1.6rem;
+            }
+            
+            h3 {
+                font-size: 1.2rem;
+            }
+            
+            p, .description {
+                font-size: 0.95rem;
+                line-height: 1.5;
+            }
+            
+            .grid, .games-grid, .categories-grid {
+                grid-template-columns: 1fr;
+                gap: 1.2rem;
+                padding: 0 0.8rem;
+            }
+            
+            .card, .game-card, .category-card {
+                height: 300px;
+            }
+            
+            .btn, button {
+                padding: 0.75rem 1.5rem;
+                font-size: 0.9rem;
+                width: 100%;
+                max-width: 280px;
+            }
+            
+            section {
+                padding: 2.5rem 1rem;
+            }
+            
+            .cart-item, .checkout-item {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+
+        /* Small Mobile (480px) */
+        @media (max-width: 480px) {
+            .nav-container {
+                padding: 0.8rem 0.8rem;
+            }
+            
+            .nav-logo svg {
+                width: 20px;
+                height: 20px;
+            }
+            
+            .nav-logo-text {
+                font-size: 1rem;
+            }
+            
+            .nav-links {
+                gap: 0.6rem;
+            }
+            
+            .nav-link {
+                font-size: 0.8rem;
+                padding: 0.3rem 0.6rem;
+            }
+            
+            .hero, .banner {
+                height: 60vh;
+            }
+            
+            h1, .hero-title {
+                font-size: 1.7rem;
+            }
+            
+            h2, .section-title {
+                font-size: 1.4rem;
+            }
+            
+            .card, .game-card, .category-card {
+                height: 280px;
+            }
+            
+            .btn, button {
+                padding: 0.7rem 1.3rem;
+                font-size: 0.85rem;
+            }
+            
+            section {
+                padding: 2rem 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav-container">
+        <div class="nav-logo" onclick="window.location.href='home.html'">
+            <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <path d="M50 10 L90 50 L50 90 L10 50 Z" fill="none" stroke="#ff4d00" stroke-width="8"/>
+                <path d="M30 50 L70 50 M50 30 L50 70" stroke="#ff4d00" stroke-width="8" stroke-linecap="round"/>
+            </svg>
+            <span class="nav-logo-text">NEXUS</span>
+        </div>
+        <div class="nav-links">
+            <a href="home.html" class="nav-link">Home</a>
+            <a href="featured.html" class="nav-link">Featured</a>
+            <a href="categories.html" class="nav-link active">Categories</a>
+            <a href="deals.html" class="nav-link">Deals</a>
+            <div class="cart-icon">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M6 2L3 6V20C3 20.5304 3.21071 21.0391 3.58579 21.4142C3.96086 21.7893 4.46957 22 5 22H19C19.5304 22 20.0391 21.7893 20.4142 21.4142C20.7893 21.0391 21 20.5304 21 20V6L18 2H6Z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M3 6H21" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M16 10C16 11.0609 15.5786 12.0783 14.8284 12.8284C14.0783 13.5786 13.0609 14 12 14C10.9391 14 9.92172 13.5786 9.17157 12.8284C8.42143 12.0783 8 11.0609 8 10" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="cart-count">0</span>
+                <div class="cart-preview">
+                    <div class="cart-preview-items" id="cart-preview-items">
+                        <!-- Cart items will be added here dynamically -->
+                    </div>
+                    <div class="cart-preview-footer">
+                        <div class="cart-preview-total">
+                            <span>Total:</span>
+                            <span id="cart-preview-total">$0.00</span>
+                        </div>
+                        <button class="cart-preview-button" onclick="window.location.href='cart.html'">View Cart</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <video class="hero-video" autoplay muted loop>
+            <source src="https://assets.mixkit.co/videos/preview/mixkit-abstract-digital-grid-538-large.mp4" type="video/mp4">
+        </video>
+        <div class="floating-particles" id="floating-particles"></div>
+        <div class="hero-content">
+            <h1 class="hero-title">GAME UNIVERSE</h1>
+            <p class="hero-subtitle">EXPLORE ENDLESS WORLDS</p>
+        </div>
+    </section>
+
+    <!-- Categories Section -->
+    <section class="categories-section">
+        <h2 class="section-title">CHOOSE YOUR ADVENTURE</h2>
+        <div class="categories-grid">
+            <!-- Action Category -->
+            <div class="category-card floating" onclick="window.location.href='featured.html'">
+                <div class="category-media">
+                    <img class="category-image" src="./action.jpg" alt="Action Games">
+                    <div class="category-overlay"></div>
+                    <div class="category-badge">TRENDING</div>
+                </div>
+                <div class="category-info">
+                    <h3 class="category-title">ACTION</h3>
+                    <p class="category-count">128 Games Available</p>
+                    <div class="category-stats">
+                        <div class="stat-item">
+                            <div class="stat-value">87%</div>
+                            <div class="stat-label">Positive Reviews</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">24</div>
+                            <div class="stat-label">New Releases</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">$19-69</div>
+                            <div class="stat-label">Price Range</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- RPG Category -->
+            <div class="category-card floating" onclick="window.location.href='featured.html'">
+                <div class="category-media">
+                    <img class="category-image" src="./rpg.jpg" alt="RPG Games">
+                    <div class="category-overlay"></div>
+                    <div class="category-badge">EPIC</div>
+                </div>
+                <div class="category-info">
+                    <h3 class="category-title">ROLE PLAYING</h3>
+                    <p class="category-count">92 Games Available</p>
+                    <div class="category-stats">
+                        <div class="stat-item">
+                            <div class="stat-value">91%</div>
+                            <div class="stat-label">Positive Reviews</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">18</div>
+                            <div class="stat-label">New Releases</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">$29-79</div>
+                            <div class="stat-label">Price Range</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Strategy Category -->
+            <div class="category-card floating" onclick="window.location.href='featured.html'">
+                <div class="category-media">
+                    <img class="category-image" src="./strategy.jpg" alt="Strategy Games">
+                    <div class="category-overlay"></div>
+                    <div class="category-badge">SALE</div>
+                </div>
+                <div class="category-info">
+                    <h3 class="category-title">STRATEGY</h3>
+                    <p class="category-count">76 Games Available</p>
+                    <div class="category-stats">
+                        <div class="stat-item">
+                            <div class="stat-value">85%</div>
+                            <div class="stat-label">Positive Reviews</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">12</div>
+                            <div class="stat-label">New Releases</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">$14-59</div>
+                            <div class="stat-label">Price Range</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Adventure Category -->
+            <div class="category-card floating" onclick="window.location.href='featured.html'">
+                <div class="category-media">
+                    <img class="category-image" src="./adventure.jpg" alt="Adventure Games">
+                    <div class="category-overlay"></div>
+                    <div class="category-badge">EXPLORE</div>
+                </div>
+                <div class="category-info">
+                    <h3 class="category-title">ADVENTURE</h3>
+                    <p class="category-count">104 Games Available</p>
+                    <div class="category-stats">
+                        <div class="stat-item">
+                            <div class="stat-value">89%</div>
+                            <div class="stat-label">Positive Reviews</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">21</div>
+                            <div class="stat-label">New Releases</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">$9-69</div>
+                            <div class="stat-label">Price Range</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sports Category -->
+            <div class="category-card floating" onclick="window.location.href='featured.html'">
+                <div class="category-media">
+                    <img class="category-image" src="./sports.jpg" alt="Sports Games">
+                    <div class="category-overlay"></div>
+                    <div class="category-badge">COMPETE</div>
+                </div>
+                <div class="category-info">
+                    <h3 class="category-title">SPORTS</h3>
+                    <p class="category-count">58 Games Available</p>
+                    <div class="category-stats">
+                        <div class="stat-item">
+                            <div class="stat-value">82%</div>
+                            <div class="stat-label">Positive Reviews</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">9</div>
+                            <div class="stat-label">New Releases</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">$39-79</div>
+                            <div class="stat-label">Price Range</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Simulation Category -->
+            <div class="category-card floating" onclick="window.location.href='featured.html'">
+                <div class="category-media">
+                    <img class="category-image" src="./simulation.jpg" alt="Simulation Games">
+                    <div class="category-overlay"></div>
+                    <div class="category-badge">NEW</div>
+                </div>
+                <div class="category-info">
+                    <h3 class="category-title">SIMULATION</h3>
+                    <p class="category-count">67 Games Available</p>
+                    <div class="category-stats">
+                        <div class="stat-item">
+                            <div class="stat-value">84%</div>
+                            <div class="stat-label">Positive Reviews</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">14</div>
+                            <div class="stat-label">New Releases</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">$19-49</div>
+                            <div class="stat-label">Price Range</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Popular Games Section -->
+    <section class="popular-section">
+        <h2 class="section-title">HOT RIGHT NOW</h2>
+        <div class="popular-slider-container">
+            <div class="popular-slider">
+                <!-- Game 1 -->
+                <div class="popular-game floating" onclick="window.location.href='featured.html#cyber-legends'">
+                    <div class="popular-game-media">
+                        <img src="./cyber.jpg" alt="Game" class="popular-game-image">
+                        <div class="popular-game-badge">BESTSELLER</div>
+                    </div>
+                    <div class="popular-game-info">
+                        <h3 class="popular-game-title">CYBER LEGENDS</h3>
+                        <p class="popular-game-genre">Action RPG</p>
+                        <div class="popular-game-price">
+                            <span>$59.99</span>
+                            $49.99
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Game 2 -->
+                <div class="popular-game floating" onclick="window.location.href='featured.html#starforge'">
+                    <div class="popular-game-media">
+                        <img src="./ninja.jpg" alt="Game" class="popular-game-image">
+                        <div class="popular-game-badge">NEW</div>
+                    </div>
+                    <div class="popular-game-info">
+                        <h3 class="popular-game-title">NINJA SHADOW</h3>
+                        <p class="popular-game-genre">Action Stealth</p>
+                        <div class="popular-game-price">$39.99</div>
+                    </div>
+                </div>
+
+                <!-- Game 3 -->
+                <div class="popular-game floating" onclick="window.location.href='featured.html#warlords'">
+                    <div class="popular-game-media">
+                        <img src="./warloads.png" alt="Game" class="popular-game-image">
+                        <div class="popular-game-badge">STRATEGY</div>
+                    </div>
+                    <div class="popular-game-info">
+                        <h3 class="popular-game-title">WARLORDS</h3>
+                        <p class="popular-game-genre">Action Strategy</p>
+                        <div class="popular-game-price">$34.99</div>
+                    </div>
+                </div>
+
+                <!-- Game 4 -->
+                <div class="popular-game floating" onclick="window.location.href='featured.html#neo-tokyo'">
+                    <div class="popular-game-media">
+                        <img src="./ghost.jpg" alt="Game" class="popular-game-image">
+                        <div class="popular-game-badge">SALE</div>
+                    </div>
+                    <div class="popular-game-info">
+                        <h3 class="popular-game-title">GHOST RUNNER</h3>
+                        <p class="popular-game-genre">Action Platformer</p>
+                        <div class="popular-game-price">
+                            <span>$49.99</span>
+                            $29.99
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Game 5 -->
+                <div class="popular-game floating" onclick="window.location.href='featured.html#void-runner'">
+                    <div class="popular-game-media">
+                        <img src="./ultra.jpg" alt="Game" class="popular-game-image">
+                        <div class="popular-game-badge">MULTIPLAYER</div>
+                    </div>
+                    <div class="popular-game-info">
+                        <h3 class="popular-game-title">ULTRA STRIKE</h3>
+                        <p class="popular-game-genre">Action FPS</p>
+                        <div class="popular-game-price">$44.99</div>
+                    </div>
+                </div>
+
+                <!-- Game 6 -->
+                <div class="popular-game floating" onclick="window.location.href='featured.html#zombie-outbreak'">
+                    <div class="popular-game-media">
+                        <img src="./zombie.jpeg" alt="Game" class="popular-game-image">
+                        <div class="popular-game-badge">HOT</div>
+                    </div>
+                    <div class="popular-game-info">
+                        <h3 class="popular-game-title">ZOMBIE OUTBREAK</h3>
+                        <p class="popular-game-genre">Action Survival</p>
+                        <div class="popular-game-price">
+                            <span>$39.99</span>
+                            $24.99
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="scroll-indicator">
+                <div class="indicator-dot active"></div>
+                <div class="indicator-dot"></div>
+                <div class="indicator-dot"></div>
+                <div class="indicator-dot"></div>
+                <div class="indicator-dot"></div>
+                <div class="indicator-dot"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- More Categories Section -->
+    <section class="more-categories">
+        <h2 class="section-title">MORE TO EXPLORE</h2>
+        <div class="more-categories-grid">
+            <!-- Indie -->
+            <div class="small-category-card floating" onclick="window.location.href='featured.html'">
+                <svg class="small-category-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" stroke="#ff4d00" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <h3 class="small-category-title">INDIE GEMS</h3>
+                <p class="small-category-count">42 Games</p>
+            </div>
+
+            <!-- VR -->
+            <div class="small-category-card floating" onclick="window.location.href='featured.html'">
+                <svg class="small-category-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M8 21l4-7 4 7M3 7v10a2 2 0 002 2h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2zm0 0h18" stroke="#ff4d00" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                    <circle cx="8" cy="10" r="1" fill="#ff4d00"/>
+                    <circle cx="16" cy="10" r="1" fill="#ff4d00"/>
+                </svg>
+                <h3 class="small-category-title">VR EXPERIENCES</h3>
+                <p class="small-category-count">28 Games</p>
+            </div>
+
+            <!-- Racing -->
+            <div class="small-category-card floating" onclick="window.location.href='featured.html'">
+                <svg class="small-category-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M5 12V7a1 1 0 011-1h4l2 5h6a1 1 0 011 1v4a1 1 0 01-1 1h-2.81l-.54-.54A3 3 0 0012.44 16H8.56a3 3 0 00-2.21 1.46L5.81 18H3a1 1 0 01-1-1v-4a1 1 0 011-1h2zm13-1h2" stroke="#ff4d00" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                    <circle cx="7" cy="19" r="2" stroke="#ff4d00" stroke-width="2" fill="none"/>
+                    <circle cx="17" cy="19" r="2" stroke="#ff4d00" stroke-width="2" fill="none"/>
+                    <path d="M8 12h4l-2-4z" stroke="#ff4d00" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <h3 class="small-category-title">RACING</h3>
+                <p class="small-category-count">35 Games</p>
+            </div>
+
+            <!-- Puzzle -->
+            <div class="small-category-card floating" onclick="window.location.href='featured.html'">
+                <svg class="small-category-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M19.74 12.25c1.78-2.85-.5-6.5-3.84-6.12-1.83.21-3.03 1.94-2.63 3.8.48 2.23 2.9 3.55 5.12 2.85M8.13 6.34c2.67 1.27 5.8-.52 6.09-3.45.16-1.61-1.03-3.14-2.59-3.34-1.86-.24-3.71 1.04-4.04 2.94-.4 2.29 1.29 4.73 3.54 3.85" stroke="#ff4d00" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M12 8a4 4 0 014 4v8a4 4 0 01-4 4H8a4 4 0 01-4-4v-8a4 4 0 014-4h4z" stroke="#ff4d00" stroke-width="2" fill="none"/>
+                    <path d="M8 12h2v2H8zM12 12h2v2h-2zM8 16h2v2H8zM12 16h2v2h-2z" stroke="#ff4d00" stroke-width="1.5" fill="none"/>
+                </svg>
+                <h3 class="small-category-title">PUZZLE</h3>
+                <p class="small-category-count">51 Games</p>
+            </div>
+
+            <!-- Horror -->
+            <div class="small-category-card floating" onclick="window.location.href='featured.html'">
+                <svg class="small-category-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2z" stroke="#ff4d00" stroke-width="2" fill="none"/>
+                    <path d="M8 10s1.5-2 4-2 4 2 4 2" stroke="#ff4d00" stroke-width="2" fill="none" stroke-linecap="round"/>
+                    <path d="M9 16s1 2 3 2 3-2 3-2" stroke="#ff4d00" stroke-width="2" fill="none" stroke-linecap="round"/>
+                    <circle cx="8" cy="13" r="1" fill="#ff4d00"/>
+                    <circle cx="16" cy="13" r="1" fill="#ff4d00"/>
+                    <path d="M10 6v2M14 6v2" stroke="#ff4d00" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+                <h3 class="small-category-title">HORROR</h3>
+                <p class="small-category-count">39 Games</p>
+            </div>
+
+            <!-- Fighting -->
+            <div class="small-category-card floating" onclick="window.location.href='featured.html'">
+                <svg class="small-category-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M6.5 6.5C6.5 8.433 8.067 10 10 10s3.5-1.567 3.5-3.5S11.933 3 10 3 6.5 4.567 6.5 6.5zM10.5 15.5c0 1.933 1.567 3.5 3.5 3.5s3.5-1.567 3.5-3.5-1.567-3.5-3.5-3.5-3.5 1.567-3.5 3.5z" stroke="#ff4d00" stroke-width="2" fill="none"/>
+                    <path d="M10 10v2l-2 2 2 2v2M14 12l2-2-2-2M14 12l2 2-2 2" stroke="#ff4d00" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M8 12h8M4 8l2 2-2 2M20 8l-2 2 2 2" stroke="#ff4d00" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <h3 class="small-category-title">FIGHTING</h3>
+                <p class="small-category-count">27 Games</p>
+            </div>
+
+            <!-- Retro -->
+            <div class="small-category-card floating" onclick="window.location.href='featured.html'">
+                <svg class="small-category-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="2" y="6" width="20" height="12" rx="2" stroke="#ff4d00" stroke-width="2" fill="none"/>
+                    <rect x="4" y="8" width="16" height="8" rx="1" stroke="#ff4d00" stroke-width="1.5" fill="none"/>
+                    <circle cx="7" cy="12" r="1.5" fill="#ff4d00"/>
+                    <circle cx="17" cy="12" r="1.5" fill="#ff4d00"/>
+                    <rect x="13" y="10" width="1.5" height="1.5" fill="#ff4d00"/>
+                    <rect x="15" y="10" width="1.5" height="1.5" fill="#ff4d00"/>
+                    <rect x="13" y="12.5" width="1.5" height="1.5" fill="#ff4d00"/>
+                    <rect x="15" y="12.5" width="1.5" height="1.5" fill="#ff4d00"/>
+                    <path d="M9 10v1h1v1h-1v1h-1v-1H7v-1h1v-1h1z" fill="#ff4d00"/>
+                </svg>
+                <h3 class="small-category-title">RETRO</h3>
+                <p class="small-category-count">63 Games</p>
+            </div>
+
+            <!-- Family -->
+            <div class="small-category-card floating" onclick="window.location.href='featured.html'">
+                <svg class="small-category-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M16 4a4 4 0 00-8 0 4 4 0 108 0zM8 12a4 4 0 00-4 4v4h16v-4a4 4 0 00-4-4H8z" stroke="#ff4d00" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                    <circle cx="9" cy="7" r="2" stroke="#ff4d00" stroke-width="1.5" fill="none"/>
+                    <circle cx="15" cy="7" r="2" stroke="#ff4d00" stroke-width="1.5" fill="none"/>
+                    <path d="M3 16v4M21 16v4" stroke="#ff4d00" stroke-width="2" stroke-linecap="round"/>
+                    <path d="M12 2v2M12 10v2" stroke="#ff4d00" stroke-width="1.5" stroke-linecap="round"/>
+                </svg>
+                <h3 class="small-category-title">FAMILY</h3>
+                <p class="small-category-count">47 Games</p>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Performance optimization variables
+        let isScrolling = false;
+        let scrollTimeout;
+        const isMobile = window.innerWidth < 768;
+        const isLowEnd = navigator.hardwareConcurrency <= 2 || window.devicePixelRatio < 2;
+
+        // Cart functionality
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+        
+        // Update cart count display
+        function updateCartCount() {
+            const count = cart.reduce((total, item) => total + item.quantity, 0);
+            document.querySelector('.cart-count').textContent = count;
+            updateCartPreview();
+        }
+        
+        // Update cart preview
+        function updateCartPreview() {
+            const previewItems = document.getElementById('cart-preview-items');
+            const previewTotal = document.getElementById('cart-preview-total');
+            
+            previewItems.innerHTML = '';
+            
+            if (cart.length === 0) {
+                previewItems.innerHTML = '<p style="text-align: center; color: rgba(255,255,255,0.5);">Your cart is empty</p>';
+                previewTotal.textContent = '$0.00';
+                return;
+            }
+            
+            let total = 0;
+            
+            cart.forEach(item => {
+                const itemElement = document.createElement('div');
+                itemElement.className = 'cart-preview-item';
+                itemElement.innerHTML = `
+                    <img src="${item.image}" alt="${item.name}">
+                    <div class="cart-preview-item-name">${item.name}</div>
+                    <div class="cart-preview-item-price">${(item.price * item.quantity).toFixed(2)}</div>
+                `;
+                previewItems.appendChild(itemElement);
+                
+                total += item.price * item.quantity;
+            });
+            
+            previewTotal.textContent = `${total.toFixed(2)}`;
+        }
+
+        // Scroll Performance Optimization
+        function handleScroll() {
+            if (!isScrolling) {
+                document.body.classList.add('scrolling');
+                isScrolling = true;
+            }
+            
+            clearTimeout(scrollTimeout);
+            scrollTimeout = setTimeout(() => {
+                document.body.classList.remove('scrolling');
+                isScrolling = false;
+            }, 150);
+            
+            // Update navbar on scroll
+            const nav = document.querySelector('.nav-container');
+            if (window.scrollY > 50) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        }
+        
+        // Optimized scroll listener
+        window.addEventListener('scroll', handleScroll, { passive: true });
+        
+        // Optimized floating particles
+        function createParticles() {
+            const particlesContainer = document.getElementById('floating-particles');
+            
+            if (!particlesContainer) return;
+            
+            const particleCount = isMobile ? 0 : (window.innerWidth < 1024 ? 8 : 15);
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('floating-particle');
+                particle.style.left = `${Math.random() * 100}%`;
+                particle.style.top = `100%`;
+                particle.style.animationDelay = `${Math.random() * 20}s`;
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        // 3D hover effects with mouse parallax - EXACT MATCH WITH HOME.HTML
+        function addParallaxEffect() {
+            const cards = document.querySelectorAll('.category-card, .popular-game, .small-category-card');
+            let ticking = false;
+            
+            cards.forEach(card => {
+                let isHovering = false;
+                
+                card.addEventListener('mouseenter', () => {
+                    isHovering = true;
+                    card.classList.remove('floating');
+                });
+                
+                card.addEventListener('mouseleave', () => {
+                    isHovering = false;
+                    card.style.transform = '';
+                    // Re-enable floating animation after hover
+                    setTimeout(() => {
+                        if (!isHovering) card.classList.add('floating');
+                    }, 100);
+                });
+                
+                card.addEventListener('mousemove', (e) => {
+                    if (!isHovering || ticking) return;
+                    
+                    requestAnimationFrame(() => {
+                        if (!isHovering) return;
+                        
+                        const rect = card.getBoundingClientRect();
+                        const x = e.clientX - rect.left;
+                        const y = e.clientY - rect.top;
+                        const centerX = rect.width / 2;
+                        const centerY = rect.height / 2;
+                        
+                        // EXACT same calculation as home.html
+                        const angleY = (x - centerX) / 15;
+                        const angleX = (centerY - y) / 15;
+                        
+                        if (card.classList.contains('small-category-card')) {
+                            card.style.transform = `translateY(-10px) rotateX(${angleX * 0.2}deg) rotateY(${angleY * 0.2}deg) scale(1.02)`;
+                        } else if (card.classList.contains('popular-game')) {
+                            card.style.transform = `translateY(-10px) rotateX(${angleX * 0.3}deg) rotateY(${angleY * 0.3}deg) scale(1.02)`;
+                        } else {
+                            // EXACT same transform as home.html for category cards
+                            card.style.transform = `translateY(-20px) rotateX(${angleX}deg) rotateY(${angleY}deg) scale(1.05)`;
+                        }
+                        
+                        ticking = false;
+                    });
+                    
+                    ticking = true;
+                });
+            });
+        }
+
+        // Add scroll indicator functionality
+        function setupScrollIndicators() {
+            const slider = document.querySelector('.popular-slider');
+            const dots = document.querySelectorAll('.indicator-dot');
+            
+            if (slider && dots.length > 0) {
+                slider.addEventListener('scroll', () => {
+                    const scrollPercentage = slider.scrollLeft / (slider.scrollWidth - slider.clientWidth);
+                    const activeDot = Math.floor(scrollPercentage * dots.length);
+                    
+                    dots.forEach((dot, index) => {
+                        if (index === activeDot) {
+                            dot.classList.add('active');
+                        } else {
+                            dot.classList.remove('active');
+                        }
+                    });
+                }, { passive: true });
+                
+                dots.forEach((dot, index) => {
+                    dot.addEventListener('click', () => {
+                        const scrollTo = (slider.scrollWidth / dots.length) * index;
+                        slider.scrollTo({
+                            left: scrollTo,
+                            behavior: 'smooth'
+                        });
+                    });
+                });
+            }
+        }
+
+        // Initialize everything when DOM loads
+        document.addEventListener('DOMContentLoaded', () => {
+            updateCartCount();
+            
+            setTimeout(() => {
+                setupScrollIndicators();
+            }, 100);
+            
+            // Always add floating animation and 3D effects
+            createParticles();
+            addParallaxEffect();
+            
+            // Add floating animation to all cards immediately
+            document.querySelectorAll('.category-card, .popular-game, .small-category-card').forEach(card => {
+                card.classList.add('floating');
+            });
+        });
+        
+        // Cleanup and optimization on resize
+        let resizeTimeout;
+        window.addEventListener('resize', () => {
+            clearTimeout(resizeTimeout);
+            resizeTimeout = setTimeout(() => {
+                const particlesContainer = document.getElementById('floating-particles');
+                
+                if (particlesContainer) particlesContainer.innerHTML = '';
+                
+                createParticles();
+            }, 300);
+        }, { passive: true });
+        
+        // Cleanup particles on page unload for better memory management
+        window.addEventListener('beforeunload', () => {
+            const particlesContainer = document.getElementById('floating-particles');
+            
+            if (particlesContainer) particlesContainer.innerHTML = '';
+        });
+    </script>
+</body>
+</html>

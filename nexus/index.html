@@ -1,0 +1,1013 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NEXUS | Elite Gaming Marketplace</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Base Styles */
+        :root {
+            --primary: #ff4d00;
+            --primary-glow: #ff8c66;
+            --primary-dark: #e04500;
+            --dark: #0a0a0a;
+            --darker: #050505;
+            --darkest: #010101;
+            --light: #f5f5f5;
+            --gray: #1a1a1a;
+            --gray-light: #2a2a2a;
+            --neon-glow: 0 0 10px rgba(255, 77, 0, 0.7), 
+                          0 0 20px rgba(255, 77, 0, 0.5),
+                          0 0 30px rgba(255, 77, 0, 0.3);
+        }
+
+        * {
+            -webkit-tap-highlight-color: transparent;
+            -webkit-touch-callout: none;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Orbitron', 'Rajdhani', sans-serif;
+            background-color: var(--darkest);
+            color: var(--light);
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+
+        /* Remove tap highlight on all interactive elements */
+        a, button, input, select, textarea, [role="button"], .nav-link, .game-card, .category-card {
+            -webkit-tap-highlight-color: transparent;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            user-select: none;
+            outline: none;
+        }
+
+        button:focus, a:focus, input:focus, select:focus, textarea:focus {
+            outline: none;
+        }
+        /* Preloader Styles */
+        .preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--darkest);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: all 0.8s cubic-bezier(0.65, 0, 0.35, 1);
+        }
+
+        .preloader-inner {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            perspective: 1000px;
+        }
+
+        .loader-logo {
+            display: flex;
+            align-items: center;
+            margin-bottom: 3rem;
+            transform-style: preserve-3d;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotateY(0deg); }
+            50% { transform: translateY(-20px) rotateY(10deg); }
+        }
+
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            fill: var(--primary);
+            margin-right: 15px;
+            filter: drop-shadow(0 0 5px var(--primary));
+            animation: pulse 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes pulse {
+            from { filter: drop-shadow(0 0 5px var(--primary)); }
+            to { filter: drop-shadow(0 0 15px var(--primary-glow)); }
+        }
+
+        .logo-text {
+            font-size: 2.2rem;
+            font-weight: 800;
+            letter-spacing: 4px;
+            background: linear-gradient(to right, #fff 0%, var(--primary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+        }
+
+        .loader-bar-container {
+            width: 400px;
+            height: 6px;
+            background-color: transparent;
+            border-radius: 3px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .loader-bar {
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, var(--primary), var(--primary-glow));
+            border-radius: 3px;
+            animation: load 2.5s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+            box-shadow: var(--neon-glow);
+        }
+
+        .loader-percentage {
+            position: absolute;
+            right: -40px;
+            top: -8px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--primary);
+            text-shadow: 0 0 5px var(--primary);
+        }
+
+        @keyframes load {
+            0% { width: 0%; }
+            100% { width: 100%; }
+        }
+
+        /* Opening Animation */
+        .opening-animation {
+            position: relative;
+            width: 100%;
+            height: 85vh;
+            background: 
+                linear-gradient(rgba(5,5,5,0.7), rgba(1,1,1,0.9)),
+                url('https://images.unsplash.com/photo-1542751371-adc38448a05e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80') no-repeat center center;
+            background-size: cover;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        .particle {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background-color: var(--primary);
+            border-radius: 50%;
+            opacity: 0.5;
+            animation: float-particle 15s infinite linear;
+        }
+
+        @keyframes float-particle {
+            0% { transform: translateY(0) translateX(0); opacity: 0; }
+            10% { opacity: 0.7; }
+            90% { opacity: 0.7; }
+            100% { transform: translateY(-100vh) translateX(100px); opacity: 0; }
+        }
+
+        .animation-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            width: 100%;
+            padding: 0 20px;
+            transform-style: preserve-3d;
+        }
+
+        .reveal-text {
+            font-size: 6rem;
+            font-weight: 800;
+            letter-spacing: 8px;
+            text-transform: uppercase;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(to right, #fff 0%, #aaa 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            opacity: 0;
+            transform: translateY(30px) rotateX(45deg);
+            animation: fadeInUp 1.2s cubic-bezier(0.215, 0.61, 0.355, 1) 0.8s forwards;
+            text-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+            position: relative;
+            transition: all 0.5s cubic-bezier(0.215, 0.61, 0.355, 1);
+        }
+
+        .reveal-text::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 200px;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--primary), transparent);
+            opacity: 0;
+            animation: lineReveal 1s ease-out 1.5s forwards;
+            transition: all 0.5s ease;
+        }
+
+        @keyframes lineReveal {
+            from { width: 0; opacity: 0; }
+            to { width: 200px; opacity: 1; }
+        }
+
+        .reveal-subtext {
+            font-size: 1.35rem;
+            letter-spacing: 6px;
+            margin-bottom: 4rem;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 1s ease-out 1.8s forwards;
+            color: var(--primary);
+            text-shadow: 0 0 10px var(--primary);
+            font-weight: 600;
+            transition: all 0.5s cubic-bezier(0.215, 0.61, 0.355, 1);
+        }
+
+        .button-reveal {
+            opacity: 0;
+            transform: scale(0.8);
+            animation: fadeInScale 1s cubic-bezier(0.175, 0.885, 0.32, 1.275) 2.2s forwards;
+        }
+
+        @keyframes fadeInScale {
+            from { opacity: 0; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        /* Enhanced Enter Button */
+        .enter-button {
+            display: inline-flex;
+            align-items: center;
+            padding: 18px 40px;
+            background-color: transparent;
+            color: var(--light);
+            border: 2px solid var(--primary);
+            border-radius: 4px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            text-decoration: none;
+            transition: all 0.4s cubic-bezier(0.215, 0.61, 0.355, 1);
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            box-shadow: 0 0 20px rgba(255, 77, 0, 0.3);
+            z-index: 1;
+            transform-style: preserve-3d;
+        }
+
+        .enter-button svg {
+            margin-left: 12px;
+            stroke: var(--light);
+            transition: all 0.4s ease;
+        }
+
+        .enter-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,77,0,0.4), transparent);
+            transition: all 0.8s ease;
+            z-index: -1;
+        }
+
+        .enter-button:hover {
+            background-color: var(--primary);
+            color: var(--darkest);
+            transform: translateY(-5px) scale(1.1);
+            box-shadow: 0 15px 30px rgba(255, 77, 0, 0.6), 
+                        0 0 30px rgba(255, 77, 0, 0.4),
+                        0 0 60px rgba(255, 77, 0, 0.2);
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+        }
+
+        .enter-button:hover ~ .reveal-text {
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.9);
+            background: linear-gradient(to right, #fff 0%, var(--primary-glow) 100%);
+            -webkit-background-clip: text;
+        }
+
+        .enter-button:hover ~ .reveal-subtext {
+            text-shadow: 0 0 20px var(--primary-glow);
+            color: var(--primary-glow);
+        }
+
+        .enter-button:hover svg {
+            stroke: var(--darkest);
+            transform: translateX(8px);
+            filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.5));
+        }
+
+        .enter-button:hover::before {
+            left: 100%;
+        }
+
+        .enter-button::after {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            border: 2px solid var(--primary);
+            border-radius: 4px;
+            opacity: 0;
+            animation: pulseBorder 2s infinite;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .enter-button:hover::after {
+            opacity: 1;
+            animation: pulseBorder 1.5s infinite, glowPulse 1.5s infinite alternate;
+        }
+
+        @keyframes pulseBorder {
+            0% { transform: scale(1); opacity: 0.7; }
+            70% { transform: scale(1.1); opacity: 0; }
+            100% { transform: scale(1.1); opacity: 0; }
+        }
+
+        @keyframes glowPulse {
+            0% { box-shadow: 0 0 10px var(--primary-glow); }
+            100% { box-shadow: 0 0 30px var(--primary-glow); }
+        }
+
+        /* Glow effect for text on hover */
+        .enter-button span {
+            position: relative;
+            transition: all 0.4s ease;
+            display: inline-block;
+        }
+
+        .enter-button:hover span {
+            transform: translateZ(20px);
+            text-shadow: 0 0 15px rgba(255, 255, 255, 0.9);
+        }
+
+        /* Coordinated heading illumination */
+        .button-reveal:hover ~ .animation-content .reveal-text {
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.9);
+            background: linear-gradient(to right, #fff 0%, var(--primary-glow) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .button-reveal:hover ~ .animation-content .reveal-text::after {
+            background: linear-gradient(90deg, transparent, var(--primary-glow), transparent);
+            box-shadow: 0 0 15px var(--primary-glow);
+        }
+
+        .button-reveal:hover ~ .animation-content .reveal-subtext {
+            text-shadow: 0 0 20px var(--primary-glow);
+            color: var(--primary-glow);
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px) rotateX(45deg);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) rotateX(0);
+            }
+        }
+
+        /* Loading Transition */
+        .loading-transition {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--darkest);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9998;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.8s ease;
+        }
+
+        .loading-content {
+            text-align: center;
+            transform-style: preserve-3d;
+        }
+
+        .loading-logo {
+            margin-bottom: 3rem;
+            transform: translateZ(50px);
+        }
+
+        .loading-logo svg {
+            width: 80px;
+            height: 80px;
+            fill: var(--primary);
+            filter: drop-shadow(0 0 10px var(--primary));
+            animation: logoPulse 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes logoPulse {
+            from { transform: scale(1); filter: drop-shadow(0 0 10px var(--primary)); }
+            to { transform: scale(1.1); filter: drop-shadow(0 0 20px var(--primary-glow)); }
+        }
+
+        .loading-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 10px;
+            margin: 0 auto 40px;
+            width: 300px;
+        }
+
+        .loading-cell {
+            height: 10px;
+            background-color: var(--gray);
+            border-radius: 2px;
+            animation: cellLoad 1.6s ease-in-out infinite;
+            animation-delay: calc(var(--i) * 0.1s);
+            transform-origin: center bottom;
+        }
+
+        @keyframes cellLoad {
+            0%, 100% { transform: scaleY(0.3); background-color: var(--gray); }
+            50% { transform: scaleY(1); background-color: var(--primary); box-shadow: 0 0 10px var(--primary); }
+        }
+
+        .loading-text {
+            font-size: 1.35rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--primary);
+            text-shadow: 0 0 10px var(--primary);
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .loading-subtext {
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+            color: var(--light);
+            opacity: 0.7;
+            font-family: 'Rajdhani', sans-serif;
+        }
+
+        /* Main Content */
+        .main-content {
+            display: none;
+            opacity: 0;
+            min-height: 85vh;
+            background-color: var(--darkest);
+            padding: 4rem 2rem;
+            color: white;
+            transition: opacity 1s ease;
+        }
+
+        /* Navigation */
+        .nav-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 1.3rem 2.6rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            background: linear-gradient(to bottom, rgba(5,5,5,0.9), rgba(1,1,1,0.2));
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255,77,0,0.1);
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-logo svg {
+            width: 30px;
+            height: 30px;
+            fill: var(--primary);
+            margin-right: 12px;
+            filter: drop-shadow(0 0 5px var(--primary));
+        }
+
+        .nav-logo-text {
+            font-size: 1.35rem;
+            font-weight: 800;
+            letter-spacing: 3px;
+            background: linear-gradient(to right, #fff 0%, var(--primary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-link {
+            color: var(--light);
+            text-decoration: none;
+            font-weight: 600;
+            letter-spacing: 1px;
+            position: relative;
+            padding: 0.5rem 0;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--primary);
+            text-shadow: 0 0 10px var(--primary);
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .nav-link.active {
+            color: var(--primary);
+            text-shadow: 0 0 10px var(--primary);
+        }
+
+        .nav-link.active::after {
+            width: 100%;
+        }
+
+        /* Cart Icon */
+        .cart-icon {
+            position: relative;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .cart-icon svg {
+            width: 24px;
+            height: 24px;
+            stroke: var(--light);
+            transition: all 0.3s ease;
+        }
+
+        .cart-icon:hover svg {
+            stroke: var(--primary);
+            transform: scale(1.1);
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: var(--primary);
+            color: var(--darkest);
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 0.7rem;
+            font-weight: 800;
+            box-shadow: 0 0 5px var(--primary);
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 992px) {
+            .reveal-text {
+                font-size: 3.4rem;
+                letter-spacing: 6px;
+            }
+            
+            .reveal-subtext {
+                font-size: 1.1rem;
+                letter-spacing: 4px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .reveal-text {
+                font-size: 2.2rem;
+                letter-spacing: 4px;
+            }
+            
+            .reveal-subtext {
+                font-size: 1rem;
+                letter-spacing: 3px;
+                margin-bottom: 3rem;
+            }
+            
+            .enter-button {
+                padding: 14px 30px;
+                font-size: 1rem;
+            }
+
+            .loader-bar-container {
+                width: 280px;
+            }
+        }
+
+        /* ========================================= */
+        /* COMPREHENSIVE MOBILE RESPONSIVE STYLES */
+        /* ========================================= */
+
+        /* Tablets - Landscape (992px) */
+        @media (max-width: 992px) {
+            .nav-container {
+                padding: 1.2rem 2rem;
+            }
+            
+            .nav-logo-text {
+                font-size: 1.3rem;
+            }
+            
+            .nav-links {
+                gap: 1.5rem;
+            }
+            
+            .nav-link {
+                font-size: 0.95rem;
+            }
+            
+            .hero, .banner {
+                height: 75vh;
+            }
+            
+            h1, .hero-title {
+                font-size: 3.2rem;
+            }
+            
+            h2, .section-title {
+                font-size: 2rem;
+            }
+            
+            .btn, button {
+                padding: 0.85rem 2rem;
+                font-size: 1rem;
+            }
+        }
+
+        /* Tablets - Portrait (768px) */
+        @media (max-width: 768px) {
+            .nav-container {
+                padding: 1rem 1.5rem;
+                flex-wrap: wrap;
+            }
+            
+            .nav-logo-text {
+                font-size: 1.2rem;
+                letter-spacing: 2px;
+            }
+            
+            .nav-links {
+                width: 100%;
+                justify-content: center;
+                gap: 1rem;
+                margin-top: 1rem;
+                flex-wrap: wrap;
+            }
+            
+            .nav-link {
+                font-size: 0.9rem;
+                padding: 0.5rem 1rem;
+            }
+            
+            .hero, .banner {
+                height: 70vh;
+            }
+            
+            h1, .hero-title {
+                font-size: 2.6rem;
+                padding: 0 1.5rem;
+            }
+            
+            h2, .section-title {
+                font-size: 1.8rem;
+            }
+            
+            p, .description {
+                font-size: 1rem;
+                padding: 0 1rem;
+            }
+            
+            .grid, .games-grid, .categories-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1.5rem;
+                padding: 0 1rem;
+            }
+            
+            .card, .game-card, .category-card {
+                height: 320px;
+            }
+            
+            .btn, button {
+                padding: 0.8rem 1.8rem;
+                font-size: 0.95rem;
+            }
+            
+            section {
+                padding: 3rem 1.5rem;
+            }
+        }
+
+        /* Mobile Devices (576px) */
+        @media (max-width: 576px) {
+            .nav-container {
+                padding: 0.9rem 1rem;
+            }
+            
+            .nav-logo svg {
+                width: 24px;
+                height: 24px;
+            }
+            
+            .nav-logo-text {
+                font-size: 1.1rem;
+                letter-spacing: 1px;
+            }
+            
+            .nav-links {
+                gap: 0.8rem;
+            }
+            
+            .nav-link {
+                font-size: 0.85rem;
+                padding: 0.4rem 0.8rem;
+            }
+            
+            .hero, .banner {
+                height: 65vh;
+            }
+            
+            h1, .hero-title {
+                font-size: 2rem;
+                padding: 0 1rem;
+                line-height: 1.2;
+            }
+            
+            h2, .section-title {
+                font-size: 1.6rem;
+            }
+            
+            h3 {
+                font-size: 1.2rem;
+            }
+            
+            p, .description {
+                font-size: 0.95rem;
+                line-height: 1.5;
+            }
+            
+            .grid, .games-grid, .categories-grid {
+                grid-template-columns: 1fr;
+                gap: 1.2rem;
+                padding: 0 0.8rem;
+            }
+            
+            .card, .game-card, .category-card {
+                height: 300px;
+            }
+            
+            .btn, button {
+                padding: 0.75rem 1.5rem;
+                font-size: 0.9rem;
+                width: 100%;
+                max-width: 280px;
+            }
+            
+            section {
+                padding: 2.5rem 1rem;
+            }
+            
+            .cart-item, .checkout-item {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+
+        /* Small Mobile (480px) */
+        @media (max-width: 480px) {
+            .nav-container {
+                padding: 0.8rem 0.8rem;
+            }
+            
+            .nav-logo svg {
+                width: 20px;
+                height: 20px;
+            }
+            
+            .nav-logo-text {
+                font-size: 1rem;
+            }
+            
+            .nav-links {
+                gap: 0.6rem;
+            }
+            
+            .nav-link {
+                font-size: 0.8rem;
+                padding: 0.3rem 0.6rem;
+            }
+            
+            .hero, .banner {
+                height: 60vh;
+            }
+            
+            h1, .hero-title {
+                font-size: 1.7rem;
+            }
+            
+            h2, .section-title {
+                font-size: 1.4rem;
+            }
+            
+            .card, .game-card, .category-card {
+                height: 280px;
+            }
+            
+            .btn, button {
+                padding: 0.7rem 1.3rem;
+                font-size: 0.85rem;
+            }
+            
+            section {
+                padding: 2rem 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Preloader -->
+    <div class="preloader">
+        <div class="preloader-inner">
+            <div class="loader-logo">
+                <svg class="logo-icon" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M50 10 L90 50 L50 90 L10 50 Z" fill="none" stroke="#ff4d00" stroke-width="8"/>
+                    <path d="M30 50 L70 50 M50 30 L50 70" stroke="#ff4d00" stroke-width="8" stroke-linecap="round"/>
+                </svg>
+                <span class="logo-text">NEXUS</span>
+            </div>
+            <div class="loader-bar-container">
+                <div class="loader-bar"></div>
+                <span class="loader-percentage">0%</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Transition -->
+    <div class="loading-transition">
+        <div class="loading-content">
+            <div class="loading-logo">
+                <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M50 10 L90 50 L50 90 L10 50 Z" fill="none" stroke="#ff4d00" stroke-width="8"/>
+                    <path d="M30 50 L70 50 M50 30 L50 70" stroke="#ff4d00" stroke-width="8" stroke-linecap="round"/>
+                </svg>
+            </div>
+            <div class="loading-grid" id="loading-grid"></div>
+            <div class="loading-text">INITIALIZING NEXUS PLATFORM</div>
+            <div class="loading-subtext">Loading game database and premium content</div>
+        </div>
+    </div>
+
+    <!-- Opening Animation Container -->
+    <div class="opening-animation">
+        <div class="particles" id="particles"></div>
+        <div class="animation-content">
+            <h1 class="reveal-text">NEXUS GAMING</h1>
+            <p class="reveal-subtext">ELITE DIGITAL MARKETPLACE</p>
+            
+            <!-- Revealed Button -->
+            <div class="button-reveal">
+                <a href="featured.html" class="enter-button" id="enter-button">
+                    <span>ENTER MARKETPLACE</span>
+                    <svg viewBox="0 0 13 10" height="10px" width="15px">
+                        <path d="M1,5 L11,5"></path>
+                        <polyline points="8 1 12 5 8 9"></polyline>
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main id="main-content" class="main-content">
+        <h1>Welcome to Nexus Gaming Marketplace</h1>
+        <p>The ultimate destination for premium game keys, subscriptions, and gaming gear.</p>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Create particles
+            const particlesContainer = document.getElementById('particles');
+            for (let i = 0; i < 50; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                particle.style.left = `${Math.random() * 100}%`;
+                particle.style.top = `${Math.random() * 100}%`;
+                particle.style.animationDelay = `${Math.random() * 15}s`;
+                particlesContainer.appendChild(particle);
+            }
+
+            // Create loading grid cells
+            const loadingGrid = document.getElementById('loading-grid');
+            for (let i = 0; i < 25; i++) {
+                const cell = document.createElement('div');
+                cell.classList.add('loading-cell');
+                cell.style.setProperty('--i', i % 5);
+                loadingGrid.appendChild(cell);
+            }
+
+            // Update preloader percentage
+            const percentageElement = document.querySelector('.loader-percentage');
+            const loaderBar = document.querySelector('.loader-bar');
+            let percent = 0;
+            const interval = setInterval(() => {
+                percent += 1;
+                percentageElement.textContent = `${percent}%`;
+                if (percent >= 100) {
+                    clearInterval(interval);
+                }
+            }, 25);
+
+            // Simulate preloader
+            setTimeout(function() {
+                document.querySelector('.preloader').style.opacity = '0';
+                document.querySelector('.preloader').style.visibility = 'hidden';
+                
+                // Start opening animation sequence
+                startOpeningAnimation();
+            }, 2500);
+            
+            function startOpeningAnimation() {
+                // Set up click handler for enter button
+                const enterButton = document.getElementById('enter-button');
+                
+                enterButton.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // Fade out opening animation
+                    document.querySelector('.opening-animation').style.opacity = '0';
+                    document.querySelector('.opening-animation').style.pointerEvents = 'none';
+                    
+                    // Show loading transition
+                    showLoadingTransition();
+                    
+                    // Redirect to featured page after a delay
+                    setTimeout(function() {
+                        window.location.href = 'featured.html';
+                    }, 1500);
+                });
+            }
+            
+            function showLoadingTransition() {
+                const loadingTransition = document.querySelector('.loading-transition');
+                
+                // Show loading screen
+                loadingTransition.style.opacity = '1';
+                loadingTransition.style.pointerEvents = 'all';
+            }
+        });
+    </script>
+</body>
+</html>

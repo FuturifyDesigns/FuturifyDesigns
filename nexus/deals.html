@@ -1,0 +1,2861 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hot Deals | NEXUS Gaming Marketplace</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Base Styles */
+        :root {
+            --primary: #ff4d00;
+            --primary-glow: #ff8c66;
+            --primary-dark: #e04500;
+            --dark: #0a0a0a;
+            --darker: #050505;
+            --darkest: #010101;
+            --light: #f5f5f5;
+            --gray: #1a1a1a;
+            --gray-light: #2a2a2a;
+            --neon-glow: 0 0 10px rgba(255, 77, 0, 0.7), 
+                          0 0 20px rgba(255, 77, 0, 0.5),
+                          0 0 30px rgba(255, 77, 0, 0.3);
+        }
+
+        * {
+            -webkit-tap-highlight-color: transparent;
+            -webkit-touch-callout: none;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* SCROLL PERFORMANCE OPTIMIZATIONS */
+        * {
+            -webkit-overflow-scrolling: touch;
+        }
+
+        body {
+            font-family: 'Orbitron', 'Rajdhani', sans-serif;
+            background-color: var(--darkest);
+            color: var(--light);
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            /* Scroll performance */
+            scroll-behavior: smooth;
+            overscroll-behavior: none;
+        }
+
+
+        /* Remove tap highlight on all interactive elements */
+        a, button, input, select, textarea, [role="button"], .nav-link, .game-card, .category-card {
+            -webkit-tap-highlight-color: transparent;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            user-select: none;
+            outline: none;
+        }
+
+        button:focus, a:focus, input:focus, select:focus, textarea:focus {
+            outline: none;
+        }
+        /* Disable animations during scroll */
+        .scrolling * {
+            animation-play-state: paused !important;
+            transition: none !important;
+        }
+
+        .scrolling .floating-particle {
+            display: none !important;
+        }
+
+        /* Optimize heavy elements for scrolling */
+        .deal-card, .featured-deal, .trending-item, .stat-card {
+            contain: layout style paint;
+            transform: translateZ(0);
+            will-change: transform;
+            backface-visibility: hidden;
+        }
+
+        /* Simplified scroll states */
+        .scroll-optimized .deal-card:hover,
+        .scroll-optimized .featured-deal:hover,
+        .scroll-optimized .trending-item:hover {
+            transform: none !important;
+            transition: none !important;
+        }
+
+        /* Disable heavy effects during scroll */
+        .scrolling .deal-badge,
+        .scrolling .featured-deal-badge,
+        .scrolling .trending-rank {
+            animation: none !important;
+        }
+
+        .scrolling .stat-icon,
+        .scrolling .countdown-value {
+            animation: none !important;
+        }
+
+        /* Performance optimizations */
+        @media (max-width: 768px) {
+            .floating-particle {
+                display: none !important;
+            }
+            
+            .deal-card.floating, .featured-deal.floating, .trending-item.floating {
+                animation: none !important;
+            }
+            
+            /* Simplified mobile interactions */
+            .deal-card, .featured-deal, .trending-item {
+                transition: transform 0.2s ease, box-shadow 0.2s ease !important;
+            }
+            
+            .deal-card:hover, .featured-deal:hover, .trending-item:hover {
+                transform: translateY(-3px) !important;
+                transition: transform 0.2s ease !important;
+            }
+        }
+
+        /* Disable heavy animations on low-end devices */
+        @media (max-width: 576px) {
+            .floating-particle {
+                display: none !important;
+            }
+            
+            .deal-badge, .featured-deal-badge, .trending-rank {
+                animation: none !important;
+            }
+            
+            .stat-icon, .countdown-value {
+                animation: none !important;
+            }
+            
+            .hero-title, .hero-subtitle, .section-title {
+                animation: none !important;
+            }
+            
+            /* Ultra-simplified mobile */
+            .deal-card, .featured-deal, .trending-item {
+                transition: none !important;
+                transform: none !important;
+            }
+            
+            .deal-card:hover, .featured-deal:hover, .trending-item:hover {
+                transform: none !important;
+            }
+        }
+
+        /* Contain expensive operations */
+        .hero, .stats-section, .deals-section, .trending-section, .newsletter-section {
+            contain: layout;
+        }
+
+        /* Optimize background attachments */
+        .hero {
+            background-attachment: scroll !important;
+        }
+
+        /* Reduce complexity of gradients on scroll */
+        .scrolling .deals-section,
+        .scrolling .trending-section,
+        .scrolling .newsletter-section {
+            background: var(--darkest) !important;
+        }
+
+        /* Navigation */
+        .nav-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 1.3rem 2.6rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            background: linear-gradient(to bottom, rgba(5,5,5,0.9), rgba(1,1,1,0.2));
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255,77,0,0.1);
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .nav-logo svg {
+            width: 30px;
+            height: 30px;
+            fill: var(--primary);
+            margin-right: 12px;
+            filter: drop-shadow(0 0 5px var(--primary));
+            transition: all 0.3s ease;
+        }
+
+        .nav-logo:hover svg {
+            transform: rotate(15deg);
+        }
+
+        .nav-logo-text {
+            font-size: 1.35rem;
+            font-weight: 800;
+            letter-spacing: 3px;
+            background: linear-gradient(to right, #fff 0%, var(--primary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-link {
+            color: var(--light);
+            text-decoration: none;
+            font-weight: 600;
+            letter-spacing: 1px;
+            position: relative;
+            padding: 0.5rem 0;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--primary);
+            text-shadow: 0 0 10px var(--primary);
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .nav-link.active {
+            color: var(--primary);
+            text-shadow: 0 0 10px var(--primary);
+        }
+
+        .nav-link.active::after {
+            width: 100%;
+        }
+
+        /* Cart Icon */
+        .cart-icon {
+            position: relative;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .cart-icon svg {
+            width: 24px;
+            height: 24px;
+            stroke: var(--light);
+            transition: all 0.3s ease;
+        }
+
+        .cart-icon:hover svg {
+            stroke: var(--primary);
+            transform: scale(1.1);
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: var(--primary);
+            color: var(--darkest);
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 0.7rem;
+            font-weight: 800;
+            box-shadow: 0 0 5px var(--primary);
+        }
+
+        .cart-preview {
+            position: absolute;
+            top: 120%;
+            right: 0;
+            width: 300px;
+            background: var(--darker);
+            border: 1px solid rgba(255,77,0,0.2);
+            border-radius: 8px;
+            padding: 1rem;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 1000;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+        }
+
+        .cart-icon:hover .cart-preview {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .cart-preview-item {
+            display: flex;
+            align-items: center;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .cart-preview-item:last-child {
+            border-bottom: none;
+        }
+
+        .cart-preview-item img {
+            width: 40px;
+            height: 40px;
+            object-fit: cover;
+            border-radius: 4px;
+            margin-right: 1rem;
+        }
+
+        .cart-preview-item-name {
+            font-size: 0.8rem;
+            font-weight: 600;
+            flex-grow: 1;
+        }
+
+        .cart-preview-item-price {
+            font-size: 0.8rem;
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        .cart-preview-footer {
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .cart-preview-total {
+            display: flex;
+            justify-content: space-between;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .cart-preview-button {
+            width: 100%;
+            padding: 0.5rem;
+            background: var(--primary);
+            color: var(--darkest);
+            border: none;
+            border-radius: 4px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .cart-preview-button:hover {
+            background: var(--light);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px var(--primary);
+        }
+
+        /* Hero Section - Enhanced */
+        .hero {
+            height: 80vh;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 80px;
+            background: linear-gradient(rgba(5,5,5,0.8), rgba(1,1,1,0.9)),
+                        url('https://images.unsplash.com/photo-1542751371-adc38448a05e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80') no-repeat center center;
+            background-size: cover;
+            background-attachment: fixed;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 30% 20%, rgba(255, 77, 0, 0.15) 0%, transparent 50%),
+                        radial-gradient(circle at 70% 80%, rgba(255, 77, 0, 0.1) 0%, transparent 50%);
+            z-index: 1;
+        }
+
+        .hero-content {
+            text-align: center;
+            max-width: 900px;
+            padding: 0 2rem;
+            z-index: 2;
+            position: relative;
+        }
+
+        .hero-title {
+            font-size: 6rem;
+            font-weight: 800;
+            letter-spacing: 8px;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(45deg, #fff 0%, var(--primary) 50%, #fff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+            animation: titleGlow 4s ease-in-out infinite alternate;
+            line-height: 1.1;
+            position: relative;
+        }
+
+        @keyframes titleGlow {
+            0% { text-shadow: 0 5px 15px rgba(0, 0, 0, 0.5); }
+            100% { text-shadow: 0 5px 30px rgba(255, 77, 0, 0.8); }
+        }
+
+        .hero-title::before {
+            content: '🔥';
+            position: absolute;
+            left: -120px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 3.4rem;
+            animation: fireFloat 3s ease-in-out infinite;
+        }
+
+        .hero-title::after {
+            content: '⚡';
+            position: absolute;
+            right: -120px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 3.4rem;
+            animation: lightningFloat 3s ease-in-out infinite;
+        }
+
+        @keyframes fireFloat {
+            0%, 100% { transform: translateY(-50%) scale(1); }
+            50% { transform: translateY(-70%) scale(1.2); }
+        }
+
+        @keyframes lightningFloat {
+            0%, 100% { transform: translateY(-50%) rotate(0deg); }
+            50% { transform: translateY(-70%) rotate(15deg); }
+        }
+
+        .hero-subtitle {
+            font-size: 1.6rem;
+            letter-spacing: 6px;
+            margin-bottom: 2rem;
+            color: var(--primary);
+            text-shadow: 0 0 15px var(--primary);
+            font-weight: 600;
+            animation: subtitlePulse 3s ease-in-out infinite;
+            position: relative;
+        }
+
+        @keyframes subtitlePulse {
+            0%, 100% { text-shadow: 0 0 15px var(--primary); }
+            50% { text-shadow: 0 0 30px var(--primary-glow); }
+        }
+
+        /* Enhanced Countdown Timer */
+        .countdown-container {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 3rem;
+            perspective: 1000px;
+        }
+
+        .countdown-item {
+            text-align: center;
+            background: rgba(255,255,255,0.05);
+            padding: 1.5rem;
+            border-radius: 15px;
+            border: 2px solid rgba(255,77,0,0.3);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            transition: all 0.3s ease;
+            transform-style: preserve-3d;
+        }
+
+        .countdown-item:hover {
+            transform: translateY(-10px) rotateX(10deg);
+            box-shadow: 0 20px 40px rgba(255,77,0,0.3);
+            border-color: rgba(255,77,0,0.6);
+        }
+
+        .countdown-value {
+            font-size: 2.6rem;
+            font-weight: 800;
+            color: var(--primary);
+            text-shadow: 0 0 15px var(--primary);
+            margin-bottom: 0.5rem;
+            position: relative;
+            display: inline-block;
+            min-width: 80px;
+        }
+
+        .countdown-label {
+            font-size: 1rem;
+            color: rgba(255,255,255,0.8);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 600;
+        }
+
+        /* Live Stats Section - Enhanced */
+        .stats-section {
+            padding: 6rem 3rem;
+            background: linear-gradient(135deg, var(--darkest) 0%, var(--gray) 50%, var(--darkest) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 3rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            perspective: 1000px;
+        }
+
+        .stat-card {
+            background: linear-gradient(145deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
+            border-radius: 20px;
+            padding: 3rem 2rem;
+            text-align: center;
+            border: 2px solid rgba(255,77,0,0.2);
+            transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            transform-style: preserve-3d;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent 40%, rgba(255,77,0,0.1) 100%);
+            opacity: 0;
+            transition: all 0.6s ease;
+            z-index: -1;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-15px) rotateX(10deg) rotateY(5deg) scale(1.05);
+            box-shadow: 0 25px 50px rgba(255, 77, 0, 0.4);
+            border-color: rgba(255,77,0,0.5);
+        }
+
+        .stat-card:hover::before {
+            opacity: 1;
+        }
+
+        .stat-icon {
+            font-size: 2.6rem;
+            margin-bottom: 1.5rem;
+            animation: iconFloat 4s ease-in-out infinite;
+        }
+
+        @keyframes iconFloat {
+            0%, 100% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-10px) scale(1.1); }
+        }
+
+        .stat-value {
+            font-size: 2.6rem;
+            font-weight: 800;
+            color: var(--primary);
+            text-shadow: 0 0 15px var(--primary);
+            margin-bottom: 1rem;
+            animation: valueGlow 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes valueGlow {
+            0% { text-shadow: 0 0 15px var(--primary); }
+            100% { text-shadow: 0 0 30px var(--primary-glow); }
+        }
+
+        .stat-label {
+            font-size: 1.1rem;
+            color: rgba(255,255,255,0.9);
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        /* Section Title - Enhanced */
+        .section-title {
+            font-size: 3.4rem;
+            font-weight: 800;
+            letter-spacing: 8px;
+            margin-bottom: 6rem;
+            text-align: center;
+            position: relative;
+            display: inline-block;
+            left: 50%;
+            transform: translateX(-50%);
+            color: var(--light);
+            text-transform: uppercase;
+            animation: sectionTitleGlow 4s ease-in-out infinite alternate;
+        }
+
+        @keyframes sectionTitleGlow {
+            0% { 
+                text-shadow: 0 0 15px var(--primary);
+            }
+            100% { 
+                text-shadow: 0 0 40px var(--primary), 0 0 60px var(--primary-glow);
+            }
+        }
+
+        .section-title::before {
+            content: '💎';
+            position: absolute;
+            left: -100px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 2.6rem;
+            animation: gemFloat 3s ease-in-out infinite;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 300px;
+            height: 5px;
+            background: linear-gradient(90deg, transparent, var(--primary), transparent);
+            border-radius: 5px;
+            box-shadow: 0 0 20px var(--primary);
+            animation: lineGlow 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes gemFloat {
+            0%, 100% { transform: translateY(-50%) rotate(0deg); }
+            50% { transform: translateY(-70%) rotate(180deg); }
+        }
+
+        @keyframes lineGlow {
+            0% { box-shadow: 0 0 20px var(--primary); }
+            100% { box-shadow: 0 0 40px var(--primary-glow); }
+        }
+
+        /* Enhanced Deals Section */
+        .deals-section {
+            padding: 8rem 3rem;
+            position: relative;
+            background: radial-gradient(circle at 20% 30%, rgba(255, 77, 0, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 70%, rgba(255, 77, 0, 0.05) 0%, transparent 50%),
+                        linear-gradient(135deg, var(--darkest) 0%, var(--gray) 100%);
+        }
+
+        .deals-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+            gap: 4rem;
+            margin-top: 4rem;
+            perspective: 1000px;
+        }
+
+        /* CONSISTENT 3D Deal Cards with Floating Animation */
+        .deal-card {
+            background: var(--darker);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+            position: relative;
+            border: 2px solid rgba(255,77,0,0.2);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+            height: 440px;
+            cursor: pointer;
+            transform-style: preserve-3d;
+            will-change: transform;
+        }
+
+        .deal-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent 40%, rgba(255,77,0,0.1) 100%);
+            opacity: 0;
+            transition: all 0.6s ease;
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        .deal-card.floating {
+            animation: cardFloat 6s ease-in-out infinite;
+        }
+
+        .deal-card.floating:nth-child(even) {
+            animation: cardFloat 6s ease-in-out infinite reverse;
+        }
+
+        @keyframes cardFloat {
+            0%, 100% { transform: translateY(0) rotateZ(0deg); }
+            25% { transform: translateY(-8px) rotateZ(0.5deg); }
+            50% { transform: translateY(0) rotateZ(0deg); }
+            75% { transform: translateY(-5px) rotateZ(-0.5deg); }
+        }
+
+        .deal-card:hover {
+            transform: translateY(-15px) rotateX(4deg) rotateY(4deg) scale(1.03);
+            box-shadow: 0 25px 50px rgba(255, 77, 0, 0.3), 
+                         0 0 60px rgba(255, 77, 0, 0.2);
+            border-color: rgba(255,77,0,0.5);
+            animation: none;
+        }
+
+        .deal-card:hover::before {
+            opacity: 1;
+        }
+
+        .deal-media {
+            position: relative;
+            height: 250px;
+            overflow: hidden;
+            transform-style: preserve-3d;
+        }
+
+        .deal-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: all 0.8s cubic-bezier(0.215, 0.61, 0.355, 1);
+            transform-origin: center;
+            will-change: transform;
+        }
+
+        .deal-card:hover .deal-image {
+            transform: scale(1.15) rotate(1deg);
+        }
+
+        .deal-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, transparent 30%, rgba(0,0,0,0.95) 90%);
+            z-index: 1;
+        }
+
+        .deal-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: var(--primary);
+            color: var(--darkest);
+            padding: 0.6rem 1.2rem;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            z-index: 3;
+            box-shadow: 0 0 20px var(--primary);
+            transform: translateY(0);
+            transition: all 0.4s ease;
+            animation: badgeFloat 4s ease-in-out infinite;
+            will-change: transform;
+        }
+
+        @keyframes badgeFloat {
+            0%, 100% { transform: translateY(0) scale(1); }
+            25% { transform: translateY(-12px) scale(1.05); }
+            75% { transform: translateY(-6px) scale(1.02); }
+        }
+
+        .deal-card:hover .deal-badge {
+            animation: badgePulse 0.6s ease-in-out infinite alternate;
+            transform: scale(1.15);
+        }
+
+        @keyframes badgePulse {
+            from { box-shadow: 0 0 20px var(--primary); }
+            to { box-shadow: 0 0 40px var(--primary-glow), 0 0 60px var(--primary); }
+        }
+
+        .deal-info {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 2rem;
+            z-index: 2;
+            transform: translateZ(30px);
+            height: calc(100% - 250px);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .deal-title {
+            font-size: 1.6rem;
+            font-weight: 800;
+            margin-bottom: 0.8rem;
+            color: var(--light);
+            text-shadow: 0 2px 10px rgba(0,0,0,0.7);
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            position: relative;
+            line-height: 1.2;
+        }
+
+        .deal-title::before {
+            content: '▶';
+            position: absolute;
+            left: -25px;
+            opacity: 0;
+            transform: translateX(-10px);
+            transition: all 0.3s ease;
+            color: var(--primary);
+        }
+
+        .deal-card:hover .deal-title {
+            color: var(--primary);
+            text-shadow: 0 0 20px var(--primary);
+            transform: translateX(10px);
+        }
+
+        .deal-card:hover .deal-title::before {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .deal-description {
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.8);
+            margin-bottom: 1rem;
+            line-height: 1.5;
+            font-family: 'Rajdhani', sans-serif;
+            flex-grow: 1;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .deal-price-container {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .deal-old-price {
+            font-size: 1.1rem;
+            color: rgba(255,255,255,0.5);
+            text-decoration: line-through;
+            position: relative;
+        }
+
+        .deal-new-price {
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: var(--primary);
+            text-shadow: 0 0 12px var(--primary);
+        }
+
+        .deal-discount {
+            position: absolute;
+            top: -15px;
+            right: -25px;
+            background: var(--primary);
+            color: var(--darkest);
+            padding: 0.2rem 0.6rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 800;
+            box-shadow: 0 0 8px var(--primary);
+        }
+
+        .deal-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: auto;
+            gap: 1rem;
+        }
+
+        .deal-expires {
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.6);
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 600;
+        }
+
+        /* CONSISTENT ADD TO CART BUTTON */
+        .deal-button, .add-to-cart {
+            background: var(--primary);
+            color: var(--darkest);
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 6px;
+            font-weight: 800;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            box-shadow: 0 0 12px var(--primary);
+            position: relative;
+            overflow: hidden;
+            font-family: 'Orbitron', sans-serif;
+            white-space: nowrap;
+        }
+
+        .deal-button:hover, .add-to-cart:hover {
+            background: var(--light);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px var(--primary);
+        }
+
+        .deal-button::before, .add-to-cart::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: 0.5s;
+        }
+
+        .deal-button:hover::before, .add-to-cart:hover::before {
+            left: 100%;
+        }
+
+        /* Featured Deal - Enhanced */
+        .featured-deal {
+            grid-column: 1 / -1;
+            display: flex;
+            background: var(--darker);
+            border-radius: 25px;
+            overflow: hidden;
+            border: 3px solid rgba(255,77,0,0.4);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+            position: relative;
+            transform-style: preserve-3d;
+            min-height: 360px;
+            cursor: pointer;
+            transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+            will-change: transform;
+            margin-bottom: 2rem;
+        }
+
+        .featured-deal::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent 40%, rgba(255,77,0,0.15) 100%);
+            opacity: 0;
+            transition: all 0.6s ease;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .featured-deal.floating {
+            animation: cardFloat 8s ease-in-out infinite;
+        }
+
+        .featured-deal:hover {
+            transform: translateY(-15px) rotateX(2deg) rotateY(2deg) scale(1.01);
+            box-shadow: 0 30px 60px rgba(255, 77, 0, 0.4), 
+                         0 0 80px rgba(255, 77, 0, 0.3);
+            border-color: rgba(255,77,0,0.6);
+            animation: none;
+        }
+
+        .featured-deal:hover::before {
+            opacity: 1;
+        }
+
+        .featured-deal-media {
+            flex: 1;
+            min-height: 360px;
+            overflow: hidden;
+            transform-style: preserve-3d;
+        }
+
+        .featured-deal-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: all 0.8s ease;
+            transform-origin: center;
+            will-change: transform;
+        }
+
+        .featured-deal:hover .featured-deal-image {
+            transform: scale(1.1) rotate(1deg);
+        }
+
+        .featured-deal-info {
+            flex: 1;
+            padding: 4rem;
+            position: relative;
+            z-index: 2;
+            transform: translateZ(30px);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .featured-deal-badge {
+            position: absolute;
+            top: 30px;
+            right: 30px;
+            background: var(--primary);
+            color: var(--darkest);
+            padding: 0.8rem 2rem;
+            border-radius: 35px;
+            font-size: 1.1rem;
+            font-weight: 800;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            z-index: 3;
+            box-shadow: 0 0 25px var(--primary);
+            animation: badgeFloat 4s ease-in-out infinite;
+        }
+
+        .featured-deal-title {
+            font-size: 2.6rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            color: var(--light);
+            letter-spacing: 3px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .featured-deal-title::before {
+            content: '▶';
+            position: absolute;
+            left: -50px;
+            opacity: 0;
+            transform: translateX(-10px);
+            transition: all 0.3s ease;
+            color: var(--primary);
+        }
+
+        .featured-deal:hover .featured-deal-title {
+            color: var(--primary);
+            text-shadow: 0 0 25px var(--primary);
+            transform: translateX(20px);
+        }
+
+        .featured-deal:hover .featured-deal-title::before {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .featured-deal-description {
+            font-size: 1.1rem;
+            color: rgba(255,255,255,0.8);
+            margin-bottom: 2rem;
+            line-height: 1.7;
+            font-family: 'Rajdhani', sans-serif;
+        }
+
+        .featured-deal-price-container {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .featured-deal-old-price {
+            font-size: 1.6rem;
+            color: rgba(255,255,255,0.5);
+            text-decoration: line-through;
+            position: relative;
+        }
+
+        .featured-deal-new-price {
+            font-size: 3.2rem;
+            font-weight: 800;
+            color: var(--primary);
+            text-shadow: 0 0 20px var(--primary);
+        }
+
+        .featured-deal-discount {
+            position: absolute;
+            top: -20px;
+            right: -35px;
+            background: var(--primary);
+            color: var(--darkest);
+            padding: 0.4rem 1rem;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 800;
+            box-shadow: 0 0 15px var(--primary);
+        }
+
+        .featured-deal-button {
+            background: var(--primary);
+            color: var(--darkest);
+            border: none;
+            padding: 1.2rem 3rem;
+            border-radius: 6px;
+            font-weight: 800;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            font-size: 1.1rem;
+            box-shadow: 0 0 20px var(--primary);
+            align-self: flex-start;
+            position: relative;
+            overflow: hidden;
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        .featured-deal-button:hover {
+            background: var(--light);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px var(--primary);
+        }
+
+        .featured-deal-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: 0.5s;
+        }
+
+        .featured-deal-button:hover::before {
+            left: 100%;
+        }
+
+        /* Hot Right Now Section - Advertisement Style */
+        .trending-section {
+            padding: 8rem 3rem;
+            background: linear-gradient(to bottom, var(--gray), var(--darkest));
+            position: relative;
+            overflow: hidden;
+        }
+
+        .trending-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 3rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            perspective: 1000px;
+        }
+
+        .trending-item {
+            background: var(--darker);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+            border: 2px solid rgba(255,77,0,0.2);
+            height: 350px;
+            cursor: pointer;
+            transform-style: preserve-3d;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+        }
+
+        .trending-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent 40%, rgba(255,77,0,0.1) 100%);
+            opacity: 0;
+            transition: all 0.6s ease;
+            z-index: 2;
+        }
+
+        .trending-item.floating {
+            animation: cardFloat 7s ease-in-out infinite;
+        }
+
+        .trending-item.floating:nth-child(even) {
+            animation: cardFloat 7s ease-in-out infinite reverse;
+        }
+
+        .trending-item:hover {
+            transform: translateY(-10px) rotateX(3deg) rotateY(2deg) scale(1.02);
+            box-shadow: 0 20px 40px rgba(255, 77, 0, 0.2);
+            border-color: rgba(255,77,0,0.4);
+            animation: none;
+        }
+
+        .trending-item:hover::before {
+            opacity: 1;
+        }
+
+        .trending-media {
+            position: relative;
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .trending-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: all 0.8s ease;
+        }
+
+        .trending-item:hover .trending-image {
+            transform: scale(1.1) rotate(1deg);
+        }
+
+        .trending-rank {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: var(--primary);
+            color: var(--darkest);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 1rem;
+            font-weight: 800;
+            box-shadow: 0 0 15px var(--primary);
+            z-index: 3;
+            animation: badgeFloat 3s ease-in-out infinite;
+        }
+
+        .trending-info {
+            padding: 2rem;
+            position: relative;
+            z-index: 2;
+            height: calc(100% - 200px);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .trending-title {
+            font-size: 1.25rem;
+            font-weight: 800;
+            margin-bottom: 0.8rem;
+            color: var(--light);
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+        }
+
+        .trending-item:hover .trending-title {
+            color: var(--primary);
+            text-shadow: 0 0 15px var(--primary);
+        }
+
+        .trending-price {
+            color: var(--primary);
+            font-weight: 800;
+            font-size: 1.35rem;
+            text-shadow: 0 0 10px var(--primary);
+            margin-top: auto;
+        }
+
+        /* Newsletter Section - Enhanced */
+        .newsletter-section {
+            padding: 6rem 3rem;
+            background: var(--darkest);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, var(--darkest) 0%, var(--gray) 100%);
+        }
+
+        .newsletter-container {
+            max-width: 700px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+            background: rgba(5,5,5,0.8);
+            padding: 4rem;
+            border-radius: 20px;
+            border: 2px solid rgba(255,77,0,0.3);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.6);
+            transform-style: preserve-3d;
+            transition: all 0.5s ease;
+        }
+
+        .newsletter-container:hover {
+            transform: translateY(-10px) rotateX(2deg) rotateY(2deg);
+            box-shadow: 0 25px 60px rgba(255,77,0,0.4);
+            border-color: rgba(255,77,0,0.6);
+        }
+
+        .newsletter-title {
+            font-size: 2.6rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            color: var(--light);
+            letter-spacing: 4px;
+            animation: titleGlow 4s ease-in-out infinite alternate;
+        }
+
+        .newsletter-subtitle {
+            color: rgba(255,255,255,0.8);
+            margin-bottom: 3rem;
+            font-family: 'Rajdhani', sans-serif;
+            line-height: 1.6;
+            font-size: 1.1rem;
+        }
+
+        .newsletter-form {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .newsletter-input {
+            flex: 1;
+            padding: 1.2rem;
+            background: rgba(255,255,255,0.1);
+            border: 2px solid rgba(255,255,255,0.2);
+            border-radius: 6px;
+            color: var(--light);
+            font-family: 'Rajdhani', sans-serif;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+        }
+
+        .newsletter-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 15px var(--primary);
+            transform: translateZ(5px);
+        }
+
+        .newsletter-button {
+            padding: 1.2rem 2.5rem;
+            background: var(--primary);
+            color: var(--darkest);
+            border: none;
+            border-radius: 6px;
+            font-weight: 800;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            transform-style: preserve-3d;
+            position: relative;
+            overflow: hidden;
+            font-family: 'Orbitron', sans-serif;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .newsletter-button:hover {
+            background: var(--light);
+            transform: translateY(-3px) translateZ(5px);
+            box-shadow: 0 8px 20px var(--primary);
+        }
+
+        .newsletter-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: 0.5s;
+        }
+
+        .newsletter-button:hover::before {
+            left: 100%;
+        }
+
+        /* Floating Particles - Enhanced */
+        .floating-particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .floating-particle {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background-color: var(--primary);
+            border-radius: 50%;
+            opacity: 0.6;
+            animation: float-particle 20s infinite linear;
+            will-change: transform;
+        }
+
+        @keyframes float-particle {
+            0% { transform: translateY(100vh) translateX(0); opacity: 0; }
+            10% { opacity: 0.8; }
+            90% { opacity: 0.8; }
+            100% { transform: translateY(-100px) translateX(200px); opacity: 0; }
+        }
+
+        /* Add to Cart Modal - Enhanced */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.9);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-container {
+            background: var(--darker);
+            border-radius: 15px;
+            width: 90%;
+            max-width: 550px;
+            padding: 3rem;
+            position: relative;
+            border: 2px solid rgba(255,77,0,0.4);
+            box-shadow: 0 0 40px rgba(255,77,0,0.3);
+            transform: translateY(30px) scale(0.9);
+            transition: all 0.3s ease;
+        }
+
+        .modal-overlay.active .modal-container {
+            transform: translateY(0) scale(1);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: none;
+            border: none;
+            color: var(--light);
+            font-size: 1.8rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .modal-close:hover {
+            color: var(--primary);
+            transform: rotate(90deg) scale(1.2);
+        }
+
+        .modal-header {
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .modal-title {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            letter-spacing: 3px;
+            text-shadow: 0 0 15px var(--primary);
+        }
+
+        .modal-subtitle {
+            color: rgba(255,255,255,0.7);
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 1.1rem;
+        }
+
+        .modal-content {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .modal-item {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            padding: 1.5rem;
+            background: rgba(255,255,255,0.05);
+            border-radius: 10px;
+            border: 1px solid rgba(255,77,0,0.2);
+        }
+
+        .modal-item-image {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .modal-item-details {
+            flex-grow: 1;
+        }
+
+        .modal-item-name {
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .modal-item-price {
+            color: var(--primary);
+            font-weight: 800;
+            font-size: 1.1rem;
+        }
+
+        .modal-quantity {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .modal-quantity button {
+            background: var(--gray);
+            color: var(--light);
+            border: none;
+            width: 35px;
+            height: 35px;
+            border-radius: 6px;
+            font-weight: 800;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1.1rem;
+        }
+
+        .modal-quantity button:hover {
+            background: var(--primary);
+            color: var(--darkest);
+            transform: scale(1.1);
+        }
+
+        .modal-quantity input {
+            width: 60px;
+            text-align: center;
+            background: var(--gray);
+            border: none;
+            color: var(--light);
+            padding: 0.6rem;
+            border-radius: 6px;
+            font-weight: 800;
+            font-size: 1rem;
+        }
+
+        .modal-total {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 2px solid rgba(255,255,255,0.1);
+            font-weight: 800;
+            font-size: 1.1rem;
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 1.5rem;
+            margin-top: 2.5rem;
+        }
+
+        .modal-button {
+            flex: 1;
+            padding: 1rem;
+            border-radius: 6px;
+            font-weight: 800;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            position: relative;
+            overflow: hidden;
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        .modal-button-primary {
+            background: var(--primary);
+            color: var(--darkest);
+            border: none;
+        }
+
+        .modal-button-primary:hover {
+            background: var(--light);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px var(--primary);
+        }
+
+        .modal-button-secondary {
+            background: transparent;
+            color: var(--light);
+            border: 2px solid var(--primary);
+        }
+
+        .modal-button-secondary:hover {
+            background: rgba(255,77,0,0.1);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(255,77,0,0.3);
+        }
+
+        .modal-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: 0.5s;
+        }
+
+        .modal-button:hover::before {
+            left: 100%;
+        }
+
+        /* PERFORMANCE OPTIMIZATIONS */
+        .deal-card, .featured-deal, .trending-item, .stat-card, .countdown-item {
+            will-change: transform;
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+            transform: translateZ(0);
+            -webkit-transform: translateZ(0);
+        }
+
+        /* Reduce animations on mobile */
+        @media (max-width: 768px) {
+            .floating-particle {
+                animation-duration: 25s;
+            }
+            
+            .deal-card.floating, .featured-deal.floating, .trending-item.floating {
+                animation: none;
+            }
+            
+            .deal-card:hover, .featured-deal:hover, .trending-item:hover {
+                transform: translateY(-5px) scale(1.01);
+                transition: transform 0.2s ease;
+            }
+            
+            .deal-image, .featured-deal-image, .trending-image {
+                transition: transform 0.3s ease;
+            }
+            
+            .deal-card:hover .deal-image,
+            .featured-deal:hover .featured-deal-image,
+            .trending-item:hover .trending-image {
+                transform: scale(1.05);
+            }
+        }
+
+        /* Disable heavy animations on low-end devices */
+        @media (max-width: 576px) {
+            .floating-particle {
+                display: none;
+            }
+            
+            .deal-badge, .featured-deal-badge, .trending-rank {
+                animation: none;
+            }
+            
+            .stat-icon {
+                animation: none;
+            }
+            
+            .countdown-value {
+                animation: none;
+            }
+        }
+
+        /* GPU acceleration for key elements */
+        .deal-card, .featured-deal, .trending-item {
+            transform: translate3d(0, 0, 0);
+            -webkit-transform: translate3d(0, 0, 0);
+        }
+
+        /* Optimize heavy shadows */
+        @media (prefers-reduced-motion: reduce) {
+            .deal-card, .featured-deal, .trending-item,
+            .deal-card:hover, .featured-deal:hover, .trending-item:hover {
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+                animation: none;
+                transition: none;
+            }
+            
+            .floating-particle {
+                display: none;
+            }
+            
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
+            }
+        }
+        @media (max-width: 1200px) {
+            .deals-grid {
+                grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            }
+            
+            .featured-deal {
+                flex-direction: column;
+                height: auto;
+            }
+            
+            .featured-deal-media {
+                min-height: 300px;
+            }
+
+            .hero-title::before,
+            .hero-title::after {
+                display: none;
+            }
+
+            .section-title::before {
+                left: -80px;
+                font-size: 2.2rem;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .hero-title {
+                font-size: 3.4rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.25rem;
+            }
+            
+            .section-title {
+                font-size: 2.6rem;
+            }
+            
+            .countdown-container {
+                gap: 1.5rem;
+            }
+            
+            .countdown-value {
+                font-size: 2.2rem;
+            }
+            
+            .featured-deal-title {
+                font-size: 2.2rem;
+            }
+            
+            .featured-deal-new-price {
+                font-size: 2.8rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-container {
+                padding: 1rem;
+            }
+            
+            .hero-title {
+                font-size: 2.6rem;
+                letter-spacing: 4px;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.1rem;
+                letter-spacing: 3px;
+            }
+            
+            .countdown-container {
+                gap: 1rem;
+                flex-wrap: wrap;
+            }
+            
+            .countdown-item {
+                flex: 1;
+                min-width: 150px;
+            }
+            
+            .countdown-value {
+                font-size: 1.8rem;
+            }
+            
+            .nav-links {
+                gap: 1rem;
+            }
+            
+            .nav-logo-text {
+                font-size: 1.1rem;
+            }
+
+            .section-title {
+                font-size: 2.2rem;
+                margin-bottom: 4rem;
+            }
+
+            .section-title::before {
+                left: -60px;
+                font-size: 1.8rem;
+            }
+            
+            .featured-deal-info {
+                padding: 2.5rem;
+            }
+            
+            .featured-deal-title {
+                font-size: 1.8rem;
+            }
+
+            .newsletter-form {
+                flex-direction: column;
+            }
+
+            .newsletter-container {
+                padding: 3rem 2rem;
+            }
+
+            .deals-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero-title {
+                font-size: 2.2rem;
+            }
+            
+            .countdown-container {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .countdown-item {
+                width: 200px;
+            }
+            
+            .modal-buttons {
+                flex-direction: column;
+            }
+
+            .stats-container {
+                grid-template-columns: 1fr;
+            }
+
+            .newsletter-title {
+                font-size: 2.2rem;
+            }
+        }
+
+        /* ========================================= */
+        /* COMPREHENSIVE MOBILE RESPONSIVE STYLES */
+        /* ========================================= */
+
+        /* Tablets - Landscape (992px) */
+        @media (max-width: 992px) {
+            .nav-container {
+                padding: 1.2rem 2rem;
+            }
+            
+            .nav-logo-text {
+                font-size: 1.3rem;
+            }
+            
+            .nav-links {
+                gap: 1.5rem;
+            }
+            
+            .nav-link {
+                font-size: 0.95rem;
+            }
+            
+            .hero, .banner {
+                height: 75vh;
+            }
+            
+            h1, .hero-title {
+                font-size: 3.2rem;
+            }
+            
+            h2, .section-title {
+                font-size: 2rem;
+            }
+            
+            .btn, button {
+                padding: 0.85rem 2rem;
+                font-size: 1rem;
+            }
+        }
+
+        /* Tablets - Portrait (768px) */
+        @media (max-width: 768px) {
+            .nav-container {
+                padding: 1rem 1.5rem;
+                flex-wrap: wrap;
+            }
+            
+            .nav-logo-text {
+                font-size: 1.2rem;
+                letter-spacing: 2px;
+            }
+            
+            .nav-links {
+                width: 100%;
+                justify-content: center;
+                gap: 1rem;
+                margin-top: 1rem;
+                flex-wrap: wrap;
+            }
+            
+            .nav-link {
+                font-size: 0.9rem;
+                padding: 0.5rem 1rem;
+            }
+            
+            .hero, .banner {
+                height: 70vh;
+            }
+            
+            h1, .hero-title {
+                font-size: 2.6rem;
+                padding: 0 1.5rem;
+            }
+            
+            h2, .section-title {
+                font-size: 1.8rem;
+            }
+            
+            p, .description {
+                font-size: 1rem;
+                padding: 0 1rem;
+            }
+            
+            .grid, .games-grid, .categories-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1.5rem;
+                padding: 0 1rem;
+            }
+            
+            .card, .game-card, .category-card {
+                height: 320px;
+            }
+            
+            .btn, button {
+                padding: 0.8rem 1.8rem;
+                font-size: 0.95rem;
+            }
+            
+            section {
+                padding: 3rem 1.5rem;
+            }
+        }
+
+        /* Mobile Devices (576px) */
+        @media (max-width: 576px) {
+            .nav-container {
+                padding: 0.9rem 1rem;
+            }
+            
+            .nav-logo svg {
+                width: 24px;
+                height: 24px;
+            }
+            
+            .nav-logo-text {
+                font-size: 1.1rem;
+                letter-spacing: 1px;
+            }
+            
+            .nav-links {
+                gap: 0.8rem;
+            }
+            
+            .nav-link {
+                font-size: 0.85rem;
+                padding: 0.4rem 0.8rem;
+            }
+            
+            .hero, .banner {
+                height: 65vh;
+            }
+            
+            h1, .hero-title {
+                font-size: 2rem;
+                padding: 0 1rem;
+                line-height: 1.2;
+            }
+            
+            h2, .section-title {
+                font-size: 1.6rem;
+            }
+            
+            h3 {
+                font-size: 1.2rem;
+            }
+            
+            p, .description {
+                font-size: 0.95rem;
+                line-height: 1.5;
+            }
+            
+            .grid, .games-grid, .categories-grid {
+                grid-template-columns: 1fr;
+                gap: 1.2rem;
+                padding: 0 0.8rem;
+            }
+            
+            .card, .game-card, .category-card {
+                height: 300px;
+            }
+            
+            .btn, button {
+                padding: 0.75rem 1.5rem;
+                font-size: 0.9rem;
+                width: 100%;
+                max-width: 280px;
+            }
+            
+            section {
+                padding: 2.5rem 1rem;
+            }
+            
+            .cart-item, .checkout-item {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+
+        /* Small Mobile (480px) */
+        @media (max-width: 480px) {
+            .nav-container {
+                padding: 0.8rem 0.8rem;
+            }
+            
+            .nav-logo svg {
+                width: 20px;
+                height: 20px;
+            }
+            
+            .nav-logo-text {
+                font-size: 1rem;
+            }
+            
+            .nav-links {
+                gap: 0.6rem;
+            }
+            
+            .nav-link {
+                font-size: 0.8rem;
+                padding: 0.3rem 0.6rem;
+            }
+            
+            .hero, .banner {
+                height: 60vh;
+            }
+            
+            h1, .hero-title {
+                font-size: 1.7rem;
+            }
+            
+            h2, .section-title {
+                font-size: 1.4rem;
+            }
+            
+            .card, .game-card, .category-card {
+                height: 280px;
+            }
+            
+            .btn, button {
+                padding: 0.7rem 1.3rem;
+                font-size: 0.85rem;
+            }
+            
+            section {
+                padding: 2rem 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav-container">
+        <div class="nav-logo" onclick="window.location.href='home.html'">
+            <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <path d="M50 10 L90 50 L50 90 L10 50 Z" fill="none" stroke="#ff4d00" stroke-width="8"/>
+                <path d="M30 50 L70 50 M50 30 L50 70" stroke="#ff4d00" stroke-width="8" stroke-linecap="round"/>
+            </svg>
+            <span class="nav-logo-text">NEXUS</span>
+        </div>
+        <div class="nav-links">
+            <a href="home.html" class="nav-link">Home</a>
+            <a href="featured.html" class="nav-link">Featured</a>
+            <a href="categories.html" class="nav-link">Categories</a>
+            <a href="deals.html" class="nav-link active">Deals</a>
+            <div class="cart-icon">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M6 2L3 6V20C3 20.5304 3.21071 21.0391 3.58579 21.4142C3.96086 21.7893 4.46957 22 5 22H19C19.5304 22 20.0391 21.7893 20.4142 21.4142C20.7893 21.0391 21 20.5304 21 20V6L18 2H6Z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M3 6H21" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M16 10C16 11.0609 15.5786 12.0783 14.8284 12.8284C14.0783 13.5786 13.0609 14 12 14C10.9391 14 9.92172 13.5786 9.17157 12.8284C8.42143 12.0783 8 11.0609 8 10" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="cart-count">0</span>
+                <div class="cart-preview">
+                    <div class="cart-preview-items" id="cart-preview-items">
+                        <!-- Cart items will be added here dynamically -->
+                    </div>
+                    <div class="cart-preview-footer">
+                        <div class="cart-preview-total">
+                            <span>Total:</span>
+                            <span id="cart-preview-total">$0.00</span>
+                        </div>
+                        <button class="cart-preview-button" onclick="window.location.href='cart.html'">View Cart</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="floating-particles" id="floating-particles"></div>
+        <div class="hero-content">
+            <h1 class="hero-title">HOT DEALS</h1>
+            <p class="hero-subtitle">LIMITED TIME OFFERS - DON'T MISS OUT</p>
+            
+            <div class="countdown-container">
+                <div class="countdown-item">
+                    <div class="countdown-value" id="countdown-days">00</div>
+                    <div class="countdown-label">Days</div>
+                </div>
+                <div class="countdown-item">
+                    <div class="countdown-value" id="countdown-hours">00</div>
+                    <div class="countdown-label">Hours</div>
+                </div>
+                <div class="countdown-item">
+                    <div class="countdown-value" id="countdown-minutes">00</div>
+                    <div class="countdown-label">Minutes</div>
+                </div>
+                <div class="countdown-item">
+                    <div class="countdown-value" id="countdown-seconds">00</div>
+                    <div class="countdown-label">Seconds</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Live Stats Section -->
+    <section class="stats-section">
+        <div class="floating-particles"></div>
+        <h2 class="section-title">LIVE STATS</h2>
+        <div class="stats-container">
+            <div class="stat-card">
+                <div class="stat-icon">🔥</div>
+                <div class="stat-value" id="deals-today">127</div>
+                <div class="stat-label">Deals Claimed Today</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">💰</div>
+                <div class="stat-value" id="total-savings">$12,845</div>
+                <div class="stat-label">Total Savings</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">⏱️</div>
+                <div class="stat-value" id="active-deals">24</div>
+                <div class="stat-label">Active Deals</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">🎮</div>
+                <div class="stat-value" id="games-available">156</div>
+                <div class="stat-label">Games on Sale</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Deals Section -->
+    <section class="deals-section">
+        <h2 class="section-title">EXCLUSIVE OFFERS</h2>
+        <div class="deals-grid">
+            <!-- Featured Deal -->
+            <div class="featured-deal floating">
+                <div class="featured-deal-media">
+                    <img src="./bundle.jpg" alt="Featured Deal" class="featured-deal-image">
+                </div>
+                <div class="featured-deal-info">
+                    <div class="featured-deal-badge">MEGA DEAL</div>
+                    <h3 class="featured-deal-title">ULTIMATE GAME BUNDLE</h3>
+                    <p class="featured-deal-description">Get our best-selling games in one incredible package. This bundle includes 5 AAA titles with all DLCs and exclusive content. Perfect for gamers who want the complete experience at an unbeatable price.</p>
+                    <div class="featured-deal-price-container">
+                        <div class="featured-deal-old-price">
+                            $249.99
+                            <span class="featured-deal-discount">-80%</span>
+                        </div>
+                        <div class="featured-deal-new-price">$49.99</div>
+                    </div>
+                    <button class="featured-deal-button add-to-cart" data-id="bundle1" data-name="Ultimate Game Bundle" data-price="49.99" data-image="https://images.unsplash.com/photo-1542751371-adc38448a05e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80">Add to Cart</button>
+                </div>
+            </div>
+
+            <!-- Deal 1 -->
+            <div class="deal-card floating">
+                <div class="deal-media">
+                    <img src="./cyber.jpg" alt="Deal" class="deal-image">
+                    <div class="deal-overlay"></div>
+                    <div class="deal-badge">HOT</div>
+                </div>
+                <div class="deal-info">
+                    <h3 class="deal-title">CYBER LEGENDS</h3>
+                    <p class="deal-description">Experience the futuristic open world where your choices shape the destiny of a megacity on the brink of collapse.</p>
+                    <div class="deal-price-container">
+                        <div class="deal-old-price">
+                            $59.99
+                            <span class="deal-discount">-30%</span>
+                        </div>
+                        <div class="deal-new-price">$41.99</div>
+                    </div>
+                    <div class="deal-footer">
+                        <div class="deal-expires">Ends in 2 days</div>
+                        <button class="deal-button add-to-cart" data-id="1" data-name="CYBER LEGENDS" data-price="41.99" data-image="https://images.unsplash.com/photo-1534972195531-d756b9bfa9f2?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Deal 2 -->
+            <div class="deal-card floating">
+                <div class="deal-media">
+                    <img src="./warloads.png" alt="Deal" class="deal-image">
+                    <div class="deal-overlay"></div>
+                    <div class="deal-badge">NEW</div>
+                </div>
+                <div class="deal-info">
+                    <h3 class="deal-title">WARLORDS</h3>
+                    <p class="deal-description">Command vast armies and conquer kingdoms in this turn-based strategy masterpiece with deep tactical gameplay.</p>
+                    <div class="deal-price-container">
+                        <div class="deal-old-price">
+                            $39.99
+                            <span class="deal-discount">-50%</span>
+                        </div>
+                        <div class="deal-new-price">$19.99</div>
+                    </div>
+                    <div class="deal-footer">
+                        <div class="deal-expires">Ends in 1 day</div>
+                        <button class="deal-button add-to-cart" data-id="2" data-name="WARLORDS" data-price="19.99" data-image="https://images.unsplash.com/photo-1560253023-3ec5d502959f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Deal 3 -->
+            <div class="deal-card floating">
+                <div class="deal-media">
+                    <img src="./neo%20tokyo.jpg" alt="Deal" class="deal-image">
+                    <div class="deal-overlay"></div>
+                    <div class="deal-badge">SALE</div>
+                </div>
+                <div class="deal-info">
+                    <h3 class="deal-title">NEO TOKYO</h3>
+                    <p class="deal-description">Navigate the neon-lit streets of a dystopian future in this story-driven adventure with branching narratives.</p>
+                    <div class="deal-price-container">
+                        <div class="deal-old-price">
+                            $49.99
+                            <span class="deal-discount">-60%</span>
+                        </div>
+                        <div class="deal-new-price">$19.99</div>
+                    </div>
+                    <div class="deal-footer">
+                        <div class="deal-expires">Ends in 3 days</div>
+                        <button class="deal-button add-to-cart" data-id="3" data-name="NEO TOKYO" data-price="19.99" data-image="https://images.unsplash.com/photo-1551103782-8ab07afd45c1?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Deal 4 -->
+            <div class="deal-card floating">
+                <div class="deal-media">
+                    <img src="./void%20runner.png" alt="Deal" class="deal-image">
+                    <div class="deal-overlay"></div>
+                    <div class="deal-badge">DEAL</div>
+                </div>
+                <div class="deal-info">
+                    <h3 class="deal-title">VOID RUNNER</h3>
+                    <p class="deal-description">Experience high-speed anti-gravity racing through stunning alien landscapes with fully customizable vehicles.</p>
+                    <div class="deal-price-container">
+                        <div class="deal-old-price">
+                            $44.99
+                            <span class="deal-discount">-45%</span>
+                        </div>
+                        <div class="deal-new-price">$24.74</div>
+                    </div>
+                    <div class="deal-footer">
+                        <div class="deal-expires">Ends in 5 days</div>
+                        <button class="deal-button add-to-cart" data-id="4" data-name="VOID RUNNER" data-price="24.74" data-image="https://images.unsplash.com/photo-1543357480-c60d400e2ef9?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Deal 5 -->
+            <div class="deal-card floating">
+                <div class="deal-media">
+                    <img src="./zombie.jpeg" alt="Deal" class="deal-image">
+                    <div class="deal-overlay"></div>
+                    <div class="deal-badge">FLASH</div>
+                </div>
+                <div class="deal-info">
+                    <h3 class="deal-title">ZOMBIE OUTBREAK</h3>
+                    <p class="deal-description">Survive the zombie apocalypse in this intense first-person survival game with base building and crafting.</p>
+                    <div class="deal-price-container">
+                        <div class="deal-old-price">
+                            $39.99
+                            <span class="deal-discount">-65%</span>
+                        </div>
+                        <div class="deal-new-price">$13.99</div>
+                    </div>
+                    <div class="deal-footer">
+                        <div class="deal-expires">Ends in 12 hours</div>
+                        <button class="deal-button add-to-cart" data-id="5" data-name="ZOMBIE OUTBREAK" data-price="13.99" data-image="https://images.unsplash.com/photo-1583337130417-3346a1be7dee?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Deal 6 -->
+            <div class="deal-card floating">
+                <div class="deal-media">
+                    <img src="./skyforge.jpg" alt="Deal" class="deal-image">
+                    <div class="deal-overlay"></div>
+                    <div class="deal-badge">HOT</div>
+                </div>
+                <div class="deal-info">
+                    <h3 class="deal-title">STARFORGE</h3>
+                    <p class="deal-description">Build your empire across the galaxy in this massive space exploration and strategy game with infinite possibilities.</p>
+                    <div class="deal-price-container">
+                        <div class="deal-old-price">
+                            $49.99
+                            <span class="deal-discount">-40%</span>
+                        </div>
+                        <div class="deal-new-price">$29.99</div>
+                    </div>
+                    <div class="deal-footer">
+                        <div class="deal-expires">Ends in 2 days</div>
+                        <button class="deal-button add-to-cart" data-id="6" data-name="STARFORGE" data-price="29.99" data-image="https://images.unsplash.com/photo-1511512578047-dfb367046420?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Deal 7 -->
+            <div class="deal-card floating">
+                <div class="deal-media">
+                    <img src="./mystic.jpg" alt="Deal" class="deal-image">
+                    <div class="deal-overlay"></div>
+                    <div class="deal-badge">SALE</div>
+                </div>
+                <div class="deal-info">
+                    <h3 class="deal-title">MYSTIC REALMS</h3>
+                    <p class="deal-description">Embark on an epic journey through magical kingdoms filled with mythical creatures and ancient secrets.</p>
+                    <div class="deal-price-container">
+                        <div class="deal-old-price">
+                            $59.99
+                            <span class="deal-discount">-50%</span>
+                        </div>
+                        <div class="deal-new-price">$29.99</div>
+                    </div>
+                    <div class="deal-footer">
+                        <div class="deal-expires">Ends in 3 days</div>
+                        <button class="deal-button add-to-cart" data-id="7" data-name="MYSTIC REALMS" data-price="29.99" data-image="https://images.unsplash.com/photo-1545566236-5a326b4f1e0a?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Deal 8 -->
+            <div class="deal-card floating">
+                <div class="deal-media">
+                    <img src="./echoes.jpg" alt="Deal" class="deal-image">
+                    <div class="deal-overlay"></div>
+                    <div class="deal-badge">DEAL</div>
+                </div>
+                <div class="deal-info">
+                    <h3 class="deal-title">ECHOES</h3>
+                    <p class="deal-description">A psychological horror experience that adapts to your fears and playstyle for a uniquely terrifying adventure.</p>
+                    <div class="deal-price-container">
+                        <div class="deal-old-price">
+                            $44.99
+                            <span class="deal-discount">-55%</span>
+                        </div>
+                        <div class="deal-new-price">$19.99</div>
+                    </div>
+                    <div class="deal-footer">
+                        <div class="deal-expires">Ends in 4 days</div>
+                        <button class="deal-button add-to-cart" data-id="8" data-name="ECHOES" data-price="19.99" data-image="https://images.unsplash.com/photo-1551103782-8ab07afd45c1?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Hot Right Now Section - Advertisement Style -->
+    <section class="trending-section">
+        <h2 class="section-title">HOT RIGHT NOW</h2>
+        <div class="trending-grid">
+            <div class="trending-item floating" onclick="window.location.href='featured.html#cyber-legends'">
+                <div class="trending-media">
+                    <div class="trending-rank">#1</div>
+                    <img src="./galactic.jpg" alt="Trending Game" class="trending-image">
+                </div>
+                <div class="trending-info">
+                    <h3 class="trending-title">GALACTIC CONQUEST</h3>
+                    <div class="trending-price">$34.99</div>
+                </div>
+            </div>
+            <div class="trending-item floating" onclick="window.location.href='featured.html#cyber-legends'">
+                <div class="trending-media">
+                    <div class="trending-rank">#2</div>
+                    <img src="./cyber.jpg" alt="Trending Game" class="trending-image">
+                </div>
+                <div class="trending-info">
+                    <h3 class="trending-title">CYBER LEGENDS</h3>
+                    <div class="trending-price">$41.99</div>
+                </div>
+            </div>
+            <div class="trending-item floating" onclick="window.location.href='featured.html#warlords'">
+                <div class="trending-media">
+                    <div class="trending-rank">#3</div>
+                    <img src="./warloads.png" alt="Trending Game" class="trending-image">
+                </div>
+                <div class="trending-info">
+                    <h3 class="trending-title">WARLORDS</h3>
+                    <div class="trending-price">$19.99</div>
+                </div>
+            </div>
+            <div class="trending-item floating" onclick="window.location.href='featured.html#mystic-realms'">
+                <div class="trending-media">
+                    <div class="trending-rank">#4</div>
+                    <img src="./mystic.jpg" alt="Trending Game" class="trending-image">
+                </div>
+                <div class="trending-info">
+                    <h3 class="trending-title">MYSTIC REALMS</h3>
+                    <div class="trending-price">$29.99</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter Section -->
+    <section class="newsletter-section">
+        <div class="floating-particles"></div>
+        <div class="newsletter-container">
+            <h2 class="newsletter-title">GET EXCLUSIVE DEALS</h2>
+            <p class="newsletter-subtitle">Subscribe to our newsletter and be the first to know about flash sales, new releases, and special offers. Don't miss out on the hottest deals in gaming!</p>
+            <form class="newsletter-form">
+                <input type="email" placeholder="Your email address" class="newsletter-input" required>
+                <button type="submit" class="newsletter-button">Subscribe</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Add to Cart Modal -->
+    <div class="modal-overlay" id="cart-modal">
+        <div class="modal-container">
+            <button class="modal-close" id="modal-close">&times;</button>
+            <div class="modal-header">
+                <h3 class="modal-title">ADDED TO CART</h3>
+                <p class="modal-subtitle">Your item has been added to your shopping cart</p>
+            </div>
+            <div class="modal-content">
+                <div class="modal-item">
+                    <img id="modal-item-image" src="" alt="Game" class="modal-item-image">
+                    <div class="modal-item-details">
+                        <div class="modal-item-name" id="modal-item-name">Game Title</div>
+                        <div class="modal-item-price" id="modal-item-price">$0.00</div>
+                    </div>
+                    <div class="modal-quantity">
+                        <button id="quantity-decrease">-</button>
+                        <input type="number" id="quantity-input" value="1" min="1">
+                        <button id="quantity-increase">+</button>
+                    </div>
+                </div>
+                <div class="modal-total">
+                    <span>Subtotal:</span>
+                    <span id="modal-subtotal">$0.00</span>
+                </div>
+            </div>
+            <div class="modal-buttons">
+                <button class="modal-button modal-button-secondary" id="continue-shopping">Continue Shopping</button>
+                <button class="modal-button modal-button-primary" id="view-cart">View Cart</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Cart functionality
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+        
+        // Update cart count display
+        function updateCartCount() {
+            const count = cart.reduce((total, item) => total + item.quantity, 0);
+            document.querySelector('.cart-count').textContent = count;
+            
+            // Update cart preview
+            updateCartPreview();
+        }
+        
+        // Update cart preview
+        function updateCartPreview() {
+            const previewItems = document.getElementById('cart-preview-items');
+            const previewTotal = document.getElementById('cart-preview-total');
+            
+            previewItems.innerHTML = '';
+            
+            if (cart.length === 0) {
+                previewItems.innerHTML = '<p style="text-align: center; color: rgba(255,255,255,0.5);">Your cart is empty</p>';
+                previewTotal.textContent = '$0.00';
+                return;
+            }
+            
+            let total = 0;
+            
+            cart.forEach(item => {
+                const itemElement = document.createElement('div');
+                itemElement.className = 'cart-preview-item';
+                itemElement.innerHTML = `
+                    <img src="${item.image}" alt="${item.name}">
+                    <div class="cart-preview-item-name">${item.name}</div>
+                    <div class="cart-preview-item-price">${(item.price * item.quantity).toFixed(2)}</div>
+                `;
+                previewItems.appendChild(itemElement);
+                
+                total += item.price * item.quantity;
+            });
+            
+            previewTotal.textContent = `${total.toFixed(2)}`;
+        }
+        
+        // Add to cart functionality
+        document.querySelectorAll('.add-to-cart').forEach(button => {
+            button.addEventListener('click', function() {
+                const gameId = this.dataset.id;
+                const gameName = this.dataset.name;
+                const gamePrice = parseFloat(this.dataset.price);
+                const gameImage = this.dataset.image;
+                
+                // Check if item already in cart
+                const existingItem = cart.find(item => item.id === gameId);
+                
+                if (existingItem) {
+                    existingItem.quantity += 1;
+                } else {
+                    cart.push({
+                        id: gameId,
+                        name: gameName,
+                        price: gamePrice,
+                        image: gameImage,
+                        quantity: 1
+                    });
+                }
+                
+                // Save to localStorage
+                localStorage.setItem('cart', JSON.stringify(cart));
+                
+                // Update cart count
+                updateCartCount();
+                
+                // Show modal
+                showCartModal(gameName, gamePrice, gameImage);
+            });
+        });
+        
+        // Show cart modal
+        function showCartModal(name, price, image) {
+            const modal = document.getElementById('cart-modal');
+            const quantityInput = document.getElementById('quantity-input');
+            const modalItemName = document.getElementById('modal-item-name');
+            const modalItemPrice = document.getElementById('modal-item-price');
+            const modalItemImage = document.getElementById('modal-item-image');
+            const modalSubtotal = document.getElementById('modal-subtotal');
+            
+            // Set modal content
+            modalItemName.textContent = name;
+            modalItemPrice.textContent = `${price.toFixed(2)}`;
+            modalItemImage.src = image;
+            quantityInput.value = 1;
+            updateSubtotal();
+            
+            // Show modal
+            modal.classList.add('active');
+            
+            // Quantity controls
+            document.getElementById('quantity-increase').addEventListener('click', () => {
+                quantityInput.value = parseInt(quantityInput.value) + 1;
+                updateSubtotal();
+            });
+            
+            document.getElementById('quantity-decrease').addEventListener('click', () => {
+                if (parseInt(quantityInput.value) > 1) {
+                    quantityInput.value = parseInt(quantityInput.value) - 1;
+                    updateSubtotal();
+                }
+            });
+            
+            quantityInput.addEventListener('change', () => {
+                if (parseInt(quantityInput.value) < 1) {
+                    quantityInput.value = 1;
+                }
+                updateSubtotal();
+            });
+            
+            function updateSubtotal() {
+                const quantity = parseInt(quantityInput.value);
+                modalSubtotal.textContent = `${(price * quantity).toFixed(2)}`;
+            }
+        }
+        
+        // Modal close button
+        document.getElementById('modal-close').addEventListener('click', () => {
+            document.getElementById('cart-modal').classList.remove('active');
+        });
+        
+        // Continue shopping button
+        document.getElementById('continue-shopping').addEventListener('click', () => {
+            document.getElementById('cart-modal').classList.remove('active');
+        });
+        
+        // View cart button
+        document.getElementById('view-cart').addEventListener('click', () => {
+            window.location.href = 'cart.html';
+        });
+        
+        // Enhanced Countdown Timer with real-time updates
+        function updateCountdown() {
+            // Set the end date to 3 days from now at midnight
+            const now = new Date();
+            const endDate = new Date();
+            
+            // Set to next midnight + 3 days
+            endDate.setDate(now.getDate() + 3);
+            endDate.setHours(23, 59, 59, 999);
+            
+            const diff = endDate - now;
+            
+            // Calculate time remaining
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+            
+            // Update display
+            document.getElementById('countdown-days').textContent = days.toString().padStart(2, '0');
+            document.getElementById('countdown-hours').textContent = hours.toString().padStart(2, '0');
+            document.getElementById('countdown-minutes').textContent = minutes.toString().padStart(2, '0');
+            document.getElementById('countdown-seconds').textContent = seconds.toString().padStart(2, '0');
+            
+            // Add pulse animation when under 10 seconds
+            const secondsElement = document.getElementById('countdown-seconds');
+            if (days === 0 && hours === 0 && minutes === 0 && seconds <= 10) {
+                secondsElement.classList.add('countdown-pulse');
+            } else {
+                secondsElement.classList.remove('countdown-pulse');
+            }
+        }
+        
+        // Update countdown every second
+        setInterval(updateCountdown, 1000);
+        updateCountdown(); // Initial call
+        
+        // OPTIMIZED: Create floating particles with better performance
+        function createParticles() {
+            const particlesContainers = document.querySelectorAll('.floating-particles');
+            const particleCount = window.innerWidth < 768 ? 15 : 30;
+            
+            particlesContainers.forEach(container => {
+                for (let i = 0; i < particleCount; i++) {
+                    const particle = document.createElement('div');
+                    particle.classList.add('floating-particle');
+                    particle.style.left = `${Math.random() * 100}%`;
+                    particle.style.top = `${Math.random() * 100}%`;
+                    particle.style.animationDelay = `${Math.random() * 15}s`;
+                    container.appendChild(particle);
+                }
+            });
+        }
+        
+        // OPTIMIZED: Enhanced 3D hover effect with throttling for deal cards
+        function addParallaxEffect() {
+            const dealCards = document.querySelectorAll('.deal-card, .featured-deal');
+            const trendingItems = document.querySelectorAll('.trending-item');
+            let ticking = false;
+            
+            // Deal cards parallax
+            dealCards.forEach(card => {
+                let isHovering = false;
+                
+                card.addEventListener('mouseenter', () => {
+                    isHovering = true;
+                    card.classList.remove('floating');
+                });
+                
+                card.addEventListener('mouseleave', () => {
+                    isHovering = false;
+                    card.style.transform = '';
+                    // Re-enable floating animation after hover
+                    setTimeout(() => {
+                        if (!isHovering) card.classList.add('floating');
+                    }, 100);
+                });
+                
+                card.addEventListener('mousemove', (e) => {
+                    if (!isHovering || ticking) return;
+                    
+                    requestAnimationFrame(() => {
+                        if (!isHovering) return;
+                        
+                        const rect = card.getBoundingClientRect();
+                        const x = e.clientX - rect.left;
+                        const y = e.clientY - rect.top;
+                        const centerX = rect.width / 2;
+                        const centerY = rect.height / 2;
+                        const angleY = (x - centerX) / 15;
+                        const angleX = (centerY - y) / 15;
+                        
+                        if (card.classList.contains('featured-deal')) {
+                            card.style.transform = `translateY(-15px) rotateX(${angleX * 0.3}deg) rotateY(${angleY * 0.3}deg) scale(1.01)`;
+                        } else {
+                            card.style.transform = `translateY(-15px) rotateX(${angleX * 0.5}deg) rotateY(${angleY * 0.5}deg) scale(1.03)`;
+                        }
+                        ticking = false;
+                    });
+                    
+                    ticking = true;
+                });
+            });
+
+            // Trending items parallax
+            trendingItems.forEach(item => {
+                let isHovering = false;
+                
+                item.addEventListener('mouseenter', () => {
+                    isHovering = true;
+                    item.classList.remove('floating');
+                });
+                
+                item.addEventListener('mouseleave', () => {
+                    isHovering = false;
+                    item.style.transform = '';
+                    // Re-enable floating animation after hover
+                    setTimeout(() => {
+                        if (!isHovering) item.classList.add('floating');
+                    }, 100);
+                });
+                
+                item.addEventListener('mousemove', (e) => {
+                    if (!isHovering || ticking) return;
+                    
+                    requestAnimationFrame(() => {
+                        if (!isHovering) return;
+                        
+                        const rect = item.getBoundingClientRect();
+                        const x = e.clientX - rect.left;
+                        const y = e.clientY - rect.top;
+                        const centerX = rect.width / 2;
+                        const centerY = rect.height / 2;
+                        const angleY = (x - centerX) / 20;
+                        const angleX = (centerY - y) / 20;
+                        
+                        item.style.transform = `translateY(-10px) rotateX(${angleX * 0.4}deg) rotateY(${angleY * 0.3}deg) scale(1.02)`;
+                        ticking = false;
+                    });
+                    
+                    ticking = true;
+                });
+            });
+        }
+
+        // Live stats counter animation
+        function animateValue(id, start, end, duration) {
+            const obj = document.getElementById(id);
+            let startTimestamp = null;
+            const step = (timestamp) => {
+                if (!startTimestamp) startTimestamp = timestamp;
+                const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                const value = Math.floor(progress * (end - start) + start);
+                obj.innerHTML = id === 'total-savings' ? `${value.toLocaleString()}` : value;
+                if (progress < 1) {
+                    window.requestAnimationFrame(step);
+                }
+            };
+            window.requestAnimationFrame(step);
+        }
+
+        // Newsletter form submission
+        function setupNewsletterForm() {
+            document.querySelector('.newsletter-form').addEventListener('submit', (e) => {
+                e.preventDefault();
+                alert('Thank you for subscribing to our newsletter!');
+                e.target.reset();
+            });
+        }
+
+        // OPTIMIZED: Initialize everything when DOM is loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            updateCartCount();
+            createParticles();
+            addParallaxEffect();
+            setupNewsletterForm();
+            
+            // Add floating class to all cards initially
+            document.querySelectorAll('.deal-card, .featured-deal, .trending-item').forEach(card => {
+                card.classList.add('floating');
+            });
+            
+            // Animate stats on page load
+            animateValue('deals-today', 0, 127, 2000);
+            animateValue('total-savings', 0, 12845, 2000);
+            animateValue('active-deals', 0, 24, 1500);
+            animateValue('games-available', 0, 156, 2500);
+        });
+        
+        // OPTIMIZED: Reduce particles on mobile for better performance
+        let resizeTimeout;
+        window.addEventListener('resize', () => {
+            clearTimeout(resizeTimeout);
+            resizeTimeout = setTimeout(() => {
+                // Recreate particles with appropriate count for new screen size
+                const particlesContainers = document.querySelectorAll('.floating-particles');
+                
+                particlesContainers.forEach(container => {
+                    container.innerHTML = '';
+                });
+                
+                createParticles();
+            }, 250);
+        });
+    </script>
+</body>
+</html>

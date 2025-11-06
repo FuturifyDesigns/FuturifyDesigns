@@ -1,0 +1,1931 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Featured Games | NEXUS Gaming Marketplace</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Base Styles (consistent with main page) */
+        :root {
+            --primary: #ff4d00;
+            --primary-glow: #ff8c66;
+            --primary-dark: #e04500;
+            --dark: #0a0a0a;
+            --darker: #050505;
+            --darkest: #010101;
+            --light: #f5f5f5;
+            --gray: #1a1a1a;
+            --gray-light: #2a2a2a;
+            --neon-glow: 0 0 10px rgba(255, 77, 0, 0.7), 
+                          0 0 20px rgba(255, 77, 0, 0.5),
+                          0 0 30px rgba(255, 77, 0, 0.3);
+        }
+
+        * {
+            -webkit-tap-highlight-color: transparent;
+            -webkit-touch-callout: none;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Orbitron', 'Rajdhani', sans-serif;
+            background-color: var(--darkest);
+            color: var(--light);
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            contain: layout style paint;
+            overscroll-behavior: none;
+        }
+
+
+        /* Remove tap highlight on all interactive elements */
+        a, button, input, select, textarea, [role="button"], .nav-link, .game-card, .category-card {
+            -webkit-tap-highlight-color: transparent;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            user-select: none;
+            outline: none;
+        }
+
+        button:focus, a:focus, input:focus, select:focus, textarea:focus {
+            outline: none;
+        }
+        /* Scroll Performance Optimizations */
+        .scrolling {
+            animation-play-state: paused !important;
+        }
+
+        .scrolling .floating-particle {
+            display: none;
+        }
+
+        .scrolling .game-card.floating {
+            animation: none !important;
+        }
+
+        /* Navigation */
+        .nav-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 1.3rem 2.6rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            background: linear-gradient(to bottom, rgba(5,5,5,0.9), rgba(1,1,1,0.2));
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255,77,0,0.1);
+            transition: all 0.3s ease;
+            will-change: transform;
+        }
+
+        .nav-container.scrolled {
+            background: rgba(5,5,5,0.95);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.5);
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .nav-logo svg {
+            width: 30px;
+            height: 30px;
+            fill: var(--primary);
+            margin-right: 12px;
+            filter: drop-shadow(0 0 5px var(--primary));
+            transition: all 0.3s ease;
+        }
+
+        .nav-logo:hover svg {
+            transform: rotate(15deg);
+        }
+
+        .nav-logo-text {
+            font-size: 1.35rem;
+            font-weight: 800;
+            letter-spacing: 3px;
+            background: linear-gradient(to right, #fff 0%, var(--primary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .nav-logo:hover .nav-logo-text {
+            text-shadow: 0 0 15px var(--primary);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-link {
+            color: var(--light);
+            text-decoration: none;
+            font-weight: 600;
+            letter-spacing: 1px;
+            position: relative;
+            padding: 0.5rem 0;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--primary);
+            text-shadow: 0 0 10px var(--primary);
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .nav-link.active {
+            color: var(--primary);
+            text-shadow: 0 0 10px var(--primary);
+        }
+
+        .nav-link.active::after {
+            width: 100%;
+        }
+
+        /* Cart Icon */
+        .cart-icon {
+            position: relative;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .cart-icon svg {
+            width: 24px;
+            height: 24px;
+            stroke: var(--light);
+            transition: all 0.3s ease;
+        }
+
+        .cart-icon:hover svg {
+            stroke: var(--primary);
+            transform: scale(1.1);
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: var(--primary);
+            color: var(--darkest);
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 0.7rem;
+            font-weight: 800;
+            box-shadow: 0 0 5px var(--primary);
+            transition: all 0.3s ease;
+        }
+
+        .cart-icon:hover .cart-count {
+            transform: scale(1.2);
+        }
+
+        .cart-preview {
+            position: absolute;
+            top: 120%;
+            right: 0;
+            width: 300px;
+            background: var(--darker);
+            border: 1px solid rgba(255,77,0,0.2);
+            border-radius: 8px;
+            padding: 1rem;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 1000;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+        }
+
+        .cart-icon:hover .cart-preview {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .cart-preview-item {
+            display: flex;
+            align-items: center;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .cart-preview-item:last-child {
+            border-bottom: none;
+        }
+
+        .cart-preview-item img {
+            width: 40px;
+            height: 40px;
+            object-fit: cover;
+            border-radius: 4px;
+            margin-right: 1rem;
+        }
+
+        .cart-preview-item-name {
+            font-size: 0.8rem;
+            font-weight: 600;
+            flex-grow: 1;
+        }
+
+        .cart-preview-item-price {
+            font-size: 0.8rem;
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        .cart-preview-footer {
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .cart-preview-total {
+            display: flex;
+            justify-content: space-between;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .cart-preview-button {
+            width: 100%;
+            padding: 0.5rem;
+            background: var(--primary);
+            color: var(--darkest);
+            border: none;
+            border-radius: 4px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cart-preview-button:hover {
+            background: var(--light);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px var(--primary);
+        }
+
+        .cart-preview-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: 0.5s;
+        }
+
+        .cart-preview-button:hover::before {
+            left: 100%;
+        }
+
+        /* Hero Section - MATCHING HOME.HTML EXACTLY */
+        .hero {
+            height: 70vh;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 80px;
+            background: radial-gradient(circle at 20% 20%, rgba(255, 77, 0, 0.15) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 80%, rgba(255, 77, 0, 0.1) 0%, transparent 50%);
+        }
+
+        .hero-video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+            opacity: 0.4;
+        }
+
+        .hero-content {
+            text-align: center;
+            max-width: 800px;
+            padding: 0 2rem;
+            z-index: 1;
+        }
+
+        .hero-title {
+            font-size: 3.4rem;
+            font-weight: 800;
+            letter-spacing: 6px;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(to right, #fff 0%, var(--primary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+            animation: titleGlow 4s ease-in-out infinite alternate;
+            line-height: 1.1;
+            position: relative;
+        }
+
+        @keyframes titleGlow {
+            0% { text-shadow: 0 5px 15px rgba(0, 0, 0, 0.5); }
+            100% { text-shadow: 0 5px 30px rgba(255, 77, 0, 0.7); }
+        }
+
+        .hero-title::before {
+            content: '⚡';
+            position: absolute;
+            left: -100px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 2.6rem;
+            animation: floatLeft 5s ease-in-out infinite;
+        }
+
+        .hero-title::after {
+            content: '🎮';
+            position: absolute;
+            right: -100px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 2.6rem;
+            animation: floatRight 5s ease-in-out infinite;
+        }
+
+        @keyframes floatLeft {
+            0%, 100% { transform: translateY(-50%) translateX(0) rotate(0deg); }
+            50% { transform: translateY(-50%) translateX(-30px) rotate(-10deg); }
+        }
+
+        @keyframes floatRight {
+            0%, 100% { transform: translateY(-50%) translateX(0) rotate(0deg); }
+            50% { transform: translateY(-50%) translateX(30px) rotate(10deg); }
+        }
+
+        .hero-subtitle {
+            font-size: 1.1rem;
+            letter-spacing: 3px;
+            margin-bottom: 2rem;
+            color: var(--primary);
+            text-shadow: 0 0 15px var(--primary);
+            font-weight: 600;
+            animation: subtitlePulse 3s ease-in-out infinite;
+        }
+
+        @keyframes subtitlePulse {
+            0%, 100% { text-shadow: 0 0 15px var(--primary); }
+            50% { text-shadow: 0 0 30px var(--primary-glow); }
+        }
+
+        /* Enhanced Featured Games Grid */
+        .featured-section {
+            padding: 5rem 3rem;
+            position: relative;
+            background: radial-gradient(circle at 25% 25%, rgba(255, 77, 0, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 75% 75%, rgba(255, 77, 0, 0.05) 0%, transparent 50%);
+        }
+
+        .section-title {
+            font-size: 2.6rem;
+            font-weight: 800;
+            letter-spacing: 6px;
+            margin-bottom: 5rem;
+            text-align: center;
+            position: relative;
+            display: inline-block;
+            left: 50%;
+            transform: translateX(-50%);
+            color: var(--light);
+            text-transform: uppercase;
+            animation: sectionTitleGlow 4s ease-in-out infinite alternate;
+        }
+
+        @keyframes sectionTitleGlow {
+            0% { 
+                text-shadow: 0 0 15px var(--primary);
+            }
+            100% { 
+                text-shadow: 0 0 40px var(--primary), 0 0 60px var(--primary-glow);
+            }
+        }
+
+        .section-title::before {
+            content: '🏆';
+            position: absolute;
+            left: -100px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 2.6rem;
+            animation: bounce 3s ease-in-out infinite;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 250px;
+            height: 6px;
+            background: linear-gradient(90deg, transparent, var(--primary), transparent);
+            border-radius: 6px;
+            box-shadow: 0 0 20px var(--primary);
+            animation: lineGlow 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(-50%); }
+            50% { transform: translateY(-70%); }
+        }
+
+        @keyframes lineGlow {
+            0% { box-shadow: 0 0 20px var(--primary); }
+            100% { box-shadow: 0 0 40px var(--primary-glow); }
+        }
+
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 3rem;
+            margin-top: 3rem;
+            perspective: 1000px;
+        }
+
+        /* Enhanced 3D Game Cards - OPTIMIZED */
+        .game-card {
+            background: var(--darker);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+            position: relative;
+            border: 2px solid rgba(255,77,0,0.2);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+            height: 480px;
+            cursor: pointer;
+            transform-style: preserve-3d;
+            will-change: transform;
+        }
+
+        .game-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent 40%, rgba(255,77,0,0.1) 100%);
+            opacity: 0;
+            transition: all 0.6s ease;
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        .game-card.floating {
+            animation: cardFloat 6s ease-in-out infinite;
+        }
+
+        .game-card.floating:nth-child(even) {
+            animation: cardFloat 6s ease-in-out infinite reverse;
+        }
+
+        @keyframes cardFloat {
+            0%, 100% { transform: translateY(0) rotateZ(0deg); }
+            25% { transform: translateY(-5px) rotateZ(0.5deg); }
+            50% { transform: translateY(0) rotateZ(0deg); }
+            75% { transform: translateY(-3px) rotateZ(-0.5deg); }
+        }
+
+        .game-card:hover {
+            transform: translateY(-20px) rotateX(8deg) rotateY(8deg) scale(1.05);
+            box-shadow: 0 30px 60px rgba(255, 77, 0, 0.4), 
+                         0 0 80px rgba(255, 77, 0, 0.3);
+            border-color: rgba(255,77,0,0.6);
+            animation: none;
+        }
+
+        .game-card:hover::before {
+            opacity: 1;
+        }
+
+        .game-media {
+            position: relative;
+            height: 200px;
+            overflow: hidden;
+            transform-style: preserve-3d;
+        }
+
+        .game-video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: all 0.8s cubic-bezier(0.215, 0.61, 0.355, 1);
+            transform-origin: center;
+            will-change: transform;
+        }
+
+        .game-card:hover .game-video {
+            transform: scale(1.3) rotate(3deg);
+        }
+
+        .game-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: all 0.8s cubic-bezier(0.215, 0.61, 0.355, 1);
+            transform-origin: center;
+            will-change: transform;
+        }
+
+        .game-card:hover .game-image {
+            transform: scale(1.3) rotate(3deg);
+        }
+
+        .game-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: var(--primary);
+            color: var(--darkest);
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            z-index: 3;
+            box-shadow: 0 0 15px var(--primary);
+            transform: translateY(0);
+            transition: all 0.4s ease;
+            animation: badgeFloat 4s ease-in-out infinite;
+            will-change: transform;
+        }
+
+        @keyframes badgeFloat {
+            0%, 100% { transform: translateY(0) scale(1); }
+            25% { transform: translateY(-8px) scale(1.05); }
+            75% { transform: translateY(-4px) scale(1.02); }
+        }
+
+        .game-card:hover .game-badge {
+            animation: badgePulse 0.6s ease-in-out infinite alternate;
+            transform: scale(1.15);
+        }
+
+        @keyframes badgePulse {
+            from { box-shadow: 0 0 15px var(--primary); }
+            to { box-shadow: 0 0 30px var(--primary-glow), 0 0 50px var(--primary); }
+        }
+
+        .game-info {
+            padding: 1.8rem;
+            position: relative;
+            z-index: 2;
+            transform: translateZ(30px);
+            height: calc(100% - 200px);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .game-title {
+            font-size: 1.25rem;
+            font-weight: 800;
+            margin-bottom: 0.8rem;
+            color: var(--light);
+            text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+            letter-spacing: 2px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .game-title::before {
+            content: '▶';
+            position: absolute;
+            left: -25px;
+            opacity: 0;
+            transform: translateX(-10px);
+            transition: all 0.3s ease;
+            color: var(--primary);
+        }
+
+        .game-card:hover .game-title {
+            color: var(--primary);
+            text-shadow: 0 0 25px var(--primary);
+            transform: translateX(10px);
+        }
+
+        .game-card:hover .game-title::before {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .game-genre {
+            font-size: 0.95rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 600;
+        }
+
+        .game-genre::before {
+            content: '';
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            background: var(--primary);
+            margin-right: 10px;
+            border-radius: 50%;
+            box-shadow: 0 0 8px var(--primary);
+            animation: pulse 2.5s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.3); opacity: 0.7; }
+        }
+
+        .game-description {
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.8);
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+            font-family: 'Rajdhani', sans-serif;
+            flex-grow: 1;
+        }
+
+        .game-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: auto;
+        }
+
+        .game-price {
+            font-size: 1.25rem;
+            font-weight: 800;
+            color: var(--light);
+        }
+
+        .game-price span {
+            font-size: 1rem;
+            color: rgba(255,255,255,0.5);
+            text-decoration: line-through;
+            margin-right: 0.5rem;
+        }
+
+        /* Enhanced Add to Cart Button - CONSISTENT DESIGN */
+        .game-button, .add-to-cart {
+            background: var(--primary);
+            color: var(--darkest);
+            border: none;
+            padding: 0.8rem 1.8rem;
+            border-radius: 6px;
+            font-weight: 800;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            box-shadow: 0 0 15px var(--primary);
+            position: relative;
+            overflow: hidden;
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        .game-button:hover, .add-to-cart:hover {
+            background: var(--light);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px var(--primary);
+        }
+
+        .game-button::before, .add-to-cart::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: 0.5s;
+        }
+
+        .game-button:hover::before, .add-to-cart:hover::before {
+            left: 100%;
+        }
+
+        /* Floating Particles - OPTIMIZED */
+        .floating-particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .floating-particle {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background-color: var(--primary);
+            border-radius: 50%;
+            opacity: 0.6;
+            animation: float-particle 20s infinite linear;
+            will-change: transform;
+        }
+
+        @keyframes float-particle {
+            0% { 
+                transform: translateY(100vh) translateX(0) rotate(0deg); 
+                opacity: 0; 
+            }
+            10% { opacity: 0.8; }
+            90% { opacity: 0.8; }
+            100% { 
+                transform: translateY(-100px) translateX(200px) rotate(360deg); 
+                opacity: 0; 
+            }
+        }
+
+        /* Enhanced particle variants */
+        .floating-particle:nth-child(2n) {
+            animation-duration: 25s;
+            background: var(--primary-glow);
+        }
+
+        .floating-particle:nth-child(3n) {
+            animation-duration: 18s;
+            width: 2px;
+            height: 2px;
+        }
+
+        /* Gaming Icons floating around - OPTIMIZED */
+        .gaming-icons {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .gaming-icon {
+            position: absolute;
+            font-size: 1.8rem;
+            opacity: 0.1;
+            animation: iconFloat 15s infinite ease-in-out;
+            will-change: transform;
+        }
+
+        @keyframes iconFloat {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            25% { transform: translateY(-50px) rotate(90deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+            75% { transform: translateY(-30px) rotate(270deg); }
+        }
+
+        /* Add to Cart Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(8px);
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-container {
+            background: var(--darker);
+            border-radius: 15px;
+            width: 90%;
+            max-width: 500px;
+            padding: 2.5rem;
+            position: relative;
+            border: 2px solid rgba(255,77,0,0.3);
+            box-shadow: 0 0 40px rgba(255,77,0,0.3);
+            transform: translateY(30px) scale(0.9);
+            transition: all 0.3s ease;
+        }
+
+        .modal-overlay.active .modal-container {
+            transform: translateY(0) scale(1);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: none;
+            border: none;
+            color: var(--light);
+            font-size: 1.6rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .modal-close:hover {
+            color: var(--primary);
+            transform: rotate(90deg) scale(1.2);
+        }
+
+        .modal-header {
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .modal-title {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            letter-spacing: 3px;
+            text-shadow: 0 0 15px var(--primary);
+        }
+
+        .modal-subtitle {
+            color: rgba(255,255,255,0.7);
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 1.1rem;
+        }
+
+        .modal-content {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .modal-item {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            padding: 1.5rem;
+            background: rgba(255,255,255,0.05);
+            border-radius: 10px;
+            border: 1px solid rgba(255,77,0,0.1);
+        }
+
+        .modal-item-image {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .modal-item-details {
+            flex-grow: 1;
+        }
+
+        .modal-item-name {
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .modal-item-price {
+            color: var(--primary);
+            font-weight: 800;
+            font-size: 1.1rem;
+        }
+
+        .modal-quantity {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .modal-quantity button {
+            background: var(--gray);
+            color: var(--light);
+            border: none;
+            width: 35px;
+            height: 35px;
+            border-radius: 6px;
+            font-weight: 800;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1.1rem;
+        }
+
+        .modal-quantity button:hover {
+            background: var(--primary);
+            color: var(--darkest);
+            transform: scale(1.1);
+        }
+
+        .modal-quantity input {
+            width: 60px;
+            text-align: center;
+            background: var(--gray);
+            border: none;
+            color: var(--light);
+            padding: 0.6rem;
+            border-radius: 6px;
+            font-weight: 800;
+            font-size: 1rem;
+        }
+
+        .modal-total {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 2px solid rgba(255,255,255,0.1);
+            font-weight: 800;
+            font-size: 1.1rem;
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 1.5rem;
+            margin-top: 2.5rem;
+        }
+
+        .modal-button {
+            flex: 1;
+            padding: 1rem;
+            border-radius: 6px;
+            font-weight: 800;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            position: relative;
+            overflow: hidden;
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        .modal-button-primary {
+            background: var(--primary);
+            color: var(--darkest);
+            border: none;
+        }
+
+        .modal-button-primary:hover {
+            background: var(--light);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px var(--primary);
+        }
+
+        .modal-button-secondary {
+            background: transparent;
+            color: var(--light);
+            border: 2px solid var(--primary);
+        }
+
+        .modal-button-secondary:hover {
+            background: rgba(255,77,0,0.1);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(255,77,0,0.3);
+        }
+
+        .modal-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: 0.5s;
+        }
+
+        .modal-button:hover::before {
+            left: 100%;
+        }
+
+        /* Scroll performance optimization */
+        .scrolling {
+            animation-play-state: paused !important;
+        }
+
+        .scrolling .floating-particle {
+            display: none;
+        }
+
+        .scrolling .game-card.floating {
+            animation: none !important;
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 1200px) {
+            .games-grid {
+                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            }
+        }
+
+        @media (max-width: 992px) {
+            .hero-title {
+                font-size: 2.6rem;
+                letter-spacing: 4px;
+            }
+            
+            .hero-subtitle {
+                font-size: 1rem;
+                letter-spacing: 2px;
+            }
+            
+            .section-title {
+                font-size: 2.8rem;
+            }
+
+            .games-grid {
+                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+                gap: 2rem;
+            }
+
+            .hero-title::before,
+            .hero-title::after {
+                display: none;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-container {
+                padding: 1rem;
+            }
+            
+            .hero-title {
+                font-size: 2.2rem;
+                letter-spacing: 3px;
+            }
+            
+            .hero-subtitle {
+                font-size: 0.9rem;
+                letter-spacing: 2px;
+            }
+            
+            .games-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .nav-links {
+                gap: 1rem;
+            }
+            
+            .nav-logo-text {
+                font-size: 1.1rem;
+            }
+
+            .modal-container {
+                width: 95%;
+                padding: 2rem;
+            }
+
+            .modal-title {
+                font-size: 1.6rem;
+            }
+
+            .modal-buttons {
+                flex-direction: column;
+            }
+
+            .section-title {
+                font-size: 2.2rem;
+                margin-bottom: 3rem;
+            }
+
+            .section-title::before {
+                left: -60px;
+                font-size: 1.8rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero-title {
+                font-size: 2.2rem;
+            }
+            
+            .games-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Performance optimizations for scroll */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        /* ========================================= */
+        /* COMPREHENSIVE MOBILE RESPONSIVE STYLES */
+        /* ========================================= */
+
+        /* Tablets - Landscape (992px) */
+        @media (max-width: 992px) {
+            .nav-container {
+                padding: 1.2rem 2rem;
+            }
+            
+            .nav-logo-text {
+                font-size: 1.3rem;
+            }
+            
+            .nav-links {
+                gap: 1.5rem;
+            }
+            
+            .nav-link {
+                font-size: 0.95rem;
+            }
+            
+            .hero, .banner {
+                height: 75vh;
+            }
+            
+            h1, .hero-title {
+                font-size: 3.2rem;
+            }
+            
+            h2, .section-title {
+                font-size: 2rem;
+            }
+            
+            .btn, button {
+                padding: 0.85rem 2rem;
+                font-size: 1rem;
+            }
+        }
+
+        /* Tablets - Portrait (768px) */
+        @media (max-width: 768px) {
+            .nav-container {
+                padding: 1rem 1.5rem;
+                flex-wrap: wrap;
+            }
+            
+            .nav-logo-text {
+                font-size: 1.2rem;
+                letter-spacing: 2px;
+            }
+            
+            .nav-links {
+                width: 100%;
+                justify-content: center;
+                gap: 1rem;
+                margin-top: 1rem;
+                flex-wrap: wrap;
+            }
+            
+            .nav-link {
+                font-size: 0.9rem;
+                padding: 0.5rem 1rem;
+            }
+            
+            .hero, .banner {
+                height: 70vh;
+            }
+            
+            h1, .hero-title {
+                font-size: 2.6rem;
+                padding: 0 1.5rem;
+            }
+            
+            h2, .section-title {
+                font-size: 1.8rem;
+            }
+            
+            p, .description {
+                font-size: 1rem;
+                padding: 0 1rem;
+            }
+            
+            .grid, .games-grid, .categories-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1.5rem;
+                padding: 0 1rem;
+            }
+            
+            .card, .game-card, .category-card {
+                height: 320px;
+            }
+            
+            .btn, button {
+                padding: 0.8rem 1.8rem;
+                font-size: 0.95rem;
+            }
+            
+            section {
+                padding: 3rem 1.5rem;
+            }
+        }
+
+        /* Mobile Devices (576px) */
+        @media (max-width: 576px) {
+            .nav-container {
+                padding: 0.9rem 1rem;
+            }
+            
+            .nav-logo svg {
+                width: 24px;
+                height: 24px;
+            }
+            
+            .nav-logo-text {
+                font-size: 1.1rem;
+                letter-spacing: 1px;
+            }
+            
+            .nav-links {
+                gap: 0.8rem;
+            }
+            
+            .nav-link {
+                font-size: 0.85rem;
+                padding: 0.4rem 0.8rem;
+            }
+            
+            .hero, .banner {
+                height: 65vh;
+            }
+            
+            h1, .hero-title {
+                font-size: 2rem;
+                padding: 0 1rem;
+                line-height: 1.2;
+            }
+            
+            h2, .section-title {
+                font-size: 1.6rem;
+            }
+            
+            h3 {
+                font-size: 1.2rem;
+            }
+            
+            p, .description {
+                font-size: 0.95rem;
+                line-height: 1.5;
+            }
+            
+            .grid, .games-grid, .categories-grid {
+                grid-template-columns: 1fr;
+                gap: 1.2rem;
+                padding: 0 0.8rem;
+            }
+            
+            .card, .game-card, .category-card {
+                height: 300px;
+            }
+            
+            .btn, button {
+                padding: 0.75rem 1.5rem;
+                font-size: 0.9rem;
+                width: 100%;
+                max-width: 280px;
+            }
+            
+            section {
+                padding: 2.5rem 1rem;
+            }
+            
+            .cart-item, .checkout-item {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+
+        /* Small Mobile (480px) */
+        @media (max-width: 480px) {
+            .nav-container {
+                padding: 0.8rem 0.8rem;
+            }
+            
+            .nav-logo svg {
+                width: 20px;
+                height: 20px;
+            }
+            
+            .nav-logo-text {
+                font-size: 1rem;
+            }
+            
+            .nav-links {
+                gap: 0.6rem;
+            }
+            
+            .nav-link {
+                font-size: 0.8rem;
+                padding: 0.3rem 0.6rem;
+            }
+            
+            .hero, .banner {
+                height: 60vh;
+            }
+            
+            h1, .hero-title {
+                font-size: 1.7rem;
+            }
+            
+            h2, .section-title {
+                font-size: 1.4rem;
+            }
+            
+            .card, .game-card, .category-card {
+                height: 280px;
+            }
+            
+            .btn, button {
+                padding: 0.7rem 1.3rem;
+                font-size: 0.85rem;
+            }
+            
+            section {
+                padding: 2rem 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav-container">
+        <div class="nav-logo" onclick="window.location.href='home.html'">
+            <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <path d="M50 10 L90 50 L50 90 L10 50 Z" fill="none" stroke="#ff4d00" stroke-width="8"/>
+                <path d="M30 50 L70 50 M50 30 L50 70" stroke="#ff4d00" stroke-width="8" stroke-linecap="round"/>
+            </svg>
+            <span class="nav-logo-text">NEXUS</span>
+        </div>
+        <div class="nav-links">
+            <a href="home.html" class="nav-link">Home</a>
+            <a href="featured.html" class="nav-link active">Featured</a>
+            <a href="categories.html" class="nav-link">Categories</a>
+            <a href="deals.html" class="nav-link">Deals</a>
+            <div class="cart-icon">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M6 2L3 6V20C3 20.5304 3.21071 21.0391 3.58579 21.4142C3.96086 21.7893 4.46957 22 5 22H19C19.5304 22 20.0391 21.7893 20.4142 21.4142C20.7893 21.0391 21 20.5304 21 20V6L18 2H6Z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M3 6H21" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M16 10C16 11.0609 15.5786 12.0783 14.8284 12.8284C14.0783 13.5786 13.0609 14 12 14C10.9391 14 9.92172 13.5786 9.17157 12.8284C8.42143 12.0783 8 11.0609 8 10" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="cart-count">0</span>
+                <div class="cart-preview">
+                    <div class="cart-preview-items" id="cart-preview-items">
+                        <!-- Cart items will be added here dynamically -->
+                    </div>
+                    <div class="cart-preview-footer">
+                        <div class="cart-preview-total">
+                            <span>Total:</span>
+                            <span id="cart-preview-total">$0.00</span>
+                        </div>
+                        <button class="cart-preview-button" onclick="window.location.href='cart.html'">View Cart</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <video class="hero-video" autoplay muted loop>
+            <source src="https://assets.mixkit.co/videos/preview/mixkit-tree-with-yellow-flowers-1173-large.mp4" type="video/mp4">
+        </video>
+        <div class="floating-particles" id="floating-particles"></div>
+        <div class="gaming-icons" id="gaming-icons"></div>
+        <div class="hero-content">
+            <h1 class="hero-title">FEATURED GAMES</h1>
+            <p class="hero-subtitle">CURATED SELECTION OF PREMIUM TITLES</p>
+        </div>
+    </section>
+
+    <!-- Featured Games Section -->
+    <section class="featured-section">
+        <h2 class="section-title">TRENDING NOW</h2>
+        <div class="games-grid">
+            <!-- Game Card 1 -->
+            <div class="game-card" data-id="1" data-name="CYBER LEGENDS" data-price="49.99" data-image="./cyber.jpg">
+                <div class="game-media">
+                    <img class="game-image" src="./cyber.jpg" alt="CYBER LEGENDS Game">
+                    <div class="game-badge">HOT</div>
+                </div>
+                <div class="game-info">
+                    <h3 class="game-title">CYBER LEGENDS</h3>
+                    <p class="game-genre">Action RPG</p>
+                    <p class="game-description">Immerse yourself in a futuristic open world where your choices shape the destiny of a megacity on the brink of collapse. Experience breathtaking visuals and deep narrative choices.</p>
+                    <div class="game-footer">
+                        <div class="game-price">
+                            <span>$59.99</span>
+                            $49.99
+                        </div>
+                        <button class="game-button add-to-cart">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Game Card 2 -->
+            <div class="game-card" data-id="2" data-name="STARFORGE" data-price="39.99" data-image="./skyforge.jpg">
+                <div class="game-media">
+                    <img class="game-image" src="./skyforge.jpg" alt="STARFORGE Game">
+                    <div class="game-badge">NEW</div>
+                </div>
+                <div class="game-info">
+                    <h3 class="game-title">STARFORGE</h3>
+                    <p class="game-genre">Space Simulator</p>
+                    <p class="game-description">Build your empire across the galaxy in this massive space exploration and strategy game with infinite possibilities. Command fleets, colonize planets, and discover ancient alien civilizations.</p>
+                    <div class="game-footer">
+                        <div class="game-price">$39.99</div>
+                        <button class="game-button add-to-cart">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Game Card 3 -->
+            <div class="game-card" data-id="3" data-name="NEO TOKYO" data-price="29.99" data-image="./neo%20tokyo.jpg">
+                <div class="game-media">
+                    <img class="game-image" src="./neo%20tokyo.jpg" alt="Neo Tokyo Game">                  
+                    <div class="game-badge">SALE</div>
+                </div>
+                <div class="game-info">
+                    <h3 class="game-title">NEO TOKYO</h3>
+                    <p class="game-genre">Cyberpunk Adventure</p>
+                    <p class="game-description">Navigate the neon-lit streets of a dystopian future in this story-driven adventure with branching narratives. Your decisions affect the fate of the city and its inhabitants.</p>
+                    <div class="game-footer">
+                        <div class="game-price">
+                            <span>$49.99</span>
+                            $29.99
+                        </div>
+                        <button class="game-button add-to-cart">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Game Card 4 -->
+            <div class="game-card" data-id="4" data-name="WARLORDS" data-price="34.99" data-image="./warloads.png">
+                <div class="game-media">
+                    <img class="game-image" src="./warloads.png" alt="WARLORDS Game">
+                </div>
+                <div class="game-info">
+                    <h3 class="game-title">WARLORDS</h3>
+                    <p class="game-genre">Strategy</p>
+                    <p class="game-description">Command vast armies and conquer kingdoms in this turn-based strategy masterpiece with deep tactical gameplay. Experience epic battles and forge your own empire.</p>
+                    <div class="game-footer">
+                        <div class="game-price">$34.99</div>
+                        <button class="game-button add-to-cart">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Game Card 5 -->
+            <div class="game-card" data-id="5" data-name="VOID RUNNER" data-price="44.99" data-image="./void%20runner.png">
+                <div class="game-media">
+                    <img class="game-image" src="./void%20runner.png" alt="Void runner Game">
+                    <div class="game-badge">EXCLUSIVE</div>
+                </div>
+                <div class="game-info">
+                    <h3 class="game-title">VOID RUNNER</h3>
+                    <p class="game-genre">Racing</p>
+                    <p class="game-description">Experience high-speed anti-gravity racing through stunning alien landscapes with fully customizable vehicles. Compete in tournaments and become the ultimate Void Runner.</p>
+                    <div class="game-footer">
+                        <div class="game-price">$44.99</div>
+                        <button class="game-button add-to-cart">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Game Card 6 -->
+            <div class="game-card" data-id="6" data-name="ECHOES" data-price="54.99" data-image="./echoes.jpg">
+                <div class="game-media">
+                    <img class="game-image" src="./echoes.jpg" alt="ECHOES Game">
+                    <div class="game-badge">PRE-ORDER</div>
+                </div>
+                <div class="game-info">
+                    <h3 class="game-title">ECHOES</h3>
+                    <p class="game-genre">Horror Survival</p>
+                    <p class="game-description">A psychological horror experience that adapts to your fears and playstyle for a uniquely terrifying adventure. The game learns from your reactions to create personalized scares.</p>
+                    <div class="game-footer">
+                        <div class="game-price">$54.99</div>
+                        <button class="game-button add-to-cart">Pre-Order</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Game Card 7 -->
+            <div class="game-card" data-id="7" data-name="MYSTIC REALMS" data-price="59.99" data-image="./mystic.jpg">
+                <div class="game-media">
+                    <img class="game-image" src="./mystic.jpg" alt="Mystic Realms Game">
+                    <div class="game-badge">BESTSELLER</div>
+                </div>
+                <div class="game-info">
+                    <h3 class="game-title">MYSTIC REALMS</h3>
+                    <p class="game-genre">Fantasy RPG</p>
+                    <p class="game-description">Embark on an epic journey through magical kingdoms filled with mythical creatures and ancient secrets. Customize your character and forge your own legend.</p>
+                    <div class="game-footer">
+                        <div class="game-price">
+                            <span>$69.99</span>
+                            $59.99
+                        </div>
+                        <button class="game-button add-to-cart">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Game Card 8 -->
+            <div class="game-card" data-id="8" data-name="ZOMBIE OUTBREAK" data-price="24.99" data-image="./zombie.jpeg">
+                <div class="game-media">
+                    <img class="game-image" src="./zombie.jpeg" alt="ZOMBIE OUTBREAK Game">
+                    <div class="game-badge">SALE</div>
+                </div>
+                <div class="game-info">
+                    <h3 class="game-title">ZOMBIE OUTBREAK</h3>
+                    <p class="game-genre">Survival Horror</p>
+                    <p class="game-description">Survive the zombie apocalypse in this intense first-person survival game. Scavenge for resources, build defenses, and fight hordes of the undead.</p>
+                    <div class="game-footer">
+                        <div class="game-price">
+                            <span>$39.99</span>
+                            $24.99
+                        </div>
+                        <button class="game-button add-to-cart">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Game Card 9 -->
+            <div class="game-card" data-id="9" data-name="SPACE EXPLORER" data-price="49.99" data-image="./space.webp">
+                <div class="game-media">
+                    <img class="game-image" src="./space.webp" alt="Space Explorer Game">
+                    <div class="game-badge">VR READY</div>
+                </div>
+                <div class="game-info">
+                    <h3 class="game-title">SPACE EXPLORER</h3>
+                    <p class="game-genre">Space Adventure</p>
+                    <p class="game-description">Pilot your own starship through uncharted galaxies in this immersive space exploration game. Discover alien worlds and unravel cosmic mysteries.</p>
+                    <div class="game-footer">
+                        <div class="game-price">$49.99</div>
+                        <button class="game-button add-to-cart">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Add to Cart Modal -->
+    <div class="modal-overlay" id="cart-modal">
+        <div class="modal-container">
+            <button class="modal-close" id="modal-close">&times;</button>
+            <div class="modal-header">
+                <h3 class="modal-title">ADDED TO CART</h3>
+                <p class="modal-subtitle">Your item has been added to your shopping cart</p>
+            </div>
+            <div class="modal-content">
+                <div class="modal-item">
+                    <img id="modal-item-image" src="" alt="Game" class="modal-item-image">
+                    <div class="modal-item-details">
+                        <div class="modal-item-name" id="modal-item-name">Game Title</div>
+                        <div class="modal-item-price" id="modal-item-price">$0.00</div>
+                    </div>
+                    <div class="modal-quantity">
+                        <button id="quantity-decrease">-</button>
+                        <input type="number" id="quantity-input" value="1" min="1">
+                        <button id="quantity-increase">+</button>
+                    </div>
+                </div>
+                <div class="modal-total">
+                    <span>Subtotal:</span>
+                    <span id="modal-subtotal">$0.00</span>
+                </div>
+            </div>
+            <div class="modal-buttons">
+                <button class="modal-button modal-button-secondary" id="continue-shopping">Continue Shopping</button>
+                <button class="modal-button modal-button-primary" id="view-cart">View Cart</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Performance optimization variables
+        let isScrolling = false;
+        let scrollTimeout;
+        const isMobile = window.innerWidth < 768;
+        const isLowEnd = navigator.hardwareConcurrency <= 2 || window.devicePixelRatio < 2;
+
+        // Cart functionality
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+        
+        // Update cart count display
+        function updateCartCount() {
+            const count = cart.reduce((total, item) => total + item.quantity, 0);
+            document.querySelector('.cart-count').textContent = count;
+            updateCartPreview();
+        }
+        
+        // Update cart preview
+        function updateCartPreview() {
+            const previewItems = document.getElementById('cart-preview-items');
+            const previewTotal = document.getElementById('cart-preview-total');
+            
+            previewItems.innerHTML = '';
+            
+            if (cart.length === 0) {
+                previewItems.innerHTML = '<p style="text-align: center; color: rgba(255,255,255,0.5);">Your cart is empty</p>';
+                previewTotal.textContent = '$0.00';
+                return;
+            }
+            
+            let total = 0;
+            
+            cart.forEach(item => {
+                const itemElement = document.createElement('div');
+                itemElement.className = 'cart-preview-item';
+                itemElement.innerHTML = `
+                    <img src="${item.image}" alt="${item.name}">
+                    <div class="cart-preview-item-name">${item.name}</div>
+                    <div class="cart-preview-item-price">${(item.price * item.quantity).toFixed(2)}</div>
+                `;
+                previewItems.appendChild(itemElement);
+                
+                total += item.price * item.quantity;
+            });
+            
+            previewTotal.textContent = `${total.toFixed(2)}`;
+        }
+        
+        // Add to cart functionality
+        document.querySelectorAll('.add-to-cart').forEach(button => {
+            button.addEventListener('click', function(e) {
+                e.stopPropagation();
+                
+                const gameCard = this.closest('.game-card');
+                const gameId = gameCard.dataset.id;
+                const gameName = gameCard.dataset.name;
+                const gamePrice = parseFloat(gameCard.dataset.price);
+                const gameImage = gameCard.dataset.image;
+                
+                const existingItem = cart.find(item => item.id === gameId);
+                
+                if (existingItem) {
+                    existingItem.quantity += 1;
+                } else {
+                    cart.push({
+                        id: gameId,
+                        name: gameName,
+                        price: gamePrice,
+                        image: gameImage,
+                        quantity: 1
+                    });
+                }
+                
+                localStorage.setItem('cart', JSON.stringify(cart));
+                updateCartCount();
+                showCartModal(gameName, gamePrice, gameImage);
+            });
+        });
+        
+        // Show cart modal
+        function showCartModal(name, price, image) {
+            const modal = document.getElementById('cart-modal');
+            const quantityInput = document.getElementById('quantity-input');
+            const modalItemName = document.getElementById('modal-item-name');
+            const modalItemPrice = document.getElementById('modal-item-price');
+            const modalItemImage = document.getElementById('modal-item-image');
+            const modalSubtotal = document.getElementById('modal-subtotal');
+            
+            modalItemName.textContent = name;
+            modalItemPrice.textContent = `${price.toFixed(2)}`;
+            modalItemImage.src = image;
+            quantityInput.value = 1;
+            updateSubtotal();
+            
+            modal.classList.add('active');
+            
+            function updateSubtotal() {
+                const quantity = parseInt(quantityInput.value);
+                modalSubtotal.textContent = `${(price * quantity).toFixed(2)}`;
+            }
+            
+            document.getElementById('quantity-increase').onclick = () => {
+                quantityInput.value = parseInt(quantityInput.value) + 1;
+                updateSubtotal();
+            };
+            
+            document.getElementById('quantity-decrease').onclick = () => {
+                if (parseInt(quantityInput.value) > 1) {
+                    quantityInput.value = parseInt(quantityInput.value) - 1;
+                    updateSubtotal();
+                }
+            };
+            
+            quantityInput.onchange = () => {
+                if (parseInt(quantityInput.value) < 1) {
+                    quantityInput.value = 1;
+                }
+                updateSubtotal();
+            };
+        }
+        
+        // Modal event listeners
+        document.getElementById('modal-close').addEventListener('click', () => {
+            document.getElementById('cart-modal').classList.remove('active');
+        });
+        
+        document.getElementById('continue-shopping').addEventListener('click', () => {
+            document.getElementById('cart-modal').classList.remove('active');
+        });
+        
+        document.getElementById('view-cart').addEventListener('click', () => {
+            window.location.href = 'cart.html';
+        });
+        
+        // Optimized floating particles
+        function createParticles() {
+            const particlesContainer = document.getElementById('floating-particles');
+            
+            if (!particlesContainer) return;
+            
+            const particleCount = isMobile ? 0 : (window.innerWidth < 1024 ? 8 : 15);
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('floating-particle');
+                particle.style.left = `${Math.random() * 100}%`;
+                particle.style.top = `100%`;
+                particle.style.animationDelay = `${Math.random() * 20}s`;
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        // Optimized gaming icons
+        function createGamingIcons() {
+            const gamingIconsContainer = document.getElementById('gaming-icons');
+            
+            if (!gamingIconsContainer) return;
+            
+            const icons = ['🎮', '🕹️', '🎯', '🚀', '⚡', '🏆', '👾', '🎲'];
+            const iconCount = isMobile ? 0 : (window.innerWidth < 1024 ? 4 : 8);
+            
+            for (let i = 0; i < iconCount; i++) {
+                const icon = document.createElement('div');
+                icon.classList.add('gaming-icon');
+                icon.textContent = icons[i];
+                icon.style.left = `${Math.random() * 100}%`;
+                icon.style.top = `${Math.random() * 100}%`;
+                icon.style.animationDelay = `${Math.random() * 15}s`;
+                gamingIconsContainer.appendChild(icon);
+            }
+        }
+        
+        // 3D hover effects with mouse parallax - EXACT MATCH WITH HOME.HTML
+        function addParallaxEffect() {
+            const cards = document.querySelectorAll('.game-card');
+            let ticking = false;
+            
+            cards.forEach(card => {
+                let isHovering = false;
+                
+                card.addEventListener('mouseenter', () => {
+                    isHovering = true;
+                    card.classList.remove('floating');
+                });
+                
+                card.addEventListener('mouseleave', () => {
+                    isHovering = false;
+                    card.style.transform = '';
+                    // Re-enable floating animation after hover
+                    setTimeout(() => {
+                        if (!isHovering) card.classList.add('floating');
+                    }, 100);
+                });
+                
+                card.addEventListener('mousemove', (e) => {
+                    if (!isHovering || ticking) return;
+                    
+                    requestAnimationFrame(() => {
+                        if (!isHovering) return;
+                        
+                        const rect = card.getBoundingClientRect();
+                        const x = e.clientX - rect.left;
+                        const y = e.clientY - rect.top;
+                        const centerX = rect.width / 2;
+                        const centerY = rect.height / 2;
+                        
+                        // EXACT same calculation as home.html
+                        const angleY = (x - centerX) / 15;
+                        const angleX = (centerY - y) / 15;
+                        
+                        // EXACT same transform as home.html
+                        card.style.transform = `translateY(-20px) rotateX(${angleX}deg) rotateY(${angleY}deg) scale(1.05)`;
+                        
+                        ticking = false;
+                    });
+                    
+                    ticking = true;
+                });
+            });
+        }
+        
+        // Scroll performance optimization
+        function handleScroll() {
+            if (!isScrolling) {
+                document.body.classList.add('scrolling');
+                isScrolling = true;
+            }
+            
+            // Clear existing timeout
+            clearTimeout(scrollTimeout);
+            
+            // Set timeout to detect scroll end
+            scrollTimeout = setTimeout(() => {
+                document.body.classList.remove('scrolling');
+                isScrolling = false;
+            }, 150);
+            
+            // Update navbar on scroll
+            const nav = document.querySelector('.nav-container');
+            if (window.scrollY > 50) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        }
+        
+        // Initialize everything when DOM loads
+        document.addEventListener('DOMContentLoaded', () => {
+            updateCartCount();
+            
+            // Always add floating animation and 3D effects
+            createParticles();
+            createGamingIcons();
+            addParallaxEffect();
+            
+            // Add floating animation to all cards immediately
+            document.querySelectorAll('.game-card').forEach(card => {
+                card.classList.add('floating');
+            });
+        });
+        
+        // Optimized scroll listener with passive flag
+        window.addEventListener('scroll', handleScroll, { passive: true });
+        
+        // Cleanup and optimization on resize
+        let resizeTimeout;
+        window.addEventListener('resize', () => {
+            clearTimeout(resizeTimeout);
+            resizeTimeout = setTimeout(() => {
+                const particlesContainer = document.getElementById('floating-particles');
+                const gamingIconsContainer = document.getElementById('gaming-icons');
+                
+                if (particlesContainer) particlesContainer.innerHTML = '';
+                if (gamingIconsContainer) gamingIconsContainer.innerHTML = '';
+                
+                createParticles();
+                createGamingIcons();
+            }, 300);
+        }, { passive: true });
+        
+        // Cleanup particles on page unload for better memory management
+        window.addEventListener('beforeunload', () => {
+            const particlesContainer = document.getElementById('floating-particles');
+            const gamingIconsContainer = document.getElementById('gaming-icons');
+            
+            if (particlesContainer) particlesContainer.innerHTML = '';
+            if (gamingIconsContainer) gamingIconsContainer.innerHTML = '';
+        });
+    </script>
+</body>
+</html>
