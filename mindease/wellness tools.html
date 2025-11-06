@@ -11,26 +11,7 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            -webkit-tap-highlight-color: transparent;
-            -webkit-touch-callout: none;
-        }
-
-        /* Disable custom cursor on mobile devices */
-        @media (hover: hover) and (pointer: fine) {
-            * {
-                cursor: none !important;
-            }
-        }
-
-        @media (hover: none) and (pointer: coarse) {
-            * {
-                cursor: auto !important;
-            }
-            
-            .cursor,
-            .click-effect {
-                display: none !important;
-            }
+            cursor: none !important;
         }
 
         :root {
@@ -567,10 +548,10 @@
 
         .chat-modal {
             position: fixed;
-            bottom: 100px;
+            bottom: 120px;
             right: 30px;
             width: 400px;
-            max-height: 550px;
+            height: 500px;
             background: var(--glass-bg);
             backdrop-filter: blur(25px);
             border: 1px solid rgba(255, 255, 255, 0.2);
@@ -1486,78 +1467,6 @@
         }
 
         @media (max-width: 768px) {
-            /* Mobile Navigation Fix - prevent overflow */
-            .navbar {
-                padding: 12px 10px !important;
-                flex-wrap: nowrap !important;
-                overflow-x: hidden !important;
-                display: flex !important;
-                align-items: center !important;
-            }
-
-            .logo {
-                font-size: 1.2rem !important;
-                flex-shrink: 0 !important;
-                margin-right: 8px !important;
-            }
-
-            .nav-links {
-                display: flex !important;
-                flex-wrap: nowrap !important;
-                overflow-x: auto !important;
-                -webkit-overflow-scrolling: touch !important;
-                gap: 3px !important;
-                padding: 0 !important;
-                margin: 0 !important;
-                flex: 1 !important;
-                scrollbar-width: none !important;
-                max-width: calc(100% - 150px) !important;
-            }
-
-            .nav-links::-webkit-scrollbar {
-                display: none !important;
-            }
-
-            .nav-link {
-                font-size: 0.75rem !important;
-                padding: 6px 10px !important;
-                margin: 0 !important;
-                white-space: nowrap !important;
-                flex-shrink: 0 !important;
-            }
-
-            .cta-button {
-                font-size: 0.8rem !important;
-                padding: 6px 12px !important;
-                white-space: nowrap !important;
-                flex-shrink: 0 !important;
-            }
-
-            /* Footer overflow fix */
-            .footer {
-                overflow-x: hidden !important;
-                width: 100% !important;
-            }
-
-            .footer-content {
-                width: 100% !important;
-                max-width: 100% !important;
-            }
-
-            .footer-section {
-                width: 100% !important;
-            }
-
-            .footer-bottom {
-                overflow: hidden !important;
-                width: 100% !important;
-            }
-
-            .footer-bottom-content {
-                width: 100% !important;
-            }
-
-
             .tools-grid {
                 grid-template-columns: 1fr;
                 gap: 30px;
@@ -1596,345 +1505,62 @@
             .ai-insights {
                 display: none;
             }
-        }
-
-        /* ============================================
-           COMPREHENSIVE MOBILE RESPONSIVE FIXES
-           ============================================ */
-        
-        @media (max-width: 768px) {
-            /* Remove blue tap highlights */
-            *, *::before, *::after {
-                -webkit-tap-highlight-color: transparent !important;
-                -webkit-touch-callout: none !important;
-                tap-highlight-color: transparent !important;
-            }
-
-            /* Disable custom cursor */
-            .cursor,
-            .click-effect,
-            .click-ripple,
-            .click-burst {
-                display: none !important;
-            }
-
-            body {
-                font-size: 14px;
-            }
-
-            .container {
-                width: 100%;
-                padding: 0 15px;
-            }
-
-            /* Navbar */
-            .navbar {
-                padding: 12px 15px;
-            }
-
-            .logo {
-                font-size: 1.3rem;
-            }
-
-            .nav-link {
-                font-size: 0.85rem;
-                padding: 8px 12px;
-            }
-
-            .cta-button {
-                padding: 8px 16px;
-                font-size: 0.85rem;
-            }
-
-            /* Page header */
-            .page-header {
-                padding: 100px 20px 60px;
-            }
-
-            .page-title {
-                font-size: 2rem;
-                margin-bottom: 12px;
-            }
-
-            .page-subtitle {
-                font-size: 0.95rem;
-            }
-
-            /* Tool cards - significantly reduced size */
-            .tools-grid {
-                grid-template-columns: 1fr !important;
-                gap: 15px;
-                padding: 30px 15px;
-            }
-
-            .tool-card {
-                padding: 20px;
-                transform: scale(0.95);
-            }
-
-            .tool-icon {
-                width: 60px;
-                height: 60px;
-                font-size: 1.8rem;
-                margin-bottom: 12px;
-            }
-
-            .tool-title {
-                font-size: 1.2rem;
-                margin-bottom: 8px;
-            }
-
-            .tool-description {
-                font-size: 0.85rem;
-                line-height: 1.4;
-                margin-bottom: 12px;
-            }
-
-            .tool-button {
-                padding: 10px 20px;
-                font-size: 0.85rem;
-            }
-
-            /* Tool Modal */
-            .tool-modal {
-                width: calc(100vw - 20px) !important;
-                max-width: 450px !important;
-                max-height: calc(100vh - 100px) !important;
-                padding: 20px;
-                margin: 50px auto;
-            }
-
-            .modal-header h2 {
-                font-size: 1.3rem;
-            }
-
-            .close-modal {
-                width: 35px;
-                height: 35px;
-                font-size: 1.2rem;
-            }
-
-            .modal-body {
-                padding: 20px 0;
-            }
-
-            /* Meditation Timer */
-            .timer-display {
-                font-size: 2.5rem;
-                margin: 25px 0;
-            }
-
-            .timer-controls {
-                gap: 10px;
-            }
-
-            .timer-button {
-                padding: 10px 20px;
-                font-size: 0.85rem;
-            }
-
-            .duration-options {
-                gap: 8px;
-                flex-wrap: wrap;
-            }
-
-            .duration-button {
-                padding: 8px 16px;
-                font-size: 0.85rem;
-            }
-
-            /* Mood Tracker */
-            .mood-options {
-                gap: 12px;
-                margin: 20px 0;
-            }
-
-            .mood-button {
-                width: 60px;
-                height: 60px;
-                font-size: 2rem;
-            }
-
-            .mood-label {
-                font-size: 0.75rem;
-            }
-
-            /* Journal */
-            .journal-input {
-                min-height: 150px;
-                font-size: 0.9rem;
-                padding: 12px;
-            }
-
-            /* Progress Tracker */
-            .progress-stats,
-            .tool-stats {
-                gap: 12px;
-                grid-template-columns: 1fr !important;
-                padding: 0 10px;
-                width: 100%;
-                max-width: 100%;
-                overflow-x: hidden;
-            }
-
-            .stat-item {
-                padding: 15px 10px;
-                text-align: center;
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                justify-content: center;
-                width: 100%;
-                max-width: 100%;
-                box-sizing: border-box;
-            }
-
-            .stat-value,
-            .stat-number {
-                font-size: 1.8rem;
-                text-align: center;
-                width: 100%;
-            }
-
-            .stat-label {
-                font-size: 0.8rem;
-                text-align: center;
-                width: 100%;
-                word-wrap: break-word;
-                padding: 0 5px;
-            }
-
-            /* Breathing Exercise */
-            .breathing-circle {
-                width: 150px !important;
-                height: 150px !important;
-                font-size: 1rem;
-            }
-
-            .breathing-instruction {
-                font-size: 1.1rem;
-                margin: 20px 0;
-            }
-
-            /* Chat Modal */
-            .chat-modal {
-                position: fixed !important;
-                width: calc(100vw - 20px) !important;
-                max-width: 380px !important;
-                height: 500px !important;
-                max-height: calc(100vh - 140px) !important;
-                right: 10px !important;
-                bottom: 85px !important;
-            }
-
-            .chat-header {
-                padding: 15px;
-            }
-
-            .chat-messages {
-                flex: 1;
-                padding: 15px;
-                -webkit-overflow-scrolling: touch;
-            }
-
-            .message {
-                max-width: 85%;
-                padding: 10px 14px;
-                font-size: 0.85rem;
-            }
-
-            .chat-input-container {
-                padding: 12px;
-            }
-
-            .chat-input {
-                font-size: 0.9rem;
-                padding: 10px 45px 10px 12px;
-            }
-
-            /* AI Chatbot */
-            .ai-chatbot {
-                width: 60px !important;
-                height: 60px !important;
-                right: 15px !important;
-                bottom: 15px !important;
-                font-size: 1.6rem !important;
-            }
-
-            /* AI Insights */
-            .ai-insights {
+            .chat-invitation {
                 right: 15px;
-                top: 80px;
-                width: calc(100% - 30px);
-                max-width: 350px;
-                padding: 15px;
-                font-size: 0.85rem;
+                bottom: 95px;
+                font-size: 0.8rem;
+                padding: 12px 18px;
+                border-radius: 20px 20px 6px 20px;
             }
 
-            /* Categories */
-            .categories {
-                padding: 20px 15px;
-                flex-wrap: wrap;
+            .chat-invitation .invitation-icon {
+                width: 22px;
+                height: 22px;
+                font-size: 0.9rem;
+            }
+
+            .chat-invitation::after {
+                right: 15px;
+                border-left: 6px solid transparent;
+                border-right: 6px solid transparent;
+                border-top: 6px solid rgba(255, 255, 255, 0.95);
+            }
+            
+            .footer-main {
+                padding: 80px 30px 0;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .chat-invitation {
+                right: 10px;
+                bottom: 90px;
+                font-size: 0.75rem;
+                padding: 10px 16px;
                 gap: 8px;
             }
 
-            .category-button {
-                padding: 8px 16px;
-                font-size: 0.85rem;
+            .chat-invitation .invitation-icon {
+                width: 20px;
+                height: 20px;
+                font-size: 0.8rem;
             }
 
-            /* Footer */
-            .footer {
-                padding: 30px 20px;
-            }
-
-            .footer-content {
-                flex-direction: column;
-            }
-
-            .footer-section h3 {
-                font-size: 1.1rem;
-            }
-
-            .footer-links a {
-                font-size: 0.85rem;
-            }
-
-            .social-icon {
-                width: 35px;
-                height: 35px;
-                font-size: 0.9rem;
-            }
-        }
-
-        @media (max-width: 380px) {
-            .page-title {
-                font-size: 1.7rem;
+            .ai-chatbot {
+                width: 60px;
+                height: 60px;
+                font-size: 1.5rem;
             }
 
             .chat-modal {
-                width: calc(100vw - 15px) !important;
-                height: 450px !important;
-            }
-
-            .tool-modal {
-                width: calc(100vw - 15px) !important;
-            }
-
-            .tool-card {
-                transform: scale(0.9);
-                padding: 15px;
-            }
-
-            .breathing-circle {
-                width: 130px !important;
-                height: 130px !important;
-            }
-
-            .mood-button {
-                width: 50px;
-                height: 50px;
-                font-size: 1.6rem;
+                width: 320px;
+                right: 10px;
+                bottom: 110px;
             }
         }
     </style>
