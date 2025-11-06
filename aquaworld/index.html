@@ -1053,6 +1053,15 @@
     
     function showEffects() {
       document.getElementById('overlay').classList.add('active');
+      
+      // Hide hint when effects show
+      const bubbleHint = document.getElementById('bubbleHint');
+      if (bubbleHint) bubbleHint.style.opacity = '0';
+      
+      // Show face
+      const face = document.querySelector('.face');
+      if (face) face.style.opacity = '1';
+      
       createStars();
       createBrandingSplash();
     }
@@ -1060,6 +1069,14 @@
     function hideEffects() {
       document.getElementById('overlay').classList.remove('active');
       stopBrandingSplash();
+      
+      // Show hint again when effects hide
+      const bubbleHint = document.getElementById('bubbleHint');
+      if (bubbleHint) bubbleHint.style.opacity = '1';
+      
+      // Hide face
+      const face = document.querySelector('.face');
+      if (face) face.style.opacity = '0';
       
       stars.forEach(star => {
         star.style.opacity = '0';
@@ -1345,29 +1362,6 @@
       }
     });
   }
-  
-  // Update showEffects to control face visibility and hide hint
-  const originalShowEffects = window.showEffects;
-  window.showEffects = function() {
-    if (originalShowEffects) originalShowEffects();
-    const face = document.querySelector('.face');
-    const bubbleCta = document.getElementById('bubbleCta');
-    const bubbleHint = document.getElementById('bubbleHint');
-    if (face) face.style.opacity = '1';
-    if (bubbleCta) bubbleCta.style.opacity = '1';
-    if (bubbleHint) bubbleHint.style.opacity = '0';
-  };
-  
-  const originalHideEffects = window.hideEffects;
-  window.hideEffects = function() {
-    if (originalHideEffects) originalHideEffects();
-    const face = document.querySelector('.face');
-    const bubbleCta = document.getElementById('bubbleCta');
-    const bubbleHint = document.getElementById('bubbleHint');
-    if (face) face.style.opacity = '0';
-    if (bubbleCta) bubbleCta.style.opacity = '0';
-    if (bubbleHint) bubbleHint.style.opacity = '1';
-  };
   // ===== END MOBILE TOUCH HANDLING =====
 });</script></body>
 </html>
