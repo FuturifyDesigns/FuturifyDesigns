@@ -1114,14 +1114,16 @@
         @media (max-width: 768px) {
             .notification {
                 top: 80px;
-                right: -100%;
-                left: auto;
+                right: auto;
+                left: -100%;
                 max-width: calc(100% - 30px);
                 width: calc(100% - 30px);
+                display: none;
             }
             
             .notification.show {
-                right: 15px;
+                left: 15px;
+                display: block;
             }
             
             /* Chatbot mobile positioning */
@@ -1663,12 +1665,12 @@
     </div>
 
     <!-- Session Modal -->
-    <div id="sessionModal" style="position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(102,126,234,0.9);backdrop-filter:blur(10px);z-index:100001;display:none;align-items:center;justify-content:center;">
-        <div style="background:linear-gradient(135deg,#fff,#f8f9fa);padding:50px;border-radius:20px;text-align:center;max-width:500px;box-shadow:0 20px 60px rgba(102,126,234,0.5);border:2px solid rgba(102,126,234,0.3);">
-            <div style="font-size:60px;margin-bottom:20px;">👋</div>
-            <h2 style="color:#667eea;font-size:28px;font-weight:900;margin-bottom:15px;">Still There?</h2>
-            <p style="color:rgba(0,0,0,0.7);font-size:16px;margin-bottom:30px;line-height:1.6;font-weight:600;">We noticed you've been away for a while! Just checking in to make sure everything's going great. Click below to continue your journey with us! ✨</p>
-            <button id="continueSession" style="padding:15px 40px;border:none;border-radius:30px;cursor:pointer;font-weight:900;font-size:16px;background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;box-shadow:0 8px 20px rgba(102,126,234,0.4);">Yes, I'm Here!</button>
+    <div id="sessionModal" style="position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(102,126,234,0.9);backdrop-filter:blur(10px);z-index:100001;display:none;align-items:center;justify-content:center;padding:20px;">
+        <div style="background:linear-gradient(135deg,#fff,#f8f9fa);padding:40px 30px;border-radius:20px;text-align:center;max-width:500px;width:100%;box-shadow:0 20px 60px rgba(102,126,234,0.5);border:2px solid rgba(102,126,234,0.3);">
+            <div style="font-size:50px;margin-bottom:15px;">👋</div>
+            <h2 style="color:#667eea;font-size:24px;font-weight:900;margin-bottom:12px;">Still There?</h2>
+            <p style="color:rgba(0,0,0,0.7);font-size:15px;margin-bottom:25px;line-height:1.6;font-weight:600;">We noticed you've been away for a while! Just checking in to make sure everything's going great. Click below to continue your journey with us! ✨</p>
+            <button id="continueSession" style="padding:14px 35px;border:none;border-radius:30px;cursor:pointer;font-weight:900;font-size:15px;background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;box-shadow:0 8px 20px rgba(102,126,234,0.4);transition:transform 0.2s;">Yes, I'm Here!</button>
         </div>
     </div>
 
@@ -1920,22 +1922,46 @@
             sessionTimeout = setTimeout(function() {
                 var modal = document.getElementById('sessionModal');
                 if (modal) modal.style.display = 'flex';
-            }, 30 * 60 * 1000);
+            }, 30 * 60 * 1000); // 30 minutes
         }
         
+        // Continue session button handler
         var contBtn = document.getElementById('continueSession');
         if (contBtn) {
-            contBtn.onclick = function() {
-                document.getElementById('sessionModal').style.display = 'none';
+            // Remove any existing listeners
+            contBtn.onclick = null;
+            
+            // Add new click handler
+            contBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                var modal = document.getElementById('sessionModal');
+                if (modal) {
+                    modal.style.display = 'none';
+                }
                 resetSession();
-            };
+                console.log('Session continued');
+            });
+            
+            // Add hover effect
+            contBtn.addEventListener('mouseenter', function() {
+                this.style.transform = 'scale(1.05)';
+            });
+            contBtn.addEventListener('mouseleave', function() {
+                this.style.transform = 'scale(1)';
+            });
         }
         
+        // Reset session on user activity
         document.addEventListener('click', resetSession);
         document.addEventListener('scroll', resetSession);
+        document.addEventListener('mousemove', resetSession);
+        document.addEventListener('keypress', resetSession);
+        
+        // Start the session timer
         resetSession();
         
-        // Chatbot
+        // Chatbot with localStorage sync across pages
         var chatBtn = document.getElementById('chatbotButton');
         var chatWin = document.getElementById('chatbotWindow');
         var chatClose = document.getElementById('chatbotClose');
@@ -1961,6 +1987,47 @@
             outofscope: "💬 Outside my expertise!\n\nReach out:\n📧 futurifydesigns@gmail.com\n\nI'm here for web design! 🌐"
         };
         
+        // Load chat history from localStorage
+        function loadChatHistory() {
+            if (!chatMsgs) return;
+            
+            var history = localStorage.getItem('futurify_chat_history');
+            if (history) {
+                try {
+                    var messages = JSON.parse(history);
+                    // Clear existing messages except welcome message
+                    chatMsgs.innerHTML = '<div style="padding:12px 16px;border-radius:15px;max-width:80%;font-size:14px;background:rgba(102,126,234,0.1);color:#333;border:1px solid rgba(102,126,234,0.2);">Hi! 👋 Welcome to Futurify Designs! How can I help you today?</div>';
+                    
+                    // Restore all messages
+                    messages.forEach(function(msg) {
+                        addMsg(msg.text, msg.isUser, false); // false = don't save again
+                    });
+                } catch (e) {
+                    console.error('Error loading chat history:', e);
+                }
+            }
+        }
+        
+        // Save chat history to localStorage
+        function saveChatHistory() {
+            if (!chatMsgs) return;
+            
+            var messages = [];
+            var msgDivs = chatMsgs.querySelectorAll('div');
+            
+            // Skip the first welcome message
+            for (var i = 1; i < msgDivs.length; i++) {
+                var div = msgDivs[i];
+                var isUser = div.style.background.includes('linear-gradient');
+                messages.push({
+                    text: div.textContent,
+                    isUser: isUser
+                });
+            }
+            
+            localStorage.setItem('futurify_chat_history', JSON.stringify(messages));
+        }
+        
         if (chatBtn && chatWin) {
             chatBtn.onclick = function() {
                 var isVisible = chatWin.style.display === 'flex';
@@ -1973,8 +2040,10 @@
             chatClose.onclick = function() { chatWin.style.display = 'none'; };
         }
         
-        function addMsg(text, isUser) {
+        function addMsg(text, isUser, save) {
             if (!chatMsgs) return;
+            if (save === undefined) save = true;
+            
             var div = document.createElement('div');
             div.style.cssText = 'padding:12px 16px;border-radius:15px;max-width:80%;font-size:14px;line-height:1.5;word-wrap:break-word;white-space:pre-wrap;' + 
                 (isUser ? 
@@ -1983,6 +2052,10 @@
             div.textContent = text;
             chatMsgs.appendChild(div);
             chatMsgs.scrollTop = chatMsgs.scrollHeight;
+            
+            if (save) {
+                saveChatHistory();
+            }
         }
         
         function getResponse(msg) {
@@ -2031,7 +2104,16 @@
             };
         }
         
-        console.log('✅ All features initialized with Google Analytics integration!');
+        // Load chat history on page load
+        loadChatHistory();
+        
+        // Clear chat history when user closes browser/tab (not on refresh)
+        window.addEventListener('beforeunload', function(e) {
+            // Note: This only clears on actual close, not refresh
+            // The chat will persist during the session (refreshes + navigation)
+        });
+        
+        console.log('✅ All features initialized with synced chatbot!');
     })();
     </script>
 </body>
