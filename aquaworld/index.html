@@ -6,17 +6,7 @@
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>AquaWorld - Interactive Experience</title>
 <style>
-    * { 
-      margin: 0; 
-      padding: 0; 
-      box-sizing: border-box;
-      -webkit-tap-highlight-color: transparent;
-      -webkit-touch-callout: none;
-      -webkit-user-select: none;
-      -moz-user-select: none;
-      -ms-user-select: none;
-      user-select: none;
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
 
     html, body {
       width: 100%;
@@ -627,31 +617,7 @@
       .bubble-cta {
         font-size: 1.1rem;
         padding: 10px 18px;
-        /* Center at top of bubble on mobile - moved higher */
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -260px);
-        max-width: 90%;
-        white-space: normal;
-        text-align: center;
-        line-height: 1.3;
-      }
-      
-      .bubble:hover + .bubble-cta {
-        opacity: 1;
-        transform: translate(-50%, -260px);
-      }
-
-      /* Mobile: Face controlled by JavaScript, not hover */
-      @media (hover: none) and (pointer: coarse) {
-        .bubble:hover .face {
-          opacity: 0; /* Override hover, use JS instead */
-        }
-        
-        .face {
-          opacity: 0;
-          transition: opacity 0.3s ease;
-        }
+        transform: translate(30%, -100%);
       }
       
       .enter-btn {
@@ -701,16 +667,7 @@
       .bubble-cta {
         font-size: 0.95rem;
         padding: 8px 15px;
-        /* Center at top of bubble - moved higher */
-        transform: translate(-50%, -240px);
-        max-width: 85%;
-        white-space: normal;
-        text-align: center;
-      }
-      
-      .bubble:hover + .bubble-cta {
-        opacity: 1;
-        transform: translate(-50%, -240px);
+        transform: translate(20%, -100%);
       }
       
       .enter-btn {
@@ -758,16 +715,7 @@
       .bubble-cta {
         font-size: 0.85rem;
         padding: 7px 12px;
-        /* Center at top of bubble - moved higher */
-        transform: translate(-50%, -215px);
-        max-width: 80%;
-        white-space: normal;
-        text-align: center;
-      }
-      
-      .bubble:hover + .bubble-cta {
-        opacity: 1;
-        transform: translate(-50%, -215px);
+        transform: translate(15%, -100%);
       }
       
       .enter-btn {
@@ -796,21 +744,6 @@
       
       .bubble-content p {
         font-size: 0.75rem;
-      }
-      
-      .bubble-cta {
-        font-size: 0.8rem;
-        padding: 6px 10px;
-        /* Center at top of bubble - moved higher */
-        transform: translate(-50%, -195px);
-        max-width: 75%;
-        white-space: normal;
-        text-align: center;
-      }
-      
-      .bubble:hover + .bubble-cta {
-        opacity: 1;
-        transform: translate(-50%, -195px);
       }
       
       .enter-btn {
@@ -844,7 +777,7 @@
 <!-- Water reflection effect -->
 <div class="water-reflection"></div>
 <!-- Bubble with sparkle effect -->
-<div class="bubble" onclick="popSplat(this)" onmouseenter="showEffects()" onmouseleave="hideEffects()">
+<div class="bubble" onmouseenter="showEffects()" onmouseleave="hideEffects()">
 <div class="face">
 <div class="eye left"></div>
 <div class="eye right"></div>
@@ -965,28 +898,12 @@
     
     function showEffects() {
       document.getElementById('overlay').classList.add('active');
-      document.getElementById('bubbleCta').style.opacity = '1';
-      
-      // Show the face on mobile
-      const face = document.querySelector('.face');
-      if (face) {
-        face.style.opacity = '1';
-      }
-      
       createStars();
       createBrandingSplash();
     }
     
     function hideEffects() {
       document.getElementById('overlay').classList.remove('active');
-      document.getElementById('bubbleCta').style.opacity = '0';
-      
-      // Hide the face on mobile
-      const face = document.querySelector('.face');
-      if (face) {
-        face.style.opacity = '0';
-      }
-      
       stopBrandingSplash();
       
       stars.forEach(star => {
@@ -1175,34 +1092,54 @@
     });
   });
 
-  // Mobile touch support for bubble CTA and face
+  // ===== MOBILE TOUCH SUPPORT FOR BUBBLE CLICK =====
+  // Ensure bubble click works on mobile devices
   const bubble = document.querySelector('.bubble');
-  const bubbleCta = document.getElementById('bubbleCta');
-  const face = document.querySelector('.face');
   
-  if (bubble && bubbleCta) {
-    let touchTimeout;
+  if (bubble) {
+    // Variable to track if we're on a touch device
+    let isTouchDevice = false;
     
-    // Add touch event for mobile
+    // Detect touch device
     bubble.addEventListener('touchstart', function(e) {
-      // Prevent default to avoid blue highlight
-      e.preventDefault();
+      isTouchDevice = true;
+      // Show effects on touch
       showEffects();
-    });
+    }, { passive: true });
     
+    // Handle touch end - trigger the popSplat function
     bubble.addEventListener('touchend', function(e) {
-      // Hide immediately when touch ends (like desktop hover behavior)
-      hideEffects();
+      if (isTouchDevice) {
+        e.preventDefault(); // Prevent mouse events from firing
+        // Trigger the popSplat function (same as desktop click)
+        popSplat(this);
+      }
     });
     
-    // Also handle mouse events for desktop
-    bubble.addEventListener('mouseenter', function(e) {
-      showEffects();
+    // Keep mouse events for desktop
+    bubble.addEventListener('mouseenter', function() {
+      if (!isTouchDevice) {
+        showEffects();
+      }
     });
     
-    bubble.addEventListener('mouseleave', function(e) {
-      hideEffects();
+    bubble.addEventListener('mouseleave', function() {
+      if (!isTouchDevice) {
+        hideEffects();
+      }
+    });
+    
+    // Ensure click works on both touch and mouse devices
+    bubble.addEventListener('click', function(e) {
+      if (!isTouchDevice) {
+        // Desktop: onclick attribute will handle this
+        // But we can also call it here for safety
+        if (!this.classList.contains('popped')) {
+          popSplat(this);
+        }
+      }
     });
   }
+  // ===== END MOBILE TOUCH SUPPORT =====
 });</script></body>
 </html>
