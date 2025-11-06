@@ -4,7 +4,7 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>AquaWorld - Aquatic Creatures</title>
+<title>AquaWorld - Explore Aquatic Life</title>
 <style>
     :root {
       --dark-blue: #0a2647;
@@ -329,14 +329,85 @@
       transform: none;
     }
     
-    /* Main Content */
-    .main-content {
+    /* Hero Section */
+    .hero {
+      height: 90vh;
+      display: flex;
+      align-items: center;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle, rgba(44, 116, 179, 0.2) 0%, rgba(10, 38, 71, 0.8) 70%);
+      z-index: -1;
+    }
+    
+    .hero-content {
+      width: 100%;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    
+    .hero h1 {
+      font-size: clamp(2.5rem, 5vw, 3.8rem);
+      margin-bottom: 1.5rem;
+      text-shadow: var(--text-shadow);
+      font-weight: 800;
+      line-height: 1.2;
+      letter-spacing: -1.5px;
+    }
+    
+    .hero p {
+      font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+      max-width: 700px;
+      margin: 0 auto 2.5rem;
+      opacity: 0.95;
+      text-shadow: var(--text-shadow);
+      font-weight: 400;
+      line-height: 1.6;
+    }
+    
+    .btn {
+      display: inline-block;
+      background: var(--highlight-blue);
+      color: var(--white);
+      padding: 14px 32px;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      border: none;
+      cursor: pointer;
+      font-size: 1.1rem;
+      text-shadow: var(--text-shadow);
+      letter-spacing: 0.5px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
+    
+    .btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+      background: #1a6bb4;
+    }
+    
+    /* Preview Sections */
+    .preview-section {
       padding: 80px 0;
     }
     
     .section-title {
       text-align: center;
       margin-bottom: 60px;
+      font-size: clamp(2rem, 4vw, 2.8rem);
       position: relative;
       text-shadow: var(--text-shadow);
     }
@@ -353,12 +424,12 @@
     }
     
     /* Enhanced section title with sparkle effect */
-    .section-title-wrapper {
-      position: relative;
-      display: inline-block;
-      width: 100%;
-      text-align: center; 
-    }
+ .section-title-wrapper {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  text-align: center; 
+}
     
     .section-title-sparkle {
       position: absolute;
@@ -398,60 +469,22 @@
       }
     }
     
-    /* Creatures Section */
-    .creatures {
-      padding: 80px 0;
-    }
-    
-    .creature-tabs {
+    .preview-content {
       display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 15px;
-      margin-bottom: 50px;
-    }
-    
-    .tab-btn {
-      background: rgba(255, 255, 255, 0.1);
-      color: var(--white);
-      border: none;
-      padding: 12px 25px;
-      border-radius: 50px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      font-weight: 500;
-      font-size: 1.05rem;
-      letter-spacing: 0.5px;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    }
-    
-    .tab-btn:hover {
-      background: rgba(255, 255, 255, 0.2);
-      transform: translateY(-3px);
-      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
-    }
-    
-    .tab-btn.active {
-      background: var(--highlight-blue);
-      font-weight: 600;
-      box-shadow: 0 0 15px rgba(44, 116, 179, 0.8);
-    }
-    
-    .creature-content {
-      display: none;
+      align-items: center;
+      gap: 50px;
       background: rgba(255, 255, 255, 0.05);
       padding: 40px;
       border-radius: 15px;
       box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
-      animation: fadeIn 0.5s ease;
       position: relative;
       overflow: hidden;
-      border: 1px solid rgba(44, 116, 179, 0.3);
       transition: all 0.3s ease;
+      border: 1px solid rgba(44, 116, 179, 0.3);
     }
     
-    /* Water pulse animation */
-    .creature-content::before {
+    /* Enhanced Water pulse animation for preview boxes */
+    .preview-content::before {
       content: '';
       position: absolute;
       top: 0;
@@ -465,14 +498,14 @@
       box-shadow: 0 0 20px rgba(44, 116, 179, 0);
     }
     
-    .creature-content:hover {
+    .preview-content:hover {
       transform: translateY(-8px);
       box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
       background: rgba(255, 255, 255, 0.08);
       border-color: rgba(44, 116, 179, 0.5);
     }
     
-    .creature-content:hover::before {
+    .preview-content:hover::before {
       animation: waterPulse 2s infinite;
       box-shadow: 0 0 30px rgba(44, 116, 179, 0.6);
     }
@@ -493,7 +526,7 @@
     }
     
     /* Glowing border effect */
-    .creature-content::after {
+    .preview-content::after {
       content: '';
       position: absolute;
       top: -2px;
@@ -510,7 +543,7 @@
       transition: opacity 0.3s ease;
     }
     
-    .creature-content:hover::after {
+    .preview-content:hover::after {
       opacity: 1;
       animation: borderGlow 3s linear infinite;
     }
@@ -527,106 +560,65 @@
       }
     }
     
-    .creature-content.active {
-      display: block;
+    .preview-text {
+      flex: 1;
+      position: relative;
     }
     
-    .creature-detail {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+    .preview-text h3 {
+      font-size: clamp(1.5rem, 3vw, 1.9rem);
+      margin-bottom: 1.5rem;
+      color: var(--highlight-blue);
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+      transition: all 0.3s ease;
+      position: relative;
     }
     
-    .creature-image {
-      width: 90%;
-      text-align: center;
-      margin-bottom: 30px;
+    /* Text illumination effect */
+    .preview-content:hover .preview-text h3 {
+      color: var(--white);
+      text-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
+    }
+    
+    .preview-content:hover .preview-text p {
+      color: var(--white);
+      text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+    }
+    
+    .preview-text p {
+      margin-bottom: 1.8rem;
+      font-size: clamp(1rem, 2vw, 1.15rem);
+      line-height: 1.7;
+      color: var(--off-white);
+      transition: all 0.3s ease;
+    }
+    
+    .preview-image {
+      flex: 1;
       border-radius: 15px;
       overflow: hidden;
       box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
       transition: transform 0.3s ease;
     }
     
-    .creature-image:hover {
-      transform: scale(1.02);
-    }
-    
-    .creature-image img {
+    /* Added image hover effect from Catalog page */
+    .preview-image img {
       width: 100%;
-      max-height: 400px;
-      object-fit: cover;
+      height: auto;
       display: block;
-      margin: 0 auto;
       transition: transform 0.5s ease;
     }
     
-    .creature-image:hover img {
-      transform: scale(1.05);
+    .preview-content:hover .preview-image {
+      transform: translateY(-8px);
     }
     
-    .creature-text {
-      text-align: center;
-      max-width: 800px;
-    }
-    
-    .creature-text h3 {
-      font-size: clamp(1.5rem, 3vw, 1.9rem);
-      margin-bottom: 1.5rem;
-      color: var(--highlight-blue);
-      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-      transition: all 0.3s ease;
-    }
-    
-    /* Text illumination effect */
-    .creature-content:hover .creature-text h3 {
-      color: var(--white);
-      text-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
-    }
-    
-    .creature-content:hover .creature-text p {
-      color: var(--white);
-      text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
-    }
-    
-    .creature-text p {
-      margin-bottom: 1.8rem;
-      font-size: clamp(1rem, 2vw, 1.15rem);
-      line-height: 1.7;
-      transition: all 0.3s ease;
-    }
-    
-    .creature-facts {
-      margin-top: 30px;
-      background: rgba(44, 116, 179, 0.2);
-      padding: 25px;
-      border-radius: 10px;
-      transition: all 0.3s ease;
-    }
-    
-    .creature-facts:hover {
-      background: rgba(44, 116, 179, 0.3);
-      transform: translateY(-5px);
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-    }
-    
-    .creature-facts h4 {
-      margin-bottom: 15px;
-      font-size: 1.3rem;
-      color: var(--white);
-    }
-    
-    .creature-facts ul {
-      list-style-position: inside;
-      text-align: left;
-    }
-    
-    .creature-facts li {
-      margin-bottom: 10px;
-      font-size: 1.05rem;
+    .preview-content:hover .preview-image img {
+      transform: scale(1.1);
     }
     
     /* Sparkle effect for section titles on hover */
-    .creatures:hover .section-title-sparkle {
+    .preview-section:hover .section-title-sparkle {
       opacity: 1;
     }
     
@@ -725,20 +717,18 @@
       color: var(--off-white);
     }
     
-    /* Animations */
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-    
     /* Responsive Styles */
     @media (max-width: 992px) {
-      .creature-detail {
+      .preview-content {
         flex-direction: column;
       }
       
-      .section-title {
-        font-size: 2.2rem;
+      .hero h1 {
+        font-size: 2.8rem;
+      }
+      
+      .preview-text, .preview-image {
+        width: 100%;
       }
     }
     
@@ -778,27 +768,34 @@
         padding: 8px 15px;
       }
       
+      .hero {
+        padding: 60px 20px;
+      }
+      
+      .hero h1 {
+        font-size: 2rem;
+      }
+      
+      .hero p {
+        font-size: 1rem;
+        margin-bottom: 25px;
+      }
+      
+      .preview-section {
+        padding: 50px 0;
+      }
+      
+      .preview-content {
+        padding: 20px;
+        gap: 30px;
+      }
+      
+      .preview-image img {
+        max-height: 300px;
+      }
+      
       .section-title {
         font-size: 1.8rem;
-      }
-      
-      .tab-container {
-        flex-wrap: wrap;
-        gap: 10px;
-        justify-content: center;
-      }
-      
-      .tab-btn {
-        padding: 10px 20px;
-        font-size: 0.95rem;
-      }
-      
-      .creature-content {
-        padding: 25px;
-      }
-      
-      .creature-detail {
-        gap: 25px;
       }
       
       .footer-content {
@@ -813,41 +810,55 @@
         padding: 10px 0;
       }
       
+      .hero {
+        height: auto;
+        min-height: 70vh;
+        padding: 40px 15px;
+      }
+      
+      .hero h1 {
+        font-size: 1.75rem;
+        margin-bottom: 15px;
+      }
+      
+      .hero p {
+        font-size: 0.95rem;
+        margin-bottom: 20px;
+      }
+      
       .section-title {
         font-size: 1.5rem;
-        margin-bottom: 25px;
+        margin-bottom: 30px;
       }
       
-      .tab-container {
-        gap: 8px;
+      .btn {
+        padding: 12px 25px;
+        font-size: 0.95rem;
+        width: 100%;
+        max-width: 250px;
+        display: block;
+        text-align: center;
+        margin: 0 auto;
       }
       
-      .tab-btn {
-        padding: 8px 15px;
-        font-size: 0.85rem;
-        flex: 1 1 calc(50% - 8px);
-        min-width: 120px;
+      .preview-section {
+        padding: 40px 0;
       }
       
-      .creature-content {
+      .preview-content {
         padding: 15px;
       }
       
-      .creature-image {
+      .preview-content h3 {
+        font-size: 1.3rem;
+      }
+      
+      .preview-content p {
+        font-size: 0.95rem;
+      }
+      
+      .preview-image img {
         max-height: 250px;
-      }
-      
-      .creature-title {
-        font-size: 1.5rem;
-      }
-      
-      .creature-info h3 {
-        font-size: 1.2rem;
-      }
-      
-      .creature-info p,
-      .creature-info li {
-        font-size: 0.9rem;
       }
       
       .footer-section {
@@ -896,30 +907,24 @@
         padding: 6px 12px;
       }
       
+      .hero h1 {
+        font-size: 1.5rem;
+      }
+      
+      .hero p {
+        font-size: 0.9rem;
+      }
+      
       .section-title {
         font-size: 1.3rem;
       }
       
-      .tab-btn {
-        padding: 7px 12px;
-        font-size: 0.8rem;
-        min-width: 100px;
-      }
-      
-      .creature-title {
-        font-size: 1.3rem;
-      }
-      
-      .creature-info h3 {
-        font-size: 1.1rem;
+      .btn {
+        padding: 10px 20px;
+        font-size: 0.9rem;
       }
     }
-      
-      .social-links {
-        justify-content: center;
-      }
-    }
-</style>
+  </style>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet"/>
 </head>
@@ -941,171 +946,79 @@
 </div>
 <nav>
 <ul>
-<li><a href="home.html">Home</a></li>
+<li><a class="active" href="home.html">Home</a></li>
 <li><a href="about.html">About</a></li>
 <li><a href="catalog.html">Catalog</a></li>
-<li><a class="active" href="Creatures.html">Creatures</a></li>
+<li><a href="Creatures.html">Creatures</a></li>
 </ul>
 </nav>
 </div>
 </header>
-<!-- Main Content -->
-<main class="main-content">
-<!-- Creatures Section -->
-<section class="creatures" id="creatures">
+<!-- Hero Section -->
+<section class="hero">
+<div class="container hero-content">
+<h1>Discover the Wonders of Aquatic Life</h1>
+<p>Explore the fascinating world beneath the waves with our comprehensive guide to marine and freshwater species from around the globe.</p>
+<a class="btn" href="Creatures.html">Explore Creatures</a>
+</div>
+</section>
+<!-- About Preview -->
+<section class="preview-section" style="background: linear-gradient(to bottom, var(--medium-blue), var(--light-blue));">
 <div class="container">
 <div class="section-title-wrapper">
-<h2 class="section-title">Featured Aquatic Creatures</h2>
-<div class="section-title-sparkle" id="creatures-sparkle"></div>
+<h2 class="section-title">About AquaWorld</h2>
+<div class="section-title-sparkle" id="about-sparkle"></div>
 </div>
-<div class="creature-tabs">
-<button class="tab-btn active" data-creature="clownfish">Clownfish</button>
-<button class="tab-btn" data-creature="seahorse">Seahorse</button>
-<button class="tab-btn" data-creature="octopus">Octopus</button>
-<button class="tab-btn" data-creature="seaturtle">Sea Turtle</button>
-<button class="tab-btn" data-creature="jellyfish">Jellyfish</button>
-<button class="tab-btn" data-creature="whaleshark">Whale Shark</button>
-<button class="tab-btn" data-creature="dolphin">Dolphin</button>
+<div class="preview-content">
+<div class="preview-text">
+<h3>Our Mission</h3>
+<p>AquaWorld is dedicated to educating people about the incredible diversity of aquatic life. Our goal is to inspire conservation efforts and foster appreciation for these amazing creatures and their habitats.</p>
+<p>Founded in 2023 by marine biologists and conservationists, we provide accurate, up-to-date information about marine and freshwater species from around the world.</p>
+<a class="btn" href="about.html">Learn More</a>
 </div>
-<!-- Clownfish -->
-<div class="creature-content active" id="clownfish">
-<div class="creature-detail">
-<div class="creature-image">
-<img alt="Clownfish in anemone" src="Clownfish.webp"/>
+<div class="preview-image">
+<img alt="Diver surveying coral reef" src="Marine_Our Mission.png"/>
 </div>
-<div class="creature-text">
-<h3>Clownfish</h3>
-<p>Clownfish, also known as anemonefish, are small, brightly colored fish found in warm waters of the Indian and Pacific Oceans, including the Great Barrier Reef and the Red Sea.</p>
-<p>They have a symbiotic relationship with sea anemones, where the anemone provides protection and the clownfish provides nutrients through its waste and helps lure prey.</p>
-<div class="creature-facts">
-<h4>Quick Facts</h4>
-<ul>
-<li>Scientific Name: Amphiprioninae</li>
-<li>Size: 10-18 cm (4-7 inches)</li>
-<li>Lifespan: 6-10 years in the wild</li>
-<li>Diet: Omnivorous (algae, plankton, small crustaceans)</li>
-<li>All clownfish are born male and can change sex to become the dominant female</li>
-</ul>
-</div>
-</div>
-</div>
-</div>
-<!-- Seahorse -->
-<div class="creature-content" id="seahorse">
-<div class="creature-detail">
-<div class="creature-image">
-<img alt="Seahorse image" src="Seahorse.jpg"/>
-</div>
-<div class="creature-text">
-<h3>Seahorse</h3>
-<p>Seahorses are small marine fish in the genus Hippocampus. They are named for their equine appearance, with bent necks and long snouted heads.</p>
-<p>Unlike most other fish, seahorses are monogamous and mate for life. They are also unique in that the male carries the developing embryos in a brood pouch.</p>
-<div class="creature-facts">
-<h4>Quick Facts</h4>
-<ul>
-<li>Scientific Name: Hippocampus</li>
-<li>Size: 1.5-35 cm (0.6-14 inches)</li>
-<li>Lifespan: 1-5 years depending on species</li>
-<li>Diet: Small crustaceans like mysid shrimp</li>
-<li>Seahorses can change color to blend in with their surroundings</li>
-</ul>
-</div>
-</div>
-</div>
-</div>
-<!-- Octopus -->
-<div class="creature-content" id="octopus">
-<div class="creature-detail" style="display: flex; flex-direction: column; align-items: center;"><div class="creature-image" style="width: 90%; text-align: center; margin-bottom: 20px;"><img alt="Octopus in coral reef" src="octo.jpg" style="width: 100%; max-height: 400px; object-fit: cover; display: block; margin: 0 auto;"/></div><div class="creature-text" style="text-align: center; max-width: 800px;">
-<h3>Octopus</h3>
-<p>Octopuses are soft-bodied, eight-limbed molluscs of the order Octopoda. They are among the most intelligent and behaviorally diverse of all invertebrates.</p>
-<p>Octopuses inhabit various regions of the ocean, including coral reefs, pelagic waters, and the ocean floor. They have excellent eyesight and can change both color and texture to camouflage.</p>
-<div class="creature-facts">
-<h4>Quick Facts</h4>
-<ul>
-<li>Scientific Name: Octopoda</li>
-<li>Size: 5 cm to 5 m (2 inches to 16 feet) depending on species</li>
-<li>Lifespan: 6 months to 5 years depending on species</li>
-<li>Diet: Crabs, shrimp, lobsters, fish, and other mollusks</li>
-<li>Octopuses have three hearts and blue blood</li>
-</ul>
-</div>
-</div></div>
-</div>
-<!-- Sea Turtle -->
-<div class="creature-content" id="seaturtle">
-<div class="creature-detail" style="display: flex; flex-direction: column; align-items: center;"><div class="creature-image" style="width: 90%; text-align: center; margin-bottom: 20px;"><img alt="Sea Turtle closeup image" src="sea.webp" style="width: 100%; max-height: 400px; object-fit: cover; display: block; margin: 0 auto;"/></div><div class="creature-text" style="text-align: center; max-width: 800px;">
-<h3>Sea Turtle</h3>
-<p>Sea turtles are large, air-breathing reptiles that inhabit tropical and subtropical seas throughout the world. Their shells consist of a carapace and plastron.</p>
-<p>Sea turtles have existed since the time of the dinosaurs, about 110 million years. All seven species found today are under threat from human activities.</p>
-<div class="creature-facts">
-<h4>Quick Facts</h4>
-<ul>
-<li>Scientific Name: Chelonioidea</li>
-<li>Size: 60-180 cm (2-6 feet) depending on species</li>
-<li>Lifespan: 50-100 years</li>
-<li>Diet: Varies by species (jellyfish, seaweed, crabs, sponges, etc.)</li>
-<li>Sea turtles can migrate incredibly long distances between feeding and nesting areas</li>
-</ul>
-</div>
-</div></div>
-</div>
-<!-- Jellyfish -->
-<div class="creature-content" id="jellyfish">
-<div class="creature-detail" style="display: flex; flex-direction: column; align-items: center;"><div class="creature-image" style="width: 90%; text-align: center; margin-bottom: 20px;"><img alt="Jellyfish image" src="jellyfish.jpg" style="width: 100%; max-height: 400px; object-fit: cover; display: block; margin: 0 auto;"/></div><div class="creature-text" style="text-align: center; max-width: 800px;">
-<h3>Jellyfish</h3>
-<p>Jellyfish are free-swimming marine animals with umbrella-shaped bells and trailing tentacles. They are found in every ocean, from the surface to the deep sea.</p>
-<p>Jellyfish have been around for more than 500 million years, making them the oldest multi-organ animal. They are composed of 95% water and have no brain, blood, or heart.</p>
-<div class="creature-facts">
-<h4>Quick Facts</h4>
-<ul>
-<li>Scientific Name: Scyphozoa (true jellyfish)</li>
-<li>Size: 2 cm to 2 m (0.8 inches to 6.5 feet) depending on species</li>
-<li>Lifespan: Few hours to several years depending on species</li>
-<li>Diet: Small fish, plankton, crustaceans, and other jellyfish</li>
-<li>Some jellyfish can glow in the dark (bioluminescence)</li>
-</ul>
-</div>
-</div></div>
-</div>
-<!-- Whale Shark -->
-<div class="creature-content" id="whaleshark">
-<div class="creature-detail" style="display: flex; flex-direction: column; align-items: center;"><div class="creature-image" style="width: 90%; text-align: center; margin-bottom: 20px;"><img alt="Whaleshark image" src="whale shark.jpg" style="width: 100%; max-height: 400px; object-fit: cover; display: block; margin: 0 auto;"/></div><div class="creature-text" style="text-align: center; max-width: 800px;">
-<h3>Whale Shark</h3>
-<p>The whale shark is the largest known extant fish species. Despite its size, it feeds mainly on plankton and is docile towards humans.</p>
-<p>Whale sharks are found in open waters of tropical oceans and are rarely found in water below 21°C (70°F). They are characterized by a pattern of white spots and stripes on their dark gray back.</p>
-<div class="creature-facts">
-<h4>Quick Facts</h4>
-<ul>
-<li>Scientific Name: Rhincodon typus</li>
-<li>Size: Up to 18 m (60 feet), average 12 m (40 feet)</li>
-<li>Lifespan: Estimated 70-100 years</li>
-<li>Diet: Plankton, krill, small fish, and squid</li>
-<li>Each whale shark's spot pattern is unique, like a fingerprint</li>
-</ul>
-</div>
-</div></div>
-</div>
-<!-- Dolphin -->
-<div class="creature-content" id="dolphin">
-<div class="creature-detail" style="display: flex; flex-direction: column; align-items: center;"><div class="creature-image" style="width: 90%; text-align: center; margin-bottom: 20px;"><img alt="Dolphin image" src="dolphin.jpg" style="width: 100%; max-height: 400px; object-fit: cover; display: block; margin: 0 auto;"/></div><div class="creature-text" style="text-align: center; max-width: 800px;">
-<h3>Dolphin</h3>
-<p>Dolphins are highly intelligent marine mammals known for their playful behavior and complex communication. They are part of the toothed whale family.</p>
-<p>Dolphins are found worldwide, mostly in shallow seas of the continental shelves. They are social animals that live in pods of up to a dozen individuals.</p>
-<div class="creature-facts">
-<h4>Quick Facts</h4>
-<ul>
-<li>Scientific Name: Delphinidae (family)</li>
-<li>Size: 1.7-9.5 m (5.6-31 feet) depending on species</li>
-<li>Lifespan: 20-50 years depending on species</li>
-<li>Diet: Fish and squid</li>
-<li>Dolphins use echolocation to navigate and hunt</li>
-</ul>
-</div>
-</div></div>
 </div>
 </div>
 </section>
-</main>
+<!-- Catalog Preview -->
+<section class="preview-section" style="background: linear-gradient(to bottom, var(--light-blue), var(--dark-blue));">
+<div class="container">
+<div class="section-title-wrapper">
+<h2 class="section-title">Aquatic Life Catalog</h2>
+<div class="section-title-sparkle" id="catalog-sparkle"></div>
+</div>
+<div class="preview-content">
+<div class="preview-image">
+<img alt="Coral Reef Ecosystem" src="wave.jpg" style="width: 100%; height: auto; display: block; object-fit: cover;"/>
+</div>
+<div class="preview-text">
+<h3>Explore Our Collections</h3>
+<p>Discover the vibrant ecosystems of coral reefs, the mysterious creatures of the deep sea, and the diverse species that thrive in freshwater environments around the world.</p>
+<p>Our comprehensive catalog provides detailed information about habitats, behaviors, and conservation status of various aquatic species.</p>
+<a class="btn" href="catalog.html">View Catalog</a>
+</div>
+</div>
+</div>
+</section>
+<!-- Creatures Preview -->
+<section class="preview-section" style="background: linear-gradient(to bottom, var(--dark-blue), var(--medium-blue));">
+<div class="container">
+<h2 class="section-title">Featured Aquatic Creatures</h2>
+<div class="preview-content">
+<div class="preview-text">
+<h3>Meet Our Marine Life</h3>
+<p>Learn about fascinating aquatic creatures including clownfish, seahorses, octopuses, sea turtles, jellyfish, whale sharks, and dolphins.</p>
+<p>Each profile includes detailed information about their habitat, behavior, diet, and unique characteristics that make them special.</p>
+<a class="btn" href="Creatures.html">View Creatures</a>
+</div>
+<div class="preview-image">
+<img alt="Clownfish in anemone" src="marine life.jpg" style="width: 100%; height: auto; display: block; object-fit: cover;"/>
+</div>
+</div>
+</div>
+</section>
 <!-- Footer -->
 <footer>
 <div class="container">
@@ -1167,37 +1080,9 @@
       lastScroll = currentScroll;
     });
     
-    // Tab functionality
-    const tabBtns = document.querySelectorAll('.tab-btn');
-    const creatureContents = document.querySelectorAll('.creature-content');
-    
-    tabBtns.forEach(btn => {
-      btn.addEventListener('click', () => {
-        // Remove active class from all buttons and contents
-        tabBtns.forEach(btn => btn.classList.remove('active'));
-        creatureContents.forEach(content => content.classList.remove('active'));
-        
-        // Add active class to clicked button
-        btn.classList.add('active');
-        
-        // Show corresponding content
-        const creatureId = btn.getAttribute('data-creature');
-        document.getElementById(creatureId).classList.add('active');
-        
-        // Trigger animation for the new active content
-        const activeContent = document.getElementById(creatureId);
-        activeContent.style.opacity = '0';
-        activeContent.style.transform = 'translateY(20px)';
-        setTimeout(() => {
-          activeContent.style.opacity = '1';
-          activeContent.style.transform = 'translateY(0)';
-        }, 10);
-      });
-    });
-    
     // Animation on scroll
     const animateOnScroll = function() {
-      const elements = document.querySelectorAll('.creature-content.active');
+      const elements = document.querySelectorAll('.preview-content');
       
       elements.forEach(element => {
         const elementPosition = element.getBoundingClientRect().top;
@@ -1211,16 +1096,14 @@
     };
     
     // Set initial state for animation
-    document.querySelectorAll('.creature-content').forEach(el => {
+    document.querySelectorAll('.preview-content').forEach(el => {
       el.style.opacity = '0';
       el.style.transform = 'translateY(20px)';
       el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
     });
     
-    // Run for initially active content
-    animateOnScroll();
-    
     window.addEventListener('scroll', animateOnScroll);
+    animateOnScroll(); // Run once on load
   </script>
 <script>
 document.addEventListener("DOMContentLoaded", () => {
