@@ -250,6 +250,60 @@
       overflow: hidden;
     }
 
+    /* Mobile Click Me Text - Bottom of Bubble */
+    .mobile-click-hint {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, 180px);
+      color: white;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 600;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8), 0 0 20px rgba(42, 116, 179, 0.6);
+      opacity: 0;
+      animation: pulseFade 2s ease-in-out infinite;
+      pointer-events: none;
+      z-index: 3;
+      padding: 10px 20px;
+      border-radius: 25px;
+      background: linear-gradient(135deg, rgba(42, 116, 179, 0.7), rgba(44, 116, 179, 0.5));
+      backdrop-filter: blur(10px);
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3), 0 0 30px rgba(42, 116, 179, 0.4);
+      display: none;
+    }
+
+    @keyframes pulseFade {
+      0%, 100% { 
+        opacity: 0.6;
+        transform: translate(-50%, 180px) scale(1);
+      }
+      50% { 
+        opacity: 1;
+        transform: translate(-50%, 175px) scale(1.05);
+      }
+    }
+
+    /* Show mobile hint only on touch devices */
+    @media (hover: none) and (pointer: coarse) {
+      .mobile-click-hint {
+        display: block;
+      }
+
+      /* Hide desktop hover text on mobile */
+      .bubble-cta {
+        display: none;
+      }
+    }
+
+    /* Keep desktop hover behavior */
+    @media (hover: hover) and (pointer: fine) {
+      .mobile-click-hint {
+        display: none !important;
+      }
+    }
+
     .bubble-cta::before {
       content: '';
       position: absolute;
@@ -583,37 +637,8 @@
       to { opacity: 0; }
     }
     
-    /* Remove blue tap highlight on mobile */
-    * {
-      -webkit-tap-highlight-color: transparent;
-      -webkit-touch-callout: none;
-      -webkit-user-select: none;
-      -khtml-user-select: none;
-      -moz-user-select: none;
-      -ms-user-select: none;
-      user-select: none;
-    }
-    
     /* Mobile Responsive Styles */
     @media (max-width: 768px) {
-      .bubble-cta {
-        font-size: 1.1rem;
-        padding: 10px 18px;
-        transform: translate(-50%, 100%);
-        left: 50%;
-        top: 50%;
-        white-space: normal;
-        text-align: center;
-        max-width: 85%;
-      }
-      
-      .bubble-cta.show {
-        transform: translate(-50%, 120%);
-      }
-      
-      .bubble-cta.fade-out {
-        transform: translate(-50%, 140%);
-      }
       .branding h1 {
         font-size: 2rem;
         letter-spacing: 2px;
@@ -696,20 +721,7 @@
       .bubble-cta {
         font-size: 0.95rem;
         padding: 8px 15px;
-        transform: translate(-50%, 100%);
-        left: 50%;
-        top: 50%;
-        white-space: normal;
-        text-align: center;
-        max-width: 90%;
-      }
-      
-      .bubble-cta.show {
-        transform: translate(-50%, 115%);
-      }
-      
-      .bubble-cta.fade-out {
-        transform: translate(-50%, 135%);
+        transform: translate(20%, -100%);
       }
       
       .enter-btn {
@@ -751,26 +763,32 @@
       
       .bubble-content p {
         font-size: 0.8rem;
+      }
+
+      /* Mobile click hint sizing */
+      .mobile-click-hint {
+        font-size: 1rem;
+        padding: 8px 16px;
+        transform: translate(-50%, 160px);
+      }
+
+      @keyframes pulseFade {
+        0%, 100% { 
+          opacity: 0.6;
+          transform: translate(-50%, 160px) scale(1);
+        }
+        50% { 
+          opacity: 1;
+          transform: translate(-50%, 155px) scale(1.05);
+        }
+      }
         line-height: 1.4;
       }
       
       .bubble-cta {
         font-size: 0.85rem;
         padding: 7px 12px;
-        transform: translate(-50%, 95%);
-        left: 50%;
-        top: 50%;
-        white-space: normal;
-        text-align: center;
-        max-width: 90%;
-      }
-      
-      .bubble-cta.show {
-        transform: translate(-50%, 110%);
-      }
-      
-      .bubble-cta.fade-out {
-        transform: translate(-50%, 130%);
+        transform: translate(15%, -100%);
       }
       
       .enter-btn {
@@ -801,28 +819,27 @@
         font-size: 0.75rem;
       }
       
-      .bubble-cta {
-        font-size: 0.8rem;
-        padding: 6px 10px;
-        transform: translate(-50%, 90%);
-        left: 50%;
-        top: 50%;
-        white-space: normal;
-        text-align: center;
-        max-width: 90%;
-      }
-      
-      .bubble-cta.show {
-        transform: translate(-50%, 105%);
-      }
-      
-      .bubble-cta.fade-out {
-        transform: translate(-50%, 125%);
-      }
-      
       .enter-btn {
         padding: 8px 20px;
         font-size: 0.8rem;
+      }
+
+      /* Extra small mobile click hint */
+      .mobile-click-hint {
+        font-size: 0.9rem;
+        padding: 7px 14px;
+        transform: translate(-50%, 145px);
+      }
+
+      @keyframes pulseFade {
+        0%, 100% { 
+          opacity: 0.6;
+          transform: translate(-50%, 145px) scale(1);
+        }
+        50% { 
+          opacity: 1;
+          transform: translate(-50%, 140px) scale(1.05);
+        }
       }
     }
   </style>
@@ -861,6 +878,8 @@
 </div>
 <!-- Bubble call-to-action with shine effect -->
 <div class="bubble-cta" id="bubbleCta">Click me! Let's explore the sea together</div>
+<!-- Mobile Click Hint - Shows only on touch devices -->
+<div class="mobile-click-hint">👆 Click me</div>
 <!-- Splash effect next to bubble -->
 <div class="splash"></div>
 <script>
