@@ -1478,23 +1478,214 @@
         var chatInp = document.getElementById('chatbotInput');
         var chatSend = document.getElementById('chatbotSend');
         
-        var responses = {
-            ideas_restaurant: "🍽️ Restaurant Website Ideas:\n\n✨ Online Menu with Photos\n📱 Table Reservations\n🛒 Online Ordering\n⭐ Customer Reviews\n📸 Photo Gallery\n\nNeed more? Contact me!",
-            ideas_ecommerce: "🛍️ E-Commerce Ideas:\n\n🛒 Shopping Cart\n💳 Payment Systems\n📦 Order Tracking\n⭐ Reviews\n🔍 Search\n\nLet's build!",
-            ideas_portfolio: "🎨 Portfolio Ideas:\n\n📸 Gallery\n🎬 Video\n📝 Case Studies\n💼 Resume\n📧 Contact\n\nShowcase beautifully!",
-            ideas_business: "💼 Business Ideas:\n\n🏢 Profile\n👥 Team\n📊 Services\n💬 Testimonials\n📰 Blog\n\nBuild presence!",
-            motivation: "💪 You've Got This!\n\nYour website will:\n✨ Reach 24/7\n📈 Build trust\n💰 Generate leads\n\nLet's do it!",
-            pricing: "💰 Pricing:\n\n🌟 Basic: P3,500-7K\n💼 Business: P8-15K\n🛒 E-Commerce: P15K+\n\nPayment plans!\n📧 futurifydesigns@gmail.com\n📱 +267 777 83823",
-            timeline: "⏰ Timeline:\n\n⚡ Basic: 1-2 weeks\n💼 Business: 2-4 weeks\n🛒 E-Commerce: 4-8 weeks\n\nRush possible!",
-            about: "👋 Futurify Designs:\n\n🌍 Gaborone, Botswana\n💻 Modern web specialist\n⚡ Fast & SEO-optimized\n\nLet's create!",
-            process: "🛠️ How We Work:\n\n1️⃣ Discussion\n2️⃣ Proposal\n3️⃣ Design\n4️⃣ Development\n5️⃣ Testing\n6️⃣ Launch 🚀\n7️⃣ Support",
-            contact: "📞 Contact:\n\n📧 futurifydesigns@gmail.com\n📱 +267 777 83823\n📍 Gaborone\n\nOr visit Contact page!",
-            help: "🤔 I Can Help!\n\n💡 Ideas\n🎨 Design\n💰 Pricing\n⏰ Timeline\n\nWhat do you need?",
-            hello: "👋 Welcome!\n\nI can help with:\n💡 Ideas\n💰 Pricing\n⏰ Timeline\n🎨 Design\n\nHow can I help?",
-            thanks: "🌟 You're welcome!\n\nAsk anything!\n📧 futurifydesigns@gmail.com",
-            fallback: "🤔 Not sure about that!\n\nContact me:\n📧 futurifydesigns@gmail.com\n📱 +267 777 83823",
-            outofscope: "💬 Outside my expertise!\n\nReach out:\n📧 futurifydesigns@gmail.com\n\nI'm here for web design! 🌐"
+        // Conversation state tracking
+        var conversationState = {
+            userName: null,
+            businessType: null,
+            hasGreeted: false,
+            askedAboutBusiness: false,
+            topicsDiscussed: [],
+            lastTopic: null,
+            messageCount: 0,
+            waitingForBusinessType: false,
+            waitingForName: false,
+            currentFlow: null
         };
+        
+        // Get conversation state from localStorage
+        function loadConversationState() {
+            var saved = localStorage.getItem('futurify_conversation_state');
+            if (saved) {
+                try {
+                    conversationState = JSON.parse(saved);
+                } catch (e) {
+                    console.error('Error loading conversation state:', e);
+                }
+            }
+        }
+        
+        // Save conversation state to localStorage
+        function saveConversationState() {
+            localStorage.setItem('futurify_conversation_state', JSON.stringify(conversationState));
+        }
+        
+        // Smart responses based on conversation context
+        function getResponse(msg) {
+            var lower = msg.toLowerCase().trim();
+            conversationState.messageCount++;
+            
+            // Handle name responses
+            if (conversationState.waitingForName) {
+                conversationState.userName = msg.trim();
+                conversationState.waitingForName = false;
+                conversationState.hasGreeted = true;
+                saveConversationState();
+                return "Nice to meet you, " + conversationState.userName + "! 😊\n\nSo, what brings you here today? Are you looking to:\n\n💼 Build a business website\n🛍️ Create an online store\n🎨 Showcase a portfolio\n🍽️ Launch a restaurant site\n\nOr something else? I'm all ears!";
+            }
+            
+            // Handle business type responses
+            if (conversationState.waitingForBusinessType) {
+                conversationState.businessType = msg.trim();
+                conversationState.waitingForBusinessType = false;
+                saveConversationState();
+                return "A " + conversationState.businessType + "! That's awesome! 🌟\n\nI can definitely help you create a stunning website for that. Here's what we can include:\n\n✨ Professional design tailored to your industry\n📱 Mobile-responsive (works on all devices)\n⚡ Fast loading and SEO-optimized\n🎨 Custom features based on your needs\n\nWould you like to know about pricing, see some ideas, or discuss your specific needs?";
+            }
+            
+            // Greetings - personalized if we know their name
+            if (lower.match(/^(hi|hello|hey|good morning|good afternoon|good evening|sup|yo)$/)) {
+                conversationState.hasGreeted = true;
+                saveConversationState();
+                
+                if (conversationState.userName) {
+                    return "Hey " + conversationState.userName + "! 👋 Great to hear from you again!\n\nWhat can I help you with today?";
+                } else {
+                    conversationState.waitingForName = true;
+                    saveConversationState();
+                    return "Hey there! 👋 Welcome to Futurify Designs!\n\nBefore we dive in, what should I call you?";
+                }
+            }
+            
+            // Pricing inquiries - redirect to contact with personalized message
+            if (lower.match(/(price|cost|how much|expensive|cheap|afford|budget|quote|estimate)/)) {
+                conversationState.topicsDiscussed.push('pricing');
+                conversationState.lastTopic = 'pricing';
+                saveConversationState();
+                
+                var name = conversationState.userName ? conversationState.userName : "there";
+                return "Great question, " + name + "! 💰\n\nOur pricing depends on your specific needs, but here's a general guide:\n\n🌟 Basic Website: P3,500 - P7,000\n💼 Business Website: P8,000 - P15,000\n🛍️ E-Commerce: P15,000+\n\nFor an accurate quote tailored to YOUR project, I'd love to have you fill out our quick form. It takes just 2 minutes!\n\n👉 <a href='contact_f.html' style='color:#667eea;font-weight:bold;text-decoration:underline;'>Click here to get your custom quote</a>\n\nOr reach out directly:\n📧 futurifydesigns@gmail.com\n📱 +267 777 83823\n\nWe also offer payment plans! 💳";
+            }
+            
+            // Website ideas for different industries
+            if (lower.match(/(restaurant|food|cafe|dining|menu)/)) {
+                conversationState.topicsDiscussed.push('restaurant');
+                conversationState.lastTopic = 'restaurant';
+                saveConversationState();
+                return "🍽️ A restaurant website! Delicious choice! 😋\n\nHere's what would work great for you:\n\n✨ Stunning photo gallery of your dishes\n📱 Online menu with prices\n🍕 Online ordering & delivery integration\n📅 Table reservation system\n⭐ Customer reviews section\n🗺️ Google Maps integration\n📱 WhatsApp ordering button\n\nThis usually takes 2-3 weeks and starts from P8,000.\n\nWant to discuss YOUR specific restaurant? Let's chat! What features excite you most?";
+            }
+            
+            if (lower.match(/(shop|store|ecommerce|sell|online store|products)/)) {
+                conversationState.topicsDiscussed.push('ecommerce');
+                conversationState.lastTopic = 'ecommerce';
+                saveConversationState();
+                return "🛍️ An online store! Exciting! Let's get you selling! 💰\n\nHere's what your store can have:\n\n🛒 Full shopping cart system\n💳 Secure payment integration (Orange Money, cards)\n📦 Order tracking & management\n📊 Inventory management\n⭐ Product reviews\n📱 Mobile-optimized shopping\n🔍 Smart product search\n📧 Automated order emails\n\nTimeline: 4-6 weeks\nInvestment: From P15,000\n\nWhat products are you planning to sell? I'd love to hear more!";
+            }
+            
+            if (lower.match(/(portfolio|gallery|showcase|photographer|designer|artist|creative)/)) {
+                conversationState.topicsDiscussed.push('portfolio');
+                conversationState.lastTopic = 'portfolio';
+                saveConversationState();
+                return "🎨 A portfolio website! Perfect for showcasing your talent! ✨\n\nLet's make your work shine:\n\n📸 Stunning image galleries\n🎬 Video integration\n📝 Case studies & project descriptions\n💼 Downloadable resume/CV\n📧 Contact form for leads\n🌐 Social media integration\n⚡ Fast loading (even with lots of images!)\n📱 Looks amazing on all devices\n\nTimeline: 1-2 weeks\nInvestment: From P5,000\n\nWhat kind of work will you be showcasing?";
+            }
+            
+            if (lower.match(/(business|company|corporate|professional|office)/)) {
+                conversationState.topicsDiscussed.push('business');
+                conversationState.lastTopic = 'business';
+                saveConversationState();
+                return "💼 A business website! Let's establish your professional presence! 🌟\n\nPerfect for:\n\n🏢 Company profile & history\n👥 Meet the team section\n📊 Services/products showcase\n💬 Client testimonials\n📰 News/blog section\n📧 Contact forms\n🗺️ Location map\n📱 Mobile-friendly design\n\nTimeline: 2-3 weeks\nInvestment: From P8,000\n\nTell me about your business! What industry are you in?";
+            }
+            
+            // Timeline questions
+            if (lower.match(/(how long|timeline|time|when|duration|fast|quick|urgent|rush)/)) {
+                conversationState.topicsDiscussed.push('timeline');
+                conversationState.lastTopic = 'timeline';
+                saveConversationState();
+                return "⏰ Great question about timing!\n\nHere's our typical timeline:\n\n⚡ Basic Website: 1-2 weeks\n💼 Business Site: 2-4 weeks\n🛍️ E-Commerce: 4-8 weeks\n🎨 Portfolio: 1-2 weeks\n\nNeed it faster? We offer RUSH service! 🚀\n(Additional 25% for 50% faster delivery)\n\nThe exact timeline depends on:\n✅ Project complexity\n✅ Content readiness (photos, text, etc.)\n✅ Feedback response time\n\nWhen do you need your site ready?";
+            }
+            
+            // Process questions
+            if (lower.match(/(how do you work|process|workflow|steps|procedure|how does it work)/)) {
+                conversationState.topicsDiscussed.push('process');
+                conversationState.lastTopic = 'process';
+                saveConversationState();
+                return "🛠️ Great question! Here's our smooth 7-step process:\n\n1️⃣ Discovery Call - We chat about your vision (30 mins)\n2️⃣ Proposal - Detailed plan & quote (1 day)\n3️⃣ Design - Visual mockups for approval (3-5 days)\n4️⃣ Development - Building the site (1-4 weeks)\n5️⃣ Review - You test everything (2-3 days)\n6️⃣ Revisions - Final tweaks (2-3 days)\n7️⃣ Launch! 🚀 + Training & Support\n\nYou're involved at every step! No surprises, just collaboration.\n\nReady to start? What questions do you have?";
+            }
+            
+            // About Futurify
+            if (lower.match(/(about|who are you|tell me about|your company|futurify)/)) {
+                conversationState.topicsDiscussed.push('about');
+                conversationState.lastTopic = 'about';
+                saveConversationState();
+                return "👋 Great to formally introduce ourselves!\n\n🌟 We're Futurify Designs - Gaborone's modern web specialists!\n\n🌍 Based in Gaborone, Botswana\n💻 Specializing in modern, fast websites\n⚡ SEO-optimized (get found on Google!)\n📱 Mobile-first approach\n🎨 Custom designs (no templates!)\n💡 Focused on YOUR business goals\n\nWe've helped businesses across Botswana establish their online presence and grow. From small startups to established companies!\n\nWhat matters to you most in a web design partner?";
+            }
+            
+            // Contact/Get started
+            if (lower.match(/(contact|email|phone|call|reach|get in touch|start|begin|let's do this|sign up|interested)/)) {
+                conversationState.topicsDiscussed.push('contact');
+                conversationState.lastTopic = 'contact';
+                saveConversationState();
+                
+                var name = conversationState.userName ? conversationState.userName : "";
+                return "Awesome! " + (name ? name + ", I" : "I") + "'m excited to work with you! 🎉\n\nHere's how to get started:\n\n📝 <a href='contact_f.html' style='color:#667eea;font-weight:bold;text-decoration:underline;'>Fill out our quick contact form</a> (2 minutes!)\n\nOr reach out directly:\n📧 futurifydesigns@gmail.com\n📱 +267 777 83823 (Call/WhatsApp)\n📍 Gaborone, Botswana\n\nI typically respond within 2 hours during business hours!\n\nLooking forward to bringing your vision to life! ✨";
+            }
+            
+            // Motivation/encouragement
+            if (lower.match(/(nervous|worried|not sure|hesitant|scared|afraid|doubt)/)) {
+                return "I totally get it! 💙 Starting something new can feel overwhelming.\n\nBut here's the thing:\n\n✨ Every big business started with someone taking that first step\n📈 A website works for you 24/7 - even while you sleep!\n💰 It's an investment that pays back\n🌍 Your competitors are already online\n\nAnd hey, you don't have to figure it all out alone - that's what we're here for! We'll guide you through every step.\n\nWhat's your biggest concern? Let's talk it through!";
+            }
+            
+            // Thank you responses
+            if (lower.match(/(thank|thanks|appreciate|grateful)/)) {
+                conversationState.topicsDiscussed.push('thanks');
+                saveConversationState();
+                
+                var responses = [
+                    "You're so welcome! 🌟 Happy to help!",
+                    "Anytime! That's what I'm here for! 😊",
+                    "My pleasure! Don't hesitate to ask anything else!",
+                    "You're welcome! Glad I could help! ✨"
+                ];
+                var randomResponse = responses[Math.floor(Math.random() * responses.length)];
+                
+                return randomResponse + "\n\nAnything else on your mind?";
+            }
+            
+            // Goodbye/end conversation
+            if (lower.match(/^(bye|goodbye|see you|talk later|gtg|gotta go|have to go|later)$/)) {
+                var name = conversationState.userName ? conversationState.userName : "there";
+                return "Take care, " + name + "! 👋\n\nFeel free to come back anytime - I'm always here!\n\n📧 futurifydesigns@gmail.com\n📱 +267 777 83823\n\nHave a great day! ✨";
+            }
+            
+            // Help/confused
+            if (lower.match(/(help|confused|don't understand|what can you do|options|stuck)/)) {
+                return "No worries! Let me break it down for you! 💡\n\nI can help you with:\n\n💡 Website Ideas - For restaurants, shops, portfolios, businesses\n💰 Pricing Info - Get cost estimates\n⏰ Timeline - How long it takes\n🛠️ Our Process - How we work\n🎨 Design Features - What's possible\n📞 Contact Info - Get in touch\n\nJust ask me about anything! For example:\n• \"How much for an online store?\"\n• \"Show me restaurant ideas\"\n• \"How long does it take?\"\n\nWhat would you like to know?";
+            }
+            
+            // Features questions
+            if (lower.match(/(feature|function|what can you do|capabilities|include|add|mobile|responsive)/)) {
+                return "Great question about features! 🎨\n\nWe can build pretty much anything:\n\n📱 Mobile-responsive (works on all devices)\n⚡ Lightning fast loading\n🔍 SEO optimized (Google ranking)\n📧 Contact forms\n🛒 E-commerce/shopping carts\n💳 Payment integration\n📊 Analytics tracking\n🗺️ Google Maps\n📸 Photo/video galleries\n💬 Live chat\n📱 WhatsApp integration\n🔐 Secure HTTPS\n✉️ Email integration\n📰 Blog/news sections\n\nWhat specific features are you thinking about?";
+            }
+            
+            // Payment/payment plan questions
+            if (lower.match(/(payment plan|pay monthly|installment|down payment|deposit|afford)/)) {
+                return "Yes! We offer flexible payment plans! 💳\n\nTypical structure:\n\n💰 50% deposit to start\n💰 50% on completion\n\nOR\n\n📅 Monthly installments (3-6 months)\n📅 Custom payment schedule based on your budget\n\nWe understand that cash flow matters to businesses! We're flexible and work with you.\n\n👉 <a href='contact_f.html' style='color:#667eea;font-weight:bold;text-decoration:underline;'>Let's discuss your situation</a>\n\nWhat payment structure would work best for you?";
+            }
+            
+            // Maintenance/support questions
+            if (lower.match(/(maintain|update|support|after launch|fix|changes|edit)/)) {
+                return "Excellent question about ongoing support! 🛠️\n\nAfter launch, you get:\n\n✅ Free training on managing your site\n✅ 30 days of free fixes/tweaks\n✅ Ongoing support available\n\nOngoing maintenance options:\n\n📅 Monthly: P500-1,500/month\n- Content updates\n- Security updates\n- Backups\n- Priority support\n\nOr pay per update (starting P200)\n\nMost clients can manage basic updates themselves after our training!\n\nWhat kind of changes do you anticipate needing?";
+            }
+            
+            // Generic question - be conversational
+            if (lower.includes('?') || lower.match(/(what|how|why|when|where|who)/)) {
+                return "That's a great question! 🤔\n\nI want to give you the best answer possible. Could you tell me a bit more about what you're looking for?\n\nAre you asking about:\n• Website ideas for your business?\n• Pricing and costs?\n• Timeline and process?\n• Specific features?\n\nOr something else entirely? I'm all ears!";
+            }
+            
+            // Out of scope - still helpful
+            if (lower.match(/(weather|news|politics|sports|music|movie|game|recipe)/)) {
+                return "😅 Haha, I wish I could help with that, but I'm focused on web design!\n\nBUT... if you need a website to share recipes, sports updates, music, or anything else - NOW we're talking! 🎨\n\nWhat kind of website are you thinking about?";
+            }
+            
+            // Fallback - contextual and helpful
+            var fallbackResponses = [
+                "Hmm, I'm not quite sure about that one! 🤔\n\nCould you rephrase? Or ask me about:\n• Website ideas\n• Pricing\n• Timeline\n• Our process\n\nOr just tell me: what do you need a website for?",
+                
+                "Interesting! I want to make sure I understand correctly. 💭\n\nAre you asking about building a website? Let me know what industry you're in and I can suggest ideas!",
+                
+                "I might need a bit more context! 😊\n\nWhat brings you here today? Looking to:\n• Build a new website?\n• Redesign an existing one?\n• Just exploring options?\n\nTell me more!"
+            ];
+            
+            return fallbackResponses[Math.floor(Math.random() * fallbackResponses.length)];
+        }
         
         // Load chat history from localStorage
         function loadChatHistory() {
@@ -1558,7 +1749,14 @@
                 (isUser ? 
                     'background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;align-self:flex-end;margin-left:auto;box-shadow:0 4px 15px rgba(102,126,234,0.3);' : 
                     'background:rgba(102,126,234,0.1);color:#333;border:1px solid rgba(102,126,234,0.2);');
-            div.textContent = text;
+            
+            // Use innerHTML for bot messages to support links, textContent for user messages
+            if (isUser) {
+                div.textContent = text;
+            } else {
+                div.innerHTML = text;
+            }
+            
             chatMsgs.appendChild(div);
             chatMsgs.scrollTop = chatMsgs.scrollHeight;
             
@@ -1613,7 +1811,8 @@
             };
         }
         
-        // Load chat history on page load
+        // Load chat history and conversation state on page load
+        loadConversationState();
         loadChatHistory();
         
         // Clear chat history when user closes browser/tab (not on refresh)
