@@ -809,6 +809,115 @@
     </div>
 
     <script>
+        // Array of 100 inspirational quotes
+        const quotes = [
+            { text: "Design is not just what it looks like and feels like. Design is how it works.", author: "Steve Jobs" },
+            { text: "Simplicity is the ultimate sophistication.", author: "Leonardo da Vinci" },
+            { text: "Good design is obvious. Great design is transparent.", author: "Joe Sparano" },
+            { text: "Design creates culture. Culture shapes values. Values determine the future.", author: "Robert L. Peters" },
+            { text: "The details are not the details. They make the design.", author: "Charles Eames" },
+            { text: "Design is thinking made visual.", author: "Saul Bass" },
+            { text: "To design is to communicate clearly by whatever means you can control or master.", author: "Milton Glaser" },
+            { text: "Content precedes design. Design in the absence of content is not design, it's decoration.", author: "Jeffrey Zeldman" },
+            { text: "Design is intelligence made visible.", author: "Alina Wheeler" },
+            { text: "The best design is the simplest one that works.", author: "Albert Einstein" },
+            { text: "Design is where science and art break even.", author: "Robin Mathew" },
+            { text: "Everything is designed. Few things are designed well.", author: "Brian Reed" },
+            { text: "Good design is good business.", author: "Thomas Watson Jr." },
+            { text: "Design adds value faster than it adds costs.", author: "Joel Spolsky" },
+            { text: "Design is a solution to a problem. Art is a question to a problem.", author: "John Maeda" },
+            { text: "You can't use up creativity. The more you use, the more you have.", author: "Maya Angelou" },
+            { text: "Innovation distinguishes between a leader and a follower.", author: "Steve Jobs" },
+            { text: "The only way to do great work is to love what you do.", author: "Steve Jobs" },
+            { text: "Creativity is intelligence having fun.", author: "Albert Einstein" },
+            { text: "Design is not for philosophy — it's for life.", author: "Issey Miyake" },
+            { text: "Make it simple, but significant.", author: "Don Draper" },
+            { text: "Have no fear of perfection - you'll never reach it.", author: "Salvador Dali" },
+            { text: "Art is anything you can get away with.", author: "Andy Warhol" },
+            { text: "Ideas are easy. Implementation is hard.", author: "Guy Kawasaki" },
+            { text: "The life of a designer is a life of fight against the ugliness.", author: "Massimo Vignelli" },
+            { text: "If you think good design is expensive, you should look at the cost of bad design.", author: "Ralf Speth" },
+            { text: "Design is a funny word. Some people think design means how it looks. But of course, if you dig deeper, it's really how it works.", author: "Steve Jobs" },
+            { text: "Perfection is achieved not when there is nothing more to add, but when there is nothing left to take away.", author: "Antoine de Saint-Exupéry" },
+            { text: "A designer knows he has achieved perfection not when there is nothing left to add, but when there is nothing left to take away.", author: "Antoine de Saint-Exupéry" },
+            { text: "Design can be art. Design can be aesthetics. Design is so simple, that's why it is so complicated.", author: "Paul Rand" },
+            { text: "Get rid of everything that is not essential to making a point.", author: "Christoph Niemann" },
+            { text: "Design creates stories, and stories create memorable experiences.", author: "Anonymous" },
+            { text: "Good design is as little design as possible.", author: "Dieter Rams" },
+            { text: "The alternative to good design is always bad design. There is no such thing as no design.", author: "Adam Judge" },
+            { text: "Recognizing the need is the primary condition for design.", author: "Charles Eames" },
+            { text: "Design is a plan for arranging elements in such a way as best to accomplish a particular purpose.", author: "Charles Eames" },
+            { text: "The role of the designer is that of a good, thoughtful host anticipating the needs of his guests.", author: "Charles Eames" },
+            { text: "Design must seduce, shape, and perhaps more importantly, evoke an emotional response.", author: "April Greiman" },
+            { text: "If I had asked people what they wanted, they would have said faster horses.", author: "Henry Ford" },
+            { text: "Be a yardstick of quality. Some people aren't used to an environment where excellence is expected.", author: "Steve Jobs" },
+            { text: "Design is the intermediary between information and understanding.", author: "Richard Grefé" },
+            { text: "Styles come and go. Good design is a language, not a style.", author: "Massimo Vignelli" },
+            { text: "Practice safe design: Use a concept.", author: "Petrula Vrontikis" },
+            { text: "Design is so simple. That's why it's so complicated.", author: "Paul Rand" },
+            { text: "Color does not add a pleasant quality to design – it reinforces it.", author: "Pierre Bonnard" },
+            { text: "Creativity takes courage.", author: "Henri Matisse" },
+            { text: "The public is more familiar with bad design than good design.", author: "Paul Rand" },
+            { text: "A good designer must rely on experience, on precise, logic thinking.", author: "Paul Rand" },
+            { text: "Design is the silent ambassador of your brand.", author: "Paul Rand" },
+            { text: "Accessible design is good design.", author: "Steve Ballmer" },
+            { text: "The urge to destroy is also a creative urge.", author: "Pablo Picasso" },
+            { text: "Art is the elimination of the unnecessary.", author: "Pablo Picasso" },
+            { text: "Every child is an artist. The problem is how to remain an artist once we grow up.", author: "Pablo Picasso" },
+            { text: "Learn the rules like a pro, so you can break them like an artist.", author: "Pablo Picasso" },
+            { text: "Inspiration exists, but it must find you working.", author: "Pablo Picasso" },
+            { text: "Good design is good business.", author: "IBM motto" },
+            { text: "Whitespace is like air: it is necessary for design to breathe.", author: "Alex White" },
+            { text: "Where do new ideas come from? The answer is simple: differences.", author: "Nicholas Negroponte" },
+            { text: "The best ideas come as jokes. Make your thinking as funny as possible.", author: "David Ogilvy" },
+            { text: "A user interface is like a joke. If you have to explain it, it's not that good.", author: "Martin LeBlanc" },
+            { text: "Design is an opportunity to continue telling the story.", author: "Tate Linden" },
+            { text: "Design is not just what you see and feel. Design is how it works.", author: "Steve Jobs" },
+            { text: "Digital design is like painting, except the paint never dries.", author: "Neville Brody" },
+            { text: "We don't make mistakes, just happy little accidents.", author: "Bob Ross" },
+            { text: "Don't worry about people stealing your ideas.", author: "Howard Aiken" },
+            { text: "Every great design begins with an even better story.", author: "Lorinda Mamo" },
+            { text: "Form follows function.", author: "Louis Sullivan" },
+            { text: "In order to be irreplaceable one must always be different.", author: "Coco Chanel" },
+            { text: "Happiness is not by chance, but by choice.", author: "Jim Rohn" },
+            { text: "What we think, we become.", author: "Buddha" },
+            { text: "The secret of getting ahead is getting started.", author: "Mark Twain" },
+            { text: "Dream big and dare to fail.", author: "Norman Vaughan" },
+            { text: "Everything you've ever wanted is on the other side of fear.", author: "George Addair" },
+            { text: "Success is not final, failure is not fatal: it is the courage to continue that counts.", author: "Winston Churchill" },
+            { text: "Strive not to be a success, but rather to be of value.", author: "Albert Einstein" },
+            { text: "Great minds discuss ideas; average minds discuss events; small minds discuss people.", author: "Eleanor Roosevelt" },
+            { text: "The future belongs to those who believe in the beauty of their dreams.", author: "Eleanor Roosevelt" },
+            { text: "It is never too late to be what you might have been.", author: "George Eliot" },
+            { text: "Believe you can and you're halfway there.", author: "Theodore Roosevelt" },
+            { text: "Quality is not an act, it is a habit.", author: "Aristotle" },
+            { text: "We are what we repeatedly do. Excellence, then, is not an act, but a habit.", author: "Aristotle" },
+            { text: "Act as if what you do makes a difference. It does.", author: "William James" },
+            { text: "What lies behind us and what lies before us are tiny matters compared to what lies within us.", author: "Ralph Waldo Emerson" },
+            { text: "The best time to plant a tree was 20 years ago. The second best time is now.", author: "Chinese Proverb" },
+            { text: "Your limitation—it's only your imagination.", author: "Anonymous" },
+            { text: "Sometimes later becomes never. Do it now.", author: "Anonymous" },
+            { text: "It's not whether you get knocked down, it's whether you get up.", author: "Vince Lombardi" },
+            { text: "We may encounter many defeats but we must not be defeated.", author: "Maya Angelou" },
+            { text: "Knowing is not enough; we must apply. Wishing is not enough; we must do.", author: "Johann Wolfgang Von Goethe" },
+            { text: "The way to get started is to quit talking and begin doing.", author: "Walt Disney" },
+            { text: "Don't let yesterday take up too much of today.", author: "Will Rogers" },
+            { text: "You learn more from failure than from success. Don't let it stop you.", author: "Anonymous" },
+            { text: "If you are working on something that you really care about, you don't have to be pushed.", author: "Steve Jobs" },
+            { text: "People who are crazy enough to think they can change the world, are the ones who do.", author: "Rob Siltanen" },
+            { text: "Don't be afraid to give up the good to go for the great.", author: "John D. Rockefeller" },
+            { text: "Hardships often prepare ordinary people for an extraordinary destiny.", author: "C.S. Lewis" },
+            { text: "To be yourself in a world that is constantly trying to make you something else is the greatest accomplishment.", author: "Ralph Waldo Emerson" },
+            { text: "Design is the method of putting form and content together.", author: "Paul Rand" },
+            { text: "In the end, we only regret the chances we didn't take.", author: "Lewis Carroll" }
+        ];
+
+        // Function to get a random quote
+        function getRandomQuote() {
+            const randomIndex = Math.floor(Math.random() * quotes.length);
+            return quotes[randomIndex];
+        }
+
         // Create floating particles with proper animation
         function createParticles() {
             const particlesContainer = document.getElementById('particles');
@@ -905,6 +1014,14 @@
 
             // Show inspiration message
             const inspirationOverlay = document.getElementById('inspirationOverlay');
+            
+            // Get and display a random quote
+            const randomQuote = getRandomQuote();
+            const quoteMessage = document.querySelector('.inspiration-message');
+            const quoteAuthor = document.querySelector('.inspiration-author');
+            quoteMessage.innerHTML = `"${randomQuote.text}"`;
+            quoteAuthor.textContent = `— ${randomQuote.author}`;
+            
             createSparkles();
             
             setTimeout(() => {
@@ -965,6 +1082,14 @@
 
                     // Show inspiration message
                     var inspirationOverlay = document.getElementById('inspirationOverlay');
+                    
+                    // Get and display a random quote
+                    var randomQuote = getRandomQuote();
+                    var quoteMessage = document.querySelector('.inspiration-message');
+                    var quoteAuthor = document.querySelector('.inspiration-author');
+                    quoteMessage.innerHTML = '"' + randomQuote.text + '"';
+                    quoteAuthor.textContent = '— ' + randomQuote.author;
+                    
                     createSparkles();
                     
                     setTimeout(function() {
