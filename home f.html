@@ -1134,7 +1134,7 @@
     </script>
 
     <!-- AI Chatbot -->
-    <div class="chatbot-button" id="chatbotButton" style="position:fixed;bottom:30px;right:30px;width:60px;height:60px;border-radius:50%;background:linear-gradient(135deg,#667eea,#764ba2);cursor:pointer;z-index:10000;display:none;align-items:center;justify-content:center;box-shadow:0 10px 30px rgba(102,126,234,0.4);animation:chatPulse 2s infinite;">
+    <div class="chatbot-button" id="chatbotButton" style="position:fixed;bottom:30px;right:30px;width:60px;height:60px;border-radius:50%;background:linear-gradient(135deg,#667eea,#764ba2);cursor:pointer;z-index:9999;display:none;align-items:center;justify-content:center;box-shadow:0 10px 30px rgba(102,126,234,0.4);animation:chatPulse 2s infinite;">
         <svg viewBox="0 0 24 24" style="width:30px;height:30px;fill:#fff;">
             <path d="M12 2C6.48 2 2 6.48 2 12c0 1.54.36 3 .97 4.29L2 22l5.71-.97C9 21.64 10.46 22 12 22c5.52 0 10-4.48 10-10S17.52 2 12 2zm0 18c-1.38 0-2.68-.31-3.85-.85l-.27-.14-2.82.48.48-2.82-.14-.27C4.31 14.68 4 13.38 4 12c0-4.41 3.59-8 8-8s8 3.59 8 8-3.59 8-8 8z"/>
         </svg>
@@ -1145,7 +1145,7 @@
         50% { transform: scale(1.05); box-shadow: 0 15px 40px rgba(102,126,234,0.6); }
     }
     </style>
-    <div class="chatbot-window" id="chatbotWindow" style="position:fixed;top:80px;bottom:auto;right:30px;width:380px;max-height:calc(100vh - 100px);background:linear-gradient(135deg,rgba(255,255,255,0.98),rgba(248,249,250,0.98));backdrop-filter:blur(20px);border-radius:20px;box-shadow:0 20px 60px rgba(102,126,234,0.3);display:none;flex-direction:column;z-index:99;overflow:hidden;border:1px solid rgba(102,126,234,0.2);">
+    <div class="chatbot-window" id="chatbotWindow" style="position:fixed;top:100px;bottom:auto;right:30px;width:380px;max-height:calc(100vh - 120px);background:linear-gradient(135deg,rgba(255,255,255,0.98),rgba(248,249,250,0.98));backdrop-filter:blur(20px);border-radius:20px;box-shadow:0 20px 60px rgba(102,126,234,0.3);display:none;flex-direction:column;z-index:10000;overflow:hidden;border:1px solid rgba(102,126,234,0.2);">
         <div style="padding:20px;background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;display:flex;justify-content:space-between;align-items:center;">
             <h3 style="margin:0;font-weight:900;font-size:18px;">🤖 Futurify Assistant</h3>
             <button id="chatbotClose" style="background:none;border:none;color:#fff;font-size:28px;cursor:pointer;padding:0;line-height:1;">×</button>
@@ -1675,12 +1675,18 @@
             chatBtn.onclick = function() {
                 var isVisible = chatWin.style.display === 'flex';
                 chatWin.style.display = isVisible ? 'none' : 'flex';
+                // Hide button when chat is open to avoid covering send button
+                chatBtn.style.display = isVisible ? 'flex' : 'none';
                 if (!isVisible && chatInp) setTimeout(function() { chatInp.focus(); }, 100);
             };
         }
         
         if (chatClose && chatWin) {
-            chatClose.onclick = function() { chatWin.style.display = 'none'; };
+            chatClose.onclick = function() { 
+                chatWin.style.display = 'none';
+                // Show button again when chat is closed
+                if (chatBtn) chatBtn.style.display = 'flex';
+            };
         }
         
         function addMsg(text, isUser, save) {
