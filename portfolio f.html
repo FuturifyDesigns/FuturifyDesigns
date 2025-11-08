@@ -1105,12 +1105,14 @@
             padding: 20px 30px;
             border-radius: 15px;
             transition: right 0.5s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s, visibility 0.3s;
-            z-index: 10001;
+            z-index: -1;
             max-width: 350px;
             box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
             opacity: 0;
             visibility: hidden;
             display: none;
+            pointer-events: none;
+            overflow: hidden;
         }
         
         .notification.show {
@@ -1118,33 +1120,64 @@
             opacity: 1;
             visibility: visible;
             display: block;
+            pointer-events: auto;
+            z-index: 10001;
         }
         
         .notification-close {
             position: absolute;
             top: 5px;
             right: 5px;
-            background: rgba(0, 0, 0, 0.2);
+            background: rgba(0, 0, 0, 0.3);
             border: none;
             border-radius: 50%;
-            color: rgba(255, 255, 255, 0.9);
-            font-size: 32px;
+            color: rgba(255, 255, 255, 0.95);
+            font-size: 28px;
             cursor: pointer;
             font-weight: 700;
-            width: 50px;
-            height: 50px;
+            width: 42px;
+            height: 42px;
             line-height: 1;
             display: flex;
             align-items: center;
             justify-content: center;
             transition: all 0.3s;
             -webkit-tap-highlight-color: transparent;
+            z-index: 10002;
+            padding: 0;
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
         }
         
-        .notification-close:hover {
+        .notification.show .notification-close {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+        }
+        
+        .notification-close:hover,
+        .notification-close:active {
             color: #fff;
-            background: rgba(0, 0, 0, 0.4);
-            transform: scale(1.1);
+            background: rgba(0, 0, 0, 0.5);
+            transform: scale(1.15);
+        }
+        
+        .motivation-popup {
+            position: fixed;
+            display: none;
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        .motivation-popup.show {
+            display: block;
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+            z-index: 10001;
         }
         
         .motivation-popup-close {
@@ -1161,11 +1194,21 @@
             width: 50px;
             height: 50px;
             line-height: 1;
-            display: flex;
+            display: none;
             align-items: center;
             justify-content: center;
             transition: all 0.3s;
             -webkit-tap-highlight-color: transparent;
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+        
+        .motivation-popup.show .motivation-popup-close {
+            display: flex;
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
         }
         
         .motivation-popup-close:hover {
