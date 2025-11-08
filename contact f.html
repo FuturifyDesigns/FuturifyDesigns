@@ -997,39 +997,76 @@
             color: white;
             padding: 20px 30px;
             border-radius: 15px;
-            transition: right 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: right 0.5s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s, visibility 0.3s;
             z-index: 10001;
             max-width: 350px;
             box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
             opacity: 0;
             visibility: hidden;
+            display: none;
         }
         
         .notification.show {
             right: 30px;
             opacity: 1;
             visibility: visible;
+            display: block;
         }
         
         .notification-close {
             position: absolute;
-            top: 10px;
-            right: 15px;
-            background: none;
+            top: 5px;
+            right: 5px;
+            background: rgba(0, 0, 0, 0.2);
             border: none;
-            color: rgba(255, 255, 255, 0.8);
-            font-size: 24px;
+            border-radius: 50%;
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 32px;
             cursor: pointer;
             font-weight: 700;
-            width: 30px;
-            height: 30px;
+            width: 50px;
+            height: 50px;
             line-height: 1;
-            transition: color 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            -webkit-tap-highlight-color: transparent;
         }
         
         .notification-close:hover {
             color: #fff;
+            background: rgba(0, 0, 0, 0.4);
+            transform: scale(1.1);
         }
+        
+        .motivation-popup-close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            border-radius: 50%;
+            color: rgba(102, 126, 234, 0.8);
+            font-size: 32px;
+            cursor: pointer;
+            font-weight: 700;
+            width: 50px;
+            height: 50px;
+            line-height: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        .motivation-popup-close:hover {
+            color: #667eea;
+            background: rgba(255, 255, 255, 0.4);
+            transform: scale(1.1);
+        }
+        
         
         .notification-icon {
             font-size: 32px;
@@ -1540,10 +1577,43 @@
         
         var closeNotificationBtn = document.getElementById('closeNotification');
         if (closeNotificationBtn) {
-            closeNotificationBtn.onclick = function() {
-                document.getElementById('notification').classList.remove('show');
+            closeNotificationBtn.onclick = function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                var notif = document.getElementById('notification');
+                if (notif) {
+                    notif.classList.remove('show');
+                }
             };
+            // Add touch support
+            closeNotificationBtn.addEventListener('touchend', function(e) {
+                e.preventDefault();
+                var notif = document.getElementById('notification');
+                if (notif) {
+                    notif.classList.remove('show');
+                }
+            });
         }
+        var closeQuoteBtn = document.getElementById('closeQuote');
+        if (closeQuoteBtn) {
+            closeQuoteBtn.onclick = function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                var popup = document.getElementById('motivationPopup');
+                if (popup) {
+                    popup.classList.remove('show');
+                }
+            };
+            // Add touch support
+            closeQuoteBtn.addEventListener('touchend', function(e) {
+                e.preventDefault();
+                var popup = document.getElementById('motivationPopup');
+                if (popup) {
+                    popup.classList.remove('show');
+                }
+            });
+        }
+        
         
         // Show features after animation
         setTimeout(function() {
@@ -1651,7 +1721,7 @@
         // Start the session timer
         resetSession();
         
-        // Chatbot with localStorage sync across pages
+        // Chatbot with sessionStorage sync across pages (clears on browser close)
         var chatBtn = document.getElementById('chatbotButton');
         var chatWin = document.getElementById('chatbotWindow');
         var chatClose = document.getElementById('chatbotClose');
@@ -1660,28 +1730,28 @@
         var chatSend = document.getElementById('chatbotSend');
         
         var responses = {
-            ideas_restaurant: "🍽️ Restaurant Website Ideas:\n\n✨ Online Menu with Photos\n📱 Table Reservations\n🛒 Online Ordering\n⭐ Customer Reviews\n📸 Photo Gallery\n\nNeed more? Contact me!",
-            ideas_ecommerce: "🛍️ E-Commerce Ideas:\n\n🛒 Shopping Cart\n💳 Payment Systems\n📦 Order Tracking\n⭐ Reviews\n🔍 Search\n\nLet's build!",
-            ideas_portfolio: "🎨 Portfolio Ideas:\n\n📸 Gallery\n🎬 Video\n📝 Case Studies\n💼 Resume\n📧 Contact\n\nShowcase beautifully!",
-            ideas_business: "💼 Business Ideas:\n\n🏢 Profile\n👥 Team\n📊 Services\n💬 Testimonials\n📰 Blog\n\nBuild presence!",
+            ideas_restaurant: "🍽️ Restaurant Website Ideas:\n\n✨ Online Menu with Photos\n📱 Table Reservations\n🛒 Online Ordering\n⭐ Customer Reviews\n📸 Photo Gallery\n\n📧 futurifydesigns@gmail.com\n📱 +267 777 83823\n🔗 Contact page",
+            ideas_ecommerce: "🛍️ E-Commerce Ideas:\n\n🛒 Shopping Cart\n💳 Payment Systems\n📦 Order Tracking\n⭐ Reviews\n🔍 Search\n\n📧 futurifydesigns@gmail.com\n📱 +267 777 83823\n🔗 Contact page",
+            ideas_portfolio: "🎨 Portfolio Ideas:\n\n📸 Gallery\n🎬 Video\n📝 Case Studies\n💼 Resume\n📧 Contact\n\n📧 futurifydesigns@gmail.com\n📱 +267 777 83823\n🔗 Contact page",
+            ideas_business: "💼 Business Ideas:\n\n🏢 Profile\n👥 Team\n📊 Services\n💬 Testimonials\n📰 Blog\n\n📧 futurifydesigns@gmail.com\n📱 +267 777 83823\n🔗 Contact page",
             motivation: "💪 You've Got This!\n\nYour website will:\n✨ Reach 24/7\n📈 Build trust\n💰 Generate leads\n\nLet's do it!",
-            pricing: "💰 Pricing:\n\n🌟 Basic: P3,500-7K\n💼 Business: P8-15K\n🛒 E-Commerce: P15K+\n\nPayment plans!\n📧 futurifydesigns@gmail.com\n📱 +267 777 83823",
-            timeline: "⏰ Timeline:\n\n⚡ Basic: 1-2 weeks\n💼 Business: 2-4 weeks\n🛒 E-Commerce: 4-8 weeks\n\nRush possible!",
+            pricing: "💰 Pricing:\n\nFor custom quotes contact me:\n📧 futurifydesigns@gmail.com\n📱 +267 777 83823\n🔗 Contact page\n\nPayment plans available!",
+            timeline: "⏰ Timeline:\n\nTimeline varies by project.\n\nContact for estimates:\n📧 futurifydesigns@gmail.com\n📱 +267 777 83823\n🔗 Contact page",
             about: "👋 Futurify Designs:\n\n🌍 Gaborone, Botswana\n💻 Modern web specialist\n⚡ Fast & SEO-optimized\n\nLet's create!",
             process: "🛠️ How We Work:\n\n1️⃣ Discussion\n2️⃣ Proposal\n3️⃣ Design\n4️⃣ Development\n5️⃣ Testing\n6️⃣ Launch 🚀\n7️⃣ Support",
             contact: "📞 Contact:\n\n📧 futurifydesigns@gmail.com\n📱 +267 777 83823\n📍 Gaborone\n\nOr visit Contact page!",
             help: "🤔 I Can Help!\n\n💡 Ideas\n🎨 Design\n💰 Pricing\n⏰ Timeline\n\nWhat do you need?",
             hello: "👋 Welcome!\n\nI can help with:\n💡 Ideas\n💰 Pricing\n⏰ Timeline\n🎨 Design\n\nHow can I help?",
             thanks: "🌟 You're welcome!\n\nAsk anything!\n📧 futurifydesigns@gmail.com",
-            fallback: "🤔 Not sure about that!\n\nContact me:\n📧 futurifydesigns@gmail.com\n📱 +267 777 83823",
+            fallback: "🤔 Not sure about that!\n\nContact me:\n📧 futurifydesigns@gmail.com\n📱 +267 777 83823\n🔗 Contact page",
             outofscope: "💬 Outside my expertise!\n\nReach out:\n📧 futurifydesigns@gmail.com\n\nI'm here for web design! 🌐"
         };
         
-        // Load chat history from localStorage
+        // Load chat history from sessionStorage
         function loadChatHistory() {
             if (!chatMsgs) return;
             
-            var history = localStorage.getItem('futurify_chat_history');
+            var history = sessionStorage.getItem('futurify_chat_history');
             if (history) {
                 try {
                     var messages = JSON.parse(history);
@@ -1698,7 +1768,7 @@
             }
         }
         
-        // Save chat history to localStorage
+        // Save chat history to sessionStorage
         function saveChatHistory() {
             if (!chatMsgs) return;
             
@@ -1715,7 +1785,7 @@
                 });
             }
             
-            localStorage.setItem('futurify_chat_history', JSON.stringify(messages));
+            sessionStorage.setItem('futurify_chat_history', JSON.stringify(messages));
         }
         
         if (chatBtn && chatWin) {
@@ -1797,7 +1867,7 @@
         // Load chat history on page load
         loadChatHistory();
         
-        // Clear chat history when user closes browser/tab (not on refresh)
+        // Chat history clears automatically when browser/tab closes
         window.addEventListener('beforeunload', function(e) {
             // Note: This only clears on actual close, not refresh
             // The chat will persist during the session (refreshes + navigation)
