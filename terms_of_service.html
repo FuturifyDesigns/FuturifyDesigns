@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terms of Service - Futurify Designs</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 15%, #e9ecef 30%, #dee2e6 45%, #ced4da 60%, #adb5bd 75%, #868e96 90%, #495057 100%);
+            min-height: 100vh;
+            line-height: 1.8;
+            color: #2d3748;
+            padding: 0;
+        }
+        
+        /* Animated background particles */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 0;
+            pointer-events: none;
+        }
+        
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(118, 75, 162, 0.3);
+            border-radius: 50%;
+            animation: float 15s infinite ease-in-out;
+        }
+        
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) translateX(0) scale(1);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.6;
+            }
+            90% {
+                opacity: 0.6;
+            }
+            100% {
+                transform: translateY(-100vh) translateX(50px) scale(0.5);
+                opacity: 0;
+            }
+        }
+        
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, rgba(118,75,162,0.95), rgba(102,126,234,0.95));
+            backdrop-filter: blur(10px);
+            padding: 30px 0;
+            box-shadow: 0 10px 40px rgba(118,75,162,0.2);
+            position: relative;
+            z-index: 10;
+        }
+        
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 30px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .logo {
+            font-size: 32px;
+            font-weight: 900;
+            color: #fff;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: transform 0.3s;
+        }
+        
+        .logo:hover {
+            transform: scale(1.05);
+        }
+        
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 24px;
+            background: rgba(255,255,255,0.2);
+            color: #fff;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: 600;
+            transition: all 0.3s;
+            border: 2px solid rgba(255,255,255,0.3);
+        }
+        
+        .back-btn:hover {
+            background: rgba(255,255,255,0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(255,255,255,0.3);
+        }
+        
+        /* Container */
+        .container {
+            max-width: 1000px;
+            margin: 60px auto;
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(20px);
+            padding: 60px;
+            border-radius: 30px;
+            box-shadow: 0 30px 80px rgba(0,0,0,0.15);
+            position: relative;
+            z-index: 10;
+        }
+        
+        /* Typography */
+        .page-title {
+            font-size: 3.5em;
+            font-weight: 900;
+            background: linear-gradient(135deg, #764ba2, #667eea);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 15px;
+            line-height: 1.2;
+        }
+        
+        .subtitle {
+            font-size: 1.2em;
+            color: #718096;
+            margin-bottom: 40px;
+            font-weight: 500;
+        }
+        
+        .last-updated {
+            display: inline-block;
+            padding: 10px 20px;
+            background: linear-gradient(135deg, rgba(118,75,162,0.1), rgba(102,126,234,0.1));
+            border-radius: 20px;
+            color: #764ba2;
+            font-weight: 600;
+            margin-bottom: 40px;
+            border: 2px solid rgba(118,75,162,0.2);
+        }
+        
+        h2 {
+            font-size: 2.2em;
+            font-weight: 800;
+            color: #2d3748;
+            margin-top: 50px;
+            margin-bottom: 20px;
+            position: relative;
+            padding-left: 25px;
+        }
+        
+        h2:before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 6px;
+            height: 40px;
+            background: linear-gradient(135deg, #764ba2, #667eea);
+            border-radius: 3px;
+        }
+        
+        h3 {
+            font-size: 1.5em;
+            font-weight: 700;
+            color: #4a5568;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            padding-left: 20px;
+            border-left: 4px solid #764ba2;
+        }
+        
+        p {
+            margin-bottom: 20px;
+            font-size: 1.05em;
+            color: #4a5568;
+            line-height: 1.9;
+        }
+        
+        ul {
+            margin: 20px 0 30px 40px;
+            list-style: none;
+        }
+        
+        li {
+            margin-bottom: 15px;
+            padding-left: 30px;
+            position: relative;
+            font-size: 1.05em;
+            color: #4a5568;
+        }
+        
+        li:before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #764ba2;
+            font-weight: 900;
+            font-size: 1.2em;
+        }
+        
+        strong {
+            color: #2d3748;
+            font-weight: 700;
+        }
+        
+        /* Info boxes */
+        .info-box {
+            background: linear-gradient(135deg, rgba(118,75,162,0.08), rgba(102,126,234,0.08));
+            padding: 35px;
+            border-radius: 20px;
+            margin: 30px 0;
+            border-left: 6px solid #764ba2;
+            box-shadow: 0 10px 30px rgba(118,75,162,0.1);
+        }
+        
+        .contact-box {
+            background: linear-gradient(135deg, rgba(102,126,234,0.08), rgba(118,75,162,0.08));
+            padding: 35px;
+            border-radius: 20px;
+            margin: 40px 0;
+            border-left: 6px solid #667eea;
+            box-shadow: 0 10px 30px rgba(102,126,234,0.1);
+        }
+        
+        .contact-box h3, .info-box h3 {
+            border: none;
+            padding-left: 0;
+            margin-top: 0;
+            color: #667eea;
+        }
+        
+        .contact-box p, .info-box p {
+            margin-bottom: 12px;
+        }
+        
+        .contact-box a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+        
+        .contact-box a:hover {
+            color: #764ba2;
+        }
+        
+        .contact-icon {
+            display: inline-block;
+            width: 24px;
+            text-align: center;
+            margin-right: 8px;
+        }
+        
+        .highlight-box {
+            background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%);
+            border-left: 6px solid #ffc107;
+            padding: 25px;
+            margin: 25px 0;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(255,193,7,0.2);
+        }
+        
+        .highlight-box p {
+            margin-bottom: 0;
+            color: #856404;
+        }
+        
+        /* Section divider */
+        .section-divider {
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #764ba2, transparent);
+            margin: 50px 0;
+            border-radius: 2px;
+        }
+        
+        /* Footer */
+        .legal-footer {
+            text-align: center;
+            padding: 40px 20px;
+            color: #ffffff;
+            font-size: 0.95em;
+        }
+        
+        .legal-footer p {
+            color: #ffffff !important;
+            margin: 5px 0;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                margin: 30px 20px;
+                padding: 35px 25px;
+            }
+            
+            .page-title {
+                font-size: 2.5em;
+            }
+            
+            h2 {
+                font-size: 1.8em;
+            }
+            
+            h3 {
+                font-size: 1.3em;
+            }
+            
+            .header-content {
+                flex-direction: column;
+                gap: 20px;
+                text-align: center;
+            }
+            
+            ul {
+                margin-left: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="particles" id="particles"></div>
+    
+    <header class="header">
+        <div class="header-content">
+            <a href="home_f.html" class="logo">
+                <i class="fas fa-file-contract"></i>
+                Terms of Service
+            </a>
+            <a href="home f.html" class="back-btn">
+                <i class="fas fa-arrow-left"></i>
+                Back to Home
+            </a>
+        </div>
+    </header>
+    
+    <div class="container">
+        <h1 class="page-title">Terms of Service</h1>
+        <p class="subtitle">Clear, fair terms that protect both you and our business.</p>
+        <div class="last-updated">
+            <i class="far fa-calendar-alt"></i> Last Updated: November 8, 2025
+        </div>
+        
+        <p>Welcome to <strong>Futurify Designs</strong>! These Terms of Service ("Terms") govern your use of our website and services. By accessing our website or engaging our services, you agree to be bound by these Terms.</p>
+        
+        <div class="section-divider"></div>
+        
+        <h2>1. Services Provided</h2>
+        <p>Futurify Designs provides professional web design and development services, including but not limited to:</p>
+        <ul>
+            <li>Custom website design and development</li>
+            <li>E-commerce website development with shopping cart functionality</li>
+            <li>Portfolio and business websites tailored to your brand</li>
+            <li>Restaurant and hospitality industry websites</li>
+            <li>Website maintenance, updates, and technical support</li>
+            <li>SEO optimization services for better search visibility</li>
+            <li>Responsive mobile design for all devices</li>
+            <li>Website speed optimization and performance enhancement</li>
+        </ul>
+        
+        <div class="section-divider"></div>
+        
+        <h2>2. Project Engagement</h2>
+        
+        <h3>2.1 Consultation</h3>
+        <p>All projects begin with a <strong>free consultation</strong> where we discuss your vision, requirements, and project scope. This consultation may be conducted via:</p>
+        <ul>
+            <li>Phone call or WhatsApp (+267 777 83823)</li>
+            <li>Email correspondence (futurifydesigns@gmail.com)</li>
+            <li>In-person meeting in Gaborone, Botswana</li>
+            <li>Video call for remote consultations</li>
+        </ul>
+        
+        <h3>2.2 Project Proposal</h3>
+        <p>Following the consultation, we will provide a <strong>detailed project proposal</strong> that includes:</p>
+        <ul>
+            <li>Comprehensive scope of work and deliverables</li>
+            <li>Project timeline with key milestones</li>
+            <li>Pricing breakdown and payment terms</li>
+            <li>Number of included revision rounds</li>
+            <li>Technical specifications and requirements</li>
+            <li>Hosting and domain recommendations</li>
+        </ul>
+        
+        <h3>2.3 Project Agreement</h3>
+        <p>By accepting our proposal and making the initial payment, you agree to the terms outlined in the proposal and these Terms of Service. The project officially begins upon receipt of the deposit payment.</p>
+        
+        <div class="section-divider"></div>
+        
+        <h2>3. Payment Terms</h2>
+        
+        <h3>3.1 Payment Structure</h3>
+        <div class="info-box">
+            <p><strong style="font-size: 1.2em;">Our standard payment structure:</strong></p>
+            <p><strong>50% Deposit:</strong> Due before project commencement to reserve your spot and cover initial development costs</p>
+            <p><strong>50% Final Payment:</strong> Due upon project completion and before website launch</p>
+        </div>
+        
+        <h3>3.2 Accepted Payment Methods</h3>
+        <p>We accept the following secure payment methods:</p>
+        <ul>
+            <li><strong>Bank Transfer:</strong> Direct transfer to our Botswana bank account</li>
+            <li><strong>Mobile Money:</strong> Orange Money, Mascom MyZaka</li>
+            <li><strong>eWallet:</strong> eWallet by FNB</li>
+            <li><strong>Pay2Cell:</strong> Instant mobile payments</li>
+            <li><strong>PayPal:</strong> For international clients (fees may apply)</li>
+        </ul>
+        
+        <h3>3.3 Late Payments</h3>
+        <p>Final payment must be made before the website is launched to the public. Failure to make timely payment may result in:</p>
+        <ul>
+            <li>Project suspension until payment is received</li>
+            <li>Inability to access website files or admin credentials</li>
+            <li>Possible project cancellation after 30 days</li>
+        </ul>
+        
+        <div class="section-divider"></div>
+        
+        <h2>4. Project Timeline</h2>
+        
+        <p>Project timelines are <strong>estimates</strong> based on the agreed scope of work. Typical timelines are:</p>
+        <ul>
+            <li><strong>Simple websites:</strong> 5-7 business days (single page, basic functionality)</li>
+            <li><strong>Medium complexity websites:</strong> 10-14 business days (multi-page, custom features)</li>
+            <li><strong>Complex/E-commerce websites:</strong> 3-4 weeks (extensive functionality, integrations)</li>
+        </ul>
+        
+        <h3>4.1 Factors Affecting Timeline</h3>
+        <p>Timelines may be affected by:</p>
+        <ul>
+            <li>Delayed content, images, or materials from the client</li>
+            <li>Changes to project scope or requirements</li>
+            <li>Technical complications or third-party integrations</li>
+            <li>Extended feedback or approval periods</li>
+            <li>Force majeure events (power outages, natural disasters, etc.)</li>
+        </ul>
+        
+        <div class="section-divider"></div>
+        
+        <h2>5. Client Responsibilities</h2>
+        
+        <p>To ensure smooth project completion, clients are responsible for:</p>
+        <ul>
+            <li>Providing all necessary content, images, logos, and materials in a <strong>timely manner</strong></li>
+            <li>Ensuring all provided materials do not infringe on third-party copyrights</li>
+            <li>Reviewing and providing feedback on designs and deliverables within <strong>5 business days</strong></li>
+            <li>Obtaining any necessary licenses for fonts, images, stock photos, or other assets</li>
+            <li>Arranging domain registration and hosting (we provide guidance and recommendations)</li>
+            <li>Providing clear, actionable feedback during revision rounds</li>
+            <li>Being available for consultations and questions during development</li>
+        </ul>
+        
+        <div class="highlight-box">
+            <p><strong>⚠️ Important:</strong> Delays in providing materials or feedback will extend the project timeline accordingly. We cannot guarantee original delivery dates if client materials are not received on time.</p>
+        </div>
+        
+        <div class="section-divider"></div>
+        
+        <h2>6. Revisions and Changes</h2>
+        
+        <h3>6.1 Included Revisions</h3>
+        <p>Each project includes a specified number of revision rounds as outlined in the project proposal, typically <strong>2-3 rounds</strong>. A revision round includes:</p>
+        <ul>
+            <li>Design adjustments and layout modifications</li>
+            <li>Color scheme and typography changes</li>
+            <li>Content placement and organization</li>
+            <li>Minor functionality tweaks</li>
+        </ul>
+        
+        <h3>6.2 Additional Revisions</h3>
+        <p>Revisions beyond the agreed number or changes to the original scope may incur additional fees based on complexity and time required.</p>
+        
+        <h3>6.3 Major Scope Changes</h3>
+        <p>Significant changes to the project scope (e.g., adding e-commerce to a portfolio site) will require a new proposal and may affect timeline and pricing. We'll provide a revised quote before proceeding.</p>
+        
+        <div class="section-divider"></div>
+        
+        <h2>7. Intellectual Property Rights</h2>
+        
+        <h3>7.1 Ownership Upon Payment</h3>
+        <p>Upon receipt of <strong>full payment</strong>, you will own:</p>
+        <ul>
+            <li>The final website design created specifically for your project</li>
+            <li>Custom code and functionality developed for your site</li>
+            <li>All custom graphics and visual elements we created</li>
+            <li>The right to modify and use the website as you see fit</li>
+        </ul>
+        
+        <h3>7.2 Third-Party Components</h3>
+        <p>Your website may include third-party components (frameworks, libraries, plugins, fonts) that are subject to their own licenses. These typically include:</p>
+        <ul>
+            <li>Open-source frameworks (React, Bootstrap, etc.)</li>
+            <li>Font libraries (Google Fonts, Font Awesome)</li>
+            <li>JavaScript libraries and plugins</li>
+            <li>Content management systems</li>
+        </ul>
+        
+        <h3>7.3 Portfolio Usage</h3>
+        <p>We reserve the right to display completed projects in our portfolio, marketing materials, and case studies unless otherwise agreed in writing. This includes screenshots, descriptions, and testimonials.</p>
+        
+        <h3>7.4 Futurify Designs' Rights</h3>
+        <p>We retain intellectual property rights to our:</p>
+        <ul>
+            <li>Development methodologies and processes</li>
+            <li>Code templates and frameworks (not project-specific)</li>
+            <li>Business practices and approaches</li>
+            <li>Proprietary tools and systems</li>
+        </ul>
+        
+        <div class="section-divider"></div>
+        
+        <h2>8. Website Hosting and Maintenance</h2>
+        
+        <h3>8.1 Hosting</h3>
+        <p>We provide <strong>guidance and recommendations</strong> on hosting solutions but are not responsible for hosting services unless specifically contracted. You are responsible for:</p>
+        <ul>
+            <li>Purchasing and maintaining hosting services from a provider</li>
+            <li>Domain registration and annual renewal fees</li>
+            <li>Server-related issues, downtime, or technical problems</li>
+            <li>SSL certificates and security configurations</li>
+            <li>Email hosting and configuration</li>
+        </ul>
+        
+        <p><strong>Estimated Costs:</strong></p>
+        <ul>
+            <li>Domain: P150-P400 per year (.com, .co.bw, etc.)</li>
+            <li>Hosting: P500-P1500 per year (depends on traffic and features)</li>
+            <li>SSL Certificate: Often included free with hosting</li>
+        </ul>
+        
+        <h3>8.2 Post-Launch Support</h3>
+        <p>We provide <strong>one month of free support</strong> after website launch. This includes:</p>
+        <ul>
+            <li>Fixing bugs or errors that existed at launch</li>
+            <li>Minor text or image updates (up to 3 changes)</li>
+            <li>Technical support and troubleshooting</li>
+            <li>Guidance on using your website's admin panel</li>
+        </ul>
+        
+        <h3>8.3 Ongoing Maintenance</h3>
+        <p>Ongoing maintenance beyond the first month can be arranged separately. Maintenance packages may include:</p>
+        <ul>
+            <li>Regular content updates and modifications</li>
+            <li>Software and plugin updates</li>
+            <li>Security monitoring and malware scanning</li>
+            <li>Regular backups and disaster recovery</li>
+            <li>Performance optimization and speed improvements</li>
+            <li>Monthly reports and analytics</li>
+        </ul>
+        
+        <div class="section-divider"></div>
+        
+        <h2>9. Cancellation and Refund Policy</h2>
+        
+        <h3>9.1 Client Cancellation</h3>
+        <p>If you cancel the project:</p>
+        <ul>
+            <li><strong>Before work begins:</strong> 100% refund of deposit minus 10% administrative fee</li>
+            <li><strong>During design phase:</strong> 50% refund of deposit (work completed to date is yours to keep)</li>
+            <li><strong>After design approval:</strong> No refund of deposit (significant work completed)</li>
+            <li><strong>After development begins:</strong> No refund (substantial resources invested)</li>
+        </ul>
+        
+        <h3>9.2 Futurify Designs Cancellation</h3>
+        <p>We reserve the right to cancel a project if:</p>
+        <ul>
+            <li>Client fails to provide necessary materials after <strong>3 written requests</strong></li>
+            <li>Client behavior is abusive, unprofessional, or harassing toward our team</li>
+            <li>Payment is not received as scheduled despite reminders</li>
+            <li>Project requirements violate laws or ethical standards</li>
+        </ul>
+        <p>In such cases, you will receive a refund proportional to the work completed, minus any expenses incurred.</p>
+        
+        <div class="section-divider"></div>
+        
+        <h2>10. Warranties and Disclaimers</h2>
+        
+        <h3>10.1 Our Warranties</h3>
+        <p>We warrant that:</p>
+        <ul>
+            <li>Services will be performed <strong>professionally and competently</strong></li>
+            <li>Original work will not infringe third-party intellectual property rights</li>
+            <li>Websites will be functional and free of critical bugs at time of delivery</li>
+            <li>Work will be completed in accordance with industry best practices</li>
+            <li>We will make reasonable efforts to meet agreed timelines</li>
+        </ul>
+        
+        <h3>10.2 Disclaimer</h3>
+        <p>We do <strong>not</strong> guarantee:</p>
+        <ul>
+            <li>Specific search engine rankings, traffic levels, or conversion rates</li>
+            <li>Compatibility with all future browser versions or devices indefinitely</li>
+            <li>Uninterrupted or error-free operation after launch (depends on hosting)</li>
+            <li>Results from using the website for business purposes or profitability</li>
+            <li>Third-party service integrations will continue to work indefinitely</li>
+        </ul>
+        
+        <div class="highlight-box">
+            <p><strong>⚠️ Important:</strong> Websites are delivered "as is" at completion. We are not responsible for issues arising from changes made by the client or third parties after delivery, hosting/server problems, or obsolescence of third-party services.</p>
+        </div>
+        
+        <div class="section-divider"></div>
+        
+        <h2>11. Limitation of Liability</h2>
+        
+        <p>To the maximum extent permitted by law:</p>
+        <ul>
+            <li>Our <strong>total liability</strong> shall not exceed the total amount paid by you for the specific project</li>
+            <li>We are not liable for indirect, incidental, special, or consequential damages</li>
+            <li>We are not liable for loss of profits, data, business opportunities, or revenue</li>
+            <li>We are not liable for damages resulting from client actions, hosting issues, or third-party services</li>
+            <li>We are not liable for any damages occurring more than 30 days after project delivery</li>
+        </ul>
+        
+        <div class="section-divider"></div>
+        
+        <h2>12. Confidentiality</h2>
+        
+        <p>We agree to:</p>
+        <ul>
+            <li>Keep confidential any <strong>proprietary information</strong> you provide during the project</li>
+            <li>Not disclose your business information, strategies, or trade secrets to third parties</li>
+            <li>Use your information only for the purpose of providing our services</li>
+            <li>Implement reasonable security measures to protect your information</li>
+            <li>Not compete with your business using information gained during our work</li>
+        </ul>
+        
+        <p>However, confidentiality does not extend to:</p>
+        <ul>
+            <li>Information that is publicly available</li>
+            <li>Information we already possessed before the engagement</li>
+            <li>Information we must disclose by law</li>
+        </ul>
+        
+        <div class="section-divider"></div>
+        
+        <h2>13. Force Majeure</h2>
+        
+        <p>We are not liable for delays or failures in performance resulting from circumstances beyond our reasonable control, including but not limited to:</p>
+        <ul>
+            <li>Natural disasters (floods, earthquakes, fires)</li>
+            <li>Power outages and internet service interruptions</li>
+            <li>Government actions, laws, or regulations</li>
+            <li>Pandemics, epidemics, or public health emergencies</li>
+            <li>Strikes or labor disputes</li>
+            <li>Acts of terrorism or war</li>
+        </ul>
+        
+        <div class="section-divider"></div>
+        
+        <h2>14. Dispute Resolution</h2>
+        
+        <h3>14.1 Communication First</h3>
+        <p>In the event of any dispute, we encourage <strong>open communication</strong> to resolve issues amicably. Most concerns can be addressed through direct dialogue.</p>
+        
+        <h3>14.2 Mediation</h3>
+        <p>If disputes cannot be resolved through discussion, both parties agree to attempt good faith mediation before pursuing legal action.</p>
+        
+        <h3>14.3 Governing Law</h3>
+        <p>These Terms shall be governed by and construed in accordance with the <strong>laws of Botswana</strong>. Any legal proceedings shall be conducted in courts located in Gaborone, Botswana.</p>
+        
+        <div class="section-divider"></div>
+        
+        <h2>15. Website Usage Terms</h2>
+        
+        <h3>15.1 Acceptable Use</h3>
+        <p>Our website is for <strong>lawful purposes only</strong>. You may not:</p>
+        <ul>
+            <li>Use the website to transmit harmful code, malware, or viruses</li>
+            <li>Attempt to gain unauthorized access to our systems or databases</li>
+            <li>Scrape, copy, or reproduce content without permission</li>
+            <li>Use automated systems to access the website (bots, scrapers)</li>
+            <li>Use the website in any way that violates applicable local or international laws</li>
+            <li>Impersonate Futurify Designs or our team members</li>
+        </ul>
+        
+        <h3>15.2 Content Accuracy</h3>
+        <p>While we strive for accuracy, we make no warranties about the completeness, reliability, or accuracy of information on our website. Prices, services, and availability are subject to change without notice.</p>
+        
+        <div class="section-divider"></div>
+        
+        <h2>16. Modifications to Terms</h2>
+        
+        <p>We reserve the right to modify these Terms at any time. Changes will be:</p>
+        <ul>
+            <li>Effective immediately upon posting to our website</li>
+            <li>Notified to active clients via email for material changes</li>
+            <li>Updated with a new "Last Updated" date at the top of this page</li>
+        </ul>
+        
+        <p>Continued use of our services after changes constitutes acceptance of the modified Terms. We recommend reviewing this page periodically.</p>
+        
+        <div class="section-divider"></div>
+        
+        <h2>17. Severability</h2>
+        
+        <p>If any provision of these Terms is found to be unenforceable or invalid by a court of law, the remaining provisions will continue in full force and effect. The invalid provision will be modified to the minimum extent necessary to make it enforceable.</p>
+        
+        <div class="section-divider"></div>
+        
+        <h2>18. Entire Agreement</h2>
+        
+        <p>These Terms, together with any project proposal or agreement signed by both parties, constitute the <strong>entire agreement</strong> between you and Futurify Designs regarding our services. These Terms supersede all prior discussions, negotiations, or agreements.</p>
+        
+        <div class="section-divider"></div>
+        
+        <h2>19. Contact Information</h2>
+        
+        <div class="contact-box">
+            <h3>Questions About These Terms?</h3>
+            <p>For questions about these Terms of Service, project inquiries, or any other matters, please contact us:</p>
+            <p><strong style="font-size: 1.2em; color: #667eea;">Futurify Designs</strong></p>
+            <p><span class="contact-icon">📧</span> <strong>Email:</strong> <a href="mailto:futurifydesigns@gmail.com">futurifydesigns@gmail.com</a></p>
+            <p><span class="contact-icon">📱</span> <strong>Phone/WhatsApp:</strong> <a href="tel:+26777783823">+267 777 83823</a></p>
+            <p><span class="contact-icon">📍</span> <strong>Location:</strong> Gaborone, Botswana</p>
+            <p><span class="contact-icon">🌐</span> <strong>Website:</strong> <a href="home_f.html">www.futurifydesigns.com</a></p>
+            <p><span class="contact-icon">🕐</span> <strong>Business Hours:</strong> Monday-Friday, 9:00 AM - 6:00 PM (CAT)</p>
+        </div>
+        
+        <div style="margin-top: 50px; padding: 30px; background: linear-gradient(135deg, rgba(118,75,162,0.05), rgba(102,126,234,0.05)); border-radius: 15px; text-align: center;">
+            <p style="font-size: 1.1em; margin-bottom: 0; font-style: italic;"><strong>By using our services, you acknowledge that you have read, understood, and agree to be bound by these Terms of Service.</strong> We're excited to work with you and create something amazing together! 🚀</p>
+        </div>
+    </div>
+    
+    <div class="legal-footer">
+        <p>&copy; 2025 Futurify Designs. All rights reserved.</p>
+        <p>Designed & Built in Botswana</p>
+    </div>
+    
+    <script>
+        // Create animated particles
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 30;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 15 + 's';
+                particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
+                particlesContainer.appendChild(particle);
+            }
+        }
+        
+        createParticles();
+        
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

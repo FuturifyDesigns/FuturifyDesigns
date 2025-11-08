@@ -1607,6 +1607,10 @@
             <div class="footer-bottom">
                 <p>&copy; 2025 Futurify Designs. All rights reserved.</p>
                 <p>Designed & Built in Botswana</p>
+                <p style="margin-top: 10px; font-size: 13px;">
+                    <a href="privacy_policy.html" style="color: rgba(255,255,255,0.7); text-decoration: none; margin: 0 10px; transition: color 0.3s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,0.7)'">Privacy Policy</a> | 
+                    <a href="terms_of_service.html" style="color: rgba(255,255,255,0.7); text-decoration: none; margin: 0 10px; transition: color 0.3s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,0.7)'">Terms of Service</a>
+                </p>
             </div>
         </div>
     </footer>
@@ -1747,8 +1751,33 @@
         });
     </script>
 
-    <!-- AI Chatbot -->
-    <div class="chatbot-button" id="chatbotButton" style="position:fixed;bottom:30px;right:30px;width:60px;height:60px;border-radius:50%;background:linear-gradient(135deg,#667eea,#764ba2);cursor:pointer;z-index:10000;display:none;align-items:center;justify-content:center;box-shadow:0 10px 30px rgba(102,126,234,0.4);animation:chatPulse 2s infinite;">
+    <a href="https://wa.me/26777783823?text=Hi%20Futurify%20Designs!%20I'm%20interested%20in%20your%20web%20design%20services.%20Can%20we%20discuss%3F" 
+       target="_blank" 
+       rel="noopener noreferrer"
+       class="whatsapp-button" 
+       id="whatsappButton" 
+       style="position:fixed;bottom:30px;right:30px;width:60px;height:60px;border-radius:50%;background:#25D366;cursor:pointer;z-index:10000;display:none;align-items:center;justify-content:center;box-shadow:0 10px 30px rgba(37,211,102,0.4);transition:all 0.3s ease;text-decoration:none;"
+       title="Chat on WhatsApp">
+        <svg viewBox="0 0 24 24" style="width:30px;height:30px;fill:#fff;">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+        </svg>
+    </a>
+    <style>
+    @keyframes chatPulse {
+        0%, 100% { transform: scale(1); box-shadow: 0 10px 30px rgba(102,126,234,0.4); }
+        50% { transform: scale(1.05); box-shadow: 0 15px 40px rgba(102,126,234,0.6); }
+    }
+    @keyframes whatsappPulse {
+        0%, 100% { transform: scale(1); box-shadow: 0 10px 30px rgba(37,211,102,0.4); }
+        50% { transform: scale(1.05); box-shadow: 0 15px 40px rgba(37,211,102,0.6); }
+    }
+    .whatsapp-button {
+        animation: whatsappPulse 2s infinite;
+    }
+    </style>
+
+        <!-- AI Chatbot -->
+    <div class="chatbot-button" id="chatbotButton" style="position:fixed;bottom:30px;right:100px;width:60px;height:60px;border-radius:50%;background:linear-gradient(135deg,#667eea,#764ba2);cursor:pointer;z-index:10000;display:none;align-items:center;justify-content:center;box-shadow:0 10px 30px rgba(102,126,234,0.4);animation:chatPulse 2s infinite;">
         <svg viewBox="0 0 24 24" style="width:30px;height:30px;fill:#fff;">
             <path d="M12 2C6.48 2 2 6.48 2 12c0 1.54.36 3 .97 4.29L2 22l5.71-.97C9 21.64 10.46 22 12 22c5.52 0 10-4.48 10-10S17.52 2 12 2zm0 18c-1.38 0-2.68-.31-3.85-.85l-.27-.14-2.82.48.48-2.82-.14-.27C4.31 14.68 4 13.38 4 12c0-4.41 3.59-8 8-8s8 3.59 8 8-3.59 8-8 8z"/>
         </svg>
@@ -2002,6 +2031,9 @@
             var chatBtn = document.getElementById('chatbotButton');
             if (chatBtn) chatBtn.style.display = 'flex';
             
+            var whatsappBtn = document.getElementById('whatsappButton');
+            if (whatsappBtn) whatsappBtn.style.display = 'flex';
+            
             var cookieChoice = getCookie('futurify_cookie_consent');
             if (!cookieChoice) {
                 var banner = document.getElementById('cookieBanner');
@@ -2011,6 +2043,19 @@
                 }
             }
         }, 3000);
+        
+        // WhatsApp button hover effects
+        var whatsappBtn = document.getElementById('whatsappButton');
+        if (whatsappBtn) {
+            whatsappBtn.addEventListener('mouseenter', function() {
+                this.style.transform = 'scale(1.1)';
+                this.style.boxShadow = '0 15px 40px rgba(37,211,102,0.6)';
+            });
+            whatsappBtn.addEventListener('mouseleave', function() {
+                this.style.transform = 'scale(1)';
+                this.style.boxShadow = '0 10px 30px rgba(37,211,102,0.4)';
+            });
+        }
         
         // Cookie Accept - NOW ENABLES GOOGLE ANALYTICS
         var acceptBtn = document.getElementById('acceptCookies');
@@ -2112,21 +2157,83 @@
         var chatSend = document.getElementById('chatbotSend');
         
         var responses = {
-            ideas_restaurant: "🍽️ Restaurant Website Ideas:\n\n✨ Online Menu with Photos\n📱 Table Reservations\n🛒 Online Ordering\n⭐ Customer Reviews\n📸 Photo Gallery\n\n📧 futurifydesigns@gmail.com\n📱 +267 777 83823\n🔗 Contact page",
-            ideas_ecommerce: "🛍️ E-Commerce Ideas:\n\n🛒 Shopping Cart\n💳 Payment Systems\n📦 Order Tracking\n⭐ Reviews\n🔍 Search\n\n📧 futurifydesigns@gmail.com\n📱 +267 777 83823\n🔗 Contact page",
-            ideas_portfolio: "🎨 Portfolio Ideas:\n\n📸 Gallery\n🎬 Video\n📝 Case Studies\n💼 Resume\n📧 Contact\n\n📧 futurifydesigns@gmail.com\n📱 +267 777 83823\n🔗 Contact page",
-            ideas_business: "💼 Business Ideas:\n\n🏢 Profile\n👥 Team\n📊 Services\n💬 Testimonials\n📰 Blog\n\n📧 futurifydesigns@gmail.com\n📱 +267 777 83823\n🔗 Contact page",
-            motivation: "💪 You've Got This!\n\nYour website will:\n✨ Reach 24/7\n📈 Build trust\n💰 Generate leads\n\nLet's do it!",
-            pricing: "💰 Pricing:\n\nFor custom quotes contact me:\n📧 futurifydesigns@gmail.com\n📱 +267 777 83823\n🔗 Contact page\n\nPayment plans available!",
-            timeline: "⏰ Timeline:\n\nTimeline varies by project.\n\nContact for estimates:\n📧 futurifydesigns@gmail.com\n📱 +267 777 83823\n🔗 Contact page",
-            about: "👋 Futurify Designs:\n\n🌍 Gaborone, Botswana\n💻 Modern web specialist\n⚡ Fast & SEO-optimized\n\nLet's create!",
-            process: "🛠️ How We Work:\n\n1️⃣ Discussion\n2️⃣ Proposal\n3️⃣ Design\n4️⃣ Development\n5️⃣ Testing\n6️⃣ Launch 🚀\n7️⃣ Support",
-            contact: "📞 Contact:\n\n📧 futurifydesigns@gmail.com\n📱 +267 777 83823\n📍 Gaborone\n\nOr visit Contact page!",
-            help: "🤔 I Can Help!\n\n💡 Ideas\n🎨 Design\n💰 Pricing\n⏰ Timeline\n\nWhat do you need?",
-            hello: "👋 Welcome!\n\nI can help with:\n💡 Ideas\n💰 Pricing\n⏰ Timeline\n🎨 Design\n\nHow can I help?",
-            thanks: "🌟 You're welcome!\n\nAsk anything!\n📧 futurifydesigns@gmail.com",
-            fallback: "🤔 Not sure about that!\n\nContact me:\n📧 futurifydesigns@gmail.com\n📱 +267 777 83823\n🔗 Contact page",
-            outofscope: "💬 Outside my expertise!\n\nReach out:\n📧 futurifydesigns@gmail.com\n\nI'm here for web design! 🌐"
+            // Greetings
+            hello: "👋 Hi! Welcome to Futurify Designs!\n\nI'm your virtual assistant. I can help you with:\n\n🏢 About Us\n🌐 How This Website Works\n💰 Pricing & Packages\n⏰ Project Timeline\n📞 Contact Information\n💬 WhatsApp Chat\n🔒 Privacy Policy\n\nJust type your question or choose a topic!",
+            
+            // About Company
+            about: "🏢 About Futurify Designs:\n\n📍 Based in Gaborone, Botswana\n💻 Specializing in modern, professional websites\n⚡ Fast-loading & SEO-optimized designs\n📱 Mobile-responsive solutions\n🎨 Custom designs tailored to YOUR brand\n\n✨ Our Mission: Crafting tomorrow's digital experiences today!\n\nWant to know more about our services?",
+            
+            about_detailed: "🌟 What Makes Us Different:\n\n✅ 100% Custom Designs (No Templates!)\n✅ Fast Turnaround Times\n✅ Affordable Pricing for Botswana Market\n✅ Ongoing Support After Launch\n✅ SEO & Speed Optimized\n✅ Mobile-First Approach\n\n🎯 We build websites that actually convert visitors into customers!\n\n💬 Ready to start? Contact us or ask about pricing!",
+            
+            // How Website Works
+            website_help: "🌐 How to Use This Website:\n\n🏠 HOME: Learn about our services\n📁 PORTFOLIO: See our past work\n👤 ABOUT: Meet the team & our story\n📞 CONTACT: Get in touch with us\n\n💡 TIP: Click any page in the top menu!\n\n🤖 You can also ask me questions anytime by clicking this chat icon!\n\nWhat would you like to know?",
+            
+            navigation: "🧭 Website Navigation Help:\n\n📱 On Mobile: Tap the menu icon (☰) top-right\n💻 On Desktop: Click any page in the top menu bar\n\n📄 Our Pages:\n• HOME - Services overview\n• PORTFOLIO - Past projects\n• ABOUT - Our story\n• CONTACT - Get in touch\n\n🔍 Lost? Just ask me anything!",
+            
+            // Services & What We Do
+            services: "💼 Our Services:\n\n🌐 Website Design & Development\n   • Business Websites\n   • E-Commerce Stores\n   • Portfolio Sites\n   • Restaurant/Hotel Sites\n   • Landing Pages\n\n📱 Mobile-Responsive Design\n⚡ Website Speed Optimization\n🔍 SEO Setup\n🎨 Logo & Branding (on request)\n\n💡 Need something specific? Ask me!",
+            
+            // Website Types
+            ideas_restaurant: "🍽️ Restaurant/Cafe Websites:\n\nWe can build:\n✨ Online Menu with Photos & Prices\n📱 Table Reservation System\n🛒 Online Ordering (Takeaway)\n📸 Beautiful Photo Gallery\n⭐ Customer Reviews Section\n📍 Location & Opening Hours\n\n💰 Starting from affordable rates!\n📞 Contact: +267 777 83823\n💬 WhatsApp: Click the green button below!",
+            
+            ideas_ecommerce: "🛍️ E-Commerce Websites:\n\nWe can build:\n🛒 Full Shopping Cart System\n💳 Payment Integration (PayPal, etc.)\n📦 Order Tracking\n⭐ Product Reviews\n🔍 Advanced Search & Filters\n📱 Mobile Shopping Experience\n\n💰 Custom quote based on products!\n📞 Contact: +267 777 83823\n💬 WhatsApp: Click the green button!",
+            
+            ideas_portfolio: "🎨 Portfolio Websites:\n\nPerfect for:\n📸 Photographers\n🎨 Artists & Designers  \n✍️ Writers & Content Creators\n💼 Consultants\n\nFeatures:\n📷 Stunning Image Gallery\n🎬 Video Integration\n📝 Case Studies/Projects\n📧 Contact Forms\n\n💰 Affordable packages available!\n📞 +267 777 83823",
+            
+            ideas_business: "💼 Business Websites:\n\nIdeal for:\n🏢 Companies & Startups\n👔 Professional Services\n🏗️ Contractors & Builders\n🎓 Educational Institutions\n\nFeatures:\n📊 Services Showcase\n👥 Team Profiles\n💬 Testimonials\n📰 Blog/News Section\n📈 Lead Generation Forms\n\n📞 Let's discuss: +267 777 83823",
+            
+            // Pricing
+            pricing: "💰 Pricing & Packages:\n\n🌟 STARTER\n   • Single Page Website\n   • Mobile Responsive\n   • Contact Form\n   \n🚀 PROFESSIONAL\n   • Multi-Page Website (up to 5 pages)\n   • Custom Design\n   • SEO Basic\n   \n💎 PREMIUM\n   • E-Commerce or Complex Site\n   • All Features\n   • Priority Support\n\n💵 Payment Plans Available!\n📞 Custom Quote: +267 777 83823\n💬 WhatsApp for instant quote!",
+            
+            pricing_detailed: "💵 Investment Details:\n\n✅ Flexible Payment Plans\n✅ 50% Deposit, 50% on Completion\n✅ No Hidden Fees\n✅ Includes Hosting Setup Help\n✅ Free Minor Updates (first month)\n\n💳 Payment Methods:\n• Bank Transfer\n• Mobile Money\n• eWallet\n• Pay2Cell\n• International: PayPal\n\n📞 Get exact quote: +267 777 83823\n💬 WhatsApp is fastest!",
+            
+            // Timeline
+            timeline: "⏰ Project Timeline:\n\n⚡ SIMPLE SITE: 5-7 days\n🚀 MEDIUM SITE: 10-14 days\n💎 COMPLEX SITE: 3-4 weeks\n\n📅 Process:\n1️⃣ Consultation (1 day)\n2️⃣ Design Mockup (2-3 days)\n3️⃣ Your Feedback\n4️⃣ Development (varies)\n5️⃣ Testing (1-2 days)\n6️⃣ Launch! 🎉\n\n⏱️ Rush projects available!\n📞 Discuss timeline: +267 777 83823",
+            
+            timeline_detailed: "📆 Detailed Timeline Breakdown:\n\n🗣️ DISCOVERY (Day 1-2):\n   • Discuss goals & requirements\n   • Competitor analysis\n   • Content gathering\n\n🎨 DESIGN (Day 3-5):\n   • Mockup creation\n   • Revisions based on feedback\n\n💻 DEVELOPMENT (Day 6-12):\n   • Coding & building\n   • Feature implementation\n\n✅ TESTING (Day 13-14):\n   • Quality assurance\n   • Mobile testing\n\n🚀 LAUNCH!\n\n📞 Start now: +267 777 83823",
+            
+            // Process/How We Work
+            process: "🛠️ How We Work:\n\n1️⃣ CONSULTATION\n   • Understand your vision\n   • Define requirements\n   \n2️⃣ PROPOSAL & QUOTE\n   • Detailed breakdown\n   • Timeline estimate\n   \n3️⃣ DESIGN PHASE\n   • Create mockups\n   • Get your approval\n   \n4️⃣ DEVELOPMENT\n   • Build your site\n   • Regular updates\n   \n5️⃣ TESTING\n   • Quality checks\n   • Your feedback\n   \n6️⃣ LAUNCH! 🚀\n   • Go live\n   \n7️⃣ SUPPORT\n   • Ongoing assistance\n\n📞 Let's start: +267 777 83823",
+            
+            // Contact Information  
+            contact: "📞 Get In Touch:\n\n📧 Email:\nfuturifydesigns@gmail.com\n\n📱 Phone/SMS:\n+267 777 83823\n\n💬 WhatsApp:\nClick the green button below for instant chat!\n\n📍 Location:\nGaborone, Botswana\n\n🌐 Or use our Contact Page:\nClick 'Contact' in the menu above!\n\n⚡ We typically respond within 2-4 hours!",
+            
+            whatsapp: "💬 WhatsApp Direct Chat:\n\n✅ Fastest way to reach us!\n✅ Available during business hours\n✅ Send photos/examples easily\n✅ Get quick quotes\n\n👇 Click the GREEN WHATSAPP button at the bottom of this chat or on the page!\n\nNumber: +267 777 83823\n\n⏰ Business Hours:\nMon-Fri: 9AM - 6PM\nSat: 10AM - 2PM",
+            
+            // Portfolio
+            portfolio: "📁 View Our Work:\n\n🎨 Click 'PORTFOLIO' in the menu above to see:\n\n✅ Past Projects\n✅ Different Website Types\n✅ Our Design Style\n✅ Client Success Stories\n\n💡 TIP: Each project shows:\n   • Industry/Type\n   • Features included\n   • Technologies used\n\n🚀 Ready for YOUR project?\n📞 +267 777 83823\n💬 WhatsApp us!",
+            
+            // Features
+            features: "✨ Website Features We Offer:\n\n🎨 DESIGN:\n• Custom layouts\n• Your brand colors/logo\n• Modern, professional look\n\n⚡ TECHNICAL:\n• Fast loading speed\n• Mobile responsive\n• SEO optimized\n• Secure (HTTPS)\n\n🔧 FUNCTIONALITY:\n• Contact forms\n• Social media links\n• Google Maps integration\n• Image galleries\n• And much more!\n\nNeed something specific? Ask me!",
+            
+            // Support & Maintenance
+            support: "🛠️ Support & Maintenance:\n\n✅ FREE SUPPORT:\n• First month minor updates\n• Bug fixes\n• Content updates help\n\n💎 ONGOING MAINTENANCE:\n• Monthly updates\n• Security monitoring\n• Performance optimization\n• Priority support\n\n📧 Email anytime: futurifydesigns@gmail.com\n📱 Call: +267 777 83823\n💬 WhatsApp: Quick response!\n\nWe're here to help! 🚀",
+            
+            // Domain & Hosting
+            hosting: "🌐 Domain & Hosting:\n\n📝 DOMAIN (yourname.com):\n• We help you register\n• Or use your existing domain\n• .com, .co.bw, etc.\n\n🖥️ HOSTING:\n• We recommend providers\n• Help with setup\n• Or manage it for you\n\n💰 COSTS (approximate):\n• Domain: ~P150-P400/year\n• Hosting: ~P500-P1500/year\n\n💡 We'll guide you through everything!\n📞 Questions? +267 777 83823",
+            
+            // Privacy & Legal
+            privacy: "🔒 Privacy & Security:\n\n✅ Your Data is Safe:\n• We don't share client info\n• Secure communication\n• GDPR-compliant practices\n\n📄 Legal Pages:\n• Privacy Policy (link in footer)\n• Terms of Service (link in footer)\n\n🔐 Website Security:\n• HTTPS/SSL included\n• Secure forms\n• Regular updates\n\n📧 Privacy questions?\nfuturifydesigns@gmail.com",
+            
+            privacy_policy: "📄 Privacy Policy:\n\nOur full Privacy Policy covers:\n• What data we collect\n• How we use it  \n• Your rights\n• Cookie usage\n• Contact information\n\n🔗 View full policy:\nClick 'Privacy Policy' link in the footer below!\n\nOr visit our Contact page.\n\n📧 Questions?\nfuturifydesigns@gmail.com",
+            
+            terms: "📜 Terms of Service:\n\nOur Terms cover:\n• Service agreement\n• Payment terms\n• Cancellation policy\n• Intellectual property\n• Liability\n\n🔗 View full terms:\nClick 'Terms of Service' link in the footer!\n\n💼 For custom projects, we provide detailed contracts.\n\n📞 Questions? +267 777 83823",
+            
+            // Help & Troubleshooting
+            help: "🤔 I'm Here to Help!\n\nYou can ask me about:\n\n🏢 About Futurify Designs\n💰 Pricing & Packages\n⏰ Timeline & Process\n🌐 Website Navigation\n📞 Contact Information\n💬 WhatsApp Chat\n🎨 Services & Features\n📁 Portfolio\n🔒 Privacy Policy\n📜 Terms of Service\n\nWhat would you like to know?",
+            
+            // Quick Actions
+            start_project: "🚀 Start Your Project:\n\n3 Quick Ways:\n\n1️⃣ 💬 WHATSAPP (Fastest!)\n   Click green button below\n   \n2️⃣ 📞 CALL US\n   +267 777 83823\n   \n3️⃣ 📧 EMAIL\n   futurifydesigns@gmail.com\n\nOr fill out our Contact Form!\n(Click 'Contact' in menu)\n\n💡 Have your project details ready:\n• Website type needed\n• Features wanted\n• Budget range\n• Timeline needed\n\nLet's build something amazing! ✨",
+            
+            quote: "💵 Get a Custom Quote:\n\n📝 To provide accurate quote, we need:\n\n1️⃣ Website Type:\n   (Business/E-commerce/Portfolio/etc.)\n   \n2️⃣ Number of Pages\n\n3️⃣ Special Features Needed\n\n4️⃣ Timeline/Deadline\n\n5️⃣ Budget Range (if any)\n\n⚡ FASTEST: WhatsApp us!\n💬 Click green button below\n📞 Or call: +267 777 83823\n📧 Email: futurifydesigns@gmail.com\n\nQuotes usually within 24 hours!",
+            
+            // Thanks
+            thanks: "🌟 You're Very Welcome!\n\nHappy to help! 😊\n\nNeed anything else?\n\n💬 Keep chatting with me\n📞 Call: +267 777 83823\n💚 WhatsApp: Click green button\n📧 Email: futurifydesigns@gmail.com\n\nLooking forward to working with you! 🚀",
+            
+            // Fallback
+            fallback: "🤔 Hmm, I'm not quite sure about that!\n\nI can help you with:\n• Company information\n• Pricing & services\n• How to use this website\n• Contact details\n• Starting a project\n\nTry rephrasing your question, or:\n\n💬 WhatsApp us directly (green button)\n📞 Call: +267 777 83823\n📧 Email: futurifydesigns@gmail.com\n\nA human will gladly help! 😊",
+            
+            outofscope: "💬 That's outside my expertise!\n\nI'm focused on web design services at Futurify Designs.\n\nI CAN help with:\n✅ Website pricing & packages\n✅ Project timelines\n✅ Our services\n✅ Contact information\n\nFor other topics:\n📞 +267 777 83823\n📧 futurifydesigns@gmail.com\n💬 WhatsApp (green button)\n\nLet's talk web design! 🌐"
         };
         
         // Load chat history from sessionStorage
