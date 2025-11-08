@@ -1037,6 +1037,30 @@
             transform: translateY(0);
         }
         
+        /* WhatsApp Tooltip */
+        .whatsapp-button::before {
+            content: "Chat with me! 💬";
+            position: absolute;
+            bottom: 70px;
+            right: 0;
+            background: #25D366;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 700;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s, transform 0.3s;
+            transform: translateY(10px);
+            box-shadow: 0 5px 20px rgba(37, 211, 102, 0.4);
+        }
+        
+        .whatsapp-button:hover::before {
+            opacity: 1;
+            transform: translateY(0);
+        }
         
 
         /* Notification Style Quote Popup */
@@ -1210,6 +1234,14 @@
             #chatbotButton {
                 bottom: 20px !important;
                 right: 20px !important;
+                width: 50px !important;
+                height: 50px !important;
+            }
+            
+            /* WhatsApp mobile positioning - next to chatbot */
+            #whatsappButton {
+                bottom: 20px !important;
+                right: 85px !important;
                 width: 50px !important;
                 height: 50px !important;
             }
