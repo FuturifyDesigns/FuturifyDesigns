@@ -2320,6 +2320,9 @@
 
         
         // Business Hours Clock
+        // Track last hour a notice was shown to detect hour changes
+        let lastNoticeHour = -1;
+
         function updateClock() {
             const now = new Date();
             const hours = String(now.getHours()).padStart(2, '0');
@@ -2370,13 +2373,38 @@
             
             statusEl.className = 'clock-status ' + statusClass;
             statusEl.textContent = statusText;
+            
+            // Hour-change detection: Show notice at appropriate times
+            if (hour !== lastNoticeHour) {
+                if (hour === openHour) {
+                    // 9 AM - We're Open!
+                    showStatusNotice('✅', 'We\'re Open!', 'Our services are operational! Feel free to contact us via WhatsApp, phone, or email. We\'re here to help with your web design needs!');
+                    lastNoticeHour = hour;
+                } else if (hour === openHour - 1) {
+                    // 8 AM - Almost Open
+                    showStatusNotice('🌅', 'Opening Soon', 'We\'re about to open! Our team will be available at 9 AM. You can still look around and send us a message - we\'ll respond as soon as we\'re open!');
+                    lastNoticeHour = hour;
+                } else if (hour === closeHour - 1) {
+                    // 5 PM - Almost Closing
+                    showStatusNotice('⚠️', 'Almost Closing Time', 'We\'re about to close for the day. You can still browse and contact us, but we\'ll get back to you when we reopen tomorrow at 9 AM!');
+                    lastNoticeHour = hour;
+                } else if (hour === closeHour) {
+                    // 6 PM - We're Closed
+                    showStatusNotice('🌙', 'We\'re Closed', 'Thanks for visiting! We\'re currently closed. You can still browse our website and contact us - we\'ll get back to you when we reopen at 9 AM. Business hours: 9 AM - 6 PM.');
+                    lastNoticeHour = hour;
+                }
+            }
         }
 
         // Status Notice System - Complete with all transitions
         function showStatusNotice(icon, title, message, noticeType) {
-            const noticeKey = `notice_${noticeType}_${new Date().toDateString()}`;
+            const now = new Date();
+            const hour = now.getHours();
+            // Use noticeType if provided, otherwise use title; include hour to allow same notice type at different times
+            const typeKey = noticeType || title.replace(/\s/g, '_');
+            const noticeKey = `notice_${typeKey}_${hour}_${now.toDateString()}`;
             
-            // Check if this specific notice was already shown today
+            // Check if this specific notice was already shown for this hour today
             if (sessionStorage.getItem(noticeKey)) {
                 return;
             }
@@ -2396,7 +2424,7 @@
             noticeOverlayEl.classList.add('show');
             statusNoticeEl.classList.add('show');
             
-            // Mark this specific notice as shown
+            // Mark this specific notice as shown for this hour
             sessionStorage.setItem(noticeKey, 'true');
         }
 
