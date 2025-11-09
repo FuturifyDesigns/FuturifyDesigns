@@ -12,7 +12,6 @@
         html {
             overflow-x: hidden;
             max-width: 100vw;
-            position: relative;
         }
 
         * {
@@ -27,14 +26,6 @@
             font-family: 'Poppins', sans-serif;
             background: #0a0a1a;
             overflow-x: hidden;
-            max-width: 100vw;
-            position: relative;
-            width: 100%;
-        }
-        
-        /* Prevent any element from causing horizontal scroll */
-        body > * {
-            max-width: 100vw;
         }
 
         /* Remove tap highlight and focus outline on all interactive elements */
@@ -152,8 +143,6 @@
             opacity: 0;
             transform: translateY(30px);
             transition: all 1s ease-out;
-            overflow-x: hidden;
-            max-width: 100vw;
         }
 
         .page-content.revealed {
@@ -1049,17 +1038,12 @@
             min-width: 200px;
             text-align: center;
             transition: all 0.3s ease;
-            transform: translateX(0);
         }
 
         .business-hours-widget.collapsed {
-            transform: translateX(calc(100% + 20px));
+            right: -200px;
+            transform: translateX(0);
             box-shadow: none;
-            pointer-events: none;
-        }
-        
-        .business-hours-widget.collapsed .widget-toggle {
-            pointer-events: all;
         }
 
         .widget-toggle {
@@ -1248,11 +1232,11 @@
                 right: 10px;
                 padding: 12px;
                 min-width: 150px;
-                transform: translateX(0);
             }
 
             .business-hours-widget.collapsed {
-                transform: translateX(calc(100% + 10px));
+                right: 0;
+                transform: translateX(100%);
             }
 
             .widget-toggle {
