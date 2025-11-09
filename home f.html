@@ -9,6 +9,11 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        html {
+            overflow-x: hidden;
+            max-width: 100vw;
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -1022,20 +1027,22 @@
             position: fixed;
             top: 100px;
             right: 20px;
+            max-width: 200px;
             background: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(20px);
             border-radius: 20px;
             padding: 20px;
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
             border: 1px solid rgba(255, 255, 255, 0.2);
-            z-index: 999;
+            z-index: 9999;
             min-width: 200px;
             text-align: center;
             transition: all 0.3s ease;
         }
 
         .business-hours-widget.collapsed {
-            right: -220px;
+            right: -200px;
+            transform: translateX(0);
             box-shadow: none;
         }
 
@@ -1056,6 +1063,7 @@
             justify-content: center;
             cursor: pointer;
             transition: all 0.3s ease;
+                    overflow: hidden;
         }
 
         .widget-toggle:hover {
@@ -1136,7 +1144,7 @@
         /* Status Notice Modal */
         .status-notice {
             position: fixed;
-            top: 50%;
+            top: 20%;
             left: 50%;
             transform: translate(-50%, -50%) scale(0.8);
             background: rgba(255, 255, 255, 0.1);
@@ -1294,6 +1302,16 @@
             </div>
             <div class="clock-status" id="status">Loading...</div>
         </div>
+    </div>
+
+
+    <!-- Status Notice -->
+    <div class="status-notice-overlay" id="noticeOverlay"></div>
+    <div class="status-notice" id="statusNotice">
+        <div class="notice-icon" id="noticeIcon">🔔</div>
+        <div class="notice-title" id="noticeTitle">Status Update</div>
+        <div class="notice-message" id="noticeMessage"></div>
+        <button class="notice-close" onclick="closeNotice()">Got it!</button>
     </div>
 
         <!-- Hero Section -->
@@ -2147,25 +2165,21 @@
 
         
         // Business Hours Clock
-        function updateClock() {
+function updateClock() {
             const now = new Date();
             const hours = String(now.getHours()).padStart(2, '0');
             const minutes = String(now.getMinutes()).padStart(2, '0');
             const seconds = String(now.getSeconds()).padStart(2, '0');
             
-            const clockEl = document.getElementById('clock');
-            if (clockEl) {
-                clockEl.textContent = `${hours}:${minutes}:${seconds}`;
-            }
+            document.getElementById('clock').textContent = `${hours}:${minutes}:${seconds}`;
             
-            // Update status badge in real-time
+            // Update status
             updateStatus(now);
         }
 
         function updateStatus(now) {
             const hour = now.getHours();
             const statusEl = document.getElementById('status');
-            if (!statusEl) return;
             
             // Business hours: 9 AM to 6 PM
             const openHour = 9;
@@ -2176,7 +2190,7 @@
             if (hour >= openHour && hour < closeHour) {
                 // Open
                 if (hour === closeHour - 1) {
-                    // Almost closing (5 PM - 6 PM)
+                    // Almost closing (1 hour before close)
                     statusClass = 'status-almost-closing';
                     statusText = 'Almost Closing';
                 } else {
@@ -2186,7 +2200,7 @@
             } else {
                 // Closed
                 if (hour === openHour - 1 || (hour === 8 && now.getMinutes() >= 0)) {
-                    // Almost open (8 AM - 9 AM)
+                    // Almost open (1 hour before opening)
                     statusClass = 'status-almost-open';
                     statusText = 'Almost Open';
                 } else {
@@ -2199,40 +2213,29 @@
             statusEl.textContent = statusText;
         }
 
-        // Status Notice System - Complete with all transitions
-        function showStatusNotice(icon, title, message, noticeType) {
-            const noticeKey = `notice_${noticeType}_${new Date().toDateString()}`;
+// Status Notice System
+        function showStatusNotice(icon, title, message) {
+            const noticeKey = `notice_${title.replace(/\s/g, '_')}_${new Date().toDateString()}`;
             
-            // Check if this specific notice was already shown today
+            // Check if notice was already shown today
             if (sessionStorage.getItem(noticeKey)) {
                 return;
             }
             
-            const noticeIconEl = document.getElementById('noticeIcon');
-            const noticeTitleEl = document.getElementById('noticeTitle');
-            const noticeMessageEl = document.getElementById('noticeMessage');
-            const noticeOverlayEl = document.getElementById('noticeOverlay');
-            const statusNoticeEl = document.getElementById('statusNotice');
+            document.getElementById('noticeIcon').textContent = icon;
+            document.getElementById('noticeTitle').textContent = title;
+            document.getElementById('noticeMessage').textContent = message;
             
-            if (!noticeIconEl || !noticeTitleEl || !noticeMessageEl || !noticeOverlayEl || !statusNoticeEl) return;
+            document.getElementById('noticeOverlay').classList.add('show');
+            document.getElementById('statusNotice').classList.add('show');
             
-            noticeIconEl.textContent = icon;
-            noticeTitleEl.textContent = title;
-            noticeMessageEl.textContent = message;
-            
-            noticeOverlayEl.classList.add('show');
-            statusNoticeEl.classList.add('show');
-            
-            // Mark this specific notice as shown
+            // Mark as shown
             sessionStorage.setItem(noticeKey, 'true');
         }
 
         function closeNotice() {
-            const noticeOverlayEl = document.getElementById('noticeOverlay');
-            const statusNoticeEl = document.getElementById('statusNotice');
-            
-            if (noticeOverlayEl) noticeOverlayEl.classList.remove('show');
-            if (statusNoticeEl) statusNoticeEl.classList.remove('show');
+            document.getElementById('noticeOverlay').classList.remove('show');
+            document.getElementById('statusNotice').classList.remove('show');
         }
 
         function checkAndShowNotice() {
@@ -2245,119 +2248,27 @@
             // Delay to let opening animation finish
             setTimeout(() => {
                 if (hour >= openHour && hour < closeHour) {
-                    // Open hours
+                    // Open
                     if (hour === closeHour - 1) {
-                        // Almost closing (5 PM - 6 PM)
-                        showStatusNotice(
-                            '⚠️', 
-                            'Almost Closing Time', 
-                            'We\'re about to close for the day. You can still browse and contact us, but we\'ll get back to you when we reopen tomorrow at 9 AM!',
-                            'almost_closing'
-                        );
+                        showStatusNotice('⚠️', 'Almost Closing Time', 'We\'re about to close for the day. You can still browse and contact us, but we\'ll get back to you when we reopen tomorrow at 9 AM!');
                     } else {
-                        // Regular open (9 AM - 5 PM)
-                        showStatusNotice(
-                            '✅', 
-                            'We\'re Open!', 
-                            'Our services are operational! Feel free to contact us via WhatsApp, phone, or email. We\'re here to help with your web design needs!',
-                            'open'
-                        );
+                        showStatusNotice('✅', 'We\'re Open!', 'Our services are operational! Feel free to contact us via WhatsApp, phone, or email. We\'re here to help with your web design needs!');
                     }
                 } else {
-                    // Closed hours
+                    // Closed
                     if (hour === openHour - 1 || (hour === 8 && now.getMinutes() >= 0)) {
-                        // Almost open (8 AM - 9 AM)
-                        showStatusNotice(
-                            '🌅', 
-                            'Opening Soon', 
-                            'We\'re about to open! Our team will be available at 9 AM. You can still look around and send us a message - we\'ll respond as soon as we\'re open!',
-                            'almost_open'
-                        );
+                        showStatusNotice('🌅', 'Opening Soon', 'We\'re about to open! Our team will be available at 9 AM. You can still look around and send us a message - we\'ll respond as soon as we\'re open!');
                     } else {
-                        // Regular closed (after 6 PM, before 8 AM)
-                        showStatusNotice(
-                            '🌙', 
-                            'We\'re Closed', 
-                            'Thanks for visiting! We\'re currently closed. You can still browse our website and contact us - we\'ll get back to you when we reopen at 9 AM. Business hours: 9 AM - 6 PM.',
-                            'closed'
-                        );
+                        showStatusNotice('🌙', 'We\'re Closed', 'Thanks for visiting! We\'re currently closed. You can still browse our website and contact us - we\'ll get back to you when we reopen at 9 AM. Business hours: 9 AM - 6 PM.');
                     }
                 }
             }, 3000);
         }
 
-        // Check for ALL status changes every minute
-        function checkForStatusChanges() {
-            const now = new Date();
-            const hour = now.getHours();
-            const minute = now.getMinutes();
-            
-            const openHour = 9;
-            const closeHour = 18;
-            
-            // Check at the START of each hour for status transitions
-            if (minute === 0) {
-                const todayKey = new Date().toDateString();
-                
-                // Transition 1: Open → Almost Closing (5:00 PM)
-                if (hour === closeHour - 1) {
-                    const noticeKey = `notice_almost_closing_${todayKey}`;
-                    if (!sessionStorage.getItem(noticeKey)) {
-                        showStatusNotice(
-                            '⚠️', 
-                            'Almost Closing Time', 
-                            'We\'re about to close for the day. You can still browse and contact us, but we\'ll get back to you when we reopen tomorrow at 9 AM!',
-                            'almost_closing'
-                        );
-                    }
-                }
-                
-                // Transition 2: Almost Closing → Closed (6:00 PM)
-                else if (hour === closeHour) {
-                    const noticeKey = `notice_closed_${todayKey}`;
-                    if (!sessionStorage.getItem(noticeKey)) {
-                        showStatusNotice(
-                            '🌙', 
-                            'We\'re Closed', 
-                            'Thanks for visiting! We\'re currently closed. You can still browse our website and contact us - we\'ll get back to you when we reopen at 9 AM. Business hours: 9 AM - 6 PM.',
-                            'closed'
-                        );
-                    }
-                }
-                
-                // Transition 3: Closed → Almost Open (8:00 AM)
-                else if (hour === openHour - 1) {
-                    const noticeKey = `notice_almost_open_${todayKey}`;
-                    if (!sessionStorage.getItem(noticeKey)) {
-                        showStatusNotice(
-                            '🌅', 
-                            'Opening Soon', 
-                            'We\'re about to open! Our team will be available at 9 AM. You can still look around and send us a message - we\'ll respond as soon as we\'re open!',
-                            'almost_open'
-                        );
-                    }
-                }
-                
-                // Transition 4: Almost Open → Open (9:00 AM)
-                else if (hour === openHour) {
-                    const noticeKey = `notice_open_${todayKey}`;
-                    if (!sessionStorage.getItem(noticeKey)) {
-                        showStatusNotice(
-                            '✅', 
-                            'We\'re Open!', 
-                            'Our services are operational! Feel free to contact us via WhatsApp, phone, or email. We\'re here to help with your web design needs!',
-                            'open'
-                        );
-                    }
-                }
-            }
-        }
-
+        // Mobile menu toggle
         // Toggle widget visibility
         function toggleWidget() {
             const widget = document.getElementById('businessWidget');
-            if (!widget) return;
-            
             const isCollapsed = widget.classList.contains('collapsed');
             
             if (isCollapsed) {
@@ -2372,30 +2283,40 @@
         // Initialize widget state from localStorage
         function initWidgetState() {
             const widget = document.getElementById('businessWidget');
-            if (!widget) return;
-            
-            const isCollapsed = localStorage.getItem('widgetCollapsed') === 'true';
-            
-            if (isCollapsed) {
-                widget.classList.add('collapsed');
-            }
+            // Always start open for debugging
+            // const isCollapsed = localStorage.getItem('widgetCollapsed') === 'true';
+            // if (isCollapsed) {
+            //     widget.classList.add('collapsed');
+            // }
         }
 
-        // Initialize clock and notice
-        if (document.getElementById('clock')) {
-            initWidgetState();
-            setInterval(updateClock, 1000);  // Update clock every second
-            updateClock();
-            checkAndShowNotice();  // Initial notice on page load
-            
-            // Check for status changes every minute
-            setInterval(checkForStatusChanges, 60000);
+        // Initialize
+        console.log('🕐 Initializing widget...');
+        const widgetEl = document.getElementById('businessWidget');
+        if (widgetEl) {
+            console.log('✅ Widget element found:', widgetEl);
+            console.log('✅ Widget classes:', widgetEl.className);
+            console.log('✅ Widget computed style right:', window.getComputedStyle(widgetEl).right);
+        } else {
+            console.log('❌ Widget element NOT found!');
         }
+        initWidgetState();
+        setInterval(updateClock, 1000);
+        updateClock();
+        checkAndShowNotice();
 
         // Close notice when clicking overlay
-        const noticeOverlay = document.getElementById('noticeOverlay');
-        if (noticeOverlay) {
-            noticeOverlay.addEventListener('click', closeNotice);
+        document.getElementById('noticeOverlay').addEventListener('click', closeNotice);
+
+
+        // Initialize clock
+
+        // Toggle widget visibility
+        function toggleWidget() {
+            const widget = document.getElementById('businessWidget');
+            if (widget) {
+                widget.classList.toggle('collapsed');
+            }
         }
 
     </script>
