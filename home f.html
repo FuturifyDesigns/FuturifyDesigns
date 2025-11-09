@@ -1248,11 +1248,29 @@
                 right: 10px;
                 padding: 12px;
                 min-width: 150px;
+                max-width: calc(100vw - 20px);
                 transform: translateX(0);
             }
 
             .business-hours-widget.collapsed {
-                transform: translateX(calc(100% + 10px));
+                right: -100%;
+                transform: translateX(0);
+                opacity: 0;
+                visibility: hidden;
+            }
+            
+            .business-hours-widget.collapsed .widget-toggle {
+                left: auto;
+                right: 10px;
+                border-radius: 10px;
+                border: 1px solid rgba(255, 255, 255, 0.2);
+                position: fixed;
+                top: 80px;
+            }
+            
+            .business-hours-widget.collapsed .widget-toggle:hover {
+                left: auto;
+                right: 10px;
             }
 
             .widget-toggle {
