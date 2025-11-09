@@ -12,6 +12,7 @@
         html {
             overflow-x: hidden;
             max-width: 100vw;
+            position: relative;
         }
 
         * {
@@ -26,6 +27,8 @@
             font-family: 'Poppins', sans-serif;
             background: #0a0a1a;
             overflow-x: hidden;
+            max-width: 100vw;
+            position: relative;
         }
 
         /* Remove tap highlight and focus outline on all interactive elements */
@@ -1041,9 +1044,14 @@
         }
 
         .business-hours-widget.collapsed {
-            right: -200px;
+            right: -180px;
             transform: translateX(0);
             box-shadow: none;
+            pointer-events: none;
+        }
+        
+        .business-hours-widget.collapsed .widget-toggle {
+            pointer-events: all;
         }
 
         .widget-toggle {
@@ -1235,7 +1243,7 @@
             }
 
             .business-hours-widget.collapsed {
-                right: -170px;
+                right: -140px;
             }
 
             .widget-toggle {
