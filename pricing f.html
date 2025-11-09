@@ -1,0 +1,2493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pricing - Futurify Designs</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+            -webkit-touch-callout: none;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #0a0a1a 0%, #1a1a2e 25%, #16213e 50%, #0f3460 75%, #1a1a2e 100%);
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+
+        /* Dark Mode Support */
+        @media (prefers-color-scheme: dark) {
+            body {
+                /* Background already dark, so no change needed */
+            }
+            
+            .pricing-card {
+                background: rgba(255, 255, 255, 0.08);
+                border-color: rgba(255, 255, 255, 0.15);
+            }
+            
+            .pricing-card:hover {
+                background: rgba(255, 255, 255, 0.12);
+                border-color: rgba(255, 255, 255, 0.3);
+            }
+        }
+
+
+        .particles {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 50%;
+            animation: float 15s infinite ease-in-out;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0) translateX(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh) translateX(100px);
+                opacity: 0;
+            }
+        }
+
+
+        a, button, input, select, textarea, [role="button"] {
+            -webkit-tap-highlight-color: transparent;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            user-select: none;
+            outline: none;
+        }
+
+        button:focus, a:focus, input:focus, select:focus, textarea:focus {
+            outline: none;
+        }
+
+        /* Opening Animation */
+        .opening-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #0a0a1a 0%, #1a1a2e 25%, #16213e 50%, #0f3460 75%, #1a1a2e 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+            animation: fadeOut 0.8s ease-in-out 2.5s forwards;
+        }
+
+        .opening-content {
+            text-align: center;
+            animation: scaleIn 1s ease-out;
+        }
+
+        .opening-logo {
+            font-size: 120px;
+            font-weight: 900;
+            color: #fff;
+            letter-spacing: 0.1em;
+            margin-bottom: 20px;
+            opacity: 0;
+            transform: translateY(50px) scale(0.8);
+            animation: logoReveal 1.5s ease-out 0.3s forwards;
+            text-shadow: 0 0 40px rgba(255, 255, 255, 0.5);
+        }
+
+        .opening-text {
+            font-size: 40px;
+            font-weight: 700;
+            color: white;
+            margin-top: -10px;
+            letter-spacing: 8px;
+            opacity: 0;
+            animation: taglineReveal 1.2s ease-out 1.3s forwards;
+            text-shadow: 0 0 30px rgba(255, 255, 255, 0.6);
+        }
+
+        @keyframes scaleIn {
+            0% {
+                transform: scale(0.5);
+                opacity: 0;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        @keyframes logoReveal {
+            0% {
+                opacity: 0;
+                transform: translateY(50px) scale(0.8);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        @keyframes taglineReveal {
+            0% {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideIn {
+            0% {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+            100% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeOut {
+            to {
+                opacity: 0;
+                visibility: hidden;
+            }
+        }
+
+        /* Navigation */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(20px);
+            padding: 20px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            pointer-events: auto;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .logo {
+            font-size: 20px;
+            font-weight: 900;
+            color: #fff;
+            text-decoration: none;
+            letter-spacing: 2px;
+            transition: all 0.3s ease;
+            display: inline-block;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            position: relative;
+        }
+
+        .logo:hover {
+            animation: logoPulse 0.8s ease-in-out infinite;
+            transform: scale(1.15);
+            color: #fff;
+        }
+
+        @keyframes logoPulse {
+            0%, 100% {
+                text-shadow: 0 0 15px rgba(255, 255, 255, 1),
+                             0 0 30px rgba(255, 255, 255, 0.8),
+                             0 0 45px rgba(168, 237, 234, 0.9),
+                             0 0 60px rgba(168, 237, 234, 0.7);
+                filter: brightness(1.2);
+            }
+            50% {
+                text-shadow: 0 0 25px rgba(255, 255, 255, 1),
+                             0 0 50px rgba(255, 255, 255, 1),
+                             0 0 75px rgba(168, 237, 234, 1),
+                             0 0 100px rgba(168, 237, 234, 0.8),
+                             0 0 125px rgba(168, 237, 234, 0.6);
+                filter: brightness(1.5);
+            }
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 24px;
+            align-items: center;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: rgba(255, 255, 255, 0.95);
+            font-weight: 700;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-link:hover {
+            color: #fff;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #fff;
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .nav-link.active {
+            color: #fff;
+        }
+
+        .nav-link.active::after {
+            width: 100%;
+        }
+
+        /* Business Hours Clock */
+        .business-hours-widget {
+            position: fixed;
+            top: 100px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            z-index: 999;
+            min-width: 200px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .business-hours-widget.collapsed {
+            right: -220px;
+            box-shadow: none;
+        }
+
+        .widget-toggle {
+            position: absolute;
+            left: -35px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 35px;
+            height: 70px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-right: none;
+            border-radius: 10px 0 0 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .widget-toggle:hover {
+            background: rgba(255, 255, 255, 0.15);
+            left: -38px;
+        }
+
+        .toggle-icon {
+            color: #fff;
+            font-size: 18px;
+            transition: transform 0.3s ease;
+        }
+
+        .business-hours-widget.collapsed .toggle-icon {
+            transform: rotate(180deg);
+        }
+
+        .widget-content {
+            transition: opacity 0.3s ease;
+        }
+
+        .business-hours-widget.collapsed .widget-content {
+            opacity: 0;
+        }
+
+        .clock-container {
+            margin-bottom: 8px;
+        }
+
+        .clock-time {
+            font-size: 24px;
+            font-weight: 700;
+            color: #fff;
+            letter-spacing: 2px;
+            font-family: 'Courier New', monospace;
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+        }
+
+        .clock-status {
+            margin-top: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            padding: 8px 16px;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .status-open {
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            color: white;
+            animation: pulse-glow 2s ease-in-out infinite;
+        }
+
+        .status-almost-closing {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+        }
+
+        .status-closed {
+            background: linear-gradient(135deg, #4e54c8 0%, #8f94fb 100%);
+            color: white;
+        }
+
+        .status-almost-open {
+            background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+            color: white;
+        }
+
+        @keyframes pulse-glow {
+            0%, 100% {
+                box-shadow: 0 0 10px rgba(17, 153, 142, 0.5);
+            }
+            50% {
+                box-shadow: 0 0 20px rgba(17, 153, 142, 0.8);
+            }
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1100px;
+            margin: 70px auto 35px;
+            padding: 0 20px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 35px;
+            opacity: 0;
+            animation: fadeInDown 1s ease-out forwards;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .page-title {
+            font-size: 48px;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 16px;
+            letter-spacing: 2px;
+            text-shadow: 0 0 30px rgba(255, 255, 255, 0.3);
+        }
+
+        .page-subtitle {
+            font-size: 22px;
+            color: rgba(255, 255, 255, 0.9);
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.6;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Currency Selector */
+        .currency-selector {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .currency-label {
+            font-size: 16px;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 8px;
+            font-weight: 600;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .currency-dropdown {
+            padding: 14px 28px;
+            font-size: 16px;
+            border-radius: 12px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            color: #fff;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Poppins', sans-serif;
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23ffffff' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 12px center;
+            padding-right: 40px;
+            min-width: 280px;
+            max-width: 350px;
+        }
+
+        .currency-dropdown option {
+            background: #1a1a2e;
+            color: #fff;
+            padding: 10px;
+        }
+
+        .currency-dropdown:hover {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(255, 255, 255, 0.5);
+            box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2);
+        }
+
+        .currency-dropdown:focus {
+            outline: none;
+            border-color: rgba(255, 255, 255, 0.6);
+            box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.1);
+        }
+
+        /* Pricing Grid */
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+            margin-bottom: 35px;
+        }
+        
+        @media (min-width: 768px) {
+            .pricing-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (min-width: 1200px) {
+            .pricing-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        .pricing-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 16px 48px rgba(0, 0, 0, 0.5);
+            border-color: rgba(255, 255, 255, 0.3);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .pricing-card.featured {
+            border-color: rgba(168, 237, 234, 0.5);
+            background: rgba(255, 255, 255, 0.08);
+            box-shadow: 0 8px 32px rgba(168, 237, 234, 0.2);
+        }
+
+        .pricing-card.custom-card {
+            grid-column: span 2;
+            border-color: rgba(255, 215, 0, 0.4);
+            background: rgba(255, 255, 255, 0.08);
+            box-shadow: 0 8px 32px rgba(255, 215, 0, 0.15);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .pricing-card.custom-card::before {
+            content: '⭐';
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 24px;
+            opacity: 0.3;
+        }
+
+        .cta-button {
+            width: 100%;
+            padding: 12px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: block;
+            text-align: center;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(255, 255, 255, 0.4);
+            box-shadow: 0 8px 24px rgba(255, 255, 255, 0.2);
+        }
+
+        .custom-price {
+            font-size: 22px !important;
+            background: linear-gradient(135deg, #ffd700, #ffed4e);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .package-name {
+            font-size: 22px;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 8px;
+        }
+
+        .package-description {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 16px;
+            line-height: 1.6;
+        }
+
+        .price-section {
+            margin-bottom: 16px;
+        }
+
+        .price-label {
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.7);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+
+        .price {
+            font-size: 22px;
+            font-weight: 900;
+            color: #fff;
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+        }
+
+        .price-range {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.7);
+            margin-top: 4px;
+        }
+
+        .recurring-prices {
+            display: grid;
+            gap: 12px;
+            margin-top: 16px;
+            padding: 16px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .recurring-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 14px;
+        }
+
+        .recurring-label {
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .recurring-price {
+            font-weight: 600;
+            color: #fff;
+        }
+
+        .features-list {
+            list-style: none;
+            margin-bottom: 32px;
+        }
+
+        .features-list li {
+            padding: 8px 0;
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 15px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .features-list li::before {
+            content: '✓';
+            width: 24px;
+            height: 24px;
+            background: linear-gradient(135deg, rgba(168, 237, 234, 0.3), rgba(168, 237, 234, 0.5));
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            flex-shrink: 0;
+            border: 1px solid rgba(168, 237, 234, 0.3);
+        }
+
+        .cta-button {
+            width: 100%;
+            padding: 12px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: block;
+            text-align: center;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(255, 255, 255, 0.4);
+            box-shadow: 0 8px 24px rgba(255, 255, 255, 0.2);
+        }
+
+        /* Add-ons Section */
+        .addons-section {
+            margin-top: 60px;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border-radius: 24px;
+            padding: 28px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .addons-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 32px;
+            text-align: center;
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+        }
+
+        .addons-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 24px;
+        }
+
+        .addon-item {
+            padding: 24px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .addon-item:hover {
+            background: rgba(255, 255, 255, 0.08);
+            transform: translateY(-4px);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .addon-name {
+            font-size: 18px;
+            font-weight: 600;
+            color: #fff;
+            margin-bottom: 8px;
+        }
+
+        .addon-price {
+            font-size: 24px;
+            font-weight: 700;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        /* Pricing Disclaimer */
+        .pricing-disclaimer {
+            margin-top: 40px;
+            padding: 28px;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border-radius: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            display: flex;
+            gap: 24px;
+            align-items: flex-start;
+        }
+
+        .disclaimer-icon {
+            font-size: 48px;
+            flex-shrink: 0;
+            line-height: 1;
+        }
+
+        .disclaimer-content {
+            flex: 1;
+        }
+
+        .disclaimer-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 20px;
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+        }
+
+        .disclaimer-text {
+            font-size: 15px;
+            color: rgba(255, 255, 255, 0.85);
+            line-height: 1.7;
+            margin-bottom: 16px;
+        }
+
+        .disclaimer-text:last-child {
+            margin-bottom: 0;
+        }
+
+        .disclaimer-text strong {
+            color: #fff;
+            font-weight: 600;
+        }
+
+        /* Final CTA */
+        .final-cta {
+            text-align: center;
+            margin-top: 60px;
+            padding: 60px 20px;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border-radius: 24px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .final-cta h2 {
+            font-size: 26px;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 16px;
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+        }
+
+        .final-cta p {
+            font-size: 18px;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 32px;
+        }
+
+        .final-cta .cta-button {
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        /* Footer */
+        .footer {
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(20px);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 60px 20px 30px;
+            position: relative;
+            z-index: 1;
+            margin-top: 80px;
+        }
+
+        .footer-container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+            margin-bottom: 40px;
+        }
+
+        .footer-section h3,
+        .footer-section h4 {
+            color: #fff;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .footer-logo {
+            font-size: 20px;
+            font-weight: 900;
+            background: linear-gradient(45deg, #ffffff, #a8edea);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+        }
+
+        .footer-tagline {
+            font-size: 16px;
+            color: #fff;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .footer-description {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.95);
+            line-height: 1.6;
+        }
+
+        .footer-title {
+            font-size: 16px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .footer-links,
+        .footer-contact {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-links li,
+        .footer-contact li {
+            margin-bottom: 8px;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.95);
+            text-decoration: none;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+
+        .footer-links a:hover {
+            color: #fff;
+            transform: translateX(5px);
+        }
+
+        .footer-contact li {
+            color: rgba(255, 255, 255, 0.95);
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .footer-contact i {
+            width: 18px;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .footer-social a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            color: #fff;
+            font-size: 16px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .footer-social a:hover {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: #fff;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(255, 255, 255, 0.3);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer-bottom p {
+            color: rgba(255, 255, 255, 0.95);
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+
+        .footer-bottom a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            margin: 0 10px;
+            transition: color 0.3s;
+        }
+
+        .footer-bottom a:hover {
+            color: #fff;
+        }
+
+        /* Mobile Menu Toggle */
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 6px;
+            cursor: pointer;
+            padding: 8px;
+        }
+
+        .menu-toggle span {
+            width: 28px;
+            height: 3px;
+            background: #fff;
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+
+        /* Mobile Styles */
+        @media (max-width: 968px) {
+            .footer-content {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .opening-logo {
+                font-size: 60px;
+            }
+
+            .opening-text {
+                font-size: 20px;
+                letter-spacing: 10px;
+            }
+
+            .nav {
+                padding: 16px 20px;
+            }
+
+            .logo {
+                font-size: 18px;
+            }
+
+            .menu-toggle {
+                display: flex;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 72px;
+                left: 0;
+                right: 0;
+                background: rgba(0, 0, 0, 0.3);
+                backdrop-filter: blur(20px);
+                flex-direction: column;
+                padding: 20px;
+                gap: 16px;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+                transform: translateY(-100%);
+                opacity: 0;
+                transition: all 0.3s ease;
+                pointer-events: none;
+            }
+
+            .nav-links.active {
+                transform: translateY(0);
+                opacity: 1;
+                pointer-events: all;
+            }
+
+            .business-hours-widget {
+                top: 80px;
+                right: 10px;
+                padding: 12px;
+                min-width: 150px;
+            }
+
+            .business-hours-widget.collapsed {
+                right: -170px;
+            }
+
+            .widget-toggle {
+                left: -30px;
+                width: 30px;
+                height: 60px;
+            }
+
+            .widget-toggle:hover {
+                left: -33px;
+            }
+
+            .clock-time {
+                font-size: 24px;
+            }
+
+            .clock-status {
+                font-size: 12px;
+                padding: 6px 12px;
+            }
+
+            .container {
+                margin-top: 100px;
+            }
+
+            .page-title {
+                font-size: 26px;
+            }
+
+            .page-subtitle {
+                font-size: 16px;
+            }
+
+            .pricing-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .pricing-card.custom-card {
+                grid-column: span 1;
+            }
+
+
+            .addons-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .final-cta h2 {
+                font-size: 22px;
+            }
+
+            .final-cta p {
+                font-size: 16px;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .footer-social {
+                justify-content: center;
+            }
+
+            .footer-contact li {
+                justify-content: center;
+            }
+
+            .pricing-disclaimer {
+                flex-direction: column;
+                padding: 30px 20px;
+                text-align: center;
+            }
+
+            .disclaimer-icon {
+                font-size: 22px;
+            }
+
+            .disclaimer-title {
+                font-size: 20px;
+            }
+
+            .disclaimer-text {
+                font-size: 14px;
+            }
+        }
+
+        /* Status Notice Modal */
+        .status-notice {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.8);
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            padding: 28px;
+            border-radius: 24px;
+            box-shadow: 0 16px 64px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            z-index: 10001;
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.3s ease;
+        }
+
+        .status-notice.show {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1);
+            pointer-events: all;
+        }
+
+        .status-notice-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 10000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .status-notice-overlay.show {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .notice-icon {
+            font-size: 64px;
+            margin-bottom: 20px;
+        }
+
+        .notice-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 8px;
+        }
+
+        .notice-message {
+            font-size: 16px;
+            color: rgba(255, 255, 255, 0.9);
+            line-height: 1.6;
+            margin-bottom: 16px;
+        }
+
+        .notice-close {
+            padding: 12px 32px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .notice-close:hover {
+            transform: translateY(-2px);
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(255, 255, 255, 0.4);
+            box-shadow: 0 8px 24px rgba(255, 255, 255, 0.2);
+        }
+
+        /* Chatbot & WhatsApp Buttons */
+        .chatbot-button {
+            position: fixed;
+            bottom: 30px;
+            right: 100px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.9), rgba(118, 75, 162, 0.9));
+            backdrop-filter: blur(10px);
+            cursor: pointer;
+            z-index: 10000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+            animation: chatPulse 2s infinite;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .chatbot-button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.6);
+        }
+
+        .whatsapp-button {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: #25D366;
+            cursor: pointer;
+            z-index: 10000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 10px 30px rgba(37, 211, 102, 0.4);
+            transition: all 0.3s ease;
+            text-decoration: none;
+            animation: whatsappPulse 2s infinite;
+        }
+
+        .whatsapp-button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 15px 40px rgba(37, 211, 102, 0.6);
+        }
+
+        @keyframes chatPulse {
+            0%, 100% { 
+                transform: scale(1); 
+                box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4); 
+            }
+            50% { 
+                transform: scale(1.05); 
+                box-shadow: 0 15px 40px rgba(102, 126, 234, 0.6); 
+            }
+        }
+
+        @keyframes whatsappPulse {
+            0%, 100% { 
+                transform: scale(1); 
+                box-shadow: 0 10px 30px rgba(37, 211, 102, 0.4); 
+            }
+            50% { 
+                transform: scale(1.05); 
+                box-shadow: 0 15px 40px rgba(37, 211, 102, 0.6); 
+            }
+        }
+
+        /* Chatbot Window */
+        .chatbot-window {
+            position: fixed;
+            top: 80px;
+            bottom: auto;
+            right: 30px;
+            width: 380px;
+            max-height: calc(100vh - 100px);
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            display: none;
+            flex-direction: column;
+            z-index: 9999;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .chatbot-header {
+            padding: 20px;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.9), rgba(118, 75, 162, 0.9));
+            color: #fff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .chatbot-header h3 {
+            margin: 0;
+            font-weight: 900;
+            font-size: 18px;
+        }
+
+        .chatbot-header button {
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 22px;
+            cursor: pointer;
+            padding: 0;
+            line-height: 1;
+            transition: transform 0.2s;
+        }
+
+        .chatbot-header button:hover {
+            transform: scale(1.2);
+        }
+
+        .chatbot-messages {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            background: rgba(255, 255, 255, 0.95);
+        }
+
+        .bot-message {
+            padding: 12px 16px;
+            border-radius: 15px;
+            max-width: 80%;
+            font-size: 14px;
+            background: rgba(102, 126, 234, 0.1);
+            color: #333;
+            border: 1px solid rgba(102, 126, 234, 0.2);
+            line-height: 1.5;
+            word-wrap: break-word;
+            white-space: pre-wrap;
+        }
+
+        .user-message {
+            padding: 12px 16px;
+            border-radius: 15px;
+            max-width: 80%;
+            font-size: 14px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: #fff;
+            align-self: flex-end;
+            margin-left: auto;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+            line-height: 1.5;
+            word-wrap: break-word;
+            white-space: pre-wrap;
+        }
+
+        .chatbot-input-container {
+            padding: 15px 20px;
+            display: flex;
+            gap: 10px;
+            border-top: 1px solid rgba(102, 126, 234, 0.1);
+            background: rgba(255, 255, 255, 0.98);
+        }
+
+        .chatbot-input-container input {
+            flex: 1;
+            padding: 12px 15px;
+            border: 2px solid rgba(102, 126, 234, 0.3);
+            border-radius: 25px;
+            font-size: 14px;
+            outline: none;
+            background: rgba(102, 126, 234, 0.05);
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .chatbot-input-container input:focus {
+            border-color: rgba(102, 126, 234, 0.5);
+        }
+
+        .chatbot-input-container button {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border: none;
+            color: #fff;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 20px;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .chatbot-input-container button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.5);
+        }
+
+        /* Mobile Responsive for Chatbot */
+        @media (max-width: 768px) {
+            .chatbot-button {
+                right: 80px;
+                bottom: 20px;
+                width: 50px;
+                height: 50px;
+            }
+
+            .whatsapp-button {
+                right: 20px;
+                bottom: 20px;
+                width: 50px;
+                height: 50px;
+            }
+
+            .chatbot-window {
+                width: calc(100% - 40px);
+                right: 20px;
+                left: 20px;
+                top: 70px;
+            }
+
+            .currency-dropdown {
+                min-width: 100%;
+                max-width: 100%;
+                font-size: 14px;
+                padding: 12px 35px 12px 16px;
+            }
+
+            .currency-selector {
+                padding: 0 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Floating Particles -->
+    <div class="particles" id="particles"></div>
+
+    <!-- Opening Animation -->
+    <div class="opening-animation">
+        <div class="opening-content">
+            <div class="opening-logo">P</div>
+            <div class="opening-text">RICING</div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-container">
+            <a href="home f.html" class="logo">F</a>
+        </div>
+        <div class="nav-links">
+            <a href="home f.html" class="nav-link">Home</a>
+            <a href="portfolio f.html" class="nav-link">Portfolio</a>
+            <a href="pricing f.html" class="nav-link active">Pricing</a>
+            <a href="about f.html" class="nav-link">About</a>
+            <a href="contact f.html" class="nav-link">Contact</a>
+        </div>
+    </nav>
+
+    <!-- Business Hours Widget -->
+    <div class="business-hours-widget" id="businessWidget">
+        <div class="widget-toggle" onclick="toggleWidget()" title="Toggle Timer">
+            <span class="toggle-icon">◀</span>
+        </div>
+        <div class="widget-content">
+            <div class="clock-container">
+                <div class="clock-time" id="clock">--:--:--</div>
+            </div>
+            <div class="clock-status" id="status">Loading...</div>
+        </div>
+    </div>
+
+    <!-- Status Notice -->
+    <div class="status-notice-overlay" id="noticeOverlay"></div>
+    <div class="status-notice" id="statusNotice">
+        <div class="notice-icon" id="noticeIcon">🔔</div>
+        <div class="notice-title" id="noticeTitle">Status Update</div>
+        <div class="notice-message" id="noticeMessage"></div>
+        <button class="notice-close" onclick="closeNotice()">Got it!</button>
+    </div>
+
+    <!-- Session Timeout Modal -->
+    <div id="sessionModal" style="position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(10,10,26,0.95);backdrop-filter:blur(10px);z-index:100001;display:none;align-items:center;justify-content:center;padding:20px;">
+        <div style="background:rgba(255,255,255,0.1);backdrop-filter:blur(20px);padding:40px 30px;border-radius:20px;text-align:center;max-width:500px;width:100%;box-shadow:0 20px 60px rgba(0,0,0,0.5);border:1px solid rgba(255,255,255,0.2);">
+            <div style="font-size:50px;margin-bottom:15px;">👋</div>
+            <h2 style="color:#fff;font-size:24px;font-weight:900;margin-bottom:12px;">Still There?</h2>
+            <p style="color:rgba(255,255,255,0.9);font-size:15px;margin-bottom:25px;line-height:1.6;font-weight:600;">We noticed you've been away for a while! Just checking in to make sure everything's going great. Click below to continue your journey with us! ✨</p>
+            <button id="continueSession" style="padding:14px 35px;border:none;border-radius:30px;cursor:pointer;font-weight:900;font-size:15px;background:rgba(255,255,255,0.1);backdrop-filter:blur(10px);color:#fff;border:1px solid rgba(255,255,255,0.3);box-shadow:0 8px 20px rgba(255,255,255,0.2);transition:transform 0.2s;">Yes, I'm Here!</button>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="page-header">
+            <h1 class="page-title">Transparent Pricing</h1>
+            <p class="page-subtitle">Professional website solutions tailored for small to medium-sized businesses. We specialize in creating efficient, scalable websites that grow with your business.</p>
+        </div>
+
+        <!-- Currency Selector -->
+        <div class="currency-selector">
+            <div class="currency-label">Select Your Currency:</div>
+            <select class="currency-dropdown" id="currencySelect" onchange="updatePrices()">
+                <option value="BWP">🇧🇼 Botswana Pula (BWP)</option>
+                <option value="USD">🇺🇸 US Dollar (USD)</option>
+                <option value="ZAR">🇿🇦 South African Rand (ZAR)</option>
+                <option value="EUR">🇪🇺 Euro (EUR)</option>
+                <option value="GBP">🇬🇧 British Pound (GBP)</option>
+                <option value="CAD">🇨🇦 Canadian Dollar (CAD)</option>
+                <option value="AUD">🇦🇺 Australian Dollar (AUD)</option>
+                <option value="NGN">🇳🇬 Nigerian Naira (NGN)</option>
+                <option value="KES">🇰🇪 Kenyan Shilling (KES)</option>
+                <option value="GHS">🇬🇭 Ghanaian Cedi (GHS)</option>
+                <option value="TZS">🇹🇿 Tanzanian Shilling (TZS)</option>
+                <option value="UGX">🇺🇬 Ugandan Shilling (UGX)</option>
+                <option value="ZMW">🇿🇲 Zambian Kwacha (ZMW)</option>
+                <option value="MWK">🇲🇼 Malawian Kwacha (MWK)</option>
+                <option value="NAD">🇳🇦 Namibian Dollar (NAD)</option>
+                <option value="INR">🇮🇳 Indian Rupee (INR)</option>
+                <option value="CNY">🇨🇳 Chinese Yuan (CNY)</option>
+                <option value="JPY">🇯🇵 Japanese Yen (JPY)</option>
+                <option value="AED">🇦🇪 UAE Dirham (AED)</option>
+                <option value="SAR">🇸🇦 Saudi Riyal (SAR)</option>
+            </select>
+        </div>
+
+        <!-- Pricing Cards -->
+        <div class="pricing-grid">
+            <!-- Starter Package -->
+            <div class="pricing-card">
+                <div class="package-name">Starter Custom Site</div>
+                <div class="package-description">Perfect for small businesses and startups looking to establish their online presence.</div>
+                
+                <div class="price-section">
+                    <div class="price-label">One-time Setup</div>
+                    <div class="price" data-min="2200" data-max="2800"><span class="currency-symbol">P</span><span class="price-value">2,200 - 2,800</span></div>
+                </div>
+
+                <div class="recurring-prices">
+                    <div class="recurring-item">
+                        <span class="recurring-label">Hosting (per year):</span>
+                        <span class="recurring-price" data-min="400" data-max="600"><span class="currency-symbol">P</span><span class="price-value">400 - 600</span></span>
+                    </div>
+                    <div class="recurring-item">
+                        <span class="recurring-label">Maintenance (per month):</span>
+                        <span class="recurring-price" data-min="180" data-max="250"><span class="currency-symbol">P</span><span class="price-value">180 - 250</span></span>
+                    </div>
+                </div>
+
+                <ul class="features-list">
+                    <li>3-5 responsive pages</li>
+                    <li>Mobile-friendly design</li>
+                    <li>Contact form integration</li>
+                    <li>Basic SEO setup</li>
+                    <li>Social media links</li>
+                    <li>SSL certificate included</li>
+                </ul>
+
+                <a href="contact f.html" class="cta-button">Get Started</a>
+            </div>
+
+            <!-- Business Package -->
+            <div class="pricing-card featured">
+                <div class="package-name">Business Custom Site</div>
+                <div class="package-description">Ideal for growing businesses that need more functionality and professional features.</div>
+                
+                <div class="price-section">
+                    <div class="price-label">One-time Setup</div>
+                    <div class="price" data-min="4000" data-max="5500"><span class="currency-symbol">P</span><span class="price-value">4,000 - 5,500</span></div>
+                </div>
+
+                <div class="recurring-prices">
+                    <div class="recurring-item">
+                        <span class="recurring-label">Hosting (per year):</span>
+                        <span class="recurring-price" data-min="600" data-max="800"><span class="currency-symbol">P</span><span class="price-value">600 - 800</span></span>
+                    </div>
+                    <div class="recurring-item">
+                        <span class="recurring-label">Maintenance (per month):</span>
+                        <span class="recurring-price" data-min="300" data-max="400"><span class="currency-symbol">P</span><span class="price-value">300 - 400</span></span>
+                    </div>
+                </div>
+
+                <ul class="features-list">
+                    <li>6-10 responsive pages</li>
+                    <li>Admin dashboard for content management</li>
+                    <li>Advanced SEO optimization</li>
+                    <li>Blog/News section</li>
+                    <li>Google Maps integration</li>
+                    <li>Analytics setup</li>
+                    <li>Contact forms & email integration</li>
+                </ul>
+
+                <a href="contact f.html" class="cta-button">Get Started</a>
+            </div>
+
+            <!-- Advanced Package -->
+            <div class="pricing-card">
+                <div class="package-name">Advanced Custom Site</div>
+                <div class="package-description">Perfect for small to medium e-commerce stores or booking systems with streamlined inventory management.</div>
+                
+                <div class="price-section">
+                    <div class="price-label">One-time Setup</div>
+                    <div class="price" data-min="7500" data-max="10000"><span class="currency-symbol">P</span><span class="price-value">7,500 - 10,000</span></div>
+                </div>
+
+                <div class="recurring-prices">
+                    <div class="recurring-item">
+                        <span class="recurring-label">Hosting (per year):</span>
+                        <span class="recurring-price" data-min="900" data-max="1200"><span class="currency-symbol">P</span><span class="price-value">900 - 1,200</span></span>
+                    </div>
+                    <div class="recurring-item">
+                        <span class="recurring-label">Maintenance (per month):</span>
+                        <span class="recurring-price" data-min="400" data-max="600"><span class="currency-symbol">P</span><span class="price-value">400 - 600</span></span>
+                    </div>
+                </div>
+
+                <ul class="features-list">
+                    <li>E-commerce store (up to 300 products)</li>
+                    <li>Booking/reservation system</li>
+                    <li>User login/registration</li>
+                    <li>Payment gateway integration</li>
+                    <li>Inventory & order management</li>
+                    <li>Customer notifications</li>
+                    <li>Admin dashboard with analytics</li>
+                    <li>Everything from Business package</li>
+                </ul>
+
+                <a href="contact f.html" class="cta-button">Get Started</a>
+            </div>
+
+            <!-- Full Web System -->
+            <div class="pricing-card">
+                <div class="package-name">Full Web System / Dashboard App</div>
+                <div class="package-description">Custom internal tools and dashboards for small teams with streamlined workflows and data management.</div>
+                
+                <div class="price-section">
+                    <div class="price-label">One-time Setup</div>
+                    <div class="price" data-min="10000" data-max="18000"><span class="currency-symbol">P</span><span class="price-value">10,000 - 18,000</span></div>
+                </div>
+
+                <div class="recurring-prices">
+                    <div class="recurring-item">
+                        <span class="recurring-label">Hosting (per year):</span>
+                        <span class="recurring-price" data-min="1000" data-max="1800"><span class="currency-symbol">P</span><span class="price-value">1,000 - 1,800</span></span>
+                    </div>
+                    <div class="recurring-item">
+                        <span class="recurring-label">Maintenance (per month):</span>
+                        <span class="recurring-price" data-min="500" data-max="800"><span class="currency-symbol">P</span><span class="price-value">500 - 800</span></span>
+                    </div>
+                </div>
+
+                <ul class="features-list">
+                    <li>Custom admin dashboard</li>
+                    <li>User accounts & role management</li>
+                    <li>Database-driven functionality</li>
+                    <li>Data visualization & charts</li>
+                    <li>CRUD operations (Create, Read, Update, Delete)</li>
+                    <li>User authentication & security</li>
+                    <li>CSV/Excel data export</li>
+                    <li>Responsive admin interface</li>
+                </ul>
+
+                <a href="contact f.html" class="cta-button">Get Started</a>
+            </div>
+
+            <!-- Custom Package -->
+            <div class="pricing-card custom-card">
+                <div class="package-name">Custom Project</div>
+                <div class="package-description">Have something unique in mind? Let's discuss your specific requirements and create a tailored solution just for you.</div>
+                
+                <div class="price-section">
+                    <div class="price-label">Pricing</div>
+                    <div class="price custom-price">Contact for Quote</div>
+                </div>
+
+                <ul class="features-list">
+                    <li>Tailored to your exact needs</li>
+                    <li>Detailed project analysis</li>
+                    <li>Custom feature development</li>
+                    <li>Flexible scope & timeline</li>
+                    <li>Third-party integrations</li>
+                    <li>Specialized functionality</li>
+                    <li>Transparent pricing breakdown</li>
+                    <li>Ongoing support options</li>
+                </ul>
+
+                <a href="contact f.html" class="cta-button">Discuss Your Project</a>
+            </div>
+        </div>
+
+        <!-- Optional Add-ons -->
+        <div class="addons-section">
+            <h2 class="addons-title">Optional Add-ons</h2>
+            <div class="addons-grid">
+                <div class="addon-item">
+                    <div class="addon-name">Domain Registration</div>
+                    <div class="addon-price" data-min="150" data-max="250"><span class="currency-symbol">P</span><span class="price-value">150 - 250</span> /year</div>
+                </div>
+                <div class="addon-item">
+                    <div class="addon-name">SEO & Google Business Setup</div>
+                    <div class="addon-price" data-min="400" data-max="800"><span class="currency-symbol">P</span><span class="price-value">400 - 800</span></div>
+                </div>
+                <div class="addon-item">
+                    <div class="addon-name">Content Writing & Branding</div>
+                    <div class="addon-price" data-min="300" data-max="600"><span class="currency-symbol">P</span><span class="price-value">300 - 600</span></div>
+                </div>
+                <div class="addon-item">
+                    <div class="addon-name">Logo & Graphics Design</div>
+                    <div class="addon-price" data-min="200" data-max="400"><span class="currency-symbol">P</span><span class="price-value">200 - 400</span></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pricing Disclaimer -->
+        <div class="pricing-disclaimer">
+            <div class="disclaimer-icon">💡</div>
+            <div class="disclaimer-content">
+                <h3 class="disclaimer-title">Important Information</h3>
+                <p class="disclaimer-text">
+                    <strong>Pricing & Scope:</strong> All packages are designed for typical small to medium business needs with standard traffic volumes and storage requirements. Our solutions are optimized for businesses with up to 10,000 monthly visitors and standard database requirements.
+                </p>
+                <p class="disclaimer-text">
+                    <strong>Growth & Scalability:</strong> As your business grows and requirements increase, we offer seamless upgrade paths to enhanced hosting plans with increased capacity, bandwidth, and storage. Additional costs may apply based on your expanded needs, which we'll discuss transparently.
+                </p>
+                <p class="disclaimer-text">
+                    <strong>Custom Requirements:</strong> For high-volume operations, specialized features, or enterprise-level needs, please contact us for custom pricing tailored to your specific requirements.
+                </p>
+            </div>
+        </div>
+
+        <!-- Final CTA -->
+        <div class="final-cta">
+            <h2>Ready to Get Started?</h2>
+            <p>Contact us today for a personalized quote tailored to your specific needs.</p>
+            <a href="contact f.html" class="cta-button">Contact Us Now</a>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3 class="footer-logo">F</h3>
+                    <p class="footer-tagline">Futurify Designs</p>
+                    <p class="footer-description">Crafting Tomorrow's Digital Experiences</p>
+                </div>
+
+                <div class="footer-section">
+                    <h4 class="footer-title">Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="home f.html">Home</a></li>
+                        <li><a href="portfolio f.html">Portfolio</a></li>
+                        <li><a href="about f.html">About</a></li>
+                        <li><a href="contact f.html">Contact</a></li>
+                        <li><a href="pricing f.html">Pricing</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4 class="footer-title">Get In Touch</h4>
+                    <ul class="footer-contact">
+                        <li><i class="fas fa-envelope"></i> futurifydesigns@gmail.com</li>
+                        <li><i class="fas fa-phone"></i> +267 777 83823</li>
+                        <li><i class="fas fa-map-marker-alt"></i> Gaborone, Botswana</li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4 class="footer-title">Follow Me</h4>
+                    <div class="footer-social">
+                        <a href="https://www.linkedin.com/in/leon-maunge-6153b2212" target="_blank" title="LinkedIn">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                        <a href="https://www.instagram.com/futurifydesigns" target="_blank" title="Instagram">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="https://www.tiktok.com/@futurifydesigns" target="_blank" title="TikTok">
+                            <i class="fab fa-tiktok"></i>
+                        </a>
+                        <a href="https://wa.me/26777783823" target="_blank" title="WhatsApp">
+                            <i class="fab fa-whatsapp"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2025 Futurify Designs. All rights reserved.</p>
+                <p>Designed & Built in Botswana</p>
+                <p style="margin-top: 10px; font-size: 13px;">
+                    <a href="privacy_policy.html">Privacy Policy</a> | 
+                    <a href="terms_of_service.html">Terms of Service</a>
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- AI Chatbot Button -->
+    <div class="chatbot-button" id="chatbotButton">
+        <svg viewBox="0 0 24 24" style="width:30px;height:30px;fill:#fff;">
+            <path d="M12 2C6.48 2 2 6.48 2 12c0 1.54.36 3 .97 4.29L2 22l5.71-.97C9 21.64 10.46 22 12 22c5.52 0 10-4.48 10-10S17.52 2 12 2zm0 18c-1.38 0-2.68-.31-3.85-.85l-.27-.14-2.82.48.48-2.82-.14-.27C4.31 14.68 4 13.38 4 12c0-4.41 3.59-8 8-8s8 3.59 8 8-3.59 8-8 8z"/>
+        </svg>
+    </div>
+
+    <!-- WhatsApp Button -->
+    <a href="https://wa.me/26777783823?text=Hi%20Futurify%20Designs!%20I'm%20interested%20in%20your%20web%20design%20services.%20Can%20we%20discuss%3F" 
+       target="_blank" 
+       rel="noopener noreferrer"
+       class="whatsapp-button" 
+       id="whatsappButton" 
+       title="Chat on WhatsApp">
+        <svg viewBox="0 0 24 24" style="width:30px;height:30px;fill:#fff;">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+        </svg>
+    </a>
+
+    <!-- Chatbot Window -->
+    <div class="chatbot-window" id="chatbotWindow">
+        <div class="chatbot-header">
+            <h3>🤖 Futurify Assistant</h3>
+            <button id="chatbotClose">×</button>
+        </div>
+        <div id="chatbotMessages" class="chatbot-messages">
+            <div class="bot-message">Hi! 👋 Welcome to Futurify Designs Pricing! How can I help you today?</div>
+        </div>
+        <div class="chatbot-input-container">
+            <input type="text" id="chatbotInput" placeholder="Ask me anything..." />
+            <button id="chatbotSend">→</button>
+        </div>
+    </div>
+
+    <script>
+        // Currency conversion rates (relative to BWP)
+        const conversionRates = {
+            BWP: 1,
+            USD: 0.073,      // 1 BWP ≈ 0.073 USD
+            ZAR: 1.35,       // 1 BWP ≈ 1.35 ZAR
+            EUR: 0.067,      // 1 BWP ≈ 0.067 EUR
+            GBP: 0.057,      // 1 BWP ≈ 0.057 GBP
+            CAD: 0.10,       // 1 BWP ≈ 0.10 CAD
+            AUD: 0.11,       // 1 BWP ≈ 0.11 AUD
+            NGN: 115,        // 1 BWP ≈ 115 NGN
+            KES: 9.4,        // 1 BWP ≈ 9.4 KES
+            GHS: 1.15,       // 1 BWP ≈ 1.15 GHS
+            TZS: 195,        // 1 BWP ≈ 195 TZS
+            UGX: 270,        // 1 BWP ≈ 270 UGX
+            ZMW: 2.0,        // 1 BWP ≈ 2.0 ZMW
+            MWK: 127,        // 1 BWP ≈ 127 MWK
+            NAD: 1.35,       // 1 BWP ≈ 1.35 NAD (pegged to ZAR)
+            INR: 6.1,        // 1 BWP ≈ 6.1 INR
+            CNY: 0.53,       // 1 BWP ≈ 0.53 CNY
+            JPY: 11.3,       // 1 BWP ≈ 11.3 JPY
+            AED: 0.27,       // 1 BWP ≈ 0.27 AED
+            SAR: 0.27        // 1 BWP ≈ 0.27 SAR
+        };
+
+        const currencySymbols = {
+            BWP: 'P',
+            USD: '$',
+            ZAR: 'R',
+            EUR: '€',
+            GBP: '£',
+            CAD: 'C$',
+            AUD: 'A$',
+            NGN: '₦',
+            KES: 'KSh',
+            GHS: '₵',
+            TZS: 'TSh',
+            UGX: 'USh',
+            ZMW: 'ZK',
+            MWK: 'MK',
+            NAD: 'N$',
+            INR: '₹',
+            CNY: '¥',
+            JPY: '¥',
+            AED: 'د.إ',
+            SAR: '﷼'
+        };
+
+        function updatePrices() {
+            const selectedCurrency = document.getElementById('currencySelect').value;
+            const rate = conversionRates[selectedCurrency];
+            const symbol = currencySymbols[selectedCurrency];
+
+            // Update all currency symbols
+            document.querySelectorAll('.currency-symbol').forEach(el => {
+                el.textContent = symbol;
+            });
+
+            // Update all prices
+            document.querySelectorAll('[data-min]').forEach(el => {
+                const min = parseFloat(el.getAttribute('data-min'));
+                const max = parseFloat(el.getAttribute('data-max'));
+                
+                const convertedMin = Math.round(min * rate);
+                const convertedMax = Math.round(max * rate);
+                
+                const valueEl = el.querySelector('.price-value');
+                if (valueEl) {
+                    valueEl.textContent = `${convertedMin.toLocaleString()} - ${convertedMax.toLocaleString()}`;
+                }
+            });
+        }
+
+        // Business Hours Clock
+        function updateClock() {
+            const now = new Date();
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+            
+            document.getElementById('clock').textContent = `${hours}:${minutes}:${seconds}`;
+            
+            // Update status
+            updateStatus(now);
+        }
+
+        function updateStatus(now) {
+            const hour = now.getHours();
+            const statusEl = document.getElementById('status');
+            
+            // Business hours: 9 AM to 6 PM
+            const openHour = 9;
+            const closeHour = 18;
+            
+            let statusClass, statusText;
+            
+            if (hour >= openHour && hour < closeHour) {
+                // Open
+                if (hour === closeHour - 1) {
+                    // Almost closing (1 hour before close)
+                    statusClass = 'status-almost-closing';
+                    statusText = 'Almost Closing';
+                } else {
+                    statusClass = 'status-open';
+                    statusText = 'Open';
+                }
+            } else {
+                // Closed
+                if (hour === openHour - 1 || (hour === 8 && now.getMinutes() >= 0)) {
+                    // Almost open (1 hour before opening)
+                    statusClass = 'status-almost-open';
+                    statusText = 'Almost Open';
+                } else {
+                    statusClass = 'status-closed';
+                    statusText = 'Closed';
+                }
+            }
+            
+            statusEl.className = 'clock-status ' + statusClass;
+            statusEl.textContent = statusText;
+        }
+
+        // Status Notice System
+        function showStatusNotice(icon, title, message) {
+            const noticeKey = `notice_${title.replace(/\s/g, '_')}_${new Date().toDateString()}`;
+            
+            // Check if notice was already shown today
+            if (sessionStorage.getItem(noticeKey)) {
+                return;
+            }
+            
+            document.getElementById('noticeIcon').textContent = icon;
+            document.getElementById('noticeTitle').textContent = title;
+            document.getElementById('noticeMessage').textContent = message;
+            
+            document.getElementById('noticeOverlay').classList.add('show');
+            document.getElementById('statusNotice').classList.add('show');
+            
+            // Mark as shown
+            sessionStorage.setItem(noticeKey, 'true');
+        }
+
+        function closeNotice() {
+            document.getElementById('noticeOverlay').classList.remove('show');
+            document.getElementById('statusNotice').classList.remove('show');
+        }
+
+        function checkAndShowNotice() {
+            const now = new Date();
+            const hour = now.getHours();
+            
+            const openHour = 9;
+            const closeHour = 18;
+            
+            // Delay to let opening animation finish
+            setTimeout(() => {
+                if (hour >= openHour && hour < closeHour) {
+                    // Open
+                    if (hour === closeHour - 1) {
+                        showStatusNotice('⚠️', 'Almost Closing Time', 'We\'re about to close for the day. You can still browse and contact us, but we\'ll get back to you when we reopen tomorrow at 9 AM!');
+                    } else {
+                        showStatusNotice('✅', 'We\'re Open!', 'Our services are operational! Feel free to contact us via WhatsApp, phone, or email. We\'re here to help with your web design needs!');
+                    }
+                } else {
+                    // Closed
+                    if (hour === openHour - 1 || (hour === 8 && now.getMinutes() >= 0)) {
+                        showStatusNotice('🌅', 'Opening Soon', 'We\'re about to open! Our team will be available at 9 AM. You can still look around and send us a message - we\'ll respond as soon as we\'re open!');
+                    } else {
+                        showStatusNotice('🌙', 'We\'re Closed', 'Thanks for visiting! We\'re currently closed. You can still browse our website and contact us - we\'ll get back to you when we reopen at 9 AM. Business hours: 9 AM - 6 PM.');
+                    }
+                }
+            }, 3000);
+        }
+
+        // Mobile menu toggle
+        function toggleMenu() {
+            document.querySelector('.nav-links').classList.toggle('active');
+        }
+
+        // Toggle widget visibility
+        function toggleWidget() {
+            const widget = document.getElementById('businessWidget');
+            const isCollapsed = widget.classList.contains('collapsed');
+            
+            if (isCollapsed) {
+                widget.classList.remove('collapsed');
+                localStorage.setItem('widgetCollapsed', 'false');
+            } else {
+                widget.classList.add('collapsed');
+                localStorage.setItem('widgetCollapsed', 'true');
+            }
+        }
+
+        // Initialize widget state from localStorage
+        function initWidgetState() {
+            const widget = document.getElementById('businessWidget');
+            const isCollapsed = localStorage.getItem('widgetCollapsed') === 'true';
+            
+            if (isCollapsed) {
+                widget.classList.add('collapsed');
+            }
+        }
+
+        // Initialize
+        initWidgetState();
+        setInterval(updateClock, 1000);
+        updateClock();
+        checkAndShowNotice();
+
+        // Close notice when clicking overlay
+        document.getElementById('noticeOverlay').addEventListener('click', closeNotice);
+
+        // Session timeout functionality
+        var sessionTimeout;
+        function resetSession() {
+            clearTimeout(sessionTimeout);
+            sessionTimeout = setTimeout(function() {
+                var modal = document.getElementById('sessionModal');
+                if (modal) modal.style.display = 'flex';
+            }, 30 * 60 * 1000); // 30 minutes
+        }
+        
+        // Continue session button handler
+        var contBtn = document.getElementById('continueSession');
+        if (contBtn) {
+            contBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                var modal = document.getElementById('sessionModal');
+                if (modal) {
+                    modal.style.display = 'none';
+                }
+                resetSession();
+            });
+            
+            // Add hover effect
+            contBtn.addEventListener('mouseenter', function() {
+                this.style.transform = 'scale(1.05)';
+            });
+            contBtn.addEventListener('mouseleave', function() {
+                this.style.transform = 'scale(1)';
+            });
+        }
+        
+        // Reset session on user activity
+        document.addEventListener('click', resetSession);
+        document.addEventListener('scroll', resetSession);
+        document.addEventListener('mousemove', resetSession);
+        document.addEventListener('keypress', resetSession);
+        
+        // Start the session timer
+        resetSession();
+
+        // Chatbot functionality
+        const chatBtn = document.getElementById('chatbotButton');
+        const chatWin = document.getElementById('chatbotWindow');
+        const chatClose = document.getElementById('chatbotClose');
+        const chatInp = document.getElementById('chatbotInput');
+        const chatSend = document.getElementById('chatbotSend');
+        const chatMsgs = document.getElementById('chatbotMessages');
+
+        // Show buttons after page loads
+        setTimeout(function() {
+            if (chatBtn) chatBtn.style.display = 'flex';
+            if (document.getElementById('whatsappButton')) {
+                document.getElementById('whatsappButton').style.display = 'flex';
+            }
+        }, 3000);
+
+        // Load chat history from sessionStorage
+        function loadChatHistory() {
+            if (!chatMsgs) return;
+            
+            const history = sessionStorage.getItem('futurify_chat_history');
+            if (history) {
+                try {
+                    const messages = JSON.parse(history);
+                    // Clear existing messages except welcome message
+                    chatMsgs.innerHTML = '<div class="bot-message">Hi! 👋 Welcome to Futurify Designs Pricing! How can I help you today?</div>';
+                    
+                    // Restore all messages
+                    messages.forEach(function(msg) {
+                        addMsg(msg.text, msg.isUser, false); // false = don't save again
+                    });
+                } catch (e) {
+                    console.error('Error loading chat history:', e);
+                }
+            }
+        }
+        
+        // Save chat history to sessionStorage
+        function saveChatHistory() {
+            if (!chatMsgs) return;
+            
+            const messages = [];
+            const msgDivs = chatMsgs.querySelectorAll('div');
+            
+            // Skip the first welcome message
+            for (let i = 1; i < msgDivs.length; i++) {
+                const div = msgDivs[i];
+                const isUser = div.classList.contains('user-message');
+                messages.push({
+                    text: div.textContent,
+                    isUser: isUser
+                });
+            }
+            
+            sessionStorage.setItem('futurify_chat_history', JSON.stringify(messages));
+        }
+
+        // Chatbot responses with pricing information
+        const responses = {
+            // Greetings
+            hello: "👋 Hi! Welcome to Futurify Designs!\n\nI'm your virtual assistant. I can help you with:\n\n🏢 About Us\n🌐 How This Website Works\n💰 Pricing & Packages\n⏰ Project Timeline\n📞 Contact Information\n💬 WhatsApp Chat\n🔒 Privacy Policy\n\nJust type your question or choose a topic!",
+            
+            // About Company
+            about: "🏢 About Futurify Designs:\n\n📍 Based in Gaborone, Botswana\n💻 Specializing in modern, professional websites\n⚡ Fast-loading & SEO-optimized designs\n📱 Mobile-responsive solutions\n🎨 Custom designs tailored to YOUR brand\n\n✨ Our Mission: Crafting tomorrow's digital experiences today!\n\nWant to know more about our services?",
+            
+            about_detailed: "🌟 What Makes Us Different:\n\n✅ 100% Custom Designs (No Templates!)\n✅ Fast Turnaround Times\n✅ Affordable Pricing for Botswana Market\n✅ Ongoing Support After Launch\n✅ SEO & Speed Optimized\n✅ Mobile-First Approach\n\n🎯 We build websites that actually convert visitors into customers!\n\n💬 Ready to start? Contact us or ask about pricing!",
+            
+            // How Website Works
+            website_help: "🌐 How to Use This Website:\n\n🏠 HOME: Learn about our services\n📁 PORTFOLIO: See our past work\n👤 ABOUT: Meet the team & our story\n📞 CONTACT: Get in touch with us\n\n💡 TIP: Click any page in the top menu!\n\n🤖 You can also ask me questions anytime by clicking this chat icon!\n\nWhat would you like to know?",
+            
+            navigation: "🧭 Website Navigation Help:\n\n📱 On Mobile: Tap the menu icon (☰) top-right\n💻 On Desktop: Click any page in the top menu bar\n\n📄 Our Pages:\n• HOME - Services overview\n• PORTFOLIO - Past projects\n• ABOUT - Our story\n• CONTACT - Get in touch\n\n🔍 Lost? Just ask me anything!",
+            
+            // Services & What We Do
+            services: "💼 Our Services:\n\n🌐 Website Design & Development\n   • Business Websites\n   • E-Commerce Stores\n   • Portfolio Sites\n   • Restaurant/Hotel Sites\n   • Landing Pages\n\n📱 Mobile-Responsive Design\n⚡ Website Speed Optimization\n🔍 SEO Setup\n🎨 Logo & Branding (on request)\n\n💡 Need something specific? Ask me!",
+            
+            // Website Types
+            ideas_restaurant: "🍽️ Restaurant/Cafe Websites:\n\nWe can build:\n✨ Online Menu with Photos & Prices\n📱 Table Reservation System\n🛒 Online Ordering (Takeaway)\n📸 Beautiful Photo Gallery\n⭐ Customer Reviews Section\n📍 Location & Opening Hours\n\n💰 Starting from affordable rates!\n📞 Contact: +267 777 83823\n💬 WhatsApp: Click the green button below!",
+            
+            ideas_ecommerce: "🛍️ E-Commerce Websites:\n\nWe can build:\n🛒 Full Shopping Cart System\n💳 Payment Integration (PayPal, etc.)\n📦 Order Tracking\n⭐ Product Reviews\n🔍 Advanced Search & Filters\n📱 Mobile Shopping Experience\n\n💰 Custom quote based on products!\n📞 Contact: +267 777 83823\n💬 WhatsApp: Click the green button!",
+            
+            ideas_portfolio: "🎨 Portfolio Websites:\n\nPerfect for:\n📸 Photographers\n🎨 Artists & Designers  \n✍️ Writers & Content Creators\n💼 Consultants\n\nFeatures:\n📷 Stunning Image Gallery\n🎬 Video Integration\n📝 Case Studies/Projects\n📧 Contact Forms\n\n💰 Affordable packages available!\n📞 +267 777 83823",
+            
+            ideas_business: "💼 Business Websites:\n\nIdeal for:\n🏢 Companies & Startups\n👔 Professional Services\n🏗️ Contractors & Builders\n🎓 Educational Institutions\n\nFeatures:\n📊 Services Showcase\n👥 Team Profiles\n💬 Testimonials\n📰 Blog/News Section\n📈 Lead Generation Forms\n\n📞 Let's discuss: +267 777 83823",
+            
+            // Pricing
+            pricing: "💰 Pricing & Packages:\n\n🌟 STARTER\n   • Single Page Website\n   • Mobile Responsive\n   • Contact Form\n   \n🚀 PROFESSIONAL\n   • Multi-Page Website (up to 5 pages)\n   • Custom Design\n   • SEO Basic\n   \n💎 PREMIUM\n   • E-Commerce or Complex Site\n   • All Features\n   • Priority Support\n\n💵 Payment Plans Available!\n📞 Custom Quote: +267 777 83823\n💬 WhatsApp for instant quote!",
+            
+            pricing_detailed: "💵 Investment Details:\n\n✅ Flexible Payment Plans\n✅ 50% Deposit, 50% on Completion\n✅ No Hidden Fees\n✅ Includes Hosting Setup Help\n✅ Free Minor Updates (first month)\n\n💳 Payment Methods:\n• Bank Transfer\n• Mobile Money\n• eWallet\n• Pay2Cell\n• International: PayPal\n\n📞 Get exact quote: +267 777 83823\n💬 WhatsApp is fastest!",
+            
+            // Timeline
+            timeline: "⏰ Project Timeline:\n\n⚡ SIMPLE SITE: 5-7 days\n🚀 MEDIUM SITE: 10-14 days\n💎 COMPLEX SITE: 3-4 weeks\n\n📅 Process:\n1️⃣ Consultation (1 day)\n2️⃣ Design Mockup (2-3 days)\n3️⃣ Your Feedback\n4️⃣ Development (varies)\n5️⃣ Testing (1-2 days)\n6️⃣ Launch! 🎉\n\n⏱️ Rush projects available!\n📞 Discuss timeline: +267 777 83823",
+            
+            timeline_detailed: "📆 Detailed Timeline Breakdown:\n\n🗣️ DISCOVERY (Day 1-2):\n   • Discuss goals & requirements\n   • Competitor analysis\n   • Content gathering\n\n🎨 DESIGN (Day 3-5):\n   • Mockup creation\n   • Revisions based on feedback\n\n💻 DEVELOPMENT (Day 6-12):\n   • Coding & building\n   • Feature implementation\n\n✅ TESTING (Day 13-14):\n   • Quality assurance\n   • Mobile testing\n\n🚀 LAUNCH!\n\n📞 Start now: +267 777 83823",
+            
+            // Process/How We Work
+            process: "🛠️ How We Work:\n\n1️⃣ CONSULTATION\n   • Understand your vision\n   • Define requirements\n   \n2️⃣ PROPOSAL & QUOTE\n   • Detailed breakdown\n   • Timeline estimate\n   \n3️⃣ DESIGN PHASE\n   • Create mockups\n   • Get your approval\n   \n4️⃣ DEVELOPMENT\n   • Build your site\n   • Regular updates\n   \n5️⃣ TESTING\n   • Quality checks\n   • Your feedback\n   \n6️⃣ LAUNCH! 🚀\n   • Go live\n   \n7️⃣ SUPPORT\n   • Ongoing assistance\n\n📞 Let's start: +267 777 83823",
+            
+            // Contact Information  
+            contact: "📞 Get In Touch:\n\n📧 Email:\nfuturifydesigns@gmail.com\n\n📱 Phone/SMS:\n+267 777 83823\n\n💬 WhatsApp:\nClick the green button below for instant chat!\n\n📍 Location:\nGaborone, Botswana\n\n🌐 Or use our Contact Page:\nClick 'Contact' in the menu above!\n\n⚡ We typically respond within 2-4 hours!",
+            
+            whatsapp: "💬 WhatsApp Direct Chat:\n\n✅ Fastest way to reach us!\n✅ Available during business hours\n✅ Send photos/examples easily\n✅ Get quick quotes\n\n👇 Click the GREEN WHATSAPP button at the bottom of this chat or on the page!\n\nNumber: +267 777 83823\n\n⏰ Business Hours:\nMon-Fri: 9AM - 6PM\nSat: 10AM - 2PM",
+            
+            // Portfolio
+            portfolio: "📁 View Our Work:\n\n🎨 Click 'PORTFOLIO' in the menu above to see:\n\n✅ Past Projects\n✅ Different Website Types\n✅ Our Design Style\n✅ Client Success Stories\n\n💡 TIP: Each project shows:\n   • Industry/Type\n   • Features included\n   • Technologies used\n\n🚀 Ready for YOUR project?\n📞 +267 777 83823\n💬 WhatsApp us!",
+            
+            // Features
+            features: "✨ Website Features We Offer:\n\n🎨 DESIGN:\n• Custom layouts\n• Your brand colors/logo\n• Modern, professional look\n\n⚡ TECHNICAL:\n• Fast loading speed\n• Mobile responsive\n• SEO optimized\n• Secure (HTTPS)\n\n🔧 FUNCTIONALITY:\n• Contact forms\n• Social media links\n• Google Maps integration\n• Image galleries\n• And much more!\n\nNeed something specific? Ask me!",
+            
+            // Support & Maintenance
+            support: "🛠️ Support & Maintenance:\n\n✅ FREE SUPPORT:\n• First month minor updates\n• Bug fixes\n• Content updates help\n\n💎 ONGOING MAINTENANCE:\n• Monthly updates\n• Security monitoring\n• Performance optimization\n• Priority support\n\n📧 Email anytime: futurifydesigns@gmail.com\n📱 Call: +267 777 83823\n💬 WhatsApp: Quick response!\n\nWe're here to help! 🚀",
+            
+            // Domain & Hosting
+            hosting: "🌐 Domain & Hosting:\n\n📝 DOMAIN (yourname.com):\n• We help you register\n• Or use your existing domain\n• .com, .co.bw, etc.\n\n🖥️ HOSTING:\n• We recommend providers\n• Help with setup\n• Or manage it for you\n\n💰 COSTS (approximate):\n• Domain: ~P150-P400/year\n• Hosting: ~P500-P1500/year\n\n💡 We'll guide you through everything!\n📞 Questions? +267 777 83823",
+            
+            // Privacy & Legal
+            privacy: "🔒 Privacy & Security:\n\n✅ Your Data is Safe:\n• We don't share client info\n• Secure communication\n• GDPR-compliant practices\n\n📄 Legal Pages:\n• Privacy Policy (link in footer)\n• Terms of Service (link in footer)\n\n🔐 Website Security:\n• HTTPS/SSL included\n• Secure forms\n• Regular updates\n\n📧 Privacy questions?\nfuturifydesigns@gmail.com",
+            
+            privacy_policy: "📄 Privacy Policy:\n\nOur full Privacy Policy covers:\n• What data we collect\n• How we use it  \n• Your rights\n• Cookie usage\n• Contact information\n\n🔗 View full policy:\nClick 'Privacy Policy' link in the footer below!\n\nOr visit our Contact page.\n\n📧 Questions?\nfuturifydesigns@gmail.com",
+            
+            terms: "📜 Terms of Service:\n\nOur Terms cover:\n• Service agreement\n• Payment terms\n• Cancellation policy\n• Intellectual property\n• Liability\n\n🔗 View full terms:\nClick 'Terms of Service' link in the footer!\n\n💼 For custom projects, we provide detailed contracts.\n\n📞 Questions? +267 777 83823",
+            
+            // Help & Troubleshooting
+            help: "🤔 I'm Here to Help!\n\nYou can ask me about:\n\n🏢 About Futurify Designs\n💰 Pricing & Packages\n⏰ Timeline & Process\n🌐 Website Navigation\n📞 Contact Information\n💬 WhatsApp Chat\n🎨 Services & Features\n📁 Portfolio\n🔒 Privacy Policy\n📜 Terms of Service\n\nWhat would you like to know?",
+            
+            // Quick Actions
+            start_project: "🚀 Start Your Project:\n\n3 Quick Ways:\n\n1️⃣ 💬 WHATSAPP (Fastest!)\n   Click green button below\n   \n2️⃣ 📞 CALL US\n   +267 777 83823\n   \n3️⃣ 📧 EMAIL\n   futurifydesigns@gmail.com\n\nOr fill out our Contact Form!\n(Click 'Contact' in menu)\n\n💡 Have your project details ready:\n• Website type needed\n• Features wanted\n• Budget range\n• Timeline needed\n\nLet's build something amazing! ✨",
+            
+            quote: "💵 Get a Custom Quote:\n\n📝 To provide accurate quote, we need:\n\n1️⃣ Website Type:\n   (Business/E-commerce/Portfolio/etc.)\n   \n2️⃣ Number of Pages\n\n3️⃣ Special Features Needed\n\n4️⃣ Timeline/Deadline\n\n5️⃣ Budget Range (if any)\n\n⚡ FASTEST: WhatsApp us!\n💬 Click green button below\n📞 Or call: +267 777 83823\n📧 Email: futurifydesigns@gmail.com\n\nQuotes usually within 24 hours!",
+            
+            // Thanks
+            thanks: "🌟 You're Very Welcome!\n\nHappy to help! 😊\n\nNeed anything else?\n\n💬 Keep chatting with me\n📞 Call: +267 777 83823\n💚 WhatsApp: Click green button\n📧 Email: futurifydesigns@gmail.com\n\nLooking forward to working with you! 🚀",
+            
+            // Fallback
+            fallback: "🤔 Hmm, I'm not quite sure about that!\n\nI can help you with:\n• Company information\n• Pricing & services\n• How to use this website\n• Contact details\n• Starting a project\n\nTry rephrasing your question, or:\n\n💬 WhatsApp us directly (green button)\n📞 Call: +267 777 83823\n📧 Email: futurifydesigns@gmail.com\n\nA human will gladly help! 😊",
+            
+            outofscope: "💬 That's outside my expertise!\n\nI'm focused on web design services at Futurify Designs.\n\nI CAN help with:\n✅ Website pricing & packages\n✅ Project timelines\n✅ Our services\n✅ Contact information\n\nFor other topics:\n📞 +267 777 83823\n📧 futurifydesigns@gmail.com\n💬 WhatsApp (green button)\n\nLet's talk web design! 🌐"
+        ,
+            
+
+            hello: "👋 Hi there! Welcome to Futurify Designs Pricing!\n\nI can help you with:\n💰 Package prices & features\n📊 Currency conversion\n🎯 Which package is right for you\n📞 Contact information\n\nWhat would you like to know?",
+            
+            // Pricing queries
+            pricing: "💰 Our Pricing Packages:\n\n🌱 STARTER: P2,200 - P2,800\n• 3-5 pages, mobile-friendly\n• Perfect for small businesses\n\n💼 BUSINESS: P4,000 - P5,500\n• 6-10 pages, admin dashboard\n• Ideal for growing businesses\n\n🚀 ADVANCED: P7,500 - P10,000\n• E-commerce (up to 300 products)\n• Booking systems\n\n⚡ FULL SYSTEM: P10,000 - P18,000\n• Custom dashboards & tools\n\n✨ CUSTOM: Contact for quote\n\n📄 View full details on this page or click 'Contact' to place an order!",
+            
+            starter: "🌱 STARTER PACKAGE\nP2,200 - P2,800 one-time setup\n\n✅ Features:\n• 3-5 responsive pages\n• Mobile-friendly design\n• Contact form integration\n• Basic SEO setup\n• Social media links\n• SSL certificate\n\n💰 Recurring Costs:\n• Hosting: P400-600/year\n• Maintenance: P180-250/month\n\n🎯 Perfect for: Small businesses, startups\n\n📞 Ready to start? Visit our Contact page!",
+            
+            business: "💼 BUSINESS PACKAGE\nP4,000 - P5,500 one-time setup\n\n✅ Features:\n• 6-10 responsive pages\n• Admin dashboard\n• Advanced SEO optimization\n• Blog/News section\n• Google Maps integration\n• Analytics setup\n• Email integration\n\n💰 Recurring Costs:\n• Hosting: P600-800/year\n• Maintenance: P300-400/month\n\n🎯 Perfect for: Growing businesses\n\n📞 Interested? Head to Contact page!",
+            
+            advanced: "🚀 ADVANCED PACKAGE\nP7,500 - P10,000 one-time setup\n\n✅ Features:\n• E-commerce (up to 300 products)\n• Booking/reservation systems\n• User login & registration\n• Payment gateway (Stripe)\n• Inventory & order management\n• Customer notifications\n• Admin dashboard\n\n💰 Recurring Costs:\n• Hosting: P900-1,200/year\n• Maintenance: P400-600/month\n\n🎯 Perfect for: Small-medium online stores\n\n📞 Let's discuss your needs! Contact page →",
+            
+            full_system: "⚡ FULL WEB SYSTEM\nP10,000 - P18,000 one-time setup\n\n✅ Features:\n• Custom admin dashboard\n• User accounts & roles\n• Database-driven functionality\n• Data visualization & charts\n• CRUD operations\n• User authentication\n• CSV/Excel export\n\n💰 Recurring Costs:\n• Hosting: P1,000-1,800/year\n• Maintenance: P500-800/month\n\n🎯 Perfect for: Internal tools, CRM systems\n\n📞 Ready to build? Contact us!",
+            
+            custom: "✨ CUSTOM PROJECTS\nContact for personalized quote\n\n🎯 We can build:\n• Unique features & integrations\n• Specialized functionality\n• Tailored solutions\n\n📋 Process:\n1️⃣ Detailed project analysis\n2️⃣ Custom pricing breakdown\n3️⃣ Timeline discussion\n4️⃣ Development begins\n\n📞 Let's discuss your vision!\nVisit our Contact page to get started!",
+            
+            // Comparison
+            compare: "📊 QUICK COMPARISON:\n\n🌱 STARTER (P2.2K-2.8K)\n→ Basic website, 3-5 pages\n\n💼 BUSINESS (P4K-5.5K)\n→ Professional site, 6-10 pages, blog\n\n🚀 ADVANCED (P7.5K-10K)\n→ E-commerce or booking system\n\n⚡ FULL SYSTEM (P10K-18K)\n→ Custom dashboard/internal tool\n\n✨ CUSTOM\n→ Unique requirements\n\n💡 Which package interests you?",
+            
+            recommend: "🎯 LET ME HELP YOU CHOOSE!\n\nAnswer these questions:\n\n1️⃣ What type of business?\n• Restaurant/Salon → BUSINESS\n• Online Store → ADVANCED\n• Service Business → BUSINESS\n• Tech Startup → FULL SYSTEM\n\n2️⃣ Do you need:\n• E-commerce? → ADVANCED\n• Booking system? → ADVANCED\n• Just info pages? → STARTER/BUSINESS\n• Custom tools? → FULL SYSTEM\n\n📞 Still unsure? Contact us for personalized advice!",
+            
+            // Currency
+            currency: "💱 CURRENCY CONVERTER\n\nWe support 20+ currencies including:\n🇧🇼 Botswana Pula (BWP)\n🇺🇸 US Dollar (USD)\n🇿🇦 South African Rand (ZAR)\n🇪🇺 Euro (EUR)\n🇬🇧 British Pound (GBP)\n🇳🇬 Nigerian Naira (NGN)\n🇰🇪 Kenyan Shilling (KES)\n🇮🇳 Indian Rupee (INR)\n...and more!\n\n📍 Use the dropdown above to convert all prices to your currency!",
+            
+            // Timeline & Process
+            timeline: "⏰ PROJECT TIMELINE:\n\n🌱 STARTER: 1-2 weeks\n💼 BUSINESS: 2-4 weeks\n🚀 ADVANCED: 4-6 weeks\n⚡ FULL SYSTEM: 6-10 weeks\n\n📋 Process:\n1️⃣ Discovery call\n2️⃣ Requirements gathering\n3️⃣ Design mockups\n4️⃣ Development\n5️⃣ Testing\n6️⃣ Launch!\n\n📞 Ready to start? Contact page →",
+            
+            maintenance: "🔧 MAINTENANCE INCLUDED:\n\n✅ What's covered:\n• Security updates\n• Bug fixes\n• Content updates\n• Technical support\n• Backup management\n• Performance monitoring\n\n💰 Monthly Costs:\n• Starter: P180-250\n• Business: P300-400\n• Advanced: P400-600\n• Full System: P500-800\n\n📞 Questions? Contact us!",
+            
+            hosting: "🌐 HOSTING & DOMAIN:\n\n✅ Hosting Included:\n• Fast & reliable servers\n• 99.9% uptime guarantee\n• SSL certificate\n• Regular backups\n\n💰 Annual Hosting:\n• Starter: P400-600\n• Business: P600-800\n• Advanced: P900-1,200\n• Full System: P1,000-1,800\n\n🌍 Domain Registration:\nP150-250/year (optional add-on)\n\n📞 Need more info? Contact us!",
+            
+            addons: "➕ OPTIONAL ADD-ONS:\n\n🌍 Domain Registration\nP150-250 per year\n\n🔍 SEO & Google Business\nP400-800 one-time\n\n✍️ Content Writing & Branding\nP300-600\n\n🎨 Logo & Graphics Design\nP200-400\n\n📧 Email: futurifydesigns@gmail.com\n📞 Call: +267 777 83823",
+            
+            // Contact & Actions
+            contact: "📞 GET IN TOUCH:\n\n💬 WHATSAPP (Fastest!)\nClick the green button below →\n\n📧 EMAIL\nfuturifydesigns@gmail.com\n\n📱 PHONE\n+267 777 83823\n\n🌍 LOCATION\nGaborone, Botswana\n\n📄 Or visit our Contact page to fill out a form!",
+            
+            order: "🎯 READY TO ORDER?\n\n3 Easy Steps:\n\n1️⃣ Choose your package\n2️⃣ Visit our Contact page\n3️⃣ Fill out the form or WhatsApp us!\n\n💬 FASTEST: Click the green WhatsApp button!\n\n📧 Email: futurifydesigns@gmail.com\n📞 Call: +267 777 83823\n\nLet's build something amazing! 🚀",
+            
+            // Help
+            help: "🤔 I'M HERE TO HELP!\n\nI can answer questions about:\n\n💰 Package prices & features\n📊 Comparing packages\n🎯 Which package suits you\n💱 Currency conversion\n⏰ Timeline & process\n🔧 Maintenance & hosting\n📞 Contact information\n📝 How to place an order\n\nWhat would you like to know?",
+            
+            thanks: "🌟 You're Welcome!\n\nHappy to help! 😊\n\nNeed anything else?\n💬 Keep chatting with me\n📞 Call: +267 777 83823\n💚 WhatsApp: Click green button\n📧 Email: futurifydesigns@gmail.com\n\nLooking forward to working with you! 🚀",
+            
+            fallback: "🤔 Hmm, I'm not sure about that!\n\nI can help you with:\n💰 Pricing & packages\n📊 Package comparison\n🎯 Recommendations\n⏰ Timeline & process\n📞 Contact details\n\nTry asking about pricing, packages, or how to order!\n\n💬 Or WhatsApp us directly! (green button)"
+        
+        };
+
+        function getResponse(msg) {
+            const lower = msg.toLowerCase().trim();
+            
+            // Greetings
+            if (lower.match(/^(hi|hello|hey|greetings|good morning|good afternoon|sup|yo)$/)) return responses.hello;
+            
+            // About & Company Info
+            if (lower.match(/(about|tell me|who are|what is futurify)/)) {
+                if (lower.match(/(detail|more|different|unique)/)) return responses.about_detailed;
+                return responses.about;
+            }
+            
+            // Website Help & Navigation
+            if (lower.match(/(navigate|navigation|menu|how to use|website help|find)/)) return responses.navigation;
+            if (lower.match(/(how does|how do i use)/)) return responses.website_help;
+            
+            // Services
+            if (lower.match(/(service|what do you|what can you)/)) return responses.services;
+            if (lower.match(/(feature|functionality|what features)/)) return responses.features;
+            
+            // Website Type Ideas
+            if (lower.match(/(restaurant|food|cafe|menu)/)) return responses.ideas_restaurant;
+            if (lower.match(/(shop|store|ecommerce|e-commerce|sell online)/)) return responses.ideas_ecommerce;
+            if (lower.match(/(portfolio|gallery|showcase)/)) return responses.ideas_portfolio;
+            if (lower.match(/(business site|company site|corporate)/)) return responses.ideas_business;
+            
+            // Pricing - More specific matching
+            if (lower.match(/(price|pricing|cost|how much|package|plan)/)) {
+                if (lower.match(/(detail|breakdown)/)) return responses.pricing_detailed;
+                if (lower.match(/(starter|basic|small)/)) return responses.starter;
+                if (lower.match(/(business|medium|growing)/)) return responses.business;
+                if (lower.match(/(advanced|ecommerce|e-commerce)/)) return responses.advanced;
+                if (lower.match(/(full|system|dashboard|crm|tool)/)) return responses.full_system;
+                if (lower.match(/(custom|unique|special)/)) return responses.custom;
+                return responses.pricing;
+            }
+            
+            // Specific packages (when not asking about price)
+            if (lower.match(/(starter package|basic package)/)) return responses.starter;
+            if (lower.match(/(business package)/)) return responses.business;
+            if (lower.match(/(advanced package)/)) return responses.advanced;
+            if (lower.match(/(full system|full package)/)) return responses.full_system;
+            if (lower.match(/(custom project)/)) return responses.custom;
+            
+            // Comparison & recommendation
+            if (lower.match(/(compare|comparison|difference|versus|vs)/)) return responses.compare;
+            if (lower.match(/(recommend|suggest|which|best|right|choose|help me decide)/)) return responses.recommend;
+            
+            // Currency
+            if (lower.match(/(currency|convert|dollar|euro|rand)/)) return responses.currency;
+            
+            // Timeline & Process
+            if (lower.match(/(time|timeline|long|quick|fast|when|duration|how long)/)) {
+                if (lower.match(/(detail|breakdown|step|phase)/)) return responses.timeline_detailed;
+                return responses.timeline;
+            }
+            if (lower.match(/(process|workflow|how do you work|steps)/)) return responses.process;
+            
+            // Maintenance & Support
+            if (lower.match(/(maintenance|maintain)/)) return responses.maintenance;
+            if (lower.match(/(support|help after|after launch)/)) return responses.support;
+            
+            // Hosting & Domain
+            if (lower.match(/(host|hosting|domain|server)/)) return responses.hosting;
+            
+            // Add-ons
+            if (lower.match(/(addon|add-on|extra|additional)/)) return responses.addons;
+            
+            // Privacy & Legal
+            if (lower.match(/(privacy policy|privacy|data protection)/)) return responses.privacy_policy;
+            if (lower.match(/(terms|terms of service|legal)/)) return responses.terms;
+            if (lower.match(/(secure|security|safe)/)) return responses.privacy;
+            
+            // Portfolio
+            if (lower.match(/(portfolio|past work|previous project|examples)/)) return responses.portfolio;
+            
+            // Contact & Communication
+            if (lower.match(/(contact|email|phone|call|reach)/)) return responses.contact;
+            if (lower.match(/(whatsapp|chat)/)) return responses.whatsapp;
+            
+            // Actions
+            if (lower.match(/(order|buy|purchase)/)) return responses.order;
+            if (lower.match(/(start|begin|get started|ready)/)) return responses.start_project;
+            if (lower.match(/(quote|estimate)/)) return responses.quote;
+            
+            // Motivation
+            if (lower.match(/(motivate|inspire|encourage)/)) return responses.motivation;
+            
+            // Help
+            if (lower.match(/(help|assist|confused|stuck)/)) return responses.help;
+            
+            // Thanks
+            if (lower.match(/(thank|thanks|thx|appreciate)/)) return responses.thanks;
+            
+            // Out of scope
+            if (lower.match(/(weather|politics|sports|news)/)) return responses.outofscope;
+            
+            return responses.fallback;
+        }
+
+        function addMsg(text, isUser, save = true) {
+            if (!chatMsgs) return;
+            const div = document.createElement('div');
+            div.className = isUser ? 'user-message' : 'bot-message';
+            div.textContent = text;
+            chatMsgs.appendChild(div);
+            chatMsgs.scrollTop = chatMsgs.scrollHeight;
+            
+            if (save) {
+                saveChatHistory();
+            }
+        }
+
+        function sendMsg() {
+            if (!chatInp) return;
+            const msg = chatInp.value.trim();
+            if (msg) {
+                addMsg(msg, true);
+                chatInp.value = '';
+                setTimeout(() => addMsg(getResponse(msg), false), 600);
+            }
+        }
+
+        if (chatBtn && chatWin) {
+            chatBtn.onclick = () => {
+                const isVisible = chatWin.style.display === 'flex';
+                chatWin.style.display = isVisible ? 'none' : 'flex';
+                if (!isVisible) {
+                    loadChatHistory(); // Load history when opening
+                    if (chatInp) setTimeout(() => chatInp.focus(), 100);
+                }
+            };
+        }
+
+        if (chatClose && chatWin) {
+            chatClose.onclick = () => chatWin.style.display = 'none';
+        }
+
+        if (chatSend) {
+            chatSend.onclick = sendMsg;
+        }
+
+        if (chatInp) {
+            chatInp.onkeypress = (e) => {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    sendMsg();
+                }
+            };
+        }
+
+        // Create floating particles
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            if (!particlesContainer) return;
+            
+            const particleCount = 50;
+
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                
+                // Random horizontal position
+                particle.style.left = Math.random() * 100 + '%';
+                
+                // Position particles randomly across the full height so they're already floating
+                particle.style.top = Math.random() * 120 + '%';
+                
+                // Random animation delay for staggered effect
+                particle.style.animationDelay = -(Math.random() * 15) + 's';
+                particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
+                
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        createParticles();
+
+
+    </script>
+</body>
+</html>
