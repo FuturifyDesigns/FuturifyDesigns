@@ -1487,8 +1487,11 @@
 
     <!-- Navigation -->
     <nav class="nav">
-        <div class="nav-container">
-            <a href="home f.html" class="logo">F</a>
+        <a href="home f.html" class="logo">F</a>
+        <div class="menu-toggle" onclick="toggleMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
         </div>
         <div class="nav-links">
             <a href="home f.html" class="nav-link">Home</a>
@@ -1993,11 +1996,11 @@
             statusEl.textContent = statusText;
         }
 
-        // Status Notice System
-        function showStatusNotice(icon, title, message) {
-            const noticeKey = `notice_${title.replace(/\s/g, '_')}_${new Date().toDateString()}`;
+        // Status Notice System - Updated with better logic
+        function showStatusNotice(icon, title, message, noticeType) {
+            const noticeKey = `notice_${noticeType}_${new Date().toDateString()}`;
             
-            // Check if notice was already shown today
+            // Check if this specific notice was already shown today
             if (sessionStorage.getItem(noticeKey)) {
                 return;
             }
@@ -2009,7 +2012,7 @@
             document.getElementById('noticeOverlay').classList.add('show');
             document.getElementById('statusNotice').classList.add('show');
             
-            // Mark as shown
+            // Mark this specific notice as shown
             sessionStorage.setItem(noticeKey, 'true');
         }
 
@@ -2030,19 +2033,70 @@
                 if (hour >= openHour && hour < closeHour) {
                     // Open
                     if (hour === closeHour - 1) {
-                        showStatusNotice('⚠️', 'Almost Closing Time', 'We\'re about to close for the day. You can still browse and contact us, but we\'ll get back to you when we reopen tomorrow at 9 AM!');
+                        // Almost closing - this should show even if user saw "open" notice
+                        showStatusNotice('⚠️', 'Almost Closing Time', 'We\'re about to close for the day. You can still browse and contact us, but we\'ll get back to you when we reopen tomorrow at 9 AM!', 'almost_closing');
                     } else {
-                        showStatusNotice('✅', 'We\'re Open!', 'Our services are operational! Feel free to contact us via WhatsApp, phone, or email. We\'re here to help with your web design needs!');
+                        // Regular open notice - shows once per day
+                        showStatusNotice('✅', 'We\'re Open!', 'Our services are operational! Feel free to contact us via WhatsApp, phone, or email. We\'re here to help with your web design needs!', 'open');
                     }
                 } else {
                     // Closed
                     if (hour === openHour - 1 || (hour === 8 && now.getMinutes() >= 0)) {
-                        showStatusNotice('🌅', 'Opening Soon', 'We\'re about to open! Our team will be available at 9 AM. You can still look around and send us a message - we\'ll respond as soon as we\'re open!');
+                        // Almost open - this should show even if user saw "closed" notice
+                        showStatusNotice('🌅', 'Opening Soon', 'We\'re about to open! Our team will be available at 9 AM. You can still look around and send us a message - we\'ll respond as soon as we\'re open!', 'almost_open');
                     } else {
-                        showStatusNotice('🌙', 'We\'re Closed', 'Thanks for visiting! We\'re currently closed. You can still browse our website and contact us - we\'ll get back to you when we reopen at 9 AM. Business hours: 9 AM - 6 PM.');
+                        // Regular closed notice - shows once per day
+                        showStatusNotice('🌙', 'We\'re Closed', 'Thanks for visiting! We\'re currently closed. You can still browse our website and contact us - we\'ll get back to you when we reopen at 9 AM. Business hours: 9 AM - 6 PM.', 'closed');
                     }
                 }
             }, 3000);
+        }
+
+        // Check for ALL status changes every minute
+        function checkForStatusChanges() {
+            const now = new Date();
+            const hour = now.getHours();
+            const minute = now.getMinutes();
+            
+            const openHour = 9;
+            const closeHour = 18;
+            
+            // Check at the START of each hour for status transitions
+            if (minute === 0) {
+                const todayKey = new Date().toDateString();
+                
+                // Transition 1: Open → Almost Closing (5:00 PM)
+                if (hour === closeHour - 1) {
+                    const noticeKey = `notice_almost_closing_${todayKey}`;
+                    if (!sessionStorage.getItem(noticeKey)) {
+                        showStatusNotice('⚠️', 'Almost Closing Time', 'We\'re about to close for the day. You can still browse and contact us, but we\'ll get back to you when we reopen tomorrow at 9 AM!', 'almost_closing');
+                    }
+                }
+                
+                // Transition 2: Almost Closing → Closed (6:00 PM)
+                else if (hour === closeHour) {
+                    const noticeKey = `notice_closed_${todayKey}`;
+                    if (!sessionStorage.getItem(noticeKey)) {
+                        showStatusNotice('🌙', 'We\'re Closed', 'Thanks for visiting! We\'re currently closed. You can still browse our website and contact us - we\'ll get back to you when we reopen at 9 AM. Business hours: 9 AM - 6 PM.', 'closed');
+                    }
+                }
+                
+                // Transition 3: Closed → Almost Open (8:00 AM)
+                else if (hour === openHour - 1) {
+                    const noticeKey = `notice_almost_open_${todayKey}`;
+                    if (!sessionStorage.getItem(noticeKey)) {
+                        showStatusNotice('🌅', 'Opening Soon', 'We\'re about to open! Our team will be available at 9 AM. You can still look around and send us a message - we\'ll respond as soon as we\'re open!', 'almost_open');
+                    }
+                }
+                
+                // Transition 4: Almost Open → Open (9:00 AM)
+                else if (hour === openHour) {
+                    const noticeKey = `notice_open_${todayKey}`;
+                    if (!sessionStorage.getItem(noticeKey)) {
+                        showStatusNotice('✅', 'We\'re Open!', 'Our services are operational! Feel free to contact us via WhatsApp, phone, or email. We\'re here to help with your web design needs!', 'open');
+                    }
+                }
+            }
         }
 
         // Mobile menu toggle
@@ -2079,6 +2133,9 @@
         setInterval(updateClock, 1000);
         updateClock();
         checkAndShowNotice();
+        
+        // Check for status changes every minute
+        setInterval(checkForStatusChanges, 60000);
 
         // Close notice when clicking overlay
         document.getElementById('noticeOverlay').addEventListener('click', closeNotice);
