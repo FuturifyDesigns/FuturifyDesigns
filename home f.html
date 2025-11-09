@@ -1053,13 +1053,16 @@
         }
 
         .business-hours-widget.collapsed {
-            transform: translateX(calc(100% + 20px));
+            right: -220px;
             box-shadow: none;
-            pointer-events: none;
         }
         
         .business-hours-widget.collapsed .widget-toggle {
             pointer-events: all;
+        }
+        
+        .business-hours-widget.collapsed .widget-content {
+            opacity: 0;
         }
 
         .widget-toggle {
@@ -1253,24 +1256,7 @@
             }
 
             .business-hours-widget.collapsed {
-                right: -100%;
-                transform: translateX(0);
-                opacity: 0;
-                visibility: hidden;
-            }
-            
-            .business-hours-widget.collapsed .widget-toggle {
-                left: auto;
-                right: 10px;
-                border-radius: 10px;
-                border: 1px solid rgba(255, 255, 255, 0.2);
-                position: fixed;
-                top: 80px;
-            }
-            
-            .business-hours-widget.collapsed .widget-toggle:hover {
-                left: auto;
-                right: 10px;
+                right: -170px;
             }
 
             .widget-toggle {
