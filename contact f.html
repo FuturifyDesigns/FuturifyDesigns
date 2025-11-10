@@ -39,8 +39,6 @@
             outline: none;
         }
 
-        /* Animated Background Particles */
-
         /* Opening Animation */
         .opening-animation {
             position: fixed;
@@ -139,6 +137,7 @@
             }
         }
 
+        /* Animated Background Particles */
         .particles {
             position: fixed;
             width: 100%;
@@ -307,6 +306,174 @@
             }
         }
 
+        /* Package Selection Section */
+        .package-selection {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            padding: 24px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            margin-bottom: 32px;
+            opacity: 0;
+            animation: fadeInDown 1s ease-out 0.4s forwards;
+        }
+        
+        .package-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .package-title {
+            font-size: 26px;
+            color: #fff;
+            font-weight: 600;
+        }
+        
+        .package-status {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .status-indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #ff6b6b;
+        }
+        
+        .status-indicator.selected {
+            background: #51cf66;
+        }
+        
+        .status-text {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 14px;
+            font-weight: 600;
+        }
+        
+        .package-content {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .package-placeholder {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            border: 2px dashed rgba(255, 255, 255, 0.3);
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .package-placeholder:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+        
+        .placeholder-icon {
+            font-size: 48px;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 15px;
+        }
+        
+        .placeholder-text {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+        
+        .placeholder-button {
+            padding: 12px 24px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 10px;
+            color: #fff;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .placeholder-button:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-3px);
+        }
+        
+        .package-selected {
+            display: none;
+            flex-direction: column;
+            gap: 15px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .package-selected.active {
+            display: flex;
+        }
+        
+        .selected-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .selected-title {
+            font-size: 20px;
+            color: #fff;
+            font-weight: 600;
+        }
+        
+        .selected-price {
+            font-size: 18px;
+            color: #51cf66;
+            font-weight: 700;
+        }
+        
+        .selected-features {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        
+        .feature-tag {
+            padding: 6px 12px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 12px;
+            font-weight: 600;
+        }
+        
+        .change-package {
+            margin-top: 15px;
+            padding: 8px 16px;
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 8px;
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            align-self: flex-start;
+            transition: all 0.3s ease;
+        }
+        
+        .change-package:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
         /* Contact Content Grid */
         .contact-content {
             display: grid;
@@ -324,7 +491,7 @@
             border: 1px solid rgba(255, 255, 255, 0.2);
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
             opacity: 0;
-            animation: fadeInLeft 1s ease-out 0.4s forwards, floatBox 6s ease-in-out 1s infinite;
+            animation: fadeInLeft 1s ease-out 0.6s forwards, floatBox 6s ease-in-out 1s infinite;
         }
 
         @keyframes floatBox {
@@ -367,122 +534,183 @@
             line-height: 1.6;
         }
 
-        .form-cta-container {
-            display: flex;
-            justify-content: center;
-            margin-bottom: 35px;
+        .form-group {
+            margin-bottom: 20px;
         }
 
-        .quote-button {
-            display: flex;
-            align-items: center;
-            gap: 18px;
-            padding: 22px 35px;
-            background: rgba(255, 255, 255, 0.95);
-            color: #667eea;
-            text-decoration: none;
-            border-radius: 15px;
+        .form-label {
+            display: block;
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 14px;
             font-weight: 600;
-            font-size: 17px;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
-            position: relative;
-            overflow: hidden;
+            margin-bottom: 8px;
         }
 
-        .quote-button::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
+        /* FIXED: Input text color visibility */
+        .form-input, .form-textarea {
             width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-            transition: left 0.5s ease;
+            padding: 12px 16px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            color: #fff !important;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            font-family: 'Poppins', sans-serif;
         }
 
-        .quote-button:hover::before {
-            left: 100%;
+        .form-input::placeholder, .form-textarea::placeholder {
+            color: rgba(255, 255, 255, 0.5);
         }
 
-        .quote-button:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.4);
-            background: #fff;
+        .form-input:focus, .form-textarea:focus {
+            border-color: rgba(255, 255, 255, 0.5);
+            background: rgba(255, 255, 255, 0.15);
         }
 
-        .button-icon {
-            font-size: 26px;
-            display: flex;
-            align-items: center;
+        .form-textarea {
+            resize: vertical;
+            min-height: 120px;
         }
 
-        .button-text {
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-            text-align: left;
-        }
-
-        .button-main {
-            font-size: 17px;
-            font-weight: 600;
-        }
-
-        .button-sub {
-            font-size: 12px;
-            font-weight: 600;
-            color: rgba(102, 126, 234, 0.7);
-        }
-
-        .button-arrow {
-            font-size: 16px;
-            transition: transform 0.3s ease;
-        }
-
-        .quote-button:hover .button-arrow {
-            transform: translateX(5px);
-        }
-
-        .form-features {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 18px;
-            margin-top: 25px;
-        }
-
-        .feature-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 8px;
+        .file-note {
+            margin-bottom: 20px;
             padding: 16px;
-            background: rgba(255, 255, 255, 0.05);
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
+            border: 2px solid rgba(102, 126, 234, 0.3);
             border-radius: 12px;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .file-note i {
+            font-size: 20px;
+            color: #667eea;
+            margin-top: 2px;
+            flex-shrink: 0;
+        }
+
+        .file-note p {
+            margin: 0;
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .file-note strong {
+            display: block;
+            margin-bottom: 4px;
+            color: #fff;
+        }
+
+        .submit-button {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border: none;
+            border-radius: 12px;
+            color: #fff;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        .submit-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(102, 126, 234, 0.6);
+        }
+
+        .submit-button:disabled {
+            background: rgba(255, 255, 255, 0.2);
+            color: rgba(255, 255, 255, 0.5);
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .form-warning {
+            display: none;
+            padding: 12px 16px;
+            background: rgba(255, 107, 107, 0.2);
+            border: 1px solid rgba(255, 107, 107, 0.4);
+            border-radius: 10px;
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 14px;
+            font-weight: 600;
+            margin-top: 15px;
             text-align: center;
+        }
+
+        .form-warning.show {
+            display: block;
+        }
+
+        .warning-button {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 8px 16px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 8px;
+            color: #fff;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
             transition: all 0.3s ease;
         }
 
-        .feature-item:hover {
-            background: rgba(255, 255, 255, 0.1);
-            transform: translateY(-3px);
+        .warning-button:hover {
+            background: rgba(255, 255, 255, 0.2);
         }
 
-        .feature-item i {
-            font-size: 20px;
+        /* Success Message */
+        .form-success {
+            display: none;
+            padding: 20px;
+            background: rgba(81, 207, 102, 0.2);
+            border: 1px solid rgba(81, 207, 102, 0.4);
+            border-radius: 10px;
             color: rgba(255, 255, 255, 0.9);
+            font-size: 14px;
+            font-weight: 600;
+            margin-top: 15px;
+            text-align: center;
         }
 
-        .feature-item span {
-            color: rgba(255, 255, 255, 0.98);
-            font-size: 13px;
-            font-weight: 700;
+        .form-success.show {
+            display: block;
+        }
+
+        /* Loading Spinner */
+        .loading-spinner {
+            display: none;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-left: 4px solid #fff;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 10px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
 
         /* Contact Info */
         .contact-info {
             opacity: 0;
-            animation: fadeInRight 1s ease-out 0.4s forwards;
+            animation: fadeInRight 1s ease-out 0.6s forwards;
         }
 
         @keyframes fadeInRight {
@@ -748,495 +976,6 @@
             }
         }
 
-        /* Responsive Design */
-        @media (max-width: 968px) {
-            .contact-content {
-                grid-template-columns: 1fr;
-                gap: 24px;
-            }
-
-            .nav-links {
-                gap: 16px;
-            }
-
-            nav {
-                padding: 20px 30px;
-            }
-
-            .page-title h1 {
-                font-size: 38px;
-            }
-
-            .contact-form,
-            .info-card,
-            .social-media {
-                padding: 24px;
-            }
-
-            .form-features {
-                grid-template-columns: 1fr;
-                gap: 15px;
-            }
-
-            .footer-content {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 24px;
-            }
-        }
-
-        @media (max-width: 768px) {
-            body {
-                padding: 20px 15px;
-            }
-
-            .contact-container {
-                margin: 90px auto 30px;
-            }
-
-            .page-title h1 {
-                font-size: 20px;
-            }
-
-            .page-subtitle {
-                font-size: 16px;
-                padding: 0 10px;
-            }
-
-            .contact-form,
-            .info-card,
-            .social-media {
-                padding: 20px;
-            }
-
-            .form-title,
-            .info-title,
-            .social-title {
-                font-size: 20px;
-            }
-
-            .quote-button {
-                padding: 20px 30px;
-                gap: 15px;
-            }
-
-            .button-main {
-                font-size: 16px;
-            }
-
-            .button-icon {
-                font-size: 20px;
-            }
-        }
-
-        @media (max-width: 600px) {
-            nav {
-                padding: 15px 20px;
-            }
-
-            .logo {
-                font-size: 20px;
-            }
-
-            .nav-links {
-                gap: 12px;
-            }
-
-            .nav-links a {
-                font-size: 13px;
-            }
-
-            .page-title h1 {
-                font-size: 20px;
-            }
-
-            .page-subtitle {
-                font-size: 14px;
-            }
-
-            .contact-form,
-            .info-card,
-            .social-media {
-                padding: 20px;
-            }
-
-            .form-description {
-                font-size: 14px;
-            }
-
-            .quote-button {
-                padding: 18px 25px;
-                gap: 12px;
-                flex-direction: column;
-                text-align: center;
-            }
-
-            .button-text {
-                align-items: center;
-            }
-
-            .button-main {
-                font-size: 15px;
-            }
-
-            .button-sub {
-                font-size: 12px;
-            }
-
-            .info-item {
-                font-size: 14px;
-            }
-
-            .social-links {
-                justify-content: center;
-            }
-
-            .social-link {
-                width: 50px;
-                height: 50px;
-                font-size: 20px;
-            }
-
-            .feature-item {
-                padding: 15px;
-            }
-
-            .feature-item i {
-                font-size: 20px;
-            }
-
-            .feature-item span {
-                font-size: 13px;
-            }
-
-            .footer-content {
-                grid-template-columns: 1fr;
-                gap: 24px;
-                text-align: center;
-            }
-
-            .footer-links a:hover {
-                transform: none;
-            }
-
-            .footer-contact li {
-                justify-content: center;
-            }
-
-            .footer-social {
-                justify-content: center;
-            }
-
-            .footer {
-                padding: 32px 20px 20px;
-                margin-top: 60px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .page-title h1 {
-                font-size: 20px;
-            }
-
-            .nav-links a {
-                font-size: 12px;
-            }
-
-            .contact-content {
-                gap: 16px;
-            }
-
-            .quote-button {
-                width: 100%;
-                padding: 16px 20px;
-            }
-
-            .button-icon {
-                font-size: 20px;
-            }
-        }
-    
-        @media (prefers-color-scheme: dark) {
-            body, .hero-background, .opening-overlay, .opening-animation {
-                background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 20%, #404040 40%, #1a1a1a 60%, #0d0d0d 80%, #000000 100%) !important;
-            }
-        }
-
-        /* Chatbot Tooltip */
-        .chatbot-button::before {
-            content: "Need Help? 💬";
-            position: absolute;
-            bottom: 70px;
-            right: 0;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            color: white;
-            padding: 10px 15px;
-            border-radius: 20px;
-            font-size: 13px;
-            font-weight: 700;
-            white-space: nowrap;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.3s, transform 0.3s;
-            transform: translateY(10px);
-            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
-        }
-        
-        .chatbot-button:hover::before {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        
-        /* WhatsApp Tooltip */
-        .whatsapp-button::before {
-            content: "Chat with me! 💬";
-            position: absolute;
-            bottom: 70px;
-            right: 0;
-            background: #25D366;
-            color: white;
-            padding: 10px 15px;
-            border-radius: 20px;
-            font-size: 13px;
-            font-weight: 700;
-            white-space: nowrap;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.3s, transform 0.3s;
-            transform: translateY(10px);
-            box-shadow: 0 5px 20px rgba(37, 211, 102, 0.4);
-        }
-        
-        .whatsapp-button:hover::before {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        
-
-        /* Notification Style Quote Popup */
-        .notification {
-            position: fixed;
-            top: 100px;
-            right: -400px;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            color: white;
-            padding: 20px 30px;
-            border-radius: 15px;
-            transition: right 0.5s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s, visibility 0.3s;
-            z-index: -1;
-            max-width: 350px;
-            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
-            opacity: 0;
-            visibility: hidden;
-            display: none;
-            pointer-events: none;
-            overflow: hidden;
-        }
-        
-        .notification.show {
-            right: 30px;
-            opacity: 1;
-            visibility: visible;
-            display: block;
-            pointer-events: auto;
-            z-index: 10001;
-        }
-        
-        .notification-close {
-            position: absolute;
-            top: 5px;
-            right: 5px;
-            background: rgba(0, 0, 0, 0.3);
-            border: none;
-            border-radius: 50%;
-            color: rgba(255, 255, 255, 0.95);
-            font-size: 28px;
-            cursor: pointer;
-            font-weight: 700;
-            width: 42px;
-            height: 42px;
-            line-height: 1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s;
-            -webkit-tap-highlight-color: transparent;
-            z-index: 10002;
-            padding: 0;
-            opacity: 0;
-            visibility: hidden;
-            pointer-events: none;
-        }
-        
-        .notification.show .notification-close {
-            opacity: 1;
-            visibility: visible;
-            pointer-events: auto;
-        }
-        
-        .notification-close:hover,
-        .notification-close:active {
-            color: #fff;
-            background: rgba(0, 0, 0, 0.5);
-            transform: scale(1.15);
-        }
-        
-        .motivation-popup {
-            position: fixed;
-            display: none;
-            opacity: 0;
-            visibility: hidden;
-            pointer-events: none;
-            z-index: -1;
-        }
-        
-        .motivation-popup.show {
-            display: block;
-            opacity: 1;
-            visibility: visible;
-            pointer-events: auto;
-            z-index: 10001;
-        }
-        
-        .motivation-popup-close {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background: rgba(255, 255, 255, 0.2);
-            border: none;
-            border-radius: 50%;
-            color: rgba(102, 126, 234, 0.8);
-            font-size: 32px;
-            cursor: pointer;
-            font-weight: 700;
-            width: 50px;
-            height: 50px;
-            line-height: 1;
-            display: none;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s;
-            -webkit-tap-highlight-color: transparent;
-            opacity: 0;
-            visibility: hidden;
-            pointer-events: none;
-        }
-        
-        .motivation-popup.show .motivation-popup-close {
-            display: flex;
-            opacity: 1;
-            visibility: visible;
-            pointer-events: auto;
-        }
-        
-        .motivation-popup-close:hover {
-            color: #667eea;
-            background: rgba(255, 255, 255, 0.4);
-            transform: scale(1.1);
-        }
-        
-        
-        .notification-icon {
-            font-size: 32px;
-            margin-bottom: 12px;
-            text-align: center;
-            animation: notificationIconPulse 2s ease-in-out infinite;
-        }
-        
-        @keyframes notificationIconPulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-        }
-        
-        .notification-text {
-            font-size: 15px;
-            line-height: 1.6;
-            font-weight: 600;
-            text-align: center;
-            font-style: italic;
-            margin-bottom: 10px;
-        }
-        
-        .notification-author {
-            font-size: 13px;
-            font-weight: 700;
-            text-align: right;
-            margin-top: 10px;
-            opacity: 0.9;
-        }
-        
-        @media (max-width: 768px) {
-            .notification {
-                top: 80px;
-                right: auto;
-                left: -100%;
-                max-width: calc(100% - 30px);
-                width: calc(100% - 30px);
-                display: none;
-            }
-            
-            .notification.show {
-                left: 15px;
-                display: block;
-            }
-            
-            /* Chatbot mobile positioning */
-            #chatbotButton {
-                bottom: 20px !important;
-                right: 20px !important;
-                width: 50px !important;
-                height: 50px !important;
-            }
-            
-            /* WhatsApp mobile positioning - next to chatbot */
-            #whatsappButton {
-                bottom: 20px !important;
-                right: 85px !important;
-                width: 50px !important;
-                height: 50px !important;
-            }
-            
-            #chatbotWindow {
-                top: 80px !important;
-                right: 10px !important;
-                left: 10px !important;
-                width: calc(100% - 20px) !important;
-                max-height: 400px !important;
-            }
-            
-            #chatbotWindow > div:first-child {
-                padding: 12px 15px !important;
-            }
-            
-            #chatbotWindow > div:first-child h3 {
-                font-size: 16px !important;
-            }
-            
-            #chatbotMessages {
-                padding: 12px !important;
-                font-size: 13px !important;
-            }
-            
-            #chatbotMessages > div {
-                font-size: 13px !important;
-                padding: 10px 12px !important;
-            }
-            
-            #chatbotWindow > div:last-child {
-                padding: 10px 15px !important;
-            }
-            
-            #chatbotInput {
-                padding: 10px 12px !important;
-                font-size: 13px !important;
-            }
-            
-            #chatbotSend {
-                width: 40px !important;
-                height: 40px !important;
-                font-size: 18px !important;
-            }
-        }
-
         /* Business Hours Clock */
         .business-hours-widget {
             position: fixed;
@@ -1437,8 +1176,288 @@
             box-shadow: 0 8px 24px rgba(255, 255, 255, 0.2);
         }
 
-        /* Mobile responsive for clock widget */
+        /* Chatbot & WhatsApp Buttons */
+        .chatbot-button {
+            position: fixed;
+            bottom: 30px;
+            right: 100px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.9), rgba(118, 75, 162, 0.9));
+            backdrop-filter: blur(10px);
+            cursor: pointer;
+            z-index: 10000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+            animation: chatPulse 2s infinite;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .chatbot-button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.6);
+        }
+
+        .whatsapp-button {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: #25D366;
+            cursor: pointer;
+            z-index: 10000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 10px 30px rgba(37, 211, 102, 0.4);
+            transition: all 0.3s ease;
+            text-decoration: none;
+            animation: whatsappPulse 2s infinite;
+        }
+
+        .whatsapp-button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 15px 40px rgba(37, 211, 102, 0.6);
+        }
+
+        @keyframes chatPulse {
+            0%, 100% { 
+                transform: scale(1); 
+                box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4); 
+            }
+            50% { 
+                transform: scale(1.05); 
+                box-shadow: 0 15px 40px rgba(102, 126, 234, 0.6); 
+            }
+        }
+
+        @keyframes whatsappPulse {
+            0%, 100% { 
+                transform: scale(1); 
+                box-shadow: 0 10px 30px rgba(37, 211, 102, 0.4); 
+            }
+            50% { 
+                transform: scale(1.05); 
+                box-shadow: 0 15px 40px rgba(37, 211, 102, 0.6); 
+            }
+        }
+
+        /* Chatbot Window */
+        .chatbot-window {
+            position: fixed;
+            top: 80px;
+            bottom: auto;
+            right: 30px;
+            width: 380px;
+            max-height: calc(100vh - 100px);
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            display: none;
+            flex-direction: column;
+            z-index: 9999;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .chatbot-header {
+            padding: 20px;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.9), rgba(118, 75, 162, 0.9));
+            color: #fff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .chatbot-header h3 {
+            margin: 0;
+            font-weight: 900;
+            font-size: 18px;
+        }
+
+        .chatbot-header button {
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 22px;
+            cursor: pointer;
+            padding: 0;
+            line-height: 1;
+            transition: transform 0.2s;
+        }
+
+        .chatbot-header button:hover {
+            transform: scale(1.2);
+        }
+
+        .chatbot-messages {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            background: rgba(255, 255, 255, 0.95);
+        }
+
+        .bot-message {
+            padding: 12px 16px;
+            border-radius: 15px;
+            max-width: 80%;
+            font-size: 14px;
+            background: rgba(102, 126, 234, 0.1);
+            color: #333;
+            border: 1px solid rgba(102, 126, 234, 0.2);
+            line-height: 1.5;
+            word-wrap: break-word;
+            white-space: pre-wrap;
+        }
+
+        .user-message {
+            padding: 12px 16px;
+            border-radius: 15px;
+            max-width: 80%;
+            font-size: 14px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: #fff;
+            align-self: flex-end;
+            margin-left: auto;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+            line-height: 1.5;
+            word-wrap: break-word;
+            white-space: pre-wrap;
+        }
+
+        .chatbot-input-container {
+            padding: 15px 20px;
+            display: flex;
+            gap: 10px;
+            border-top: 1px solid rgba(102, 126, 234, 0.1);
+            background: rgba(255, 255, 255, 0.98);
+        }
+
+        .chatbot-input-container input {
+            flex: 1;
+            padding: 12px 15px;
+            border: 2px solid rgba(102, 126, 234, 0.3);
+            border-radius: 25px;
+            font-size: 14px;
+            outline: none;
+            background: rgba(102, 126, 234, 0.05);
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .chatbot-input-container input:focus {
+            border-color: rgba(102, 126, 234, 0.5);
+        }
+
+        .chatbot-input-container button {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border: none;
+            color: #fff;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 20px;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .chatbot-input-container button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.5);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 968px) {
+            .contact-content {
+                grid-template-columns: 1fr;
+                gap: 24px;
+            }
+
+            .nav-links {
+                gap: 16px;
+            }
+
+            nav {
+                padding: 20px 30px;
+            }
+
+            .page-title h1 {
+                font-size: 38px;
+            }
+
+            .contact-form,
+            .info-card,
+            .social-media {
+                padding: 24px;
+            }
+
+            .footer-content {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 24px;
+            }
+        }
+
         @media (max-width: 768px) {
+            body {
+                padding: 20px 15px;
+            }
+
+            .contact-container {
+                margin: 90px auto 30px;
+            }
+
+            .page-title h1 {
+                font-size: 32px;
+            }
+
+            .page-subtitle {
+                font-size: 16px;
+                padding: 0 10px;
+            }
+
+            .contact-form,
+            .info-card,
+            .social-media {
+                padding: 20px;
+            }
+
+            .form-title,
+            .info-title,
+            .social-title {
+                font-size: 20px;
+            }
+
+            .package-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+
+            .selected-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+
+            .selected-features {
+                justify-content: center;
+            }
+
+            .feature-tag {
+                font-size: 11px;
+                padding: 5px 10px;
+            }
+
             .business-hours-widget {
                 top: 80px;
                 right: 10px;
@@ -1468,11 +1487,163 @@
                 font-size: 12px;
                 padding: 6px 12px;
             }
+
+            .chatbot-button {
+                right: 80px;
+                bottom: 20px;
+                width: 50px;
+                height: 50px;
+            }
+
+            .whatsapp-button {
+                right: 20px;
+                bottom: 20px;
+                width: 50px;
+                height: 50px;
+            }
+
+            .chatbot-window {
+                width: calc(100% - 40px);
+                right: 20px;
+                left: 20px;
+                top: 70px;
+            }
         }
 
-    </style>
+        @media (max-width: 600px) {
+            nav {
+                padding: 15px 20px;
+            }
 
-    
+            .logo {
+                font-size: 20px;
+            }
+
+            .nav-links {
+                gap: 12px;
+            }
+
+            .nav-links a {
+                font-size: 13px;
+            }
+
+            .page-title h1 {
+                font-size: 28px;
+            }
+
+            .page-subtitle {
+                font-size: 14px;
+            }
+
+            .contact-form,
+            .info-card,
+            .social-media {
+                padding: 20px;
+            }
+
+            .form-description {
+                font-size: 14px;
+            }
+
+            .info-item {
+                font-size: 14px;
+            }
+
+            .social-links {
+                justify-content: center;
+            }
+
+            .social-link {
+                width: 50px;
+                height: 50px;
+                font-size: 20px;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 24px;
+                text-align: center;
+            }
+
+            .footer-links a:hover {
+                transform: none;
+            }
+
+            .footer-contact li {
+                justify-content: center;
+            }
+
+            .footer-social {
+                justify-content: center;
+            }
+
+            .footer {
+                padding: 32px 20px 20px;
+                margin-top: 60px;
+            }
+
+            .package-selection {
+                padding: 20px;
+            }
+
+            .package-title {
+                font-size: 22px;
+            }
+
+            .selected-title {
+                font-size: 18px;
+            }
+
+            .selected-price {
+                font-size: 16px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .page-title h1 {
+                font-size: 24px;
+            }
+
+            .nav-links a {
+                font-size: 12px;
+            }
+
+            .contact-content {
+                gap: 16px;
+            }
+
+            .package-selection {
+                padding: 16px;
+            }
+
+            .package-placeholder {
+                padding: 30px 15px;
+            }
+
+            .placeholder-icon {
+                font-size: 40px;
+            }
+
+            .placeholder-text {
+                font-size: 14px;
+            }
+
+            .selected-features {
+                gap: 8px;
+            }
+
+            .feature-tag {
+                font-size: 10px;
+                padding: 4px 8px;
+            }
+        }
+
+        @media (prefers-color-scheme: dark) {
+            body, .hero-background, .opening-overlay, .opening-animation {
+                background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 20%, #404040 40%, #1a1a1a 60%, #0d0d0d 80%, #000000 100%) !important;
+            }
+        }
+    </style>
 </head>
 <body>
     <!-- Opening Animation -->
@@ -1522,7 +1693,6 @@
         <button class="notice-close" onclick="closeNotice()">Got it!</button>
     </div>
 
-
     <!-- Contact Container -->
     <div class="contact-container">
         <div class="page-title">
@@ -1530,42 +1700,102 @@
         </div>
         <p class="page-subtitle">Let's bring your vision to life. Request a quote for your dream website!</p>
 
+        <!-- Package Selection Section -->
+        <div class="package-selection">
+            <div class="package-header">
+                <h2 class="package-title">Selected Package</h2>
+                <div class="package-status">
+                    <div class="status-indicator" id="statusIndicator"></div>
+                    <span class="status-text" id="statusText">No package selected</span>
+                </div>
+            </div>
+            <div class="package-content">
+                <div class="package-placeholder" id="packagePlaceholder">
+                    <div class="placeholder-icon">📦</div>
+                    <div class="placeholder-text">No package selected yet. Choose a package from our pricing page to continue.</div>
+                    <!-- FIXED: Choose Package button now properly redirects -->
+                    <button class="placeholder-button" onclick="window.location.href='pricing f.html'">Choose Package</button>
+                </div>
+                <div class="package-selected" id="packageSelected">
+                    <div class="selected-header">
+                        <h3 class="selected-title" id="selectedTitle">Starter Package</h3>
+                        <div class="selected-price" id="selectedPrice">P2,200 - P2,800</div>
+                    </div>
+                    <div class="selected-features" id="selectedFeatures">
+                        <!-- Features will be populated dynamically -->
+                    </div>
+                    <button class="change-package" onclick="clearPackageSelection()">Change Package</button>
+                </div>
+            </div>
+        </div>
+
         <div class="contact-content">
             <!-- Contact Form -->
             <div class="contact-form">
                 <h2 class="form-title">Request a Quote</h2>
                 <p class="form-description">
-                    Ready to bring your vision to life? Click the button below to fill out a quick form, and I'll get back to you within 24 hours with a personalized quote for your dream website!
+                    Ready to bring your vision to life? Fill out the form below, and I'll get back to you within 24 hours with a personalized quote for your dream website!
                 </p>
                 
-                <div class="form-cta-container">
-                    <a href="https://docs.google.com/forms/d/e/1FAIpQLSc-SGYiKtEuj8gKXN4gzN2l4st3xO9wP_D3Hv2tdUTfuxRMxQ/viewform" target="_blank" class="quote-button">
-                        <span class="button-icon">
-                            <i class="fas fa-file-alt"></i>
-                        </span>
-                        <span class="button-text">
-                            <span class="button-main">Fill Out Quote Form</span>
-                            <span class="button-sub">Takes less than 2 minutes</span>
-                        </span>
-                        <span class="button-arrow">
-                            <i class="fas fa-arrow-right"></i>
-                        </span>
-                    </a>
+                <!-- Success Message -->
+                <div class="form-success" id="formSuccess">
+                    <div style="font-size: 48px; margin-bottom: 10px;">✅</div>
+                    <h3>Thank You!</h3>
+                    <p>Your quote request has been submitted successfully.</p>
+                    <p>We'll get back to you within 24 hours.</p>
                 </div>
 
-                <div class="form-features">
-                    <div class="feature-item">
-                        <i class="fas fa-clock"></i>
-                        <span>24-hour response time</span>
+                <!-- Loading Spinner -->
+                <div class="loading-spinner" id="loadingSpinner">
+                    <div class="spinner"></div>
+                    <p>Submitting your request...</p>
+                </div>
+                
+                <form id="quoteForm">
+                    <div class="form-group">
+                        <label class="form-label" for="name">Full Name</label>
+                        <input type="text" id="name" name="name" class="form-input" placeholder="Your full name" required>
                     </div>
-                    <div class="feature-item">
-                        <i class="fas fa-shield-alt"></i>
-                        <span>Your info is secure</span>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="email">Email Address</label>
+                        <input type="email" id="email" name="email" class="form-input" placeholder="your.email@example.com" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="Please enter a valid email address">
+                        <div id="emailError" style="color: #ff6b6b; font-size: 13px; margin-top: 6px; display: none;"></div>
                     </div>
-                    <div class="feature-item">
-                        <i class="fas fa-hand-holding-usd"></i>
-                        <span>Free consultation</span>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="phone">Phone Number</label>
+                        <input type="tel" id="phone" name="phone" class="form-input" placeholder="+267 7XX XXX XXX" required pattern="[\+]?[0-9]{8,15}" title="Please enter a valid phone number (8-15 digits)">
+                        <div id="phoneError" style="color: #ff6b6b; font-size: 13px; margin-top: 6px; display: none;"></div>
+                        <div id="phoneHelper" style="color: rgba(255, 255, 255, 0.6); font-size: 12px; margin-top: 4px;">Format: +267 XXX XXX or 77783823 (8-15 digits)</div>
                     </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="message">Project Details</label>
+                        <textarea id="message" name="message" class="form-textarea" placeholder="Tell us about your project, goals, and any specific requirements..." required></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="budget">Budget <span id="budgetCurrencySymbol">P</span><span id="budgetCurrencyCode"></span></label>
+                        <input type="number" id="budget" name="budget" class="form-input" placeholder="Select a package first" required step="0.01" min="0" disabled>
+                        <div id="budgetError" style="color: #ff6b6b; font-size: 13px; margin-top: 6px; display: none;"></div>
+                        <div id="budgetPulaEquivalent" style="color: rgba(255, 255, 255, 0.7); font-size: 13px; margin-top: 6px; display: none;"></div>
+                        <div id="budgetHelper" style="color: rgba(255, 255, 255, 0.6); font-size: 12px; margin-top: 4px; display: none;">Budget will be unlocked once you select a package</div>
+                    </div>
+                    
+                    <div class="file-note">
+                        <i class="fas fa-info-circle"></i>
+                        <p><strong>Have reference files or website concepts?</strong><br>
+                        Please send them as a separate email to <a href="mailto:futurifydesigns@gmail.com" style="color: #667eea; text-decoration: none; font-weight: 600;">futurifydesigns@gmail.com</a> after submitting this form.</p>
+                    </div>
+                    
+                    <button type="submit" class="submit-button" id="submitButton" disabled>Submit Quote Request</button>
+                </form>
+                
+                <div class="form-warning" id="formWarning">
+                    <p>Please select a package from our pricing page to continue.</p>
+                    <!-- FIXED: Go to Pricing button now properly redirects -->
+                    <button class="warning-button" onclick="window.location.href='pricing f.html'">Go to Pricing</button>
                 </div>
             </div>
 
@@ -1676,7 +1906,110 @@
         </div>
     </footer>
 
+    <!-- WhatsApp Button -->
+    <a href="https://wa.me/26777783823?text=Hi%20Futurify%20Designs!%20I'm%20interested%20in%20your%20web%20design%20services.%20Can%20we%20discuss%3F" 
+       target="_blank" 
+       rel="noopener noreferrer"
+       class="whatsapp-button" 
+       id="whatsappButton" 
+       title="Chat on WhatsApp">
+        <svg viewBox="0 0 24 24" style="width:30px;height:30px;fill:#fff;">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+        </svg>
+    </a>
+
+    <!-- AI Chatbot -->
+    <div class="chatbot-button" id="chatbotButton">
+        <svg viewBox="0 0 24 24" style="width:30px;height:30px;fill:#fff;">
+            <path d="M12 2C6.48 2 2 6.48 2 12c0 1.54.36 3 .97 4.29L2 22l5.71-.97C9 21.64 10.46 22 12 22c5.52 0 10-4.48 10-10S17.52 2 12 2zm0 18c-1.38 0-2.68-.31-3.85-.85l-.27-.14-2.82.48.48-2.82-.14-.27C4.31 14.68 4 13.38 4 12c0-4.41 3.59-8 8-8s8 3.59 8 8-3.59 8-8 8z"/>
+        </svg>
+    </div>
+
+    <!-- Chatbot Window -->
+    <div class="chatbot-window" id="chatbotWindow">
+        <div class="chatbot-header">
+            <h3>🤖 Futurify Assistant</h3>
+            <button id="chatbotClose">×</button>
+        </div>
+        <div id="chatbotMessages" class="chatbot-messages">
+            <div class="bot-message">Hi! 👋 Welcome to Futurify Designs! How can I help you today?</div>
+        </div>
+        <div class="chatbot-input-container">
+            <input type="text" id="chatbotInput" placeholder="Ask me anything..." />
+            <button id="chatbotSend">→</button>
+        </div>
+    </div>
+
+    <!-- Session Modal -->
+    <div id="sessionModal" style="position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(102,126,234,0.9);backdrop-filter:blur(10px);z-index:100001;display:none;align-items:center;justify-content:center;padding:20px;">
+        <div style="background:linear-gradient(135deg,#fff,#f8f9fa);padding:40px 30px;border-radius:20px;text-align:center;max-width:500px;width:100%;box-shadow:0 20px 60px rgba(102,126,234,0.5);border:2px solid rgba(102,126,234,0.3);">
+            <div style="font-size:50px;margin-bottom:15px;">👋</div>
+            <h2 style="color:#667eea;font-size:24px;font-weight:900;margin-bottom:12px;">Still There?</h2>
+            <p style="color:rgba(0,0,0,0.7);font-size:15px;margin-bottom:25px;line-height:1.6;font-weight:600;">We noticed you've been away for a while! Just checking in to make sure everything's going great. Click below to continue your journey with us! ✨</p>
+            <button id="continueSession" style="padding:14px 35px;border:none;border-radius:30px;cursor:pointer;font-weight:900;font-size:15px;background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;box-shadow:0 8px 20px rgba(102,126,234,0.4);transition:transform 0.2s;">Yes, I'm Here!</button>
+        </div>
+    </div>
+
     <script>
+        // UPDATED: Google Apps Script Web App URL
+        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwYCFOTXCniVvCBSk0rzgZhe7osPgKTMySc6AVWI8YZLqFfqkHM0MhTYjziw2eHmbaN/exec';
+
+        // Currency conversion rates (BWP as base)
+        const conversionRates = {
+            BWP: 1,
+            USD: 0.073,      // 1 BWP ≈ 0.073 USD
+            ZAR: 1.35,       // 1 BWP ≈ 1.35 ZAR
+            EUR: 0.067,      // 1 BWP ≈ 0.067 EUR
+            GBP: 0.057,      // 1 BWP ≈ 0.057 GBP
+            CAD: 0.10,       // 1 BWP ≈ 0.10 CAD
+            AUD: 0.11,       // 1 BWP ≈ 0.11 AUD
+            NGN: 115,        // 1 BWP ≈ 115 NGN
+            KES: 9.4,        // 1 BWP ≈ 9.4 KES
+            GHS: 1.15,       // 1 BWP ≈ 1.15 GHS
+            TZS: 195,        // 1 BWP ≈ 195 TZS
+            UGX: 270,        // 1 BWP ≈ 270 UGX
+            ZMW: 2.0,        // 1 BWP ≈ 2.0 ZMW
+            MWK: 127,        // 1 BWP ≈ 127 MWK
+            NAD: 1.35,       // 1 BWP ≈ 1.35 NAD (pegged to ZAR)
+            INR: 6.1,        // 1 BWP ≈ 6.1 INR
+            CNY: 0.53,       // 1 BWP ≈ 0.53 CNY
+            JPY: 11.3,       // 1 BWP ≈ 11.3 JPY
+            AED: 0.27,       // 1 BWP ≈ 0.27 AED
+            SAR: 0.27        // 1 BWP ≈ 0.27 SAR
+        };
+
+        const currencySymbols = {
+            BWP: 'P',
+            USD: '$',
+            ZAR: 'R',
+            EUR: '€',
+            GBP: '£',
+            CAD: 'C$',
+            AUD: 'A$',
+            NGN: '₦',
+            KES: 'KSh',
+            GHS: '₵',
+            TZS: 'TSh',
+            UGX: 'USh',
+            ZMW: 'ZK',
+            MWK: 'MK',
+            NAD: 'N$',
+            INR: '₹',
+            CNY: '¥',
+            JPY: '¥',
+            AED: 'د.إ',
+            SAR: '﷼'
+        };
+
+        // Package price ranges in BWP
+        const packageRanges = {
+            'Starter Package': { min: 2200, max: 2800 },
+            'Business Custom Site': { min: 4000, max: 5500 },
+            'Advanced Custom Site': { min: 7500, max: 10000 },
+            'Full Web System / Dashboard App': { min: 10000, max: 18000 },
+            'Custom Project': { min: 0, max: Infinity } // No limits for custom
+        };
+
         // Create floating particles
         function createParticles() {
             const particlesContainer = document.getElementById('particles');
@@ -1701,626 +2034,631 @@
         }
 
         createParticles();
-    </script>
 
-    <a href="https://wa.me/26777783823?text=Hi%20Futurify%20Designs!%20I'm%20interested%20in%20your%20web%20design%20services.%20Can%20we%20discuss%3F" 
-       target="_blank" 
-       rel="noopener noreferrer"
-       class="whatsapp-button" 
-       id="whatsappButton" 
-       style="position:fixed;bottom:30px;right:30px;width:60px;height:60px;border-radius:50%;background:#25D366;cursor:pointer;z-index:10000;display:none;align-items:center;justify-content:center;box-shadow:0 10px 30px rgba(37,211,102,0.4);transition:all 0.3s ease;text-decoration:none;"
-       title="Chat on WhatsApp">
-        <svg viewBox="0 0 24 24" style="width:30px;height:30px;fill:#fff;">
-            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
-        </svg>
-    </a>
-    <style>
-    @keyframes chatPulse {
-        0%, 100% { transform: scale(1); box-shadow: 0 10px 30px rgba(102,126,234,0.4); }
-        50% { transform: scale(1.05); box-shadow: 0 15px 40px rgba(102,126,234,0.6); }
-    }
-    @keyframes whatsappPulse {
-        0%, 100% { transform: scale(1); box-shadow: 0 10px 30px rgba(37,211,102,0.4); }
-        50% { transform: scale(1.05); box-shadow: 0 15px 40px rgba(37,211,102,0.6); }
-    }
-    .whatsapp-button {
-        animation: whatsappPulse 2s infinite;
-    }
-    </style>
-
-        <!-- AI Chatbot -->
-    <div class="chatbot-button" id="chatbotButton" style="position:fixed;bottom:30px;right:100px;width:60px;height:60px;border-radius:50%;background:linear-gradient(135deg,#667eea,#764ba2);cursor:pointer;z-index:10000;display:none;align-items:center;justify-content:center;box-shadow:0 10px 30px rgba(102,126,234,0.4);animation:chatPulse 2s infinite;">
-        <svg viewBox="0 0 24 24" style="width:30px;height:30px;fill:#fff;">
-            <path d="M12 2C6.48 2 2 6.48 2 12c0 1.54.36 3 .97 4.29L2 22l5.71-.97C9 21.64 10.46 22 12 22c5.52 0 10-4.48 10-10S17.52 2 12 2zm0 18c-1.38 0-2.68-.31-3.85-.85l-.27-.14-2.82.48.48-2.82-.14-.27C4.31 14.68 4 13.38 4 12c0-4.41 3.59-8 8-8s8 3.59 8 8-3.59 8-8 8z"/>
-        </svg>
-    </div>
-    <style>
-    @keyframes chatPulse {
-        0%, 100% { transform: scale(1); box-shadow: 0 10px 30px rgba(102,126,234,0.4); }
-        50% { transform: scale(1.05); box-shadow: 0 15px 40px rgba(102,126,234,0.6); }
-    }
-    </style>
-    <div class="chatbot-window" id="chatbotWindow" style="position:fixed;top:80px;bottom:auto;right:30px;width:380px;max-height:calc(100vh - 100px);background:linear-gradient(135deg,rgba(255,255,255,0.98),rgba(248,249,250,0.98));backdrop-filter:blur(20px);border-radius:20px;box-shadow:0 20px 60px rgba(102,126,234,0.3);display:none;flex-direction:column;z-index:99;overflow:hidden;border:1px solid rgba(102,126,234,0.2);">
-        <div style="padding:20px;background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;display:flex;justify-content:space-between;align-items:center;">
-            <h3 style="margin:0;font-weight:900;font-size:18px;">🤖 Futurify Assistant</h3>
-            <button id="chatbotClose" style="background:none;border:none;color:#fff;font-size:28px;cursor:pointer;padding:0;line-height:1;">×</button>
-        </div>
-        <div id="chatbotMessages" style="flex:1;padding:20px;overflow-y:auto;display:flex;flex-direction:column;gap:12px;">
-            <div style="padding:12px 16px;border-radius:15px;max-width:80%;font-size:14px;background:rgba(102,126,234,0.1);color:#333;border:1px solid rgba(102,126,234,0.2);">Hi! 👋 Welcome to Futurify Designs! How can I help you today?</div>
-        </div>
-        <div style="padding:15px 20px;display:flex;gap:10px;border-top:1px solid rgba(102,126,234,0.1);">
-            <input type="text" id="chatbotInput" placeholder="Ask me anything..." style="flex:1;padding:12px 15px;border:2px solid rgba(102,126,234,0.3);border-radius:25px;font-size:14px;outline:none;background:rgba(102,126,234,0.05);">
-            <button id="chatbotSend" style="background:linear-gradient(135deg,#667eea,#764ba2);border:none;color:#fff;width:45px;height:45px;border-radius:50%;cursor:pointer;font-size:20px;box-shadow:0 4px 15px rgba(102,126,234,0.3);">→</button>
-        </div>
-    </div>
-
-    <!-- Session Modal -->
-    <div id="sessionModal" style="position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(102,126,234,0.9);backdrop-filter:blur(10px);z-index:100001;display:none;align-items:center;justify-content:center;padding:20px;">
-        <div style="background:linear-gradient(135deg,#fff,#f8f9fa);padding:40px 30px;border-radius:20px;text-align:center;max-width:500px;width:100%;box-shadow:0 20px 60px rgba(102,126,234,0.5);border:2px solid rgba(102,126,234,0.3);">
-            <div style="font-size:50px;margin-bottom:15px;">👋</div>
-            <h2 style="color:#667eea;font-size:24px;font-weight:900;margin-bottom:12px;">Still There?</h2>
-            <p style="color:rgba(0,0,0,0.7);font-size:15px;margin-bottom:25px;line-height:1.6;font-weight:600;">We noticed you've been away for a while! Just checking in to make sure everything's going great. Click below to continue your journey with us! ✨</p>
-            <button id="continueSession" style="padding:14px 35px;border:none;border-radius:30px;cursor:pointer;font-weight:900;font-size:15px;background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;box-shadow:0 8px 20px rgba(102,126,234,0.4);transition:transform 0.2s;">Yes, I'm Here!</button>
-        </div>
-    </div>
-
-    
-
-    
-
-    <!-- Motivational Quote Popup -->
-    <div class="motivation-popup" id="motivationPopup">
-        <button class="motivation-popup-close" id="closeQuote">×</button>
-        <div class="motivation-popup-icon" id="quoteIcon">💡</div>
-        <div class="motivation-popup-text" id="quoteText"></div>
-        <div class="motivation-popup-author" id="quoteAuthor"></div>
-    </div>
-
-    
-
-    <!-- Motivational Quote Notification -->
-    <div class="notification" id="notification">
-        <button class="notification-close" id="closeNotification">×</button>
-        <div class="notification-icon" id="notificationIcon"></div>
-        <div class="notification-text" id="notificationText"></div>
-        <div class="notification-author" id="notificationAuthor"></div>
-    </div>
-
-    
-
-    <script>
-    (function() {
-        console.log('🚀 Futurify Designs - Initializing with Analytics...');
-        
-        // Google Analytics Configuration
-        var GA_MEASUREMENT_ID = 'G-CXRYMECPJH'; // TODO: Replace with your actual GA4 Measurement ID
-        var analyticsLoaded = false;
-        
-        // Cookie Management
-        function setCookie(name, value, days) {
-            var d = new Date();
-            d.setTime(d.getTime() + (days * 24 * 60 * 60 * 1000));
-            document.cookie = name + "=" + value + ";expires=" + d.toUTCString() + ";path=/;SameSite=Lax";
+        // Package Selection Sync with Pricing Page
+        // Currency and budget management functions
+        function syncCurrencyFromPricing() {
+            const selectedCurrency = sessionStorage.getItem('selectedCurrency') || 'BWP';
+            updateBudgetCurrencyDisplay(selectedCurrency);
+            validateBudget(); // Validate on load
         }
-        
-        function getCookie(name) {
-            var nameEQ = name + "=";
-            var ca = document.cookie.split(';');
-            for(var i = 0; i < ca.length; i++) {
-                var c = ca[i];
-                while (c.charAt(0) == ' ') c = c.substring(1, c.length);
-                if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
-            }
-            return null;
+
+        function updateBudgetCurrencyDisplay(currency) {
+            const symbol = currencySymbols[currency];
+            const budgetSymbol = document.getElementById('budgetCurrencySymbol');
+            const budgetCode = document.getElementById('budgetCurrencyCode');
+            
+            if (budgetSymbol) budgetSymbol.textContent = symbol;
+            if (budgetCode) budgetCode.textContent = currency !== 'BWP' ? ` ${currency}` : '';
         }
-        
-        // Load Google Analytics
-        function loadGoogleAnalytics() {
-            if (analyticsLoaded) {
-                console.log('📊 Google Analytics already loaded');
-                return;
+
+        function convertFromBWP(amountBWP, toCurrency) {
+            return amountBWP * conversionRates[toCurrency];
+        }
+
+        function convertToBWP(amount, fromCurrency) {
+            return amount / conversionRates[fromCurrency];
+        }
+
+        function validateBudget() {
+            const selectedPackage = sessionStorage.getItem('selectedPackage');
+            const budgetInput = document.getElementById('budget');
+            const budgetError = document.getElementById('budgetError');
+            const budgetPulaEquiv = document.getElementById('budgetPulaEquivalent');
+            
+            if (!selectedPackage || !budgetInput || !budgetError) return true;
+            
+            const packageData = JSON.parse(selectedPackage);
+            const budgetValue = parseFloat(budgetInput.value);
+            
+            // Check if field is empty or NaN
+            if (isNaN(budgetValue) || budgetInput.value.trim() === '') {
+                budgetError.style.display = 'none';
+                budgetPulaEquiv.style.display = 'none';
+                return false;
             }
             
-            console.log('📊 Loading Google Analytics...');
+            // Check for negative or zero values
+            if (budgetValue <= 0) {
+                budgetError.textContent = 'Budget must be a positive number greater than zero';
+                budgetError.style.display = 'block';
+                budgetPulaEquiv.style.display = 'none';
+                budgetInput.style.borderColor = '#ff6b6b';
+                return false;
+            }
             
-            // Load Google Analytics dynamically
-            var script = document.createElement('script');
-            script.async = true;
-            script.src = 'https://www.googletagmanager.com/gtag/js?id=G-CXRYMECPJH';
-            document.head.appendChild(script);
-            
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'G-CXRYMECPJH', {
-                'anonymize_ip': true,
-                'cookie_flags': 'SameSite=Lax'
-            });
-            
-            analyticsLoaded = true;
-            console.log('✅ Google Analytics loaded successfully!');
-        }
-        
-        // Check existing consent and load analytics if accepted
-        var existingConsent = getCookie('futurify_cookie_consent');
-        if (existingConsent === 'accepted') {
-            console.log('✅ User previously accepted - Loading Google Analytics');
-            loadGoogleAnalytics();
-        } else if (existingConsent === 'declined') {
-            console.log('❌ User previously declined - No tracking');
-        }
-        
-        // 50+ Motivational Quotes
-        var quotes = [
-            { text: "The only way to do great work is to love what you do.", author: "Steve Jobs", icon: "💪" },
-            { text: "Success is not final, failure is not fatal: it is the courage to continue that counts.", author: "Winston Churchill", icon: "🌟" },
-            { text: "Your website is the center of your digital presence.", author: "Web Design Truth", icon: "🌐" },
-            { text: "Don't wait for opportunity. Create it.", author: "Unknown", icon: "🚀" },
-            { text: "The best time to plant a tree was 20 years ago. The second best time is now.", author: "Chinese Proverb", icon: "🌱" },
-            { text: "Dream big. Start small. But most of all, start.", author: "Simon Sinek", icon: "✨" },
-            { text: "Your online presence is your first impression. Make it count.", author: "Digital Marketing", icon: "💎" },
-            { text: "Innovation distinguishes between a leader and a follower.", author: "Steve Jobs", icon: "🎯" },
-            { text: "The secret of getting ahead is getting started.", author: "Mark Twain", icon: "🔥" },
-            { text: "Quality is not an act, it is a habit.", author: "Aristotle", icon: "⭐" },
-            { text: "Your brand is what people say about you when you're not in the room.", author: "Jeff Bezos", icon: "💼" },
-            { text: "Build something people want.", author: "Y Combinator", icon: "🏗️" },
-            { text: "The future belongs to those who believe in the beauty of their dreams.", author: "Eleanor Roosevelt", icon: "🌈" },
-            { text: "Believe you can and you're halfway there.", author: "Theodore Roosevelt", icon: "💫" },
-            { text: "The only limit to our realization of tomorrow is our doubts of today.", author: "Franklin D. Roosevelt", icon: "🎨" },
-            { text: "Act as if what you do makes a difference. It does.", author: "William James", icon: "⚡" },
-            { text: "Success usually comes to those who are too busy to be looking for it.", author: "Henry David Thoreau", icon: "🎯" },
-            { text: "Don't watch the clock; do what it does. Keep going.", author: "Sam Levenson", icon: "⏰" },
-            { text: "The way to get started is to quit talking and begin doing.", author: "Walt Disney", icon: "🚀" },
-            { text: "If you really look closely, most overnight successes took a long time.", author: "Steve Jobs", icon: "💪" },
-            { text: "Don't be afraid to give up the good to go for the great.", author: "John D. Rockefeller", icon: "🌟" },
-            { text: "I find that the harder I work, the more luck I seem to have.", author: "Thomas Jefferson", icon: "🍀" },
-            { text: "Success is walking from failure to failure with no loss of enthusiasm.", author: "Winston Churchill", icon: "🎊" },
-            { text: "Opportunities don't happen. You create them.", author: "Chris Grosser", icon: "💡" },
-            { text: "Try not to become a man of success. Rather become a man of value.", author: "Albert Einstein", icon: "💎" },
-            { text: "It is never too late to be what you might have been.", author: "George Eliot", icon: "🌺" },
-            { text: "A website without visitors is like a ship lost in the horizon.", author: "Dr. Christopher Dayagdag", icon: "⛵" },
-            { text: "Design is not just what it looks like. Design is how it works.", author: "Steve Jobs", icon: "🎨" },
-            { text: "Make it simple, but significant.", author: "Don Draper", icon: "✨" },
-            { text: "Good design is obvious. Great design is transparent.", author: "Joe Sparano", icon: "🔍" },
-            { text: "Content is king, but engagement is queen and she rules the house.", author: "Mari Smith", icon: "👑" },
-            { text: "The best marketing doesn't feel like marketing.", author: "Tom Fishburne", icon: "🎭" },
-            { text: "Your website is your digital storefront. Make it inviting.", author: "Web Wisdom", icon: "🏪" },
-            { text: "Every great design begins with an even better story.", author: "Lorinda Mamo", icon: "📖" },
-            { text: "Simplicity is the ultimate sophistication.", author: "Leonardo da Vinci", icon: "🎯" },
-            { text: "People ignore design that ignores people.", author: "Frank Chimero", icon: "👥" },
-            { text: "Design creates culture. Culture shapes values. Values determine the future.", author: "Robert L. Peters", icon: "🌍" },
-            { text: "First, solve the problem. Then, write the code.", author: "John Johnson", icon: "💻" },
-            { text: "Code is like humor. When you have to explain it, it's bad.", author: "Cory House", icon: "😄" },
-            { text: "The best way to predict the future is to create it.", author: "Peter Drucker", icon: "🔮" },
-            { text: "Strive for progress, not perfection.", author: "Unknown", icon: "📈" },
-            { text: "Your limitation—it's only your imagination.", author: "Unknown", icon: "🎪" },
-            { text: "Great things never come from comfort zones.", author: "Unknown", icon: "🏔️" },
-            { text: "Dream it. Wish it. Do it.", author: "Unknown", icon: "💫" },
-            { text: "Success doesn't just find you. You have to go out and get it.", author: "Unknown", icon: "🎯" },
-            { text: "The harder you work for something, the greater you'll feel when you achieve it.", author: "Unknown", icon: "🏆" },
-            { text: "Dream bigger. Do bigger.", author: "Unknown", icon: "🌠" },
-            { text: "Don't stop when you're tired. Stop when you're done.", author: "Unknown", icon: "💪" },
-            { text: "Wake up with determination. Go to bed with satisfaction.", author: "Unknown", icon: "🌅" },
-            { text: "Do something today that your future self will thank you for.", author: "Unknown", icon: "🎁" },
-            { text: "Little things make big days.", author: "Unknown", icon: "🌟" },
-            { text: "It's going to be hard, but hard does not mean impossible.", author: "Unknown", icon: "💎" },
-            { text: "Don't wait for the perfect moment. Take the moment and make it perfect.", author: "Unknown", icon: "⏳" },
-            { text: "Sometimes we're tested not to show our weaknesses, but to discover our strengths.", author: "Unknown", icon: "🦁" },
-            { text: "The key to success is to focus on goals, not obstacles.", author: "Unknown", icon: "🔑" },
-            { text: "Dream it. Believe it. Build it.", author: "Unknown", icon: "🏗️" },
-            { text: "Your website is your 24/7 salesperson. Make it count.", author: "Marketing Insight", icon: "⏰" },
-            { text: "A user interface is like a joke. If you have to explain it, it's not that good.", author: "Martin LeBlanc", icon: "🎭" },
-            { text: "The details are not the details. They make the design.", author: "Charles Eames", icon: "🔬" },
-            { text: "Good design is good business.", author: "Thomas Watson Jr.", icon: "💼" },
-            { text: "Websites promote you 24/7: No employee will do that.", author: "Paul Cookson", icon: "🌙" }
-        ];
-        
-        // Show notification
-        function showNotification() {
-            var notification = document.getElementById('notification');
-            var icon = document.getElementById('notificationIcon');
-            var text = document.getElementById('notificationText');
-            var author = document.getElementById('notificationAuthor');
-            
-            if (notification && icon && text && author) {
-                var quote = quotes[Math.floor(Math.random() * quotes.length)];
-                icon.textContent = quote.icon;
-                text.textContent = '"' + quote.text + '"';
-                author.textContent = '— ' + quote.author;
-                notification.classList.add('show');
+            // Custom project has no limits
+            if (packageData.id === 'custom') {
+                budgetError.style.display = 'none';
+                budgetInput.style.borderColor = 'rgba(255, 255, 255, 0.2)';
                 
-                setTimeout(function() {
-                    notification.classList.remove('show');
-                }, 10000);
+                // Show Pula equivalent if not BWP
+                if (packageData.currency !== 'BWP') {
+                    const budgetInBWP = convertToBWP(budgetValue, packageData.currency);
+                    budgetPulaEquiv.textContent = `≈ P${Math.round(budgetInBWP).toLocaleString()} BWP`;
+                    budgetPulaEquiv.style.display = 'block';
+                } else {
+                    budgetPulaEquiv.style.display = 'none';
+                }
+                return true;
+            }
+            
+            // Use the converted min/max from the package data
+            const minPrice = packageData.convertedMin;
+            const maxPrice = packageData.convertedMax;
+            const symbol = packageData.currencySymbol;
+            
+            // Show Pula equivalent if not BWP
+            if (packageData.currency !== 'BWP') {
+                const budgetInBWP = convertToBWP(budgetValue, packageData.currency);
+                budgetPulaEquiv.textContent = `≈ P${Math.round(budgetInBWP).toLocaleString()} BWP`;
+                budgetPulaEquiv.style.display = 'block';
+            } else {
+                budgetPulaEquiv.style.display = 'none';
+            }
+            
+            // Validate budget is within the package range
+            if (budgetValue < minPrice) {
+                budgetError.textContent = `Budget must be at least ${symbol}${minPrice.toLocaleString()} for ${packageData.name}`;
+                budgetError.style.display = 'block';
+                budgetInput.style.borderColor = '#ff6b6b';
+                return false;
+            } else if (budgetValue > maxPrice) {
+                budgetError.textContent = `Budget cannot exceed ${symbol}${maxPrice.toLocaleString()} for ${packageData.name}`;
+                budgetError.style.display = 'block';
+                budgetInput.style.borderColor = '#ff6b6b';
+                return false;
+            } else {
+                budgetError.style.display = 'none';
+                budgetInput.style.borderColor = 'rgba(255, 255, 255, 0.2)';
+                return true;
             }
         }
-        
-        setInterval(function() { showNotification(); }, (Math.random() * 60000) + 120000);
-        setTimeout(function() { showNotification(); }, 30000);
-        
-        var closeNotificationBtn = document.getElementById('closeNotification');
-        if (closeNotificationBtn) {
-            closeNotificationBtn.onclick = function(e) {
-                e.preventDefault();
-                e.stopPropagation();
-                var notif = document.getElementById('notification');
-                if (notif) {
-                    notif.classList.remove('show');
+
+        function syncWithPricingPage() {
+            // Check if we're coming from pricing page with package selection
+            const urlParams = new URLSearchParams(window.location.search);
+            const selectedPackageFromUrl = urlParams.get('package');
+            
+            // Get selected currency from sessionStorage or default to BWP
+            const selectedCurrency = sessionStorage.getItem('selectedCurrency') || 'BWP';
+            
+            // Package mapping based on your pricing page with full data structure
+            const packageMap = {
+                'starter': {
+                    id: 'starter',
+                    name: 'Starter Custom Site',
+                    price: 'P2,200 - P2,800',
+                    minPriceBWP: 2200,
+                    maxPriceBWP: 2800,
+                    currency: selectedCurrency,
+                    currencySymbol: currencySymbols[selectedCurrency],
+                    convertedMin: Math.round(convertFromBWP(2200, selectedCurrency)),
+                    convertedMax: Math.round(convertFromBWP(2800, selectedCurrency)),
+                    features: [
+                        '3-5 responsive pages',
+                        'Mobile-friendly design',
+                        'Contact form integration',
+                        'Basic SEO setup',
+                        'Social media links',
+                        'SSL certificate included'
+                    ]
+                },
+                'business': {
+                    id: 'business',
+                    name: 'Business Custom Site',
+                    price: 'P4,000 - P5,500',
+                    minPriceBWP: 4000,
+                    maxPriceBWP: 5500,
+                    currency: selectedCurrency,
+                    currencySymbol: currencySymbols[selectedCurrency],
+                    convertedMin: Math.round(convertFromBWP(4000, selectedCurrency)),
+                    convertedMax: Math.round(convertFromBWP(5500, selectedCurrency)),
+                    features: [
+                        '6-10 responsive pages',
+                        'Admin dashboard for content management',
+                        'Advanced SEO optimization',
+                        'Blog/News section',
+                        'Google Maps integration',
+                        'Analytics setup',
+                        'Contact forms & email integration'
+                    ]
+                },
+                'advanced': {
+                    id: 'advanced',
+                    name: 'Advanced Custom Site',
+                    price: 'P7,500 - P10,000',
+                    minPriceBWP: 7500,
+                    maxPriceBWP: 10000,
+                    currency: selectedCurrency,
+                    currencySymbol: currencySymbols[selectedCurrency],
+                    convertedMin: Math.round(convertFromBWP(7500, selectedCurrency)),
+                    convertedMax: Math.round(convertFromBWP(10000, selectedCurrency)),
+                    features: [
+                        'E-commerce store (up to 300 products)',
+                        'Booking/reservation system',
+                        'User login/registration',
+                        'Payment gateway integration',
+                        'Inventory & order management',
+                        'Customer notifications',
+                        'Admin dashboard with analytics'
+                    ]
+                },
+                'full-system': {
+                    id: 'full-system',
+                    name: 'Full Web System / Dashboard App',
+                    price: 'P10,000 - P18,000',
+                    minPriceBWP: 10000,
+                    maxPriceBWP: 18000,
+                    currency: selectedCurrency,
+                    currencySymbol: currencySymbols[selectedCurrency],
+                    convertedMin: Math.round(convertFromBWP(10000, selectedCurrency)),
+                    convertedMax: Math.round(convertFromBWP(18000, selectedCurrency)),
+                    features: [
+                        'Custom admin dashboard',
+                        'User accounts & role management',
+                        'Database-driven functionality',
+                        'Data visualization & charts',
+                        'CRUD operations (Create, Read, Update, Delete)',
+                        'User authentication & security',
+                        'CSV/Excel data export',
+                        'Responsive admin interface'
+                    ]
+                },
+                'custom': {
+                    id: 'custom',
+                    name: 'Custom Project',
+                    price: 'Contact for Quote',
+                    minPriceBWP: 0,
+                    maxPriceBWP: 0,
+                    currency: selectedCurrency,
+                    currencySymbol: currencySymbols[selectedCurrency],
+                    convertedMin: 0,
+                    convertedMax: 0,
+                    features: [
+                        'Tailored to your exact needs',
+                        'Detailed project analysis',
+                        'Custom feature development',
+                        'Flexible scope & timeline',
+                        'Third-party integrations',
+                        'Specialized functionality',
+                        'Transparent pricing breakdown',
+                        'Ongoing support options'
+                    ]
                 }
             };
-            // Add touch support
-            closeNotificationBtn.addEventListener('touchend', function(e) {
-                e.preventDefault();
-                var notif = document.getElementById('notification');
-                if (notif) {
-                    notif.classList.remove('show');
-                }
-            });
-        }
-        var closeQuoteBtn = document.getElementById('closeQuote');
-        if (closeQuoteBtn) {
-            closeQuoteBtn.onclick = function(e) {
-                e.preventDefault();
-                e.stopPropagation();
-                var popup = document.getElementById('motivationPopup');
-                if (popup) {
-                    popup.classList.remove('show');
-                }
-            };
-            // Add touch support
-            closeQuoteBtn.addEventListener('touchend', function(e) {
-                e.preventDefault();
-                var popup = document.getElementById('motivationPopup');
-                if (popup) {
-                    popup.classList.remove('show');
-                }
-            });
-        }
-        
-        
-        // Show features after animation
-        setTimeout(function() {
-            var chatBtn = document.getElementById('chatbotButton');
-            if (chatBtn) chatBtn.style.display = 'flex';
             
-            var whatsappBtn = document.getElementById('whatsappButton');
-            if (whatsappBtn) whatsappBtn.style.display = 'flex';
-            
-            var cookieChoice = getCookie('futurify_cookie_consent');
-            if (!cookieChoice) {
-                var banner = document.getElementById('cookieBanner');
-                if (banner) {
-                    banner.style.display = 'block';
-                    console.log('🍪 First visit - Showing cookie banner');
-                }
-            }
-        }, 3000);
-        
-        // WhatsApp button hover effects
-        var whatsappBtn = document.getElementById('whatsappButton');
-        if (whatsappBtn) {
-            whatsappBtn.addEventListener('mouseenter', function() {
-                this.style.transform = 'scale(1.1)';
-                this.style.boxShadow = '0 15px 40px rgba(37,211,102,0.6)';
-            });
-            whatsappBtn.addEventListener('mouseleave', function() {
-                this.style.transform = 'scale(1)';
-                this.style.boxShadow = '0 10px 30px rgba(37,211,102,0.4)';
-            });
-        }
-        
-        // Cookie Accept - NOW ENABLES GOOGLE ANALYTICS
-        var acceptBtn = document.getElementById('acceptCookies');
-        if (acceptBtn) {
-            acceptBtn.onclick = function() {
-                console.log('✅ User accepted cookies - Enabling Google Analytics');
-                setCookie('futurify_cookie_consent', 'accepted', 365);
-                
-                // Enable Google Analytics
-                loadGoogleAnalytics();
-                
-                // Track this consent event
-                if (typeof gtag === 'function') {
-                    gtag('event', 'cookie_consent', {
-                        'event_category': 'consent',
-                        'event_label': 'accepted'
-                    });
-                }
-                
-                document.getElementById('cookieBanner').style.display = 'none';
-            };
-            acceptBtn.onmouseover = function() { this.style.transform = 'scale(1.05)'; };
-            acceptBtn.onmouseout = function() { this.style.transform = 'scale(1)'; };
-        }
-        
-        // Cookie Decline - NO ANALYTICS
-        var declineBtn = document.getElementById('declineCookies');
-        if (declineBtn) {
-            declineBtn.onclick = function() {
-                console.log('❌ User declined cookies - No analytics tracking');
-                setCookie('futurify_cookie_consent', 'declined', 365);
-                
-                // Do NOT load Google Analytics
-                
-                document.getElementById('cookieBanner').style.display = 'none';
-            };
-            declineBtn.onmouseover = function() { 
-                this.style.background = 'rgba(255,255,255,0.2)'; 
-                this.style.borderColor = '#fff';
-            };
-            declineBtn.onmouseout = function() { 
-                this.style.background = 'transparent'; 
-                this.style.borderColor = 'rgba(255,255,255,0.6)';
-            };
-        }
-        
-        // Session timeout
-        var sessionTimeout;
-        function resetSession() {
-            clearTimeout(sessionTimeout);
-            sessionTimeout = setTimeout(function() {
-                var modal = document.getElementById('sessionModal');
-                if (modal) modal.style.display = 'flex';
-            }, 30 * 60 * 1000); // 30 minutes
-        }
-        
-        // Continue session button handler
-        var contBtn = document.getElementById('continueSession');
-        if (contBtn) {
-            // Remove any existing listeners
-            contBtn.onclick = null;
-            
-            // Add new click handler
-            contBtn.addEventListener('click', function(e) {
-                e.preventDefault();
-                e.stopPropagation();
-                var modal = document.getElementById('sessionModal');
-                if (modal) {
-                    modal.style.display = 'none';
-                }
-                resetSession();
-                console.log('Session continued');
-            });
-            
-            // Add hover effect
-            contBtn.addEventListener('mouseenter', function() {
-                this.style.transform = 'scale(1.05)';
-            });
-            contBtn.addEventListener('mouseleave', function() {
-                this.style.transform = 'scale(1)';
-            });
-        }
-        
-        // Reset session on user activity
-        document.addEventListener('click', resetSession);
-        document.addEventListener('scroll', resetSession);
-        document.addEventListener('mousemove', resetSession);
-        document.addEventListener('keypress', resetSession);
-        
-        // Start the session timer
-        resetSession();
-        
-        // Chatbot with sessionStorage sync across pages (clears on browser close)
-        var chatBtn = document.getElementById('chatbotButton');
-        var chatWin = document.getElementById('chatbotWindow');
-        var chatClose = document.getElementById('chatbotClose');
-        var chatMsgs = document.getElementById('chatbotMessages');
-        var chatInp = document.getElementById('chatbotInput');
-        var chatSend = document.getElementById('chatbotSend');
-        
-        var responses = {
-            // Greetings
-            hello: "👋 Hi! Welcome to Futurify Designs!\n\nI'm your virtual assistant. I can help you with:\n\n🏢 About Us\n🌐 How This Website Works\n💰 Pricing & Packages\n⏰ Project Timeline\n📞 Contact Information\n💬 WhatsApp Chat\n🔒 Privacy Policy\n\nJust type your question or choose a topic!",
-            
-            // About Company
-            about: "🏢 About Futurify Designs:\n\n📍 Based in Gaborone, Botswana\n💻 Specializing in modern, professional websites\n⚡ Fast-loading & SEO-optimized designs\n📱 Mobile-responsive solutions\n🎨 Custom designs tailored to YOUR brand\n\n✨ Our Mission: Crafting tomorrow's digital experiences today!\n\nWant to know more about our services?",
-            
-            about_detailed: "🌟 What Makes Us Different:\n\n✅ 100% Custom Designs (No Templates!)\n✅ Fast Turnaround Times\n✅ Affordable Pricing for Botswana Market\n✅ Ongoing Support After Launch\n✅ SEO & Speed Optimized\n✅ Mobile-First Approach\n\n🎯 We build websites that actually convert visitors into customers!\n\n💬 Ready to start? Contact us or ask about pricing!",
-            
-            // How Website Works
-            website_help: "🌐 How to Use This Website:\n\n🏠 HOME: Learn about our services\n📁 PORTFOLIO: See our past work\n👤 ABOUT: Meet the team & our story\n📞 CONTACT: Get in touch with us\n\n💡 TIP: Click any page in the top menu!\n\n🤖 You can also ask me questions anytime by clicking this chat icon!\n\nWhat would you like to know?",
-            
-            navigation: "🧭 Website Navigation Help:\n\n📱 On Mobile: Tap the menu icon (☰) top-right\n💻 On Desktop: Click any page in the top menu bar\n\n📄 Our Pages:\n• HOME - Services overview\n• PORTFOLIO - Past projects\n• ABOUT - Our story\n• CONTACT - Get in touch\n\n🔍 Lost? Just ask me anything!",
-            
-            // Services & What We Do
-            services: "💼 Our Services:\n\n🌐 Website Design & Development\n   • Business Websites\n   • E-Commerce Stores\n   • Portfolio Sites\n   • Restaurant/Hotel Sites\n   • Landing Pages\n\n📱 Mobile-Responsive Design\n⚡ Website Speed Optimization\n🔍 SEO Setup\n🎨 Logo & Branding (on request)\n\n💡 Need something specific? Ask me!",
-            
-            // Website Types
-            ideas_restaurant: "🍽️ Restaurant/Cafe Websites:\n\nWe can build:\n✨ Online Menu with Photos & Prices\n📱 Table Reservation System\n🛒 Online Ordering (Takeaway)\n📸 Beautiful Photo Gallery\n⭐ Customer Reviews Section\n📍 Location & Opening Hours\n\n💰 Starting from affordable rates!\n📞 Contact: +267 777 83823\n💬 WhatsApp: Click the green button below!",
-            
-            ideas_ecommerce: "🛍️ E-Commerce Websites:\n\nWe can build:\n🛒 Full Shopping Cart System\n💳 Payment Integration (PayPal, etc.)\n📦 Order Tracking\n⭐ Product Reviews\n🔍 Advanced Search & Filters\n📱 Mobile Shopping Experience\n\n💰 Custom quote based on products!\n📞 Contact: +267 777 83823\n💬 WhatsApp: Click the green button!",
-            
-            ideas_portfolio: "🎨 Portfolio Websites:\n\nPerfect for:\n📸 Photographers\n🎨 Artists & Designers  \n✍️ Writers & Content Creators\n💼 Consultants\n\nFeatures:\n📷 Stunning Image Gallery\n🎬 Video Integration\n📝 Case Studies/Projects\n📧 Contact Forms\n\n💰 Affordable packages available!\n📞 +267 777 83823",
-            
-            ideas_business: "💼 Business Websites:\n\nIdeal for:\n🏢 Companies & Startups\n👔 Professional Services\n🏗️ Contractors & Builders\n🎓 Educational Institutions\n\nFeatures:\n📊 Services Showcase\n👥 Team Profiles\n💬 Testimonials\n📰 Blog/News Section\n📈 Lead Generation Forms\n\n📞 Let's discuss: +267 777 83823",
-            
-            // Pricing
-            pricing: "💰 Pricing & Packages:\n\n🌟 STARTER\n   • Single Page Website\n   • Mobile Responsive\n   • Contact Form\n   \n🚀 PROFESSIONAL\n   • Multi-Page Website (up to 5 pages)\n   • Custom Design\n   • SEO Basic\n   \n💎 PREMIUM\n   • E-Commerce or Complex Site\n   • All Features\n   • Priority Support\n\n💵 Payment Plans Available!\n📞 Custom Quote: +267 777 83823\n💬 WhatsApp for instant quote!",
-            
-            pricing_detailed: "💵 Investment Details:\n\n✅ Flexible Payment Plans\n✅ 50% Deposit, 50% on Completion\n✅ No Hidden Fees\n✅ Includes Hosting Setup Help\n✅ Free Minor Updates (first month)\n\n💳 Payment Methods:\n• Bank Transfer\n• Mobile Money\n• eWallet\n• Pay2Cell\n• International: PayPal\n\n📞 Get exact quote: +267 777 83823\n💬 WhatsApp is fastest!",
-            
-            // Timeline
-            timeline: "⏰ Project Timeline:\n\n⚡ SIMPLE SITE: 5-7 days\n🚀 MEDIUM SITE: 10-14 days\n💎 COMPLEX SITE: 3-4 weeks\n\n📅 Process:\n1️⃣ Consultation (1 day)\n2️⃣ Design Mockup (2-3 days)\n3️⃣ Your Feedback\n4️⃣ Development (varies)\n5️⃣ Testing (1-2 days)\n6️⃣ Launch! 🎉\n\n⏱️ Rush projects available!\n📞 Discuss timeline: +267 777 83823",
-            
-            timeline_detailed: "📆 Detailed Timeline Breakdown:\n\n🗣️ DISCOVERY (Day 1-2):\n   • Discuss goals & requirements\n   • Competitor analysis\n   • Content gathering\n\n🎨 DESIGN (Day 3-5):\n   • Mockup creation\n   • Revisions based on feedback\n\n💻 DEVELOPMENT (Day 6-12):\n   • Coding & building\n   • Feature implementation\n\n✅ TESTING (Day 13-14):\n   • Quality assurance\n   • Mobile testing\n\n🚀 LAUNCH!\n\n📞 Start now: +267 777 83823",
-            
-            // Process/How We Work
-            process: "🛠️ How We Work:\n\n1️⃣ CONSULTATION\n   • Understand your vision\n   • Define requirements\n   \n2️⃣ PROPOSAL & QUOTE\n   • Detailed breakdown\n   • Timeline estimate\n   \n3️⃣ DESIGN PHASE\n   • Create mockups\n   • Get your approval\n   \n4️⃣ DEVELOPMENT\n   • Build your site\n   • Regular updates\n   \n5️⃣ TESTING\n   • Quality checks\n   • Your feedback\n   \n6️⃣ LAUNCH! 🚀\n   • Go live\n   \n7️⃣ SUPPORT\n   • Ongoing assistance\n\n📞 Let's start: +267 777 83823",
-            
-            // Contact Information  
-            contact: "📞 Get In Touch:\n\n📧 Email:\nfuturifydesigns@gmail.com\n\n📱 Phone/SMS:\n+267 777 83823\n\n💬 WhatsApp:\nClick the green button below for instant chat!\n\n📍 Location:\nGaborone, Botswana\n\n🌐 Or use our Contact Page:\nClick 'Contact' in the menu above!\n\n⚡ We typically respond within 2-4 hours!",
-            
-            whatsapp: "💬 WhatsApp Direct Chat:\n\n✅ Fastest way to reach us!\n✅ Available during business hours\n✅ Send photos/examples easily\n✅ Get quick quotes\n\n👇 Click the GREEN WHATSAPP button at the bottom of this chat or on the page!\n\nNumber: +267 777 83823\n\n⏰ Business Hours:\nMon-Fri: 9AM - 6PM\nSat: 10AM - 2PM",
-            
-            // Portfolio
-            portfolio: "📁 View Our Work:\n\n🎨 Click 'PORTFOLIO' in the menu above to see:\n\n✅ Past Projects\n✅ Different Website Types\n✅ Our Design Style\n✅ Client Success Stories\n\n💡 TIP: Each project shows:\n   • Industry/Type\n   • Features included\n   • Technologies used\n\n🚀 Ready for YOUR project?\n📞 +267 777 83823\n💬 WhatsApp us!",
-            
-            // Features
-            features: "✨ Website Features We Offer:\n\n🎨 DESIGN:\n• Custom layouts\n• Your brand colors/logo\n• Modern, professional look\n\n⚡ TECHNICAL:\n• Fast loading speed\n• Mobile responsive\n• SEO optimized\n• Secure (HTTPS)\n\n🔧 FUNCTIONALITY:\n• Contact forms\n• Social media links\n• Google Maps integration\n• Image galleries\n• And much more!\n\nNeed something specific? Ask me!",
-            
-            // Support & Maintenance
-            support: "🛠️ Support & Maintenance:\n\n✅ FREE SUPPORT:\n• First month minor updates\n• Bug fixes\n• Content updates help\n\n💎 ONGOING MAINTENANCE:\n• Monthly updates\n• Security monitoring\n• Performance optimization\n• Priority support\n\n📧 Email anytime: futurifydesigns@gmail.com\n📱 Call: +267 777 83823\n💬 WhatsApp: Quick response!\n\nWe're here to help! 🚀",
-            
-            // Domain & Hosting
-            hosting: "🌐 Domain & Hosting:\n\n📝 DOMAIN (yourname.com):\n• We help you register\n• Or use your existing domain\n• .com, .co.bw, etc.\n\n🖥️ HOSTING:\n• We recommend providers\n• Help with setup\n• Or manage it for you\n\n💰 COSTS (approximate):\n• Domain: ~P150-P400/year\n• Hosting: ~P500-P1500/year\n\n💡 We'll guide you through everything!\n📞 Questions? +267 777 83823",
-            
-            // Privacy & Legal
-            privacy: "🔒 Privacy & Security:\n\n✅ Your Data is Safe:\n• We don't share client info\n• Secure communication\n• GDPR-compliant practices\n\n📄 Legal Pages:\n• Privacy Policy (link in footer)\n• Terms of Service (link in footer)\n\n🔐 Website Security:\n• HTTPS/SSL included\n• Secure forms\n• Regular updates\n\n📧 Privacy questions?\nfuturifydesigns@gmail.com",
-            
-            privacy_policy: "📄 Privacy Policy:\n\nOur full Privacy Policy covers:\n• What data we collect\n• How we use it  \n• Your rights\n• Cookie usage\n• Contact information\n\n🔗 View full policy:\nClick 'Privacy Policy' link in the footer below!\n\nOr visit our Contact page.\n\n📧 Questions?\nfuturifydesigns@gmail.com",
-            
-            terms: "📜 Terms of Service:\n\nOur Terms cover:\n• Service agreement\n• Payment terms\n• Cancellation policy\n• Intellectual property\n• Liability\n\n🔗 View full terms:\nClick 'Terms of Service' link in the footer!\n\n💼 For custom projects, we provide detailed contracts.\n\n📞 Questions? +267 777 83823",
-            
-            // Help & Troubleshooting
-            help: "🤔 I'm Here to Help!\n\nYou can ask me about:\n\n🏢 About Futurify Designs\n💰 Pricing & Packages\n⏰ Timeline & Process\n🌐 Website Navigation\n📞 Contact Information\n💬 WhatsApp Chat\n🎨 Services & Features\n📁 Portfolio\n🔒 Privacy Policy\n📜 Terms of Service\n\nWhat would you like to know?",
-            
-            // Quick Actions
-            start_project: "🚀 Start Your Project:\n\n3 Quick Ways:\n\n1️⃣ 💬 WHATSAPP (Fastest!)\n   Click green button below\n   \n2️⃣ 📞 CALL US\n   +267 777 83823\n   \n3️⃣ 📧 EMAIL\n   futurifydesigns@gmail.com\n\nOr fill out our Contact Form!\n(Click 'Contact' in menu)\n\n💡 Have your project details ready:\n• Website type needed\n• Features wanted\n• Budget range\n• Timeline needed\n\nLet's build something amazing! ✨",
-            
-            quote: "💵 Get a Custom Quote:\n\n📝 To provide accurate quote, we need:\n\n1️⃣ Website Type:\n   (Business/E-commerce/Portfolio/etc.)\n   \n2️⃣ Number of Pages\n\n3️⃣ Special Features Needed\n\n4️⃣ Timeline/Deadline\n\n5️⃣ Budget Range (if any)\n\n⚡ FASTEST: WhatsApp us!\n💬 Click green button below\n📞 Or call: +267 777 83823\n📧 Email: futurifydesigns@gmail.com\n\nQuotes usually within 24 hours!",
-            
-            // Thanks
-            thanks: "🌟 You're Very Welcome!\n\nHappy to help! 😊\n\nNeed anything else?\n\n💬 Keep chatting with me\n📞 Call: +267 777 83823\n💚 WhatsApp: Click green button\n📧 Email: futurifydesigns@gmail.com\n\nLooking forward to working with you! 🚀",
-            
-            // Fallback
-            fallback: "🤔 Hmm, I'm not quite sure about that!\n\nI can help you with:\n• Company information\n• Pricing & services\n• How to use this website\n• Contact details\n• Starting a project\n\nTry rephrasing your question, or:\n\n💬 WhatsApp us directly (green button)\n📞 Call: +267 777 83823\n📧 Email: futurifydesigns@gmail.com\n\nA human will gladly help! 😊",
-            
-            outofscope: "💬 That's outside my expertise!\n\nI'm focused on web design services at Futurify Designs.\n\nI CAN help with:\n✅ Website pricing & packages\n✅ Project timelines\n✅ Our services\n✅ Contact information\n\nFor other topics:\n📞 +267 777 83823\n📧 futurifydesigns@gmail.com\n💬 WhatsApp (green button)\n\nLet's talk web design! 🌐"
-        };
-        
-        // Load chat history from sessionStorage
-        function loadChatHistory() {
-            if (!chatMsgs) return;
-            
-            var history = sessionStorage.getItem('futurify_chat_history');
-            if (history) {
-                try {
-                    var messages = JSON.parse(history);
-                    // Clear existing messages except welcome message
-                    chatMsgs.innerHTML = '<div style="padding:12px 16px;border-radius:15px;max-width:80%;font-size:14px;background:rgba(102,126,234,0.1);color:#333;border:1px solid rgba(102,126,234,0.2);">Hi! 👋 Welcome to Futurify Designs! How can I help you today?</div>';
+            if (selectedPackageFromUrl) {
+                const packageData = packageMap[selectedPackageFromUrl];
+                if (packageData) {
+                    sessionStorage.setItem('selectedPackage', JSON.stringify(packageData));
+                    checkPackageSelection();
                     
-                    // Restore all messages
-                    messages.forEach(function(msg) {
-                        addMsg(msg.text, msg.isUser, false); // false = don't save again
-                    });
-                } catch (e) {
-                    console.error('Error loading chat history:', e);
+                    // Smooth scroll to package section
+                    setTimeout(() => {
+                        document.querySelector('.package-selection').scrollIntoView({ 
+                            behavior: 'smooth',
+                            block: 'center'
+                        });
+                    }, 500);
+                    
+                    // Clean up URL parameters
+                    const cleanUrl = window.location.protocol + "//" + window.location.host + window.location.pathname;
+                    window.history.replaceState({}, document.title, cleanUrl);
+                }
+            } else {
+                // Check localStorage for existing package selection
+                checkPackageSelection();
+            }
+        }
+
+        // Enhanced package selection check
+        function checkPackageSelection() {
+            const selectedPackage = sessionStorage.getItem('selectedPackage');
+            const placeholder = document.getElementById('packagePlaceholder');
+            const selected = document.getElementById('packageSelected');
+            const statusIndicator = document.getElementById('statusIndicator');
+            const statusText = document.getElementById('statusText');
+            const submitButton = document.getElementById('submitButton');
+            const formWarning = document.getElementById('formWarning');
+            const budgetInput = document.getElementById('budget');
+            const budgetHelper = document.getElementById('budgetHelper');
+            const budgetCurrencySymbol = document.getElementById('budgetCurrencySymbol');
+            const budgetCurrencyCode = document.getElementById('budgetCurrencyCode');
+            
+            if (selectedPackage) {
+                // Package is selected
+                const packageData = JSON.parse(selectedPackage);
+                
+                // Update UI
+                placeholder.style.display = 'none';
+                selected.classList.add('active');
+                statusIndicator.classList.add('selected');
+                statusText.textContent = 'Package selected';
+                submitButton.disabled = false;
+                formWarning.classList.remove('show');
+                
+                // Update budget field currency
+                if (budgetCurrencySymbol && packageData.currencySymbol) {
+                    budgetCurrencySymbol.textContent = packageData.currencySymbol;
+                }
+                if (budgetCurrencyCode && packageData.currency) {
+                    budgetCurrencyCode.textContent = ' (' + packageData.currency + ')';
+                }
+                
+                // Unlock budget field with min/max validation
+                if (budgetInput) {
+                    budgetInput.disabled = false;
+                    // For custom projects, no range restriction
+                    if (packageData.id === 'custom') {
+                        budgetInput.placeholder = 'Enter your budget';
+                        budgetInput.removeAttribute('min');
+                        budgetInput.removeAttribute('max');
+                    } else {
+                        budgetInput.placeholder = `${packageData.currencySymbol}${packageData.convertedMin.toLocaleString()} - ${packageData.currencySymbol}${packageData.convertedMax.toLocaleString()}`;
+                        budgetInput.setAttribute('min', packageData.convertedMin);
+                        budgetInput.setAttribute('max', packageData.convertedMax);
+                    }
+                }
+                if (budgetHelper) {
+                    budgetHelper.style.display = 'none';
+                }
+                
+                // Populate package details with converted price
+                document.getElementById('selectedTitle').textContent = packageData.name;
+                
+                // Display price in selected currency
+                if (packageData.id === 'custom') {
+                    document.getElementById('selectedPrice').textContent = 'Contact for Quote';
+                } else {
+                    document.getElementById('selectedPrice').textContent = 
+                        `${packageData.currencySymbol}${packageData.convertedMin.toLocaleString()} - ${packageData.currencySymbol}${packageData.convertedMax.toLocaleString()}`;
+                }
+                
+                // Populate features
+                const featuresContainer = document.getElementById('selectedFeatures');
+                featuresContainer.innerHTML = '';
+                packageData.features.forEach(feature => {
+                    const featureTag = document.createElement('div');
+                    featureTag.className = 'feature-tag';
+                    featureTag.textContent = feature;
+                    featuresContainer.appendChild(featureTag);
+                });
+            } else {
+                // No package selected
+                placeholder.style.display = 'flex';
+                selected.classList.remove('active');
+                statusIndicator.classList.remove('selected');
+                statusText.textContent = 'No package selected';
+                submitButton.disabled = true;
+                
+                // Lock budget field
+                if (budgetInput) {
+                    budgetInput.disabled = true;
+                    budgetInput.placeholder = 'Select a package first';
+                    budgetInput.value = '';
+                    budgetInput.removeAttribute('min');
+                    budgetInput.removeAttribute('max');
+                }
+                if (budgetHelper) {
+                    budgetHelper.style.display = 'block';
                 }
             }
         }
-        
-        // Save chat history to sessionStorage
-        function saveChatHistory() {
-            if (!chatMsgs) return;
+
+        function clearPackageSelection() {
+            sessionStorage.removeItem('selectedPackage');
+            checkPackageSelection();
             
-            var messages = [];
-            var msgDivs = chatMsgs.querySelectorAll('div');
+            // Show success message
+            const placeholder = document.getElementById('packagePlaceholder');
+            const originalHTML = placeholder.innerHTML;
             
-            // Skip the first welcome message
-            for (var i = 1; i < msgDivs.length; i++) {
-                var div = msgDivs[i];
-                var isUser = div.style.background.includes('linear-gradient');
-                messages.push({
-                    text: div.textContent,
-                    isUser: isUser
+            placeholder.innerHTML = `
+                <div class="placeholder-icon">✅</div>
+                <div class="placeholder-text">Package selection cleared! Choose a new package to continue.</div>
+                <button class="placeholder-button" onclick="window.location.href='pricing f.html'">Choose Package</button>
+            `;
+            
+            setTimeout(() => {
+                placeholder.innerHTML = originalHTML;
+            }, 3000);
+        }
+
+        // Form submission handling with AJAX
+        document.getElementById('quoteForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const selectedPackage = sessionStorage.getItem('selectedPackage');
+            
+            if (!selectedPackage) {
+                document.getElementById('formWarning').classList.add('show');
+                document.querySelector('.package-selection').scrollIntoView({ 
+                    behavior: 'smooth',
+                    block: 'center'
+                });
+                return false;
+            }
+            
+            // Validate all fields before submission
+            const isPhoneValid = validatePhone();
+            const isEmailValid = validateEmail();
+            const isBudgetValid = validateBudget();
+            
+            if (!isPhoneValid) {
+                document.getElementById('phone').focus();
+                return false;
+            }
+            
+            if (!isEmailValid) {
+                document.getElementById('email').focus();
+                return false;
+            }
+            
+            if (!isBudgetValid) {
+                document.getElementById('budget').focus();
+                return false;
+            }
+            
+            // Additional validation: ensure budget is positive
+            const budgetValue = parseFloat(document.getElementById('budget').value);
+            if (budgetValue <= 0) {
+                const budgetError = document.getElementById('budgetError');
+                budgetError.textContent = 'Budget must be greater than zero';
+                budgetError.style.display = 'block';
+                document.getElementById('budget').focus();
+                return false;
+            }
+            
+            // Show loading spinner
+            document.getElementById('loadingSpinner').style.display = 'block';
+            document.getElementById('submitButton').disabled = true;
+            
+            try {
+                const packageData = JSON.parse(selectedPackage);
+                
+                // Debug logging
+                console.log('📦 Package Data:', packageData);
+                console.log('📦 Package Fields:', {
+                    name: packageData.name,
+                    price: packageData.price,
+                    currency: packageData.currency,
+                    currencySymbol: packageData.currencySymbol,
+                    convertedMin: packageData.convertedMin,
+                    convertedMax: packageData.convertedMax,
+                    minPriceBWP: packageData.minPriceBWP,
+                    maxPriceBWP: packageData.maxPriceBWP,
+                    id: packageData.id
+                });
+                
+                const selectedCurrency = sessionStorage.getItem('selectedCurrency') || 'BWP';
+                const budgetInBWP = convertToBWP(budgetValue, selectedCurrency);
+                
+                const formData = new FormData();
+                
+                // Add form fields
+                formData.append('name', document.getElementById('name').value);
+                formData.append('email', document.getElementById('email').value);
+                formData.append('phone', document.getElementById('phone').value);
+                formData.append('message', document.getElementById('message').value);
+                formData.append('selectedPackage', packageData.name || '');
+                
+                // Add package price with currency information - with safety checks
+                formData.append('packagePrice', packageData.price || '');
+                formData.append('packageCurrency', packageData.currency || 'BWP');
+                formData.append('packageCurrencySymbol', packageData.currencySymbol || 'P');
+                formData.append('packageMinPrice', packageData.convertedMin || 0);
+                formData.append('packageMaxPrice', packageData.convertedMax || 0);
+                
+                // Build Pula price string with safety checks
+                const minPriceBWP = packageData.minPriceBWP || 0;
+                const maxPriceBWP = packageData.maxPriceBWP || 0;
+                const pulaPrice = (minPriceBWP > 0 && maxPriceBWP > 0) 
+                    ? `P${minPriceBWP.toLocaleString()} - P${maxPriceBWP.toLocaleString()}`
+                    : packageData.price || 'Contact for Quote';
+                formData.append('packagePriceInPula', pulaPrice);
+                
+                // Add budget with currency info
+                formData.append('budget', budgetValue);
+                formData.append('budgetCurrency', selectedCurrency);
+                formData.append('budgetCurrencySymbol', currencySymbols[selectedCurrency] || 'P');
+                formData.append('budgetInPula', Math.round(budgetInBWP));
+                
+                // Send to Google Apps Script
+                const response = await fetch(GOOGLE_SCRIPT_URL, {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    // Show success message
+                    document.getElementById('formSuccess').classList.add('show');
+                    document.getElementById('quoteForm').style.display = 'none';
+                    document.getElementById('loadingSpinner').style.display = 'none';
+                    
+                    // Clear form and package selection
+                    document.getElementById('quoteForm').reset();
+                    sessionStorage.removeItem('selectedPackage');
+                    checkPackageSelection();
+                    
+                    // Scroll to success message
+                    document.getElementById('formSuccess').scrollIntoView({ 
+                        behavior: 'smooth',
+                        block: 'center'
+                    });
+                } else {
+                    throw new Error(result.message || 'Submission failed');
+                }
+                
+            } catch (error) {
+                console.error('Form submission error:', error);
+                console.error('Error details:', {
+                    message: error.message,
+                    stack: error.stack,
+                    name: error.name
+                });
+                
+                // Show more detailed error message
+                let errorMessage = 'Sorry, there was an error submitting your request.\n\n';
+                
+                if (error.message.includes('Failed to fetch')) {
+                    errorMessage += 'Network error: Could not reach the server. Please check:\n';
+                    errorMessage += '1. Your internet connection\n';
+                    errorMessage += '2. Google Apps Script deployment settings\n';
+                    errorMessage += '3. Try again in a few moments';
+                } else if (error.message.includes('JSON')) {
+                    errorMessage += 'Server response error. Please contact us directly at:\n';
+                    errorMessage += 'futurifydesigns@gmail.com or +267 777 83823';
+                } else {
+                    errorMessage += 'Error: ' + error.message + '\n\n';
+                    errorMessage += 'Please try again or contact us directly.';
+                }
+                
+                alert(errorMessage);
+                document.getElementById('loadingSpinner').style.display = 'none';
+                document.getElementById('submitButton').disabled = false;
+            }
+        });
+
+        // Initialize package selection on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            syncWithPricingPage();
+            syncCurrencyFromPricing();
+            
+            // Add budget validation on input
+            const budgetInput = document.getElementById('budget');
+            if (budgetInput) {
+                budgetInput.addEventListener('input', validateBudget);
+                budgetInput.addEventListener('blur', validateBudget);
+                
+                // Prevent negative values
+                budgetInput.addEventListener('keydown', function(e) {
+                    if (e.key === '-' || e.key === 'e' || e.key === 'E') {
+                        e.preventDefault();
+                    }
                 });
             }
             
-            sessionStorage.setItem('futurify_chat_history', JSON.stringify(messages));
-        }
-        
-        if (chatBtn && chatWin) {
-            chatBtn.onclick = function() {
-                var isVisible = chatWin.style.display === 'flex';
-                chatWin.style.display = isVisible ? 'none' : 'flex';
-                if (!isVisible && chatInp) setTimeout(function() { chatInp.focus(); }, 100);
-            };
-        }
-        
-        if (chatClose && chatWin) {
-            chatClose.onclick = function() { chatWin.style.display = 'none'; };
-        }
-        
-        function addMsg(text, isUser, save) {
-            if (!chatMsgs) return;
-            if (save === undefined) save = true;
-            
-            var div = document.createElement('div');
-            div.style.cssText = 'padding:12px 16px;border-radius:15px;max-width:80%;font-size:14px;line-height:1.5;word-wrap:break-word;white-space:pre-wrap;' + 
-                (isUser ? 
-                    'background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;align-self:flex-end;margin-left:auto;box-shadow:0 4px 15px rgba(102,126,234,0.3);' : 
-                    'background:rgba(102,126,234,0.1);color:#333;border:1px solid rgba(102,126,234,0.2);');
-            div.textContent = text;
-            chatMsgs.appendChild(div);
-            chatMsgs.scrollTop = chatMsgs.scrollHeight;
-            
-            if (save) {
-                saveChatHistory();
+            // Add phone validation
+            const phoneInput = document.getElementById('phone');
+            if (phoneInput) {
+                phoneInput.addEventListener('input', validatePhone);
+                phoneInput.addEventListener('blur', validatePhone);
             }
-        }
-        
-        function getResponse(msg) {
-            var lower = msg.toLowerCase().trim();
-            if (lower.match(/^(hi|hello|hey)$/)) return responses.hello;
-            if (lower.match(/(restaurant|food|cafe)/)) return responses.ideas_restaurant;
-            if (lower.match(/(shop|store|ecommerce|sell)/)) return responses.ideas_ecommerce;
-            if (lower.match(/(portfolio|gallery)/)) return responses.ideas_portfolio;
-            if (lower.match(/(business|company)/)) return responses.ideas_business;
-            if (lower.match(/(idea|suggest)/)) return responses.help;
-            if (lower.match(/(motivate|inspire)/)) return responses.motivation;
-            if (lower.match(/(price|cost|expensive)/)) return responses.pricing;
-            if (lower.match(/(time|long|when)/)) return responses.timeline;
-            if (lower.match(/(about|tell me)/)) return responses.about;
-            if (lower.match(/(process|workflow)/)) return responses.process;
-            if (lower.match(/(contact|email|phone)/)) return responses.contact;
-            if (lower.match(/(start|begin)/)) return responses.contact;
-            if (lower.match(/(help|stuck)/)) return responses.help;
-            if (lower.match(/(thank)/)) return responses.thanks;
-            if (lower.match(/(weather|politics|sports)/)) return responses.outofscope;
-            return responses.fallback;
-        }
-        
-        function sendMsg() {
-            if (!chatInp) return;
-            var msg = chatInp.value.trim();
-            if (msg) {
-                addMsg(msg, true);
-                chatInp.value = '';
-                setTimeout(function() { addMsg(getResponse(msg), false); }, 600);
+            
+            // Add email validation
+            const emailInput = document.getElementById('email');
+            if (emailInput) {
+                emailInput.addEventListener('blur', validateEmail);
             }
-        }
-        
-        if (chatSend) {
-            chatSend.onclick = sendMsg;
-            chatSend.onmouseover = function() { this.style.transform = 'scale(1.1)'; };
-            chatSend.onmouseout = function() { this.style.transform = 'scale(1)'; };
-        }
-        
-        if (chatInp) {
-            chatInp.onkeypress = function(e) {
-                if (e.key === 'Enter') {
-                    e.preventDefault();
-                    sendMsg();
-                }
-            };
-        }
-        
-        // Load chat history on page load
-        loadChatHistory();
-        
-        // Chat history clears automatically when browser/tab closes
-        window.addEventListener('beforeunload', function(e) {
-            // Note: This only clears on actual close, not refresh
-            // The chat will persist during the session (refreshes + navigation)
+            
+            // Add name validation (no numbers allowed)
+            const nameInput = document.getElementById('name');
+            if (nameInput) {
+                nameInput.addEventListener('input', validateName);
+            }
+            
+            // Show buttons after animation
+            setTimeout(function() {
+                var chatBtn = document.getElementById('chatbotButton');
+                if (chatBtn) chatBtn.style.display = 'flex';
+                
+                var whatsappBtn = document.getElementById('whatsappButton');
+                if (whatsappBtn) whatsappBtn.style.display = 'flex';
+            }, 3000);
         });
-        
-        console.log('✅ All features initialized with synced chatbot!');
-    })();
-    
 
-        
+        // Validation functions
+        function validatePhone() {
+            const phoneInput = document.getElementById('phone');
+            const phoneError = document.getElementById('phoneError');
+            const phoneValue = phoneInput.value.replace(/\s+/g, ''); // Remove spaces
+            
+            // Remove all non-digit characters except +
+            const cleanPhone = phoneValue.replace(/[^\d+]/g, '');
+            
+            // Check if it starts with + and followed by 8-15 digits
+            const withPlusPattern = /^\+\d{8,15}$/;
+            // Or just 8-15 digits
+            const withoutPlusPattern = /^\d{8,15}$/;
+            
+            if (phoneValue.length === 0) {
+                phoneError.style.display = 'none';
+                return true;
+            }
+            
+            if (!withPlusPattern.test(cleanPhone) && !withoutPlusPattern.test(cleanPhone)) {
+                phoneError.textContent = 'Please enter a valid phone number (8-15 digits). Example: +26777783823 or 77783823';
+                phoneError.style.display = 'block';
+                phoneInput.style.borderColor = '#ff6b6b';
+                return false;
+            } else {
+                phoneError.style.display = 'none';
+                phoneInput.style.borderColor = 'rgba(255, 255, 255, 0.2)';
+                return true;
+            }
+        }
+
+        function validateEmail() {
+            const emailInput = document.getElementById('email');
+            const emailError = document.getElementById('emailError');
+            const emailValue = emailInput.value.trim();
+            
+            if (emailValue.length === 0) {
+                emailError.style.display = 'none';
+                return true;
+            }
+            
+            // Standard email regex
+            const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+            
+            if (!emailPattern.test(emailValue)) {
+                emailError.textContent = 'Please enter a valid email address';
+                emailError.style.display = 'block';
+                emailInput.style.borderColor = '#ff6b6b';
+                return false;
+            } else {
+                emailError.style.display = 'none';
+                emailInput.style.borderColor = 'rgba(255, 255, 255, 0.2)';
+                return true;
+            }
+        }
+
+        function validateName() {
+            const nameInput = document.getElementById('name');
+            const nameValue = nameInput.value;
+            
+            // Remove any numbers from the name
+            const cleanedName = nameValue.replace(/[0-9]/g, '');
+            
+            if (nameValue !== cleanedName) {
+                nameInput.value = cleanedName;
+            }
+        }
+
         // Business Hours Clock
-        // Track last hour a notice was shown to detect hour changes
         let lastNoticeHour = -1;
 
         function updateClock() {
@@ -2396,11 +2734,10 @@
             }
         }
 
-        // Status Notice System - Complete with all transitions
+        // Status Notice System
         function showStatusNotice(icon, title, message, noticeType) {
             const now = new Date();
             const hour = now.getHours();
-            // Use noticeType if provided, otherwise use title; include hour to allow same notice type at different times
             const typeKey = noticeType || title.replace(/\s/g, '_');
             const noticeKey = `notice_${typeKey}_${hour}_${now.toDateString()}`;
             
@@ -2487,73 +2824,6 @@
             }, 3000);
         }
 
-        // Check for ALL status changes every minute
-        function checkForStatusChanges() {
-            const now = new Date();
-            const hour = now.getHours();
-            const minute = now.getMinutes();
-            
-            const openHour = 9;
-            const closeHour = 18;
-            
-            // Check at the START of each hour for status transitions
-            if (minute === 0) {
-                const todayKey = new Date().toDateString();
-                
-                // Transition 1: Open → Almost Closing (5:00 PM)
-                if (hour === closeHour - 1) {
-                    const noticeKey = `notice_almost_closing_${todayKey}`;
-                    if (!sessionStorage.getItem(noticeKey)) {
-                        showStatusNotice(
-                            '⚠️', 
-                            'Almost Closing Time', 
-                            'We\'re about to close for the day. You can still browse and contact us, but we\'ll get back to you when we reopen tomorrow at 9 AM!',
-                            'almost_closing'
-                        );
-                    }
-                }
-                
-                // Transition 2: Almost Closing → Closed (6:00 PM)
-                else if (hour === closeHour) {
-                    const noticeKey = `notice_closed_${todayKey}`;
-                    if (!sessionStorage.getItem(noticeKey)) {
-                        showStatusNotice(
-                            '🌙', 
-                            'We\'re Closed', 
-                            'Thanks for visiting! We\'re currently closed. You can still browse our website and contact us - we\'ll get back to you when we reopen at 9 AM. Business hours: 9 AM - 6 PM.',
-                            'closed'
-                        );
-                    }
-                }
-                
-                // Transition 3: Closed → Almost Open (8:00 AM)
-                else if (hour === openHour - 1) {
-                    const noticeKey = `notice_almost_open_${todayKey}`;
-                    if (!sessionStorage.getItem(noticeKey)) {
-                        showStatusNotice(
-                            '🌅', 
-                            'Opening Soon', 
-                            'We\'re about to open! Our team will be available at 9 AM. You can still look around and send us a message - we\'ll respond as soon as we\'re open!',
-                            'almost_open'
-                        );
-                    }
-                }
-                
-                // Transition 4: Almost Open → Open (9:00 AM)
-                else if (hour === openHour) {
-                    const noticeKey = `notice_open_${todayKey}`;
-                    if (!sessionStorage.getItem(noticeKey)) {
-                        showStatusNotice(
-                            '✅', 
-                            'We\'re Open!', 
-                            'Our services are operational! Feel free to contact us via WhatsApp, phone, or email. We\'re here to help with your web design needs!',
-                            'open'
-                        );
-                    }
-                }
-            }
-        }
-
         // Toggle widget visibility
         function toggleWidget() {
             const widget = document.getElementById('businessWidget');
@@ -2588,9 +2858,6 @@
             setInterval(updateClock, 1000);  // Update clock every second
             updateClock();
             checkAndShowNotice();  // Initial notice on page load
-            
-            // Check for status changes every minute
-            setInterval(checkForStatusChanges, 60000);
         }
 
         // Close notice when clicking overlay
@@ -2599,6 +2866,194 @@
             noticeOverlay.addEventListener('click', closeNotice);
         }
 
+        // Chatbot functionality
+        (function() {
+            console.log('🚀 Futurify Designs - Contact Page Initialized...');
+            
+            // Chatbot with sessionStorage sync across pages
+            var chatBtn = document.getElementById('chatbotButton');
+            var chatWin = document.getElementById('chatbotWindow');
+            var chatClose = document.getElementById('chatbotClose');
+            var chatMsgs = document.getElementById('chatbotMessages');
+            var chatInp = document.getElementById('chatbotInput');
+            var chatSend = document.getElementById('chatbotSend');
+            
+            var responses = {
+                // Greetings
+                hello: "👋 Hi! Welcome to Futurify Designs Contact!\n\nI can help you with:\n\n📦 Package selection\n📝 Form submission\n📞 Contact information\n💬 WhatsApp chat\n\nWhat would you like to know?",
+                
+                // Package Help
+                package: "📦 Package Selection:\n\nIf you haven't selected a package yet:\n1️⃣ Click 'Choose Package' button\n2️⃣ Go to our Pricing page\n3️⃣ Select your preferred package\n4️⃣ Click 'Get Started'\n5️⃣ You'll return here with package selected!\n\nNeed help choosing? Ask me about pricing!",
+                
+                // Contact Info
+                contact: "📞 Contact Information:\n\n📧 Email:\nfuturifydesigns@gmail.com\n\n📱 Phone/SMS:\n+267 777 83823\n\n💬 WhatsApp:\nClick the green button below!\n\n📍 Location:\nGaborone, Botswana\n\n⚡ We respond within 2-4 hours!",
+                
+                // Form Help
+                form: "📝 Quote Request Form:\n\n✅ Required:\n• Full Name\n• Email Address\n• Phone Number\n• Project Details\n• Package Selection\n\n📎 Optional:\n• Reference files (images, PDFs)\n\n💡 Tip: Make sure to select a package first!\n\nQuestions? Just ask!",
+                
+                // Pricing Redirect
+                pricing: "💰 Need to choose a package?\n\nClick the 'Choose Package' button in the package section above, or:\n\n🔗 Direct link: pricing f.html\n\nOur packages start from P2,200 for a starter website!\n\nWant me to explain any package?",
+                
+                // Thanks
+                thanks: "🌟 You're Very Welcome!\n\nHappy to help! 😊\n\nNeed anything else?\n💬 Keep chatting with me\n📞 Call: +267 777 83823\n💚 WhatsApp: Click green button\n📧 Email: futurifydesigns@gmail.com\n\nLooking forward to working with you! 🚀",
+                
+                // Fallback
+                fallback: "🤔 Hmm, I'm not quite sure about that!\n\nI can help you with:\n• Package selection\n• Contact information\n• Form submission help\n• WhatsApp connection\n\nTry rephrasing your question, or:\n\n💬 WhatsApp us directly (green button)\n📞 Call: +267 777 83823\n\nA human will gladly help! 😊"
+            };
+            
+            // Load chat history from sessionStorage
+            function loadChatHistory() {
+                if (!chatMsgs) return;
+                
+                var history = sessionStorage.getItem('futurify_chat_history');
+                if (history) {
+                    try {
+                        var messages = JSON.parse(history);
+                        // Clear existing messages except welcome message
+                        chatMsgs.innerHTML = '<div class="bot-message">Hi! 👋 Welcome to Futurify Designs Contact! How can I help you today?</div>';
+                        
+                        // Restore all messages
+                        messages.forEach(function(msg) {
+                            addMsg(msg.text, msg.isUser, false);
+                        });
+                    } catch (e) {
+                        console.error('Error loading chat history:', e);
+                    }
+                }
+            }
+            
+            // Save chat history to sessionStorage
+            function saveChatHistory() {
+                if (!chatMsgs) return;
+                
+                var messages = [];
+                var msgDivs = chatMsgs.querySelectorAll('div');
+                
+                // Skip the first welcome message
+                for (var i = 1; i < msgDivs.length; i++) {
+                    var div = msgDivs[i];
+                    var isUser = div.classList.contains('user-message');
+                    messages.push({
+                        text: div.textContent,
+                        isUser: isUser
+                    });
+                }
+                
+                sessionStorage.setItem('futurify_chat_history', JSON.stringify(messages));
+            }
+            
+            if (chatBtn && chatWin) {
+                chatBtn.onclick = function() {
+                    var isVisible = chatWin.style.display === 'flex';
+                    chatWin.style.display = isVisible ? 'none' : 'flex';
+                    if (!isVisible) {
+                        loadChatHistory();
+                        if (chatInp) setTimeout(function() { chatInp.focus(); }, 100);
+                    }
+                };
+            }
+            
+            if (chatClose && chatWin) {
+                chatClose.onclick = function() { chatWin.style.display = 'none'; };
+            }
+            
+            function addMsg(text, isUser, save) {
+                if (!chatMsgs) return;
+                if (save === undefined) save = true;
+                
+                var div = document.createElement('div');
+                div.className = isUser ? 'user-message' : 'bot-message';
+                div.textContent = text;
+                chatMsgs.appendChild(div);
+                chatMsgs.scrollTop = chatMsgs.scrollHeight;
+                
+                if (save) {
+                    saveChatHistory();
+                }
+            }
+            
+            function getResponse(msg) {
+                var lower = msg.toLowerCase().trim();
+                if (lower.match(/^(hi|hello|hey)$/)) return responses.hello;
+                if (lower.match(/(package|select|choose)/)) return responses.package;
+                if (lower.match(/(contact|email|phone)/)) return responses.contact;
+                if (lower.match(/(form|submit|request)/)) return responses.form;
+                if (lower.match(/(price|pricing|cost)/)) return responses.pricing;
+                if (lower.match(/(thank)/)) return responses.thanks;
+                return responses.fallback;
+            }
+            
+            function sendMsg() {
+                if (!chatInp) return;
+                var msg = chatInp.value.trim();
+                if (msg) {
+                    addMsg(msg, true);
+                    chatInp.value = '';
+                    setTimeout(function() { addMsg(getResponse(msg), false); }, 600);
+                }
+            }
+            
+            if (chatSend) {
+                chatSend.onclick = sendMsg;
+                chatSend.onmouseover = function() { this.style.transform = 'scale(1.1)'; };
+                chatSend.onmouseout = function() { this.style.transform = 'scale(1)'; };
+            }
+            
+            if (chatInp) {
+                chatInp.onkeypress = function(e) {
+                    if (e.key === 'Enter') {
+                        e.preventDefault();
+                        sendMsg();
+                    }
+                };
+            }
+            
+            // Load chat history on page load
+            loadChatHistory();
+            
+            console.log('✅ Contact page features initialized!');
+        })();
+
+        // Session timeout functionality
+        var sessionTimeout;
+        function resetSession() {
+            clearTimeout(sessionTimeout);
+            sessionTimeout = setTimeout(function() {
+                var modal = document.getElementById('sessionModal');
+                if (modal) modal.style.display = 'flex';
+            }, 30 * 60 * 1000); // 30 minutes
+        }
+        
+        // Continue session button handler
+        var contBtn = document.getElementById('continueSession');
+        if (contBtn) {
+            contBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                var modal = document.getElementById('sessionModal');
+                if (modal) {
+                    modal.style.display = 'none';
+                }
+                resetSession();
+            });
+            
+            // Add hover effect
+            contBtn.addEventListener('mouseenter', function() {
+                this.style.transform = 'scale(1.05)';
+            });
+            contBtn.addEventListener('mouseleave', function() {
+                this.style.transform = 'scale(1)';
+            });
+        }
+        
+        // Reset session on user activity
+        document.addEventListener('click', resetSession);
+        document.addEventListener('scroll', resetSession);
+        document.addEventListener('mousemove', resetSession);
+        document.addEventListener('keypress', resetSession);
+        
+        // Start the session timer
+        resetSession();
     </script>
 </body>
 </html>

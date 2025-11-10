@@ -1582,7 +1582,7 @@
                     <li>SSL certificate included</li>
                 </ul>
 
-                <a href="contact f.html" class="cta-button">Get Started</a>
+                <a href="#" class="cta-button" onclick="selectPackage('starter', 2200, 2800, event)">Get Started</a>
             </div>
 
             <!-- Business Package -->
@@ -1616,7 +1616,7 @@
                     <li>Contact forms & email integration</li>
                 </ul>
 
-                <a href="contact f.html" class="cta-button">Get Started</a>
+                <a href="#" class="cta-button" onclick="selectPackage('business', 4000, 5500, event)">Get Started</a>
             </div>
 
             <!-- Advanced Package -->
@@ -1651,7 +1651,7 @@
                     <li>Everything from Business package</li>
                 </ul>
 
-                <a href="contact f.html" class="cta-button">Get Started</a>
+                <a href="#" class="cta-button" onclick="selectPackage('advanced', 7500, 10000, event)">Get Started</a>
             </div>
 
             <!-- Full Web System -->
@@ -1686,7 +1686,7 @@
                     <li>Responsive admin interface</li>
                 </ul>
 
-                <a href="contact f.html" class="cta-button">Get Started</a>
+                <a href="#" class="cta-button" onclick="selectPackage('full-system', 10000, 18000, event)">Get Started</a>
             </div>
 
             <!-- Custom Package -->
@@ -1710,7 +1710,7 @@
                     <li>Ongoing support options</li>
                 </ul>
 
-                <a href="contact f.html" class="cta-button">Discuss Your Project</a>
+                <a href="#" class="cta-button" onclick="selectPackage('custom', 0, 0, event)">Discuss Your Project</a>
             </div>
         </div>
 
@@ -1909,6 +1909,9 @@
             const rate = conversionRates[selectedCurrency];
             const symbol = currencySymbols[selectedCurrency];
 
+            // Save currency to sessionStorage for contact page
+            sessionStorage.setItem('selectedCurrency', selectedCurrency);
+
             // Update all currency symbols
             document.querySelectorAll('.currency-symbol').forEach(el => {
                 el.textContent = symbol;
@@ -1927,6 +1930,120 @@
                     valueEl.textContent = `${convertedMin.toLocaleString()} - ${convertedMax.toLocaleString()}`;
                 }
             });
+        }
+
+        // Initialize currency from sessionStorage on page load
+        function initializeCurrency() {
+            const savedCurrency = sessionStorage.getItem('selectedCurrency');
+            const currencySelect = document.getElementById('currencySelect');
+            
+            if (savedCurrency && currencySelect) {
+                currencySelect.value = savedCurrency;
+                updatePrices();
+            }
+        }
+
+        // Call initializeCurrency after DOM is loaded
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initializeCurrency);
+        } else {
+            initializeCurrency();
+        }
+
+        // Package selection function
+        function selectPackage(packageId, minPrice, maxPrice, event) {
+            event.preventDefault();
+            
+            const selectedCurrency = document.getElementById('currencySelect').value;
+            const rate = conversionRates[selectedCurrency];
+            const symbol = currencySymbols[selectedCurrency];
+            
+            // Convert prices to selected currency
+            const convertedMin = Math.round(minPrice * rate);
+            const convertedMax = Math.round(maxPrice * rate);
+            
+            // Package details
+            const packageMap = {
+                'starter': {
+                    name: 'Starter Custom Site',
+                    features: [
+                        '3-5 responsive pages',
+                        'Mobile-friendly design',
+                        'Contact form integration',
+                        'Basic SEO setup',
+                        'Social media links',
+                        'SSL certificate included'
+                    ]
+                },
+                'business': {
+                    name: 'Business Custom Site',
+                    features: [
+                        '6-10 responsive pages',
+                        'Admin dashboard for content management',
+                        'Advanced SEO optimization',
+                        'Blog/News section',
+                        'Google Maps integration',
+                        'Analytics setup',
+                        'Contact forms & email integration'
+                    ]
+                },
+                'advanced': {
+                    name: 'Advanced Custom Site',
+                    features: [
+                        'E-commerce store (up to 300 products)',
+                        'Booking/reservation system',
+                        'User login/registration',
+                        'Payment gateway integration',
+                        'Inventory & order management',
+                        'Customer notifications',
+                        'Admin dashboard with analytics'
+                    ]
+                },
+                'full-system': {
+                    name: 'Full Web System / Dashboard App',
+                    features: [
+                        'Custom admin dashboard',
+                        'User accounts & role management',
+                        'Database-driven functionality',
+                        'Data visualization & charts',
+                        'CRUD operations (Create, Read, Update, Delete)',
+                        'User authentication & security',
+                        'CSV/Excel data export',
+                        'Responsive admin interface'
+                    ]
+                },
+                'custom': {
+                    name: 'Custom Project',
+                    features: [
+                        'Tailored to your exact needs',
+                        'Detailed project analysis',
+                        'Custom feature development',
+                        'Flexible scope & timeline',
+                        'Third-party integrations',
+                        'Specialized functionality',
+                        'Transparent pricing breakdown',
+                        'Ongoing support options'
+                    ]
+                }
+            };
+            
+            const packageData = {
+                id: packageId,
+                name: packageMap[packageId].name,
+                minPrice: minPrice,
+                maxPrice: maxPrice,
+                convertedMin: convertedMin,
+                convertedMax: convertedMax,
+                currency: selectedCurrency,
+                currencySymbol: symbol,
+                features: packageMap[packageId].features
+            };
+            
+            // Save to sessionStorage
+            sessionStorage.setItem('selectedPackage', JSON.stringify(packageData));
+            
+            // Redirect to contact page
+            window.location.href = 'contact f.html';
         }
 
         // Business Hours Clock
@@ -2207,7 +2324,7 @@
             // Services & What We Do
             services: "💼 Our Services:\n\n🌐 Website Design & Development\n   • Business Websites\n   • E-Commerce Stores\n   • Portfolio Sites\n   • Restaurant/Hotel Sites\n   • Landing Pages\n\n📱 Mobile-Responsive Design\n⚡ Website Speed Optimization\n🔍 SEO Setup\n🎨 Logo & Branding (on request)\n\n💡 Need something specific? Ask me!",
             
-            // Website Types
+            // Website Type Ideas
             ideas_restaurant: "🍽️ Restaurant/Cafe Websites:\n\nWe can build:\n✨ Online Menu with Photos & Prices\n📱 Table Reservation System\n🛒 Online Ordering (Takeaway)\n📸 Beautiful Photo Gallery\n⭐ Customer Reviews Section\n📍 Location & Opening Hours\n\n💰 Starting from affordable rates!\n📞 Contact: +267 777 83823\n💬 WhatsApp: Click the green button below!",
             
             ideas_ecommerce: "🛍️ E-Commerce Websites:\n\nWe can build:\n🛒 Full Shopping Cart System\n💳 Payment Integration (PayPal, etc.)\n📦 Order Tracking\n⭐ Product Reviews\n🔍 Advanced Search & Filters\n📱 Mobile Shopping Experience\n\n💰 Custom quote based on products!\n📞 Contact: +267 777 83823\n💬 WhatsApp: Click the green button!",
