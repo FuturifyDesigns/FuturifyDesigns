@@ -78,7 +78,6 @@
             color: white;
             letter-spacing: clamp(5px, 5vw, 20px); /* Responsive letter spacing */
             animation: slideIn 1s ease-out 0.5s backwards;
-            text-shadow: 0 0 30px rgba(255, 255, 255, 0.6);
             line-height: 1.2;
             text-align: center;
             width: 100%;
@@ -787,7 +786,7 @@
         }
 
         .info-item a {
-            color: #fff;
+            color: #fff; /* Changed from #667eea to #fff to match other text */
             text-decoration: none;
             transition: all 0.3s ease;
         }
@@ -945,6 +944,18 @@
         .footer-contact i {
             width: 18px;
             color: rgba(255, 255, 255, 0.9);
+        }
+
+        /* FIXED: Footer contact email link color - now white like About page */
+        .footer-contact a {
+            color: rgba(255, 255, 255, 0.95);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .footer-contact a:hover {
+            color: #fff;
+            text-decoration: underline;
         }
 
         .footer-social {
@@ -1661,7 +1672,7 @@
                     <div class="file-note">
                         <i class="fas fa-info-circle"></i>
                         <p><strong>Have reference files or website concepts?</strong><br>
-                        Please send them as a separate email to <a href="mailto:futurifydesigns@gmail.com" style="color: #667eea; text-decoration: none; font-weight: 600;">futurifydesigns@gmail.com</a> after submitting this form.</p>
+                        Please send them as a separate email to <a href="mailto:futurifydesigns@gmail.com" style="color: #fff; text-decoration: none; font-weight: 600;">futurifydesigns@gmail.com</a> after submitting this form.</p>
                     </div>
                     
                     <button type="submit" class="submit-button" id="submitButton" disabled>Submit Quote Request</button>
@@ -1745,7 +1756,7 @@
                 <div class="footer-section">
                     <h4 class="footer-title">Get In Touch</h4>
                     <ul class="footer-contact">
-                        <li><i class="fas fa-envelope"></i> futurifydesigns@gmail.com</li>
+                        <li><i class="fas fa-envelope"></i> <a href="mailto:futurifydesigns@gmail.com">futurifydesigns@gmail.com</a></li>
                         <li><i class="fas fa-phone"></i> +267 777 83823</li>
                         <li><i class="fas fa-map-marker-alt"></i> Gaborone, Botswana</li>
                     </ul>
@@ -2751,12 +2762,9 @@
         }
         
         // Reset session on user activity
-        document.addEventListener('click', resetSession);
-        document.addEventListener('scroll', resetSession);
         document.addEventListener('mousemove', resetSession);
         document.addEventListener('keypress', resetSession);
-        
-        // Start the session timer
+        document.addEventListener('click', resetSession);
         resetSession();
     </script>
 </body>
