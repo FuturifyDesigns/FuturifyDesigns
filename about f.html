@@ -1012,31 +1012,6 @@
             }
         }
 
-        /* Chatbot Tooltip */
-        .chatbot-button::before {
-            content: "Need Help? 💬";
-            position: absolute;
-            bottom: 70px;
-            right: 0;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            color: white;
-            padding: 10px 15px;
-            border-radius: 20px;
-            font-size: 13px;
-            font-weight: 700;
-            white-space: nowrap;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.3s, transform 0.3s;
-            transform: translateY(10px);
-            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
-        }
-        
-        .chatbot-button:hover::before {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        
         /* WhatsApp Tooltip */
         .whatsapp-button::before {
             content: "Chat with me! 💬";
@@ -1230,61 +1205,12 @@
                 display: block;
             }
             
-            /* Chatbot mobile positioning */
-            #chatbotButton {
+            /* WhatsApp mobile positioning */
+            #whatsappButton {
                 bottom: 20px !important;
                 right: 20px !important;
                 width: 50px !important;
                 height: 50px !important;
-            }
-            
-            /* WhatsApp mobile positioning - next to chatbot */
-            #whatsappButton {
-                bottom: 20px !important;
-                right: 85px !important;
-                width: 50px !important;
-                height: 50px !important;
-            }
-            
-            #chatbotWindow {
-                top: 80px !important;
-                right: 10px !important;
-                left: 10px !important;
-                width: calc(100% - 20px) !important;
-                max-height: 400px !important;
-            }
-            
-            #chatbotWindow > div:first-child {
-                padding: 12px 15px !important;
-            }
-            
-            #chatbotWindow > div:first-child h3 {
-                font-size: 16px !important;
-            }
-            
-            #chatbotMessages {
-                padding: 12px !important;
-                font-size: 13px !important;
-            }
-            
-            #chatbotMessages > div {
-                font-size: 13px !important;
-                padding: 10px 12px !important;
-            }
-            
-            #chatbotWindow > div:last-child {
-                padding: 10px 15px !important;
-            }
-            
-            #chatbotInput {
-                padding: 10px 12px !important;
-                font-size: 13px !important;
-            }
-            
-            #chatbotSend {
-                width: 40px !important;
-                height: 40px !important;
-                font-size: 18px !important;
             }
         }
 
@@ -2025,10 +1951,6 @@
         </svg>
     </a>
     <style>
-    @keyframes chatPulse {
-        0%, 100% { transform: scale(1); box-shadow: 0 10px 30px rgba(102,126,234,0.4); }
-        50% { transform: scale(1.05); box-shadow: 0 15px 40px rgba(102,126,234,0.6); }
-    }
     @keyframes whatsappPulse {
         0%, 100% { transform: scale(1); box-shadow: 0 10px 30px rgba(37,211,102,0.4); }
         50% { transform: scale(1.05); box-shadow: 0 15px 40px rgba(37,211,102,0.6); }
@@ -2037,32 +1959,6 @@
         animation: whatsappPulse 2s infinite;
     }
     </style>
-
-        <!-- AI Chatbot -->
-    <div class="chatbot-button" id="chatbotButton" style="position:fixed;bottom:30px;right:100px;width:60px;height:60px;border-radius:50%;background:linear-gradient(135deg,#667eea,#764ba2);cursor:pointer;z-index:10000;display:none;align-items:center;justify-content:center;box-shadow:0 10px 30px rgba(102,126,234,0.4);animation:chatPulse 2s infinite;">
-        <svg viewBox="0 0 24 24" style="width:30px;height:30px;fill:#fff;">
-            <path d="M12 2C6.48 2 2 6.48 2 12c0 1.54.36 3 .97 4.29L2 22l5.71-.97C9 21.64 10.46 22 12 22c5.52 0 10-4.48 10-10S17.52 2 12 2zm0 18c-1.38 0-2.68-.31-3.85-.85l-.27-.14-2.82.48.48-2.82-.14-.27C4.31 14.68 4 13.38 4 12c0-4.41 3.59-8 8-8s8 3.59 8 8-3.59 8-8 8z"/>
-        </svg>
-    </div>
-    <style>
-    @keyframes chatPulse {
-        0%, 100% { transform: scale(1); box-shadow: 0 10px 30px rgba(102,126,234,0.4); }
-        50% { transform: scale(1.05); box-shadow: 0 15px 40px rgba(102,126,234,0.6); }
-    }
-    </style>
-    <div class="chatbot-window" id="chatbotWindow" style="position:fixed;top:80px;bottom:auto;right:30px;width:380px;max-height:calc(100vh - 100px);background:linear-gradient(135deg,rgba(255,255,255,0.98),rgba(248,249,250,0.98));backdrop-filter:blur(20px);border-radius:20px;box-shadow:0 20px 60px rgba(102,126,234,0.3);display:none;flex-direction:column;z-index:99;overflow:hidden;border:1px solid rgba(102,126,234,0.2);">
-        <div style="padding:20px;background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;display:flex;justify-content:space-between;align-items:center;">
-            <h3 style="margin:0;font-weight:900;font-size:18px;">🤖 Futurify Assistant</h3>
-            <button id="chatbotClose" style="background:none;border:none;color:#fff;font-size:28px;cursor:pointer;padding:0;line-height:1;">×</button>
-        </div>
-        <div id="chatbotMessages" style="flex:1;padding:20px;overflow-y:auto;display:flex;flex-direction:column;gap:12px;">
-            <div style="padding:12px 16px;border-radius:15px;max-width:80%;font-size:14px;background:rgba(102,126,234,0.1);color:#333;border:1px solid rgba(102,126,234,0.2);">Hi! 👋 Welcome to Futurify Designs! How can I help you today?</div>
-        </div>
-        <div style="padding:15px 20px;display:flex;gap:10px;border-top:1px solid rgba(102,126,234,0.1);">
-            <input type="text" id="chatbotInput" placeholder="Ask me anything..." style="flex:1;padding:12px 15px;border:2px solid rgba(102,126,234,0.3);border-radius:25px;font-size:14px;outline:none;background:rgba(102,126,234,0.05);">
-            <button id="chatbotSend" style="background:linear-gradient(135deg,#667eea,#764ba2);border:none;color:#fff;width:45px;height:45px;border-radius:50%;cursor:pointer;font-size:20px;box-shadow:0 4px 15px rgba(102,126,234,0.3);">→</button>
-        </div>
-    </div>
 
     <!-- Session Modal -->
     <div id="sessionModal" style="position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(102,126,234,0.9);backdrop-filter:blur(10px);z-index:100001;display:none;align-items:center;justify-content:center;padding:20px;">
@@ -2290,9 +2186,6 @@
         
         // Show features after animation
         setTimeout(function() {
-            var chatBtn = document.getElementById('chatbotButton');
-            if (chatBtn) chatBtn.style.display = 'flex';
-            
             var whatsappBtn = document.getElementById('whatsappButton');
             if (whatsappBtn) whatsappBtn.style.display = 'flex';
             
@@ -2410,221 +2303,7 @@
         // Start the session timer
         resetSession();
         
-        // Chatbot with sessionStorage sync across pages (clears on browser close)
-        var chatBtn = document.getElementById('chatbotButton');
-        var chatWin = document.getElementById('chatbotWindow');
-        var chatClose = document.getElementById('chatbotClose');
-        var chatMsgs = document.getElementById('chatbotMessages');
-        var chatInp = document.getElementById('chatbotInput');
-        var chatSend = document.getElementById('chatbotSend');
-        
-        var responses = {
-            // Greetings
-            hello: "👋 Hi! Welcome to Futurify Designs!\n\nI'm your virtual assistant. I can help you with:\n\n🏢 About Us\n🌐 How This Website Works\n💰 Pricing & Packages\n⏰ Project Timeline\n📞 Contact Information\n💬 WhatsApp Chat\n🔒 Privacy Policy\n\nJust type your question or choose a topic!",
-            
-            // About Company
-            about: "🏢 About Futurify Designs:\n\n📍 Based in Gaborone, Botswana\n💻 Specializing in modern, professional websites\n⚡ Fast-loading & SEO-optimized designs\n📱 Mobile-responsive solutions\n🎨 Custom designs tailored to YOUR brand\n\n✨ Our Mission: Crafting tomorrow's digital experiences today!\n\nWant to know more about our services?",
-            
-            about_detailed: "🌟 What Makes Us Different:\n\n✅ 100% Custom Designs (No Templates!)\n✅ Fast Turnaround Times\n✅ Affordable Pricing for Botswana Market\n✅ Ongoing Support After Launch\n✅ SEO & Speed Optimized\n✅ Mobile-First Approach\n\n🎯 We build websites that actually convert visitors into customers!\n\n💬 Ready to start? Contact us or ask about pricing!",
-            
-            // How Website Works
-            website_help: "🌐 How to Use This Website:\n\n🏠 HOME: Learn about our services\n📁 PORTFOLIO: See our past work\n👤 ABOUT: Meet the team & our story\n📞 CONTACT: Get in touch with us\n\n💡 TIP: Click any page in the top menu!\n\n🤖 You can also ask me questions anytime by clicking this chat icon!\n\nWhat would you like to know?",
-            
-            navigation: "🧭 Website Navigation Help:\n\n📱 On Mobile: Tap the menu icon (☰) top-right\n💻 On Desktop: Click any page in the top menu bar\n\n📄 Our Pages:\n• HOME - Services overview\n• PORTFOLIO - Past projects\n• ABOUT - Our story\n• CONTACT - Get in touch\n\n🔍 Lost? Just ask me anything!",
-            
-            // Services & What We Do
-            services: "💼 Our Services:\n\n🌐 Website Design & Development\n   • Business Websites\n   • E-Commerce Stores\n   • Portfolio Sites\n   • Restaurant/Hotel Sites\n   • Landing Pages\n\n📱 Mobile-Responsive Design\n⚡ Website Speed Optimization\n🔍 SEO Setup\n🎨 Logo & Branding (on request)\n\n💡 Need something specific? Ask me!",
-            
-            // Website Types
-            ideas_restaurant: "🍽️ Restaurant/Cafe Websites:\n\nWe can build:\n✨ Online Menu with Photos & Prices\n📱 Table Reservation System\n🛒 Online Ordering (Takeaway)\n📸 Beautiful Photo Gallery\n⭐ Customer Reviews Section\n📍 Location & Opening Hours\n\n💰 Starting from affordable rates!\n📞 Contact: +267 777 83823\n💬 WhatsApp: Click the green button below!",
-            
-            ideas_ecommerce: "🛍️ E-Commerce Websites:\n\nWe can build:\n🛒 Full Shopping Cart System\n💳 Payment Integration (PayPal, etc.)\n📦 Order Tracking\n⭐ Product Reviews\n🔍 Advanced Search & Filters\n📱 Mobile Shopping Experience\n\n💰 Custom quote based on products!\n📞 Contact: +267 777 83823\n💬 WhatsApp: Click the green button!",
-            
-            ideas_portfolio: "🎨 Portfolio Websites:\n\nPerfect for:\n📸 Photographers\n🎨 Artists & Designers  \n✍️ Writers & Content Creators\n💼 Consultants\n\nFeatures:\n📷 Stunning Image Gallery\n🎬 Video Integration\n📝 Case Studies/Projects\n📧 Contact Forms\n\n💰 Affordable packages available!\n📞 +267 777 83823",
-            
-            ideas_business: "💼 Business Websites:\n\nIdeal for:\n🏢 Companies & Startups\n👔 Professional Services\n🏗️ Contractors & Builders\n🎓 Educational Institutions\n\nFeatures:\n📊 Services Showcase\n👥 Team Profiles\n💬 Testimonials\n📰 Blog/News Section\n📈 Lead Generation Forms\n\n📞 Let's discuss: +267 777 83823",
-            
-            // Pricing
-            pricing: "💰 Pricing & Packages:\n\n🌟 STARTER\n   • Single Page Website\n   • Mobile Responsive\n   • Contact Form\n   \n🚀 PROFESSIONAL\n   • Multi-Page Website (up to 5 pages)\n   • Custom Design\n   • SEO Basic\n   \n💎 PREMIUM\n   • E-Commerce or Complex Site\n   • All Features\n   • Priority Support\n\n💵 Payment Plans Available!\n📞 Custom Quote: +267 777 83823\n💬 WhatsApp for instant quote!",
-            
-            pricing_detailed: "💵 Investment Details:\n\n✅ Flexible Payment Plans\n✅ 50% Deposit, 50% on Completion\n✅ No Hidden Fees\n✅ Includes Hosting Setup Help\n✅ Free Minor Updates (first month)\n\n💳 Payment Methods:\n• Bank Transfer\n• Mobile Money\n• eWallet\n• Pay2Cell\n• International: PayPal\n\n📞 Get exact quote: +267 777 83823\n💬 WhatsApp is fastest!",
-            
-            // Timeline
-            timeline: "⏰ Project Timeline:\n\n⚡ SIMPLE SITE: 5-7 days\n🚀 MEDIUM SITE: 10-14 days\n💎 COMPLEX SITE: 3-4 weeks\n\n📅 Process:\n1️⃣ Consultation (1 day)\n2️⃣ Design Mockup (2-3 days)\n3️⃣ Your Feedback\n4️⃣ Development (varies)\n5️⃣ Testing (1-2 days)\n6️⃣ Launch! 🎉\n\n⏱️ Rush projects available!\n📞 Discuss timeline: +267 777 83823",
-            
-            timeline_detailed: "📆 Detailed Timeline Breakdown:\n\n🗣️ DISCOVERY (Day 1-2):\n   • Discuss goals & requirements\n   • Competitor analysis\n   • Content gathering\n\n🎨 DESIGN (Day 3-5):\n   • Mockup creation\n   • Revisions based on feedback\n\n💻 DEVELOPMENT (Day 6-12):\n   • Coding & building\n   • Feature implementation\n\n✅ TESTING (Day 13-14):\n   • Quality assurance\n   • Mobile testing\n\n🚀 LAUNCH!\n\n📞 Start now: +267 777 83823",
-            
-            // Process/How We Work
-            process: "🛠️ How We Work:\n\n1️⃣ CONSULTATION\n   • Understand your vision\n   • Define requirements\n   \n2️⃣ PROPOSAL & QUOTE\n   • Detailed breakdown\n   • Timeline estimate\n   \n3️⃣ DESIGN PHASE\n   • Create mockups\n   • Get your approval\n   \n4️⃣ DEVELOPMENT\n   • Build your site\n   • Regular updates\n   \n5️⃣ TESTING\n   • Quality checks\n   • Your feedback\n   \n6️⃣ LAUNCH! 🚀\n   • Go live\n   \n7️⃣ SUPPORT\n   • Ongoing assistance\n\n📞 Let's start: +267 777 83823",
-            
-            // Contact Information  
-            contact: "📞 Get In Touch:\n\n📧 Email:\nfuturifydesigns@gmail.com\n\n📱 Phone/SMS:\n+267 777 83823\n\n💬 WhatsApp:\nClick the green button below for instant chat!\n\n📍 Location:\nGaborone, Botswana\n\n🌐 Or use our Contact Page:\nClick 'Contact' in the menu above!\n\n⚡ We typically respond within 2-4 hours!",
-            
-            whatsapp: "💬 WhatsApp Direct Chat:\n\n✅ Fastest way to reach us!\n✅ Available during business hours\n✅ Send photos/examples easily\n✅ Get quick quotes\n\n👇 Click the GREEN WHATSAPP button at the bottom of this chat or on the page!\n\nNumber: +267 777 83823\n\n⏰ Business Hours:\nMon-Fri: 9AM - 6PM\nSat: 10AM - 2PM",
-            
-            // Portfolio
-            portfolio: "📁 View Our Work:\n\n🎨 Click 'PORTFOLIO' in the menu above to see:\n\n✅ Past Projects\n✅ Different Website Types\n✅ Our Design Style\n✅ Client Success Stories\n\n💡 TIP: Each project shows:\n   • Industry/Type\n   • Features included\n   • Technologies used\n\n🚀 Ready for YOUR project?\n📞 +267 777 83823\n💬 WhatsApp us!",
-            
-            // Features
-            features: "✨ Website Features We Offer:\n\n🎨 DESIGN:\n• Custom layouts\n• Your brand colors/logo\n• Modern, professional look\n\n⚡ TECHNICAL:\n• Fast loading speed\n• Mobile responsive\n• SEO optimized\n• Secure (HTTPS)\n\n🔧 FUNCTIONALITY:\n• Contact forms\n• Social media links\n• Google Maps integration\n• Image galleries\n• And much more!\n\nNeed something specific? Ask me!",
-            
-            // Support & Maintenance
-            support: "🛠️ Support & Maintenance:\n\n✅ FREE SUPPORT:\n• First month minor updates\n• Bug fixes\n• Content updates help\n\n💎 ONGOING MAINTENANCE:\n• Monthly updates\n• Security monitoring\n• Performance optimization\n• Priority support\n\n📧 Email anytime: futurifydesigns@gmail.com\n📱 Call: +267 777 83823\n💬 WhatsApp: Quick response!\n\nWe're here to help! 🚀",
-            
-            // Domain & Hosting
-            hosting: "🌐 Domain & Hosting:\n\n📝 DOMAIN (yourname.com):\n• We help you register\n• Or use your existing domain\n• .com, .co.bw, etc.\n\n🖥️ HOSTING:\n• We recommend providers\n• Help with setup\n• Or manage it for you\n\n💰 COSTS (approximate):\n• Domain: ~P150-P400/year\n• Hosting: ~P500-P1500/year\n\n💡 We'll guide you through everything!\n📞 Questions? +267 777 83823",
-            
-            // Privacy & Legal
-            privacy: "🔒 Privacy & Security:\n\n✅ Your Data is Safe:\n• We don't share client info\n• Secure communication\n• GDPR-compliant practices\n\n📄 Legal Pages:\n• Privacy Policy (link in footer)\n• Terms of Service (link in footer)\n\n🔐 Website Security:\n• HTTPS/SSL included\n• Secure forms\n• Regular updates\n\n📧 Privacy questions?\nfuturifydesigns@gmail.com",
-            
-            privacy_policy: "📄 Privacy Policy:\n\nOur full Privacy Policy covers:\n• What data we collect\n• How we use it  \n• Your rights\n• Cookie usage\n• Contact information\n\n🔗 View full policy:\nClick 'Privacy Policy' link in the footer below!\n\nOr visit our Contact page.\n\n📧 Questions?\nfuturifydesigns@gmail.com",
-            
-            terms: "📜 Terms of Service:\n\nOur Terms cover:\n• Service agreement\n• Payment terms\n• Cancellation policy\n• Intellectual property\n• Liability\n\n🔗 View full terms:\nClick 'Terms of Service' link in the footer!\n\n💼 For custom projects, we provide detailed contracts.\n\n📞 Questions? +267 777 83823",
-            
-            // Help & Troubleshooting
-            help: "🤔 I'm Here to Help!\n\nYou can ask me about:\n\n🏢 About Futurify Designs\n💰 Pricing & Packages\n⏰ Timeline & Process\n🌐 Website Navigation\n📞 Contact Information\n💬 WhatsApp Chat\n🎨 Services & Features\n📁 Portfolio\n🔒 Privacy Policy\n📜 Terms of Service\n\nWhat would you like to know?",
-            
-            // Quick Actions
-            start_project: "🚀 Start Your Project:\n\n3 Quick Ways:\n\n1️⃣ 💬 WHATSAPP (Fastest!)\n   Click green button below\n   \n2️⃣ 📞 CALL US\n   +267 777 83823\n   \n3️⃣ 📧 EMAIL\n   futurifydesigns@gmail.com\n\nOr fill out our Contact Form!\n(Click 'Contact' in menu)\n\n💡 Have your project details ready:\n• Website type needed\n• Features wanted\n• Budget range\n• Timeline needed\n\nLet's build something amazing! ✨",
-            
-            quote: "💵 Get a Custom Quote:\n\n📝 To provide accurate quote, we need:\n\n1️⃣ Website Type:\n   (Business/E-commerce/Portfolio/etc.)\n   \n2️⃣ Number of Pages\n\n3️⃣ Special Features Needed\n\n4️⃣ Timeline/Deadline\n\n5️⃣ Budget Range (if any)\n\n⚡ FASTEST: WhatsApp us!\n💬 Click green button below\n📞 Or call: +267 777 83823\n📧 Email: futurifydesigns@gmail.com\n\nQuotes usually within 24 hours!",
-            
-            // Thanks
-            thanks: "🌟 You're Very Welcome!\n\nHappy to help! 😊\n\nNeed anything else?\n\n💬 Keep chatting with me\n📞 Call: +267 777 83823\n💚 WhatsApp: Click green button\n📧 Email: futurifydesigns@gmail.com\n\nLooking forward to working with you! 🚀",
-            
-            // Fallback
-            fallback: "🤔 Hmm, I'm not quite sure about that!\n\nI can help you with:\n• Company information\n• Pricing & services\n• How to use this website\n• Contact details\n• Starting a project\n\nTry rephrasing your question, or:\n\n💬 WhatsApp us directly (green button)\n📞 Call: +267 777 83823\n📧 Email: futurifydesigns@gmail.com\n\nA human will gladly help! 😊",
-            
-            outofscope: "💬 That's outside my expertise!\n\nI'm focused on web design services at Futurify Designs.\n\nI CAN help with:\n✅ Website pricing & packages\n✅ Project timelines\n✅ Our services\n✅ Contact information\n\nFor other topics:\n📞 +267 777 83823\n📧 futurifydesigns@gmail.com\n💬 WhatsApp (green button)\n\nLet's talk web design! 🌐"
-        };
-        
-        // Load chat history from sessionStorage
-        function loadChatHistory() {
-            if (!chatMsgs) return;
-            
-            var history = sessionStorage.getItem('futurify_chat_history');
-            if (history) {
-                try {
-                    var messages = JSON.parse(history);
-                    // Clear existing messages except welcome message
-                    chatMsgs.innerHTML = '<div style="padding:12px 16px;border-radius:15px;max-width:80%;font-size:14px;background:rgba(102,126,234,0.1);color:#333;border:1px solid rgba(102,126,234,0.2);">Hi! 👋 Welcome to Futurify Designs! How can I help you today?</div>';
-                    
-                    // Restore all messages
-                    messages.forEach(function(msg) {
-                        addMsg(msg.text, msg.isUser, false); // false = don't save again
-                    });
-                } catch (e) {
-                    console.error('Error loading chat history:', e);
-                }
-            }
-        }
-        
-        // Save chat history to sessionStorage
-        function saveChatHistory() {
-            if (!chatMsgs) return;
-            
-            var messages = [];
-            var msgDivs = chatMsgs.querySelectorAll('div');
-            
-            // Skip the first welcome message
-            for (var i = 1; i < msgDivs.length; i++) {
-                var div = msgDivs[i];
-                var isUser = div.style.background.includes('linear-gradient');
-                messages.push({
-                    text: div.textContent,
-                    isUser: isUser
-                });
-            }
-            
-            sessionStorage.setItem('futurify_chat_history', JSON.stringify(messages));
-        }
-        
-        if (chatBtn && chatWin) {
-            chatBtn.onclick = function() {
-                var isVisible = chatWin.style.display === 'flex';
-                chatWin.style.display = isVisible ? 'none' : 'flex';
-                if (!isVisible && chatInp) setTimeout(function() { chatInp.focus(); }, 100);
-            };
-        }
-        
-        if (chatClose && chatWin) {
-            chatClose.onclick = function() { chatWin.style.display = 'none'; };
-        }
-        
-        function addMsg(text, isUser, save) {
-            if (!chatMsgs) return;
-            if (save === undefined) save = true;
-            
-            var div = document.createElement('div');
-            div.style.cssText = 'padding:12px 16px;border-radius:15px;max-width:80%;font-size:14px;line-height:1.5;word-wrap:break-word;white-space:pre-wrap;' + 
-                (isUser ? 
-                    'background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;align-self:flex-end;margin-left:auto;box-shadow:0 4px 15px rgba(102,126,234,0.3);' : 
-                    'background:rgba(102,126,234,0.1);color:#333;border:1px solid rgba(102,126,234,0.2);');
-            div.textContent = text;
-            chatMsgs.appendChild(div);
-            chatMsgs.scrollTop = chatMsgs.scrollHeight;
-            
-            if (save) {
-                saveChatHistory();
-            }
-        }
-        
-        function getResponse(msg) {
-            var lower = msg.toLowerCase().trim();
-            if (lower.match(/^(hi|hello|hey)$/)) return responses.hello;
-            if (lower.match(/(restaurant|food|cafe)/)) return responses.ideas_restaurant;
-            if (lower.match(/(shop|store|ecommerce|sell)/)) return responses.ideas_ecommerce;
-            if (lower.match(/(portfolio|gallery)/)) return responses.ideas_portfolio;
-            if (lower.match(/(business|company)/)) return responses.ideas_business;
-            if (lower.match(/(idea|suggest)/)) return responses.help;
-            if (lower.match(/(motivate|inspire)/)) return responses.motivation;
-            if (lower.match(/(price|cost|expensive)/)) return responses.pricing;
-            if (lower.match(/(time|long|when)/)) return responses.timeline;
-            if (lower.match(/(about|tell me)/)) return responses.about;
-            if (lower.match(/(process|workflow)/)) return responses.process;
-            if (lower.match(/(contact|email|phone)/)) return responses.contact;
-            if (lower.match(/(start|begin)/)) return responses.contact;
-            if (lower.match(/(help|stuck)/)) return responses.help;
-            if (lower.match(/(thank)/)) return responses.thanks;
-            if (lower.match(/(weather|politics|sports)/)) return responses.outofscope;
-            return responses.fallback;
-        }
-        
-        function sendMsg() {
-            if (!chatInp) return;
-            var msg = chatInp.value.trim();
-            if (msg) {
-                addMsg(msg, true);
-                chatInp.value = '';
-                setTimeout(function() { addMsg(getResponse(msg), false); }, 600);
-            }
-        }
-        
-        if (chatSend) {
-            chatSend.onclick = sendMsg;
-            chatSend.onmouseover = function() { this.style.transform = 'scale(1.1)'; };
-            chatSend.onmouseout = function() { this.style.transform = 'scale(1)'; };
-        }
-        
-        if (chatInp) {
-            chatInp.onkeypress = function(e) {
-                if (e.key === 'Enter') {
-                    e.preventDefault();
-                    sendMsg();
-                }
-            };
-        }
-        
-        // Load chat history on page load
-        loadChatHistory();
-        
-        // Chat history clears automatically when browser/tab closes
-        window.addEventListener('beforeunload', function(e) {
-            // Note: This only clears on actual close, not refresh
-            // The chat will persist during the session (refreshes + navigation)
-        });
-        
-        console.log('✅ All features initialized with synced chatbot!');
+        console.log('✅ All features initialized!');
     })();
     
 
