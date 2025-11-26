@@ -4,6 +4,56 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Futurify Designs - Crafting Digital Experiences</title>
+    <meta name="description" content="Futurify Designs - Professional web development and digital solutions in Gaborone, Botswana. We craft tomorrow's digital experiences with innovative design and cutting-edge technology.">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="shortcut icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="apple-touch-icon" href="logo-512.png">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://futurfydesigns.com/">
+    <meta property="og:title" content="Futurify Designs - Crafting Digital Experiences">
+    <meta property="og:description" content="Professional web development and digital solutions in Gaborone, Botswana. We craft tomorrow's digital experiences.">
+    <meta property="og:image" content="https://futurfydesigns.com/logo-512.png">
+    <meta property="og:site_name" content="Futurify Designs">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Futurify Designs - Crafting Digital Experiences">
+    <meta name="twitter:description" content="Professional web development and digital solutions in Gaborone, Botswana">
+    <meta name="twitter:image" content="https://futurfydesigns.com/logo-512.png">
+    
+    <!-- Schema.org Organization Structured Data for Google Search -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "Futurify Designs",
+      "alternateName": "Futurify",
+      "url": "https://futurfydesigns.com",
+      "logo": "https://futurfydesigns.com/logo-512.png",
+      "image": "https://futurfydesigns.com/logo-512.png",
+      "description": "Professional web development and digital solutions company based in Gaborone, Botswana. We specialize in creating innovative websites, business automation, and digital experiences.",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Gaborone",
+        "addressRegion": "Gaborone",
+        "addressCountry": "BW"
+      },
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "contactType": "Customer Service",
+        "areaServed": "BW"
+      },
+      "sameAs": [
+        "https://www.facebook.com/futurifydesigns",
+        "https://www.linkedin.com/company/futurifydesigns",
+        "https://twitter.com/futurifydesigns"
+      ]
+    }
+    </script>
     <style>
         * {
             margin: 0;
@@ -14,7 +64,7 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
             overflow: hidden;
             background: #0a0a0a;
         }
@@ -41,8 +91,36 @@
             justify-content: center;
             align-items: center;
             position: relative;
-            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 15%, #e9ecef 30%, #dee2e6 45%, #adb5bd 60%, #6c757d 75%, #495057 85%, #343a40 95%, #000000 100%);
-            transition: background 2s cubic-bezier(0.4, 0, 0.2, 1);
+            background: linear-gradient(135deg, 
+                #1a1a2e 0%, 
+                #16213e 25%, 
+                #0f3460 50%, 
+                #533483 75%, 
+                #1a1a2e 100%);
+            background-size: 400% 400%;
+            animation: gradientFlow 20s ease infinite;
+            transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        @keyframes gradientFlow {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .landing-container.hover-active {
+            background: linear-gradient(135deg, 
+                #141e30 0%, 
+                #243b55 25%, 
+                #0f2027 50%, 
+                #2c5364 75%, 
+                #141e30 100%);
+            background-size: 400% 400%;
+            animation: gradientFlow 15s ease infinite;
+        }
+
+        .landing-container.fade-out {
+            opacity: 0;
+            transform: scale(0.95);
         }
 
         /* Animated Background Particles */
@@ -57,12 +135,13 @@
 
         .particle {
             position: absolute;
-            width: 4px;
-            height: 4px;
-            background: rgba(255, 255, 255, 0.5);
+            width: 3px;
+            height: 3px;
+            background: rgba(255, 255, 255, 0.6);
             border-radius: 50%;
             opacity: 0;
             animation: float 15s infinite ease-in-out;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
         }
 
         @keyframes float {
@@ -87,7 +166,8 @@
             position: relative;
             z-index: 2;
             opacity: 0;
-            animation: fadeInLogo 2s ease-out forwards;
+            animation: fadeInLogo 1.5s ease-out forwards;
+            text-align: center;
         }
 
         @keyframes fadeInLogo {
@@ -97,18 +177,23 @@
         }
 
         .logo {
-            font-size: 140px;
+            font-size: 160px;
             font-weight: 900;
             color: #fff;
-            letter-spacing: 5px;
+            letter-spacing: 8px;
             font-family: 'Arial Black', sans-serif;
-            background: linear-gradient(45deg, #ffffff, #a8edea, #fed6e3, #ffffff);
+            background: linear-gradient(135deg, 
+                #667eea 0%, 
+                #764ba2 25%, 
+                #f093fb 50%, 
+                #4facfe 75%, 
+                #667eea 100%);
             background-size: 300% 300%;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            animation: pulseGlow 4s cubic-bezier(0.4, 0, 0.6, 1) infinite, gradientShift 6s ease-in-out infinite;
-            filter: drop-shadow(0 0 30px rgba(255, 255, 255, 0.8));
+            animation: pulseGlow 3s cubic-bezier(0.4, 0, 0.6, 1) infinite, gradientShift 8s ease-in-out infinite;
+            filter: drop-shadow(0 0 40px rgba(102, 126, 234, 0.6));
             position: relative;
             display: inline-block;
             will-change: transform, filter;
@@ -120,24 +205,24 @@
             top: 0;
             left: 0;
             z-index: -1;
-            background: linear-gradient(45deg, #667eea, #764ba2, #f093fb, #667eea);
+            background: linear-gradient(135deg, #667eea, #764ba2, #f093fb, #667eea);
             background-size: 300% 300%;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            animation: gradientShift 6s ease-in-out infinite reverse;
-            filter: blur(20px);
-            opacity: 0.7;
+            animation: gradientShift 8s ease-in-out infinite reverse;
+            filter: blur(30px);
+            opacity: 0.5;
         }
 
         @keyframes pulseGlow {
             0%, 100% {
                 transform: scale(1);
-                filter: drop-shadow(0 0 30px rgba(255, 255, 255, 0.8));
+                filter: drop-shadow(0 0 40px rgba(102, 126, 234, 0.6));
             }
             50% {
-                transform: scale(1.05);
-                filter: drop-shadow(0 0 60px rgba(255, 255, 255, 1)) drop-shadow(0 0 100px rgba(167, 139, 250, 0.6));
+                transform: scale(1.03);
+                filter: drop-shadow(0 0 60px rgba(102, 126, 234, 0.9)) drop-shadow(0 0 100px rgba(118, 75, 162, 0.5));
             }
         }
 
@@ -150,25 +235,16 @@
             }
         }
 
-        @keyframes glow {
-            from {
-                filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.8));
-            }
-            to {
-                filter: drop-shadow(0 0 40px rgba(255, 255, 255, 1));
-            }
-        }
-
         .company-name {
-            font-size: 32px;
+            font-size: 36px;
             color: #fff;
-            margin-top: 20px;
-            letter-spacing: 8px;
+            margin-top: 30px;
+            letter-spacing: 12px;
             opacity: 0;
-            animation: slideInText 2s cubic-bezier(0.22, 1, 0.36, 1) 1s forwards;
+            animation: slideInText 1.5s cubic-bezier(0.22, 1, 0.36, 1) 0.8s forwards;
             text-transform: uppercase;
-            font-weight: 600;
-            text-shadow: 0 0 20px rgba(255, 255, 255, 0.6);
+            font-weight: 700;
+            text-shadow: 0 0 30px rgba(102, 126, 234, 0.4);
         }
 
         @keyframes slideInText {
@@ -183,21 +259,21 @@
         }
 
         .tagline {
-            font-size: 18px;
-            color: rgba(255, 255, 255, 0.9);
-            margin-top: 15px;
-            letter-spacing: 3px;
+            font-size: 20px;
+            color: rgba(255, 255, 255, 0.85);
+            margin-top: 20px;
+            letter-spacing: 4px;
             opacity: 0;
-            animation: slideInText 2s cubic-bezier(0.22, 1, 0.36, 1) 1.5s forwards;
-            font-weight: 600;
-            text-shadow: 0 0 15px rgba(255, 255, 255, 0.4);
+            animation: slideInText 1.5s cubic-bezier(0.22, 1, 0.36, 1) 1.2s forwards;
+            font-weight: 400;
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
         }
 
         /* Enter Button */
         .enter-btn-container {
             opacity: 0;
-            animation: fadeInButton 1.5s cubic-bezier(0.22, 1, 0.36, 1) 2.5s forwards;
-            margin-top: 60px;
+            animation: fadeInButton 1.2s cubic-bezier(0.22, 1, 0.36, 1) 2s forwards;
+            margin-top: 70px;
             z-index: 2;
         }
 
@@ -208,21 +284,21 @@
         }
 
         .enter-btn {
-            padding: 20px 60px;
-            font-size: 22px;
+            padding: 22px 65px;
+            font-size: 20px;
+            font-weight: 600;
             color: #fff;
-            background: rgba(255, 255, 255, 0.15);
-            border: 2px solid rgba(255, 255, 255, 0.6);
+            background: rgba(102, 126, 234, 0.2);
+            border: 2px solid rgba(102, 126, 234, 0.8);
             border-radius: 50px;
             cursor: pointer;
-            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-            backdrop-filter: blur(10px);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             letter-spacing: 3px;
             text-transform: uppercase;
-            font-weight: 600;
             position: relative;
             overflow: hidden;
-            box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(102, 126, 234, 0.3);
         }
 
         .enter-btn::before {
@@ -232,90 +308,66 @@
             left: 50%;
             width: 0;
             height: 0;
+            background: rgba(102, 126, 234, 0.4);
             border-radius: 50%;
-            background: rgba(255, 255, 255, 0.2);
             transform: translate(-50%, -50%);
-            transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1), height 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .enter-btn:hover::before {
-            width: 400px;
-            height: 400px;
+            transition: width 0.6s, height 0.6s;
         }
 
         .enter-btn:hover {
-            border-color: #fff;
-            transform: scale(1.05);
-            box-shadow: 0 0 40px rgba(255, 255, 255, 0.7);
-            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-3px);
+            background: rgba(102, 126, 234, 0.3);
+            border-color: rgba(102, 126, 234, 1);
+            box-shadow: 0 12px 40px rgba(102, 126, 234, 0.5);
         }
 
-        .enter-btn span {
-            position: relative;
-            z-index: 1;
+        .enter-btn:hover::before {
+            width: 300px;
+            height: 300px;
         }
 
-        /* Background color changes on hover */
-        .landing-container.hover-active {
-            animation: backgroundSlideshow 15s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+        .enter-btn:active {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 24px rgba(102, 126, 234, 0.4);
         }
 
-        @keyframes backgroundSlideshow {
-            0% {
-                background: linear-gradient(135deg, #3a4a7a 0%, #4a335e 100%);
-            }
-            20% {
-                background: linear-gradient(135deg, #8a4d78 0%, #7a2f3e 100%);
-            }
-            40% {
-                background: linear-gradient(135deg, #2d5f7c 0%, #005866 100%);
-            }
-            60% {
-                background: linear-gradient(135deg, #2a7a4a 0%, #1f665f 100%);
-            }
-            80% {
-                background: linear-gradient(135deg, #8a4d5c 0%, #9a7a28 100%);
-            }
-            100% {
-                background: linear-gradient(135deg, #3a4a7a 0%, #4a335e 100%);
+        .ripple {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.6);
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            animation: rippleEffect 0.8s ease-out forwards;
+        }
+
+        @keyframes rippleEffect {
+            to {
+                width: 500px;
+                height: 500px;
+                opacity: 0;
             }
         }
 
-        .landing-container.hover-gradient-1 {
-            background: linear-gradient(135deg, #8a4d78 0%, #7a2f3e 100%);
-        }
-
-        .landing-container.hover-gradient-2 {
-            background: linear-gradient(135deg, #2d5f7c 0%, #005866 100%);
-        }
-
-        .landing-container.hover-gradient-3 {
-            background: linear-gradient(135deg, #2a7a4a 0%, #1f665f 100%);
-        }
-
-        .landing-container.hover-gradient-4 {
-            background: linear-gradient(135deg, #8a4d5c 0%, #9a7a28 100%);
-        }
-
-        .landing-container.hover-gradient-5 {
-            background: linear-gradient(135deg, #1d4a5a 0%, #1a1a3a 100%);
-        }
-
-        /* Inspiration Message */
+        /* Inspiration Overlay */
         .inspiration-overlay {
             position: fixed;
             top: 0;
             left: 0;
-            width: 100vw;
-            height: 100vh;
-            background: radial-gradient(circle at center, rgba(20, 20, 50, 0.98) 0%, rgba(0, 0, 0, 0.99) 100%);
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, 
+                rgba(20, 30, 48, 0.97) 0%, 
+                rgba(36, 59, 85, 0.97) 50%, 
+                rgba(15, 32, 39, 0.97) 100%);
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
-            z-index: 1000;
+            z-index: 10;
             opacity: 0;
             pointer-events: none;
-            transition: opacity 1s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            backdrop-filter: blur(20px);
         }
 
         .inspiration-overlay.show {
@@ -323,275 +375,88 @@
             pointer-events: all;
         }
 
-        .inspiration-overlay::before {
-            content: '';
-            position: absolute;
-            width: 200%;
-            height: 200%;
-            background: 
-                radial-gradient(circle at 20% 50%, rgba(102, 126, 234, 0.08) 0%, transparent 50%),
-                radial-gradient(circle at 80% 50%, rgba(240, 147, 251, 0.08) 0%, transparent 50%);
-            animation: moveBackground 20s ease-in-out infinite;
-        }
-
-        @keyframes moveBackground {
-            0%, 100% {
-                transform: translate(-50%, -50%) rotate(0deg);
-            }
-            50% {
-                transform: translate(-50%, -50%) rotate(180deg);
-            }
-        }
-
         .inspiration-content {
+            max-width: 800px;
+            padding: 40px;
             text-align: center;
-            max-width: 1000px;
-            padding: 80px 60px;
-            transform: scale(0.7) translateY(50px);
-            transition: all 1.2s cubic-bezier(0.22, 1, 0.36, 1);
             position: relative;
             z-index: 2;
-            opacity: 0;
-        }
-
-        .inspiration-overlay.show .inspiration-content {
-            transform: scale(1) translateY(0);
-            opacity: 1;
-        }
-
-        /* Decorative lines */
-        .inspiration-content::before,
-        .inspiration-content::after {
-            content: '';
-            position: absolute;
-            height: 1px;
-            width: 0;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.5), transparent);
-            left: 50%;
-            transform: translateX(-50%);
-            transition: width 1.5s cubic-bezier(0.22, 1, 0.36, 1) 0.5s;
-        }
-
-        .inspiration-content::before {
-            top: 0;
-        }
-
-        .inspiration-content::after {
-            bottom: 0;
-        }
-
-        .inspiration-overlay.show .inspiration-content::before,
-        .inspiration-overlay.show .inspiration-content::after {
-            width: 80%;
         }
 
         .inspiration-message {
-            font-size: 52px;
+            font-size: 32px;
             color: #fff;
             line-height: 1.6;
-            margin-bottom: 50px;
-            font-weight: 600;
-            letter-spacing: 2px;
-            background: linear-gradient(135deg, #ffffff 0%, #a8edea 50%, #fed6e3 100%);
-            background-size: 200% 200%;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            animation: flowingGradient 8s ease-in-out infinite;
-            filter: drop-shadow(0 0 30px rgba(168, 237, 234, 0.3));
-            position: relative;
-            text-rendering: optimizeLegibility;
-            -webkit-font-smoothing: antialiased;
-        }
-
-        @keyframes flowingGradient {
-            0%, 100% {
-                background-position: 0% 50%;
-            }
-            50% {
-                background-position: 100% 50%;
-            }
-        }
-
-        /* Quote marks */
-        .inspiration-message::before,
-        .inspiration-message::after {
-            font-size: 80px;
-            line-height: 0;
-            color: rgba(168, 237, 234, 0.3);
-            font-family: Georgia, serif;
-            position: absolute;
-            opacity: 0;
-            animation: fadeInQuotes 1s cubic-bezier(0.22, 1, 0.36, 1) 0.8s forwards;
-        }
-
-        .inspiration-message::before {
-            content: '"';
-            top: -30px;
-            left: -60px;
-        }
-
-        .inspiration-message::after {
-            content: '"';
-            bottom: -60px;
-            right: -60px;
-        }
-
-        @keyframes fadeInQuotes {
-            to {
-                opacity: 1;
-            }
+            margin-bottom: 30px;
+            font-weight: 300;
+            letter-spacing: 1px;
+            animation: fadeInScale 1.2s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+            text-shadow: 0 0 30px rgba(102, 126, 234, 0.4);
         }
 
         .inspiration-author {
-            font-size: 26px;
-            color: rgba(255, 255, 255, 0.85);
+            font-size: 20px;
+            color: rgba(255, 255, 255, 0.8);
             font-style: italic;
-            letter-spacing: 3px;
+            letter-spacing: 2px;
+            animation: fadeInScale 1.2s cubic-bezier(0.22, 1, 0.36, 1) 0.3s forwards;
             opacity: 0;
-            animation: fadeInAuthor 1.2s cubic-bezier(0.22, 1, 0.36, 1) 1s forwards;
-            text-shadow: 0 0 20px rgba(168, 237, 234, 0.2);
-            font-weight: 600;
         }
 
-        @keyframes fadeInAuthor {
+        @keyframes fadeInScale {
             from {
                 opacity: 0;
-                transform: translateY(20px);
+                transform: scale(0.9);
             }
             to {
                 opacity: 1;
-                transform: translateY(0);
+                transform: scale(1);
             }
         }
 
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* Enhanced floating sparkles */
         .sparkle {
             position: absolute;
+            background: rgba(255, 255, 255, 0.9);
             border-radius: 50%;
             pointer-events: none;
-            opacity: 0;
-            animation: floatSparkle 4s ease-in-out infinite;
+            animation: sparkleFloat 3s ease-in-out infinite;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.9);
         }
 
-        .sparkle::before {
-            content: '';
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle, rgba(255, 255, 255, 0.9) 0%, transparent 70%);
-            border-radius: 50%;
-        }
-
-        @keyframes floatSparkle {
+        @keyframes sparkleFloat {
             0%, 100% {
-                transform: translate(0, 0) scale(0);
+                transform: translate(0, 0) scale(1);
                 opacity: 0;
-            }
-            10% {
-                opacity: 1;
             }
             50% {
-                transform: translate(var(--sparkle-x), var(--sparkle-y)) scale(1);
-                opacity: 0.8;
-            }
-            90% {
+                transform: translate(var(--sparkle-x, 0), var(--sparkle-y, 0)) scale(1.5);
                 opacity: 1;
-            }
-            100% {
-                transform: translate(calc(var(--sparkle-x) * 2), calc(var(--sparkle-y) * 2)) scale(0);
-                opacity: 0;
-            }
-        }
-
-        /* Ripple Effect */
-        .ripple {
-            position: absolute;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.5);
-            transform: scale(0);
-            animation: ripple-animation 0.8s ease-out;
-            pointer-events: none;
-        }
-
-        @keyframes ripple-animation {
-            to {
-                transform: scale(4);
-                opacity: 0;
-            }
-        }
-
-        /* Fade Out Animation */
-        .fade-out {
-            animation: fadeOut 1.2s cubic-bezier(0.4, 0, 1, 1) forwards;
-        }
-
-        @keyframes fadeOut {
-            to {
-                opacity: 0;
-                transform: scale(0.95);
             }
         }
 
         /* Responsive Design */
-        @media (max-width: 968px) {
-            .logo {
-                font-size: 100px;
-            }
-
-            .company-name {
-                font-size: 26px;
-                letter-spacing: 6px;
-            }
-
-            .tagline {
-                font-size: 16px;
-            }
-
-            .enter-btn {
-                padding: 18px 50px;
-                font-size: 20px;
-            }
-
-            .inspiration-message {
-                font-size: 42px;
-            }
-
-            .inspiration-author {
-                font-size: 22px;
-            }
-        }
-
         @media (max-width: 768px) {
             .logo {
-                font-size: 80px;
+                font-size: 100px;
+                letter-spacing: 4px;
             }
 
             .company-name {
-                font-size: 22px;
-                letter-spacing: 4px;
-                margin-top: 15px;
+                font-size: 24px;
+                letter-spacing: 6px;
+                margin-top: 20px;
             }
 
             .tagline {
                 font-size: 14px;
                 letter-spacing: 2px;
+                margin-top: 15px;
             }
 
             .enter-btn {
-                padding: 16px 40px;
-                font-size: 18px;
+                padding: 18px 50px;
+                font-size: 16px;
+                letter-spacing: 2px;
             }
 
             .enter-btn-container {
@@ -599,315 +464,97 @@
             }
 
             .inspiration-message {
-                font-size: 36px;
-                margin-bottom: 35px;
-            }
-
-            .inspiration-message::before,
-            .inspiration-message::after {
-                font-size: 60px;
-            }
-
-            .inspiration-message::before {
-                left: -40px;
-            }
-
-            .inspiration-message::after {
-                right: -40px;
-            }
-
-            .inspiration-author {
-                font-size: 20px;
-            }
-
-            .inspiration-content {
-                padding: 60px 40px;
-            }
-        }
-
-        @media (max-width: 600px) {
-            .logo {
-                font-size: 70px;
-            }
-
-            .company-name {
-                font-size: 18px;
-                letter-spacing: 3px;
-            }
-
-            .tagline {
-                font-size: 12px;
-            }
-
-            .enter-btn {
-                padding: 14px 35px;
-                font-size: 16px;
-                letter-spacing: 2px;
-            }
-
-            .inspiration-message {
-                font-size: 28px;
+                font-size: 24px;
                 line-height: 1.5;
             }
 
-            .inspiration-message::before,
-            .inspiration-message::after {
-                font-size: 50px;
-            }
-
-            .inspiration-message::before {
-                left: -30px;
-                top: -20px;
-            }
-
-            .inspiration-message::after {
-                right: -30px;
-                bottom: -50px;
-            }
-
             .inspiration-author {
-                font-size: 18px;
-                letter-spacing: 2px;
+                font-size: 16px;
             }
 
             .inspiration-content {
-                padding: 50px 30px;
-                max-width: 95%;
+                padding: 20px;
             }
         }
 
         @media (max-width: 480px) {
             .logo {
-                font-size: 60px;
+                font-size: 80px;
             }
 
             .company-name {
-                font-size: 16px;
-                letter-spacing: 2px;
+                font-size: 20px;
+                letter-spacing: 4px;
             }
 
             .tagline {
-                font-size: 11px;
+                font-size: 12px;
                 letter-spacing: 1px;
             }
 
             .enter-btn {
-                padding: 12px 30px;
+                padding: 16px 40px;
                 font-size: 14px;
             }
 
             .inspiration-message {
-                font-size: 24px;
-            }
-
-            .inspiration-message::before {
-                left: -20px;
-            }
-
-            .inspiration-message::after {
-                right: -20px;
+                font-size: 20px;
             }
 
             .inspiration-author {
-                font-size: 16px;
-            }
-
-            .inspiration-content {
-                padding: 40px 20px;
+                font-size: 14px;
             }
         }
-    
-        @media (prefers-color-scheme: dark) {
-            .landing-container {
-                background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 20%, #404040 40%, #1a1a1a 60%, #0d0d0d 80%, #000000 100%);
-            }
-        }
-
-        /* Hold to Enter Feature for Mobile */
-        .enter-btn {
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .enter-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 0%;
-            height: 100%;
-            background: linear-gradient(90deg, rgba(255,255,255,0.3), rgba(255,255,255,0.5));
-            transition: none;
-            z-index: 0;
-        }
-        
-        .enter-btn.holding::before {
-            animation: holdProgress 2s linear forwards;
-        }
-        
-        @keyframes holdProgress {
-            from { width: 0%; }
-            to { width: 100%; }
-        }
-        
-        .enter-btn span {
-            position: relative;
-            z-index: 1;
-        }
-        
-        .hold-instruction {
-            position: absolute;
-            bottom: -40px;
-            left: 50%;
-            transform: translateX(-50%);
-            color: rgba(255, 255, 255, 0.8);
-            font-size: 0.8rem;
-            text-align: center;
-            opacity: 0;
-            transition: opacity 0.3s;
-            white-space: nowrap;
-        }
-        
-        @media (max-width: 768px) {
-            .hold-instruction {
-                opacity: 1;
-            }
-        }
-</style>
-    <link rel="icon" type="image/svg+xml" href="favicon.svg">
-    <link rel="shortcut icon" type="image/svg+xml" href="favicon.svg">
+    </style>
 </head>
 <body>
+    <!-- Landing Page -->
     <div class="landing-container" id="landingContainer">
-        <!-- Particles Background -->
+        <!-- Animated Particles Background -->
         <div class="particles" id="particles"></div>
 
-        <!-- Logo and Company Name -->
+        <!-- Logo and Company Info -->
         <div class="logo-container">
             <div class="logo">F</div>
-            <div class="company-name">Futurify Designs</div>
+            <div class="company-name">FUTURIFY</div>
             <div class="tagline">Crafting Tomorrow's Digital Experiences</div>
         </div>
 
         <!-- Enter Button -->
         <div class="enter-btn-container">
             <button class="enter-btn" id="enterBtn">
-                <span>Enter</span>
+                Enter
             </button>
         </div>
     </div>
 
-    <!-- Inspiration Message Overlay -->
+    <!-- Inspiration Overlay -->
     <div class="inspiration-overlay" id="inspirationOverlay">
         <div class="inspiration-content">
-            <div class="inspiration-message">
-                "Design is not just what it looks like and feels like.<br>
-                Design is how it works."
-            </div>
+            <div class="inspiration-message">"Stay hungry, stay foolish."</div>
             <div class="inspiration-author">— Steve Jobs</div>
         </div>
     </div>
 
     <script>
-        // Array of 100 inspirational quotes
+        // Array of inspirational quotes
         const quotes = [
-            { text: "Design is not just what it looks like and feels like. Design is how it works.", author: "Steve Jobs" },
-            { text: "Simplicity is the ultimate sophistication.", author: "Leonardo da Vinci" },
-            { text: "Good design is obvious. Great design is transparent.", author: "Joe Sparano" },
-            { text: "Design creates culture. Culture shapes values. Values determine the future.", author: "Robert L. Peters" },
-            { text: "The details are not the details. They make the design.", author: "Charles Eames" },
-            { text: "Design is thinking made visual.", author: "Saul Bass" },
-            { text: "To design is to communicate clearly by whatever means you can control or master.", author: "Milton Glaser" },
-            { text: "Content precedes design. Design in the absence of content is not design, it's decoration.", author: "Jeffrey Zeldman" },
-            { text: "Design is intelligence made visible.", author: "Alina Wheeler" },
-            { text: "The best design is the simplest one that works.", author: "Albert Einstein" },
-            { text: "Design is where science and art break even.", author: "Robin Mathew" },
-            { text: "Everything is designed. Few things are designed well.", author: "Brian Reed" },
-            { text: "Good design is good business.", author: "Thomas Watson Jr." },
-            { text: "Design adds value faster than it adds costs.", author: "Joel Spolsky" },
-            { text: "Design is a solution to a problem. Art is a question to a problem.", author: "John Maeda" },
-            { text: "You can't use up creativity. The more you use, the more you have.", author: "Maya Angelou" },
-            { text: "Innovation distinguishes between a leader and a follower.", author: "Steve Jobs" },
             { text: "The only way to do great work is to love what you do.", author: "Steve Jobs" },
-            { text: "Creativity is intelligence having fun.", author: "Albert Einstein" },
-            { text: "Design is not for philosophy — it's for life.", author: "Issey Miyake" },
-            { text: "Make it simple, but significant.", author: "Don Draper" },
-            { text: "Have no fear of perfection - you'll never reach it.", author: "Salvador Dali" },
-            { text: "Art is anything you can get away with.", author: "Andy Warhol" },
-            { text: "Ideas are easy. Implementation is hard.", author: "Guy Kawasaki" },
-            { text: "The life of a designer is a life of fight against the ugliness.", author: "Massimo Vignelli" },
-            { text: "If you think good design is expensive, you should look at the cost of bad design.", author: "Ralf Speth" },
-            { text: "Design is a funny word. Some people think design means how it looks. But of course, if you dig deeper, it's really how it works.", author: "Steve Jobs" },
-            { text: "Perfection is achieved not when there is nothing more to add, but when there is nothing left to take away.", author: "Antoine de Saint-Exupéry" },
-            { text: "A designer knows he has achieved perfection not when there is nothing left to add, but when there is nothing left to take away.", author: "Antoine de Saint-Exupéry" },
-            { text: "Design can be art. Design can be aesthetics. Design is so simple, that's why it is so complicated.", author: "Paul Rand" },
-            { text: "Get rid of everything that is not essential to making a point.", author: "Christoph Niemann" },
-            { text: "Design creates stories, and stories create memorable experiences.", author: "Anonymous" },
-            { text: "Good design is as little design as possible.", author: "Dieter Rams" },
-            { text: "The alternative to good design is always bad design. There is no such thing as no design.", author: "Adam Judge" },
-            { text: "Recognizing the need is the primary condition for design.", author: "Charles Eames" },
-            { text: "Design is a plan for arranging elements in such a way as best to accomplish a particular purpose.", author: "Charles Eames" },
-            { text: "The role of the designer is that of a good, thoughtful host anticipating the needs of his guests.", author: "Charles Eames" },
-            { text: "Design must seduce, shape, and perhaps more importantly, evoke an emotional response.", author: "April Greiman" },
-            { text: "If I had asked people what they wanted, they would have said faster horses.", author: "Henry Ford" },
-            { text: "Be a yardstick of quality. Some people aren't used to an environment where excellence is expected.", author: "Steve Jobs" },
-            { text: "Design is the intermediary between information and understanding.", author: "Richard Grefé" },
-            { text: "Styles come and go. Good design is a language, not a style.", author: "Massimo Vignelli" },
-            { text: "Practice safe design: Use a concept.", author: "Petrula Vrontikis" },
-            { text: "Design is so simple. That's why it's so complicated.", author: "Paul Rand" },
-            { text: "Color does not add a pleasant quality to design – it reinforces it.", author: "Pierre Bonnard" },
-            { text: "Creativity takes courage.", author: "Henri Matisse" },
-            { text: "The public is more familiar with bad design than good design.", author: "Paul Rand" },
-            { text: "A good designer must rely on experience, on precise, logic thinking.", author: "Paul Rand" },
-            { text: "Design is the silent ambassador of your brand.", author: "Paul Rand" },
-            { text: "Accessible design is good design.", author: "Steve Ballmer" },
-            { text: "The urge to destroy is also a creative urge.", author: "Pablo Picasso" },
-            { text: "Art is the elimination of the unnecessary.", author: "Pablo Picasso" },
-            { text: "Every child is an artist. The problem is how to remain an artist once we grow up.", author: "Pablo Picasso" },
-            { text: "Learn the rules like a pro, so you can break them like an artist.", author: "Pablo Picasso" },
-            { text: "Inspiration exists, but it must find you working.", author: "Pablo Picasso" },
-            { text: "Good design is good business.", author: "IBM motto" },
-            { text: "Whitespace is like air: it is necessary for design to breathe.", author: "Alex White" },
-            { text: "Where do new ideas come from? The answer is simple: differences.", author: "Nicholas Negroponte" },
-            { text: "The best ideas come as jokes. Make your thinking as funny as possible.", author: "David Ogilvy" },
-            { text: "A user interface is like a joke. If you have to explain it, it's not that good.", author: "Martin LeBlanc" },
-            { text: "Design is an opportunity to continue telling the story.", author: "Tate Linden" },
-            { text: "Design is not just what you see and feel. Design is how it works.", author: "Steve Jobs" },
-            { text: "Digital design is like painting, except the paint never dries.", author: "Neville Brody" },
-            { text: "We don't make mistakes, just happy little accidents.", author: "Bob Ross" },
-            { text: "Don't worry about people stealing your ideas.", author: "Howard Aiken" },
-            { text: "Every great design begins with an even better story.", author: "Lorinda Mamo" },
-            { text: "Form follows function.", author: "Louis Sullivan" },
-            { text: "In order to be irreplaceable one must always be different.", author: "Coco Chanel" },
-            { text: "Happiness is not by chance, but by choice.", author: "Jim Rohn" },
-            { text: "What we think, we become.", author: "Buddha" },
-            { text: "The secret of getting ahead is getting started.", author: "Mark Twain" },
-            { text: "Dream big and dare to fail.", author: "Norman Vaughan" },
-            { text: "Everything you've ever wanted is on the other side of fear.", author: "George Addair" },
-            { text: "Success is not final, failure is not fatal: it is the courage to continue that counts.", author: "Winston Churchill" },
-            { text: "Strive not to be a success, but rather to be of value.", author: "Albert Einstein" },
-            { text: "Great minds discuss ideas; average minds discuss events; small minds discuss people.", author: "Eleanor Roosevelt" },
-            { text: "The future belongs to those who believe in the beauty of their dreams.", author: "Eleanor Roosevelt" },
-            { text: "It is never too late to be what you might have been.", author: "George Eliot" },
-            { text: "Believe you can and you're halfway there.", author: "Theodore Roosevelt" },
+            { text: "Innovation distinguishes between a leader and a follower.", author: "Steve Jobs" },
+            { text: "Design is not just what it looks like and feels like. Design is how it works.", author: "Steve Jobs" },
+            { text: "Stay hungry, stay foolish.", author: "Steve Jobs" },
+            { text: "Simplicity is the ultimate sophistication.", author: "Leonardo da Vinci" },
+            { text: "The best way to predict the future is to create it.", author: "Peter Drucker" },
             { text: "Quality is not an act, it is a habit.", author: "Aristotle" },
-            { text: "We are what we repeatedly do. Excellence, then, is not an act, but a habit.", author: "Aristotle" },
-            { text: "Act as if what you do makes a difference. It does.", author: "William James" },
-            { text: "What lies behind us and what lies before us are tiny matters compared to what lies within us.", author: "Ralph Waldo Emerson" },
-            { text: "The best time to plant a tree was 20 years ago. The second best time is now.", author: "Chinese Proverb" },
-            { text: "Your limitation—it's only your imagination.", author: "Anonymous" },
-            { text: "Sometimes later becomes never. Do it now.", author: "Anonymous" },
-            { text: "It's not whether you get knocked down, it's whether you get up.", author: "Vince Lombardi" },
-            { text: "We may encounter many defeats but we must not be defeated.", author: "Maya Angelou" },
-            { text: "Knowing is not enough; we must apply. Wishing is not enough; we must do.", author: "Johann Wolfgang Von Goethe" },
-            { text: "The way to get started is to quit talking and begin doing.", author: "Walt Disney" },
-            { text: "Don't let yesterday take up too much of today.", author: "Will Rogers" },
-            { text: "You learn more from failure than from success. Don't let it stop you.", author: "Anonymous" },
-            { text: "If you are working on something that you really care about, you don't have to be pushed.", author: "Steve Jobs" },
-            { text: "People who are crazy enough to think they can change the world, are the ones who do.", author: "Rob Siltanen" },
-            { text: "Don't be afraid to give up the good to go for the great.", author: "John D. Rockefeller" },
-            { text: "Hardships often prepare ordinary people for an extraordinary destiny.", author: "C.S. Lewis" },
-            { text: "To be yourself in a world that is constantly trying to make you something else is the greatest accomplishment.", author: "Ralph Waldo Emerson" },
+            { text: "Perfection is achieved not when there is nothing more to add, but when there is nothing left to take away.", author: "Antoine de Saint-Exupéry" },
+            { text: "Design creates culture. Culture shapes values. Values determine the future.", author: "Robert L. Peters" },
+            { text: "Good design is obvious. Great design is transparent.", author: "Joe Sparano" },
+            { text: "Design is thinking made visual.", author: "Saul Bass" },
+            { text: "Everything is designed. Few things are designed well.", author: "Brian Reed" },
+            { text: "Design is intelligence made visible.", author: "Alina Wheeler" },
+            { text: "Content precedes design. Design in the absence of content is not design, it's decoration.", author: "Jeffrey Zeldman" },
+            { text: "Design is the intermediary between information and understanding.", author: "Hans Hoffman" },
+            { text: "The details are not the details. They make the design.", author: "Charles Eames" },
             { text: "Design is the method of putting form and content together.", author: "Paul Rand" },
             { text: "In the end, we only regret the chances we didn't take.", author: "Lewis Carroll" }
         ];
@@ -921,7 +568,7 @@
         // Create floating particles with proper animation
         function createParticles() {
             const particlesContainer = document.getElementById('particles');
-            const particleCount = 50;
+            const particleCount = 60;
 
             for (let i = 0; i < particleCount; i++) {
                 const particle = document.createElement('div');
@@ -930,9 +577,8 @@
                 // Random horizontal position
                 particle.style.left = Math.random() * 100 + '%';
                 
-                // Position at random heights but ensure they start below viewport or mid-screen
-                // This prevents them from appearing static at the top initially
-                const startHeight = 50 + Math.random() * 60; // Between 50% and 110% (some below screen)
+                // Position at random heights
+                const startHeight = 50 + Math.random() * 60;
                 particle.style.top = startHeight + '%';
                 
                 // Random animation delay and duration
@@ -1039,8 +685,6 @@
             }, 5500);
         });
     </script>
-
-    
 
     <script>
     // Mobile tap interaction: first tap starts background change, second tap navigates
