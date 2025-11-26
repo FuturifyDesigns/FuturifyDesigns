@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://futurfydesigns.com/sitemap.xml
+Sitemap: https://futurifydesigns.com/sitemap.xml
