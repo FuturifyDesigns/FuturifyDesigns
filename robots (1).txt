@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://futurifydesigns.com/sitemap.xml
