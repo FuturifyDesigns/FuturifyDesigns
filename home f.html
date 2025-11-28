@@ -87,6 +87,30 @@
             max-width: 100vw;
         }
 
+        /* Custom Scrollbar - Grey Theme */
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #0a0a1a;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, #adb5bd, #6c757d);
+            border-radius: 6px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(135deg, #6c757d, #adb5bd);
+        }
+        
+        /* Firefox Scrollbar */
+        * {
+            scrollbar-width: thin;
+            scrollbar-color: #adb5bd #0a0a1a;
+        }
+
         /* Remove tap highlight and focus outline on all interactive elements */
         a, button, input, select, textarea, [role="button"] {
             -webkit-tap-highlight-color: transparent;
@@ -1438,7 +1462,7 @@
                     <div class="footer-section">
                         <h4 class="footer-title">Get In Touch</h4>
                         <ul class="footer-contact">
-                            <li><i class="fas fa-envelope"></i> futurifydesigns@gmail.com</li>
+                            <li><i class="fas fa-envelope"></i> <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="4620333233342f203f2223352f21283506212b272f2a6825292b">[email&#160;protected]</a></li>
                             <li><i class="fas fa-phone"></i> +267 777 83823</li>
                             <li><i class="fas fa-map-marker-alt"></i> Gaborone, Botswana</li>
                         </ul>
@@ -1537,7 +1561,7 @@
         <div class="notification-author" id="notificationAuthor"></div>
     </div>
 
-    <script>
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
         // Create background particles
         function createBackgroundParticles() {
             const particlesBg = document.getElementById('particles-bg');
@@ -1918,7 +1942,7 @@
             };
             declineBtn.onmouseout = function() { 
                 this.style.background = 'transparent'; 
-                this.style.borderColor = 'rgba(255,255,255,0.6)';
+                this.style.borderColor = 'rgba(255,255,255,0.3)';
             };
         }
     </script>
