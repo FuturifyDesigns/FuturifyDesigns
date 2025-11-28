@@ -2606,7 +2606,7 @@
             }
         }
 
-        // Business Hours Clock
+        // Business Hours Clock - FIXED CODE
         let lastNoticeHour = -1;
 
         function updateClock() {
@@ -2683,11 +2683,10 @@
         }
 
         // Status Notice System
-        function showStatusNotice(icon, title, message, noticeType) {
+        function showStatusNotice(icon, title, message) {
             const now = new Date();
             const hour = now.getHours();
-            const typeKey = noticeType || title.replace(/\s/g, '_');
-            const noticeKey = `notice_${typeKey}_${hour}_${now.toDateString()}`;
+            const noticeKey = `notice_${title.replace(/\s/g, '_')}_${hour}_${now.toDateString()}`;
             
             // Check if this specific notice was already shown for this hour today
             if (sessionStorage.getItem(noticeKey)) {
@@ -2737,16 +2736,14 @@
                         showStatusNotice(
                             '⚠️', 
                             'Almost Closing Time', 
-                            'We\'re about to close for the day. You can still browse and contact us, but we\'ll get back to you when we reopen tomorrow at 9 AM!',
-                            'almost_closing'
+                            'We\'re about to close for the day. You can still browse and contact us, but we\'ll get back to you when we reopen tomorrow at 9 AM!'
                         );
                     } else {
                         // Regular open (9 AM - 5 PM)
                         showStatusNotice(
                             '✅', 
                             'We\'re Open!', 
-                            'Our services are operational! Feel free to contact us via WhatsApp, phone, or email. We\'re here to help with your web design needs!',
-                            'open'
+                            'Our services are operational! Feel free to contact us via WhatsApp, phone, or email. We\'re here to help with your web design needs!'
                         );
                     }
                 } else {
@@ -2756,16 +2753,14 @@
                         showStatusNotice(
                             '🌅', 
                             'Opening Soon', 
-                            'We\'re about to open! Our team will be available at 9 AM. You can still look around and send us a message - we\'ll respond as soon as we\'re open!',
-                            'almost_open'
+                            'We\'re about to open! Our team will be available at 9 AM. You can still look around and send us a message - we\'ll respond as soon as we\'re open!'
                         );
                     } else {
                         // Regular closed (after 6 PM, before 8 AM)
                         showStatusNotice(
                             '🌙', 
                             'We\'re Closed', 
-                            'Thanks for visiting! We\'re currently closed. You can still browse our website and contact us - we\'ll get back to you when we reopen at 9 AM. Business hours: 9 AM - 6 PM.',
-                            'closed'
+                            'Thanks for visiting! We\'re currently closed. You can still browse our website and contact us - we\'ll get back to you when we reopen at 9 AM. Business hours: 9 AM - 6 PM.'
                         );
                     }
                 }
@@ -2811,8 +2806,6 @@
         if (noticeOverlay) {
             noticeOverlay.addEventListener('click', closeNotice);
         }
-
-        // Chatbot removed
 
         // Session timeout functionality
         var sessionTimeout;
