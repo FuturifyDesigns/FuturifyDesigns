@@ -1398,6 +1398,59 @@
             }
         }
 
+        /* Exchange Rate Info */
+        .exchange-rate-info {
+            text-align: center;
+            margin-top: 10px;
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .exchange-rate-info .rate-value {
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .exchange-rate-info .rate-update {
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .refresh-rate {
+            background: none;
+            border: none;
+            color: rgba(255, 255, 255, 0.7);
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            padding: 4px 8px;
+            border-radius: 4px;
+        }
+
+        .refresh-rate:hover {
+            color: rgba(255, 255, 255, 0.9);
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .rate-loading {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: rgba(255, 255, 255, 0.9);
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
         /* Responsive Design */
         @media (max-width: 968px) {
             .contact-content {
@@ -1708,6 +1761,16 @@
         </div>
         <p class="page-subtitle">Let's bring your vision to life. Request a quote for your dream website!</p>
 
+        <!-- Exchange Rate Info -->
+        <div class="exchange-rate-info" id="exchangeRateInfo">
+            <span>Exchange Rate: </span>
+            <span class="rate-value" id="rateValue">Loading...</span>
+            <span class="rate-update" id="rateUpdate"></span>
+            <button class="refresh-rate" id="refreshRate" title="Refresh Exchange Rates">
+                <i class="fas fa-sync-alt"></i>
+            </button>
+        </div>
+
         <!-- Package Selection Section -->
         <div class="package-selection">
             <div class="package-header">
@@ -1942,8 +2005,8 @@
         // UPDATED: Google Apps Script Web App URL
         const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwYCFOTXCniVvCBSk0rzgZhe7osPgKTMySc6AVWI8YZLqFfqkHM0MhTYjziw2eHmbaN/exec';
 
-        // Currency conversion rates (BWP as base)
-        const conversionRates = {
+        // Currency conversion rates (relative to BWP) - fallback rates
+        let conversionRates = {
             BWP: 1,
             USD: 0.073,      // 1 BWP ≈ 0.073 USD
             ZAR: 1.35,       // 1 BWP ≈ 1.35 ZAR
@@ -1988,6 +2051,66 @@
             AED: 'د.إ',
             SAR: '﷼'
         };
+
+        // Exchange rate API configuration
+        const EXCHANGE_API_URL = 'https://api.exchangerate-api.com/v4/latest/BWP';
+        let lastRateUpdate = null;
+
+        // Fetch real-time exchange rates
+        async function fetchExchangeRates() {
+            try {
+                // Show loading state
+                document.getElementById('rateValue').innerHTML = '<span class="rate-loading"></span>';
+                
+                const response = await fetch(EXCHANGE_API_URL);
+                if (!response.ok) {
+                    throw new Error('Failed to fetch exchange rates');
+                }
+                
+                const data = await response.json();
+                
+                // Update conversion rates with real data
+                Object.keys(conversionRates).forEach(currency => {
+                    if (data.rates[currency]) {
+                        conversionRates[currency] = data.rates[currency];
+                    }
+                });
+                
+                // Update last update time
+                lastRateUpdate = new Date();
+                updateRateDisplay();
+                
+                // Update package prices if currency is already selected
+                const selectedCurrency = sessionStorage.getItem('selectedCurrency') || 'BWP';
+                if (selectedCurrency && selectedCurrency !== 'BWP') {
+                    syncWithPricingPage();
+                }
+                
+                return true;
+            } catch (error) {
+                console.error('Error fetching exchange rates:', error);
+                document.getElementById('rateValue').textContent = 'Using fallback rates';
+                return false;
+            }
+        }
+
+        // Update the exchange rate display
+        function updateRateDisplay() {
+            const selectedCurrency = sessionStorage.getItem('selectedCurrency') || 'BWP';
+            const rateValue = conversionRates[selectedCurrency];
+            
+            if (selectedCurrency === 'BWP') {
+                document.getElementById('rateValue').textContent = 'Base currency';
+                document.getElementById('rateUpdate').textContent = '';
+            } else {
+                document.getElementById('rateValue').textContent = `1 BWP = ${rateValue.toFixed(4)} ${selectedCurrency}`;
+                
+                if (lastRateUpdate) {
+                    const timeDiff = Math.floor((new Date() - lastRateUpdate) / 60000); // minutes
+                    document.getElementById('rateUpdate').textContent = `(Updated ${timeDiff} min ago)`;
+                }
+            }
+        }
 
         // Package price ranges in BWP
         const packageRanges = {
@@ -2537,6 +2660,16 @@
             syncWithPricingPage();
             syncCurrencyFromPricing();
             
+            // Fetch current exchange rates and then update display
+            fetchExchangeRates().then(success => {
+                if (success) {
+                    updateRateDisplay();
+                } else {
+                    // If API fails, still update display with fallback rates
+                    updateRateDisplay();
+                }
+            });
+            
             // Add budget validation on input
             const budgetInput = document.getElementById('budget');
             if (budgetInput) {
@@ -2893,6 +3026,14 @@
         
         // Initialize session timer
         resetSession();
+
+        // Refresh exchange rates when button is clicked
+        document.getElementById('refreshRate').addEventListener('click', function() {
+            fetchExchangeRates();
+        });
+
+        // Auto-refresh exchange rates every 30 minutes
+        setInterval(fetchExchangeRates, 30 * 60 * 1000);
     </script>
 </body>
 </html>
