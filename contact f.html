@@ -788,18 +788,59 @@
         /* Loading Spinner */
         .loading-spinner {
             display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(5px);
+            z-index: 10000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .loading-spinner.show {
+            display: flex;
+        }
+
+        .loading-content {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            padding: 40px;
             text-align: center;
-            padding: 20px;
+            max-width: 400px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            animation: modalFadeIn 0.3s ease-out;
+        }
+
+        @keyframes modalFadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
         }
 
         .spinner {
-            width: 40px;
-            height: 40px;
-            border: 4px solid rgba(255, 255, 255, 0.3);
-            border-left: 4px solid #fff;
+            width: 60px;
+            height: 60px;
+            border: 5px solid rgba(255, 255, 255, 0.2);
+            border-left: 5px solid #fff;
             border-radius: 50%;
             animation: spin 1s linear infinite;
-            margin: 0 auto 10px;
+            margin: 0 auto 20px;
+        }
+
+        .loading-spinner p {
+            color: #fff;
+            font-size: 18px;
+            font-weight: 500;
+            margin: 0;
         }
 
         @keyframes spin {
@@ -1701,7 +1742,7 @@
             <div class="contact-form">
                 <h2 class="form-title">Request a Quote</h2>
                 <p class="form-description">
-                    Ready to bring your vision to life? Fill out the form below, and I'll get back to you within 24 hours with a personalized quote for your dream website!
+                    Ready to bring your vision to life? Fill out the form below, and I'll get back to you during our business hours (9 AM - 6 PM) with a personalized quote for your dream website!
                 </p>
                 
                 <!-- Success Message -->
@@ -1709,13 +1750,15 @@
                     <div style="font-size: 48px; margin-bottom: 10px;">✅</div>
                     <h3>Thank You!</h3>
                     <p>Your quote request has been submitted successfully.</p>
-                    <p>We'll get back to you within 24 hours.</p>
+                    <p>We'll get back to you during business hours (9 AM - 6 PM).</p>
                 </div>
 
-                <!-- Loading Spinner -->
+                <!-- Loading Spinner Modal -->
                 <div class="loading-spinner" id="loadingSpinner">
-                    <div class="spinner"></div>
-                    <p>Submitting your request...</p>
+                    <div class="loading-content">
+                        <div class="spinner"></div>
+                        <p>Submitting your request...</p>
+                    </div>
                 </div>
                 
                 <form id="quoteForm">
@@ -2375,8 +2418,8 @@
                 return false;
             }
             
-            // Show loading spinner
-            document.getElementById('loadingSpinner').style.display = 'block';
+            // Show loading spinner modal
+            document.getElementById('loadingSpinner').classList.add('show');
             document.getElementById('submitButton').disabled = true;
             
             try {
@@ -2438,10 +2481,12 @@
                 const result = await response.json();
                 
                 if (result.success) {
+                    // Hide loading spinner modal
+                    document.getElementById('loadingSpinner').classList.remove('show');
+                    
                     // Show success message
                     document.getElementById('formSuccess').classList.add('show');
                     document.getElementById('quoteForm').style.display = 'none';
-                    document.getElementById('loadingSpinner').style.display = 'none';
                     
                     // Clear form and package selection
                     document.getElementById('quoteForm').reset();
@@ -2482,7 +2527,7 @@
                 }
                 
                 alert(errorMessage);
-                document.getElementById('loadingSpinner').style.display = 'none';
+                document.getElementById('loadingSpinner').classList.remove('show');
                 document.getElementById('submitButton').disabled = false;
             }
         });
@@ -2831,19 +2876,22 @@
                 resetSession();
             });
             
-            // Add hover effect
+            // Add hover effect for continue button
             contBtn.addEventListener('mouseenter', function() {
                 this.style.transform = 'scale(1.05)';
             });
+            
             contBtn.addEventListener('mouseleave', function() {
                 this.style.transform = 'scale(1)';
             });
         }
         
-        // Reset session on user activity
-        document.addEventListener('mousemove', resetSession);
-        document.addEventListener('keypress', resetSession);
-        document.addEventListener('click', resetSession);
+        // Reset activity on user interaction
+        ['mousedown', 'mousemove', 'keypress', 'scroll', 'touchstart'].forEach(function(event) {
+            document.addEventListener(event, resetSession, true);
+        });
+        
+        // Initialize session timer
         resetSession();
     </script>
 </body>
