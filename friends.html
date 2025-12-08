@@ -1,0 +1,1505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, interactive-widget=resizes-content, maximum-scale=1.0, user-scalable=no">
+    <title>Friends - MyUB</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Sora:wght@600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="myub-utils.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; -webkit-touch-callout: none; }
+        :root {
+            --navy: #1a365d; --navy-light: #2c5282; --navy-dark: #0f2744; --red: #c41e3a;
+            --white: #ffffff; --gray-50: #f8fafc; --gray-100: #f1f5f9; --gray-200: #e2e8f0;
+            --gray-300: #cbd5e1; --gray-400: #94a3b8; --gray-500: #64748b; --gray-600: #475569;
+            --gray-700: #334155; --gray-800: #1e293b; --green: #22c55e; --green-light: #dcfce7;
+            --blue: #3b82f6; --blue-light: #dbeafe; --yellow: #eab308; --orange: #f97316;
+            --purple: #8b5cf6; --purple-light: #ede9fe;
+        }
+        html { height: auto; min-height: 100%; }
+        body { font-family: 'Outfit', sans-serif; background: var(--gray-100); min-height: 100%; overflow-x: hidden; -webkit-overflow-scrolling: touch; }
+
+        /* Sidebar */
+        .sidebar { position: fixed; left: 0; top: 0; bottom: 0; width: 260px; background: var(--navy-dark); padding: 20px 0; z-index: 100; transition: transform 0.3s ease; overflow-y: auto; }
+        .sidebar-header { padding: 0 20px 20px; border-bottom: 1px solid rgba(255,255,255,0.1); margin-bottom: 20px; }
+
+        .sidebar-logo {
+            display: inline-flex;
+            align-items: baseline;
+            text-decoration: none;
+            background: white;
+            padding: 30px 15px 10px 15px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .sidebar-logo-m-wrapper {
+            position: relative;
+            display: inline-block;
+        }
+
+        .sidebar-logo-cap {
+            width: 45px;
+            height: 26px;
+            position: absolute;
+            top: -22px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .sidebar-logo-m {
+            font-family: 'Times New Roman', Georgia, serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--navy);
+            line-height: 1;
+        }
+
+        .sidebar-logo-yub {
+            font-family: 'Times New Roman', Georgia, serif;
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--navy);
+            margin-left: -2px;
+        }
+        .nav-section { margin-bottom: 24px; }
+        .nav-section-title { font-size: 11px; font-weight: 600; color: var(--gray-400); text-transform: uppercase; letter-spacing: 1px; padding: 0 20px; margin-bottom: 8px; }
+        .nav-item { display: flex; align-items: center; gap: 12px; padding: 12px 20px; color: var(--gray-300); text-decoration: none; font-size: 14px; font-weight: 500; transition: all 0.2s; cursor: pointer; border: none; background: none; width: 100%; text-align: left; }
+        .nav-item:hover { background: rgba(255,255,255,0.05); color: var(--white); }
+        .nav-item.active { background: rgba(255,255,255,0.1); color: var(--white); border-right: 3px solid var(--red); }
+        .nav-item svg { width: 20px; height: 20px; flex-shrink: 0; }
+        .nav-item .badge { margin-left: auto; background: var(--red); color: var(--white); font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 10px; }
+        .sidebar-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 99; }
+
+        /* Main Content */
+        .main-content { margin-left: 260px; min-height: 100vh; }
+        .topbar { background: var(--white); padding: 16px 24px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--gray-200); position: sticky; top: 0; z-index: 50; }
+        .topbar-left { display: flex; align-items: center; gap: 16px; }
+        .menu-toggle { display: none; background: none; border: none; font-size: 24px; cursor: pointer; color: var(--gray-700); padding: 4px; }
+        .page-title { font-family: 'Sora', sans-serif; font-size: 20px; font-weight: 700; color: var(--gray-800); }
+        .topbar-right { display: flex; align-items: center; gap: 12px; }
+        .icon-btn { position: relative; width: 40px; height: 40px; border-radius: 10px; border: none; background: var(--gray-100); cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.2s; }
+        .icon-btn:hover { background: var(--gray-200); }
+        .icon-btn svg { width: 20px; height: 20px; color: var(--gray-600); }
+        .notification-badge { position: absolute; top: -4px; right: -4px; background: var(--red); color: var(--white); font-size: 10px; font-weight: 700; min-width: 18px; height: 18px; border-radius: 9px; display: flex; align-items: center; justify-content: center; border: 2px solid var(--white); }
+
+        /* Notification Dropdown */
+        .notification-wrapper { position: relative; }
+        .notification-dropdown { position: absolute; top: calc(100% + 8px); right: 0; width: 360px; max-height: 480px; background: var(--white); border-radius: 16px; box-shadow: 0 20px 40px rgba(0,0,0,0.15); opacity: 0; visibility: hidden; transform: translateY(-10px); transition: all 0.2s; z-index: 2000; overflow: hidden; }
+        .notification-dropdown.show { opacity: 1; visibility: visible; transform: translateY(0); }
+        .notif-dropdown-header { padding: 16px 20px; border-bottom: 1px solid var(--gray-200); display: flex; justify-content: space-between; align-items: center; }
+        .notif-dropdown-header h3 { font-size: 16px; font-weight: 700; color: var(--gray-800); }
+        .notif-dropdown-header button { background: none; border: none; color: var(--navy); font-size: 13px; font-weight: 600; cursor: pointer; }
+        .notif-dropdown-list { max-height: 360px; overflow-y: auto; }
+        .notif-dropdown-item { padding: 14px 20px; display: flex; gap: 12px; border-bottom: 1px solid var(--gray-100); cursor: pointer; transition: background 0.2s; }
+        .notif-dropdown-item:hover { background: var(--gray-50); }
+        .notif-dropdown-item.unread { background: var(--blue-light); }
+        .notif-icon { width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+        .notif-icon.friend { background: var(--green); color: white; }
+        .notif-icon.message { background: var(--blue); color: white; }
+        .notif-icon.group { background: var(--purple); color: white; }
+        .notif-icon.warning { background: var(--orange); color: white; }
+        .notif-icon svg { width: 18px; height: 18px; }
+        .notif-content { flex: 1; min-width: 0; }
+        .notif-content h4 { font-size: 14px; font-weight: 600; color: var(--gray-800); margin-bottom: 2px; }
+        .notif-content p { font-size: 13px; color: var(--gray-500); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .notif-content .time { font-size: 11px; color: var(--gray-400); margin-top: 4px; }
+        .notif-dropdown-footer { padding: 12px 20px; border-top: 1px solid var(--gray-200); text-align: center; }
+        .notif-dropdown-footer a { color: var(--navy); font-size: 14px; font-weight: 600; text-decoration: none; }
+        .notif-empty { padding: 40px 20px; text-align: center; color: var(--gray-400); }
+        .notif-empty svg { width: 48px; height: 48px; margin-bottom: 12px; opacity: 0.5; }
+
+        /* Friends Page */
+        .friends-page { padding: 24px; max-width: 1000px; margin: 0 auto; }
+
+        /* Tabs */
+        .tabs { display: flex; gap: 4px; background: var(--gray-200); padding: 4px; border-radius: 12px; margin-bottom: 24px; }
+        .tab { padding: 10px 20px; border-radius: 8px; border: none; background: none; font-family: 'Outfit', sans-serif; font-size: 14px; font-weight: 500; color: var(--gray-600); cursor: pointer; transition: all 0.2s; display: flex; align-items: center; gap: 8px; }
+        .tab:hover { color: var(--gray-800); }
+        .tab.active { background: var(--white); color: var(--navy); box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+        .tab .count { background: var(--red); color: var(--white); font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 10px; }
+        .tab.active .count { background: var(--navy); }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+
+        /* Stats Bar */
+        .stats-bar { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 24px; }
+        .stat-card { background: var(--white); border-radius: 12px; padding: 16px 20px; text-align: center; }
+        .stat-value { font-family: 'Sora', sans-serif; font-size: 28px; font-weight: 700; color: var(--gray-800); }
+        .stat-label { font-size: 13px; color: var(--gray-500); margin-top: 4px; }
+        .stat-card.online .stat-value { color: var(--green); }
+
+        /* Search */
+        .search-container { margin-bottom: 20px; }
+        .search-input-wrapper { position: relative; display: flex; gap: 12px; }
+        .search-input { flex: 1; padding: 14px 16px 14px 48px; border: 2px solid var(--gray-200); border-radius: 12px; font-family: 'Outfit', sans-serif; font-size: 15px; transition: all 0.2s; background: var(--white); }
+        .search-input:focus { outline: none; border-color: var(--navy); }
+        .search-icon { position: absolute; left: 16px; top: 50%; transform: translateY(-50%); width: 20px; height: 20px; color: var(--gray-400); }
+        .search-btn { padding: 14px 24px; background: var(--navy); color: var(--white); border: none; border-radius: 12px; font-family: 'Outfit', sans-serif; font-size: 15px; font-weight: 600; cursor: pointer; transition: all 0.2s; }
+        .search-btn:hover { background: var(--navy-light); }
+
+        /* Friend Cards */
+        .friends-grid { display: flex; flex-direction: column; gap: 12px; }
+        .friend-card { background: var(--white); border-radius: 16px; padding: 16px 20px; display: flex; align-items: center; gap: 16px; transition: all 0.2s; border: 2px solid transparent; }
+        .friend-card:hover { border-color: var(--gray-200); box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
+        .friend-avatar { position: relative; width: 56px; height: 56px; border-radius: 50%; background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%); display: flex; align-items: center; justify-content: center; color: var(--white); font-family: 'Sora', sans-serif; font-weight: 700; font-size: 18px; flex-shrink: 0; cursor: pointer; }
+        .friend-avatar img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
+        .online-indicator { position: absolute; bottom: 0; right: 0; width: 14px; height: 14px; background: var(--green); border-radius: 50%; border: 2px solid var(--white); z-index: 1; }
+        .online-indicator.offline { background: var(--gray-400); }
+        .friend-info { flex: 1; min-width: 0; cursor: pointer; }
+        .friend-name { font-size: 16px; font-weight: 600; color: var(--gray-800); margin-bottom: 2px; display: flex; align-items: center; gap: 8px; }
+        .friend-name .online-text { font-size: 12px; color: var(--green); font-weight: 500; }
+        .friend-name .offline-text { font-size: 12px; color: var(--gray-400); font-weight: 500; }
+        .friend-program { font-size: 13px; color: var(--gray-500); }
+        .friend-actions { display: flex; gap: 8px; flex-shrink: 0; }
+
+        /* Buttons */
+        .btn { padding: 10px 18px; border-radius: 10px; font-family: 'Outfit', sans-serif; font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.2s; border: none; display: inline-flex; align-items: center; gap: 6px; }
+        .btn svg { width: 16px; height: 16px; }
+        .btn-primary { background: var(--navy); color: var(--white); }
+        .btn-primary:hover { background: var(--navy-light); }
+        .btn-secondary { background: var(--gray-100); color: var(--gray-700); }
+        .btn-secondary:hover { background: var(--gray-200); }
+        .btn-success { background: var(--green); color: var(--white); }
+        .btn-success:hover { background: #16a34a; }
+        .btn-danger { background: #fee2e2; color: var(--red); }
+        .btn-danger:hover { background: #fecaca; }
+        .btn-sm { padding: 8px 14px; font-size: 13px; }
+        .btn-icon { width: 36px; height: 36px; padding: 0; display: flex; align-items: center; justify-content: center; border-radius: 10px; }
+
+        /* Request Cards */
+        .request-card { background: var(--white); border-radius: 16px; padding: 20px; margin-bottom: 12px; border-left: 4px solid var(--blue); }
+        .request-card.outgoing { border-left-color: var(--orange); }
+        .request-header { display: flex; align-items: center; gap: 16px; margin-bottom: 16px; }
+        .request-type { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; color: var(--blue); margin-bottom: 4px; }
+        .request-card.outgoing .request-type { color: var(--orange); }
+        .request-actions { display: flex; gap: 8px; }
+
+        /* Section Headers */
+        .section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+        .section-title { font-size: 14px; font-weight: 600; color: var(--gray-500); text-transform: uppercase; letter-spacing: 0.5px; }
+        .section-count { font-size: 13px; color: var(--gray-400); }
+
+        /* Empty State */
+        .empty-state { text-align: center; padding: 60px 24px; background: var(--white); border-radius: 16px; }
+        .empty-state svg { width: 64px; height: 64px; color: var(--gray-300); margin-bottom: 16px; }
+        .empty-state h3 { font-size: 18px; font-weight: 600; color: var(--gray-700); margin-bottom: 8px; }
+        .empty-state p { font-size: 14px; color: var(--gray-500); margin-bottom: 20px; }
+
+        /* Toast */
+        .toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(100px); background: var(--gray-800); color: var(--white); padding: 14px 24px; border-radius: 12px; font-size: 14px; font-weight: 500; display: flex; align-items: center; gap: 10px; z-index: 1000; opacity: 0; transition: all 0.3s ease; }
+        .toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
+        .toast.error { background: var(--red); }
+        .toast.success { background: var(--green); }
+        .toast svg { width: 20px; height: 20px; }
+
+        /* Loading */
+        .loading { position: fixed; inset: 0; background: var(--white); display: flex; align-items: center; justify-content: center; z-index: 1000; }
+        .loading-spinner { width: 40px; height: 40px; border: 3px solid var(--gray-200); border-top-color: var(--navy); border-radius: 50%; animation: spin 1s linear infinite; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        /* Modal */
+        .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; z-index: 1000; opacity: 0; visibility: hidden; transition: all 0.2s; padding: 20px; }
+        .modal-overlay.show { opacity: 1; visibility: visible; }
+        .modal { background: var(--white); border-radius: 20px; width: 100%; max-width: 380px; max-height: 90vh; overflow-y: auto; transform: scale(0.9); transition: transform 0.2s; }
+        .modal-overlay.show .modal { transform: scale(1); }
+        .modal-header { padding: 16px 20px; border-bottom: 1px solid var(--gray-200); display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; background: var(--white); z-index: 1; }
+        .modal-title { font-family: 'Sora', sans-serif; font-size: 16px; font-weight: 700; color: var(--gray-800); }
+        .modal-close { width: 32px; height: 32px; border: none; background: var(--gray-100); border-radius: 8px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+        .modal-close svg { width: 18px; height: 18px; color: var(--gray-600); }
+        .modal-body { padding: 20px; }
+        .modal-footer { padding: 16px 20px; }
+
+        /* Profile Modal Content */
+        .profile-modal-content { text-align: center; }
+        .profile-modal-avatar { width: 72px; height: 72px; border-radius: 50%; background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%); display: flex; align-items: center; justify-content: center; color: var(--white); font-family: 'Sora', sans-serif; font-weight: 700; font-size: 24px; margin: 0 auto 12px; position: relative; }
+        .profile-modal-avatar img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
+        .profile-modal-avatar .online-dot { position: absolute; bottom: 0; right: 0; width: 14px; height: 14px; background: var(--green); border-radius: 50%; border: 3px solid var(--white); z-index: 1; }
+        .profile-modal-avatar .online-dot.offline { background: var(--gray-400); }
+        .profile-modal-name { font-family: 'Sora', sans-serif; font-size: 18px; font-weight: 700; color: var(--gray-800); margin-bottom: 2px; }
+        .profile-modal-program { font-size: 13px; color: var(--gray-500); margin-bottom: 4px; }
+        .profile-modal-status { font-size: 12px; margin-bottom: 12px; display: flex; align-items: center; justify-content: center; gap: 6px; }
+        .profile-modal-status.online { color: var(--green); }
+        .profile-modal-status.offline { color: var(--gray-400); }
+        .profile-modal-bio { font-size: 13px; color: var(--gray-600); background: var(--gray-50); padding: 10px 14px; border-radius: 10px; margin-bottom: 12px; text-align: left; }
+        .profile-modal-bio:empty { display: none; }
+        .profile-modal-meta { display: flex; flex-direction: column; align-items: center; gap: 2px; padding: 12px 0; margin-bottom: 4px; }
+        .profile-modal-meta .label { font-size: 10px; color: var(--gray-400); text-transform: uppercase; letter-spacing: 0.5px; }
+        .profile-modal-meta .value { font-family: 'Sora', sans-serif; font-weight: 600; color: var(--gray-700); font-size: 14px; }
+        .profile-modal-actions { display: flex; flex-direction: column; gap: 10px; }
+        .profile-modal-actions .btn { display: flex; align-items: center; justify-content: center; gap: 6px; padding: 12px 16px; font-size: 13px; font-weight: 600; border-radius: 10px; cursor: pointer; transition: all 0.2s; border: none; width: 100%; }
+        .profile-modal-actions .btn svg { width: 16px; height: 16px; }
+        .profile-modal-actions .btn-primary { background: var(--navy); color: var(--white); }
+        .profile-modal-actions .btn-primary:hover { background: var(--navy-light); }
+        .profile-modal-actions .btn-success { background: var(--green); color: var(--white); }
+        .profile-modal-actions .btn-success:hover { background: #059669; }
+        .profile-modal-actions .btn-secondary { background: var(--gray-100); border: 2px solid var(--gray-200); color: var(--gray-700); }
+        .profile-modal-actions .btn-secondary:hover { background: var(--gray-200); }
+        .profile-modal-actions .btn-danger { background: var(--red); color: var(--white); }
+        .profile-modal-actions .btn-danger:hover { background: #dc2626; }
+        .profile-modal-actions .btn-row { display: flex; gap: 10px; }
+        .profile-modal-actions .btn-row .btn { flex: 1; padding: 10px 12px; font-size: 12px; }
+        .profile-modal-actions .btn-outline-danger { background: #fef2f2; border: 2px solid #fecaca; color: var(--red); }
+        .profile-modal-actions .btn-outline-danger:hover { background: #fee2e2; }
+        .profile-modal-actions .btn-warning { background: #fffbeb; border: 2px solid #fde68a; color: #b45309; }
+        .profile-modal-actions .btn-warning:hover { background: #fef3c7; }
+        .profile-modal-link-container { margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--gray-200); }
+        .profile-modal-link { display: flex; align-items: center; justify-content: center; gap: 6px; padding: 10px 16px; background: var(--gray-50); border: 2px solid var(--gray-200); border-radius: 10px; color: var(--navy); font-size: 13px; font-weight: 600; text-decoration: none; transition: all 0.2s; }
+        .profile-modal-link:hover { background: var(--gray-100); border-color: var(--navy); text-decoration: none; }
+        .profile-modal-link svg { width: 14px; height: 14px; }
+        
+        /* Z-index for confirm modal above profile modal */
+        #confirmModal { z-index: 1100; }
+        #reportModal { z-index: 1100; }
+
+        /* Form Elements */
+        .form-group { margin-bottom: 16px; }
+        .form-label { display: block; font-size: 14px; font-weight: 600; color: var(--gray-700); margin-bottom: 6px; }
+        .form-select, .form-textarea { width: 100%; padding: 12px 14px; border: 2px solid var(--gray-200); border-radius: 10px; font-family: 'Outfit', sans-serif; font-size: 14px; transition: all 0.2s; background: var(--white); }
+        .form-select:focus, .form-textarea:focus { outline: none; border-color: var(--navy); }
+        .form-textarea { resize: vertical; min-height: 80px; }
+
+        /* Blocked User Item */
+        .blocked-user-item { display: flex; align-items: center; gap: 12px; padding: 12px; border-radius: 10px; background: var(--gray-50); margin-bottom: 8px; }
+        .blocked-user-item:last-child { margin-bottom: 0; }
+        .blocked-user-avatar { width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%); display: flex; align-items: center; justify-content: center; color: var(--white); font-weight: 600; font-size: 14px; flex-shrink: 0; overflow: hidden; }
+        .blocked-user-avatar img { width: 100%; height: 100%; object-fit: cover; }
+        .blocked-user-info { flex: 1; min-width: 0; }
+        .blocked-user-name { font-size: 14px; font-weight: 600; color: var(--gray-800); }
+        .blocked-user-date { font-size: 12px; color: var(--gray-500); }
+        .blocked-empty { text-align: center; padding: 40px 20px; color: var(--gray-400); }
+
+        /* Danger button variant */
+        .btn-outline-danger { background: transparent; border: 2px solid #fee2e2; color: var(--red); }
+        .btn-outline-danger:hover { background: #fee2e2; }
+        .btn-warning { background: #fef3c7; color: #b45309; }
+        .btn-warning:hover { background: #fde68a; }
+
+        /* Dark Mode */
+        body.dark-mode { background: var(--gray-800); }
+        body.dark-mode .sidebar { background: #0a1628; }
+        body.dark-mode .topbar { background: var(--gray-700); border-bottom-color: var(--gray-600); }
+        body.dark-mode .page-title { color: var(--white); }
+        body.dark-mode .icon-btn { background: var(--gray-600); }
+        body.dark-mode .icon-btn svg { color: var(--gray-300); }
+        body.dark-mode .notification-dropdown { background: var(--gray-700); }
+        body.dark-mode .notif-dropdown-header { border-bottom-color: var(--gray-600); }
+        body.dark-mode .notif-dropdown-header h3 { color: var(--white); }
+        body.dark-mode .tabs { background: var(--gray-700); }
+        body.dark-mode .tab { color: var(--gray-400); }
+        body.dark-mode .tab.active { background: var(--gray-600); color: var(--white); }
+        body.dark-mode .search-input { background: var(--gray-700); border-color: var(--gray-600); color: var(--white); }
+        body.dark-mode .friend-card, body.dark-mode .request-card, body.dark-mode .stat-card, body.dark-mode .empty-state { background: var(--gray-700); }
+        body.dark-mode .friend-name, body.dark-mode .stat-value { color: var(--white); }
+        body.dark-mode .modal { background: var(--gray-700); }
+        body.dark-mode .modal-header, body.dark-mode .modal-footer { border-color: var(--gray-600); }
+        body.dark-mode .modal-title { color: var(--white); }
+        body.dark-mode .discover-header h3 { color: var(--white); }
+        body.dark-mode .discover-card { background: var(--gray-700); }
+        body.dark-mode .discover-name { color: var(--white); }
+        body.dark-mode .filter-select { background: var(--gray-700); border-color: var(--gray-600); color: var(--white); }
+
+        /* Discovery Tab Styles */
+        .discover-header { text-align: center; padding: 24px 0 16px; }
+        .discover-header h3 { font-family: 'Sora', sans-serif; font-size: 18px; font-weight: 700; color: var(--gray-800); margin-bottom: 4px; }
+        .discover-header p { font-size: 14px; color: var(--gray-500); }
+        .discover-filters { display: flex; justify-content: flex-end; margin-bottom: 16px; }
+        .filter-select { padding: 8px 14px; border: 2px solid var(--gray-200); border-radius: 8px; font-family: 'Outfit', sans-serif; font-size: 14px; background: var(--white); cursor: pointer; }
+        .filter-select:focus { outline: none; border-color: var(--navy); }
+        .discover-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; }
+        .discover-card { background: var(--white); border-radius: 16px; padding: 20px; display: flex; flex-direction: column; align-items: center; text-align: center; cursor: pointer; transition: all 0.2s; border: 2px solid transparent; }
+        .discover-card:hover { border-color: var(--navy); transform: translateY(-2px); box-shadow: 0 8px 20px rgba(0,0,0,0.08); }
+        .discover-avatar { position: relative; width: 72px; height: 72px; border-radius: 50%; background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%); display: flex; align-items: center; justify-content: center; color: var(--white); font-family: 'Sora', sans-serif; font-weight: 700; font-size: 24px; margin-bottom: 12px; }
+        .discover-avatar img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
+        .discover-avatar .online-dot { position: absolute; bottom: 0; right: 0; width: 16px; height: 16px; background: var(--green); border-radius: 50%; border: 3px solid var(--white); z-index: 1; }
+        .discover-avatar .online-dot.offline { background: var(--gray-400); }
+        .discover-name { font-size: 16px; font-weight: 600; color: var(--gray-800); margin-bottom: 4px; }
+        .discover-program { font-size: 13px; color: var(--gray-500); margin-bottom: 8px; }
+        .discover-status { font-size: 12px; color: var(--green); display: flex; align-items: center; gap: 4px; margin-bottom: 12px; }
+        .discover-status.offline { color: var(--gray-400); }
+        .discover-status .dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+        .discover-actions { display: flex; gap: 10px; width: 100%; }
+        .discover-actions .btn { flex: 1; display: flex; align-items: center; justify-content: center; gap: 6px; padding: 10px 14px; font-size: 13px; font-weight: 600; border-radius: 10px; border: none; cursor: pointer; transition: all 0.2s; }
+        .discover-actions .btn svg { width: 16px; height: 16px; }
+        .discover-actions .btn-primary { background: var(--navy); color: var(--white); }
+        .discover-actions .btn-primary:hover { background: var(--navy-light); }
+        .discover-actions .btn-secondary { background: var(--gray-100); color: var(--gray-700); border: 2px solid var(--gray-200); }
+        .discover-actions .btn-secondary:hover { background: var(--gray-200); }
+        .discover-actions .btn-success { background: var(--green); color: var(--white); }
+        .discover-actions .btn-success:hover { background: #059669; }
+        .loading-state { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 60px 20px; color: var(--gray-400); }
+        .loading-spinner-small { width: 32px; height: 32px; border: 3px solid var(--gray-200); border-top-color: var(--navy); border-radius: 50%; animation: spin 0.8s linear infinite; margin-bottom: 12px; }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .sidebar { transform: translateX(-100%); }
+            .sidebar.open { transform: translateX(0); }
+            .sidebar-overlay.show { display: block; }
+            .main-content { margin-left: 0; }
+            .menu-toggle { display: block; }
+            .friends-page { padding: 16px; }
+            .tabs { flex-wrap: wrap; }
+            .tab { flex: 1; min-width: 80px; justify-content: center; font-size: 13px; padding: 10px 8px; }
+            .stats-bar { grid-template-columns: repeat(3, 1fr); gap: 8px; }
+            .stat-card { padding: 12px; }
+            .stat-value { font-size: 22px; }
+            .friend-card { flex-wrap: wrap; }
+            .friend-actions { width: 100%; margin-top: 12px; justify-content: flex-end; }
+            .search-input-wrapper { flex-direction: column; }
+            .search-btn { width: 100%; justify-content: center; }
+            .notification-dropdown { position: fixed; top: 70px; left: 10px; right: 10px; width: auto; border-radius: 16px; max-height: calc(100vh - 90px); z-index: 2000; }
+            .discover-grid { grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 12px; }
+            .discover-card { padding: 16px; }
+            .discover-avatar { width: 60px; height: 60px; font-size: 20px; }
+            .discover-filters { justify-content: center; }
+        }
+        @media (max-width: 480px) {
+            .tabs { gap: 2px; padding: 3px; }
+            .tab { padding: 8px 8px; font-size: 12px; min-width: 70px; }
+            .friend-avatar { width: 48px; height: 48px; font-size: 16px; }
+            .btn { padding: 8px 12px; font-size: 13px; }
+            .discover-grid { grid-template-columns: 1fr; }
+            .discover-actions { flex-direction: column; }
+            .modal { margin: 10px; max-width: calc(100% - 20px) !important; }
+            .modal-body { padding: 16px; }
+            .modal-footer { padding: 12px 16px; }
+            .profile-modal-actions .btn { padding: 14px 16px; font-size: 14px; }
+            .profile-modal-actions .btn-row .btn { padding: 12px 14px; font-size: 13px; }
+        }
+        
+        /* Admin Announcement Popup */
+        .announcement-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.7); backdrop-filter: blur(4px); display: flex; align-items: center; justify-content: center; z-index: 10000; animation: fadeIn 0.3s ease; padding: 20px; }
+        .announcement-popup { background: linear-gradient(135deg, #1a365d 0%, #2c5282 100%); border-radius: 20px; max-width: 480px; width: 100%; box-shadow: 0 25px 60px rgba(0,0,0,0.4); animation: popIn 0.4s cubic-bezier(0.175,0.885,0.32,1.275); overflow: hidden; }
+        .announcement-header { background: rgba(255,255,255,0.1); padding: 20px 24px; display: flex; align-items: center; gap: 14px; border-bottom: 1px solid rgba(255,255,255,0.1); }
+        .announcement-icon { width: 48px; height: 48px; background: linear-gradient(135deg, #f97316 0%, #ea580c 100%); border-radius: 12px; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(249,115,22,0.4); }
+        .announcement-icon svg { width: 26px; height: 26px; color: white; }
+        .announcement-header-text { flex: 1; }
+        .announcement-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: #f97316; margin-bottom: 4px; }
+        .announcement-title { font-family: 'Sora', sans-serif; font-size: 20px; font-weight: 700; color: white; }
+        .announcement-body { padding: 24px; }
+        .announcement-message { font-size: 15px; line-height: 1.7; color: rgba(255,255,255,0.9); }
+        .announcement-time { font-size: 12px; color: rgba(255,255,255,0.5); margin-top: 16px; display: flex; align-items: center; gap: 6px; }
+        .announcement-time svg { width: 14px; height: 14px; }
+        .announcement-footer { padding: 16px 24px 24px; }
+        .announcement-btn { width: 100%; padding: 16px 24px; background: white; color: #1a365d; border: none; border-radius: 12px; font-family: 'Outfit', sans-serif; font-size: 15px; font-weight: 700; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; justify-content: center; gap: 8px; }
+        .announcement-btn:hover { background: #f1f5f9; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
+        .announcement-btn svg { width: 18px; height: 18px; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes popIn { from { opacity: 0; transform: scale(0.9) translateY(20px); } to { opacity: 1; transform: scale(1) translateY(0); } }
+    </style>
+</head>
+<body>
+    <div class="loading" id="loadingScreen"><div class="loading-spinner"></div></div>
+    <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+                                    <a href="dashboard.html" class="sidebar-logo">
+                <div class="sidebar-logo-m-wrapper">
+                    <svg class="sidebar-logo-cap" viewBox="0 0 100 70">
+                        <polygon points="50,8 95,25 50,42 5,25" fill="#1a365d"/>
+                        <circle cx="50" cy="25" r="5" fill="#ffffff" stroke="#1a365d" stroke-width="2"/>
+                        <rect x="32" y="38" width="36" height="18" rx="3" fill="#1a365d"/>
+                        <g class="tassel">
+                            <circle cx="78" cy="25" r="4" fill="#c41e3a"/>
+                            <path d="M78 29 Q82 45 80 55" stroke="#c41e3a" stroke-width="3" fill="none"/>
+                            <ellipse cx="80" cy="58" rx="5" ry="8" fill="#c41e3a"/>
+                        </g>
+                    </svg>
+                    <span class="sidebar-logo-m">M</span>
+                </div>
+                <span class="sidebar-logo-yub">yUB</span>
+            </a>
+        </div>
+        <nav>
+            <div class="nav-section">
+                <div class="nav-section-title">Menu</div>
+                <a href="dashboard.html" class="nav-item"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>Dashboard</a>
+                <a href="gpa-calculator.html" class="nav-item"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>GPA Calculator</a>
+                <a href="schedule.html" class="nav-item"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>Schedule</a>
+                <a href="notes.html" class="nav-item"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>Notes</a>
+            </div>
+            <div class="nav-section">
+                <div class="nav-section-title">Social</div>
+                <a href="study-groups.html" class="nav-item"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>Study Groups</a>
+                <a href="messages.html" class="nav-item"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>Messages<span class="badge" id="sidebarMsgBadge" style="display:none;">0</span></a>
+                <a href="friends.html" class="nav-item active"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/></svg>Friends<span class="badge" id="sidebarFriendsBadge" style="display:none;">0</span></a>
+            </div>
+            <div class="nav-section">
+                <div class="nav-section-title">Account</div>
+                <a href="profile.html" class="nav-item"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>Profile</a>
+                <button class="nav-item" onclick="handleLogout()"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg>Sign Out</button>
+            </div>
+        </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content" id="mainContent" style="display: none;">
+        <header class="topbar">
+            <div class="topbar-left">
+                <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
+                <h1 class="page-title">Friends</h1>
+            </div>
+            <div class="topbar-right">
+                <div class="notification-wrapper">
+                    <button class="icon-btn" id="notificationBell" onclick="toggleNotifications()">
+                        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg>
+                        <span class="notification-badge" id="notifBadge" style="display: none;">0</span>
+                    </button>
+                    <div class="notification-dropdown" id="notificationDropdown">
+                        <div class="notif-dropdown-header"><h3>Notifications</h3><button onclick="markAllNotificationsRead()">Mark all read</button></div>
+                        <div class="notif-dropdown-list" id="notifList"></div>
+                        <div class="notif-dropdown-footer"><a onclick="openNotificationsModal()" style="cursor:pointer;">View All Notifications</a></div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <div class="friends-page">
+            <div class="stats-bar">
+                <div class="stat-card"><div class="stat-value" id="totalFriends">0</div><div class="stat-label">Total Friends</div></div>
+                <div class="stat-card online"><div class="stat-value" id="onlineFriends">0</div><div class="stat-label">Online Now</div></div>
+                <div class="stat-card" style="cursor: pointer;" onclick="openBlockedModal()" title="View blocked users"><div class="stat-value" id="blockedCount">0</div><div class="stat-label">Blocked</div></div>
+            </div>
+
+            <div class="tabs">
+                <button class="tab active" data-tab="friends" onclick="switchTab('friends')">All Friends</button>
+                <button class="tab" data-tab="requests" onclick="switchTab('requests')">Requests<span class="count" id="requestsCount" style="display:none;">0</span></button>
+                <button class="tab" data-tab="find" onclick="switchTab('find')">Find Students</button>
+                <button class="tab" data-tab="discover" onclick="switchTab('discover')">Discover</button>
+            </div>
+
+            <div class="tab-content active" id="friendsTab">
+                <div class="search-container">
+                    <div class="search-input-wrapper">
+                        <svg class="search-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                        <input type="text" class="search-input" id="friendsSearch" placeholder="Search your friends..." oninput="filterFriends()">
+                    </div>
+                </div>
+                <div id="friendsContainer"></div>
+            </div>
+
+            <div class="tab-content" id="requestsTab">
+                <div class="section-header"><div class="section-title">Incoming Requests</div><div class="section-count" id="incomingCount">0 requests</div></div>
+                <div id="incomingRequests"></div>
+                <div class="section-header" style="margin-top: 32px;"><div class="section-title">Sent Requests</div><div class="section-count" id="outgoingCount">0 pending</div></div>
+                <div id="outgoingRequests"></div>
+            </div>
+
+            <div class="tab-content" id="findTab">
+                <div class="search-container">
+                    <div class="search-input-wrapper">
+                        <svg class="search-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                        <input type="text" class="search-input" id="findSearch" placeholder="Search by name or program...">
+                        <button class="search-btn" onclick="searchStudents()">Search</button>
+                    </div>
+                </div>
+                <div id="searchResults">
+                    <div class="empty-state">
+                        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                        <h3>Find Students</h3>
+                        <p>Search for students by name or program to connect with them</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-content" id="discoverTab">
+                <div class="discover-header">
+                    <h3>Discover People on MyUB</h3>
+                    <p>Connect with other students at the University of Botswana</p>
+                </div>
+                <div class="discover-filters">
+                    <select class="filter-select" id="discoverFilter" onchange="loadDiscoverUsers()">
+                        <option value="all">All Users</option>
+                        <option value="online">Online Now</option>
+                        <option value="recent">Recently Active</option>
+                    </select>
+                </div>
+                <div id="discoverContainer">
+                    <div class="loading-state"><div class="loading-spinner-small"></div><p>Loading users...</p></div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- All Notifications Modal -->
+    <div class="modal-overlay" id="notificationsModal" style="display:none;" onclick="if(event.target===this)closeNotificationsModal()">
+        <div class="modal" style="max-width:500px;max-height:80vh;display:flex;flex-direction:column;">
+            <div class="modal-header"><h3 class="modal-title">All Notifications</h3><button class="modal-close" onclick="closeNotificationsModal()"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12"/></svg></button></div>
+            <div style="display:flex;gap:10px;padding:16px 24px;border-bottom:1px solid var(--gray-200);">
+                <button class="btn btn-secondary" onclick="markAllNotificationsReadModal()">Mark All Read</button>
+                <button class="btn btn-danger" onclick="clearAllNotifications()">Clear All</button>
+            </div>
+            <div class="modal-body" id="allNotifList" style="flex:1;overflow-y:auto;padding:0;"></div>
+        </div>
+    </div>
+
+    <!-- Confirm Modal -->
+    <div class="modal-overlay" id="confirmModal">
+        <div class="modal" style="max-width: 360px;">
+            <div class="modal-header"><h3 class="modal-title" id="confirmTitle">Confirm</h3><button class="modal-close" onclick="closeConfirmModal()"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12"/></svg></button></div>
+            <div class="modal-body"><p id="confirmMessage" style="text-align: center; color: var(--gray-600);">Are you sure?</p></div>
+            <div class="modal-footer"><button class="btn btn-secondary" onclick="closeConfirmModal()">Cancel</button><button class="btn btn-danger" id="confirmBtn" onclick="confirmAction()">Confirm</button></div>
+        </div>
+    </div>
+
+    <!-- Profile Preview Modal -->
+    <div class="modal-overlay" id="profileModal">
+        <div class="modal" style="max-width: 420px;">
+            <div class="modal-header">
+                <h3 class="modal-title">Profile</h3>
+                <button class="modal-close" onclick="closeProfileModal()"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12"/></svg></button>
+            </div>
+            <div class="modal-body" id="profileModalBody">
+                <!-- Profile content loaded dynamically -->
+            </div>
+            <div class="modal-footer" id="profileModalFooter">
+                <!-- Actions loaded dynamically -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Report Modal -->
+    <div class="modal-overlay" id="reportModal">
+        <div class="modal" style="max-width: 440px;">
+            <div class="modal-header">
+                <h3 class="modal-title">Report User</h3>
+                <button class="modal-close" onclick="closeReportModal()"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12"/></svg></button>
+            </div>
+            <div class="modal-body">
+                <p style="color: var(--gray-600); margin-bottom: 16px; font-size: 14px;">Help us keep MyUB safe. Reports are confidential and reviewed by our admin team.</p>
+                <div class="form-group">
+                    <label class="form-label">Reason for report</label>
+                    <select class="form-select" id="reportReason">
+                        <option value="">Select a reason...</option>
+                        <option value="spam">Spam or fake account</option>
+                        <option value="harassment">Harassment or bullying</option>
+                        <option value="hate_speech">Hate speech</option>
+                        <option value="inappropriate_content">Inappropriate content</option>
+                        <option value="impersonation">Impersonation</option>
+                        <option value="threatening_violence">Threatening violence</option>
+                        <option value="self_harm">Self-harm or suicide</option>
+                        <option value="illegal_activity">Illegal activity</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Additional details (optional)</label>
+                    <textarea class="form-textarea" id="reportDescription" placeholder="Provide any additional context..." rows="3"></textarea>
+                </div>
+                <input type="hidden" id="reportUserId">
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeReportModal()">Cancel</button>
+                <button class="btn btn-danger" onclick="submitReport()">
+                    <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+                    Submit Report
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Blocked Users Modal -->
+    <div class="modal-overlay" id="blockedModal">
+        <div class="modal" style="max-width: 480px;">
+            <div class="modal-header">
+                <h3 class="modal-title">Blocked Users</h3>
+                <button class="modal-close" onclick="closeBlockedModal()"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12"/></svg></button>
+            </div>
+            <div class="modal-body" id="blockedModalBody" style="max-height: 400px; overflow-y: auto;">
+                <!-- Blocked users loaded dynamically -->
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeBlockedModal()">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="toast" id="toast"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg><span id="toastMessage">Success!</span></div>
+
+    <script>
+        const SUPABASE_URL = 'https://weuxtwmaqmbhskjpjdyi.supabase.co';
+        const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndldXh0d21hcW1iaHNranBqZHlpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjQ3NTYzMTcsImV4cCI6MjA4MDMzMjMxN30.J-0Nd0MY6-g_ltbBNHwOulqZuQfb8mKIRgx0dAaJ76o';
+        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+        let currentUser = null;
+        let friends = [];
+        let incomingRequests = [];
+        let outgoingRequests = [];
+        let notifications = [];
+        let blockedUsers = [];
+        let blockedByUsers = []; // Users who blocked current user
+        let discoverUsers = [];
+        let confirmCallback = null;
+        let selectedProfileUser = null;
+
+        async function init() {
+            const { data: { session } } = await supabase.auth.getSession();
+            if (!session) { window.location.href = 'index.html'; return; }
+            currentUser = session.user;
+            
+            // Check if user is banned
+            const { data: profile } = await supabase.from('profiles').select('is_banned').eq('id', currentUser.id).single();
+            if (profile && profile.is_banned) {
+                await supabase.auth.signOut();
+                alert('Your account has been suspended. Please contact an administrator.');
+                window.location.href = 'index.html';
+                return;
+            }
+            
+            // Initialize connection manager
+            if (window.MyUBUtils) {
+                const canConnect = await MyUBUtils.ConnectionManager.init(supabase, currentUser.id);
+                if (!canConnect) {
+                    document.getElementById('loadingScreen').style.display = 'none';
+                    return;
+                }
+                MyUBUtils.SubscriptionManager.init(supabase, currentUser.id);
+                MyUBUtils.SubscriptionManager.subscribe({
+                    messages: () => loadSidebarBadges(),
+                    notifications: () => loadNotifications(),
+                    friend_requests: () => { loadRequests(); loadSidebarBadges(); }
+                });
+            }
+            
+            if (localStorage.getItem('myub_darkMode') === 'true') {
+                document.body.classList.add('dark-mode');
+            }
+            await updateOnlineStatus(true);
+            await Promise.all([loadFriends(), loadRequests(), loadNotifications(), loadBlockedUsers()]);
+            await loadSidebarBadges();
+            subscribeToRealtime(); // Setup real-time subscriptions
+            startHeartbeat();
+            startNotificationPolling(); // Poll for notifications as fallback
+            document.getElementById('loadingScreen').style.display = 'none';
+            document.getElementById('mainContent').style.display = 'block';
+            document.addEventListener('click', (e) => { if (!e.target.closest('.notification-wrapper')) document.getElementById('notificationDropdown').classList.remove('show'); });
+        }
+        
+        function startNotificationPolling() {
+            setInterval(async () => {
+                const lastNotifId = notifications.length > 0 ? notifications[0].id : null;
+                const { data: newNotifs } = await supabase.from('notifications').select('*').eq('user_id', currentUser.id).order('created_at', { ascending: false }).limit(5);
+                if (newNotifs && newNotifs.length > 0 && (!lastNotifId || newNotifs[0].id !== lastNotifId)) {
+                    const existingIds = notifications.map(n => n.id);
+                    const trulyNew = newNotifs.filter(n => !existingIds.includes(n.id));
+                    if (trulyNew.length > 0) {
+                        trulyNew.forEach(n => notifications.unshift(n));
+                        renderNotifications();
+                        playNotificationSound();
+                        showToast(trulyNew[0].title || 'New notification', 'success');
+                    }
+                }
+            }, 30000);
+        }
+
+        async function updateOnlineStatus(isOnline) {
+            await supabase.from('profiles').update({ is_online: isOnline, last_seen: new Date().toISOString() }).eq('id', currentUser.id);
+        }
+
+        function startHeartbeat() {
+            setInterval(() => updateOnlineStatus(true), 30000);
+            window.addEventListener('beforeunload', () => updateOnlineStatus(false));
+        }
+
+        async function loadFriends() {
+            const { data: f1 } = await supabase.from('friendships').select('friend_id').eq('user_id', currentUser.id);
+            const { data: f2 } = await supabase.from('friendships').select('user_id').eq('friend_id', currentUser.id);
+            const friendIds = [...(f1||[]).map(f => f.friend_id), ...(f2||[]).map(f => f.user_id)];
+            if (friendIds.length === 0) { friends = []; updateStats(); renderFriends(); return; }
+            const { data: profiles } = await supabase.from('profiles').select('id, first_name, last_name, full_name, program_name, avatar_url, is_online, last_seen').in('id', friendIds);
+            friends = profiles || [];
+            updateStats();
+            renderFriends();
+        }
+
+        function renderFriends() {
+            const container = document.getElementById('friendsContainer');
+            const query = document.getElementById('friendsSearch').value.toLowerCase();
+            const filtered = friends.filter(f => {
+                const name = (f.full_name || `${f.first_name} ${f.last_name}`).toLowerCase();
+                return name.includes(query) || (f.program_name||'').toLowerCase().includes(query);
+            });
+            if (filtered.length === 0) {
+                container.innerHTML = `<div class="empty-state"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/></svg><h3>${query ? 'No friends found' : 'No friends yet'}</h3><p>${query ? 'Try a different search' : 'Find students to connect with'}</p>${!query ? '<button class="btn btn-primary" onclick="switchTab(\'find\')">Find Students</button>' : ''}</div>`;
+                return;
+            }
+            filtered.sort((a, b) => { if (a.is_online && !b.is_online) return -1; if (!a.is_online && b.is_online) return 1; return (a.full_name||a.first_name).localeCompare(b.full_name||b.first_name); });
+            container.innerHTML = '<div class="friends-grid">' + filtered.map(f => {
+                const name = f.full_name || `${f.first_name} ${f.last_name}`;
+                const initials = getInitials(name);
+                const lastSeen = f.last_seen ? formatTimeAgo(f.last_seen) : 'Never';
+                return `<div class="friend-card">
+                    <div class="friend-avatar" onclick="openProfileModal('${f.id}')" style="cursor:pointer;">${f.avatar_url ? `<img src="${f.avatar_url}" alt="">` : initials}<div class="online-indicator ${f.is_online ? '' : 'offline'}"></div></div>
+                    <div class="friend-info" onclick="openProfileModal('${f.id}')" style="cursor:pointer;">
+                        <div class="friend-name">${escapeHtml(name)}${f.is_online ? '<span class="online-text">● Online</span>' : `<span class="offline-text">● ${lastSeen}</span>`}</div>
+                        <div class="friend-program">${escapeHtml(f.program_name || 'Student')}</div>
+                    </div>
+                    <div class="friend-actions">
+                        <button class="btn btn-primary btn-sm" onclick="startMessage('${f.id}')"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>Message</button>
+                        <button class="btn btn-icon btn-danger" onclick="confirmRemoveFriend('${f.id}', '${escapeHtml(name)}')" title="Remove"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M13 7a4 4 0 11-8 0 4 4 0 018 0zM9 14a6 6 0 00-6 6v1h12v-1a6 6 0 00-6-6zM21 12h-6"/></svg></button>
+                    </div>
+                </div>`;
+            }).join('') + '</div>';
+        }
+
+        function filterFriends() { renderFriends(); }
+
+        async function loadRequests() {
+            const { data: incoming } = await supabase.from('friend_requests').select('id, created_at, sender:profiles!friend_requests_sender_id_fkey(id, first_name, last_name, full_name, program_name, avatar_url, is_online)').eq('receiver_id', currentUser.id).eq('status', 'pending');
+            incomingRequests = incoming || [];
+            const { data: outgoing } = await supabase.from('friend_requests').select('id, created_at, receiver:profiles!friend_requests_receiver_id_fkey(id, first_name, last_name, full_name, program_name, avatar_url)').eq('sender_id', currentUser.id).eq('status', 'pending');
+            outgoingRequests = outgoing || [];
+            updateStats();
+            renderRequests();
+        }
+
+        function renderRequests() {
+            const inContainer = document.getElementById('incomingRequests');
+            const inCountEl = document.getElementById('incomingCount');
+            if (inCountEl) inCountEl.textContent = `${incomingRequests.length} request${incomingRequests.length !== 1 ? 's' : ''}`;
+            if (inContainer) {
+                if (incomingRequests.length === 0) {
+                    inContainer.innerHTML = '<div class="empty-state" style="padding:30px;"><p>No incoming requests</p></div>';
+                } else {
+                    inContainer.innerHTML = incomingRequests.map(r => {
+                        const s = r.sender, name = s.full_name || `${s.first_name} ${s.last_name}`, initials = getInitials(name);
+                        return `<div class="request-card"><div class="request-type">Friend Request</div><div class="request-header"><div class="friend-avatar" style="width:48px;height:48px;font-size:16px;">${s.avatar_url ? `<img src="${s.avatar_url}">` : initials}<div class="online-indicator ${s.is_online ? '' : 'offline'}"></div></div><div class="friend-info"><div class="friend-name">${escapeHtml(name)}</div><div class="friend-program">${escapeHtml(s.program_name||'Student')}</div><div class="friend-meta">${formatTimeAgo(r.created_at)}</div></div></div><div class="request-actions"><button class="btn btn-success btn-sm" onclick="acceptRequest('${r.id}','${s.id}')"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg>Accept</button><button class="btn btn-danger btn-sm" onclick="declineRequest('${r.id}')"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12"/></svg>Decline</button></div></div>`;
+                    }).join('');
+                }
+            }
+            const outContainer = document.getElementById('outgoingRequests');
+            const outCountEl = document.getElementById('outgoingCount');
+            if (outCountEl) outCountEl.textContent = `${outgoingRequests.length} pending`;
+            if (outContainer) {
+                if (outgoingRequests.length === 0) {
+                    outContainer.innerHTML = '<div class="empty-state" style="padding:30px;"><p>No pending sent requests</p></div>';
+                } else {
+                    outContainer.innerHTML = outgoingRequests.map(r => {
+                        const rec = r.receiver, name = rec.full_name || `${rec.first_name} ${rec.last_name}`, initials = getInitials(name);
+                        return `<div class="request-card outgoing"><div class="request-type">Sent Request</div><div class="request-header"><div class="friend-avatar" style="width:48px;height:48px;font-size:16px;">${rec.avatar_url ? `<img src="${rec.avatar_url}">` : initials}</div><div class="friend-info"><div class="friend-name">${escapeHtml(name)}</div><div class="friend-program">${escapeHtml(rec.program_name||'Student')}</div><div class="friend-meta">Sent ${formatTimeAgo(r.created_at)}</div></div></div><div class="request-actions"><button class="btn btn-secondary btn-sm" onclick="cancelRequest('${r.id}')"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12"/></svg>Cancel</button></div></div>`;
+                    }).join('');
+                }
+            }
+            const count = incomingRequests.length;
+            const badge = document.getElementById('requestsCount');
+            const sbBadge = document.getElementById('sidebarFriendsBadge');
+            if (count > 0) { 
+                if (badge) { badge.textContent = count; badge.style.display = 'inline'; }
+                if (sbBadge) { sbBadge.textContent = count; sbBadge.style.display = 'inline'; } 
+            } else { 
+                if (badge) badge.style.display = 'none'; 
+                if (sbBadge) sbBadge.style.display = 'none'; 
+            }
+        }
+
+        async function acceptRequest(requestId, senderId) {
+            try {
+                await supabase.from('friend_requests').update({ status: 'accepted', updated_at: new Date().toISOString() }).eq('id', requestId);
+                await supabase.from('friendships').insert([{ user_id: currentUser.id, friend_id: senderId }, { user_id: senderId, friend_id: currentUser.id }]);
+                await createNotification(senderId, 'friend_accepted', 'Friend Request Accepted', 'accepted your friend request');
+                showToast('Friend request accepted!', 'success');
+                await loadFriends(); await loadRequests();
+            } catch (e) { showToast('Failed to accept', 'error'); }
+        }
+
+        async function declineRequest(requestId) {
+            await supabase.from('friend_requests').update({ status: 'rejected' }).eq('id', requestId);
+            showToast('Request declined'); await loadRequests();
+        }
+
+        async function cancelRequest(requestId) {
+            await supabase.from('friend_requests').delete().eq('id', requestId);
+            showToast('Request cancelled'); await loadRequests();
+        }
+
+        async function sendFriendRequest(userId, userName) {
+            // Check if already friends
+            const { data: friendship } = await supabase.from('friendships').select('id').or(`and(user_id.eq.${currentUser.id},friend_id.eq.${userId}),and(user_id.eq.${userId},friend_id.eq.${currentUser.id})`).maybeSingle();
+            if (friendship) { showToast('Already friends!', 'error'); return; }
+            
+            // Check for existing pending request
+            const { data: existing } = await supabase.from('friend_requests').select('id, status').or(`and(sender_id.eq.${currentUser.id},receiver_id.eq.${userId}),and(sender_id.eq.${userId},receiver_id.eq.${currentUser.id})`).maybeSingle();
+            
+            // If there's an existing request that's not pending (rejected/cancelled), delete it first
+            if (existing) {
+                if (existing.status === 'pending') {
+                    showToast('Request already pending', 'error'); 
+                    return;
+                }
+                // Delete old non-pending request
+                await supabase.from('friend_requests').delete().eq('id', existing.id);
+            }
+            
+            await supabase.from('friend_requests').insert({ sender_id: currentUser.id, receiver_id: userId });
+            await createNotification(userId, 'friend_request', 'New Friend Request', 'sent you a friend request');
+            showToast(`Request sent to ${userName}!`, 'success');
+            await loadRequests(); 
+            renderDiscoverUsers();
+            if (document.getElementById('findSearch')?.value) searchStudents();
+        }
+
+        function confirmRemoveFriend(friendId, name) {
+            document.getElementById('confirmTitle').textContent = 'Remove Friend';
+            document.getElementById('confirmMessage').textContent = `Remove ${name} from your friends?`;
+            confirmCallback = () => removeFriend(friendId);
+            document.getElementById('confirmModal').classList.add('show');
+        }
+
+        async function removeFriend(friendId) {
+            // Delete friendship
+            await supabase.from('friendships').delete().or(`and(user_id.eq.${currentUser.id},friend_id.eq.${friendId}),and(user_id.eq.${friendId},friend_id.eq.${currentUser.id})`);
+            // Also delete any existing friend requests between both users so they can send new ones
+            await supabase.from('friend_requests').delete().or(`and(sender_id.eq.${currentUser.id},receiver_id.eq.${friendId}),and(sender_id.eq.${friendId},receiver_id.eq.${currentUser.id})`);
+            showToast('Friend removed'); closeConfirmModal(); await loadFriends(); await loadRequests();
+        }
+
+        async function searchStudents() {
+            const query = document.getElementById('findSearch').value.trim();
+            const container = document.getElementById('searchResults');
+            if (!query) { container.innerHTML = '<div class="empty-state"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg><h3>Find Students</h3><p>Search by name or program</p></div>'; return; }
+            container.innerHTML = '<div style="text-align:center;padding:40px;color:var(--gray-400);">Searching...</div>';
+            const { data: results } = await supabase.from('profiles').select('id, first_name, last_name, full_name, program_name, avatar_url, is_online').or(`full_name.ilike.%${query}%,first_name.ilike.%${query}%,last_name.ilike.%${query}%,program_name.ilike.%${query}%`).neq('id', currentUser.id).limit(20);
+            if (!results || results.length === 0) { container.innerHTML = '<div class="empty-state"><h3>No students found</h3><p>Try a different search</p></div>'; return; }
+            
+            // Filter out blocked users (both directions)
+            const blockedIds = blockedUsers.map(b => b.blocked_id);
+            const filteredResults = results.filter(u => !blockedIds.includes(u.id) && !blockedByUsers.includes(u.id));
+            
+            if (filteredResults.length === 0) { container.innerHTML = '<div class="empty-state"><h3>No students found</h3><p>Try a different search</p></div>'; return; }
+            
+            const friendIds = friends.map(f => f.id);
+            const pendingOut = outgoingRequests.map(r => r.receiver.id);
+            const pendingIn = incomingRequests.map(r => r.sender.id);
+            container.innerHTML = '<div class="friends-grid">' + filteredResults.map(u => {
+                const name = u.full_name || `${u.first_name} ${u.last_name}`, initials = getInitials(name);
+                const isFriend = friendIds.includes(u.id), isPendingOut = pendingOut.includes(u.id), isPendingIn = pendingIn.includes(u.id);
+                let btn = '';
+                if (isFriend) btn = '<button class="btn btn-secondary btn-sm" disabled>Already Friends</button>';
+                else if (isPendingOut) btn = '<button class="btn btn-secondary btn-sm" disabled>Request Sent</button>';
+                else if (isPendingIn) btn = '<button class="btn btn-success btn-sm" onclick="switchTab(\'requests\')">Accept Request</button>';
+                else btn = `<button class="btn btn-primary btn-sm" onclick="event.stopPropagation(); sendFriendRequest('${u.id}','${escapeHtml(name)}')"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"/></svg>Add Friend</button>`;
+                return `<div class="friend-card" onclick="openProfileModal('${u.id}')" style="cursor:pointer;">
+                    <div class="friend-avatar">${u.avatar_url ? `<img src="${u.avatar_url}">` : initials}<div class="online-indicator ${u.is_online ? '' : 'offline'}"></div></div>
+                    <div class="friend-info"><div class="friend-name">${escapeHtml(name)}</div><div class="friend-program">${escapeHtml(u.program_name||'Student')}</div></div>
+                    <div class="friend-actions" onclick="event.stopPropagation();">${btn}</div>
+                </div>`;
+            }).join('') + '</div>';
+        }
+        document.getElementById('findSearch')?.addEventListener('keypress', e => { if (e.key === 'Enter') searchStudents(); });
+
+        async function loadNotifications() {
+            const { data } = await supabase.from('notifications').select('*').eq('user_id', currentUser.id).order('created_at', { ascending: false }).limit(10);
+            notifications = data || [];
+            renderNotifications();
+            checkAnnouncementPopup();
+        }
+        
+        function checkAnnouncementPopup() {
+            const adminTypes = ['announcement', 'admin_warning', 'warning', 'ban', 'admin_message', 'admin_urgent', 'admin_success'];
+            const unreadAdmin = notifications.filter(n => adminTypes.includes(n.type) && !n.is_read);
+            if (unreadAdmin.length > 0) showAdminPopup(unreadAdmin[0]);
+        }
+        
+        function showAdminPopup(notification) {
+            if (document.querySelector('.announcement-overlay')) return;
+            const timeAgo = formatTimeAgo(notification.created_at);
+            const type = notification.type || 'announcement';
+            let config = { label: '📢 Admin Announcement', iconBg: 'linear-gradient(135deg, #f97316 0%, #ea580c 100%)', iconShadow: 'rgba(249, 115, 22, 0.4)', icon: '<path d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z"/>', headerBg: 'linear-gradient(135deg, #1a365d 0%, #2c5282 100%)', labelColor: '#f97316' };
+            if (type === 'admin_warning' || type === 'warning') { config = { label: '⚠️ Admin Warning', iconBg: 'linear-gradient(135deg, #eab308 0%, #ca8a04 100%)', iconShadow: 'rgba(234, 179, 8, 0.4)', icon: '<path d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>', headerBg: 'linear-gradient(135deg, #854d0e 0%, #a16207 100%)', labelColor: '#fde047' }; }
+            else if (type === 'admin_urgent' || type === 'ban') { config = { label: type === 'ban' ? '🚫 Account Suspended' : '🚨 Urgent Notice', iconBg: 'linear-gradient(135deg, #dc2626 0%, #b91c1c 100%)', iconShadow: 'rgba(220, 38, 38, 0.4)', icon: type === 'ban' ? '<path d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"/>' : '<path d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>', headerBg: 'linear-gradient(135deg, #991b1b 0%, #b91c1c 100%)', labelColor: '#fca5a5' }; }
+            else if (type === 'admin_success') { config = { label: '✅ Good News!', iconBg: 'linear-gradient(135deg, #22c55e 0%, #16a34a 100%)', iconShadow: 'rgba(34, 197, 94, 0.4)', icon: '<path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>', headerBg: 'linear-gradient(135deg, #166534 0%, #15803d 100%)', labelColor: '#86efac' }; }
+            const overlay = document.createElement('div');
+            overlay.className = 'announcement-overlay';
+            overlay.innerHTML = `<div class="announcement-popup" style="background: ${config.headerBg};"><div class="announcement-header"><div class="announcement-icon" style="background: ${config.iconBg}; box-shadow: 0 4px 12px ${config.iconShadow};"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">${config.icon}</svg></div><div class="announcement-header-text"><div class="announcement-label" style="color: ${config.labelColor};">${config.label}</div><div class="announcement-title">${escapeHtml(notification.title)}</div></div></div><div class="announcement-body"><div class="announcement-message">${escapeHtml(notification.body || '')}</div><div class="announcement-time"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>${timeAgo}</div></div><div class="announcement-footer"><button class="announcement-btn" onclick="dismissAnnouncement('${notification.id}')"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg>I Understand</button></div></div>`;
+            document.body.appendChild(overlay);
+            playNotificationSound();
+        }
+        
+        async function dismissAnnouncement(announcementId) {
+            const notification = notifications.find(n => n.id === announcementId);
+            const isBan = notification && notification.type === 'ban';
+            
+            await supabase.from('notifications').update({ is_read: true }).eq('id', announcementId);
+            const idx = notifications.findIndex(n => n.id === announcementId);
+            if (idx !== -1) notifications[idx].is_read = true;
+            const overlay = document.querySelector('.announcement-overlay');
+            if (overlay) { overlay.style.animation = 'fadeIn 0.3s ease reverse'; setTimeout(() => overlay.remove(), 300); }
+            
+            if (isBan) {
+                await supabase.auth.signOut();
+                window.location.href = 'index.html';
+                return;
+            }
+            
+            renderNotifications();
+            setTimeout(checkAnnouncementPopup, 500);
+        }
+
+        function renderNotifications() {
+            const list = document.getElementById('notifList');
+            const badge = document.getElementById('notifBadge');
+            const unread = notifications.filter(n => !n.is_read).length;
+            if (unread > 0) { badge.textContent = unread > 9 ? '9+' : unread; badge.style.display = 'flex'; }
+            else { badge.style.display = 'none'; }
+            if (notifications.length === 0) { list.innerHTML = '<div class="notif-empty"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg><p>No notifications</p></div>'; return; }
+            list.innerHTML = notifications.map(n => {
+                const type = n.type || '';
+                const iconClass = type.includes('friend') ? 'friend' : type.includes('message') ? 'message' : type.includes('warning') ? 'warning' : 'group';
+                const iconSvg = iconClass === 'friend' ? '<path d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"/>' : iconClass === 'message' ? '<path d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>' : '<path d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/>';
+                return `<div class="notif-dropdown-item ${n.is_read ? '' : 'unread'}" onclick="handleNotifClick('${n.id}','${type}')"><div class="notif-icon ${iconClass}"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">${iconSvg}</svg></div><div class="notif-content"><h4>${escapeHtml(n.title || 'Notification')}</h4><p>${escapeHtml(n.body||'')}</p><div class="time">${formatTimeAgo(n.created_at)}</div></div></div>`;
+            }).join('');
+        }
+
+        async function handleNotifClick(id, type) {
+            await supabase.from('notifications').update({ is_read: true }).eq('id', id);
+            const n = notifications.find(x => x.id === id); if (n) n.is_read = true;
+            renderNotifications();
+            document.getElementById('notificationDropdown').classList.remove('show');
+            if (type === 'friend_request' || type === 'friend_accept') switchTab('requests');
+            else if (type === 'message') window.location.href = 'messages.html';
+            else if (type === 'study_group') window.location.href = 'study-groups.html';
+            else if (type === 'admin_warning' || type === 'announcement') window.location.href = 'dashboard.html';
+        }
+
+        async function markAllNotificationsRead() {
+            await supabase.from('notifications').update({ is_read: true }).eq('user_id', currentUser.id);
+            notifications.forEach(n => n.is_read = true);
+            renderNotifications();
+            showToast('Marked all as read');
+        }
+
+        function toggleNotifications() { event.stopPropagation(); document.getElementById('notificationDropdown').classList.toggle('show'); }
+
+        async function createNotification(userId, type, title, body) {
+            await supabase.from('notifications').insert({ user_id: userId, type, title, body });
+        }
+
+        // Notification sound
+        function playNotificationSound() {
+            try {
+                const ctx = new (window.AudioContext || window.webkitAudioContext)();
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+                osc.frequency.value = 800;
+                osc.type = 'sine';
+                gain.gain.setValueAtTime(0.1, ctx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.3);
+                osc.start(ctx.currentTime);
+                osc.stop(ctx.currentTime + 0.3);
+            } catch (e) { console.log('Sound error:', e); }
+        }
+
+        function subscribeToRealtime() {
+            // Listen for incoming friend requests
+            supabase.channel('friend-requests-in').on('postgres_changes', { event: '*', schema: 'public', table: 'friend_requests', filter: `receiver_id=eq.${currentUser.id}` }, () => { loadRequests(); loadSidebarBadges(); playNotificationSound(); }).subscribe();
+            // Listen for changes to our outgoing requests (when someone accepts/rejects)
+            supabase.channel('friend-requests-out').on('postgres_changes', { event: '*', schema: 'public', table: 'friend_requests', filter: `sender_id=eq.${currentUser.id}` }, () => { loadRequests(); renderDiscoverUsers(); }).subscribe();
+            // Listen for friendship changes
+            supabase.channel('friendships').on('postgres_changes', { event: '*', schema: 'public', table: 'friendships' }, () => { loadFriends(); loadRequests(); }).subscribe();
+            supabase.channel('notifications-friends-' + currentUser.id).on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'notifications', filter: `user_id=eq.${currentUser.id}` }, (p) => { 
+                console.log('Friends page: New notification received:', p);
+                notifications.unshift(p.new); 
+                renderNotifications(); 
+                const adminTypes = ['announcement', 'admin_warning', 'warning', 'ban', 'admin_message', 'admin_urgent', 'admin_success'];
+                if (adminTypes.includes(p.new.type)) {
+                    showAdminPopup(p.new);
+                } else {
+                    playNotificationSound();
+                    showToast(p.new.title || 'New notification', 'success');
+                }
+            }).subscribe((status) => console.log('Friends notification subscription:', status));
+            supabase.channel('online-status-friends-' + currentUser.id).on('postgres_changes', { event: 'UPDATE', schema: 'public', table: 'profiles' }, (p) => {
+                // Update friends list
+                const idx = friends.findIndex(f => f.id === p.new.id);
+                if (idx !== -1) { 
+                    const wasOff = !friends[idx].is_online;
+                    const lastSeen = friends[idx].last_seen ? new Date(friends[idx].last_seen) : null;
+                    const now = new Date();
+                    const offlineDuration = lastSeen ? (now - lastSeen) / 1000 : 999;
+                    
+                    friends[idx].is_online = p.new.is_online; 
+                    friends[idx].last_seen = p.new.last_seen; 
+                    renderFriends(); 
+                    updateStats(); 
+                    
+                    // Only show notification if they were offline for more than 30 seconds
+                    if (wasOff && p.new.is_online && offlineDuration > 30) {
+                        showFriendOnlineToast(friends[idx].full_name || friends[idx].first_name);
+                    }
+                }
+                // Update discover list
+                const discoverIdx = discoverUsers.findIndex(u => u.id === p.new.id);
+                if (discoverIdx !== -1) {
+                    discoverUsers[discoverIdx].is_online = p.new.is_online;
+                    discoverUsers[discoverIdx].last_seen = p.new.last_seen;
+                    renderDiscoverUsers();
+                }
+            }).subscribe();
+            
+            // Sidebar messages badge real-time
+            supabase.channel('friends-messages-' + currentUser.id).on('postgres_changes', { event: '*', schema: 'public', table: 'messages', filter: `receiver_id=eq.${currentUser.id}` }, () => loadSidebarBadges()).subscribe();
+        }
+
+        function showFriendOnlineToast(friendName) {
+            const existing = document.querySelector('.friend-online-toast');
+            if (existing) existing.remove();
+            const toast = document.createElement('div');
+            toast.className = 'friend-online-toast';
+            toast.innerHTML = `<div style="width:10px;height:10px;background:#22c55e;border-radius:50%;animation:pulse 1s infinite;"></div><span><strong>${friendName}</strong> is now online</span>`;
+            toast.style.cssText = 'position:fixed;top:80px;right:20px;background:linear-gradient(135deg,#065f46,#047857);color:white;padding:14px 20px;border-radius:12px;display:flex;align-items:center;gap:12px;z-index:9999;animation:slideInRight 0.3s ease;box-shadow:0 4px 20px rgba(4,120,87,0.4);font-size:14px;';
+            const style = document.createElement('style');
+            style.textContent = '@keyframes slideInRight{from{transform:translateX(100%);opacity:0}to{transform:translateX(0);opacity:1}}@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.5}}';
+            document.head.appendChild(style);
+            document.body.appendChild(toast);
+            playNotificationSound();
+            setTimeout(() => { toast.style.animation = 'slideInRight 0.3s ease reverse'; setTimeout(() => toast.remove(), 300); }, 4000);
+        }
+
+        async function loadSidebarBadges() {
+            const { count: msgCount } = await supabase.from('messages').select('id', { count: 'exact' }).eq('receiver_id', currentUser.id).eq('is_read', false).eq('is_deleted', false);
+            updateSidebarBadge('sidebarMsgBadge', msgCount || 0);
+            const { count: reqCount } = await supabase.from('friend_requests').select('id', { count: 'exact' }).eq('receiver_id', currentUser.id).eq('status', 'pending');
+            updateSidebarBadge('sidebarFriendsBadge', reqCount || 0);
+        }
+
+        function updateSidebarBadge(elementId, count) {
+            const badge = document.getElementById(elementId);
+            if (badge) {
+                if (count > 0) { badge.textContent = count > 99 ? '99+' : count; badge.style.display = 'inline'; }
+                else { badge.style.display = 'none'; }
+            }
+        }
+
+        function updateStats() {
+            document.getElementById('totalFriends').textContent = friends.length;
+            document.getElementById('onlineFriends').textContent = friends.filter(f => f.is_online).length;
+            document.getElementById('blockedCount').textContent = blockedUsers.length;
+        }
+
+        function switchTab(tab) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelector(`[data-tab="${tab}"]`).classList.add('active');
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            document.getElementById(`${tab}Tab`).classList.add('active');
+            
+            // Load discover users when switching to discover tab
+            if (tab === 'discover' && discoverUsers.length === 0) {
+                loadDiscoverUsers();
+            }
+        }
+
+        // =============================================
+        // DISCOVER USERS
+        // =============================================
+        async function loadDiscoverUsers() {
+            const container = document.getElementById('discoverContainer');
+            container.innerHTML = '<div class="loading-state"><div class="loading-spinner-small"></div><p>Loading users...</p></div>';
+
+            const filter = document.getElementById('discoverFilter').value;
+            
+            try {
+                let query = supabase
+                    .from('profiles')
+                    .select('id, first_name, last_name, full_name, avatar_url, program_name, is_online, last_seen, created_at')
+                    .neq('id', currentUser.id)
+                    .limit(50);
+
+                if (filter === 'online') {
+                    query = query.eq('is_online', true);
+                } else if (filter === 'recent') {
+                    const oneHourAgo = new Date(Date.now() - 60 * 60 * 1000).toISOString();
+                    query = query.gte('last_seen', oneHourAgo);
+                }
+
+                query = query.order('is_online', { ascending: false }).order('last_seen', { ascending: false });
+
+                const { data: users, error } = await query;
+
+                if (error) throw error;
+
+                // Filter out blocked users
+                const blockedIds = blockedUsers.map(b => b.blocked_id);
+                discoverUsers = (users || []).filter(u => !blockedIds.includes(u.id) && !blockedByUsers.includes(u.id));
+
+                renderDiscoverUsers();
+            } catch (e) {
+                console.error('Error loading discover users:', e);
+                container.innerHTML = '<div class="empty-state"><p>Error loading users</p></div>';
+            }
+        }
+
+        function renderDiscoverUsers() {
+            const container = document.getElementById('discoverContainer');
+
+            if (discoverUsers.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+                        <h3>No users found</h3>
+                        <p>Try a different filter</p>
+                    </div>`;
+                return;
+            }
+
+            // Get friend IDs and request IDs for button states
+            const friendIds = friends.map(f => f.id);
+            const outgoingIds = outgoingRequests.map(r => r.receiver?.id || r.receiver_id);
+            const incomingIds = incomingRequests.map(r => r.sender?.id || r.sender_id);
+
+            container.innerHTML = '<div class="discover-grid">' + discoverUsers.map(user => {
+                const name = user.full_name || `${user.first_name} ${user.last_name}`;
+                const initials = getInitials(name);
+                const isFriend = friendIds.includes(user.id);
+                const hasSentRequest = outgoingIds.includes(user.id);
+                const hasIncomingRequest = incomingIds.includes(user.id);
+
+                let actionButtons = '';
+                if (isFriend) {
+                    actionButtons = `<button class="btn btn-secondary" disabled>
+                        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg>
+                        Friends
+                    </button>`;
+                } else if (hasSentRequest) {
+                    actionButtons = `<button class="btn btn-secondary" disabled>
+                        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                        Pending
+                    </button>`;
+                } else if (hasIncomingRequest) {
+                    actionButtons = `<button class="btn btn-success" onclick="event.stopPropagation(); acceptRequestFromDiscover('${user.id}')">
+                        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg>
+                        Accept
+                    </button>`;
+                } else {
+                    actionButtons = `<button class="btn btn-primary" onclick="event.stopPropagation(); sendFriendRequest('${user.id}', '${escapeHtml(name)}')">
+                        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"/></svg>
+                        Add Friend
+                    </button>`;
+                }
+
+                return `
+                    <div class="discover-card" onclick="openProfileModal('${user.id}')">
+                        <div class="discover-avatar">
+                            ${user.avatar_url ? `<img src="${user.avatar_url}" alt="">` : initials}
+                            <div class="online-dot ${user.is_online ? '' : 'offline'}"></div>
+                        </div>
+                        <div class="discover-name">${escapeHtml(name)}</div>
+                        <div class="discover-program">${escapeHtml(user.program_name || 'Student')}</div>
+                        <div class="discover-status ${user.is_online ? '' : 'offline'}">
+                            <span class="dot"></span>
+                            ${user.is_online ? 'Online' : (user.last_seen ? formatTimeAgo(user.last_seen) : 'Offline')}
+                        </div>
+                        <div class="discover-actions">
+                            ${actionButtons}
+                            <button class="btn btn-secondary" onclick="event.stopPropagation(); messageUser('${user.id}')" title="Message">
+                                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
+                            </button>
+                        </div>
+                    </div>`;
+            }).join('') + '</div>';
+        }
+
+        async function acceptRequestFromDiscover(userId) {
+            const request = incomingRequests.find(r => (r.sender?.id || r.sender_id) === userId);
+            if (request) {
+                await acceptRequest(request.id, request.sender?.first_name || 'User');
+                await loadDiscoverUsers();
+            }
+        }
+
+        function messageUser(userId) {
+            window.location.href = `messages.html?user=${userId}`;
+        }
+
+        // =============================================
+        // BLOCKED USERS
+        // =============================================
+        async function loadBlockedUsers() {
+            // Users I blocked
+            const { data: blocked } = await supabase
+                .from('blocked_users')
+                .select('blocked_id, created_at, blocked:profiles!blocked_users_blocked_id_fkey(id, first_name, last_name, full_name, avatar_url)')
+                .eq('blocker_id', currentUser.id);
+            blockedUsers = blocked || [];
+
+            // Users who blocked me
+            const { data: blockedBy } = await supabase
+                .from('blocked_users')
+                .select('blocker_id')
+                .eq('blocked_id', currentUser.id);
+            blockedByUsers = (blockedBy || []).map(b => b.blocker_id);
+
+            updateStats();
+        }
+
+        function isBlocked(userId) {
+            return blockedUsers.some(b => b.blocked_id === userId);
+        }
+
+        function isBlockedBy(userId) {
+            return blockedByUsers.includes(userId);
+        }
+
+        async function blockUser(userId, userName) {
+            if (isBlocked(userId)) { showToast('User already blocked', 'error'); return; }
+            try {
+                await supabase.from('blocked_users').insert({ blocker_id: currentUser.id, blocked_id: userId });
+                // Also remove friendship if exists
+                await supabase.from('friendships').delete().or(`and(user_id.eq.${currentUser.id},friend_id.eq.${userId}),and(user_id.eq.${userId},friend_id.eq.${currentUser.id})`);
+                // Cancel any pending requests
+                await supabase.from('friend_requests').delete().or(`and(sender_id.eq.${currentUser.id},receiver_id.eq.${userId}),and(sender_id.eq.${userId},receiver_id.eq.${currentUser.id})`);
+                showToast(`${userName} has been blocked`, 'success');
+                await Promise.all([loadBlockedUsers(), loadFriends(), loadRequests()]);
+                closeProfileModal();
+            } catch (e) { showToast('Failed to block user', 'error'); }
+        }
+
+        async function unblockUser(userId, userName) {
+            try {
+                await supabase.from('blocked_users').delete().eq('blocker_id', currentUser.id).eq('blocked_id', userId);
+                showToast(`${userName} has been unblocked`, 'success');
+                await loadBlockedUsers();
+                renderBlockedModal();
+            } catch (e) { showToast('Failed to unblock user', 'error'); }
+        }
+
+        function openBlockedModal() {
+            renderBlockedModal();
+            document.getElementById('blockedModal').classList.add('show');
+        }
+
+        function closeBlockedModal() {
+            document.getElementById('blockedModal').classList.remove('show');
+        }
+
+        function renderBlockedModal() {
+            const container = document.getElementById('blockedModalBody');
+            if (blockedUsers.length === 0) {
+                container.innerHTML = '<div class="blocked-empty"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"/></svg><p>No blocked users</p></div>';
+                return;
+            }
+            container.innerHTML = blockedUsers.map(b => {
+                const user = b.blocked;
+                const name = user.full_name || `${user.first_name} ${user.last_name}`;
+                const initials = getInitials(name);
+                const blockedDate = new Date(b.created_at).toLocaleDateString();
+                return `<div class="blocked-user-item">
+                    <div class="blocked-user-avatar">${user.avatar_url ? `<img src="${user.avatar_url}">` : initials}</div>
+                    <div class="blocked-user-info"><div class="blocked-user-name">${escapeHtml(name)}</div><div class="blocked-user-date">Blocked on ${blockedDate}</div></div>
+                    <button class="btn btn-sm btn-secondary" onclick="unblockUser('${user.id}', '${escapeHtml(name)}')">Unblock</button>
+                </div>`;
+            }).join('');
+        }
+
+        // =============================================
+        // REPORT USER
+        // =============================================
+        function openReportModal(userId) {
+            document.getElementById('reportUserId').value = userId;
+            document.getElementById('reportReason').value = '';
+            document.getElementById('reportDescription').value = '';
+            document.getElementById('reportModal').classList.add('show');
+        }
+
+        function closeReportModal() {
+            document.getElementById('reportModal').classList.remove('show');
+        }
+
+        async function submitReport() {
+            const userId = document.getElementById('reportUserId').value;
+            const reason = document.getElementById('reportReason').value;
+            const description = document.getElementById('reportDescription').value;
+
+            if (!reason) { showToast('Please select a reason', 'error'); return; }
+
+            try {
+                await supabase.from('user_reports').insert({
+                    reporter_id: currentUser.id,
+                    reported_id: userId,
+                    report_type: 'user',
+                    reason: reason,
+                    description: description
+                });
+                showToast('Report submitted. Our team will review it.', 'success');
+                closeReportModal();
+                closeProfileModal();
+            } catch (e) {
+                console.error('Report error:', e);
+                showToast('Failed to submit report', 'error');
+            }
+        }
+
+        // =============================================
+        // PROFILE MODAL
+        // =============================================
+        async function openProfileModal(userId) {
+            // Fetch full user profile
+            const { data: user } = await supabase
+                .from('profiles')
+                .select('id, first_name, last_name, full_name, program_name, year_of_study, bio, avatar_url, is_online, last_seen, created_at')
+                .eq('id', userId)
+                .single();
+
+            if (!user) { showToast('User not found', 'error'); return; }
+            selectedProfileUser = user;
+
+            const name = user.full_name || `${user.first_name} ${user.last_name}`;
+            const initials = getInitials(name);
+            const isFriend = friends.some(f => f.id === userId);
+            const isPendingOut = outgoingRequests.some(r => r.receiver.id === userId);
+            const isPendingIn = incomingRequests.some(r => r.sender.id === userId);
+            const blocked = isBlocked(userId);
+            const blockedBy = isBlockedBy(userId);
+            const lastSeen = user.last_seen ? formatTimeAgo(user.last_seen) : 'Unknown';
+            const memberSince = new Date(user.created_at).toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
+
+            // Modal body content
+            document.getElementById('profileModalBody').innerHTML = `
+                <div class="profile-modal-content">
+                    <div class="profile-modal-avatar">
+                        ${user.avatar_url ? `<img src="${user.avatar_url}" alt="">` : initials}
+                        <div class="online-dot ${user.is_online ? '' : 'offline'}"></div>
+                    </div>
+                    <div class="profile-modal-name">${escapeHtml(name)}</div>
+                    <div class="profile-modal-program">${escapeHtml(user.program_name || 'Student')}${user.year_of_study ? ` • Year ${user.year_of_study}` : ''}</div>
+                    <div class="profile-modal-status ${user.is_online ? 'online' : 'offline'}">
+                        <span>●</span> ${user.is_online ? 'Online now' : `Last seen ${lastSeen}`}
+                    </div>
+                    ${user.bio ? `<div class="profile-modal-bio">${escapeHtml(user.bio)}</div>` : ''}
+                    <div class="profile-modal-meta">
+                        <div class="label">Member since</div>
+                        <div class="value">${memberSince}</div>
+                    </div>
+                </div>
+            `;
+
+            // Modal footer actions
+            let actionsHtml = '<div class="profile-modal-actions">';
+            if (blockedBy) {
+                actionsHtml += '<p style="text-align:center;color:var(--gray-500);font-size:14px;padding:16px 0;">You cannot interact with this user</p>';
+            } else if (blocked) {
+                actionsHtml += `<button class="btn btn-secondary" onclick="unblockUser('${userId}', '${escapeHtml(name)}')">
+                    <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"/></svg>
+                    Unblock User
+                </button>`;
+            } else {
+                // Primary action button
+                if (isFriend) {
+                    actionsHtml += `<button class="btn btn-primary" onclick="startMessage('${userId}')">
+                        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
+                        Message
+                    </button>`;
+                    actionsHtml += `<button class="btn btn-danger" onclick="confirmRemoveFriend('${userId}', '${escapeHtml(name)}'); closeProfileModal();">
+                        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M13 7a4 4 0 11-8 0 4 4 0 018 0zM9 14a6 6 0 00-6 6v1h12v-1a6 6 0 00-6-6zM21 12h-6"/></svg>
+                        Remove Friend
+                    </button>`;
+                } else if (isPendingOut) {
+                    actionsHtml += `<button class="btn btn-secondary" disabled>
+                        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                        Request Sent
+                    </button>`;
+                } else if (isPendingIn) {
+                    actionsHtml += `<button class="btn btn-success" onclick="acceptRequestFromModal('${userId}')">
+                        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg>
+                        Accept Request
+                    </button>`;
+                } else {
+                    actionsHtml += `<button class="btn btn-primary" onclick="sendFriendRequest('${userId}', '${escapeHtml(name)}'); closeProfileModal();">
+                        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"/></svg>
+                        Add Friend
+                    </button>`;
+                }
+                
+                // Block and Report buttons
+                actionsHtml += `
+                    <div class="btn-row">
+                        <button class="btn btn-outline-danger" onclick="confirmBlockUser('${userId}', '${escapeHtml(name)}')">
+                            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"/></svg>
+                            Block
+                        </button>
+                        <button class="btn btn-warning" onclick="openReportModal('${userId}')">
+                            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+                            Report
+                        </button>
+                    </div>`;
+            }
+            
+            // View Full Profile link
+            actionsHtml += `
+                <div class="profile-modal-link-container">
+                    <a href="profile.html?user=${userId}" class="profile-modal-link">
+                        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
+                        View Full Profile
+                        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
+                    </a>
+                </div>
+            </div>`;
+            
+            document.getElementById('profileModalFooter').innerHTML = actionsHtml;
+            document.getElementById('profileModal').classList.add('show');
+        }
+
+        function closeProfileModal() {
+            document.getElementById('profileModal').classList.remove('show');
+            selectedProfileUser = null;
+        }
+
+        function confirmBlockUser(userId, userName) {
+            document.getElementById('confirmTitle').textContent = 'Block User';
+            document.getElementById('confirmMessage').innerHTML = `Block <strong>${userName}</strong>?<br><br><small style="color:var(--gray-500);">They won't be able to send you messages or friend requests. You can unblock them anytime.</small>`;
+            document.getElementById('confirmBtn').textContent = 'Block';
+            confirmCallback = () => { blockUser(userId, userName); closeConfirmModal(); };
+            document.getElementById('confirmModal').classList.add('show');
+        }
+
+        async function acceptRequestFromModal(senderId) {
+            const req = incomingRequests.find(r => r.sender.id === senderId);
+            if (req) {
+                await acceptRequest(req.id, senderId);
+                closeProfileModal();
+            }
+        }
+
+        function getInitials(name) { return name.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2); }
+        function escapeHtml(t) { if (!t) return ''; const d = document.createElement('div'); d.textContent = t; return d.innerHTML; }
+        function formatTimeAgo(d) { const s = Math.floor((new Date() - new Date(d)) / 1000); if (s < 60) return 'Just now'; if (s < 3600) return `${Math.floor(s/60)}m ago`; if (s < 86400) return `${Math.floor(s/3600)}h ago`; return `${Math.floor(s/86400)}d ago`; }
+        function showToast(msg, type = '') { const t = document.getElementById('toast'); document.getElementById('toastMessage').textContent = msg; t.className = 'toast' + (type ? ` ${type}` : ''); t.classList.add('show'); setTimeout(() => t.classList.remove('show'), 3000); }
+        function startMessage(id) { window.location.href = `messages.html?user=${id}`; }
+        function closeConfirmModal() { document.getElementById('confirmModal').classList.remove('show'); confirmCallback = null; }
+        function confirmAction() { if (confirmCallback) confirmCallback(); }
+        function toggleSidebar() { document.getElementById('sidebar').classList.toggle('open'); document.getElementById('sidebarOverlay').classList.toggle('show'); }
+        async function handleLogout() { await updateOnlineStatus(false); await supabase.auth.signOut(); window.location.href = 'index.html'; }
+
+        // All Notifications Modal
+        async function openNotificationsModal() {
+            document.getElementById('notificationDropdown').classList.remove('show');
+            document.getElementById('notificationsModal').classList.add('show');
+            await loadAllNotifications();
+        }
+        function closeNotificationsModal() { document.getElementById('notificationsModal').classList.remove('show'); }
+        async function loadAllNotifications() {
+            const { data } = await supabase.from('notifications').select('*').eq('user_id', currentUser.id).order('created_at', { ascending: false }).limit(100);
+            const allNotifs = data || [];
+            const list = document.getElementById('allNotifList');
+            if (allNotifs.length === 0) { list.innerHTML = '<div class="notif-empty" style="padding:40px;text-align:center;color:var(--gray-400);"><p>No notifications</p></div>'; return; }
+            list.innerHTML = allNotifs.map(n => {
+                const type = n.type || '';
+                const iconClass = type.includes('friend') ? 'friend' : type.includes('message') ? 'message' : type.includes('warning') ? 'warning' : 'group';
+                const iconSvg = iconClass === 'friend' ? '<path d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"/>' : iconClass === 'message' ? '<path d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>' : '<path d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/>';
+                return `<div class="notif-dropdown-item ${n.is_read ? '' : 'unread'}" onclick="handleNotifClickModal('${n.id}','${type}')"><div class="notif-icon ${iconClass}"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">${iconSvg}</svg></div><div class="notif-content"><h4>${escapeHtml(n.title || 'Notification')}</h4><p>${escapeHtml(n.body || '')}</p><div class="time">${formatTimeAgo(n.created_at)}</div></div></div>`;
+            }).join('');
+        }
+        async function handleNotifClickModal(id, type) { await supabase.from('notifications').update({ is_read: true }).eq('id', id); closeNotificationsModal(); if (type === 'friend_request' || type === 'friend_accept') switchTab('requests'); else if (type === 'message') window.location.href = 'messages.html'; else if (type === 'study_group') window.location.href = 'study-groups.html'; else if (type === 'admin_warning' || type === 'announcement') window.location.href = 'dashboard.html'; }
+        async function markAllNotificationsReadModal() { await supabase.from('notifications').update({ is_read: true }).eq('user_id', currentUser.id); notifications.forEach(n => n.is_read = true); renderNotifications(); await loadAllNotifications(); showToast('All marked as read'); }
+        async function clearAllNotifications() { if (!confirm('Clear all notifications?')) return; const { error } = await supabase.from('notifications').delete().eq('user_id', currentUser.id); if (error) { console.error('Delete failed:', error); showToast('Failed to clear. Check database permissions.', 'error'); return; } notifications = []; renderNotifications(); loadAllNotifications(); closeNotificationsModal(); showToast('Notifications cleared'); }
+
+        init();
+    </script>
+</body>
+</html>

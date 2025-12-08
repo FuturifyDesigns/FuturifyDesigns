@@ -1,0 +1,2774 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, interactive-widget=resizes-content, maximum-scale=1.0, user-scalable=no">
+    <title>Dashboard - MyUB</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Sora:wght@600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="myub-utils.js"></script>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+            -webkit-touch-callout: none;
+        }
+
+        :root {
+            --navy: #1a365d;
+            --navy-light: #2c5282;
+            --navy-dark: #0f2744;
+            --red: #c41e3a;
+            --white: #ffffff;
+            --gray-50: #f8fafc;
+            --gray-100: #f1f5f9;
+            --gray-200: #e2e8f0;
+            --gray-300: #cbd5e1;
+            --gray-400: #94a3b8;
+            --gray-500: #64748b;
+            --gray-600: #475569;
+            --gray-700: #334155;
+            --gray-800: #1e293b;
+            --green: #22c55e;
+            --yellow: #eab308;
+            --blue: #3b82f6;
+            --purple: #8b5cf6;
+            --pink: #ec4899;
+            --orange: #f97316;
+        }
+
+        html {
+            height: auto;
+            min-height: 100%;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: var(--gray-100);
+            min-height: 100%;
+            overflow-x: hidden;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        /* ========== SIDEBAR ========== */
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 260px;
+            background: var(--navy-dark);
+            padding: 20px 0;
+            z-index: 100;
+            transition: transform 0.3s ease;
+            overflow-y: auto;
+        }
+
+        .sidebar-header {
+            padding: 0 20px 20px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            margin-bottom: 20px;
+        }
+
+        .sidebar-logo {
+            display: inline-flex;
+            align-items: baseline;
+            text-decoration: none;
+            background: white;
+            padding: 30px 15px 10px 15px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .sidebar-logo-m-wrapper {
+            position: relative;
+            display: inline-block;
+        }
+
+        .sidebar-logo-cap {
+            width: 45px;
+            height: 26px;
+            position: absolute;
+            top: -22px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .sidebar-logo-m {
+            font-family: 'Times New Roman', Georgia, serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--navy);
+            line-height: 1;
+        }
+
+        .sidebar-logo-yub {
+            font-family: 'Times New Roman', Georgia, serif;
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--navy);
+            margin-left: -2px;
+        }
+
+        .nav-section {
+            margin-bottom: 24px;
+        }
+
+        .nav-section-title {
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--gray-400);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 0 20px;
+            margin-bottom: 8px;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 20px;
+            color: var(--gray-300);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.2s;
+            cursor: pointer;
+            border: none;
+            background: none;
+            width: 100%;
+            text-align: left;
+        }
+
+        .nav-item:hover {
+            background: rgba(255,255,255,0.05);
+            color: var(--white);
+        }
+
+        .nav-item.active {
+            background: rgba(255,255,255,0.1);
+            color: var(--white);
+            border-right: 3px solid var(--red);
+        }
+
+        .nav-item svg {
+            width: 20px;
+            height: 20px;
+            flex-shrink: 0;
+        }
+
+        .nav-item .badge {
+            margin-left: auto;
+            background: var(--red);
+            color: var(--white);
+            font-size: 11px;
+            font-weight: 600;
+            padding: 2px 8px;
+            border-radius: 10px;
+        }
+
+        /* ========== MAIN CONTENT ========== */
+        .main-content {
+            margin-left: 260px;
+            min-height: 100vh;
+        }
+
+        /* Top Bar */
+        .topbar {
+            background: var(--white);
+            padding: 16px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid var(--gray-200);
+            position: sticky;
+            top: 0;
+            z-index: 50;
+        }
+
+        .topbar-left {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            position: relative;
+        }
+
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: var(--gray-600);
+        }
+
+        .page-title {
+            font-family: 'Sora', sans-serif;
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--gray-800);
+        }
+
+        .topbar-right {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .search-box {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--gray-100);
+            padding: 8px 14px;
+            border-radius: 10px;
+            width: 240px;
+            position: relative;
+        }
+
+        .search-box input {
+            border: none;
+            background: transparent;
+            outline: none;
+            font-family: 'Outfit', sans-serif;
+            font-size: 14px;
+            width: 100%;
+            color: var(--gray-700);
+        }
+
+        .search-box input::placeholder {
+            color: var(--gray-400);
+        }
+
+        .search-box svg {
+            width: 18px;
+            height: 18px;
+            color: var(--gray-400);
+        }
+
+        .search-results-dropdown {
+            position: absolute;
+            top: calc(100% + 8px);
+            left: 0;
+            right: 0;
+            max-width: 400px;
+            background: var(--white);
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+            max-height: 400px;
+            overflow-y: auto;
+            z-index: 1000;
+            display: none;
+        }
+        .search-results-dropdown.show { display: block; }
+        .search-result-item {
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+            border-bottom: 1px solid var(--gray-100);
+            transition: background 0.2s;
+        }
+        .search-result-item:hover { background: var(--gray-50); }
+        .search-result-item:last-child { border-bottom: none; }
+        .search-result-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        .search-result-icon svg { width: 18px; height: 18px; }
+        .search-result-icon.page { background: var(--blue-light); color: var(--blue); }
+        .search-result-icon.note { background: #fef3c7; color: #d97706; }
+        .search-result-icon.group { background: #ede9fe; color: #7c3aed; }
+        .search-result-icon.friend { background: #d1fae5; color: #059669; }
+        .search-result-icon.event { background: #fee2e2; color: #dc2626; }
+        .search-result-content h4 { font-size: 14px; font-weight: 600; color: var(--gray-800); }
+        .search-result-content p { font-size: 12px; color: var(--gray-500); margin-top: 2px; }
+        .search-no-results { padding: 20px; text-align: center; color: var(--gray-400); }
+
+        .icon-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            border: none;
+            background: var(--gray-100);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            transition: all 0.2s;
+        }
+
+        .icon-btn:hover {
+            background: var(--gray-200);
+        }
+
+        .icon-btn svg {
+            width: 20px;
+            height: 20px;
+            color: var(--gray-600);
+        }
+
+        .icon-btn .notification-dot {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            width: 8px;
+            height: 8px;
+            background: var(--red);
+            border-radius: 50%;
+            border: 2px solid var(--white);
+        }
+
+        .notification-badge {
+            position: absolute;
+            top: -4px;
+            right: -4px;
+            background: var(--red);
+            color: var(--white);
+            font-size: 10px;
+            font-weight: 700;
+            min-width: 18px;
+            height: 18px;
+            border-radius: 9px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid var(--white);
+        }
+
+        .notification-wrapper { position: relative; }
+        .notification-dropdown {
+            position: absolute;
+            top: calc(100% + 8px);
+            right: 0;
+            width: 360px;
+            max-height: 480px;
+            background: var(--white);
+            border-radius: 16px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.2s;
+            z-index: 2000;
+            overflow: hidden;
+        }
+        .notification-dropdown.show { opacity: 1; visibility: visible; transform: translateY(0); }
+        .notif-dropdown-header {
+            padding: 16px 20px;
+            border-bottom: 1px solid var(--gray-200);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .notif-dropdown-header h3 { font-size: 16px; font-weight: 700; color: var(--gray-800); }
+        .notif-dropdown-header button { background: none; border: none; color: var(--navy); font-size: 13px; font-weight: 600; cursor: pointer; }
+        .notif-dropdown-list { max-height: 360px; overflow-y: auto; }
+        .notif-dropdown-item {
+            padding: 14px 20px;
+            display: flex;
+            gap: 12px;
+            border-bottom: 1px solid var(--gray-100);
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .notif-dropdown-item:hover { background: var(--gray-50); }
+        .notif-dropdown-item.unread { background: #f0f9ff; }
+        .notif-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        .notif-icon.friend { background: var(--green); color: white; }
+        .notif-icon.message { background: var(--blue); color: white; }
+        .notif-icon.group { background: var(--purple); color: white; }
+        .notif-icon.warning { background: var(--orange); color: white; }
+        .notif-icon svg { width: 18px; height: 18px; }
+        .notif-content { flex: 1; min-width: 0; }
+        .notif-content h4 { font-size: 14px; font-weight: 600; color: var(--gray-800); margin-bottom: 2px; }
+        .notif-content p { font-size: 13px; color: var(--gray-500); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .notif-content .time { font-size: 11px; color: var(--gray-400); margin-top: 4px; }
+        .notif-dropdown-footer {
+            padding: 12px 20px;
+            border-top: 1px solid var(--gray-200);
+            text-align: center;
+        }
+        .notif-dropdown-footer a { color: var(--navy); font-size: 14px; font-weight: 600; text-decoration: none; }
+        .notif-empty { padding: 40px 20px; text-align: center; color: var(--gray-400); }
+        .notif-empty svg { width: 48px; height: 48px; margin-bottom: 12px; opacity: 0.5; }
+
+        .user-menu {
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            padding: 6px 10px;
+            border-radius: 10px;
+            transition: background 0.2s;
+        }
+
+        .user-menu:hover {
+            background: var(--gray-100);
+        }
+
+        .user-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-weight: 600;
+            font-size: 14px;
+            overflow: hidden;
+        }
+
+        .user-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .user-info {
+            text-align: left;
+        }
+
+        .user-name {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--gray-800);
+        }
+
+        .user-role {
+            font-size: 12px;
+            color: var(--gray-500);
+        }
+
+        .dropdown-arrow {
+            width: 16px;
+            height: 16px;
+            color: var(--gray-400);
+            transition: transform 0.2s;
+        }
+
+        .user-menu.open .dropdown-arrow {
+            transform: rotate(180deg);
+        }
+
+        /* User Dropdown */
+        .user-dropdown {
+            position: absolute;
+            top: calc(100% + 8px);
+            right: 0;
+            width: 280px;
+            background: var(--white);
+            border-radius: 14px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+            border: 1px solid var(--gray-200);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.2s ease;
+            z-index: 200;
+            overflow: hidden;
+        }
+
+        .user-dropdown.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .dropdown-header {
+            padding: 16px;
+            background: var(--gray-50);
+            border-bottom: 1px solid var(--gray-200);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .dropdown-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-weight: 700;
+            font-size: 18px;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+
+        .dropdown-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .dropdown-user-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .dropdown-user-name {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--gray-800);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .dropdown-user-email {
+            font-size: 12px;
+            color: var(--gray-500);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .dropdown-status {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 11px;
+            color: var(--green);
+            margin-top: 4px;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--green);
+            border-radius: 50%;
+        }
+
+        .dropdown-section {
+            padding: 8px;
+        }
+
+        .dropdown-section-title {
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--gray-400);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            padding: 8px 12px 4px;
+        }
+
+        .dropdown-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 12px;
+            border-radius: 8px;
+            color: var(--gray-700);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.15s;
+            cursor: pointer;
+            border: none;
+            background: none;
+            width: 100%;
+            text-align: left;
+        }
+
+        .dropdown-item:hover {
+            background: var(--gray-100);
+            color: var(--gray-800);
+        }
+
+        .dropdown-item svg {
+            width: 18px;
+            height: 18px;
+            color: var(--gray-500);
+            flex-shrink: 0;
+        }
+
+        .dropdown-item.danger {
+            color: var(--red);
+        }
+
+        .dropdown-item.danger:hover {
+            background: #fef2f2;
+        }
+
+        .dropdown-item.danger svg {
+            color: var(--red);
+        }
+
+        .dropdown-divider {
+            height: 1px;
+            background: var(--gray-200);
+            margin: 4px 0;
+        }
+
+        .dropdown-item .toggle-switch {
+            margin-left: auto;
+            width: 40px;
+            height: 22px;
+            background: var(--gray-300);
+            border-radius: 11px;
+            position: relative;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .dropdown-item .toggle-switch.active {
+            background: var(--navy);
+        }
+
+        .dropdown-item .toggle-switch::after {
+            content: '';
+            position: absolute;
+            width: 18px;
+            height: 18px;
+            background: var(--white);
+            border-radius: 50%;
+            top: 2px;
+            left: 2px;
+            transition: transform 0.2s;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+        }
+
+        .dropdown-item .toggle-switch.active::after {
+            transform: translateX(18px);
+        }
+
+        /* ========== DASHBOARD CONTENT ========== */
+        .dashboard {
+            padding: 24px;
+        }
+
+        .welcome-banner {
+            background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
+            border-radius: 16px;
+            padding: 24px;
+            color: var(--white);
+            margin-bottom: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .welcome-text h2 {
+            font-family: 'Sora', sans-serif;
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .welcome-text p {
+            font-size: 14px;
+            opacity: 0.8;
+        }
+
+        .welcome-date {
+            text-align: right;
+            font-size: 13px;
+            opacity: 0.8;
+        }
+
+        .welcome-date .day {
+            font-size: 32px;
+            font-weight: 700;
+            line-height: 1;
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .stat-card {
+            background: var(--white);
+            border-radius: 14px;
+            padding: 20px;
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+        }
+
+        .stat-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .stat-icon svg {
+            width: 24px;
+            height: 24px;
+        }
+
+        .stat-icon.blue { background: #dbeafe; color: var(--blue); }
+        .stat-icon.green { background: #dcfce7; color: var(--green); }
+        .stat-icon.purple { background: #f3e8ff; color: var(--purple); }
+        .stat-icon.orange { background: #ffedd5; color: var(--orange); }
+
+        .stat-info h3 {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--gray-800);
+            line-height: 1;
+            margin-bottom: 4px;
+        }
+
+        .stat-info p {
+            font-size: 13px;
+            color: var(--gray-500);
+        }
+
+        /* Main Grid */
+        .main-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 24px;
+        }
+
+        .card {
+            background: var(--white);
+            border-radius: 14px;
+            padding: 20px;
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .card-title {
+            font-family: 'Sora', sans-serif;
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--gray-800);
+        }
+
+        .card-action {
+            font-size: 13px;
+            color: var(--navy);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .card-action:hover {
+            text-decoration: underline;
+        }
+
+        /* Quick Actions */
+        .quick-actions {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+        }
+
+        .quick-action {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            padding: 20px 16px;
+            border-radius: 12px;
+            background: var(--gray-50);
+            border: 2px solid transparent;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+        }
+
+        .quick-action:hover {
+            border-color: var(--navy);
+            background: var(--white);
+        }
+
+        .quick-action-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .quick-action-icon svg {
+            width: 22px;
+            height: 22px;
+        }
+
+        .quick-action span {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--gray-700);
+            text-align: center;
+        }
+
+        /* Schedule List */
+        .schedule-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .schedule-item {
+            display: flex;
+            gap: 14px;
+            padding: 14px;
+            background: var(--gray-50);
+            border-radius: 10px;
+            border-left: 4px solid var(--blue);
+        }
+
+        .schedule-item.exam { border-left-color: var(--red); }
+        .schedule-item.assignment { border-left-color: var(--orange); }
+
+        .schedule-time {
+            text-align: center;
+            min-width: 50px;
+        }
+
+        .schedule-time .time {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--gray-800);
+        }
+
+        .schedule-time .period {
+            font-size: 11px;
+            color: var(--gray-500);
+        }
+
+        .schedule-details h4 {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--gray-800);
+            margin-bottom: 4px;
+        }
+
+        .schedule-details p {
+            font-size: 12px;
+            color: var(--gray-500);
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 30px 20px;
+            color: var(--gray-400);
+        }
+
+        .empty-state svg {
+            width: 48px;
+            height: 48px;
+            margin-bottom: 12px;
+            opacity: 0.5;
+        }
+
+        .empty-state p {
+            font-size: 14px;
+        }
+
+        /* GPA Card */
+        .gpa-display {
+            text-align: center;
+            padding: 20px;
+        }
+
+        .gpa-circle {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: conic-gradient(var(--green) 0deg, var(--green) calc(var(--gpa-percent) * 3.6deg), var(--gray-200) calc(var(--gpa-percent) * 3.6deg));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 16px;
+            position: relative;
+        }
+
+        .gpa-circle::before {
+            content: '';
+            position: absolute;
+            width: 90px;
+            height: 90px;
+            background: var(--white);
+            border-radius: 50%;
+        }
+
+        .gpa-value {
+            position: relative;
+            z-index: 1;
+            font-family: 'Sora', sans-serif;
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--gray-800);
+        }
+
+        .gpa-label {
+            font-size: 13px;
+            color: var(--gray-500);
+            margin-bottom: 4px;
+        }
+
+        .gpa-status {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--green);
+        }
+
+        /* ========== MOBILE SIDEBAR ========== */
+        .sidebar-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 99;
+        }
+
+        .sidebar-overlay.show {
+            display: block;
+        }
+
+        /* ========== RESPONSIVE ========== */
+        @media (max-width: 1024px) {
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .main-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .search-box {
+                display: none;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-100%);
+            }
+
+            .sidebar.open {
+                transform: translateX(0);
+            }
+
+            .main-content {
+                margin-left: 0;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            .topbar {
+                padding: 12px 16px;
+            }
+
+            .page-title {
+                font-size: 18px;
+            }
+
+            .user-info {
+                display: none;
+            }
+
+            .dashboard {
+                padding: 16px;
+            }
+
+            .welcome-banner {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 16px;
+            }
+
+            .welcome-date {
+                text-align: left;
+            }
+
+            .quick-actions {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .quick-actions {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .welcome-text h2 {
+                font-size: 18px;
+            }
+
+            .stat-card {
+                padding: 16px;
+            }
+
+            .stat-info h3 {
+                font-size: 20px;
+            }
+        }
+
+        /* Loading State */
+        .loading {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            background: var(--gray-100);
+        }
+
+        .loading-spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid var(--gray-200);
+            border-top-color: var(--navy);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* ========== DARK MODE ========== */
+        body.dark-mode {
+            --gray-50: #1e293b;
+            --gray-100: #0f172a;
+            --gray-200: #1e293b;
+            --gray-300: #334155;
+            --gray-400: #64748b;
+            --gray-500: #94a3b8;
+            --gray-600: #cbd5e1;
+            --gray-700: #e2e8f0;
+            --gray-800: #f1f5f9;
+        }
+
+        body.dark-mode .sidebar {
+            background: #0a0f1a;
+        }
+
+        body.dark-mode .main-content {
+            background: var(--gray-100);
+        }
+
+        body.dark-mode .topbar {
+            background: var(--gray-200);
+            border-bottom-color: var(--gray-300);
+        }
+
+        body.dark-mode .page-title {
+            color: var(--gray-800);
+        }
+
+        body.dark-mode .search-box {
+            background: var(--gray-300);
+        }
+
+        body.dark-mode .search-box input {
+            color: var(--gray-700);
+        }
+
+        body.dark-mode .icon-btn {
+            background: var(--gray-300);
+        }
+
+        body.dark-mode .icon-btn svg {
+            color: var(--gray-500);
+        }
+
+        body.dark-mode .user-name {
+            color: var(--gray-800);
+        }
+
+        body.dark-mode .user-dropdown {
+            background: var(--gray-200);
+            border-color: var(--gray-300);
+        }
+
+        body.dark-mode .dropdown-header {
+            background: var(--gray-300);
+            border-bottom-color: var(--gray-300);
+        }
+
+        body.dark-mode .dropdown-user-name {
+            color: var(--gray-800);
+        }
+
+        body.dark-mode .dropdown-item {
+            color: var(--gray-600);
+        }
+
+        body.dark-mode .dropdown-item:hover {
+            background: var(--gray-300);
+            color: var(--gray-700);
+        }
+
+        body.dark-mode .dropdown-divider {
+            background: var(--gray-300);
+        }
+
+        body.dark-mode .card,
+        body.dark-mode .stat-card {
+            background: var(--gray-200);
+        }
+
+        body.dark-mode .card-title,
+        body.dark-mode .stat-info h3 {
+            color: var(--gray-800);
+        }
+
+        body.dark-mode .welcome-banner {
+            background: linear-gradient(135deg, #0f172a 0%, var(--navy) 100%);
+        }
+
+        body.dark-mode .quick-action {
+            background: var(--gray-300);
+        }
+
+        body.dark-mode .quick-action:hover {
+            background: var(--gray-200);
+            border-color: var(--navy-light);
+        }
+
+        body.dark-mode .quick-action span {
+            color: var(--gray-600);
+        }
+
+        body.dark-mode .schedule-item {
+            background: var(--gray-300);
+        }
+
+        body.dark-mode .schedule-time .time,
+        body.dark-mode .schedule-details h4 {
+            color: var(--gray-800);
+        }
+
+        body.dark-mode .gpa-value {
+            color: var(--gray-800);
+        }
+
+        body.dark-mode .gpa-circle::before {
+            background: var(--gray-200);
+        }
+
+        body.dark-mode .loading {
+            background: var(--gray-100);
+        }
+
+        /* Mobile dropdown adjustments */
+        @media (max-width: 768px) {
+            .user-dropdown {
+                position: fixed;
+                top: auto;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                width: 100%;
+                border-radius: 20px 20px 0 0;
+                max-height: 80vh;
+                overflow-y: auto;
+            }
+
+            .user-dropdown.show {
+                transform: translateY(0);
+            }
+
+            .user-dropdown:not(.show) {
+                transform: translateY(100%);
+            }
+
+            .notification-dropdown {
+                position: fixed;
+                top: 70px;
+                left: 10px;
+                right: 10px;
+                width: auto;
+                border-radius: 16px;
+                max-height: calc(100vh - 90px);
+                z-index: 2000;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .notification-dropdown {
+                top: 60px;
+                left: 5px;
+                right: 5px;
+                max-height: calc(100vh - 70px);
+            }
+            .dropdown-arrow {
+                display: none;
+            }
+        }
+        
+        /* Admin Announcement Popup */
+        .announcement-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(4px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+            animation: fadeIn 0.3s ease;
+            padding: 20px;
+        }
+        .announcement-popup {
+            background: linear-gradient(135deg, #1a365d 0%, #2c5282 100%);
+            border-radius: 20px;
+            max-width: 480px;
+            width: 100%;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.4);
+            animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            overflow: hidden;
+        }
+        .announcement-header {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px 24px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .announcement-icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(249, 115, 22, 0.4);
+        }
+        .announcement-icon svg {
+            width: 26px;
+            height: 26px;
+            color: white;
+        }
+        .announcement-header-text {
+            flex: 1;
+        }
+        .announcement-label {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: #f97316;
+            margin-bottom: 4px;
+        }
+        .announcement-title {
+            font-family: 'Sora', sans-serif;
+            font-size: 20px;
+            font-weight: 700;
+            color: white;
+        }
+        .announcement-body {
+            padding: 24px;
+        }
+        .announcement-message {
+            font-size: 15px;
+            line-height: 1.7;
+            color: rgba(255, 255, 255, 0.9);
+        }
+        .announcement-time {
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.5);
+            margin-top: 16px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .announcement-time svg {
+            width: 14px;
+            height: 14px;
+        }
+        .announcement-footer {
+            padding: 16px 24px 24px;
+        }
+        .announcement-btn {
+            width: 100%;
+            padding: 16px 24px;
+            background: white;
+            color: #1a365d;
+            border: none;
+            border-radius: 12px;
+            font-family: 'Outfit', sans-serif;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        .announcement-btn:hover {
+            background: #f1f5f9;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+        .announcement-btn svg {
+            width: 18px;
+            height: 18px;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes popIn {
+            from { opacity: 0; transform: scale(0.9) translateY(20px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading State -->
+    <div class="loading" id="loadingScreen">
+        <div class="loading-spinner"></div>
+    </div>
+
+    <!-- Sidebar Overlay (Mobile) -->
+    <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+                                    <a href="dashboard.html" class="sidebar-logo">
+                <div class="sidebar-logo-m-wrapper">
+                    <svg class="sidebar-logo-cap" viewBox="0 0 100 70">
+                        <polygon points="50,8 95,25 50,42 5,25" fill="#1a365d"/>
+                        <circle cx="50" cy="25" r="5" fill="#ffffff" stroke="#1a365d" stroke-width="2"/>
+                        <rect x="32" y="38" width="36" height="18" rx="3" fill="#1a365d"/>
+                        <g class="tassel">
+                            <circle cx="78" cy="25" r="4" fill="#c41e3a"/>
+                            <path d="M78 29 Q82 45 80 55" stroke="#c41e3a" stroke-width="3" fill="none"/>
+                            <ellipse cx="80" cy="58" rx="5" ry="8" fill="#c41e3a"/>
+                        </g>
+                    </svg>
+                    <span class="sidebar-logo-m">M</span>
+                </div>
+                <span class="sidebar-logo-yub">yUB</span>
+            </a>
+        </div>
+
+        <nav>
+            <div class="nav-section">
+                <div class="nav-section-title">Menu</div>
+                <a href="dashboard.html" class="nav-item active">
+                    <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
+                    </svg>
+                    Dashboard
+                </a>
+                <a href="gpa-calculator.html" class="nav-item">
+                    <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"/>
+                    </svg>
+                    GPA Calculator
+                </a>
+                <a href="schedule.html" class="nav-item">
+                    <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                    </svg>
+                    Schedule
+                </a>
+                <a href="notes.html" class="nav-item">
+                    <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
+                    </svg>
+                    Notes
+                </a>
+            </div>
+
+            <div class="nav-section">
+                <div class="nav-section-title">Social</div>
+                <a href="study-groups.html" class="nav-item">
+                    <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
+                    </svg>
+                    Study Groups
+                </a>
+                <a href="messages.html" class="nav-item">
+                    <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
+                    </svg>
+                    Messages
+                    <span class="badge" id="sidebarMsgBadge" style="display: none;">0</span>
+                </a>
+                <a href="friends.html" class="nav-item">
+                    <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/>
+                    </svg>
+                    Friends
+                    <span class="badge" id="sidebarFriendsBadge" style="display: none;">0</span>
+                </a>
+            </div>
+
+            <div class="nav-section">
+                <div class="nav-section-title">Account</div>
+                <a href="profile.html" class="nav-item">
+                    <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+                    </svg>
+                    Profile
+                </a>
+                <button class="nav-item" onclick="handleLogout()">
+                    <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/>
+                    </svg>
+                    Sign Out
+                </button>
+            </div>
+        </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content" id="mainContent" style="display: none;">
+        <!-- Top Bar -->
+        <header class="topbar">
+            <div class="topbar-left">
+                <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
+                <h1 class="page-title">Dashboard</h1>
+            </div>
+            <div class="topbar-right">
+                <div class="search-box">
+                    <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                    </svg>
+                    <input type="text" id="dashboardSearch" placeholder="Search..." oninput="handleDashboardSearch(this.value)" onkeydown="if(event.key==='Enter')performSearch()">
+                </div>
+                <div class="search-results-dropdown" id="searchResultsDropdown"></div>
+                <div class="notification-wrapper">
+                    <button class="icon-btn" id="notificationBell" onclick="toggleNotifications(event)">
+                        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/>
+                        </svg>
+                        <span class="notification-badge" id="notifBadge" style="display: none;">0</span>
+                    </button>
+                    <div class="notification-dropdown" id="notificationDropdown">
+                        <div class="notif-dropdown-header">
+                            <h3>Notifications</h3>
+                            <button onclick="markAllNotificationsRead()">Mark all read</button>
+                        </div>
+                        <div class="notif-dropdown-list" id="notifList"></div>
+                        <div class="notif-dropdown-footer">
+                            <a onclick="openNotificationsModal()" style="cursor:pointer;">View All Notifications</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="user-menu" id="userMenu" onclick="toggleUserDropdown(event)">
+                    <div class="user-avatar" id="userAvatar">--</div>
+                    <div class="user-info">
+                        <div class="user-name" id="userName">Loading...</div>
+                        <div class="user-role" id="userProgram">Student</div>
+                    </div>
+                    <svg class="dropdown-arrow" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path d="M19 9l-7 7-7-7"/>
+                    </svg>
+
+                    <!-- User Dropdown -->
+                    <div class="user-dropdown" id="userDropdown">
+                        <div class="dropdown-header">
+                            <div class="dropdown-avatar" id="dropdownAvatar">--</div>
+                            <div class="dropdown-user-info">
+                                <div class="dropdown-user-name" id="dropdownName">Loading...</div>
+                                <div class="dropdown-user-email" id="dropdownEmail">Loading...</div>
+                                <div class="dropdown-status">
+                                    <span class="status-dot"></span>
+                                    Online
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="dropdown-section">
+                            <div class="dropdown-section-title">Account</div>
+                            <a href="profile.html" class="dropdown-item">
+                                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                    <path d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+                                </svg>
+                                My Profile
+                            </a>
+                            <a href="friends.html" class="dropdown-item">
+                                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                    <path d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/>
+                                </svg>
+                                Friends
+                            </a>
+                        </div>
+
+                        <div class="dropdown-divider"></div>
+
+                        <div class="dropdown-section">
+                            <div class="dropdown-section-title">Preferences</div>
+                            <div class="dropdown-item" onclick="toggleDarkMode(event)">
+                                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                    <path d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/>
+                                </svg>
+                                Dark Mode
+                                <div class="toggle-switch" id="darkModeToggle"></div>
+                            </div>
+                            <div class="dropdown-item" onclick="toggleNotifications(event)">
+                                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                    <path d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/>
+                                </svg>
+                                Notifications
+                                <div class="toggle-switch active" id="notificationsToggle"></div>
+                            </div>
+                            <div class="dropdown-item" onclick="toggleSound(event)">
+                                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                    <path d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"/>
+                                </svg>
+                                Sound Effects
+                                <div class="toggle-switch active" id="soundToggle"></div>
+                            </div>
+                        </div>
+
+                        <div class="dropdown-divider"></div>
+
+                        <div class="dropdown-section">
+                            <button class="dropdown-item danger" onclick="handleLogout()">
+                                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                    <path d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/>
+                                </svg>
+                                Sign Out
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Dashboard Content -->
+        <div class="dashboard">
+            <!-- Welcome Banner -->
+            <div class="welcome-banner">
+                <div class="welcome-text">
+                    <h2 id="welcomeMessage">Welcome back!</h2>
+                    <p>Here's what's happening with your studies today.</p>
+                </div>
+                <div class="welcome-date">
+                    <div class="day" id="currentDay">--</div>
+                    <div id="currentMonth">Loading...</div>
+                </div>
+            </div>
+
+            <!-- Stats Grid -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon blue">
+                        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+                        </svg>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="coursesCount">0</h3>
+                        <p>Courses</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon green">
+                        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/>
+                        </svg>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="creditsCount">0</h3>
+                        <p>Credits Earned</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon purple">
+                        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/>
+                        </svg>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="groupsCount">0</h3>
+                        <p>Study Groups</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon orange">
+                        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/>
+                        </svg>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="tasksCount">0</h3>
+                        <p>Pending Tasks</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main Grid -->
+            <div class="main-grid">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Quick Actions</h3>
+                    </div>
+                    <div class="quick-actions">
+                        <a href="gpa-calculator.html" class="quick-action">
+                            <div class="quick-action-icon" style="background: #dbeafe; color: var(--blue);">
+                                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                    <path d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"/>
+                                </svg>
+                            </div>
+                            <span>Calculate GPA</span>
+                        </a>
+                        <a href="notes.html" class="quick-action">
+                            <div class="quick-action-icon" style="background: #fef3c7; color: var(--yellow);">
+                                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                    <path d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
+                                </svg>
+                            </div>
+                            <span>Add Note</span>
+                        </a>
+                        <a href="schedule.html" class="quick-action">
+                            <div class="quick-action-icon" style="background: #dcfce7; color: var(--green);">
+                                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                    <path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                </svg>
+                            </div>
+                            <span>Add Reminder</span>
+                        </a>
+                        <a href="study-groups.html" class="quick-action">
+                            <div class="quick-action-icon" style="background: #f3e8ff; color: var(--purple);">
+                                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                    <path d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/>
+                                </svg>
+                            </div>
+                            <span>Join Group</span>
+                        </a>
+                        <a href="messages.html" class="quick-action">
+                            <div class="quick-action-icon" style="background: #fce7f3; color: var(--pink);">
+                                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                    <path d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
+                                </svg>
+                            </div>
+                            <span>Messages</span>
+                        </a>
+                        <a href="friends.html" class="quick-action">
+                            <div class="quick-action-icon" style="background: #ffedd5; color: var(--orange);">
+                                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                    <path d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"/>
+                                </svg>
+                            </div>
+                            <span>Find Friends</span>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Your GPA</h3>
+                        <a href="gpa-calculator.html" class="card-action">View Details</a>
+                    </div>
+                    <div class="gpa-display">
+                        <div class="gpa-circle" id="gpaCircle" style="--gpa-percent: 0;">
+                            <span class="gpa-value" id="gpaValue">0.00</span>
+                        </div>
+                        <p class="gpa-label">Cumulative GPA</p>
+                        <p class="gpa-status" id="gpaStatus">Add courses to calculate</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Upcoming Schedule -->
+            <div class="card" style="margin-top: 24px;">
+                <div class="card-header">
+                    <h3 class="card-title">Upcoming Schedule</h3>
+                    <a href="schedule.html" class="card-action">View All</a>
+                </div>
+                <div class="schedule-list" id="scheduleList">
+                    <div class="empty-state">
+                        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                        </svg>
+                        <p>No upcoming events</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- All Notifications Modal -->
+    <div class="modal-overlay" id="notificationsModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:9999;align-items:center;justify-content:center;" onclick="if(event.target===this)closeNotificationsModal()">
+        <div style="background:white;border-radius:16px;max-width:500px;width:90%;max-height:80vh;display:flex;flex-direction:column;overflow:hidden;">
+            <div style="padding:20px 24px;border-bottom:1px solid #e2e8f0;display:flex;justify-content:space-between;align-items:center;">
+                <h3 style="font-size:18px;font-weight:600;color:#1e293b;">All Notifications</h3>
+                <button onclick="closeNotificationsModal()" style="background:none;border:none;cursor:pointer;padding:8px;border-radius:8px;" onmouseover="this.style.background='#f1f5f9'" onmouseout="this.style.background='none'"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12"/></svg></button>
+            </div>
+            <div style="display:flex;gap:10px;padding:16px 24px;border-bottom:1px solid #e2e8f0;">
+                <button onclick="markAllNotificationsReadModal()" style="padding:8px 16px;background:#f1f5f9;color:#475569;border:1px solid #e2e8f0;border-radius:8px;font-size:13px;font-weight:500;cursor:pointer;">Mark All Read</button>
+                <button onclick="clearAllNotifications()" style="padding:8px 16px;background:#fee2e2;color:#dc2626;border:1px solid #fecaca;border-radius:8px;font-size:13px;font-weight:500;cursor:pointer;">Clear All</button>
+            </div>
+            <div id="allNotifList" style="flex:1;overflow-y:auto;"></div>
+        </div>
+    </div>
+
+    <script>
+        // Supabase
+        const SUPABASE_URL = 'https://weuxtwmaqmbhskjpjdyi.supabase.co';
+        const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndldXh0d21hcW1iaHNranBqZHlpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjQ3NTYzMTcsImV4cCI6MjA4MDMzMjMxN30.J-0Nd0MY6-g_ltbBNHwOulqZuQfb8mKIRgx0dAaJ76o';
+        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+        let currentUser = null;
+        let userProfile = null;
+
+        // Check auth and load dashboard
+        async function init() {
+            const { data: { session } } = await supabase.auth.getSession();
+            
+            if (!session) {
+                window.location.href = 'index.html';
+                return;
+            }
+
+            currentUser = session.user;
+            
+            // Check if user is banned
+            const { data: profile } = await supabase.from('profiles').select('is_banned').eq('id', currentUser.id).single();
+            if (profile && profile.is_banned) {
+                await supabase.auth.signOut();
+                alert('Your account has been suspended. Please contact an administrator.');
+                window.location.href = 'index.html';
+                return;
+            }
+            
+            // Initialize connection manager (checks server capacity)
+            if (window.MyUBUtils) {
+                const canConnect = await MyUBUtils.ConnectionManager.init(supabase, currentUser.id);
+                if (!canConnect) {
+                    document.getElementById('loadingScreen').style.display = 'none';
+                    return; // User is in queue, don't load the page
+                }
+                
+                // Initialize subscription manager with consolidated subscriptions
+                MyUBUtils.SubscriptionManager.init(supabase, currentUser.id);
+                MyUBUtils.SubscriptionManager.subscribe({
+                    messages: () => debouncedBadgeUpdate(),
+                    notifications: () => { loadNotifications(); debouncedBadgeUpdate(); },
+                    friend_requests: () => debouncedBadgeUpdate(),
+                    onAnyUpdate: (table) => console.log(`Update from ${table}`)
+                });
+            }
+            
+            // Set user online
+            await supabase.rpc('update_online_status', { is_online_status: true });
+            
+            // Load profile (with caching)
+            await loadProfile();
+            
+            // Load dashboard data
+            await loadDashboardData();
+            
+            // Load notifications and friends for online alerts
+            await loadNotifications();
+            await loadFriends();
+            await loadSidebarBadges();
+            
+            // Setup real-time subscriptions
+            subscribeToNotifications();
+            
+            // Check for unban welcome popup
+            if (localStorage.getItem('myub_show_unban_welcome') === 'true') {
+                localStorage.removeItem('myub_show_unban_welcome');
+                showUnbanWelcomePopup();
+            }
+            
+            // Poll for notifications every 30 seconds as fallback
+            setInterval(async () => {
+                const lastNotifId = notifications.length > 0 ? notifications[0].id : null;
+                const { data: newNotifs } = await supabase
+                    .from('notifications')
+                    .select('*')
+                    .eq('user_id', currentUser.id)
+                    .order('created_at', { ascending: false })
+                    .limit(5);
+                
+                if (newNotifs && newNotifs.length > 0) {
+                    const newest = newNotifs[0];
+                    if (!lastNotifId || newest.id !== lastNotifId) {
+                        // Check if we have new notifications
+                        const existingIds = notifications.map(n => n.id);
+                        const trulyNew = newNotifs.filter(n => !existingIds.includes(n.id));
+                        if (trulyNew.length > 0) {
+                            trulyNew.forEach(n => notifications.unshift(n));
+                            renderNotifications();
+                            playNotificationSound();
+                            showToast(trulyNew[0].title || 'New notification', 'success');
+                        }
+                    }
+                }
+            }, 30000);
+            
+            // Update date
+            updateDate();
+            
+            // Hide loading, show content
+            document.getElementById('loadingScreen').style.display = 'none';
+            document.getElementById('mainContent').style.display = 'block';
+        }
+        
+        function showUnbanWelcomePopup() {
+            const overlay = document.createElement('div');
+            overlay.className = 'announcement-overlay';
+            overlay.innerHTML = `
+                <div class="announcement-popup" style="background: linear-gradient(135deg, #166534 0%, #15803d 100%);">
+                    <div class="announcement-header">
+                        <div class="announcement-icon" style="background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%); box-shadow: 0 4px 12px rgba(34, 197, 94, 0.4);">
+                            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                        </div>
+                        <div class="announcement-header-text">
+                            <div class="announcement-label" style="color: #86efac;">🎉 Welcome Back!</div>
+                            <div class="announcement-title">Account Restored</div>
+                        </div>
+                    </div>
+                    <div class="announcement-body">
+                        <div class="announcement-message">Good news! Your account has been restored by an administrator. You now have full access to MyUB again. We're glad to have you back!</div>
+                    </div>
+                    <div class="announcement-footer">
+                        <button class="announcement-btn" onclick="this.closest('.announcement-overlay').remove()">
+                            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path d="M5 13l4 4L19 7"/>
+                            </svg>
+                            Continue to Dashboard
+                        </button>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(overlay);
+            playNotificationSound();
+        }
+        
+        // Debounced badge update to prevent excessive API calls
+        let badgeUpdateTimeout;
+        function debouncedBadgeUpdate() {
+            clearTimeout(badgeUpdateTimeout);
+            badgeUpdateTimeout = setTimeout(loadSidebarBadges, 1000);
+        }
+
+        async function loadProfile() {
+            // Use cache if available
+            let data;
+            if (window.MyUBUtils) {
+                data = await MyUBUtils.CacheManager.getProfile(supabase, currentUser.id);
+            } else {
+                const result = await supabase
+                    .from('profiles')
+                    .select('*')
+                    .eq('id', currentUser.id)
+                    .single();
+                data = result.data;
+            }
+
+            if (data) {
+                userProfile = data;
+                
+                // Update UI
+                document.getElementById('userName').textContent = data.full_name || data.first_name;
+                document.getElementById('userProgram').textContent = data.program_name || 'Student';
+                document.getElementById('userAvatar').textContent = getInitials(data.first_name, data.last_name);
+                document.getElementById('welcomeMessage').textContent = getTimeGreeting(data.first_name);
+                
+                // Update dropdown
+                document.getElementById('dropdownName').textContent = data.full_name || `${data.first_name} ${data.last_name}`;
+                document.getElementById('dropdownEmail').textContent = data.email;
+                document.getElementById('dropdownAvatar').textContent = getInitials(data.first_name, data.last_name);
+                
+                // Set avatar image if exists
+                if (data.avatar_url) {
+                    document.getElementById('userAvatar').innerHTML = `<img src="${data.avatar_url}" alt="Avatar">`;
+                    document.getElementById('dropdownAvatar').innerHTML = `<img src="${data.avatar_url}" alt="Avatar">`;
+                }
+            } else {
+                // Profile might not exist yet (trigger hasn't run)
+                const meta = currentUser.user_metadata;
+                document.getElementById('userName').textContent = meta.full_name || meta.first_name || 'Student';
+                document.getElementById('userProgram').textContent = meta.program_name || 'Student';
+                document.getElementById('userAvatar').textContent = getInitials(meta.first_name, meta.last_name);
+                document.getElementById('welcomeMessage').textContent = getTimeGreeting(meta.first_name || 'Student');
+                
+                // Update dropdown
+                document.getElementById('dropdownName').textContent = meta.full_name || `${meta.first_name} ${meta.last_name}`;
+                document.getElementById('dropdownEmail').textContent = currentUser.email;
+                document.getElementById('dropdownAvatar').textContent = getInitials(meta.first_name, meta.last_name);
+            }
+            
+            // Load user preferences
+            loadPreferences();
+        }
+
+        function getTimeGreeting(name) {
+            const hour = new Date().getHours();
+            let greeting;
+            
+            if (hour >= 5 && hour < 12) {
+                greeting = 'Good morning';
+            } else if (hour >= 12 && hour < 17) {
+                greeting = 'Good afternoon';
+            } else if (hour >= 17 && hour < 21) {
+                greeting = 'Good evening';
+            } else {
+                greeting = 'Good night';
+            }
+            
+            return `${greeting}, ${name}! 👋`;
+        }
+
+        // User Dropdown Toggle
+        function toggleUserDropdown(event) {
+            event.stopPropagation();
+            const menu = document.getElementById('userMenu');
+            const dropdown = document.getElementById('userDropdown');
+            menu.classList.toggle('open');
+            dropdown.classList.toggle('show');
+        }
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function(event) {
+            const menu = document.getElementById('userMenu');
+            const dropdown = document.getElementById('userDropdown');
+            if (!menu.contains(event.target)) {
+                menu.classList.remove('open');
+                dropdown.classList.remove('show');
+            }
+        });
+
+        // Preferences
+        function loadPreferences() {
+            const darkMode = localStorage.getItem('myub_darkMode') === 'true';
+            const notifications = localStorage.getItem('myub_notifications') !== 'false';
+            const sound = localStorage.getItem('myub_sound') !== 'false';
+            
+            document.getElementById('darkModeToggle').classList.toggle('active', darkMode);
+            document.getElementById('notificationsToggle').classList.toggle('active', notifications);
+            document.getElementById('soundToggle').classList.toggle('active', sound);
+            
+            if (darkMode) {
+                document.body.classList.add('dark-mode');
+            }
+        }
+
+        function toggleDarkMode(event) {
+            event.preventDefault();
+            event.stopPropagation();
+            const toggle = document.getElementById('darkModeToggle');
+            const isActive = toggle.classList.toggle('active');
+            localStorage.setItem('myub_darkMode', isActive);
+            document.body.classList.toggle('dark-mode', isActive);
+        }
+
+        function toggleNotifications(event) {
+            event.preventDefault();
+            event.stopPropagation();
+            const toggle = document.getElementById('notificationsToggle');
+            const isActive = toggle.classList.toggle('active');
+            localStorage.setItem('myub_notifications', isActive);
+        }
+
+        function toggleSound(event) {
+            event.preventDefault();
+            event.stopPropagation();
+            const toggle = document.getElementById('soundToggle');
+            const isActive = toggle.classList.toggle('active');
+            localStorage.setItem('myub_sound', isActive);
+        }
+
+        async function loadDashboardData() {
+            // Load courses count
+            const { count: coursesCount } = await supabase
+                .from('courses')
+                .select('*', { count: 'exact', head: true })
+                .eq('user_id', currentUser.id);
+            
+            document.getElementById('coursesCount').textContent = coursesCount || 0;
+
+            // Calculate credits
+            const { data: courses } = await supabase
+                .from('courses')
+                .select('credits, grade')
+                .eq('user_id', currentUser.id);
+
+            let totalCredits = 0;
+            let earnedCredits = 0;
+            let totalPoints = 0;
+
+            if (courses && courses.length > 0) {
+                const failGrades = ['D', 'D-', 'E']; // Fail grades don't count as earned
+                courses.forEach(course => {
+                    totalCredits += course.credits;
+                    // Only count passed courses (C- and above)
+                    if (course.grade && !failGrades.includes(course.grade)) {
+                        earnedCredits += course.credits;
+                        totalPoints += course.credits * getGradePoints(course.grade);
+                    }
+                });
+
+                const gpa = earnedCredits > 0 ? (totalPoints / earnedCredits).toFixed(2) : 0;
+                const gpaPercent = (gpa / 5) * 100;
+
+                document.getElementById('creditsCount').textContent = earnedCredits;
+                document.getElementById('gpaValue').textContent = gpa;
+                document.getElementById('gpaCircle').style.setProperty('--gpa-percent', gpaPercent);
+                document.getElementById('gpaStatus').textContent = getGPAStatus(parseFloat(gpa));
+            }
+
+            // Load study groups count
+            const { count: groupsCount } = await supabase
+                .from('study_group_members')
+                .select('*', { count: 'exact', head: true })
+                .eq('user_id', currentUser.id);
+            
+            document.getElementById('groupsCount').textContent = groupsCount || 0;
+
+            // Load pending tasks
+            try {
+                const { count: tasksCount, error: tasksError } = await supabase
+                    .from('schedules')
+                    .select('*', { count: 'exact', head: true })
+                    .eq('user_id', currentUser.id)
+                    .eq('is_completed', false)
+                    .gte('start_time', new Date().toISOString());
+                
+                if (!tasksError) {
+                    document.getElementById('tasksCount').textContent = tasksCount || 0;
+                } else {
+                    document.getElementById('tasksCount').textContent = '0';
+                }
+            } catch (e) {
+                document.getElementById('tasksCount').textContent = '0';
+            }
+
+            // Load upcoming schedule
+            await loadUpcomingSchedule();
+
+            // Load unread messages
+            const { count: unreadCount } = await supabase
+                .from('messages')
+                .select('*', { count: 'exact', head: true })
+                .eq('receiver_id', currentUser.id)
+                .eq('is_read', false);
+
+            if (unreadCount > 0) {
+                const unreadBadge = document.getElementById('unreadBadge');
+                const notificationDot = document.getElementById('notificationDot');
+                if (unreadBadge) {
+                    unreadBadge.textContent = unreadCount;
+                    unreadBadge.style.display = 'inline';
+                }
+                if (notificationDot) {
+                    notificationDot.style.display = 'block';
+                }
+            }
+        }
+
+        async function loadUpcomingSchedule() {
+            try {
+                const { data: schedules, error } = await supabase
+                    .from('schedules')
+                    .select('*')
+                    .eq('user_id', currentUser.id)
+                    .gte('start_time', new Date().toISOString())
+                    .order('start_time', { ascending: true })
+                    .limit(3);
+
+                if (error) {
+                    // Table might not exist yet - show placeholder
+                    const container = document.getElementById('scheduleList');
+                    if (container) container.innerHTML = '<div style="padding:20px;text-align:center;color:#94a3b8;font-size:14px;">No upcoming events</div>';
+                    return;
+                }
+
+                const container = document.getElementById('scheduleList');
+                if (!container) return;
+
+                if (schedules && schedules.length > 0) {
+                    container.innerHTML = schedules.map(schedule => {
+                        const date = new Date(schedule.start_time);
+                        const time = date.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true });
+                        const [timeNum, period] = time.split(' ');
+                        
+                        const typeClass = schedule.event_type === 'exam' ? 'exam' : 
+                                         schedule.event_type === 'assignment' ? 'assignment' : '';
+                        
+                        return `
+                            <div class="schedule-item ${typeClass}">
+                                <div class="schedule-time">
+                                    <div class="time">${timeNum}</div>
+                                    <div class="period">${period}</div>
+                                </div>
+                                <div class="schedule-details">
+                                    <h4>${schedule.title}</h4>
+                                    <p>${schedule.course_code || ''} ${schedule.location ? '• ' + schedule.location : ''}</p>
+                                </div>
+                            </div>
+                        `;
+                    }).join('');
+                } else {
+                    container.innerHTML = '<div style="padding:20px;text-align:center;color:#94a3b8;font-size:14px;">No upcoming events</div>';
+                }
+            } catch (e) {
+                // Silently handle error - schedules table might not exist
+                const container = document.getElementById('scheduleList');
+                if (container) container.innerHTML = '<div style="padding:20px;text-align:center;color:#94a3b8;font-size:14px;">No upcoming events</div>';
+            }
+        }
+
+        function getGradePoints(grade) {
+            // UB Grading Scale
+            const points = { 
+                'A': 5.0, 'B+': 4.5, 'B': 4.0, 'B-': 3.5, 
+                'C+': 3.0, 'C': 2.5, 'C-': 2.0, 
+                'D+': 1.5, 'D': 1.0, 'D-': 0.5, 'E': 0 
+            };
+            return points[grade] || 0;
+        }
+
+        function getGPAStatus(gpa) {
+            // UB Degree Classification
+            if (gpa >= 4.4) return 'First Class / Distinction 🎉';
+            if (gpa >= 3.6) return 'Second Class Upper / Merit';
+            if (gpa >= 2.8) return 'Second Class Lower / Credit';
+            if (gpa >= 2.0) return 'Pass';
+            if (gpa > 0) return 'Below Pass';
+            return 'Add courses to calculate';
+        }
+
+        function getInitials(firstName, lastName) {
+            const f = firstName ? firstName.charAt(0).toUpperCase() : '';
+            const l = lastName ? lastName.charAt(0).toUpperCase() : '';
+            return f + l || '--';
+        }
+
+        function updateDate() {
+            const now = new Date();
+            const day = now.getDate();
+            const month = now.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+            
+            document.getElementById('currentDay').textContent = day;
+            document.getElementById('currentMonth').textContent = month;
+        }
+
+        function toggleSidebar() {
+            document.getElementById('sidebar').classList.toggle('open');
+            document.getElementById('sidebarOverlay').classList.toggle('show');
+        }
+
+        // =============================================
+        // NOTIFICATIONS
+        // =============================================
+        let notifications = [];
+
+        async function loadNotifications() {
+            const { data } = await supabase
+                .from('notifications')
+                .select('*')
+                .eq('user_id', currentUser.id)
+                .order('created_at', { ascending: false })
+                .limit(10);
+            notifications = data || [];
+            renderNotifications();
+            
+            // Check for unread announcements and show popup
+            checkAnnouncementPopup();
+        }
+        
+        function checkAnnouncementPopup() {
+            // Check for any unread admin messages (all admin types)
+            const adminTypes = ['announcement', 'admin_warning', 'warning', 'ban', 'admin_message', 'admin_urgent', 'admin_success'];
+            const unreadAdmin = notifications.filter(n => adminTypes.includes(n.type) && !n.is_read);
+            if (unreadAdmin.length > 0) {
+                showAdminPopup(unreadAdmin[0]);
+            }
+        }
+        
+        function showAdminPopup(notification) {
+            console.log('showAdminPopup called with:', notification);
+            console.log('Notification type:', notification.type);
+            
+            // Don't show if already showing
+            if (document.querySelector('.announcement-overlay')) {
+                console.log('Popup already showing, skipping');
+                return;
+            }
+            
+            const timeAgo = formatTimeAgo(notification.created_at);
+            const type = notification.type || 'announcement';
+            console.log('Using type:', type);
+            
+            // Configure based on type - default is info/announcement (orange)
+            let config = {
+                label: '📢 Admin Announcement',
+                iconBg: 'linear-gradient(135deg, #f97316 0%, #ea580c 100%)',
+                iconShadow: 'rgba(249, 115, 22, 0.4)',
+                icon: '<path d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z"/>',
+                headerBg: 'linear-gradient(135deg, #1a365d 0%, #2c5282 100%)',
+                labelColor: '#f97316'
+            };
+            
+            if (type === 'admin_warning' || type === 'warning') {
+                config = {
+                    label: '⚠️ Admin Warning',
+                    iconBg: 'linear-gradient(135deg, #eab308 0%, #ca8a04 100%)',
+                    iconShadow: 'rgba(234, 179, 8, 0.4)',
+                    icon: '<path d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>',
+                    headerBg: 'linear-gradient(135deg, #854d0e 0%, #a16207 100%)',
+                    labelColor: '#fde047'
+                };
+            } else if (type === 'admin_urgent' || type === 'ban') {
+                config = {
+                    label: type === 'ban' ? '🚫 Account Suspended' : '🚨 Urgent Notice',
+                    iconBg: 'linear-gradient(135deg, #dc2626 0%, #b91c1c 100%)',
+                    iconShadow: 'rgba(220, 38, 38, 0.4)',
+                    icon: type === 'ban' ? '<path d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"/>' : '<path d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>',
+                    headerBg: 'linear-gradient(135deg, #991b1b 0%, #b91c1c 100%)',
+                    labelColor: '#fca5a5'
+                };
+            } else if (type === 'admin_success') {
+                config = {
+                    label: '✅ Good News!',
+                    iconBg: 'linear-gradient(135deg, #22c55e 0%, #16a34a 100%)',
+                    iconShadow: 'rgba(34, 197, 94, 0.4)',
+                    icon: '<path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>',
+                    headerBg: 'linear-gradient(135deg, #166534 0%, #15803d 100%)',
+                    labelColor: '#86efac'
+                };
+            }
+            
+            const overlay = document.createElement('div');
+            overlay.className = 'announcement-overlay';
+            overlay.innerHTML = `
+                <div class="announcement-popup" style="background: ${config.headerBg};">
+                    <div class="announcement-header">
+                        <div class="announcement-icon" style="background: ${config.iconBg}; box-shadow: 0 4px 12px ${config.iconShadow};">
+                            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                ${config.icon}
+                            </svg>
+                        </div>
+                        <div class="announcement-header-text">
+                            <div class="announcement-label" style="color: ${config.labelColor};">${config.label}</div>
+                            <div class="announcement-title">${escapeHtml(notification.title)}</div>
+                        </div>
+                    </div>
+                    <div class="announcement-body">
+                        <div class="announcement-message">${escapeHtml(notification.body || '')}</div>
+                        <div class="announcement-time">
+                            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                            ${timeAgo}
+                        </div>
+                    </div>
+                    <div class="announcement-footer">
+                        <button class="announcement-btn" onclick="dismissAnnouncement('${notification.id}')">
+                            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path d="M5 13l4 4L19 7"/>
+                            </svg>
+                            I Understand
+                        </button>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(overlay);
+            playNotificationSound();
+        }
+        
+        async function dismissAnnouncement(announcementId) {
+            // Find the notification
+            const notification = notifications.find(n => n.id === announcementId);
+            const isBan = notification && notification.type === 'ban';
+            
+            // Mark as read in database
+            await supabase.from('notifications').update({ is_read: true }).eq('id', announcementId);
+            
+            // Update local state
+            const idx = notifications.findIndex(n => n.id === announcementId);
+            if (idx !== -1) notifications[idx].is_read = true;
+            
+            // Remove popup
+            const overlay = document.querySelector('.announcement-overlay');
+            if (overlay) {
+                overlay.style.animation = 'fadeIn 0.3s ease reverse';
+                setTimeout(() => overlay.remove(), 300);
+            }
+            
+            // If it's a ban notification, log the user out
+            if (isBan) {
+                await supabase.auth.signOut();
+                window.location.href = 'index.html';
+                return;
+            }
+            
+            // Refresh notifications
+            renderNotifications();
+            
+            // Check for more unread announcements
+            setTimeout(checkAnnouncementPopup, 500);
+        }
+
+        function renderNotifications() {
+            const list = document.getElementById('notifList');
+            const badge = document.getElementById('notifBadge');
+            const unread = notifications.filter(n => !n.is_read).length;
+
+            if (unread > 0) {
+                badge.textContent = unread > 9 ? '9+' : unread;
+                badge.style.display = 'flex';
+            } else {
+                badge.style.display = 'none';
+            }
+
+            if (notifications.length === 0) {
+                list.innerHTML = '<div class="notif-empty"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg><p>No notifications yet</p></div>';
+                return;
+            }
+
+            list.innerHTML = notifications.map(n => {
+                const type = n.type || '';
+                const iconClass = type.includes('friend') ? 'friend' : type.includes('message') ? 'message' : type.includes('warning') ? 'warning' : 'group';
+                const iconSvg = iconClass === 'friend' 
+                    ? '<path d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"/>' 
+                    : iconClass === 'message' 
+                    ? '<path d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>'
+                    : iconClass === 'warning'
+                    ? '<path d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>'
+                    : '<path d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/>';
+                return `<div class="notif-dropdown-item ${n.is_read ? '' : 'unread'}" onclick="handleNotifClick('${n.id}','${type}')">
+                    <div class="notif-icon ${iconClass}"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">${iconSvg}</svg></div>
+                    <div class="notif-content"><h4>${escapeHtml(n.title || 'Notification')}</h4><p>${escapeHtml(n.body || '')}</p><div class="time">${formatTimeAgo(n.created_at)}</div></div>
+                </div>`;
+            }).join('');
+        }
+
+        async function handleNotifClick(id, type) {
+            await supabase.from('notifications').update({ is_read: true }).eq('id', id);
+            const n = notifications.find(x => x.id === id);
+            if (n) n.is_read = true;
+            renderNotifications();
+            document.getElementById('notificationDropdown').classList.remove('show');
+            if (type === 'friend_request' || type === 'friend_accept') window.location.href = 'friends.html';
+            else if (type === 'message') window.location.href = 'messages.html';
+            else if (type === 'study_group') window.location.href = 'study-groups.html';
+            else if (type === 'admin_warning' || type === 'announcement') { /* Stay on dashboard, it's displayed here */ }
+        }
+
+        async function markAllNotificationsRead() {
+            await supabase.from('notifications').update({ is_read: true }).eq('user_id', currentUser.id);
+            notifications.forEach(n => n.is_read = true);
+            renderNotifications();
+        }
+
+        function toggleNotifications(event) {
+            event.stopPropagation();
+            document.getElementById('notificationDropdown').classList.toggle('show');
+            document.getElementById('userDropdown').classList.remove('show');
+        }
+
+        function escapeHtml(text) {
+            if (!text) return '';
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        function formatTimeAgo(dateStr) {
+            const seconds = Math.floor((new Date() - new Date(dateStr)) / 1000);
+            if (seconds < 60) return 'Just now';
+            if (seconds < 3600) return `${Math.floor(seconds / 60)}m ago`;
+            if (seconds < 86400) return `${Math.floor(seconds / 3600)}h ago`;
+            return `${Math.floor(seconds / 86400)}d ago`;
+        }
+
+        let friends = [];
+        let unreadMessages = 0;
+        let pendingFriendRequests = 0;
+        
+        async function loadFriends() {
+            const { data: f1 } = await supabase.from('friendships').select('friend_id').eq('user_id', currentUser.id);
+            const { data: f2 } = await supabase.from('friendships').select('user_id').eq('friend_id', currentUser.id);
+            const friendIds = [...(f1||[]).map(f => f.friend_id), ...(f2||[]).map(f => f.user_id)];
+            if (friendIds.length > 0) {
+                const { data: profiles } = await supabase.from('profiles').select('id, first_name, last_name, full_name, is_online').in('id', friendIds);
+                friends = profiles || [];
+            } else {
+                friends = [];
+            }
+        }
+
+        async function loadSidebarBadges() {
+            // Load unread messages count
+            const { data: msgs, count: msgCount } = await supabase
+                .from('messages')
+                .select('id', { count: 'exact' })
+                .eq('receiver_id', currentUser.id)
+                .eq('is_read', false)
+                .eq('is_deleted', false);
+            unreadMessages = msgCount || 0;
+            updateSidebarBadge('sidebarMsgBadge', unreadMessages);
+            
+            // Load pending friend requests count
+            const { data: reqs, count: reqCount } = await supabase
+                .from('friend_requests')
+                .select('id', { count: 'exact' })
+                .eq('receiver_id', currentUser.id)
+                .eq('status', 'pending');
+            pendingFriendRequests = reqCount || 0;
+            updateSidebarBadge('sidebarFriendsBadge', pendingFriendRequests);
+        }
+
+        function updateSidebarBadge(elementId, count) {
+            const badge = document.getElementById(elementId);
+            if (badge) {
+                if (count > 0) {
+                    badge.textContent = count > 99 ? '99+' : count;
+                    badge.style.display = 'inline';
+                } else {
+                    badge.style.display = 'none';
+                }
+            }
+        }
+
+        // Real-time subscriptions
+        function subscribeToNotifications() {
+            const notifChannel = supabase.channel('dashboard-notifications-' + currentUser.id)
+                .on('postgres_changes', {
+                    event: 'INSERT',
+                    schema: 'public',
+                    table: 'notifications',
+                    filter: `user_id=eq.${currentUser.id}`
+                }, (payload) => {
+                    console.log('=== NEW NOTIFICATION RECEIVED ===');
+                    console.log('Full payload:', JSON.stringify(payload, null, 2));
+                    console.log('Notification type:', payload.new.type);
+                    
+                    notifications.unshift(payload.new);
+                    renderNotifications();
+                    
+                    // Check if it's an admin notification that needs popup
+                    const adminTypes = ['announcement', 'admin_warning', 'warning', 'ban', 'admin_message', 'admin_urgent', 'admin_success'];
+                    console.log('Admin types:', adminTypes);
+                    console.log('Is admin type?', adminTypes.includes(payload.new.type));
+                    
+                    if (adminTypes.includes(payload.new.type)) {
+                        console.log('Calling showAdminPopup...');
+                        showAdminPopup(payload.new);
+                    } else {
+                        console.log('Not an admin type, playing sound and toast');
+                        playNotificationSound();
+                        showToast(payload.new.title || 'New notification', 'success');
+                    }
+                })
+                .subscribe((status) => {
+                    console.log('Notification subscription status:', status);
+                });
+            
+            // Friend online status - only notify on fresh logins (offline > 30 seconds)
+            supabase.channel('dashboard-online-status-' + currentUser.id)
+                .on('postgres_changes', { event: 'UPDATE', schema: 'public', table: 'profiles' }, (p) => {
+                    const friend = friends.find(f => f.id === p.new.id);
+                    if (friend) {
+                        const wasOffline = !friend.is_online;
+                        const lastSeen = friend.last_seen ? new Date(friend.last_seen) : null;
+                        const now = new Date();
+                        const offlineDuration = lastSeen ? (now - lastSeen) / 1000 : 999;
+                        
+                        friend.is_online = p.new.is_online;
+                        friend.last_seen = p.new.last_seen;
+                        
+                        // Only show notification if they were offline for more than 30 seconds (not just page navigation)
+                        if (wasOffline && p.new.is_online && offlineDuration > 30) {
+                            showFriendOnlineToast(friend.full_name || friend.first_name);
+                        }
+                    }
+                })
+                .subscribe();
+        }
+        
+        function playNotificationSound() {
+            try {
+                const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                const oscillator = audioContext.createOscillator();
+                const gainNode = audioContext.createGain();
+                
+                oscillator.connect(gainNode);
+                gainNode.connect(audioContext.destination);
+                
+                oscillator.frequency.value = 800;
+                oscillator.type = 'sine';
+                gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.3);
+                
+                oscillator.start(audioContext.currentTime);
+                oscillator.stop(audioContext.currentTime + 0.3);
+            } catch (e) {
+                console.log('Sound error:', e);
+            }
+        }
+
+        function showFriendOnlineToast(friendName) {
+            const existing = document.querySelector('.friend-online-toast');
+            if (existing) existing.remove();
+            const toast = document.createElement('div');
+            toast.className = 'friend-online-toast';
+            toast.innerHTML = `
+                <div style="width:10px;height:10px;background:#22c55e;border-radius:50%;animation:pulse 1s infinite;"></div>
+                <span><strong>${friendName}</strong> is now online</span>
+            `;
+            toast.style.cssText = 'position:fixed;top:80px;right:20px;background:linear-gradient(135deg,#065f46,#047857);color:white;padding:14px 20px;border-radius:12px;display:flex;align-items:center;gap:12px;z-index:9999;animation:slideInRight 0.3s ease;box-shadow:0 4px 20px rgba(4,120,87,0.4);font-size:14px;';
+            const style = document.createElement('style');
+            style.textContent = '@keyframes slideInRight{from{transform:translateX(100%);opacity:0}to{transform:translateX(0);opacity:1}}@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.5}}';
+            document.head.appendChild(style);
+            document.body.appendChild(toast);
+            playNotificationSound();
+            setTimeout(() => { toast.style.animation = 'slideInRight 0.3s ease reverse'; setTimeout(() => toast.remove(), 300); }, 4000);
+        }
+
+        function showToast(message, type = 'info') {
+            const existing = document.querySelector('.toast');
+            if (existing) existing.remove();
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            toast.innerHTML = `<svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="width:20px;height:20px;"><path d="${type === 'success' ? 'M5 13l4 4L19 7' : type === 'error' ? 'M6 18L18 6M6 6l12 12' : 'M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z'}"/></svg><span>${message}</span>`;
+            toast.style.cssText = 'position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#1a365d;color:white;padding:12px 24px;border-radius:10px;display:flex;align-items:center;gap:10px;z-index:9999;animation:slideUp 0.3s ease;';
+            document.body.appendChild(toast);
+            setTimeout(() => toast.remove(), 3000);
+        }
+
+        // Close dropdowns when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.notification-wrapper')) {
+                document.getElementById('notificationDropdown').classList.remove('show');
+            }
+            if (!e.target.closest('.search-box') && !e.target.closest('.search-results-dropdown')) {
+                document.getElementById('searchResultsDropdown').classList.remove('show');
+            }
+        });
+
+        // Dashboard Search Functionality
+        let searchTimeout;
+        async function handleDashboardSearch(query) {
+            clearTimeout(searchTimeout);
+            const dropdown = document.getElementById('searchResultsDropdown');
+            
+            if (!query || query.length < 2) {
+                dropdown.classList.remove('show');
+                return;
+            }
+            
+            searchTimeout = setTimeout(async () => {
+                const results = [];
+                const q = query.toLowerCase();
+                
+                // Search pages
+                const pages = [
+                    { name: 'Dashboard', url: 'dashboard.html', desc: 'Main dashboard overview' },
+                    { name: 'GPA Calculator', url: 'gpa-calculator.html', desc: 'Calculate your GPA' },
+                    { name: 'Schedule', url: 'schedule.html', desc: 'Manage your schedule and events' },
+                    { name: 'Notes', url: 'notes.html', desc: 'Your personal notes' },
+                    { name: 'Study Groups', url: 'study-groups.html', desc: 'Join or create study groups' },
+                    { name: 'Messages', url: 'messages.html', desc: 'Chat with friends' },
+                    { name: 'Friends', url: 'friends.html', desc: 'Manage your friends' },
+                    { name: 'Profile', url: 'profile.html', desc: 'Edit your profile' }
+                ];
+                pages.forEach(p => {
+                    if (p.name.toLowerCase().includes(q) || p.desc.toLowerCase().includes(q)) {
+                        results.push({ type: 'page', icon: 'page', title: p.name, subtitle: p.desc, url: p.url });
+                    }
+                });
+                
+                // Search notes
+                const { data: notes } = await supabase.from('notes').select('id, title, content').eq('user_id', currentUser.id).ilike('title', `%${query}%`).limit(5);
+                if (notes) {
+                    notes.forEach(n => {
+                        results.push({ type: 'note', icon: 'note', title: n.title, subtitle: 'Note', url: `notes.html?id=${n.id}` });
+                    });
+                }
+                
+                // Search study groups
+                const { data: groups } = await supabase.from('study_groups').select('id, name, subject').ilike('name', `%${query}%`).limit(5);
+                if (groups) {
+                    groups.forEach(g => {
+                        results.push({ type: 'group', icon: 'group', title: g.name, subtitle: g.subject || 'Study Group', url: `study-groups.html?id=${g.id}` });
+                    });
+                }
+                
+                // Search friends
+                const { data: friendships } = await supabase.from('friendships').select('friend_id, profiles!friendships_friend_id_fkey(first_name, last_name, full_name)').eq('user_id', currentUser.id).eq('status', 'accepted');
+                if (friendships) {
+                    friendships.forEach(f => {
+                        const name = f.profiles?.full_name || `${f.profiles?.first_name || ''} ${f.profiles?.last_name || ''}`.trim();
+                        if (name.toLowerCase().includes(q)) {
+                            results.push({ type: 'friend', icon: 'friend', title: name, subtitle: 'Friend', url: `messages.html?user=${f.friend_id}` });
+                        }
+                    });
+                }
+                
+                // Search events
+                const { data: events } = await supabase.from('schedules').select('id, title, event_type, start_date').eq('user_id', currentUser.id).ilike('title', `%${query}%`).limit(5);
+                if (events) {
+                    events.forEach(e => {
+                        results.push({ type: 'event', icon: 'event', title: e.title, subtitle: `${e.event_type || 'Event'} - ${new Date(e.start_date).toLocaleDateString()}`, url: 'schedule.html' });
+                    });
+                }
+                
+                renderSearchResults(results);
+            }, 300);
+        }
+        
+        function renderSearchResults(results) {
+            const dropdown = document.getElementById('searchResultsDropdown');
+            if (results.length === 0) {
+                dropdown.innerHTML = '<div class="search-no-results">No results found</div>';
+            } else {
+                dropdown.innerHTML = results.map(r => {
+                    const icons = {
+                        page: '<path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>',
+                        note: '<path d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>',
+                        group: '<path d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/>',
+                        friend: '<path d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>',
+                        event: '<path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>'
+                    };
+                    return `<div class="search-result-item" onclick="window.location.href='${r.url}'">
+                        <div class="search-result-icon ${r.icon}"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">${icons[r.icon]}</svg></div>
+                        <div class="search-result-content"><h4>${escapeHtml(r.title)}</h4><p>${escapeHtml(r.subtitle)}</p></div>
+                    </div>`;
+                }).join('');
+            }
+            dropdown.classList.add('show');
+        }
+        
+        function performSearch() {
+            const query = document.getElementById('dashboardSearch').value;
+            if (query.length >= 2) handleDashboardSearch(query);
+        }
+
+        async function handleLogout() {
+            await supabase.rpc('update_online_status', { is_online_status: false });
+            await supabase.auth.signOut();
+            window.location.href = 'index.html';
+        }
+
+        // Handle page visibility for online status
+        document.addEventListener('visibilitychange', async () => {
+            if (currentUser) {
+                await supabase.rpc('update_online_status', { 
+                    is_online_status: !document.hidden 
+                });
+            }
+        });
+
+        // Handle beforeunload
+        window.addEventListener('beforeunload', async () => {
+            if (currentUser) {
+                await supabase.rpc('update_online_status', { is_online_status: false });
+            }
+        });
+
+        // All Notifications Modal Functions
+        async function openNotificationsModal() {
+            document.getElementById('notificationDropdown').classList.remove('show');
+            document.getElementById('notificationsModal').style.display = 'flex';
+            await loadAllNotifications();
+        }
+        function closeNotificationsModal() { document.getElementById('notificationsModal').style.display = 'none'; }
+        
+        async function loadAllNotifications() {
+            const { data } = await supabase.from('notifications').select('*').eq('user_id', currentUser.id).order('created_at', { ascending: false }).limit(100);
+            const allNotifs = data || [];
+            const list = document.getElementById('allNotifList');
+            if (allNotifs.length === 0) {
+                list.innerHTML = '<div style="padding:40px;text-align:center;color:#94a3b8;"><svg width="48" height="48" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="margin-bottom:12px;opacity:0.5;"><path d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg><p>No notifications</p></div>';
+                return;
+            }
+            list.innerHTML = allNotifs.map(n => {
+                const type = n.type || '';
+                const iconClass = type.includes('friend') ? 'friend' : type.includes('message') ? 'message' : 'group';
+                const bgColor = iconClass === 'friend' ? '#22c55e' : iconClass === 'message' ? '#3b82f6' : '#8b5cf6';
+                const iconSvg = iconClass === 'friend' ? '<path d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"/>' : iconClass === 'message' ? '<path d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>' : '<path d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/>';
+                return '<div style="display:flex;gap:12px;padding:14px 20px;border-bottom:1px solid #f1f5f9;cursor:pointer;background:' + (n.is_read ? 'white' : '#f0f9ff') + ';" onclick="handleNotifClickModal(\'' + n.id + '\',\'' + type + '\')"><div style="width:40px;height:40px;border-radius:50%;background:' + bgColor + ';display:flex;align-items:center;justify-content:center;"><svg width="18" height="18" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24">' + iconSvg + '</svg></div><div style="flex:1;min-width:0;"><h4 style="font-size:14px;font-weight:600;color:#1e293b;margin-bottom:2px;">' + escapeHtml(n.title || 'Notification') + '</h4><p style="font-size:13px;color:#64748b;margin-bottom:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">' + escapeHtml(n.body || '') + '</p><div style="font-size:12px;color:#94a3b8;">' + formatTimeAgo(n.created_at) + '</div></div></div>';
+            }).join('');
+        }
+        
+        async function handleNotifClickModal(id, type) {
+            await supabase.from('notifications').update({ is_read: true }).eq('id', id);
+            closeNotificationsModal();
+            if (type === 'friend_request' || type === 'friend_accept') window.location.href = 'friends.html';
+            else if (type === 'message') window.location.href = 'messages.html';
+            else if (type === 'study_group') window.location.href = 'study-groups.html';
+            else if (type === 'admin_warning' || type === 'announcement') { /* Stay on dashboard */ }
+        }
+        
+        async function markAllNotificationsReadModal() {
+            await supabase.from('notifications').update({ is_read: true }).eq('user_id', currentUser.id);
+            notifications.forEach(n => n.is_read = true);
+            renderNotifications();
+            await loadAllNotifications();
+        }
+        
+        async function clearAllNotifications() {
+            if (!confirm('Are you sure you want to clear all notifications? This cannot be undone.')) return;
+            
+            const { error } = await supabase.from('notifications').delete().eq('user_id', currentUser.id);
+            
+            if (error) {
+                console.error('Failed to clear notifications:', error);
+                showToast('Failed to clear notifications. Check database permissions.', 'error');
+                return;
+            }
+            
+            notifications = [];
+            renderNotifications();
+            loadAllNotifications();
+            closeNotificationsModal();
+            showToast('All notifications cleared', 'success');
+        }
+
+        // Initialize
+        init();
+    </script>
+</body>
+</html>
