@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Futurify Designs - Crafting Digital Experiences</title>
+    <meta name="description" content="Futurify Designs - Professional web development and digital solutions in Gaborone, Botswana. We craft tomorrow's digital experiences with innovative design and cutting-edge technology.">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="shortcut icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="apple-touch-icon" href="logo-512.png">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://futurfydesigns.com/">
+    <meta property="og:title" content="Futurify Designs - Crafting Digital Experiences">
+    <meta property="og:description" content="Professional web development and digital solutions in Gaborone, Botswana. We craft tomorrow's digital experiences.">
+    <meta property="og:image" content="https://futurfydesigns.com/logo-512.png">
+    <meta property="og:site_name" content="Futurify Designs">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Futurify Designs - Crafting Digital Experiences">
+    <meta name="twitter:description" content="Professional web development and digital solutions in Gaborone, Botswana">
+    <meta name="twitter:image" content="https://futurfydesigns.com/logo-512.png">
+    
+    <!-- Schema.org Organization Structured Data for Google Search -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "Futurify Designs",
+      "alternateName": "Futurify",
+      "url": "https://futurfydesigns.com",
+      "logo": "https://futurfydesigns.com/logo-512.png",
+      "image": "https://futurfydesigns.com/logo-512.png",
+      "description": "Professional web development and digital solutions company based in Gaborone, Botswana. We specialize in creating innovative websites, business automation, and digital experiences.",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Gaborone",
+        "addressRegion": "Gaborone",
+        "addressCountry": "BW"
+      },
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "contactType": "Customer Service",
+        "areaServed": "BW"
+      },
+      "sameAs": [
+        "https://www.facebook.com/futurifydesigns",
+        "https://www.linkedin.com/company/futurifydesigns",
+        "https://twitter.com/futurifydesigns"
+      ]
+    }
+    </script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+            -webkit-touch-callout: none;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            overflow: hidden;
+            background: #0a0a0a;
+        }
+
+        /* Remove tap highlight and focus outline on all interactive elements */
+        a, button, input, select, textarea, [role="button"] {
+            -webkit-tap-highlight-color: transparent;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            user-select: none;
+            outline: none;
+        }
+
+        button:focus, a:focus, input:focus, select:focus, textarea:focus {
+            outline: none;
+        }
+
+        /* Landing Page Container */
+        .landing-container {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            background: linear-gradient(135deg, 
+                #1a1a2e 0%, 
+                #16213e 25%, 
+                #0f3460 50%, 
+                #533483 75%, 
+                #1a1a2e 100%);
+            background-size: 400% 400%;
+            animation: gradientFlow 20s ease infinite;
+            transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        @keyframes gradientFlow {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .landing-container.hover-active {
+            background: linear-gradient(135deg, 
+                #141e30 0%, 
+                #243b55 25%, 
+                #0f2027 50%, 
+                #2c5364 75%, 
+                #141e30 100%);
+            background-size: 400% 400%;
+            animation: gradientFlow 15s ease infinite;
+        }
+
+        .landing-container.fade-out {
+            opacity: 0;
+            transform: scale(0.95);
+        }
+
+        /* Animated Background Particles */
+        .particles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background: rgba(255, 255, 255, 0.6);
+            border-radius: 50%;
+            opacity: 0;
+            animation: float 15s infinite ease-in-out;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0) translateX(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh) translateX(100px);
+                opacity: 0;
+            }
+        }
+
+        /* Logo Animation */
+        .logo-container {
+            position: relative;
+            z-index: 2;
+            opacity: 0;
+            animation: fadeInLogo 1.5s ease-out forwards;
+            text-align: center;
+        }
+
+        @keyframes fadeInLogo {
+            to {
+                opacity: 1;
+            }
+        }
+
+        .logo {
+            font-size: 160px;
+            font-weight: 900;
+            color: #fff;
+            letter-spacing: 8px;
+            font-family: 'Arial Black', sans-serif;
+            background: linear-gradient(135deg, 
+                #667eea 0%, 
+                #764ba2 25%, 
+                #f093fb 50%, 
+                #4facfe 75%, 
+                #667eea 100%);
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: pulseGlow 3s cubic-bezier(0.4, 0, 0.6, 1) infinite, gradientShift 8s ease-in-out infinite;
+            filter: drop-shadow(0 0 40px rgba(102, 126, 234, 0.6));
+            position: relative;
+            display: inline-block;
+            will-change: transform, filter;
+        }
+
+        .logo::before {
+            content: 'F';
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            background: linear-gradient(135deg, #667eea, #764ba2, #f093fb, #667eea);
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradientShift 8s ease-in-out infinite reverse;
+            filter: blur(30px);
+            opacity: 0.5;
+        }
+
+        @keyframes pulseGlow {
+            0%, 100% {
+                transform: scale(1);
+                filter: drop-shadow(0 0 40px rgba(102, 126, 234, 0.6));
+            }
+            50% {
+                transform: scale(1.03);
+                filter: drop-shadow(0 0 60px rgba(102, 126, 234, 0.9)) drop-shadow(0 0 100px rgba(118, 75, 162, 0.5));
+            }
+        }
+
+        @keyframes gradientShift {
+            0%, 100% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+        }
+
+        .company-name {
+            font-size: 36px;
+            color: #fff;
+            margin-top: 30px;
+            letter-spacing: 12px;
+            opacity: 0;
+            animation: slideInText 1.5s cubic-bezier(0.22, 1, 0.36, 1) 0.8s forwards;
+            text-transform: uppercase;
+            font-weight: 700;
+            text-shadow: 0 0 30px rgba(102, 126, 234, 0.4);
+        }
+
+        @keyframes slideInText {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .tagline {
+            font-size: 20px;
+            color: rgba(255, 255, 255, 0.85);
+            margin-top: 20px;
+            letter-spacing: 4px;
+            opacity: 0;
+            animation: slideInText 1.5s cubic-bezier(0.22, 1, 0.36, 1) 1.2s forwards;
+            font-weight: 400;
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+        }
+
+        /* Enter Button */
+        .enter-btn-container {
+            opacity: 0;
+            animation: fadeInButton 1.2s cubic-bezier(0.22, 1, 0.36, 1) 2s forwards;
+            margin-top: 70px;
+            z-index: 2;
+        }
+
+        @keyframes fadeInButton {
+            to {
+                opacity: 1;
+            }
+        }
+
+        .enter-btn {
+            padding: 22px 65px;
+            font-size: 20px;
+            font-weight: 600;
+            color: #fff;
+            background: rgba(102, 126, 234, 0.2);
+            border: 2px solid rgba(102, 126, 234, 0.8);
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(102, 126, 234, 0.3);
+        }
+
+        .enter-btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(102, 126, 234, 0.4);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .enter-btn:hover {
+            transform: translateY(-3px);
+            background: rgba(102, 126, 234, 0.3);
+            border-color: rgba(102, 126, 234, 1);
+            box-shadow: 0 12px 40px rgba(102, 126, 234, 0.5);
+        }
+
+        .enter-btn:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .enter-btn:active {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 24px rgba(102, 126, 234, 0.4);
+        }
+
+        .ripple {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.6);
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            animation: rippleEffect 0.8s ease-out forwards;
+        }
+
+        @keyframes rippleEffect {
+            to {
+                width: 500px;
+                height: 500px;
+                opacity: 0;
+            }
+        }
+
+        /* Inspiration Overlay */
+        .inspiration-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, 
+                rgba(20, 30, 48, 0.97) 0%, 
+                rgba(36, 59, 85, 0.97) 50%, 
+                rgba(15, 32, 39, 0.97) 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            backdrop-filter: blur(20px);
+        }
+
+        .inspiration-overlay.show {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .inspiration-content {
+            max-width: 800px;
+            padding: 40px;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .inspiration-message {
+            font-size: 32px;
+            color: #fff;
+            line-height: 1.6;
+            margin-bottom: 30px;
+            font-weight: 300;
+            letter-spacing: 1px;
+            animation: fadeInScale 1.2s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+            text-shadow: 0 0 30px rgba(102, 126, 234, 0.4);
+        }
+
+        .inspiration-author {
+            font-size: 20px;
+            color: rgba(255, 255, 255, 0.8);
+            font-style: italic;
+            letter-spacing: 2px;
+            animation: fadeInScale 1.2s cubic-bezier(0.22, 1, 0.36, 1) 0.3s forwards;
+            opacity: 0;
+        }
+
+        @keyframes fadeInScale {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .sparkle {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 50%;
+            pointer-events: none;
+            animation: sparkleFloat 3s ease-in-out infinite;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.9);
+        }
+
+        @keyframes sparkleFloat {
+            0%, 100% {
+                transform: translate(0, 0) scale(1);
+                opacity: 0;
+            }
+            50% {
+                transform: translate(var(--sparkle-x, 0), var(--sparkle-y, 0)) scale(1.5);
+                opacity: 1;
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .logo {
+                font-size: 100px;
+                letter-spacing: 4px;
+            }
+
+            .company-name {
+                font-size: 24px;
+                letter-spacing: 6px;
+                margin-top: 20px;
+            }
+
+            .tagline {
+                font-size: 14px;
+                letter-spacing: 2px;
+                margin-top: 15px;
+            }
+
+            .enter-btn {
+                padding: 18px 50px;
+                font-size: 16px;
+                letter-spacing: 2px;
+            }
+
+            .enter-btn-container {
+                margin-top: 50px;
+            }
+
+            .inspiration-message {
+                font-size: 24px;
+                line-height: 1.5;
+            }
+
+            .inspiration-author {
+                font-size: 16px;
+            }
+
+            .inspiration-content {
+                padding: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo {
+                font-size: 80px;
+            }
+
+            .company-name {
+                font-size: 20px;
+                letter-spacing: 4px;
+            }
+
+            .tagline {
+                font-size: 12px;
+                letter-spacing: 1px;
+            }
+
+            .enter-btn {
+                padding: 16px 40px;
+                font-size: 14px;
+            }
+
+            .inspiration-message {
+                font-size: 20px;
+            }
+
+            .inspiration-author {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Landing Page -->
+    <div class="landing-container" id="landingContainer">
+        <!-- Animated Particles Background -->
+        <div class="particles" id="particles"></div>
+
+        <!-- Logo and Company Info -->
+        <div class="logo-container">
+            <div class="logo">F</div>
+            <div class="company-name">FUTURIFY</div>
+            <div class="tagline">Crafting Tomorrow's Digital Experiences</div>
+        </div>
+
+        <!-- Enter Button -->
+        <div class="enter-btn-container">
+            <button class="enter-btn" id="enterBtn">
+                Enter
+            </button>
+        </div>
+    </div>
+
+    <!-- Inspiration Overlay -->
+    <div class="inspiration-overlay" id="inspirationOverlay">
+        <div class="inspiration-content">
+            <div class="inspiration-message">"Stay hungry, stay foolish."</div>
+            <div class="inspiration-author">— Steve Jobs</div>
+        </div>
+    </div>
+
+    <script>
+        // Array of inspirational quotes
+        const quotes = [
+            { text: "The only way to do great work is to love what you do.", author: "Steve Jobs" },
+            { text: "Innovation distinguishes between a leader and a follower.", author: "Steve Jobs" },
+            { text: "Design is not just what it looks like and feels like. Design is how it works.", author: "Steve Jobs" },
+            { text: "Stay hungry, stay foolish.", author: "Steve Jobs" },
+            { text: "Simplicity is the ultimate sophistication.", author: "Leonardo da Vinci" },
+            { text: "The best way to predict the future is to create it.", author: "Peter Drucker" },
+            { text: "Quality is not an act, it is a habit.", author: "Aristotle" },
+            { text: "Perfection is achieved not when there is nothing more to add, but when there is nothing left to take away.", author: "Antoine de Saint-Exupéry" },
+            { text: "Design creates culture. Culture shapes values. Values determine the future.", author: "Robert L. Peters" },
+            { text: "Good design is obvious. Great design is transparent.", author: "Joe Sparano" },
+            { text: "Design is thinking made visual.", author: "Saul Bass" },
+            { text: "Everything is designed. Few things are designed well.", author: "Brian Reed" },
+            { text: "Design is intelligence made visible.", author: "Alina Wheeler" },
+            { text: "Content precedes design. Design in the absence of content is not design, it's decoration.", author: "Jeffrey Zeldman" },
+            { text: "Design is the intermediary between information and understanding.", author: "Hans Hoffman" },
+            { text: "The details are not the details. They make the design.", author: "Charles Eames" },
+            { text: "Design is the method of putting form and content together.", author: "Paul Rand" },
+            { text: "In the end, we only regret the chances we didn't take.", author: "Lewis Carroll" }
+        ];
+
+        // Function to get a random quote
+        function getRandomQuote() {
+            const randomIndex = Math.floor(Math.random() * quotes.length);
+            return quotes[randomIndex];
+        }
+
+        // Create floating particles with proper animation
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 60;
+
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                
+                // Random horizontal position
+                particle.style.left = Math.random() * 100 + '%';
+                
+                // Position at random heights
+                const startHeight = 50 + Math.random() * 60;
+                particle.style.top = startHeight + '%';
+                
+                // Random animation delay and duration
+                const animationDelay = Math.random() * 15 + 's';
+                const animationDuration = (Math.random() * 10 + 10) + 's';
+                
+                particle.style.animationDelay = animationDelay;
+                particle.style.animationDuration = animationDuration;
+                
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        createParticles();
+
+        // Background slideshow on hover
+        const enterBtn = document.getElementById('enterBtn');
+        const landingContainer = document.getElementById('landingContainer');
+        let isHovering = false;
+
+        enterBtn.addEventListener('mouseenter', () => {
+            isHovering = true;
+            landingContainer.classList.add('hover-active');
+        });
+
+        enterBtn.addEventListener('mouseleave', () => {
+            isHovering = false;
+            landingContainer.classList.remove('hover-active');
+        });
+
+        // Create enhanced sparkles for inspiration overlay
+        function createSparkles() {
+            const overlay = document.getElementById('inspirationOverlay');
+            const sparkleCount = 30;
+
+            for (let i = 0; i < sparkleCount; i++) {
+                const sparkle = document.createElement('div');
+                sparkle.className = 'sparkle';
+                
+                // Random size
+                const size = 2 + Math.random() * 4;
+                sparkle.style.width = size + 'px';
+                sparkle.style.height = size + 'px';
+                
+                // Random position
+                sparkle.style.left = Math.random() * 100 + '%';
+                sparkle.style.top = Math.random() * 100 + '%';
+                
+                // Random movement
+                const moveX = (Math.random() - 0.5) * 200;
+                const moveY = (Math.random() - 0.5) * 200;
+                sparkle.style.setProperty('--sparkle-x', moveX + 'px');
+                sparkle.style.setProperty('--sparkle-y', moveY + 'px');
+                
+                // Random delay and duration
+                sparkle.style.animationDelay = Math.random() * 3 + 's';
+                sparkle.style.animationDuration = (3 + Math.random() * 3) + 's';
+                
+                overlay.appendChild(sparkle);
+            }
+        }
+
+        // Ripple effect on button click
+        enterBtn.addEventListener('click', function(e) {
+            const rect = this.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+
+            const ripple = document.createElement('span');
+            ripple.className = 'ripple';
+            ripple.style.left = x + 'px';
+            ripple.style.top = y + 'px';
+            ripple.style.width = '10px';
+            ripple.style.height = '10px';
+
+            this.appendChild(ripple);
+
+            setTimeout(() => ripple.remove(), 800);
+
+            // Show inspiration message
+            const inspirationOverlay = document.getElementById('inspirationOverlay');
+            
+            // Get and display a random quote
+            const randomQuote = getRandomQuote();
+            const quoteMessage = document.querySelector('.inspiration-message');
+            const quoteAuthor = document.querySelector('.inspiration-author');
+            quoteMessage.innerHTML = `"${randomQuote.text}"`;
+            quoteAuthor.textContent = `— ${randomQuote.author}`;
+            
+            createSparkles();
+            
+            setTimeout(() => {
+                inspirationOverlay.classList.add('show');
+            }, 200);
+
+            // Navigate to home page after 5.5 seconds
+            setTimeout(() => {
+                inspirationOverlay.classList.remove('show');
+                landingContainer.classList.add('fade-out');
+                
+                setTimeout(() => {
+                    window.location.href = 'home f.html';
+                }, 1200);
+            }, 5500);
+        });
+    </script>
+
+    <script>
+    // Mobile tap interaction: first tap starts background change, second tap navigates
+    (function() {
+        var enterBtn = document.querySelector('.enter-btn');
+        var container = document.querySelector('.landing-container');
+        var isMobile = window.innerWidth <= 768;
+        var isBackgroundActive = false;
+        
+        // Desktop: use normal hover (already works)
+        if (!isMobile) {
+            // Desktop hover already triggers .hover-active in CSS
+        } else {
+            // Mobile: custom tap behavior
+            enterBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                if (!isBackgroundActive) {
+                    // First tap: activate background change
+                    container.classList.add('hover-active');
+                    isBackgroundActive = true;
+                } else {
+                    // Second tap: navigate to next page
+                    // Trigger the normal click flow with ripple effect
+                    var rect = this.getBoundingClientRect();
+                    var x = e.clientX - rect.left || rect.width / 2;
+                    var y = e.clientY - rect.top || rect.height / 2;
+
+                    var ripple = document.createElement('span');
+                    ripple.className = 'ripple';
+                    ripple.style.left = x + 'px';
+                    ripple.style.top = y + 'px';
+                    ripple.style.width = '10px';
+                    ripple.style.height = '10px';
+
+                    this.appendChild(ripple);
+
+                    setTimeout(function() { ripple.remove(); }, 800);
+
+                    // Show inspiration message
+                    var inspirationOverlay = document.getElementById('inspirationOverlay');
+                    
+                    // Get and display a random quote
+                    var randomQuote = getRandomQuote();
+                    var quoteMessage = document.querySelector('.inspiration-message');
+                    var quoteAuthor = document.querySelector('.inspiration-author');
+                    quoteMessage.innerHTML = '"' + randomQuote.text + '"';
+                    quoteAuthor.textContent = '— ' + randomQuote.author;
+                    
+                    createSparkles();
+                    
+                    setTimeout(function() {
+                        inspirationOverlay.classList.add('show');
+                    }, 200);
+
+                    // Navigate to home page after 5.5 seconds
+                    setTimeout(function() {
+                        inspirationOverlay.classList.remove('show');
+                        container.classList.add('fade-out');
+                        
+                        setTimeout(function() {
+                            window.location.href = 'home_f.html';
+                        }, 1200);
+                    }, 5500);
+                }
+            });
+            
+            // Tap anywhere else on screen (except the button) returns background to normal
+            document.addEventListener('click', function(e) {
+                if (isBackgroundActive && !enterBtn.contains(e.target)) {
+                    container.classList.remove('hover-active');
+                    isBackgroundActive = false;
+                }
+            });
+        }
+        
+        // Update on resize
+        window.addEventListener('resize', function() {
+            isMobile = window.innerWidth <= 768;
+        });
+    })();
+    </script>
+</body>
+</html>
