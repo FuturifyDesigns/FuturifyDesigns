@@ -1,0 +1,461 @@
+<!-- ============================================
+     PORTFOLIO PRO TEMPLATE - ABOUT PAGE
+     Template by Futurify Designs
+     
+     WHAT TO CUSTOMIZE ON THIS PAGE:
+     1. Hero section (image, name, title, bio)
+     2. Experience highlights (icons, text)
+     3. Skills section (skill names and percentages)
+     4. Journey/timeline section
+     5. Clients/logos section
+     6. CTA section
+     
+     IMAGES:
+     - About hero: 600x700px recommended
+     - Client logos: SVG or PNG with transparency
+     
+     NEED HELP? Contact: futurifydesigns@gmail.com
+============================================ -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About - Portfolio Pro Template</title> <!-- CHANGE: Your Name - About -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&family=Fraunces:wght@600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* ============================================
+           COLOR SCHEME - EDIT THESE TO CHANGE COLORS
+        ============================================ */
+        :root {
+            --primary: #c45d3a;       /* Main brand color (terracotta) */
+            --primary-dark: #a34a2d;  /* Hover state */
+            --secondary: #1a1a1a;     /* Dark headings */
+            --accent: #d4a574;        /* Gold accent */
+            --text: #2d2d2d;          /* Body text */
+            --text-light: #666666;    /* Lighter text */
+            --text-muted: #999999;    /* Muted text */
+            --bg: #faf8f5;            /* Main background */
+            --bg-alt: #f0ebe4;        /* Alt background */
+            --bg-dark: #1a1a1a;       /* Footer background */
+            --white: #ffffff;
+            --border: #e5e0d8;
+            --shadow: 0 4px 20px rgba(0,0,0,0.08);
+            --shadow-lg: 0 20px 40px rgba(0,0,0,0.12);
+            --radius: 16px;
+            --transition: all 0.4s ease;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Sora', sans-serif; font-size: 16px; line-height: 1.7; color: var(--text); background: var(--bg); }
+        img { max-width: 100%; height: auto; display: block; }
+        a { text-decoration: none; color: inherit; transition: var(--transition); }
+        ul { list-style: none; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+        h1, h2, h3, h4 { font-family: 'Fraunces', serif; font-weight: 700; color: var(--secondary); line-height: 1.2; }
+
+        /* Navbar - White background */
+        .navbar { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; padding: 20px 0; background: rgba(255,255,255,0.95); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); transition: var(--transition); }
+        .navbar.scrolled { padding: 14px 0; box-shadow: var(--shadow); }
+        .nav-container { display: flex; align-items: center; justify-content: space-between; }
+        .nav-logo { font-family: 'Fraunces', serif; font-size: 26px; font-weight: 800; color: var(--secondary); }
+        .nav-logo span { color: var(--primary); }
+        .nav-menu { display: flex; align-items: center; gap: 36px; }
+        .nav-link { font-size: 15px; font-weight: 500; color: var(--text); position: relative; }
+        .nav-link::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 2px; background: var(--primary); transition: width 0.3s; }
+        .nav-link:hover::after, .nav-link.active::after { width: 100%; }
+        .nav-link:hover, .nav-link.active { color: var(--primary); }
+        .nav-cta { padding: 12px 26px; background: var(--primary); color: white; font-size: 14px; font-weight: 600; border-radius: 50px; }
+        .nav-cta:hover { background: var(--primary-dark); transform: translateY(-2px); }
+        .nav-toggle { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 8px; }
+        .nav-toggle span { width: 26px; height: 2px; background: var(--secondary); border-radius: 2px; transition: var(--transition); }
+        
+        /* Mobile Menu */
+        @media (max-width: 768px) {
+            .nav-menu { 
+                position: fixed; 
+                top: 0; 
+                right: -100%; 
+                width: 80%; 
+                max-width: 320px; 
+                height: 100vh; 
+                flex-direction: column; 
+                justify-content: center; 
+                gap: 0; 
+                background: white; 
+                box-shadow: var(--shadow-lg); 
+                transition: right 0.3s ease; 
+            }
+            .nav-menu.active { right: 0; }
+            .nav-menu .nav-link { padding: 16px 32px; font-size: 18px; }
+            .nav-menu .nav-cta { margin: 16px 32px; }
+            .nav-toggle { display: flex; }
+            .nav-toggle.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+            .nav-toggle.active span:nth-child(2) { opacity: 0; }
+            .nav-toggle.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+        }
+
+        /* About Hero */
+        .about-hero { padding: 140px 0 80px; }
+        .about-hero .container { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+        .about-image { position: relative; }
+        .about-img-wrapper { border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-lg); }
+        .about-img-wrapper img { width: 100%; height: 480px; object-fit: cover; }
+        .about-badge { position: absolute; bottom: -20px; right: -20px; background: var(--primary); color: white; padding: 20px 28px; border-radius: var(--radius); text-align: center; box-shadow: var(--shadow-lg); }
+        .about-badge-number { font-family: 'Fraunces', serif; font-size: 38px; font-weight: 700; line-height: 1; }
+        .about-badge-text { font-size: 13px; opacity: 0.9; }
+        .about-tag { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 600; color: var(--primary); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 14px; }
+        .about-tag i { font-size: 8px; }
+        .about-title { font-size: clamp(32px, 4vw, 46px); margin-bottom: 20px; }
+        .about-text { font-size: 16px; color: var(--text-light); margin-bottom: 16px; line-height: 1.8; }
+        .about-list { margin: 28px 0; }
+        .about-list-item { display: flex; align-items: flex-start; gap: 14px; margin-bottom: 18px; }
+        .about-list-icon { width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; background: var(--bg-alt); border-radius: 10px; color: var(--primary); font-size: 18px; flex-shrink: 0; }
+        .about-list-title { font-size: 16px; font-weight: 600; color: var(--secondary); margin-bottom: 2px; }
+        .about-list-desc { font-size: 14px; color: var(--text-light); }
+        .btn { display: inline-flex; align-items: center; gap: 10px; padding: 14px 28px; font-family: 'Sora', sans-serif; font-size: 15px; font-weight: 600; border-radius: 50px; cursor: pointer; transition: var(--transition); }
+        .btn-primary { background: var(--primary); color: white; border: none; }
+        .btn-primary:hover { background: var(--primary-dark); }
+        .btn i { font-size: 14px; }
+
+        /* Skills */
+        .skills-section { padding: 80px 0; background: var(--white); }
+        .section-header { text-align: center; margin-bottom: 50px; }
+        .section-tag { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 600; color: var(--primary); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 14px; }
+        .section-tag i { font-size: 8px; }
+        .section-title { font-size: clamp(32px, 4vw, 46px); margin-bottom: 14px; }
+        .section-desc { font-size: 16px; color: var(--text-light); max-width: 550px; margin: 0 auto; }
+        .skills-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+        .skill-card { padding: 28px; background: var(--bg); border-radius: var(--radius); text-align: center; transition: var(--transition); }
+        .skill-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); }
+        .skill-icon { width: 70px; height: 70px; margin: 0 auto 16px; display: flex; align-items: center; justify-content: center; background: var(--white); border-radius: 16px; color: var(--primary); font-size: 28px; box-shadow: var(--shadow); }
+        .skill-name { font-size: 16px; font-weight: 600; color: var(--secondary); margin-bottom: 4px; }
+        .skill-level { font-size: 13px; color: var(--text-muted); }
+
+        /* Experience */
+        .experience-section { padding: 80px 0; }
+        .experience-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; }
+        .exp-column h3 { font-size: 24px; margin-bottom: 28px; display: flex; align-items: center; gap: 10px; }
+        .exp-column h3 i { color: var(--primary); font-size: 20px; }
+        .exp-item { position: relative; padding-left: 28px; padding-bottom: 32px; border-left: 2px solid var(--border); }
+        .exp-item:last-child { padding-bottom: 0; }
+        .exp-item::before { content: ''; position: absolute; left: -7px; top: 0; width: 12px; height: 12px; background: var(--primary); border-radius: 50%; border: 2px solid var(--bg); }
+        .exp-date { font-size: 12px; font-weight: 600; color: var(--primary); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
+        .exp-title { font-size: 18px; font-weight: 600; color: var(--secondary); margin-bottom: 4px; }
+        .exp-company { font-size: 14px; color: var(--text-muted); margin-bottom: 10px; }
+        .exp-desc { font-size: 14px; color: var(--text-light); line-height: 1.6; }
+
+        /* CTA */
+        .cta-section { padding: 80px 0; background: var(--bg-alt); text-align: center; }
+        .cta-title { font-size: clamp(28px, 4vw, 42px); margin-bottom: 14px; }
+        .cta-desc { font-size: 16px; color: var(--text-light); margin-bottom: 28px; max-width: 480px; margin-left: auto; margin-right: auto; }
+
+        /* Footer */
+        .footer { padding: 70px 0 28px; background: var(--bg-dark); color: white; }
+        .footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 50px; padding-bottom: 50px; border-bottom: 1px solid rgba(255,255,255,0.1); }
+        .footer-brand .nav-logo { margin-bottom: 16px; color: white; }
+        .footer-brand .nav-logo span { color: var(--accent); }
+        .footer-desc { font-size: 14px; color: rgba(255,255,255,0.6); line-height: 1.7; margin-bottom: 20px; }
+        .footer-social { display: flex; gap: 10px; }
+        .footer-social a { width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; background: rgba(255,255,255,0.1); border-radius: 50%; color: white; font-size: 16px; transition: var(--transition); }
+        .footer-social a:hover { background: var(--primary); }
+        .footer-col h4 { font-family: 'Sora', sans-serif; font-size: 15px; font-weight: 600; margin-bottom: 20px; }
+        .footer-col ul li { margin-bottom: 10px; }
+        .footer-col a { font-size: 14px; color: rgba(255,255,255,0.6); }
+        .footer-col a:hover { color: white; }
+        .footer-bottom { display: flex; justify-content: space-between; align-items: center; padding-top: 28px; }
+        .footer-bottom p { font-size: 13px; color: rgba(255,255,255,0.5); }
+        .footer-bottom a { color: var(--accent); }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .about-hero .container { grid-template-columns: 1fr; }
+            .about-image { max-width: 450px; margin: 0 auto 30px; }
+            .skills-grid { grid-template-columns: repeat(2, 1fr); }
+            .experience-grid { grid-template-columns: 1fr; }
+            .footer-top { grid-template-columns: 1fr 1fr; }
+        }
+        @media (max-width: 768px) {
+            .nav-menu { position: fixed; top: 0; right: -100%; width: 280px; height: 100vh; flex-direction: column; justify-content: center; background: var(--white); box-shadow: var(--shadow-lg); transition: right 0.3s; z-index: 1001; }
+            .nav-menu.active { right: 0; }
+            .nav-cta { display: none; }
+            .nav-toggle { display: flex; }
+            .about-badge { right: 10px; bottom: -15px; padding: 14px 20px; }
+            .about-badge-number { font-size: 28px; }
+            .skills-grid { grid-template-columns: 1fr 1fr; gap: 16px; }
+            .footer-top { grid-template-columns: 1fr; }
+            .footer-bottom { flex-direction: column; gap: 12px; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+    <!-- ============================================
+         NAVIGATION BAR
+         - Logo links to home
+         - "active" class shows current page
+    ============================================ -->
+    <nav class="navbar" id="navbar">
+        <div class="container nav-container">
+            <a href="index.html" class="nav-logo">Port<span>folio</span></a> <!-- CHANGE: Your name -->
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="portfolio.html" class="nav-link">Portfolio</a></li>
+                <li><a href="about.html" class="nav-link active">About</a></li>
+                <li><a href="contact.html" class="nav-link">Contact</a></li>
+            </ul>
+            <a href="contact.html" class="nav-cta">Let's Talk</a> <!-- CHANGE: CTA text -->
+            <button class="nav-toggle" id="navToggle" aria-label="Menu"><span></span><span></span><span></span></button>
+        </div>
+    </nav>
+
+    <!-- ============================================
+         ABOUT HERO SECTION
+         - Your photo (600x700px recommended)
+         - Experience badge
+         - Bio text and highlights
+         
+         IMAGE: Replace Unsplash URL with your photo
+    ============================================ -->
+    <section class="about-hero">
+        <div class="container">
+            <div class="about-image">
+                <div class="about-img-wrapper">
+                    <!-- YOUR PHOTO: Replace with your image -->
+                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=550&h=600&fit=crop&crop=face" alt="Portrait">
+                </div>
+                <!-- EXPERIENCE BADGE -->
+                <div class="about-badge">
+                    <div class="about-badge-number">8+</div> <!-- CHANGE: Your years -->
+                    <div class="about-badge-text">Years Experience</div>
+                </div>
+            </div>
+            <div class="about-content">
+                <div class="about-tag"><i class="fas fa-circle"></i> About Me</div>
+                <h1 class="about-title">I'm a Creative Designer Based in Gaborone</h1> <!-- CHANGE: Your headline -->
+                <p class="about-text">Hi there! I'm a passionate designer and developer with over 8 years of experience creating digital experiences that make an impact.</p> <!-- CHANGE -->
+                <p class="about-text">My approach combines strategic thinking with creative execution to deliver results that exceed expectations.</p> <!-- CHANGE -->
+                
+                <!-- HIGHLIGHTS: Update these 3 items -->
+                <div class="about-list">
+                    <div class="about-list-item">
+                        <div class="about-list-icon"><i class="fas fa-lightbulb"></i></div> <!-- CHANGE: Icon -->
+                        <div>
+                            <div class="about-list-title">Creative Problem Solver</div> <!-- CHANGE -->
+                            <div class="about-list-desc">Finding innovative solutions to complex challenges</div> <!-- CHANGE -->
+                        </div>
+                    </div>
+                    <div class="about-list-item">
+                        <div class="about-list-icon"><i class="fas fa-users"></i></div>
+                        <div>
+                            <div class="about-list-title">User-Centered Approach</div>
+                            <div class="about-list-desc">Designing experiences that put users first</div>
+                        </div>
+                    </div>
+                    <div class="about-list-item">
+                        <div class="about-list-icon"><i class="fas fa-clock"></i></div>
+                        <div>
+                            <div class="about-list-title">Reliable & Timely</div>
+                            <div class="about-list-desc">Delivering quality work on schedule</div>
+                        </div>
+                    </div>
+                </div>
+                <a href="contact.html" class="btn btn-primary"><span>Let's Work Together</span><i class="fas fa-arrow-right"></i></a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         SKILLS SECTION
+         - Update skill names and percentages
+         - Style width matches the percentage
+    ============================================ -->
+    <section class="skills-section">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-tag"><i class="fas fa-circle"></i> Skills</div>
+                <h2 class="section-title">My Expertise</h2> <!-- CHANGE -->
+                <p class="section-desc">Tools and technologies I use to bring ideas to life.</p> <!-- CHANGE -->
+            </div>
+            <div class="skills-grid">
+                <div class="skill-card">
+                    <div class="skill-icon"><i class="fab fa-figma"></i></div>
+                    <div class="skill-name">Figma</div>
+                    <div class="skill-level">Expert</div>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-icon"><i class="fas fa-diamond"></i></div>
+                    <div class="skill-name">Sketch</div>
+                    <div class="skill-level">Advanced</div>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-icon"><i class="fab fa-html5"></i></div>
+                    <div class="skill-name">HTML/CSS</div>
+                    <div class="skill-level">Expert</div>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-icon"><i class="fab fa-js"></i></div>
+                    <div class="skill-name">JavaScript</div>
+                    <div class="skill-level">Advanced</div>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-icon"><i class="fab fa-react"></i></div>
+                    <div class="skill-name">React</div>
+                    <div class="skill-level">Intermediate</div>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-icon"><i class="fas fa-pen-nib"></i></div>
+                    <div class="skill-name">Illustrator</div>
+                    <div class="skill-level">Advanced</div>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-icon"><i class="fas fa-image"></i></div>
+                    <div class="skill-name">Photoshop</div>
+                    <div class="skill-level">Expert</div>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-icon"><i class="fas fa-mobile-alt"></i></div>
+                    <div class="skill-name">Mobile Design</div>
+                    <div class="skill-level">Expert</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="experience-section">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-tag"><i class="fas fa-circle"></i> Background</div>
+                <h2 class="section-title">Experience & Education</h2>
+            </div>
+            <div class="experience-grid">
+                <div class="exp-column">
+                    <h3><i class="fas fa-briefcase"></i> Experience</h3>
+                    <div class="exp-item">
+                        <div class="exp-date">2021 - Present</div>
+                        <div class="exp-title">Senior UI/UX Designer</div>
+                        <div class="exp-company">Creative Studio Inc.</div>
+                        <div class="exp-desc">Leading design projects for enterprise clients and mentoring junior designers.</div>
+                    </div>
+                    <div class="exp-item">
+                        <div class="exp-date">2018 - 2021</div>
+                        <div class="exp-title">Product Designer</div>
+                        <div class="exp-company">Tech Innovations Ltd.</div>
+                        <div class="exp-desc">Designed user interfaces for web and mobile applications.</div>
+                    </div>
+                    <div class="exp-item">
+                        <div class="exp-date">2016 - 2018</div>
+                        <div class="exp-title">Junior Designer</div>
+                        <div class="exp-company">Digital Agency BW</div>
+                        <div class="exp-desc">Created visual designs for websites and marketing materials.</div>
+                    </div>
+                </div>
+                <div class="exp-column">
+                    <h3><i class="fas fa-graduation-cap"></i> Education</h3>
+                    <div class="exp-item">
+                        <div class="exp-date">2020</div>
+                        <div class="exp-title">UX Design Certification</div>
+                        <div class="exp-company">Google</div>
+                        <div class="exp-desc">Comprehensive program covering user research and prototyping.</div>
+                    </div>
+                    <div class="exp-item">
+                        <div class="exp-date">2012 - 2016</div>
+                        <div class="exp-title">Bachelor of Design</div>
+                        <div class="exp-company">University of Botswana</div>
+                        <div class="exp-desc">Studied graphic design and visual communication.</div>
+                    </div>
+                    <div class="exp-item">
+                        <div class="exp-date">2019</div>
+                        <div class="exp-title">Front-End Development</div>
+                        <div class="exp-company">freeCodeCamp</div>
+                        <div class="exp-desc">Completed responsive web design certification.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-section">
+        <div class="container">
+            <h2 class="cta-title">Let's Create Something Amazing</h2>
+            <p class="cta-desc">Ready to start your next project? I'd love to hear from you.</p>
+            <a href="contact.html" class="btn btn-primary"><span>Get in Touch</span><i class="fas fa-arrow-right"></i></a>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-top">
+                <div class="footer-brand">
+                    <a href="index.html" class="nav-logo">Port<span>folio</span></a>
+                    <p class="footer-desc">Creative designer and developer passionate about crafting beautiful digital experiences.</p>
+                    <div class="footer-social">
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-dribbble"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Navigation</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="portfolio.html">Portfolio</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Services</h4>
+                    <ul>
+                        <li><a href="#">UI/UX Design</a></li>
+                        <li><a href="#">Web Development</a></li>
+                        <li><a href="#">Brand Identity</a></li>
+                        <li><a href="#">Consulting</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Contact</h4>
+                    <ul>
+                        <li><a href="mailto:hello@yoursite.com">hello@yoursite.com</a></li>
+                        <li><a href="tel:+26777783823">+267 77 783 823</a></li>
+                        <li><span style="color:rgba(255,255,255,0.6)">Gaborone, Botswana</span></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Portfolio. All rights reserved.</p>
+                <p>Template by <a href="mailto:futurifydesigns@gmail.com">Futurify Designs</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Navbar scroll effect
+        const navbar = document.querySelector('.navbar');
+        window.addEventListener('scroll', () => {
+            navbar.classList.toggle('scrolled', window.scrollY > 50);
+        });
+        
+        // Mobile menu toggle
+        const navToggle = document.querySelector('.nav-toggle');
+        const navMenu = document.querySelector('.nav-menu');
+        
+        if (navToggle && navMenu) {
+            navToggle.addEventListener('click', () => {
+                navToggle.classList.toggle('active');
+                navMenu.classList.toggle('active');
+            });
+            
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.addEventListener('click', () => {
+                    navToggle.classList.remove('active');
+                    navMenu.classList.remove('active');
+                });
+            });
+        }
+    </script>
+</body>
+</html>

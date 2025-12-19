@@ -1,0 +1,514 @@
+<!-- ============================================
+     PORTFOLIO PRO TEMPLATE - HOME PAGE
+     Template by Futurify Designs
+     
+     HOW TO CUSTOMIZE:
+     1. Update colors in :root CSS section
+     2. Replace "Portfolio" with your name
+     3. Replace Unsplash images with your own work
+     4. Update contact info and social links
+     
+     COLORS: Terracotta (#c45d3a) + Cream backgrounds
+     FONTS: Sora (body) + Fraunces (headings)
+     
+     NEED HELP? Contact: futurifydesigns@gmail.com
+============================================ -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- ============================================
+         PORTFOLIO PRO TEMPLATE - HOME PAGE
+         Template by Futurify Designs
+         
+         WHAT TO CUSTOMIZE:
+         1. Your name and professional title
+         2. Portfolio project images and descriptions
+         3. Services you offer
+         4. Stats (years experience, projects, clients)
+         5. Contact information
+         
+         COLOR SCHEME:
+         - Primary: Terracotta (#c45d3a) - warm, creative
+         - Change colors in :root section below
+         
+         FONTS:
+         - Sora: Body text (modern, clean)
+         - Fraunces: Headings (elegant, editorial)
+         
+         NEED HELP? Contact: futurifydesigns@gmail.com
+    ============================================ -->
+    
+    <title>Portfolio Pro - Creative Portfolio Template</title> <!-- CHANGE: Your Name - Portfolio -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&family=Fraunces:wght@600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* ===========================================
+           COLOR SCHEME - EDIT THESE TO CHANGE COLORS
+           ===========================================
+           Current: Warm terracotta theme (creative/artistic)
+           To change: Edit the hex color values below
+           Tool: Use coolors.co to generate matching colors
+        */
+        :root {
+            --primary: #c45d3a;       /* Main brand color (terracotta) - buttons, links, accents */
+            --primary-dark: #a34a2d;  /* Darker shade for hover states */
+            --secondary: #1a1a1a;     /* Dark color for headings */
+            --accent: #d4a574;        /* Warm accent (gold/tan) - highlights */
+            --text: #2d2d2d;          /* Main body text color */
+            --text-light: #666666;    /* Secondary/lighter text */
+            --text-muted: #999999;    /* Muted/subtle text */
+            --bg: #faf8f5;            /* Main background (warm white) */
+            --bg-alt: #f0ebe4;        /* Alternate section background */
+            --bg-dark: #1a1a1a;       /* Dark background (footer) */
+            --white: #ffffff;         /* Pure white */
+            --border: #e5e0d8;        /* Border color */
+            --shadow: 0 4px 20px rgba(0,0,0,0.08);    /* Subtle shadow */
+            --shadow-lg: 0 20px 40px rgba(0,0,0,0.12); /* Larger shadow */
+            --radius: 16px;           /* Border radius for cards */
+            --transition: all 0.4s ease; /* Animation speed */
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Sora', sans-serif; font-size: 16px; line-height: 1.7; color: var(--text); background: var(--bg); }
+        img { max-width: 100%; height: auto; display: block; }
+        a { text-decoration: none; color: inherit; transition: var(--transition); }
+        ul { list-style: none; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+        h1, h2, h3, h4 { font-family: 'Fraunces', serif; font-weight: 700; color: var(--secondary); line-height: 1.2; }
+
+        /* Navbar - White background with blur */
+        .navbar { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; padding: 20px 0; background: rgba(255,255,255,0.95); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); transition: var(--transition); }
+        .navbar.scrolled { padding: 14px 0; box-shadow: var(--shadow); }
+        .nav-container { display: flex; align-items: center; justify-content: space-between; }
+        .nav-logo { font-family: 'Fraunces', serif; font-size: 26px; font-weight: 800; color: var(--secondary); }
+        .nav-logo span { color: var(--primary); }
+        .nav-menu { display: flex; align-items: center; gap: 36px; }
+        .nav-link { font-size: 15px; font-weight: 500; color: var(--text); position: relative; }
+        .nav-link::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 2px; background: var(--primary); transition: width 0.3s; }
+        .nav-link:hover::after, .nav-link.active::after { width: 100%; }
+        .nav-link:hover, .nav-link.active { color: var(--primary); }
+        .nav-cta { padding: 12px 26px; background: var(--primary); color: white; font-size: 14px; font-weight: 600; border-radius: 50px; }
+        .nav-cta:hover { background: var(--primary-dark); transform: translateY(-2px); }
+        .nav-toggle { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 8px; }
+        .nav-toggle span { width: 26px; height: 2px; background: var(--secondary); border-radius: 2px; transition: var(--transition); }
+        
+        /* Mobile Menu */
+        @media (max-width: 768px) {
+            .nav-menu { 
+                position: fixed; 
+                top: 0; 
+                right: -100%; 
+                width: 80%; 
+                max-width: 320px; 
+                height: 100vh; 
+                flex-direction: column; 
+                justify-content: center; 
+                gap: 0; 
+                background: white; 
+                box-shadow: var(--shadow-lg); 
+                transition: right 0.3s ease; 
+            }
+            .nav-menu.active { right: 0; }
+            .nav-menu .nav-link { padding: 16px 32px; font-size: 18px; }
+            .nav-menu .nav-cta { margin: 16px 32px; }
+            .nav-toggle { display: flex; }
+            .nav-toggle.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+            .nav-toggle.active span:nth-child(2) { opacity: 0; }
+            .nav-toggle.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+        }
+
+        /* Hero */
+        .hero { min-height: 100vh; display: flex; align-items: center; padding: 120px 0 80px; position: relative; }
+        .hero-bg { position: absolute; top: -50%; right: -20%; width: 700px; height: 700px; background: radial-gradient(circle, var(--bg-alt) 0%, transparent 70%); border-radius: 50%; }
+        .hero .container { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; position: relative; z-index: 1; }
+        .hero-tag { display: inline-flex; align-items: center; gap: 10px; font-size: 13px; font-weight: 600; color: var(--primary); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 20px; }
+        .hero-tag i { font-size: 8px; }
+        .hero-title { font-size: clamp(42px, 6vw, 72px); margin-bottom: 20px; }
+        .hero-title .highlight { color: var(--primary); font-style: italic; }
+        .hero-desc { font-size: 18px; color: var(--text-light); margin-bottom: 32px; max-width: 480px; }
+        .hero-buttons { display: flex; gap: 16px; margin-bottom: 50px; }
+        .btn { display: inline-flex; align-items: center; gap: 10px; padding: 14px 28px; font-family: 'Sora', sans-serif; font-size: 15px; font-weight: 600; border-radius: 50px; border: 2px solid transparent; cursor: pointer; transition: var(--transition); }
+        .btn-primary { background: var(--primary); color: white; }
+        .btn-primary:hover { background: var(--primary-dark); transform: translateY(-2px); }
+        .btn-outline { background: transparent; color: var(--secondary); border-color: var(--border); }
+        .btn-outline:hover { border-color: var(--secondary); background: var(--secondary); color: white; }
+        .btn i { font-size: 14px; }
+        .hero-stats { display: flex; gap: 40px; }
+        .stat-number { font-family: 'Fraunces', serif; font-size: 42px; font-weight: 700; color: var(--secondary); }
+        .stat-number span { color: var(--primary); }
+        .stat-label { font-size: 14px; color: var(--text-muted); margin-top: 4px; }
+        .hero-image { position: relative; }
+        .hero-img-wrapper { border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-lg); }
+        .hero-img-wrapper img { width: 100%; height: 500px; object-fit: cover; }
+        .hero-float { position: absolute; background: var(--white); padding: 16px 20px; border-radius: var(--radius); box-shadow: var(--shadow-lg); display: flex; align-items: center; gap: 14px; }
+        .hero-float.card-1 { bottom: 30px; left: -30px; }
+        .hero-float.card-2 { top: 30px; right: -20px; }
+        .float-icon { width: 46px; height: 46px; display: flex; align-items: center; justify-content: center; background: var(--bg-alt); border-radius: 12px; color: var(--primary); font-size: 18px; }
+        .float-text strong { display: block; font-size: 16px; color: var(--secondary); }
+        .float-text span { font-size: 12px; color: var(--text-muted); }
+
+        /* Services */
+        .services-section { padding: 100px 0; background: var(--white); }
+        .section-header { text-align: center; margin-bottom: 50px; }
+        .section-tag { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 600; color: var(--primary); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 14px; }
+        .section-tag i { font-size: 8px; }
+        .section-title { font-size: clamp(32px, 4vw, 46px); margin-bottom: 14px; }
+        .section-desc { font-size: 16px; color: var(--text-light); max-width: 550px; margin: 0 auto; }
+        .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+        .service-card { padding: 36px; background: var(--bg); border-radius: var(--radius); transition: var(--transition); }
+        .service-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); }
+        .service-icon { width: 64px; height: 64px; display: flex; align-items: center; justify-content: center; background: var(--white); border-radius: 14px; color: var(--primary); font-size: 26px; margin-bottom: 20px; box-shadow: var(--shadow); }
+        .service-title { font-size: 20px; margin-bottom: 10px; }
+        .service-desc { font-size: 15px; color: var(--text-light); }
+
+        /* Featured Work */
+        .work-section { padding: 100px 0; }
+        .work-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 28px; }
+        .work-card { position: relative; border-radius: var(--radius); overflow: hidden; }
+        .work-card img { width: 100%; height: 350px; object-fit: cover; transition: transform 0.5s; }
+        .work-card:hover img { transform: scale(1.05); }
+        .work-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(26,26,26,0.9) 0%, transparent 50%); display: flex; flex-direction: column; justify-content: flex-end; padding: 28px; opacity: 0; transition: opacity 0.4s; }
+        .work-card:hover .work-overlay { opacity: 1; }
+        .work-category { font-size: 12px; color: var(--accent); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 6px; }
+        .work-title { font-size: 22px; color: white; margin-bottom: 12px; }
+        .work-link { display: inline-flex; align-items: center; gap: 8px; color: white; font-size: 14px; font-weight: 600; }
+        .view-all { text-align: center; margin-top: 40px; }
+
+        /* CTA */
+        .cta-section { padding: 100px 0; background: var(--secondary); text-align: center; }
+        .cta-title { font-size: clamp(32px, 4vw, 46px); color: white; margin-bottom: 16px; }
+        .cta-desc { font-size: 17px; color: rgba(255,255,255,0.7); margin-bottom: 32px; max-width: 550px; margin-left: auto; margin-right: auto; }
+        .cta-buttons { display: flex; justify-content: center; gap: 16px; }
+        .btn-white { background: white; color: var(--secondary); }
+        .btn-white:hover { background: var(--accent); }
+        .btn-ghost { background: transparent; color: white; border-color: rgba(255,255,255,0.3); }
+        .btn-ghost:hover { background: rgba(255,255,255,0.1); border-color: white; }
+
+        /* Footer */
+        .footer { padding: 70px 0 28px; background: var(--bg-dark); color: white; }
+        .footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 50px; padding-bottom: 50px; border-bottom: 1px solid rgba(255,255,255,0.1); }
+        .footer-brand .nav-logo { margin-bottom: 16px; color: white; }
+        .footer-brand .nav-logo span { color: var(--accent); }
+        .footer-desc { font-size: 14px; color: rgba(255,255,255,0.6); line-height: 1.7; margin-bottom: 20px; }
+        .footer-social { display: flex; gap: 10px; }
+        .footer-social a { width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; background: rgba(255,255,255,0.1); border-radius: 50%; color: white; font-size: 16px; transition: var(--transition); }
+        .footer-social a:hover { background: var(--primary); }
+        .footer-col h4 { font-family: 'Sora', sans-serif; font-size: 15px; font-weight: 600; margin-bottom: 20px; }
+        .footer-col ul li { margin-bottom: 10px; }
+        .footer-col a { font-size: 14px; color: rgba(255,255,255,0.6); }
+        .footer-col a:hover { color: white; }
+        .footer-bottom { display: flex; justify-content: space-between; align-items: center; padding-top: 28px; }
+        .footer-bottom p { font-size: 13px; color: rgba(255,255,255,0.5); }
+        .footer-bottom a { color: var(--accent); }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .hero .container { grid-template-columns: 1fr; text-align: center; }
+            .hero-desc, .hero-buttons, .hero-stats { justify-content: center; margin-left: auto; margin-right: auto; }
+            .hero-image { display: none; }
+            .services-grid { grid-template-columns: repeat(2, 1fr); }
+            .footer-top { grid-template-columns: 1fr 1fr; }
+        }
+        @media (max-width: 768px) {
+            .nav-menu { position: fixed; top: 0; right: -100%; width: 280px; height: 100vh; flex-direction: column; justify-content: center; background: var(--white); box-shadow: var(--shadow-lg); transition: right 0.3s; z-index: 1001; }
+            .nav-menu.active { right: 0; }
+            .nav-cta { display: none; }
+            .nav-toggle { display: flex; }
+            .hero { min-height: auto; padding: 100px 0 60px; }
+            .hero-title { font-size: 36px; }
+            .hero-stats { flex-direction: column; gap: 20px; }
+            .services-grid, .work-grid { grid-template-columns: 1fr; }
+            .cta-buttons { flex-direction: column; align-items: center; }
+            .footer-top { grid-template-columns: 1fr; }
+            .footer-bottom { flex-direction: column; gap: 12px; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+    <!-- ============================================
+         NAVIGATION BAR
+         - Change "Portfolio" to your name/brand
+         - Update nav links if you rename pages
+         - "Let's Talk" button links to contact page
+    ============================================ -->
+    <nav class="navbar" id="navbar">
+        <div class="container nav-container">
+            <!-- LOGO: Change "Portfolio" to your name. Or use: <img src="logo.png" alt="Logo" height="40"> -->
+            <a href="index.html" class="nav-logo">Port<span>folio</span></a>
+            
+            <!-- NAV LINKS: Update text and href as needed -->
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="index.html" class="nav-link active">Home</a></li>
+                <li><a href="portfolio.html" class="nav-link">Portfolio</a></li>
+                <li><a href="about.html" class="nav-link">About</a></li>
+                <li><a href="contact.html" class="nav-link">Contact</a></li>
+            </ul>
+            
+            <!-- CTA BUTTON: Change text and link -->
+            <a href="contact.html" class="nav-cta">Let's Talk</a>
+            <button class="nav-toggle" id="navToggle" aria-label="Menu"><span></span><span></span><span></span></button>
+        </div>
+    </nav>
+
+    <!-- ============================================
+         HERO SECTION
+         - Your main introduction
+         - Update headline, description, stats
+         - Replace portrait image with your photo
+    ============================================ -->
+    <section class="hero">
+        <div class="hero-bg"></div>
+        <div class="container">
+            <div class="hero-content">
+                <!-- TAGLINE: Your professional title -->
+                <div class="hero-tag"><i class="fas fa-circle"></i> Creative Designer & Developer</div>
+                
+                <!-- HEADLINE: Main attention-grabbing text -->
+                <h1 class="hero-title">Crafting Digital<br><span class="highlight">Experiences</span></h1>
+                
+                <!-- DESCRIPTION: Brief intro (1-2 sentences) -->
+                <p class="hero-desc">I design and build beautiful websites that help businesses stand out and connect with their audience.</p>
+                
+                <!-- BUTTONS: Primary and secondary actions -->
+                <div class="hero-buttons">
+                    <a href="portfolio.html" class="btn btn-primary"><span>View My Work</span><i class="fas fa-arrow-right"></i></a>
+                    <a href="about.html" class="btn btn-outline"><span>Learn More</span></a>
+                </div>
+                
+                <!-- STATS: Update with your real numbers -->
+                <div class="hero-stats">
+                    <div class="stat"><div class="stat-number">8<span>+</span></div><div class="stat-label">Years Experience</div></div>
+                    <div class="stat"><div class="stat-number">150<span>+</span></div><div class="stat-label">Projects Completed</div></div>
+                    <div class="stat"><div class="stat-number">50<span>+</span></div><div class="stat-label">Happy Clients</div></div>
+                </div>
+            </div>
+            
+            <!-- HERO IMAGE: Your professional photo -->
+            <div class="hero-image">
+                <div class="hero-img-wrapper">
+                    <!-- PHOTO: Replace with your image (recommended: 600x600px, face crop) -->
+                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&h=600&fit=crop&crop=face" alt="Portrait">
+                </div>
+                
+                <!-- FLOATING BADGES: Achievement highlights -->
+                <div class="hero-float card-1">
+                    <div class="float-icon"><i class="fas fa-trophy"></i></div>
+                    <div class="float-text"><strong>Award Winner</strong><span>Best Designer 2024</span></div>
+                </div>
+                <div class="hero-float card-2">
+                    <div class="float-icon"><i class="fas fa-star"></i></div>
+                    <div class="float-text"><strong>5.0 Rating</strong><span>Client Reviews</span></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         SERVICES SECTION
+         - List your main services (3 shown)
+         - Change icons at fontawesome.com/icons
+    ============================================ -->
+    <section class="services-section">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-tag"><i class="fas fa-circle"></i> Services</div>
+                <h2 class="section-title">What I Do Best</h2>
+                <p class="section-desc">Specialized services tailored to bring your vision to life.</p>
+            </div>
+            <div class="services-grid">
+                <!-- SERVICE 1: Update icon, title, description -->
+                <div class="service-card">
+                    <div class="service-icon"><i class="fas fa-pen-ruler"></i></div>
+                    <h3 class="service-title">UI/UX Design</h3>
+                    <p class="service-desc">Creating intuitive interfaces that users love to interact with.</p>
+                </div>
+                <!-- SERVICE 2 -->
+                <div class="service-card">
+                    <div class="service-icon"><i class="fas fa-code"></i></div>
+                    <h3 class="service-title">Web Development</h3>
+                    <p class="service-desc">Building fast, responsive websites with modern technologies.</p>
+                </div>
+                <!-- SERVICE 3 -->
+                <div class="service-card">
+                    <div class="service-icon"><i class="fas fa-palette"></i></div>
+                    <h3 class="service-title">Brand Identity</h3>
+                    <p class="service-desc">Developing cohesive brand identities that tell your story.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         FEATURED WORK SECTION
+         - Showcase your best projects (4 shown)
+         - Replace images with your project screenshots
+         - Update categories, titles, links
+    ============================================ -->
+    <section class="work-section">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-tag"><i class="fas fa-circle"></i> Portfolio</div>
+                <h2 class="section-title">Featured Projects</h2>
+                <p class="section-desc">A selection of my recent work across various industries.</p>
+            </div>
+            <div class="work-grid">
+                <div class="work-card">
+                    <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=700&h=450&fit=crop" alt="E-Commerce">
+                    <div class="work-overlay">
+                        <span class="work-category">Web Design</span>
+                        <h3 class="work-title">E-Commerce Platform</h3>
+                        <a href="portfolio.html" class="work-link">View Project <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                <div class="work-card">
+                    <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=700&h=450&fit=crop" alt="Tech Startup">
+                    <div class="work-overlay">
+                        <span class="work-category">Branding</span>
+                        <h3 class="work-title">Tech Startup Identity</h3>
+                        <a href="portfolio.html" class="work-link">View Project <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                <div class="work-card">
+                    <img src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=700&h=450&fit=crop" alt="Fitness App">
+                    <div class="work-overlay">
+                        <span class="work-category">Mobile App</span>
+                        <h3 class="work-title">Fitness Tracking App</h3>
+                        <a href="portfolio.html" class="work-link">View Project <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                <div class="work-card">
+                    <img src="https://images.unsplash.com/photo-1563986768609-322da13575f3?w=700&h=450&fit=crop" alt="Banking">
+                    <div class="work-overlay">
+                        <span class="work-category">UI Design</span>
+                        <h3 class="work-title">Banking Dashboard</h3>
+                        <a href="portfolio.html" class="work-link">View Project <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="view-all">
+                <a href="portfolio.html" class="btn btn-primary"><span>View All Projects</span><i class="fas fa-arrow-right"></i></a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         CTA SECTION
+         - Final call-to-action
+         - Update headline, description, email
+    ============================================ -->
+    <section class="cta-section">
+        <div class="container">
+            <h2 class="cta-title">Let's Work Together</h2>
+            <p class="cta-desc">Have a project in mind? Let's create something amazing together.</p>
+            <div class="cta-buttons">
+                <a href="contact.html" class="btn btn-white"><span>Start a Project</span><i class="fas fa-arrow-right"></i></a>
+                <!-- EMAIL: Change to your email address -->
+                <a href="mailto:hello@yoursite.com" class="btn btn-ghost"><i class="fas fa-envelope"></i> hello@yoursite.com</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         FOOTER
+         - Update logo, description, social links
+         - Change contact info (email, phone, location)
+         - Update copyright year and name
+    ============================================ -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-top">
+                <!-- BRAND COLUMN: Logo and description -->
+                <div class="footer-brand">
+                    <!-- LOGO: Same as navbar -->
+                    <a href="index.html" class="nav-logo">Port<span>folio</span></a>
+                    <p class="footer-desc">Creative designer and developer passionate about crafting beautiful digital experiences.</p>
+                    
+                    <!-- SOCIAL LINKS: Update href="#" with your actual profile URLs -->
+                    <div class="footer-social">
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-dribbble"></i></a>
+                    </div>
+                </div>
+                
+                <!-- NAVIGATION LINKS -->
+                <div class="footer-col">
+                    <h4>Navigation</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="portfolio.html">Portfolio</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <!-- SERVICES LIST -->
+                <div class="footer-col">
+                    <h4>Services</h4>
+                    <ul>
+                        <li><a href="#">UI/UX Design</a></li>
+                        <li><a href="#">Web Development</a></li>
+                        <li><a href="#">Brand Identity</a></li>
+                        <li><a href="#">Consulting</a></li>
+                    </ul>
+                </div>
+                
+                <!-- CONTACT INFO: Update with your details -->
+                <div class="footer-col">
+                    <h4>Contact</h4>
+                    <ul>
+                        <li><a href="mailto:hello@yoursite.com">hello@yoursite.com</a></li> <!-- CHANGE: Your email -->
+                        <li><a href="tel:+26777783823">+267 77 783 823</a></li> <!-- CHANGE: Your phone -->
+                        <li><span style="color:rgba(255,255,255,0.6)">Gaborone, Botswana</span></li> <!-- CHANGE: Your location -->
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- COPYRIGHT: Update year and name -->
+            <div class="footer-bottom">
+                <p>&copy; 2025 Portfolio. All rights reserved.</p>
+                <p>Template by <a href="mailto:futurifydesigns@gmail.com">Futurify Designs</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Mobile Menu Toggle Script -->
+    <script>
+        // Mobile menu toggle
+        const navToggle = document.querySelector('.nav-toggle');
+        const navMenu = document.querySelector('.nav-menu');
+        
+        if (navToggle && navMenu) {
+            navToggle.addEventListener('click', () => {
+                navToggle.classList.toggle('active');
+                navMenu.classList.toggle('active');
+            });
+            
+            // Close menu when clicking a link
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.addEventListener('click', () => {
+                    navToggle.classList.remove('active');
+                    navMenu.classList.remove('active');
+                });
+            });
+        }
+        
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+    </script>
+</body>
+</html>

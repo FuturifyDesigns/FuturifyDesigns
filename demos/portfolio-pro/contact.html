@@ -1,0 +1,312 @@
+<!-- ============================================
+     PORTFOLIO PRO TEMPLATE - CONTACT PAGE
+     Template by Futurify Designs
+     
+     WHAT TO CUSTOMIZE ON THIS PAGE:
+     1. Page title and description
+     2. Contact info (email, phone, location)
+     3. Social media links
+     4. Contact form fields
+     5. Form submission email (in script section)
+     
+     FORM HANDLING:
+     - Default: Opens user's email client (mailto:)
+     - For server-side: Replace with your form handler
+     - Services: Formspree, Netlify Forms, etc.
+     
+     NEED HELP? Contact: futurifydesigns@gmail.com
+============================================ -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact - Portfolio Pro Template</title> <!-- CHANGE: Your Name - Contact -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&family=Fraunces:wght@600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* ============================================
+           COLOR SCHEME - EDIT THESE TO CHANGE COLORS
+        ============================================ */
+        :root { 
+            --primary: #c45d3a;       /* Main brand color */
+            --primary-dark: #a34a2d;  /* Hover state */
+            --secondary: #1a1a1a;     /* Dark headings */
+            --accent: #d4a574;        /* Gold accent */
+            --text: #2d2d2d;          /* Body text */
+            --text-light: #666;       /* Lighter text */
+            --text-muted: #999;       /* Muted text */
+            --bg: #faf8f5;            /* Main background */
+            --bg-alt: #f0ebe4;        /* Alt background */
+            --bg-dark: #1a1a1a;       /* Footer */
+            --white: #fff; 
+            --border: #e5e0d8; 
+            --shadow: 0 4px 20px rgba(0,0,0,0.08); 
+            --shadow-lg: 0 20px 40px rgba(0,0,0,0.12); 
+            --radius: 16px; 
+            --transition: all 0.4s ease; 
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Sora', sans-serif; font-size: 16px; line-height: 1.7; color: var(--text); background: var(--bg); }
+        img { max-width: 100%; height: auto; }
+        a { text-decoration: none; color: inherit; transition: var(--transition); }
+        ul { list-style: none; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+        h1, h2, h3, h4 { font-family: 'Fraunces', serif; font-weight: 700; color: var(--secondary); line-height: 1.2; }
+        
+        /* Navbar - White background */
+        .navbar { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; padding: 20px 0; background: rgba(255,255,255,0.95); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); transition: var(--transition); }
+        .navbar.scrolled { padding: 14px 0; box-shadow: var(--shadow); }
+        .nav-container { display: flex; align-items: center; justify-content: space-between; }
+        .nav-logo { font-family: 'Fraunces', serif; font-size: 26px; font-weight: 800; color: var(--secondary); }
+        .nav-logo span { color: var(--primary); }
+        .nav-menu { display: flex; align-items: center; gap: 36px; }
+        .nav-link { font-size: 15px; font-weight: 500; color: var(--text); position: relative; }
+        .nav-link::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 2px; background: var(--primary); transition: width 0.3s; }
+        .nav-link:hover::after, .nav-link.active::after { width: 100%; }
+        .nav-link:hover, .nav-link.active { color: var(--primary); }
+        .nav-cta { padding: 12px 26px; background: var(--primary); color: white; font-size: 14px; font-weight: 600; border-radius: 50px; }
+        .nav-cta:hover { background: var(--primary-dark); transform: translateY(-2px); }
+        .nav-toggle { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 8px; }
+        .nav-toggle span { width: 26px; height: 2px; background: var(--secondary); border-radius: 2px; transition: var(--transition); }
+        
+        /* Mobile Menu */
+        @media (max-width: 768px) {
+            .nav-menu { 
+                position: fixed; 
+                top: 0; 
+                right: -100%; 
+                width: 80%; 
+                max-width: 320px; 
+                height: 100vh; 
+                flex-direction: column; 
+                justify-content: center; 
+                gap: 0; 
+                background: white; 
+                box-shadow: var(--shadow-lg); 
+                transition: right 0.3s ease; 
+            }
+            .nav-menu.active { right: 0; }
+            .nav-menu .nav-link { padding: 16px 32px; font-size: 18px; }
+            .nav-menu .nav-cta { margin: 16px 32px; }
+            .nav-toggle { display: flex; }
+            .nav-toggle.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+            .nav-toggle.active span:nth-child(2) { opacity: 0; }
+            .nav-toggle.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+            .contact-grid { grid-template-columns: 1fr; }
+            .form-row { grid-template-columns: 1fr; }
+        }
+        
+        .page-header { padding: 140px 0 60px; text-align: center; }
+        .page-tag { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 600; color: var(--primary); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 14px; }
+        .page-tag i { font-size: 8px; }
+        .page-title { font-size: clamp(36px, 5vw, 56px); margin-bottom: 16px; }
+        .page-desc { font-size: 17px; color: var(--text-light); max-width: 550px; margin: 0 auto; }
+        .contact-section { padding: 40px 0 100px; }
+        .contact-grid { display: grid; grid-template-columns: 1fr 1.4fr; gap: 50px; }
+        .contact-info { padding: 40px; background: var(--secondary); border-radius: var(--radius); color: white; }
+        .contact-info-title { font-size: 24px; color: white; margin-bottom: 12px; }
+        .contact-info-desc { font-size: 15px; color: rgba(255,255,255,0.7); margin-bottom: 32px; }
+        .contact-item { display: flex; align-items: flex-start; gap: 16px; margin-bottom: 22px; }
+        .contact-icon { width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; background: rgba(255,255,255,0.1); border-radius: 12px; color: var(--accent); font-size: 18px; flex-shrink: 0; }
+        .contact-item-label { font-size: 12px; color: rgba(255,255,255,0.5); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 2px; }
+        .contact-item-value { font-size: 15px; color: white; font-weight: 500; }
+        .contact-item-value a { color: white; }
+        .contact-item-value a:hover { color: var(--accent); }
+        .contact-social-title { font-size: 13px; color: rgba(255,255,255,0.5); text-transform: uppercase; letter-spacing: 1px; margin: 28px 0 14px; }
+        .contact-social { display: flex; gap: 10px; }
+        .contact-social a { width: 42px; height: 42px; display: flex; align-items: center; justify-content: center; background: rgba(255,255,255,0.1); border-radius: 10px; color: white; font-size: 17px; transition: var(--transition); }
+        .contact-social a:hover { background: var(--primary); }
+        .contact-form-wrapper { padding: 40px; background: var(--white); border-radius: var(--radius); box-shadow: var(--shadow-lg); }
+        .form-title { font-size: 24px; margin-bottom: 6px; }
+        .form-subtitle { font-size: 15px; color: var(--text-light); margin-bottom: 28px; }
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; font-size: 13px; font-weight: 600; color: var(--secondary); margin-bottom: 8px; }
+        .form-group input, .form-group textarea, .form-group select { width: 100%; padding: 14px 18px; font-family: 'Sora', sans-serif; font-size: 14px; color: var(--text); background: var(--bg); border: 2px solid transparent; border-radius: 10px; transition: var(--transition); }
+        .form-group input:focus, .form-group textarea:focus, .form-group select:focus { outline: none; border-color: var(--primary); background: var(--white); }
+        .form-group textarea { resize: vertical; min-height: 130px; }
+        .btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; padding: 16px 32px; font-family: 'Sora', sans-serif; font-size: 15px; font-weight: 600; border-radius: 50px; border: none; cursor: pointer; transition: var(--transition); width: 100%; }
+        .btn-primary { background: var(--primary); color: white; }
+        .btn-primary:hover { background: var(--primary-dark); }
+        .btn i { font-size: 14px; }
+        .footer { padding: 70px 0 28px; background: var(--bg-dark); color: white; }
+        .footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 50px; padding-bottom: 50px; border-bottom: 1px solid rgba(255,255,255,0.1); }
+        .footer-brand .nav-logo { margin-bottom: 16px; color: white; }
+        .footer-brand .nav-logo span { color: var(--accent); }
+        .footer-desc { font-size: 14px; color: rgba(255,255,255,0.6); line-height: 1.7; margin-bottom: 20px; }
+        .footer-social { display: flex; gap: 10px; }
+        .footer-social a { width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; background: rgba(255,255,255,0.1); border-radius: 50%; color: white; font-size: 16px; transition: var(--transition); }
+        .footer-social a:hover { background: var(--primary); }
+        .footer-col h4 { font-family: 'Sora', sans-serif; font-size: 15px; font-weight: 600; margin-bottom: 20px; }
+        .footer-col ul li { margin-bottom: 10px; }
+        .footer-col a { font-size: 14px; color: rgba(255,255,255,0.6); }
+        .footer-col a:hover { color: white; }
+        .footer-bottom { display: flex; justify-content: space-between; align-items: center; padding-top: 28px; }
+        .footer-bottom p { font-size: 13px; color: rgba(255,255,255,0.5); }
+        .footer-bottom a { color: var(--accent); }
+        @media (max-width: 1024px) { .contact-grid { grid-template-columns: 1fr; } .footer-top { grid-template-columns: 1fr 1fr; } }
+        @media (max-width: 768px) { .nav-menu { position: fixed; top: 0; right: -100%; width: 280px; height: 100vh; flex-direction: column; justify-content: center; background: var(--white); box-shadow: var(--shadow-lg); transition: right 0.3s; z-index: 1001; } .nav-menu.active { right: 0; } .nav-cta { display: none; } .nav-toggle { display: flex; } .form-row { grid-template-columns: 1fr; } .footer-top { grid-template-columns: 1fr; } .footer-bottom { flex-direction: column; gap: 12px; text-align: center; } }
+    </style>
+</head>
+<body>
+    <!-- ============================================
+         NAVIGATION BAR
+    ============================================ -->
+    <nav class="navbar" id="navbar">
+        <div class="container nav-container">
+            <a href="index.html" class="nav-logo">Port<span>folio</span></a> <!-- CHANGE: Your name -->
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="portfolio.html" class="nav-link">Portfolio</a></li>
+                <li><a href="about.html" class="nav-link">About</a></li>
+                <li><a href="contact.html" class="nav-link active">Contact</a></li>
+            </ul>
+            <a href="contact.html" class="nav-cta">Let's Talk</a>
+            <button class="nav-toggle" id="navToggle" aria-label="Menu"><span></span><span></span><span></span></button>
+        </div>
+    </nav>
+
+    <!-- ============================================
+         PAGE HEADER
+    ============================================ -->
+    <header class="page-header">
+        <div class="container">
+            <div class="page-tag"><i class="fas fa-circle"></i> Get in Touch</div>
+            <h1 class="page-title">Contact Me</h1> <!-- CHANGE -->
+            <p class="page-desc">Have a project in mind? I'd love to hear from you.</p> <!-- CHANGE -->
+        </div>
+    </header>
+
+    <!-- ============================================
+         CONTACT SECTION
+         - Left: Contact info card
+         - Right: Contact form
+         
+         CONTACT INFO: Update email, phone, location
+         SOCIAL LINKS: Update href="#" with your URLs
+         FORM: Submits via mailto (update email in script)
+    ============================================ -->
+    <section class="contact-section">
+        <div class="container">
+            <div class="contact-grid">
+                <!-- CONTACT INFO CARD -->
+                <div class="contact-info">
+                    <h2 class="contact-info-title">Let's Talk</h2> <!-- CHANGE -->
+                    <p class="contact-info-desc">Feel free to reach out. I typically respond within 24 hours.</p> <!-- CHANGE -->
+                    
+                    <!-- EMAIL: Update with your email -->
+                    <div class="contact-item">
+                        <div class="contact-icon"><i class="fas fa-envelope"></i></div>
+                        <div><div class="contact-item-label">Email</div><div class="contact-item-value"><a href="mailto:hello@yoursite.com">hello@yoursite.com</a></div></div> <!-- CHANGE -->
+                    </div>
+                    <!-- PHONE: Update with your phone -->
+                    <div class="contact-item">
+                        <div class="contact-icon"><i class="fas fa-phone"></i></div>
+                        <div><div class="contact-item-label">Phone</div><div class="contact-item-value"><a href="tel:+26777783823">+267 77 783 823</a></div></div> <!-- CHANGE -->
+                    </div>
+                    <!-- LOCATION -->
+                    <div class="contact-item">
+                        <div class="contact-icon"><i class="fas fa-map-marker-alt"></i></div>
+                        <div><div class="contact-item-label">Location</div><div class="contact-item-value">Gaborone, Botswana</div></div> <!-- CHANGE -->
+                    </div>
+                    <!-- HOURS -->
+                    <div class="contact-item">
+                        <div class="contact-icon"><i class="fas fa-clock"></i></div>
+                        <div><div class="contact-item-label">Hours</div><div class="contact-item-value">Mon - Fri: 9AM - 6PM</div></div> <!-- CHANGE -->
+                    </div>
+                    
+                    <!-- SOCIAL LINKS: Update href="#" with your URLs -->
+                    <div class="contact-social-title">Follow Me</div>
+                    <div class="contact-social">
+                        <a href="#"><i class="fab fa-twitter"></i></a> <!-- CHANGE: Twitter URL -->
+                        <a href="#"><i class="fab fa-instagram"></i></a> <!-- CHANGE: Instagram URL -->
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a> <!-- CHANGE: LinkedIn URL -->
+                        <a href="#"><i class="fab fa-dribbble"></i></a> <!-- CHANGE: Dribbble URL -->
+                    </div>
+                </div>
+                
+                <!-- CONTACT FORM -->
+                <div class="contact-form-wrapper">
+                    <h2 class="form-title">Send a Message</h2>
+                    <p class="form-subtitle">Fill out the form and I'll get back to you soon.</p>
+                    <form id="contactForm">
+                        <div class="form-row">
+                            <div class="form-group"><label>Full Name</label><input type="text" name="name" placeholder="John Doe" required></div>
+                            <div class="form-group"><label>Email</label><input type="email" name="email" placeholder="john@example.com" required></div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group"><label>Phone</label><input type="tel" name="phone" placeholder="+267 XX XXX XXX"></div>
+                            <div class="form-group"><label>Service</label><select name="service"><option value="">Select a service</option><option>UI/UX Design</option><option>Web Development</option><option>Brand Identity</option><option>Other</option></select></div>
+                        </div>
+                        <div class="form-group"><label>Message</label><textarea name="message" placeholder="Tell me about your project..." required></textarea></div>
+                        <button type="submit" class="btn btn-primary"><span>Send Message</span><i class="fas fa-paper-plane"></i></button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-top">
+                <div class="footer-brand">
+                    <a href="index.html" class="nav-logo">Port<span>folio</span></a>
+                    <p class="footer-desc">Creative designer and developer passionate about crafting beautiful digital experiences.</p>
+                    <div class="footer-social">
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-dribbble"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col"><h4>Navigation</h4><ul><li><a href="index.html">Home</a></li><li><a href="portfolio.html">Portfolio</a></li><li><a href="about.html">About</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+                <div class="footer-col"><h4>Services</h4><ul><li><a href="#">UI/UX Design</a></li><li><a href="#">Web Development</a></li><li><a href="#">Brand Identity</a></li><li><a href="#">Consulting</a></li></ul></div>
+                <div class="footer-col"><h4>Contact</h4><ul><li><a href="mailto:hello@yoursite.com">hello@yoursite.com</a></li><li><a href="tel:+26777783823">+267 77 783 823</a></li><li><span style="color:rgba(255,255,255,0.6)">Gaborone, Botswana</span></li></ul></div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Portfolio. All rights reserved.</p>
+                <p>Template by <a href="mailto:futurifydesigns@gmail.com">Futurify Designs</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Navbar scroll effect
+        const navbar = document.querySelector('.navbar');
+        window.addEventListener('scroll', () => {
+            navbar.classList.toggle('scrolled', window.scrollY > 50);
+        });
+        
+        // Mobile menu toggle
+        const navToggle = document.querySelector('.nav-toggle');
+        const navMenu = document.querySelector('.nav-menu');
+        
+        if (navToggle && navMenu) {
+            navToggle.addEventListener('click', () => {
+                navToggle.classList.toggle('active');
+                navMenu.classList.toggle('active');
+            });
+            
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.addEventListener('click', () => {
+                    navToggle.classList.remove('active');
+                    navMenu.classList.remove('active');
+                });
+            });
+        }
+        
+        // Contact form handler
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const fd = new FormData(this);
+            let body = 'Name: ' + fd.get('name') + '\nEmail: ' + fd.get('email') + '\nPhone: ' + (fd.get('phone')||'N/A') + '\nService: ' + (fd.get('service')||'N/A') + '\n\nMessage:\n' + fd.get('message');
+            window.location.href = 'mailto:hello@portfolio.com?subject=Project Inquiry&body=' + encodeURIComponent(body);
+        });
+    </script>
+</body>
+</html>
+   
