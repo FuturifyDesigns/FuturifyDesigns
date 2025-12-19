@@ -439,16 +439,88 @@
         .nav-links a.active::after {
             width: 100%;
         }
-
-        .mobile-menu-btn {
+        /* Hamburger Menu */
+        .hamburger {
             display: none;
-            background: none;
-            border: none;
-            color: #fff;
-            font-size: 24px;
+            flex-direction: column;
             cursor: pointer;
-            padding: 5px;
+            z-index: 101;
         }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: #fff;
+            margin: 3px 0;
+            transition: all 0.3s ease;
+            border-radius: 3px;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(8px, 8px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(8px, -8px);
+        }
+
+        /* Mobile Navigation */
+        @media (max-width: 768px) {
+            .hamburger {
+                display: flex;
+            }
+
+            .nav-links {
+                position: fixed !important;
+                top: 0 !important;
+                left: 0 !important;
+                width: 100% !important;
+                height: 100vh !important;
+                background: rgba(10, 10, 26, 0.98) !important;
+                backdrop-filter: blur(10px) !important;
+                flex-direction: column !important;
+                justify-content: center !important;
+                align-items: center !important;
+                gap: 0 !important;
+                transform: translateX(100%);
+                transition: transform 0.3s ease;
+                z-index: 100;
+            }
+
+            .nav-links.active {
+                transform: translateX(0);
+            }
+
+            .nav-links li, .nav-links a {
+                width: 100%;
+                text-align: center;
+            }
+
+            .nav-links li {
+                padding: 20px 0;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            }
+
+            .nav-links li:first-child {
+                border-top: 1px solid rgba(255, 255, 255, 0.1);
+            }
+
+            .nav-links a {
+                font-size: 24px !important;
+                font-weight: 600 !important;
+                display: block;
+                padding: 10px 0 !important;
+            }
+
+            .nav-links a::after {
+                display: none !important;
+            }
+        }
+
 
         /* Portfolio Container */
         .portfolio-container {
@@ -1025,43 +1097,6 @@
         }
 
         @media (max-width: 768px) {
-            nav {
-                padding: 12px 15px;
-            }
-
-            .nav-links {
-                display: none;
-                position: fixed;
-                top: 58px;
-                left: 0;
-                right: 0;
-                bottom: 0;
-                background: rgba(26, 16, 37, 0.98);
-                backdrop-filter: blur(20px);
-                flex-direction: column;
-                padding: 30px 25px;
-                gap: 0;
-                overflow-y: auto;
-            }
-
-            .nav-links.active {
-                display: flex;
-            }
-
-            .nav-links li {
-                border-bottom: 1px solid rgba(139, 92, 246, 0.15);
-            }
-
-            .nav-links a {
-                display: block;
-                font-size: 18px;
-                padding: 18px 0;
-            }
-
-            .mobile-menu-btn {
-                display: block;
-            }
-
             .disclaimer-box {
                 padding: 32px 24px;
                 max-width: 90%;
@@ -1119,6 +1154,22 @@
         }
 
         @media (max-width: 600px) {
+            nav {
+                padding: 15px 20px;
+            }
+
+            .logo {
+                font-size: 20px;
+            }
+
+            .nav-links {
+                gap: 12px;
+            }
+
+            .nav-links a {
+                font-size: 13px;
+            }
+
             .page-title h1 {
                 font-size: 20px;
             }
@@ -1648,12 +1699,10 @@
     <nav>
         <div class="nav-container">
             <a href="home f.html" class="logo">F</a>
-            <button class="mobile-menu-btn" onclick="toggleMobileMenu()"><i class="fas fa-bars"></i></button>
-            <ul class="nav-links" id="navLinks">
+            <ul class="nav-links">
                 <li><a href="home f.html">Home</a></li>
                 <li><a href="portfolio f.html" class="active">Portfolio</a></li>
                 <li><a href="pricing f.html">Pricing</a></li>
-                <li><a href="templates.html">Templates</a></li>
                 <li><a href="about f.html">About</a></li>
                 <li><a href="contact f.html">Contact</a></li>
             </ul>
@@ -1905,7 +1954,7 @@
                 <div class="footer-section">
                     <h4 class="footer-title">Get In Touch</h4>
                     <ul class="footer-contact">
-                        <li><i class="fas fa-envelope"></i> <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="01677475747368677865647268666f7241666c60686d2f626e6c">[email&#160;protected]</a></li>
+                        <li><i class="fas fa-envelope"></i> <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="88eefdfcfdfae1eef1ecedfbe1efe6fbc8efe5e9e1e4a6ebe7e5">[email&#160;protected]</a></li>
                         <li><i class="fas fa-phone"></i> +267 777 83823</li>
                         <li><i class="fas fa-map-marker-alt"></i> Gaborone, Botswana</li>
                     </ul>
@@ -1990,7 +2039,28 @@
     </div>
 
     <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-        // Create floating particles
+                // Hamburger Menu Toggle
+        const hamburger = document.getElementById('hamburger');
+        const navLinks = document.getElementById('navLinks');
+
+        if (hamburger && navLinks) {
+            hamburger.addEventListener('click', () => {
+                hamburger.classList.toggle('active');
+                navLinks.classList.toggle('active');
+                document.body.style.overflow = navLinks.classList.contains('active') ? 'hidden' : 'auto';
+            });
+
+            // Close menu when clicking on a link
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.addEventListener('click', () => {
+                    hamburger.classList.remove('active');
+                    navLinks.classList.remove('active');
+                    document.body.style.overflow = 'auto';
+                });
+            });
+        }
+
+// Create floating particles
         function createParticles() {
             const particlesContainer = document.getElementById('particles');
             const particleCount = 50;
@@ -2014,11 +2084,6 @@
         }
 
         createParticles();
-
-        // Mobile menu toggle
-        function toggleMobileMenu() {
-            document.getElementById('navLinks').classList.toggle('active');
-        }
 
         // Slideshow functionality
         const projectCards = document.querySelectorAll('.project-card');
@@ -2524,14 +2589,12 @@
         
         // Reset session on user activity
         document.addEventListener('click', resetSession);
-        document.addEventListener('scroll', resetSession);
-        document.addEventListener('keypress', resetSession);
-        document.addEventListener('mousemove', resetSession);
-        
-        resetSession();
-        
-        // Close notice when clicking overlay
-        document.getElementById('noticeOverlay').addEventListener('click', closeNotice);
+        document.addEventListener('scroll', resetSe
+            declineBtn.onmouseout = function() { 
+                this.style.background = 'transparent'; 
+                this.style.borderColor = 'rgba(255,255,255,0.6)';
+            };
+        }
     </script>
 </body>
 </html>
