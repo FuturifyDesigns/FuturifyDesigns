@@ -1,17 +1,9 @@
-<!-- ============================================
-     STARTER FOOD - ABOUT PAGE
-     Template by Futurify Designs
-     
-     SECTIONS: Page Header, Story, Chef, Values
-     
-     NEED HELP? futurifydesigns@gmail.com
-============================================ -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About | Savanna Kitchen</title> <!-- CHANGE -->
+    <title>About | Savanna Kitchen</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -19,7 +11,7 @@
     <style>
         :root { --primary: #8B4513; --primary-dark: #6B3410; --gold: #D4A574; --dark: #2C1810; --light: #FDF8F3; --text: #4A4A4A; --text-light: #777; }
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Montserrat', sans-serif; color: var(--text); line-height: 1.6; }
+        body { font-family: 'Montserrat', sans-serif; color: var(--text); line-height: 1.6; overflow-x: hidden; }
         .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
         
         /* NAV */
@@ -31,7 +23,7 @@
         .nav-links a { color: var(--text); text-decoration: none; font-size: 14px; font-weight: 500; text-transform: uppercase; letter-spacing: 1px; transition: color 0.3s; }
         .nav-links a:hover, .nav-links a.active { color: var(--primary); }
         .nav-btn { background: var(--primary); color: #fff !important; padding: 12px 25px; }
-        .mobile-menu { display: none; background: none; border: none; font-size: 24px; cursor: pointer; color: var(--dark); }
+        .mobile-menu { display: none; background: none; border: none; font-size: 24px; cursor: pointer; color: var(--dark); z-index: 1001; padding: 5px; }
         
         /* PAGE HEADER */
         .page-header { padding: 160px 0 80px; background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1466978913421-dad2ebd01d17?w=1400&h=600&fit=crop') center/cover; text-align: center; color: #fff; }
@@ -60,7 +52,7 @@
         .footer-content { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 60px; margin-bottom: 60px; }
         .footer-brand .logo { color: #fff; display: inline-block; margin-bottom: 20px; }
         .footer-brand p { color: rgba(255,255,255,0.7); font-size: 15px; margin-bottom: 25px; }
-        .footer-social { display: flex; gap: 12px; }
+        .footer-social { display: flex; gap: 12px; flex-wrap: wrap; }
         .footer-social a { width: 42px; height: 42px; background: rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: center; color: #fff; text-decoration: none; }
         .footer-social a:hover { background: var(--primary); }
         .footer-section h4 { font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 25px; }
@@ -73,8 +65,47 @@
         .footer-bottom a { color: var(--gold); text-decoration: none; }
         
         /* RESPONSIVE */
-        @media (max-width: 992px) { .about-content, .values-grid { grid-template-columns: 1fr; } .footer-content { grid-template-columns: repeat(2, 1fr); } }
-        @media (max-width: 768px) { .nav-links { display: none; position: absolute; top: 70px; left: 0; right: 0; background: #fff; flex-direction: column; padding: 20px; gap: 15px; } .nav-links.active { display: flex; } .mobile-menu { display: block; } .page-header h1 { font-size: 36px; } .page-header { padding: 140px 0 60px; } .about-text h2 { font-size: 32px; } .footer-content { grid-template-columns: 1fr; text-align: center; } .footer-social { justify-content: center; } }
+        @media (max-width: 992px) {
+            .about-content, .values-grid { grid-template-columns: 1fr; }
+            .footer-content { grid-template-columns: repeat(2, 1fr); }
+            .about-image img { height: 400px; }
+        }
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: fixed;
+                top: 70px;
+                left: 0;
+                right: 0;
+                background: #fff;
+                flex-direction: column;
+                padding: 30px 20px;
+                gap: 20px;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+                max-height: calc(100vh - 70px);
+                overflow-y: auto;
+            }
+            .nav-links.active { display: flex; }
+            .nav-links a {
+                width: 100%;
+                padding: 10px 0;
+                font-size: 16px;
+            }
+            .mobile-menu { display: block; }
+            .page-header h1 { font-size: 36px; }
+            .page-header { padding: 140px 0 60px; }
+            .about-text h2 { font-size: 32px; }
+            .about-image img { height: 300px; }
+            .values-grid { grid-template-columns: 1fr; }
+            .section { padding: 60px 0; }
+            .footer-content { grid-template-columns: 1fr; text-align: center; }
+            .footer-social { justify-content: center; }
+        }
+        @media (max-width: 480px) {
+            .page-header h1 { font-size: 28px; }
+            .about-text h2 { font-size: 26px; }
+            .value-card { padding: 30px 20px; }
+        }
     </style>
 </head>
 <body>
@@ -82,8 +113,10 @@
     <nav>
         <div class="nav-container">
             <a href="index.html" class="logo">Savanna <span>Kitchen</span></a>
-            <button class="mobile-menu" onclick="document.querySelector('.nav-links').classList.toggle('active')"><i class="fas fa-bars"></i></button>
-            <ul class="nav-links">
+            <button class="mobile-menu" onclick="toggleMenu()">
+                <i class="fas fa-bars"></i>
+            </button>
+            <ul class="nav-links" id="navLinks">
                 <li><a href="index.html">Home</a></li>
                 <li><a href="menu.html">Menu</a></li>
                 <li><a href="about.html" class="active">About</a></li>
@@ -96,46 +129,41 @@
 
     <!-- PAGE HEADER -->
     <div class="page-header">
-        <h1>Our Story</h1> <!-- CHANGE -->
-        <p>A passion for authentic African flavors</p> <!-- CHANGE -->
+        <h1>Our Story</h1>
+        <p>A passion for authentic African flavors</p>
     </div>
 
     <!-- ABOUT SECTION -->
     <section class="section" style="background:#fff">
         <div class="container">
             <div class="about-content">
-                <!-- IMAGE -->
                 <div class="about-image">
-                    <img src="https://images.unsplash.com/photo-1556910103-1c02745aae4d?w=600&h=500&fit=crop" alt="Our Kitchen"> <!-- CHANGE -->
+                    <img src="https://images.unsplash.com/photo-1556910103-1c02745aae4d?w=600&h=500&fit=crop" alt="Our Kitchen" loading="lazy">
                 </div>
                 
-                <!-- TEXT -->
                 <div class="about-text">
                     <div class="section-label">About Us</div>
-                    <h2>A Celebration of African Cuisine</h2> <!-- CHANGE -->
-                    <p>Savanna Kitchen was born from a deep love for the rich culinary traditions of Africa. Founded in 2018, we set out to create a space where locals and visitors could experience authentic African flavors in a warm, welcoming atmosphere.</p> <!-- CHANGE -->
-                    <p>Our recipes have been passed down through generations, each dish telling a story of culture, community, and celebration. We source the freshest local ingredients and prepare every meal with care and passion.</p> <!-- CHANGE -->
-                    <p>Whether you're joining us for a casual lunch or a special celebration, we promise an unforgettable dining experience that honors the best of African cooking.</p> <!-- CHANGE -->
+                    <h2>A Celebration of African Cuisine</h2>
+                    <p>Savanna Kitchen was born from a deep love for the rich culinary traditions of Africa. Founded in 2018, we set out to create a space where locals and visitors could experience authentic African flavors in a warm, welcoming atmosphere.</p>
+                    <p>Our recipes have been passed down through generations, each dish telling a story of culture, community, and celebration. We source the freshest local ingredients and prepare every meal with care and passion.</p>
+                    <p>Whether you're joining us for a casual lunch or a special celebration, we promise an unforgettable dining experience that honors the best of African cooking.</p>
                 </div>
             </div>
             
             <!-- VALUES -->
             <div class="values-grid">
-                <!-- VALUE 1 -->
                 <div class="value-card">
-                    <div class="value-icon"><i class="fas fa-leaf"></i></div> <!-- CHANGE: Icon -->
-                    <h3>Fresh Ingredients</h3> <!-- CHANGE -->
-                    <p>We source locally and seasonally, ensuring every dish bursts with natural flavor.</p> <!-- CHANGE -->
+                    <div class="value-icon"><i class="fas fa-leaf"></i></div>
+                    <h3>Fresh Ingredients</h3>
+                    <p>We source locally and seasonally, ensuring every dish bursts with natural flavor.</p>
                 </div>
                 
-                <!-- VALUE 2 -->
                 <div class="value-card">
                     <div class="value-icon"><i class="fas fa-heart"></i></div>
                     <h3>Made with Love</h3>
                     <p>Every dish is prepared with passion and respect for traditional recipes.</p>
                 </div>
                 
-                <!-- VALUE 3 -->
                 <div class="value-card">
                     <div class="value-icon"><i class="fas fa-users"></i></div>
                     <h3>Community First</h3>
@@ -153,9 +181,9 @@
                     <a href="index.html" class="logo">Savanna <span>Kitchen</span></a>
                     <p>Experience authentic African cuisine in Gaborone.</p>
                     <div class="footer-social">
-                        <a href="#"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-whatsapp"></i></a>
+                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
                     </div>
                 </div>
                 <div class="footer-section">
@@ -186,4 +214,50 @@
             </div>
             <div class="footer-bottom">
                 <p>&copy; 2025 Savanna Kitchen. All rights reserved.</p>
-                <p>T
+                <p>Template by <a href="mailto:futurifydesigns@gmail.com">Futurify Designs</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function toggleMenu() {
+            const navLinks = document.getElementById('navLinks');
+            navLinks.classList.toggle('active');
+        }
+
+        document.addEventListener('click', function(event) {
+            const nav = document.querySelector('nav');
+            const navLinks = document.getElementById('navLinks');
+            if (!nav.contains(event.target)) {
+                navLinks.classList.remove('active');
+            }
+        });
+
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', function() {
+                document.getElementById('navLinks').classList.remove('active');
+            });
+        });
+
+        const observer = new MutationObserver(function(mutations) {
+            mutations.forEach(function(mutation) {
+                if (mutation.attributeName === "class") {
+                    const navLinks = document.getElementById('navLinks');
+                    const icon = document.querySelector('.mobile-menu i');
+                    if (navLinks.classList.contains('active')) {
+                        icon.classList.remove('fa-bars');
+                        icon.classList.add('fa-times');
+                    } else {
+                        icon.classList.remove('fa-times');
+                        icon.classList.add('fa-bars');
+                    }
+                }
+            });
+        });
+
+        observer.observe(document.getElementById('navLinks'), {
+            attributes: true
+        });
+    </script>
+</body>
+</html>
