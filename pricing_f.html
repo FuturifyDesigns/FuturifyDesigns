@@ -1348,20 +1348,37 @@
             }
         }
 
+        
+        /* Additional Mobile Fixes */
+        @media (max-width: 768px) {
+            .hamburger {
+                display: flex !important;
+                position: relative;
+            }
+            
+            nav {
+                padding: 15px 20px;
+            }
+            
+            .nav-container {
+                position: relative;
+            }
+        }
+
+        
+
         @media (max-width: 600px) {
             .nav {
+            nav { padding: 15px 20px; }
                 padding: 15px 20px;
             }
 
             .logo {
+            .hamburger { display: flex !important; }
                 font-size: 20px;
             }
 
-            .nav-links { display: none !important; }
 
-            .nav-links a {
-                font-size: 13px;
-            }
         }
 
         /* Status Notice Modal */
