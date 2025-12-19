@@ -1,0 +1,337 @@
+<!-- ============================================
+     SERVICE PRO TEMPLATE - HOME PAGE
+     Template by Futurify Designs
+     
+     A professional cleaning service template (green theme)
+     Easily customizable for any service-based business
+     
+     HOW TO CUSTOMIZE:
+     1. Replace "CleanPro" with your business name
+     2. Update colors in :root section below
+     3. Replace images with your own
+     4. Update contact info and social links
+     5. Modify services and pricing
+     
+     THEME COLORS:
+     --primary: #10b981 (Green - main brand color)
+     --primary-dark: #059669 (Darker green for hovers)
+     --secondary: #111827 (Dark - headings/footer)
+     
+     NEED HELP? futurifydesigns@gmail.com
+============================================ -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CleanPro | Professional Cleaning Services</title> <!-- CHANGE: Your business name -->
+    
+    <!-- FONTS -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* ===========================================
+           COLOR SCHEME - CHANGE THESE TO MATCH YOUR BRAND
+        =========================================== */
+        :root {
+            --primary: #10b981;        /* CHANGE: Main brand color (green) */
+            --primary-dark: #059669;   /* CHANGE: Darker shade for hovers */
+            --secondary: #111827;      /* CHANGE: Dark color for headings */
+            --light: #f9fafb;          /* Light background */
+            --gray: #6b7280;           /* Text color */
+            --border: #e5e7eb;         /* Border color */
+        }
+
+        /* BASE STYLES */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; color: var(--secondary); line-height: 1.6; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        
+        /* NAVIGATION - White background with blur */
+        nav { 
+            position: fixed; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            background: rgba(255,255,255,0.95); 
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1); 
+            z-index: 1000; 
+            padding: 15px 0; 
+        }
+        .nav-container { max-width: 1200px; margin: 0 auto; padding: 0 20px; display: flex; justify-content: space-between; align-items: center; }
+        .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; font-size: 24px; font-weight: 800; color: var(--secondary); }
+        .logo-icon { width: 45px; height: 45px; background: var(--primary); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 20px; }
+        .nav-links { display: flex; gap: 35px; list-style: none; align-items: center; }
+        .nav-links a { color: var(--gray); text-decoration: none; font-size: 15px; font-weight: 500; transition: color 0.3s; }
+        .nav-links a:hover, .nav-links a.active { color: var(--primary); }
+        .nav-btn { background: var(--primary); color: #fff !important; padding: 12px 24px; border-radius: 10px; }
+        .nav-btn:hover { background: var(--primary-dark) !important; }
+        .mobile-menu { display: none; background: none; border: none; font-size: 24px; cursor: pointer; }
+        
+        /* BUTTONS */
+        .btn { display: inline-flex; align-items: center; gap: 10px; padding: 16px 30px; border-radius: 12px; font-size: 15px; font-weight: 600; text-decoration: none; transition: all 0.3s; cursor: pointer; border: none; font-family: inherit; }
+        .btn-primary { background: var(--primary); color: #fff; }
+        .btn-primary:hover { background: var(--primary-dark); transform: translateY(-2px); }
+        .btn-outline { background: #fff; color: var(--secondary); border: 2px solid var(--border); }
+        .btn-outline:hover { border-color: var(--primary); color: var(--primary); }
+        
+        /* SECTIONS */
+        .section { padding: 100px 0; }
+        .section-header { text-align: center; max-width: 600px; margin: 0 auto 60px; }
+        .section-badge { display: inline-block; background: rgba(16,185,129,0.1); color: var(--primary); padding: 8px 16px; border-radius: 50px; font-size: 13px; font-weight: 600; margin-bottom: 15px; }
+        .section-title { font-size: 40px; font-weight: 800; color: var(--secondary); margin-bottom: 15px; }
+        .section-desc { font-size: 16px; color: var(--gray); }
+        
+        /* HERO SECTION */
+        .hero { padding: 140px 0 100px; background: linear-gradient(135deg, var(--light) 0%, #ecfdf5 100%); }
+        .hero-content { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+        .hero-badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(16,185,129,0.1); color: var(--primary); padding: 10px 18px; border-radius: 50px; font-size: 14px; font-weight: 600; margin-bottom: 20px; }
+        .hero h1 { font-size: 52px; font-weight: 800; line-height: 1.15; margin-bottom: 20px; }
+        .hero h1 span { color: var(--primary); }
+        .hero p { font-size: 18px; color: var(--gray); margin-bottom: 30px; }
+        .hero-features { display: flex; gap: 30px; margin-bottom: 35px; }
+        .hero-feature { display: flex; align-items: center; gap: 10px; font-size: 15px; font-weight: 500; }
+        .hero-feature i { color: var(--primary); }
+        .hero-buttons { display: flex; gap: 15px; }
+        .hero-image img { width: 100%; border-radius: 20px; box-shadow: 0 25px 50px rgba(0,0,0,0.15); }
+        
+        /* SERVICES GRID */
+        .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
+        .service-card { background: var(--light); padding: 40px 30px; border-radius: 20px; transition: all 0.3s; border: 2px solid transparent; }
+        .service-card:hover { background: #fff; border-color: var(--primary); box-shadow: 0 20px 40px rgba(16,185,129,0.1); transform: translateY(-5px); }
+        .service-icon { width: 70px; height: 70px; background: rgba(16,185,129,0.1); border-radius: 16px; display: flex; align-items: center; justify-content: center; font-size: 30px; color: var(--primary); margin-bottom: 25px; }
+        .service-card:hover .service-icon { background: var(--primary); color: #fff; }
+        .service-card h3 { font-size: 22px; font-weight: 700; margin-bottom: 12px; }
+        .service-card p { font-size: 15px; color: var(--gray); margin-bottom: 20px; }
+        .service-price { font-size: 24px; font-weight: 800; color: var(--primary); }
+        .service-price span { font-size: 14px; font-weight: 500; color: var(--gray); }
+        
+        /* CTA SECTION */
+        .cta { padding: 100px 0; background: var(--secondary); text-align: center; color: #fff; }
+        .cta h2 { font-size: 42px; font-weight: 800; margin-bottom: 20px; }
+        .cta p { font-size: 18px; opacity: 0.8; max-width: 600px; margin: 0 auto 35px; }
+        .cta .btn-primary { background: #fff; color: var(--secondary); }
+        .cta .btn-primary:hover { background: var(--primary); color: #fff; }
+        
+        /* FOOTER */
+        footer { background: var(--secondary); color: #fff; padding: 80px 0 30px; }
+        .footer-content { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 60px; margin-bottom: 60px; }
+        .footer-brand .logo { color: #fff; margin-bottom: 20px; display: inline-flex; }
+        .footer-brand p { color: rgba(255,255,255,0.7); font-size: 15px; margin-bottom: 25px; }
+        .footer-social { display: flex; gap: 12px; }
+        .footer-social a { width: 42px; height: 42px; background: rgba(255,255,255,0.1); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: #fff; text-decoration: none; transition: background 0.3s; }
+        .footer-social a:hover { background: var(--primary); }
+        .footer-section h4 { font-size: 16px; font-weight: 700; margin-bottom: 25px; }
+        .footer-links { list-style: none; }
+        .footer-links li { margin-bottom: 12px; }
+        .footer-links a { color: rgba(255,255,255,0.7); text-decoration: none; font-size: 15px; transition: color 0.3s; }
+        .footer-links a:hover { color: var(--primary); }
+        .footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 30px; text-align: center; }
+        .footer-bottom p { color: rgba(255,255,255,0.6); font-size: 14px; margin-bottom: 5px; }
+        .footer-bottom a { color: var(--primary); text-decoration: none; }
+        
+        /* MOBILE MENU */
+        @media (max-width: 768px) {
+            .nav-links { 
+                display: none; 
+                position: absolute; 
+                top: 70px; 
+                left: 0; 
+                right: 0; 
+                background: #fff; 
+                flex-direction: column; 
+                padding: 20px; 
+                gap: 15px; 
+                box-shadow: 0 10px 30px rgba(0,0,0,0.1); 
+            }
+            .nav-links.active { display: flex; }
+            .mobile-menu { display: block; }
+            .hero { padding: 120px 0 60px; }
+            .hero-content { grid-template-columns: 1fr; }
+            .hero-image { order: -1; }
+            .hero h1 { font-size: 32px; }
+            .hero-features, .hero-buttons { flex-direction: column; gap: 15px; }
+            .services-grid { grid-template-columns: 1fr; }
+            .cta h2 { font-size: 32px; }
+            .footer-content { grid-template-columns: 1fr; text-align: center; }
+            .footer-social { justify-content: center; }
+        }
+        @media (max-width: 992px) {
+            .hero-content { grid-template-columns: 1fr; }
+            .services-grid { grid-template-columns: repeat(2, 1fr); }
+            .hero h1 { font-size: 42px; }
+            .hero-image { order: -1; }
+            .footer-content { grid-template-columns: repeat(2, 1fr); }
+        }
+    </style>
+</head>
+<body>
+    <!-- NAVIGATION -->
+    <nav>
+        <div class="nav-container">
+            <!-- LOGO: Change icon and business name -->
+            <a href="index.html" class="logo">
+                <div class="logo-icon"><i class="fas fa-broom"></i></div> <!-- CHANGE: Icon -->
+                CleanPro <!-- CHANGE: Your business name -->
+            </a>
+            
+            <!-- Mobile Menu Button -->
+            <button class="mobile-menu" onclick="document.querySelector('.nav-links').classList.toggle('active')">
+                <i class="fas fa-bars"></i>
+            </button>
+            
+            <!-- NAV LINKS -->
+            <ul class="nav-links">
+                <li><a href="index.html" class="active">Home</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="testimonials.html">Reviews</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="contact.html" class="nav-btn">Get Quote</a></li> <!-- CHANGE: CTA text -->
+            </ul>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <!-- BADGE -->
+                    <div class="hero-badge">
+                        <i class="fas fa-award"></i> #1 Rated Cleaning Service <!-- CHANGE: Tagline -->
+                    </div>
+                    
+                    <!-- HEADLINE -->
+                    <h1>Professional <span>Cleaning</span> For Your Home & Office</h1> <!-- CHANGE -->
+                    
+                    <!-- DESCRIPTION -->
+                    <p>We deliver top-quality cleaning services that transform your space. Trusted by hundreds of homes and businesses.</p> <!-- CHANGE -->
+                    
+                    <!-- FEATURES -->
+                    <div class="hero-features">
+                        <div class="hero-feature"><i class="fas fa-check-circle"></i> Eco-Friendly</div> <!-- CHANGE -->
+                        <div class="hero-feature"><i class="fas fa-check-circle"></i> Trained Staff</div> <!-- CHANGE -->
+                        <div class="hero-feature"><i class="fas fa-check-circle"></i> 100% Satisfaction</div> <!-- CHANGE -->
+                    </div>
+                    
+                    <!-- BUTTONS -->
+                    <div class="hero-buttons">
+                        <a href="contact.html" class="btn btn-primary">Get Free Quote <i class="fas fa-arrow-right"></i></a>
+                        <a href="services.html" class="btn btn-outline">Our Services</a>
+                    </div>
+                </div>
+                
+                <!-- HERO IMAGE (600x500px) -->
+                <div class="hero-image">
+                    <img src="https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=600&h=500&fit=crop" alt="Cleaning Service"> <!-- CHANGE: Image -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SERVICES SECTION -->
+    <section class="section" style="background:#fff">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-badge">Our Services</div>
+                <h2 class="section-title">What We Offer</h2> <!-- CHANGE -->
+            </div>
+            
+            <div class="services-grid">
+                <!-- SERVICE 1 -->
+                <div class="service-card">
+                    <div class="service-icon"><i class="fas fa-home"></i></div> <!-- CHANGE: Icon -->
+                    <h3>Home Cleaning</h3> <!-- CHANGE -->
+                    <p>Complete home cleaning including all rooms and areas.</p> <!-- CHANGE -->
+                    <div class="service-price">P350 <span>/ session</span></div> <!-- CHANGE: Price -->
+                </div>
+                
+                <!-- SERVICE 2 -->
+                <div class="service-card">
+                    <div class="service-icon"><i class="fas fa-building"></i></div>
+                    <h3>Office Cleaning</h3>
+                    <p>Keep your workspace spotless and productive.</p>
+                    <div class="service-price">P500 <span>/ session</span></div>
+                </div>
+                
+                <!-- SERVICE 3 -->
+                <div class="service-card">
+                    <div class="service-icon"><i class="fas fa-couch"></i></div>
+                    <h3>Deep Cleaning</h3>
+                    <p>Intensive cleaning for carpets and upholstery.</p>
+                    <div class="service-price">P800 <span>/ session</span></div>
+                </div>
+            </div>
+            
+            <div style="text-align:center;margin-top:50px">
+                <a href="services.html" class="btn btn-outline">View All Services</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA SECTION -->
+    <section class="cta">
+        <div class="container">
+            <h2>Ready to Transform Your Space?</h2> <!-- CHANGE -->
+            <p>Get a free quote today and experience the CleanPro difference.</p> <!-- CHANGE -->
+            <a href="contact.html" class="btn btn-primary">Get Free Quote <i class="fas fa-arrow-right"></i></a>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <!-- FOOTER BRAND -->
+                <div class="footer-brand">
+                    <a href="index.html" class="logo">
+                        <div class="logo-icon"><i class="fas fa-broom"></i></div>
+                        CleanPro <!-- CHANGE -->
+                    </a>
+                    <p>Professional cleaning services you can trust.</p> <!-- CHANGE -->
+                    <div class="footer-social">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a> <!-- CHANGE: URL -->
+                        <a href="#"><i class="fab fa-instagram"></i></a> <!-- CHANGE: URL -->
+                        <a href="#"><i class="fab fa-whatsapp"></i></a> <!-- CHANGE: URL -->
+                    </div>
+                </div>
+                
+                <!-- QUICK LINKS -->
+                <div class="footer-section">
+                    <h4>Pages</h4>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="services.html">Services</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <!-- SERVICES -->
+                <div class="footer-section">
+                    <h4>Services</h4>
+                    <ul class="footer-links">
+                        <li><a href="services.html">Home Cleaning</a></li> <!-- CHANGE -->
+                        <li><a href="services.html">Office Cleaning</a></li>
+                        <li><a href="services.html">Deep Cleaning</a></li>
+                    </ul>
+                </div>
+                
+                <!-- CONTACT -->
+                <div class="footer-section">
+                    <h4>Contact</h4>
+                    <ul class="footer-links">
+                        <li><a href="tel:+2677XXXXXXX">+267 7XX XXXX</a></li> <!-- CHANGE: Phone -->
+                        <li><a href="mailto:info@cleanpro.com">info@cleanpro.com</a></li> <!-- CHANGE: Email -->
+                        <li>Gaborone, Botswana</li> <!-- CHANGE: Location -->
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 CleanPro. All rights reserved.</p> <!-- CHANGE -->
+                <p>Template by <
