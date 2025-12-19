@@ -28,9 +28,10 @@
         }
 
         /* BASE */
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Plus Jakarta Sans', sans-serif; color: var(--secondary); line-height: 1.6; }
-        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        html { overflow-x: hidden; }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; color: var(--secondary); line-height: 1.6; overflow-x: hidden; -webkit-tap-highlight-color: transparent; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; width: 100%; }
         
         /* NAV */
         nav { position: fixed; top: 0; left: 0; width: 100%; background: rgba(255,255,255,0.95); backdrop-filter: blur(20px); box-shadow: 0 1px 3px rgba(0,0,0,0.1); z-index: 1000; padding: 15px 0; }
@@ -88,11 +89,60 @@
         .footer-bottom p { color: rgba(255,255,255,0.6); font-size: 14px; margin-bottom: 5px; }
         .footer-bottom a { color: var(--primary); text-decoration: none; }
         
+        
+        /* MOBILE MENU OVERLAY */
+        .mobile-menu-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: #fff;
+            z-index: 1001;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        .mobile-menu-overlay.active { opacity: 1; visibility: visible; }
+        .mobile-menu-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px 20px;
+            border-bottom: 1px solid var(--border);
+        }
+        .mobile-menu-header .logo { font-size: 20px; }
+        .mobile-menu-header .logo-icon { width: 40px; height: 40px; font-size: 18px; }
+        .mobile-menu-close { background: none; border: none; color: var(--secondary); font-size: 24px; cursor: pointer; padding: 8px; }
+        .mobile-menu-nav {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: calc(100vh - 80px);
+        }
+        .mobile-menu-nav a {
+            display: block;
+            width: 80%;
+            max-width: 300px;
+            text-align: center;
+            padding: 18px 24px;
+            font-size: 16px;
+            font-weight: 500;
+            color: var(--secondary);
+            text-decoration: none;
+            border-bottom: 1px solid var(--border);
+        }
+        .mobile-menu-nav a:first-child { border-top: 1px solid var(--border); }
+        .mobile-menu-nav a:hover { color: var(--primary); }
+        body.menu-open { overflow: hidden; }
+
         /* RESPONSIVE */
         @media (max-width: 992px) { .services-grid { grid-template-columns: repeat(2, 1fr); } .footer-content { grid-template-columns: repeat(2, 1fr); } }
         @media (max-width: 768px) { 
-            .nav-links { display: none; position: absolute; top: 70px; left: 0; right: 0; background: #fff; flex-direction: column; padding: 20px; gap: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
-            .nav-links.active { display: flex; }
+            .nav-links { display: none; }
+            .mobile-menu-overlay { display: block; }
             .mobile-menu { display: block; }
             .page-header { padding: 120px 0 60px; }
             .page-header h1 { font-size: 36px; }
@@ -110,7 +160,7 @@
                 <div class="logo-icon"><i class="fas fa-broom"></i></div>
                 CleanPro <!-- CHANGE -->
             </a>
-            <button class="mobile-menu" onclick="document.querySelector('.nav-links').classList.toggle('active')">
+            <button class="mobile-menu" onclick="toggleMobileMenu()">
                 <i class="fas fa-bars"></i>
             </button>
             <ul class="nav-links">
@@ -123,6 +173,25 @@
             </ul>
         </div>
     </nav>
+    <!-- Mobile Menu Overlay -->
+    <div class="mobile-menu-overlay" id="mobileMenu">
+        <div class="mobile-menu-header">
+            <a href="index.html" class="logo">
+                <div class="logo-icon"><i class="fas fa-broom"></i></div>
+                CleanPro
+            </a>
+            <button class="mobile-menu-close" id="mobileMenuClose" aria-label="Close menu">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <nav class="mobile-menu-nav">
+            <a href="index.html">Home</a>
+            <a href="services.html">Services</a>
+            <a href="about.html">About</a>
+            <a href="testimonials.html">Reviews</a>
+            <a href="contact.html">Contact</a>
+        </nav>
+    </div>
 
     <!-- PAGE HEADER -->
     <div class="page-header">
@@ -230,12 +299,34 @@
                 <div class="footer-section">
                     <h4>Contact</h4>
                     <ul class="footer-links">
-                        <li><a href="tel:+2677XXXXXXX">+267 7XX XXXX</a></li> <!-- CHANGE -->
-                        <li><a href="mailto:info@cleanpro.com">info@cleanpro.com</a></li> <!-- CHANGE -->
-                        <li>Gaborone, Botswana</li> <!-- CHANGE -->
+                        <li><a href="tel:+2677XXXXXXX">+267 7XX XXXX</a></li>
+                        <li><a href="mailto:info@cleanpro.com">info@cleanpro.com</a></li>
+                        <li>Gaborone, Botswana</li>
                     </ul>
                 </div>
             </div>
             <div class="footer-bottom">
                 <p>&copy; 2025 CleanPro. All rights reserved.</p>
-                <p>Template by <
+                <p>Template by <a href="mailto:futurifydesigns@gmail.com">Futurify Designs</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function toggleMobileMenu() {
+            document.getElementById('mobileMenu').classList.add('active');
+            document.body.classList.add('menu-open');
+        }
+        document.getElementById('mobileMenuClose').addEventListener('click', () => {
+            document.getElementById('mobileMenu').classList.remove('active');
+            document.body.classList.remove('menu-open');
+        });
+        document.querySelectorAll('.mobile-menu-nav a').forEach(link => {
+            link.addEventListener('click', () => {
+                document.getElementById('mobileMenu').classList.remove('active');
+                document.body.classList.remove('menu-open');
+            });
+        });
+    </script>
+</body>
+</html>
