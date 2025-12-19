@@ -2066,6 +2066,30 @@
         </div>
     </footer>
 
+    <script>
+        // Hamburger Menu Toggle
+        const hamburger = document.getElementById('hamburger');
+        const navLinks = document.getElementById('navLinks');
+
+        if (hamburger && navLinks) {
+            hamburger.addEventListener('click', () => {
+                hamburger.classList.toggle('active');
+                navLinks.classList.toggle('active');
+                document.body.style.overflow = navLinks.classList.contains('active') ? 'hidden' : 'auto';
+            });
+
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.addEventListener('click', () => {
+                    hamburger.classList.remove('active');
+                    navLinks.classList.remove('active');
+                    document.body.style.overflow = 'auto';
+                });
+            });
+        }
+    </script>
+
+
+
     <!-- WhatsApp Button -->
     <a href="https://wa.me/26777783823?text=Hi%20Futurify%20Designs!%20I'm%20interested%20in%20your%20web%20design%20services.%20Can%20we%20discuss%3F" 
        target="_blank" 
@@ -2175,7 +2199,7 @@
                 
                 return true;
             } catch (error) {
-                // Exchange rates API unavailable, using fallback rates
+                // Exchange rates API unavailable
                 document.getElementById('rateValue').textContent = 'Using fallback rates';
                 return false;
             }
