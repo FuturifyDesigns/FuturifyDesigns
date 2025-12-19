@@ -1,0 +1,189 @@
+<!-- ============================================
+     STARTER FOOD - ABOUT PAGE
+     Template by Futurify Designs
+     
+     SECTIONS: Page Header, Story, Chef, Values
+     
+     NEED HELP? futurifydesigns@gmail.com
+============================================ -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About | Savanna Kitchen</title> <!-- CHANGE -->
+    
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root { --primary: #8B4513; --primary-dark: #6B3410; --gold: #D4A574; --dark: #2C1810; --light: #FDF8F3; --text: #4A4A4A; --text-light: #777; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Montserrat', sans-serif; color: var(--text); line-height: 1.6; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        
+        /* NAV */
+        nav { position: fixed; top: 0; left: 0; width: 100%; background: rgba(255,255,255,0.95); backdrop-filter: blur(20px); box-shadow: 0 2px 20px rgba(0,0,0,0.1); z-index: 1000; padding: 15px 0; }
+        .nav-container { max-width: 1200px; margin: 0 auto; padding: 0 20px; display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-family: 'Cormorant Garamond', serif; font-size: 28px; font-weight: 700; color: var(--dark); text-decoration: none; }
+        .logo span { color: var(--primary); }
+        .nav-links { display: flex; gap: 35px; list-style: none; align-items: center; }
+        .nav-links a { color: var(--text); text-decoration: none; font-size: 14px; font-weight: 500; text-transform: uppercase; letter-spacing: 1px; transition: color 0.3s; }
+        .nav-links a:hover, .nav-links a.active { color: var(--primary); }
+        .nav-btn { background: var(--primary); color: #fff !important; padding: 12px 25px; }
+        .mobile-menu { display: none; background: none; border: none; font-size: 24px; cursor: pointer; color: var(--dark); }
+        
+        /* PAGE HEADER */
+        .page-header { padding: 160px 0 80px; background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1466978913421-dad2ebd01d17?w=1400&h=600&fit=crop') center/cover; text-align: center; color: #fff; }
+        .page-header h1 { font-family: 'Cormorant Garamond', serif; font-size: 56px; font-weight: 700; margin-bottom: 15px; }
+        .page-header p { font-size: 18px; opacity: 0.9; }
+        
+        /* SECTION */
+        .section { padding: 100px 0; }
+        .section-label { font-size: 12px; text-transform: uppercase; letter-spacing: 4px; color: var(--gold); margin-bottom: 15px; }
+        
+        /* ABOUT CONTENT */
+        .about-content { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+        .about-image img { width: 100%; height: 500px; object-fit: cover; }
+        .about-text h2 { font-family: 'Cormorant Garamond', serif; font-size: 42px; font-weight: 700; color: var(--dark); margin-bottom: 25px; }
+        .about-text p { color: var(--text-light); margin-bottom: 20px; line-height: 1.8; }
+        
+        /* VALUES */
+        .values-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; margin-top: 60px; }
+        .value-card { text-align: center; padding: 40px 30px; background: #fff; border: 1px solid #eee; }
+        .value-icon { width: 80px; height: 80px; background: var(--light); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 32px; color: var(--primary); margin: 0 auto 25px; }
+        .value-card h3 { font-family: 'Cormorant Garamond', serif; font-size: 24px; font-weight: 700; color: var(--dark); margin-bottom: 15px; }
+        .value-card p { font-size: 14px; color: var(--text-light); }
+        
+        /* FOOTER */
+        footer { background: var(--dark); color: #fff; padding: 80px 0 30px; }
+        .footer-content { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 60px; margin-bottom: 60px; }
+        .footer-brand .logo { color: #fff; display: inline-block; margin-bottom: 20px; }
+        .footer-brand p { color: rgba(255,255,255,0.7); font-size: 15px; margin-bottom: 25px; }
+        .footer-social { display: flex; gap: 12px; }
+        .footer-social a { width: 42px; height: 42px; background: rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: center; color: #fff; text-decoration: none; }
+        .footer-social a:hover { background: var(--primary); }
+        .footer-section h4 { font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 25px; }
+        .footer-links { list-style: none; }
+        .footer-links li { margin-bottom: 12px; color: rgba(255,255,255,0.7); font-size: 15px; }
+        .footer-links a { color: rgba(255,255,255,0.7); text-decoration: none; }
+        .footer-links a:hover { color: var(--gold); }
+        .footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 30px; text-align: center; }
+        .footer-bottom p { color: rgba(255,255,255,0.6); font-size: 14px; margin-bottom: 5px; }
+        .footer-bottom a { color: var(--gold); text-decoration: none; }
+        
+        /* RESPONSIVE */
+        @media (max-width: 992px) { .about-content, .values-grid { grid-template-columns: 1fr; } .footer-content { grid-template-columns: repeat(2, 1fr); } }
+        @media (max-width: 768px) { .nav-links { display: none; position: absolute; top: 70px; left: 0; right: 0; background: #fff; flex-direction: column; padding: 20px; gap: 15px; } .nav-links.active { display: flex; } .mobile-menu { display: block; } .page-header h1 { font-size: 36px; } .page-header { padding: 140px 0 60px; } .about-text h2 { font-size: 32px; } .footer-content { grid-template-columns: 1fr; text-align: center; } .footer-social { justify-content: center; } }
+    </style>
+</head>
+<body>
+    <!-- NAVIGATION -->
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="logo">Savanna <span>Kitchen</span></a>
+            <button class="mobile-menu" onclick="document.querySelector('.nav-links').classList.toggle('active')"><i class="fas fa-bars"></i></button>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="menu.html">Menu</a></li>
+                <li><a href="about.html" class="active">About</a></li>
+                <li><a href="gallery.html">Gallery</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="contact.html" class="nav-btn">Book a Table</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- PAGE HEADER -->
+    <div class="page-header">
+        <h1>Our Story</h1> <!-- CHANGE -->
+        <p>A passion for authentic African flavors</p> <!-- CHANGE -->
+    </div>
+
+    <!-- ABOUT SECTION -->
+    <section class="section" style="background:#fff">
+        <div class="container">
+            <div class="about-content">
+                <!-- IMAGE -->
+                <div class="about-image">
+                    <img src="https://images.unsplash.com/photo-1556910103-1c02745aae4d?w=600&h=500&fit=crop" alt="Our Kitchen"> <!-- CHANGE -->
+                </div>
+                
+                <!-- TEXT -->
+                <div class="about-text">
+                    <div class="section-label">About Us</div>
+                    <h2>A Celebration of African Cuisine</h2> <!-- CHANGE -->
+                    <p>Savanna Kitchen was born from a deep love for the rich culinary traditions of Africa. Founded in 2018, we set out to create a space where locals and visitors could experience authentic African flavors in a warm, welcoming atmosphere.</p> <!-- CHANGE -->
+                    <p>Our recipes have been passed down through generations, each dish telling a story of culture, community, and celebration. We source the freshest local ingredients and prepare every meal with care and passion.</p> <!-- CHANGE -->
+                    <p>Whether you're joining us for a casual lunch or a special celebration, we promise an unforgettable dining experience that honors the best of African cooking.</p> <!-- CHANGE -->
+                </div>
+            </div>
+            
+            <!-- VALUES -->
+            <div class="values-grid">
+                <!-- VALUE 1 -->
+                <div class="value-card">
+                    <div class="value-icon"><i class="fas fa-leaf"></i></div> <!-- CHANGE: Icon -->
+                    <h3>Fresh Ingredients</h3> <!-- CHANGE -->
+                    <p>We source locally and seasonally, ensuring every dish bursts with natural flavor.</p> <!-- CHANGE -->
+                </div>
+                
+                <!-- VALUE 2 -->
+                <div class="value-card">
+                    <div class="value-icon"><i class="fas fa-heart"></i></div>
+                    <h3>Made with Love</h3>
+                    <p>Every dish is prepared with passion and respect for traditional recipes.</p>
+                </div>
+                
+                <!-- VALUE 3 -->
+                <div class="value-card">
+                    <div class="value-icon"><i class="fas fa-users"></i></div>
+                    <h3>Community First</h3>
+                    <p>We're proud to be a gathering place for friends, families, and food lovers.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <a href="index.html" class="logo">Savanna <span>Kitchen</span></a>
+                    <p>Experience authentic African cuisine in Gaborone.</p>
+                    <div class="footer-social">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Pages</h4>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="menu.html">Menu</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="gallery.html">Gallery</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Hours</h4>
+                    <ul class="footer-links">
+                        <li>Mon-Sat: 11AM-10PM</li>
+                        <li>Sunday: 12PM-8PM</li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact</h4>
+                    <ul class="footer-links">
+                        <li><a href="tel:+2673XXXXXX">+267 3XX XXXX</a></li>
+                        <li><a href="mailto:info@savannakitchen.com">info@savannakitchen.com</a></li>
+                        <li>Gaborone, Botswana</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Savanna Kitchen. All rights reserved.</p>
+                <p>T

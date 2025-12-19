@@ -1,0 +1,265 @@
+<!-- ============================================
+     STARTER FOOD - CONTACT PAGE
+     Template by Futurify Designs
+     
+     SECTIONS: Page Header, Contact Info, Reservation Form, Map
+     FORM: Uses mailto: by default
+     
+     NEED HELP? futurifydesigns@gmail.com
+============================================ -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact | Savanna Kitchen</title> <!-- CHANGE -->
+    
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root { --primary: #8B4513; --primary-dark: #6B3410; --gold: #D4A574; --dark: #2C1810; --light: #FDF8F3; --text: #4A4A4A; --text-light: #777; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Montserrat', sans-serif; color: var(--text); line-height: 1.6; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        
+        /* NAV */
+        nav { position: fixed; top: 0; left: 0; width: 100%; background: rgba(255,255,255,0.95); backdrop-filter: blur(20px); box-shadow: 0 2px 20px rgba(0,0,0,0.1); z-index: 1000; padding: 15px 0; }
+        .nav-container { max-width: 1200px; margin: 0 auto; padding: 0 20px; display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-family: 'Cormorant Garamond', serif; font-size: 28px; font-weight: 700; color: var(--dark); text-decoration: none; }
+        .logo span { color: var(--primary); }
+        .nav-links { display: flex; gap: 35px; list-style: none; align-items: center; }
+        .nav-links a { color: var(--text); text-decoration: none; font-size: 14px; font-weight: 500; text-transform: uppercase; letter-spacing: 1px; transition: color 0.3s; }
+        .nav-links a:hover, .nav-links a.active { color: var(--primary); }
+        .nav-btn { background: var(--primary); color: #fff !important; padding: 12px 25px; }
+        .mobile-menu { display: none; background: none; border: none; font-size: 24px; cursor: pointer; color: var(--dark); }
+        
+        /* PAGE HEADER */
+        .page-header { padding: 160px 0 80px; background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1552566626-52f8b828add9?w=1400&h=600&fit=crop') center/cover; text-align: center; color: #fff; }
+        .page-header h1 { font-family: 'Cormorant Garamond', serif; font-size: 56px; font-weight: 700; margin-bottom: 15px; }
+        .page-header p { font-size: 18px; opacity: 0.9; }
+        
+        /* CONTACT SECTION */
+        .contact-section { padding: 100px 0; }
+        .contact-grid { display: grid; grid-template-columns: 1fr 1.5fr; gap: 60px; }
+        
+        /* CONTACT INFO */
+        .contact-info h2 { font-family: 'Cormorant Garamond', serif; font-size: 36px; font-weight: 700; color: var(--dark); margin-bottom: 30px; }
+        .contact-item { display: flex; gap: 20px; margin-bottom: 30px; }
+        .contact-icon { width: 60px; height: 60px; background: var(--light); display: flex; align-items: center; justify-content: center; font-size: 24px; color: var(--primary); flex-shrink: 0; }
+        .contact-item h4 { font-size: 16px; font-weight: 700; color: var(--dark); margin-bottom: 5px; }
+        .contact-item p { font-size: 15px; color: var(--text-light); }
+        .contact-item a { color: var(--primary); text-decoration: none; }
+        
+        /* FORM */
+        .reservation-form { background: var(--light); padding: 50px; }
+        .reservation-form h2 { font-family: 'Cormorant Garamond', serif; font-size: 32px; font-weight: 700; color: var(--dark); margin-bottom: 30px; }
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; }
+        .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 15px; border: 1px solid #ddd; font-size: 15px; font-family: inherit; transition: border-color 0.3s; }
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus { outline: none; border-color: var(--primary); }
+        .form-group textarea { min-height: 120px; resize: vertical; }
+        .btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; padding: 16px 35px; font-size: 14px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; text-decoration: none; transition: all 0.3s; cursor: pointer; border: none; font-family: inherit; }
+        .btn-primary { background: var(--primary); color: #fff; width: 100%; }
+        .btn-primary:hover { background: var(--primary-dark); }
+        
+        /* FOOTER */
+        footer { background: var(--dark); color: #fff; padding: 80px 0 30px; }
+        .footer-content { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 60px; margin-bottom: 60px; }
+        .footer-brand .logo { color: #fff; display: inline-block; margin-bottom: 20px; }
+        .footer-brand p { color: rgba(255,255,255,0.7); font-size: 15px; margin-bottom: 25px; }
+        .footer-social { display: flex; gap: 12px; }
+        .footer-social a { width: 42px; height: 42px; background: rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: center; color: #fff; text-decoration: none; }
+        .footer-social a:hover { background: var(--primary); }
+        .footer-section h4 { font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 25px; }
+        .footer-links { list-style: none; }
+        .footer-links li { margin-bottom: 12px; color: rgba(255,255,255,0.7); font-size: 15px; }
+        .footer-links a { color: rgba(255,255,255,0.7); text-decoration: none; }
+        .footer-links a:hover { color: var(--gold); }
+        .footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 30px; text-align: center; }
+        .footer-bottom p { color: rgba(255,255,255,0.6); font-size: 14px; margin-bottom: 5px; }
+        .footer-bottom a { color: var(--gold); text-decoration: none; }
+        
+        /* RESPONSIVE */
+        @media (max-width: 992px) { .contact-grid { grid-template-columns: 1fr; } .footer-content { grid-template-columns: repeat(2, 1fr); } }
+        @media (max-width: 768px) { .nav-links { display: none; position: absolute; top: 70px; left: 0; right: 0; background: #fff; flex-direction: column; padding: 20px; gap: 15px; } .nav-links.active { display: flex; } .mobile-menu { display: block; } .page-header h1 { font-size: 36px; } .page-header { padding: 140px 0 60px; } .form-row { grid-template-columns: 1fr; } .reservation-form { padding: 30px; } .footer-content { grid-template-columns: 1fr; text-align: center; } .footer-social { justify-content: center; } }
+    </style>
+</head>
+<body>
+    <!-- NAVIGATION -->
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="logo">Savanna <span>Kitchen</span></a>
+            <button class="mobile-menu" onclick="document.querySelector('.nav-links').classList.toggle('active')"><i class="fas fa-bars"></i></button>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="menu.html">Menu</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="gallery.html">Gallery</a></li>
+                <li><a href="contact.html" class="active">Contact</a></li>
+                <li><a href="contact.html" class="nav-btn">Book a Table</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- PAGE HEADER -->
+    <div class="page-header">
+        <h1>Contact Us</h1> <!-- CHANGE -->
+        <p>We'd love to hear from you</p> <!-- CHANGE -->
+    </div>
+
+    <!-- CONTACT SECTION -->
+    <section class="contact-section">
+        <div class="container">
+            <div class="contact-grid">
+                <!-- CONTACT INFO -->
+                <div class="contact-info">
+                    <h2>Get In Touch</h2> <!-- CHANGE -->
+                    
+                    <!-- ADDRESS -->
+                    <div class="contact-item">
+                        <div class="contact-icon"><i class="fas fa-map-marker-alt"></i></div>
+                        <div>
+                            <h4>Location</h4>
+                            <p>Plot 123, Main Mall<br>Gaborone, Botswana</p> <!-- CHANGE -->
+                        </div>
+                    </div>
+                    
+                    <!-- PHONE -->
+                    <div class="contact-item">
+                        <div class="contact-icon"><i class="fas fa-phone"></i></div>
+                        <div>
+                            <h4>Phone</h4>
+                            <p><a href="tel:+2673XXXXXX">+267 3XX XXXX</a></p> <!-- CHANGE -->
+                        </div>
+                    </div>
+                    
+                    <!-- EMAIL -->
+                    <div class="contact-item">
+                        <div class="contact-icon"><i class="fas fa-envelope"></i></div>
+                        <div>
+                            <h4>Email</h4>
+                            <p><a href="mailto:info@savannakitchen.com">info@savannakitchen.com</a></p> <!-- CHANGE -->
+                        </div>
+                    </div>
+                    
+                    <!-- HOURS -->
+                    <div class="contact-item">
+                        <div class="contact-icon"><i class="fas fa-clock"></i></div>
+                        <div>
+                            <h4>Opening Hours</h4>
+                            <p>Mon-Sat: 11AM - 10PM<br>Sunday: 12PM - 8PM</p> <!-- CHANGE -->
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- RESERVATION FORM -->
+                <div class="reservation-form">
+                    <h2>Make a Reservation</h2>
+                    <form id="reservationForm">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Your Name *</label>
+                                <input type="text" name="name" placeholder="John Smith" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Phone Number *</label>
+                                <input type="tel" name="phone" placeholder="+267 7X XXX XXX" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Date *</label>
+                                <input type="date" name="date" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Time *</label>
+                                <select name="time" required>
+                                    <option value="">Select time</option>
+                                    <option value="11:00">11:00 AM</option>
+                                    <option value="12:00">12:00 PM</option>
+                                    <option value="13:00">1:00 PM</option>
+                                    <option value="18:00">6:00 PM</option>
+                                    <option value="19:00">7:00 PM</option>
+                                    <option value="20:00">8:00 PM</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Number of Guests *</label>
+                            <select name="guests" required>
+                                <option value="">Select guests</option>
+                                <option value="1">1 Person</option>
+                                <option value="2">2 People</option>
+                                <option value="3">3 People</option>
+                                <option value="4">4 People</option>
+                                <option value="5">5 People</option>
+                                <option value="6+">6+ People</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Special Requests</label>
+                            <textarea name="message" placeholder="Any special requests or dietary requirements..."></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Book Table <i class="fas fa-check"></i></button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <a href="index.html" class="logo">Savanna <span>Kitchen</span></a>
+                    <p>Experience authentic African cuisine in Gaborone.</p>
+                    <div class="footer-social">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Pages</h4>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="menu.html">Menu</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="gallery.html">Gallery</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Hours</h4>
+                    <ul class="footer-links">
+                        <li>Mon-Sat: 11AM-10PM</li>
+                        <li>Sunday: 12PM-8PM</li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact</h4>
+                    <ul class="footer-links">
+                        <li><a href="tel:+2673XXXXXX">+267 3XX XXXX</a></li>
+                        <li><a href="mailto:info@savannakitchen.com">info@savannakitchen.com</a></li>
+                        <li>Gaborone, Botswana</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Savanna Kitchen. All rights reserved.</p>
+                <p>Template by <a href="mailto:futurifydesigns@gmail.com">Futurify Designs</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- FORM HANDLER -->
+    <script>
+        document.getElementById('reservationForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const fd = new FormData(this);
+            let body = 'RESERVATION REQUEST\n\n';
+            body += 'Name: ' + fd.get('name') + '\n';
+            body += 'Phone:
