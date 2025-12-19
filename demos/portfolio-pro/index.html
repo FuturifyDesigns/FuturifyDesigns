@@ -73,9 +73,9 @@
             --radius: 16px;           /* Border radius for cards */
             --transition: all 0.4s ease; /* Animation speed */
         }
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
         html { scroll-behavior: smooth; overflow-x: hidden; }
-        body { font-family: 'Sora', sans-serif; font-size: 16px; line-height: 1.7; color: var(--text); background: var(--bg); overflow-x: hidden; }
+        body { font-family: 'Sora', sans-serif; font-size: 16px; line-height: 1.7; color: var(--text); background: var(--bg); overflow-x: hidden; -webkit-tap-highlight-color: transparent; }
         img { max-width: 100%; height: auto; display: block; }
         a { text-decoration: none; color: inherit; transition: var(--transition); }
         ul { list-style: none; }
@@ -496,7 +496,7 @@
             <div class="cta-buttons">
                 <a href="contact.html" class="btn btn-white"><span>Start a Project</span><i class="fas fa-arrow-right"></i></a>
                 <!-- EMAIL: Change to your email address -->
-                <a href="/cdn-cgi/l/email-protection#573f323b3b38172e382225243e23327934383a" class="btn btn-ghost"><i class="fas fa-envelope"></i> <span class="__cf_email__" data-cfemail="7e161b1212113e07110b0c0d170a1b501d1113">[email&#160;protected]</span></a>
+                <a href="mailto:hello@example.com" class="btn btn-ghost"><i class="fas fa-envelope"></i> hello@example.com</a>
             </div>
         </div>
     </section>
@@ -551,7 +551,7 @@
                 <div class="footer-col">
                     <h4>Contact</h4>
                     <ul>
-                        <li><a href="/cdn-cgi/l/email-protection#ea828f868685aa93859f9899839e8fc4898587"><span class="__cf_email__" data-cfemail="e68e838a8a89a69f899394958f9283c885898b">[email&#160;protected]</span></a></li> <!-- CHANGE: Your email -->
+                        <li><a href="mailto:hello@example.com">hello@example.com</a></li> <!-- CHANGE: Your email -->
                         <li><a href="tel:+26777783823">+267 77 783 823</a></li> <!-- CHANGE: Your phone -->
                         <li><span style="color:rgba(255,255,255,0.6)">Gaborone, Botswana</span></li> <!-- CHANGE: Your location -->
                     </ul>
@@ -561,13 +561,13 @@
             <!-- COPYRIGHT: Update year and name -->
             <div class="footer-bottom">
                 <p>&copy; 2025 Portfolio. All rights reserved.</p>
-                <p>Template by <a href="/cdn-cgi/l/email-protection#5234272627203b342b3637213b353c2112353f333b3e7c313d3f">Futurify Designs</a></p>
+                <p>Template by <a href="mailto:futurifydesigns@gmail.com">Futurify Designs</a></p>
             </div>
         </div>
     </footer>
 
     <!-- Mobile Menu Toggle Script -->
-    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+    <script>
         // Navbar scroll effect
         const navbar = document.querySelector('.navbar');
         window.addEventListener('scroll', () => {

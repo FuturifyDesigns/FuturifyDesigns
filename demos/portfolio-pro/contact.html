@@ -48,9 +48,9 @@
             --radius: 16px; 
             --transition: all 0.4s ease; 
         }
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
         html { scroll-behavior: smooth; overflow-x: hidden; }
-        body { font-family: 'Sora', sans-serif; font-size: 16px; line-height: 1.7; color: var(--text); background: var(--bg); overflow-x: hidden; }
+        body { font-family: 'Sora', sans-serif; font-size: 16px; line-height: 1.7; color: var(--text); background: var(--bg); overflow-x: hidden; -webkit-tap-highlight-color: transparent; }
         img { max-width: 100%; height: auto; }
         a { text-decoration: none; color: inherit; transition: var(--transition); }
         ul { list-style: none; }
@@ -292,7 +292,7 @@
                     <!-- EMAIL: Update with your email -->
                     <div class="contact-item">
                         <div class="contact-icon"><i class="fas fa-envelope"></i></div>
-                        <div><div class="contact-item-label">Email</div><div class="contact-item-value"><a href="/cdn-cgi/l/email-protection#0f676a6363604f76607a7d7c667b6a216c6062"><span class="__cf_email__" data-cfemail="cda5a8a1a1a28db4a2b8bfbea4b9a8e3aea2a0">[email&#160;protected]</span></a></div></div> <!-- CHANGE -->
+                        <div><div class="contact-item-label">Email</div><div class="contact-item-value"><a href="mailto:hello@example.com">hello@example.com</a></div></div> <!-- CHANGE -->
                     </div>
                     <!-- PHONE: Update with your phone -->
                     <div class="contact-item">
@@ -356,16 +356,16 @@
                 </div>
                 <div class="footer-col"><h4>Navigation</h4><ul><li><a href="index.html">Home</a></li><li><a href="portfolio.html">Portfolio</a></li><li><a href="about.html">About</a></li><li><a href="contact.html">Contact</a></li></ul></div>
                 <div class="footer-col"><h4>Services</h4><ul><li><a href="#">UI/UX Design</a></li><li><a href="#">Web Development</a></li><li><a href="#">Brand Identity</a></li><li><a href="#">Consulting</a></li></ul></div>
-                <div class="footer-col"><h4>Contact</h4><ul><li><a href="/cdn-cgi/l/email-protection#325a575e5e5d724b5d4740415b46571c515d5f"><span class="__cf_email__" data-cfemail="93fbf6fffffcd3eafce6e1e0fae7f6bdf0fcfe">[email&#160;protected]</span></a></li><li><a href="tel:+26777783823">+267 77 783 823</a></li><li><span style="color:rgba(255,255,255,0.6)">Gaborone, Botswana</span></li></ul></div>
+                <div class="footer-col"><h4>Contact</h4><ul><li><a href="mailto:hello@example.com">hello@example.com</a></li><li><a href="tel:+26777783823">+267 77 783 823</a></li><li><span style="color:rgba(255,255,255,0.6)">Gaborone, Botswana</span></li></ul></div>
             </div>
             <div class="footer-bottom">
                 <p>&copy; 2025 Portfolio. All rights reserved.</p>
-                <p>Template by <a href="/cdn-cgi/l/email-protection#3355464746415a554a5756405a545d4073545e525a5f1d505c5e">Futurify Designs</a></p>
+                <p>Template by <a href="mailto:futurifydesigns@gmail.com">Futurify Designs</a></p>
             </div>
         </div>
     </footer>
 
-    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+    <script>
         // Navbar scroll effect
         const navbar = document.querySelector('.navbar');
         window.addEventListener('scroll', () => {

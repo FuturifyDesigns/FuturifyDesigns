@@ -48,9 +48,9 @@
             --radius: 16px;
             --transition: all 0.4s ease;
         }
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
         html { scroll-behavior: smooth; overflow-x: hidden; }
-        body { font-family: 'Sora', sans-serif; font-size: 16px; line-height: 1.7; color: var(--text); background: var(--bg); overflow-x: hidden; }
+        body { font-family: 'Sora', sans-serif; font-size: 16px; line-height: 1.7; color: var(--text); background: var(--bg); overflow-x: hidden; -webkit-tap-highlight-color: transparent; }
         img { max-width: 100%; height: auto; display: block; }
         a { text-decoration: none; color: inherit; transition: var(--transition); }
         ul { list-style: none; }
@@ -506,7 +506,7 @@
                 <div class="footer-col">
                     <h4>Contact</h4>
                     <ul>
-                        <li><a href="/cdn-cgi/l/email-protection#5e363b3232311e27312b2c2d372a3b703d3133"><span class="__cf_email__" data-cfemail="036b666f6f6c437a6c7671706a77662d606c6e">[email&#160;protected]</span></a></li>
+                        <li><a href="mailto:hello@example.com">hello@example.com</a></li>
                         <li><a href="tel:+26777783823">+267 77 783 823</a></li>
                         <li><span style="color:rgba(255,255,255,0.6)">Gaborone, Botswana</span></li>
                     </ul>
@@ -514,12 +514,12 @@
             </div>
             <div class="footer-bottom">
                 <p>&copy; 2025 Portfolio. All rights reserved.</p>
-                <p>Template by <a href="/cdn-cgi/l/email-protection#d8beadacadaab1bea1bcbdabb1bfb6ab98bfb5b9b1b4f6bbb7b5">Futurify Designs</a></p>
+                <p>Template by <a href="mailto:futurifydesigns@gmail.com">Futurify Designs</a></p>
             </div>
         </div>
     </footer>
 
-    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+    <script>
         // Navbar scroll effect
         const navbar = document.querySelector('.navbar');
         window.addEventListener('scroll', () => {
