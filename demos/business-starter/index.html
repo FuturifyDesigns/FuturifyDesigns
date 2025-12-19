@@ -56,12 +56,12 @@
             --transition: all 0.3s ease;
         }
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        html { scroll-behavior: smooth; }
-        body { font-family: 'Inter', sans-serif; font-size: 16px; line-height: 1.7; color: var(--text); background: var(--bg); }
+        html { scroll-behavior: smooth; overflow-x: hidden; }
+        body { font-family: 'Inter', sans-serif; font-size: 16px; line-height: 1.7; color: var(--text); background: var(--bg); overflow-x: hidden; width: 100%; }
         img { max-width: 100%; height: auto; display: block; }
         a { text-decoration: none; color: inherit; transition: var(--transition); }
         ul { list-style: none; }
-        .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; width: 100%; }
         h1, h2, h3, h4 { font-family: 'Playfair Display', serif; font-weight: 700; color: var(--secondary); line-height: 1.3; }
 
         /* Navbar - White background with blur */
@@ -75,34 +75,52 @@
         .nav-link::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 2px; background: var(--primary); transition: width 0.3s; }
         .nav-link:hover::after, .nav-link.active::after { width: 100%; }
         .nav-link:hover, .nav-link.active { color: var(--primary); }
-        .nav-cta { padding: 12px 28px; background: var(--primary); color: white; font-size: 14px; font-weight: 600; border-radius: 6px; }
+        .nav-cta { padding: 12px 28px; background: var(--primary); color: white; font-size: 14px; font-weight: 600; border-radius: 6px; white-space: nowrap; }
         .nav-cta:hover { background: var(--primary-dark); transform: translateY(-2px); }
+        .nav-menu-cta { display: none; }
         .nav-toggle { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 8px; }
         .nav-toggle span { width: 26px; height: 2px; background: var(--secondary); border-radius: 2px; transition: var(--transition); }
         
         /* Mobile Menu */
         @media (max-width: 768px) {
+            .nav-cta-desktop { display: none !important; }
+            .nav-menu-cta { display: block; }
             .nav-menu { 
                 position: fixed; 
                 top: 0; 
                 right: -100%; 
-                width: 80%; 
+                width: 85%; 
                 max-width: 320px; 
                 height: 100vh; 
                 flex-direction: column; 
-                justify-content: center; 
+                justify-content: flex-start;
+                padding-top: 80px;
                 gap: 0; 
                 background: white; 
                 box-shadow: var(--shadow-lg); 
-                transition: right 0.3s ease; 
+                transition: right 0.3s ease;
+                overflow-y: auto;
+                z-index: 999;
             }
             .nav-menu.active { right: 0; }
-            .nav-menu .nav-link { padding: 16px 32px; font-size: 18px; }
-            .nav-menu .nav-cta { margin: 16px 32px; }
-            .nav-toggle { display: flex; }
-            .nav-toggle.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+            .nav-menu .nav-link { 
+                padding: 18px 32px; 
+                font-size: 17px;
+                width: 100%;
+                display: block;
+                border-bottom: 1px solid var(--border);
+            }
+            .nav-menu .nav-link::after { display: none; }
+            .nav-menu-cta .nav-cta { 
+                margin: 24px 32px; 
+                text-align: center;
+                display: block;
+                width: calc(100% - 64px);
+            }
+            .nav-toggle { display: flex; z-index: 1000; }
+            .nav-toggle.active span:nth-child(1) { transform: rotate(45deg) translate(7px, 7px); }
             .nav-toggle.active span:nth-child(2) { opacity: 0; }
-            .nav-toggle.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+            .nav-toggle.active span:nth-child(3) { transform: rotate(-45deg) translate(6px, -6px); }
         }
 
         /* Hero */
@@ -212,19 +230,19 @@
             .footer-top { grid-template-columns: 1fr 1fr; }
         }
         @media (max-width: 768px) {
-            .nav-menu { position: fixed; top: 0; right: -100%; width: 280px; height: 100vh; flex-direction: column; justify-content: center; background: var(--white); box-shadow: var(--shadow-lg); transition: right 0.3s; z-index: 1001; }
-            .nav-menu.active { right: 0; }
-            .nav-cta { display: none; }
-            .nav-toggle { display: flex; }
+            .container { padding: 0 20px; }
             .hero { padding: 120px 0 60px; }
             .hero-title { font-size: 36px; }
             .hero-stats { flex-direction: column; gap: 20px; align-items: center; }
             .hero-image { display: none; }
+            .hero-buttons { flex-direction: column; width: 100%; }
+            .hero-buttons .btn { width: 100%; justify-content: center; }
             .services-grid { grid-template-columns: 1fr; }
             .about-features { grid-template-columns: 1fr; }
-            .cta-buttons { flex-direction: column; align-items: center; }
+            .cta-buttons { flex-direction: column; align-items: center; width: 100%; }
+            .cta-buttons .btn { width: 100%; max-width: 300px; justify-content: center; }
             .clients-grid { gap: 30px; }
-            .footer-top { grid-template-columns: 1fr; }
+            .footer-top { grid-template-columns: 1fr; gap: 40px; }
             .footer-bottom { flex-direction: column; gap: 12px; text-align: center; }
         }
     </style>
@@ -248,10 +266,11 @@
                 <li><a href="services.html" class="nav-link">Services</a></li>
                 <li><a href="testimonials.html" class="nav-link">Testimonials</a></li>
                 <li><a href="contact.html" class="nav-link">Contact</a></li>
+                <li class="nav-menu-cta"><a href="contact.html" class="nav-cta">Get Started</a></li>
             </ul>
             
-            <!-- CTA BUTTON: Change text and link -->
-            <a href="contact.html" class="nav-cta">Get Started</a>
+            <!-- CTA BUTTON: Desktop only -->
+            <a href="contact.html" class="nav-cta nav-cta-desktop">Get Started</a>
             
             <!-- Mobile menu toggle - no changes needed -->
             <button class="nav-toggle" id="navToggle" aria-label="Menu"><span></span><span></span><span></span></button>
@@ -469,7 +488,7 @@
                     <h4>Contact</h4>
                     <ul>
                         <!-- EMAIL: Change to your email -->
-                        <li><a href="mailto:info@businesspro.com">info@businesspro.com</a></li>
+                        <li><a href="/cdn-cgi/l/email-protection#50393e363f10322523393e35232320223f7e333f3d"><span class="__cf_email__" data-cfemail="254c4b434a654750564c4b40565655574a0b464a48">[email&#160;protected]</span></a></li>
                         <!-- PHONE: Change to your phone -->
                         <li><a href="tel:+26777783823">+267 77 783 823</a></li>
                         <!-- LOCATION: Change to your location -->
@@ -481,7 +500,7 @@
             <!-- COPYRIGHT: Update year and company name -->
             <div class="footer-bottom">
                 <p>&copy; 2025 BusinessPro. All rights reserved.</p>
-                <p>Template by <a href="mailto:futurifydesigns@gmail.com">Futurify Designs</a></p>
+                <p>Template by <a href="/cdn-cgi/l/email-protection#583e2d2c2d2a313e213c3d2b313f362b183f35393134763b3735">Futurify Designs</a></p>
             </div>
         </div>
     </footer>
@@ -491,7 +510,7 @@
          - Handles navbar scroll effect and mobile menu
          - No changes needed unless adding features
     ============================================ -->
-    <script>
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
         // Navbar scroll effect
         const navbar = document.querySelector('.navbar');
         window.addEventListener('scroll', () => {
@@ -508,6 +527,23 @@
                 navMenu.classList.toggle('active');
             });
             
-            document.querySelectorAll('.nav-link').forEach(link => {
+            // Close menu when clicking on a link
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(link => {
                 link.addEventListener('click', () => {
-                    navToggle.cla
+                    navToggle.classList.remove('active');
+                    navMenu.classList.remove('active');
+                });
+            });
+            
+            // Close menu when clicking outside
+            document.addEventListener('click', (e) => {
+                if (!navMenu.contains(e.target) && !navToggle.contains(e.target)) {
+                    navToggle.classList.remove('active');
+                    navMenu.classList.remove('active');
+                }
+            });
+        }
+    </script>
+</body>
+</html>
