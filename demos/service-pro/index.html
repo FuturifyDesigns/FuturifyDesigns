@@ -171,14 +171,10 @@
             background: none;
             border: none;
             color: var(--secondary);
-            font-size: 28px;
+            font-size: 24px;
             cursor: pointer;
             padding: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 44px;
-            height: 44px;
+            line-height: 1;
         }
         .mobile-menu-nav {
             display: flex;
@@ -258,7 +254,7 @@
             </a>
             
             <!-- Mobile Menu Button -->
-            <button class="mobile-menu" onclick="document.querySelector('.nav-links').classList.toggle('active')">
+            <button class="mobile-menu" onclick="toggleMobileMenu()">
                 <i class="fas fa-bars"></i>
             </button>
             
@@ -281,8 +277,8 @@
                 <div class="logo-icon"><i class="fas fa-broom"></i></div>
                 CleanPro
             </a>
-            <button class="mobile-menu-close" id="mobileMenuClose" aria-label="Close menu">
-                <span style="font-size:28px;font-weight:300;line-height:1;">&times;</span>
+            <button class="mobile-menu-close" id="mobileMenuClose" aria-label="Close menu" style="font-size: 28px; font-weight: 300; font-family: Arial, sans-serif;">
+                ✕
             </button>
         </div>
         <nav class="mobile-menu-nav">
@@ -424,9 +420,9 @@
                 <div class="footer-section">
                     <h4>Contact</h4>
                     <ul class="footer-links">
-                        <li><a href="tel:+2677XXXXXXX">+267 7XX XXXX</a></li> <!-- CHANGE: Phone -->
-                        <li><a href="mailto:info@cleanpro.com">info@cleanpro.com</a></li> <!-- CHANGE: Email -->
-                        <li>Gaborone, Botswana</li> <!-- CHANGE: Location -->
+                        <li><a href="tel:+2677XXXXXXX">+267 7XX XXXX</a></li>
+                        <li><a href="mailto:info@cleanpro.com">info@cleanpro.com</a></li>
+                        <li>Gaborone, Botswana</li>
                     </ul>
                 </div>
             </div>
@@ -439,29 +435,20 @@
     </footer>
 
     <script>
-        // Mobile menu toggle
-        const navToggle = document.querySelector('.mobile-menu');
-        const mobileMenu = document.getElementById('mobileMenu');
-        const mobileMenuClose = document.getElementById('mobileMenuClose');
-        
-        if (navToggle && mobileMenu) {
-            navToggle.addEventListener('click', () => {
-                mobileMenu.classList.add('active');
-                document.body.classList.add('menu-open');
-            });
-            
-            mobileMenuClose.addEventListener('click', () => {
-                mobileMenu.classList.remove('active');
+        function toggleMobileMenu() {
+            document.getElementById('mobileMenu').classList.add('active');
+            document.body.classList.add('menu-open');
+        }
+        document.getElementById('mobileMenuClose').addEventListener('click', function() {
+            document.getElementById('mobileMenu').classList.remove('active');
+            document.body.classList.remove('menu-open');
+        });
+        document.querySelectorAll('.mobile-menu-nav a').forEach(function(link) {
+            link.addEventListener('click', function() {
+                document.getElementById('mobileMenu').classList.remove('active');
                 document.body.classList.remove('menu-open');
             });
-            
-            document.querySelectorAll('.mobile-menu-nav a').forEach(link => {
-                link.addEventListener('click', () => {
-                    mobileMenu.classList.remove('active');
-                    document.body.classList.remove('menu-open');
-                });
-            });
-        }
+        });
     </script>
 </body>
 </html>
