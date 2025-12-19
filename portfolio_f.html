@@ -411,6 +411,7 @@
 
         .nav-links {
             display: flex;
+            display: flex;
             gap: 32px;
             list-style: none;
         }
@@ -1162,9 +1163,7 @@
                 font-size: 20px;
             }
 
-            .nav-links {
-                gap: 12px;
-            }
+            .nav-links { display: none !important; }
 
             .nav-links a {
                 font-size: 13px;
@@ -1699,7 +1698,12 @@
     <nav>
         <div class="nav-container">
             <a href="home f.html" class="logo">F</a>
-            <ul class="nav-links">
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul class="nav-links" id="navLinks">
                 <li><a href="home f.html">Home</a></li>
                 <li><a href="portfolio f.html" class="active">Portfolio</a></li>
                 <li><a href="pricing f.html">Pricing</a></li>
@@ -1954,7 +1958,7 @@
                 <div class="footer-section">
                     <h4 class="footer-title">Get In Touch</h4>
                     <ul class="footer-contact">
-                        <li><i class="fas fa-envelope"></i> <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="88eefdfcfdfae1eef1ecedfbe1efe6fbc8efe5e9e1e4a6ebe7e5">[email&#160;protected]</a></li>
+                        <li><i class="fas fa-envelope"></i> <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="2a4c5f5e5f58434c534e4f59434d44596a4d474b434604494547">[email&#160;protected]</a></li>
                         <li><i class="fas fa-phone"></i> +267 777 83823</li>
                         <li><i class="fas fa-map-marker-alt"></i> Gaborone, Botswana</li>
                     </ul>
@@ -2589,12 +2593,10 @@
         
         // Reset session on user activity
         document.addEventListener('click', resetSession);
-        document.addEventListener('scroll', resetSe
-            declineBtn.onmouseout = function() { 
-                this.style.background = 'transparent'; 
-                this.style.borderColor = 'rgba(255,255,255,0.6)';
-            };
-        }
+        document.addEventListener('scroll', resetSession);
+        document.addEventListener('keydown', resetSession);
+        
+        resetSession(); // Start the timer
     </script>
 </body>
 </html>

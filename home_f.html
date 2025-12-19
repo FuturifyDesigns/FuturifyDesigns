@@ -340,6 +340,7 @@
 
         .nav-links {
             display: flex;
+            display: flex;
             gap: 32px;
             list-style: none;
         }
@@ -885,9 +886,7 @@
                 font-size: 20px;
             }
 
-            .nav-links {
-                gap: 12px;
-            }
+            .nav-links { display: none !important; }
 
             .nav-links a {
                 font-size: 13px;
@@ -1386,11 +1385,11 @@
         <nav>
             <div class="nav-container">
                 <a href="home f.html" class="logo">F</a>
-            <div class="hamburger" id="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
+                <div class="hamburger" id="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
                 <ul class="nav-links" id="navLinks">
                     <li><a href="home f.html" class="active">Home</a></li>
                     <li><a href="portfolio f.html">Portfolio</a></li>
@@ -1549,7 +1548,7 @@
                     <div class="footer-section">
                         <h4 class="footer-title">Get In Touch</h4>
                         <ul class="footer-contact">
-                            <li><i class="fas fa-envelope"></i> <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="1c7a6968696e757a6578796f757b726f5c7b717d7570327f7371">[email&#160;protected]</a></li>
+                            <li><i class="fas fa-envelope"></i> <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="1375666766617a756a7776607a747d6053747e727a7f3d707c7e">[email&#160;protected]</a></li>
                             <li><i class="fas fa-phone"></i> +267 777 83823</li>
                             <li><i class="fas fa-map-marker-alt"></i> Gaborone, Botswana</li>
                         </ul>
@@ -2047,7 +2046,7 @@
             declineBtn.onmouseover = function() { 
                 this.style.background = 'rgba(255,255,255,0.2)'; 
                 this.style.borderColor = '#fff';
-            }
+            };
             declineBtn.onmouseout = function() { 
                 this.style.background = 'transparent'; 
                 this.style.borderColor = 'rgba(255,255,255,0.6)';

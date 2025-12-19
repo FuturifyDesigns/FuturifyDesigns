@@ -318,6 +318,7 @@
 
         .nav-links {
             display: flex;
+            display: flex;
             gap: 32px;
             list-style: none;
         }
@@ -1662,9 +1663,7 @@
                 font-size: 20px;
             }
 
-            .nav-links {
-                gap: 12px;
-            }
+            .nav-links { display: none !important; }
 
             .nav-links a {
                 font-size: 13px;
@@ -1804,7 +1803,12 @@
     <nav>
         <div class="nav-container">
             <a href="home f.html" class="logo">F</a>
-            <ul class="nav-links">
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul class="nav-links" id="navLinks">
                 <li><a href="home f.html">Home</a></li>
                 <li><a href="portfolio f.html">Portfolio</a></li>
                 <li><a href="pricing f.html">Pricing</a></li>
@@ -1941,7 +1945,7 @@
                     <div class="file-note">
                         <i class="fas fa-info-circle"></i>
                         <p><strong>Have reference files or website concepts?</strong><br>
-                        Please send them as a separate email to <a href="/cdn-cgi/l/email-protection#c6a0b3b2b3b4afa0bfa2a3b5afa1a8b586a1aba7afaae8a5a9ab" style="color: #fff; text-decoration: none; font-weight: 600;"><span class="__cf_email__" data-cfemail="5e382b2a2b2c3738273a3b2d3739302d1e39333f3732703d3133">[email&#160;protected]</span></a> after submitting this form.</p>
+                        Please send them as a separate email to <a href="/cdn-cgi/l/email-protection#1d7b6869686f747b6479786e747a736e5d7a707c7471337e7270" style="color: #fff; text-decoration: none; font-weight: 600;"><span class="__cf_email__" data-cfemail="2a4c5f5e5f58434c534e4f59434d44596a4d474b434604494547">[email&#160;protected]</span></a> after submitting this form.</p>
                     </div>
                     
                     <button type="submit" class="submit-button" id="submitButton" disabled>Submit Quote Request</button>
@@ -1961,7 +1965,7 @@
                     
                     <div class="info-item">
                         <i class="fas fa-envelope"></i>
-                        <a href="/cdn-cgi/l/email-protection#c3a5b6b7b6b1aaa5baa7a6b0aaa4adb083a4aea2aaafeda0acae"><span class="__cf_email__" data-cfemail="9cfae9e8e9eef5fae5f8f9eff5fbf2efdcfbf1fdf5f0b2fff3f1">[email&#160;protected]</span></a>
+                        <a href="/cdn-cgi/l/email-protection#ff998a8b8a8d9699869b9a8c9698918cbf98929e9693d19c9092"><span class="__cf_email__" data-cfemail="accad9d8d9dec5cad5c8c9dfc5cbc2dfeccbc1cdc5c082cfc3c1">[email&#160;protected]</span></a>
                     </div>
 
                     <div class="info-item">
@@ -2025,7 +2029,7 @@
                 <div class="footer-section">
                     <h4 class="footer-title">Get In Touch</h4>
                     <ul class="footer-contact">
-                        <li><i class="fas fa-envelope"></i> <a href="/cdn-cgi/l/email-protection#71170405040318170815140218161f0231161c10181d5f121e1c"><span class="__cf_email__" data-cfemail="482e3d3c3d3a212e312c2d3b212f263b082f25292124662b2725">[email&#160;protected]</span></a></li>
+                        <li><i class="fas fa-envelope"></i> <a href="/cdn-cgi/l/email-protection#e781929392958e819e8382948e808994a7808a868e8bc984888a"><span class="__cf_email__" data-cfemail="31574445444358574855544258565f4271565c50585d1f525e5c">[email&#160;protected]</span></a></li>
                         <li><i class="fas fa-phone"></i> +267 777 83823</li>
                         <li><i class="fas fa-map-marker-alt"></i> Gaborone, Botswana</li>
                     </ul>
@@ -2191,8 +2195,8 @@
                 
                 return true;
             } catch (error) {
-                console.error('Error fetching exchange rates:', error);
-                document.getElementById('rateValue').textContent = 'Using fallback rates';
+                // Exchange rates API unavailable, using fallback rates
+                document.getElementById('rateValue').textContent = 'Live rates unavailable';
                 return false;
             }
         }
@@ -2728,7 +2732,7 @@
                     // If API fails, still update display with fallback rates
                     updateRateDisplay();
                 }
-            });
+            }).catch(err => { console.warn("Exchange rate fetch error (using fallback rates)"); updatePrices(); });
             
             // Add budget validation on input
             const budgetInput = document.getElementById('budget');
@@ -3079,12 +3083,12 @@
             });
         }
         
-        // Reset activity on user i
-            declineBtn.onmouseout = function() { 
-                this.style.background = 'transparent'; 
-                this.style.borderColor = 'rgba(255,255,255,0.6)';
-            };
-        }
+        // Reset activity on user interaction
+        document.addEventListener('click', resetSession);
+        document.addEventListener('scroll', resetSession);
+        document.addEventListener('keydown', resetSession);
+        
+        resetSession(); // Start the timer
     </script>
 </body>
 </html>

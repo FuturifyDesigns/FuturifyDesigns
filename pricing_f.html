@@ -320,6 +320,7 @@
 
         .nav-links {
             display: flex;
+            display: flex;
             gap: 32px;
             list-style: none;
         }
@@ -404,25 +405,18 @@
                 transform: translateX(0);
             }
 
-            .nav-links li, .nav-links a {
+            .nav-links a {
                 width: 100%;
                 text-align: center;
-            }
-
-            .nav-links li {
-                padding: 20px 0;
-                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            }
-
-            .nav-links li:first-child {
-                border-top: 1px solid rgba(255, 255, 255, 0.1);
-            }
-
-            .nav-links a {
                 font-size: 24px !important;
                 font-weight: 600 !important;
                 display: block;
-                padding: 10px 0 !important;
+                padding: 30px 0 !important;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            }
+
+            .nav-links a:first-child {
+                border-top: 1px solid rgba(255, 255, 255, 0.1);
             }
 
             .nav-links a::after {
@@ -1363,9 +1357,7 @@
                 font-size: 20px;
             }
 
-            .nav-links {
-                gap: 12px;
-            }
+            .nav-links { display: none !important; }
 
             .nav-links a {
                 font-size: 13px;
@@ -1841,7 +1833,7 @@
                 <div class="footer-section">
                     <h4 class="footer-title">Get In Touch</h4>
                     <ul class="footer-contact">
-                        <li><i class="fas fa-envelope"></i> <a href="/cdn-cgi/l/email-protection#c0a6b5b4b5b2a9a6b9a4a5b3a9a7aeb380a7ada1a9aceea3afad" style="color: rgba(255,255,255,0.8); text-decoration: none;"><span class="__cf_email__" data-cfemail="11776465646378776875746278767f6251767c70787d3f727e7c">[email&#160;protected]</span></a></li>
+                        <li><i class="fas fa-envelope"></i> <a href="/cdn-cgi/l/email-protection#7711020302051e110e1312041e10190437101a161e1b5914181a" style="color: rgba(255,255,255,0.8); text-decoration: none;"><span class="__cf_email__" data-cfemail="690f1c1d1c1b000f100d0c1a000e071a290e04080005470a0604">[email&#160;protected]</span></a></li>
                         <li><i class="fas fa-phone"></i> +267 777 83823</li>
                         <li><i class="fas fa-map-marker-alt"></i> Gaborone, Botswana</li>
                     </ul>
@@ -1994,8 +1986,8 @@
                 
                 return true;
             } catch (error) {
-                console.error('Error fetching exchange rates:', error);
-                document.getElementById('rateValue').textContent = 'Using fallback rates';
+                // Exchange rates API unavailable, using fallback rates
+                document.getElementById('rateValue').textContent = 'Live rates unavailable';
                 return false;
             }
         }
@@ -2066,7 +2058,7 @@
                     // If API fails, still update prices with fallback rates
                     updatePrices();
                 }
-            });
+            }).catch(err => { console.warn("Exchange rate fetch error (using fallback rates)"); updatePrices(); });
         }
 
         // Call initializeCurrency after DOM is loaded
@@ -2387,11 +2379,12 @@
         // Refresh exchange rates when button is clicked
         document.getElementById('refreshRate').addEventListener('click', function() {
         
-            declineBtn.onmouseout = function() { 
-                this.style.background = 'transparent'; 
-                this.style.borderColor = 'rgba(255,255,255,0.6)';
-            };
-        }
+            updatePrices();
+        });
+
+        // Initialize
+        createParticles();
+        updatePrices();
     </script>
 </body>
 </html>
