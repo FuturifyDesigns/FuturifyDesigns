@@ -1,0 +1,342 @@
+<!-- ============================================
+     BUSINESS PRO - ABOUT PAGE
+     Template by Futurify Designs
+     
+     SECTIONS ON THIS PAGE:
+     1. Page Header - Title and description
+     2. Our Story - Company background with image
+     3. Core Values - 3 value cards
+     4. Team Section - 4 team member cards
+     5. Stats Section - Key numbers
+     6. CTA Section - Call to action
+     
+     IMAGES: 
+     - About image: 600x450px
+     - Team photos: 300x280px each
+     
+     NEED HELP? futurifydesigns@gmail.com
+============================================ -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - Business Pro</title> <!-- CHANGE: Your Company Name -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* COLOR SCHEME - Edit these to match your brand */
+        :root { 
+            --primary: #1e40af;       /* Main brand color */
+            --primary-dark: #1e3a8a;  /* Hover states */
+            --primary-light: #3b82f6; /* Highlights */
+            --secondary: #0f172a;     /* Dark headings */
+            --accent: #06b6d4;        /* Accent color */
+            --text: #334155;          /* Body text */
+            --text-light: #64748b;    /* Secondary text */
+            --text-muted: #94a3b8;    /* Muted text */
+            --bg: #ffffff;            /* Background */
+            --bg-alt: #f8fafc;        /* Alt background */
+            --bg-dark: #0f172a;       /* Footer bg */
+            --white: #ffffff; 
+            --border: #e2e8f0; 
+            --shadow: 0 4px 20px rgba(0,0,0,0.08); 
+            --shadow-lg: 0 20px 40px rgba(0,0,0,0.12); 
+            --radius: 12px; 
+            --transition: all 0.3s ease; 
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Inter', sans-serif; font-size: 16px; line-height: 1.7; color: var(--text); background: var(--bg); }
+        img { max-width: 100%; height: auto; display: block; }
+        a { text-decoration: none; color: inherit; transition: var(--transition); }
+        ul { list-style: none; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+        h1, h2, h3, h4 { font-family: 'Playfair Display', serif; font-weight: 700; color: var(--secondary); line-height: 1.3; }
+        
+        /* Navbar - White background */
+        .navbar { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; padding: 18px 0; background: rgba(255,255,255,0.95); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); box-shadow: var(--shadow); transition: var(--transition); }
+        .navbar.scrolled { padding: 14px 0; }
+        .nav-container { display: flex; align-items: center; justify-content: space-between; }
+        .nav-logo { font-family: 'Playfair Display', serif; font-size: 26px; font-weight: 700; color: var(--secondary); }
+        .nav-logo span { color: var(--primary); }
+        .nav-menu { display: flex; align-items: center; gap: 36px; }
+        .nav-link { font-size: 15px; font-weight: 500; color: var(--text); position: relative; }
+        .nav-link::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 2px; background: var(--primary); transition: width 0.3s; }
+        .nav-link:hover::after, .nav-link.active::after { width: 100%; }
+        .nav-link:hover, .nav-link.active { color: var(--primary); }
+        .nav-cta { padding: 12px 28px; background: var(--primary); color: white; font-size: 14px; font-weight: 600; border-radius: 6px; }
+        .nav-cta:hover { background: var(--primary-dark); transform: translateY(-2px); }
+        .nav-toggle { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 8px; }
+        .nav-toggle span { width: 26px; height: 2px; background: var(--secondary); border-radius: 2px; transition: var(--transition); }
+        
+        /* Mobile Menu */
+        @media (max-width: 768px) {
+            .nav-menu { position: fixed; top: 0; right: -100%; width: 80%; max-width: 320px; height: 100vh; flex-direction: column; justify-content: center; gap: 0; background: white; box-shadow: var(--shadow-lg); transition: right 0.3s ease; }
+            .nav-menu.active { right: 0; }
+            .nav-menu .nav-link { padding: 16px 32px; font-size: 18px; }
+            .nav-menu .nav-cta { margin: 16px 32px; }
+            .nav-toggle { display: flex; }
+            .nav-toggle.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+            .nav-toggle.active span:nth-child(2) { opacity: 0; }
+            .nav-toggle.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+        }
+        
+        .page-header { padding: 140px 0 60px; background: var(--bg-alt); text-align: center; }
+        .page-badge { display: inline-flex; align-items: center; gap: 8px; padding: 8px 16px; background: rgba(30,64,175,0.1); border-radius: 50px; font-size: 12px; font-weight: 600; color: var(--primary); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 16px; }
+        .page-title { font-size: clamp(36px, 5vw, 52px); margin-bottom: 16px; }
+        .page-desc { font-size: 18px; color: var(--text-light); max-width: 600px; margin: 0 auto; }
+        .about-story { padding: 100px 0; }
+        .about-story .container { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+        .about-img { position: relative; }
+        .about-img img { border-radius: var(--radius); box-shadow: var(--shadow-lg); width: 100%; height: 450px; object-fit: cover; }
+        .about-badge-box { position: absolute; bottom: -20px; left: -20px; background: var(--primary); color: white; padding: 24px 32px; border-radius: var(--radius); text-align: center; }
+        .about-badge-number { font-family: 'Playfair Display', serif; font-size: 42px; font-weight: 700; line-height: 1; }
+        .about-badge-text { font-size: 13px; opacity: 0.9; }
+        .section-badge { display: inline-flex; align-items: center; gap: 8px; padding: 8px 16px; background: rgba(30,64,175,0.1); border-radius: 50px; font-size: 12px; font-weight: 600; color: var(--primary); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 16px; }
+        .about-story h2 { font-size: clamp(32px, 4vw, 42px); margin-bottom: 20px; }
+        .about-story p { font-size: 16px; color: var(--text-light); margin-bottom: 16px; line-height: 1.8; }
+        .values-section { padding: 100px 0; background: var(--bg-alt); }
+        .section-header { text-align: center; margin-bottom: 60px; }
+        .section-title { font-size: clamp(32px, 4vw, 44px); margin-bottom: 16px; }
+        .section-desc { font-size: 17px; color: var(--text-light); max-width: 550px; margin: 0 auto; }
+        .values-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+        .value-card { padding: 36px; background: var(--white); border-radius: var(--radius); text-align: center; border: 1px solid var(--border); transition: var(--transition); }
+        .value-card:hover { transform: translateY(-8px); box-shadow: var(--shadow-lg); border-color: transparent; }
+        .value-icon { width: 70px; height: 70px; margin: 0 auto 24px; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%); border-radius: 16px; color: white; font-size: 28px; }
+        .value-title { font-size: 20px; margin-bottom: 12px; }
+        .value-desc { font-size: 15px; color: var(--text-light); }
+        .team-section { padding: 100px 0; }
+        .team-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 28px; }
+        .team-card { text-align: center; }
+        .team-img { width: 100%; height: 280px; object-fit: cover; border-radius: var(--radius); margin-bottom: 20px; transition: var(--transition); }
+        .team-card:hover .team-img { transform: scale(1.03); }
+        .team-name { font-size: 18px; margin-bottom: 4px; }
+        .team-role { font-size: 14px; color: var(--primary); margin-bottom: 12px; }
+        .team-social { display: flex; justify-content: center; gap: 8px; }
+        .team-social a { width: 34px; height: 34px; display: flex; align-items: center; justify-content: center; background: var(--bg-alt); border-radius: 6px; color: var(--text-light); font-size: 14px; transition: var(--transition); }
+        .team-social a:hover { background: var(--primary); color: white; }
+        .stats-section { padding: 80px 0; background: var(--secondary); }
+        .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 30px; text-align: center; }
+        .stat-item { color: white; }
+        .stat-number { font-family: 'Playfair Display', serif; font-size: 48px; font-weight: 700; color: var(--primary-light); margin-bottom: 8px; }
+        .stat-label { font-size: 14px; color: rgba(255,255,255,0.7); }
+        .btn { display: inline-flex; align-items: center; gap: 10px; padding: 14px 28px; font-family: 'Inter', sans-serif; font-size: 15px; font-weight: 600; border-radius: 6px; cursor: pointer; transition: var(--transition); }
+        .btn-primary { background: var(--primary); color: white; border: none; }
+        .btn-primary:hover { background: var(--primary-dark); }
+        .btn i { font-size: 14px; }
+        .cta { padding: 80px 0; background: var(--bg-alt); text-align: center; }
+        .cta h2 { font-size: clamp(28px, 4vw, 40px); margin-bottom: 16px; }
+        .cta p { font-size: 17px; color: var(--text-light); margin-bottom: 28px; max-width: 500px; margin-left: auto; margin-right: auto; }
+        .footer { padding: 80px 0 30px; background: var(--bg-dark); color: white; }
+        .footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 50px; padding-bottom: 50px; border-bottom: 1px solid rgba(255,255,255,0.1); }
+        .footer-brand .nav-logo { margin-bottom: 16px; color: white; }
+        .footer-brand .nav-logo span { color: var(--primary-light); }
+        .footer-desc { font-size: 14px; color: rgba(255,255,255,0.6); line-height: 1.8; margin-bottom: 24px; }
+        .footer-social { display: flex; gap: 10px; }
+        .footer-social a { width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; background: rgba(255,255,255,0.1); border-radius: 8px; color: white; font-size: 16px; transition: var(--transition); }
+        .footer-social a:hover { background: var(--primary); }
+        .footer-col h4 { font-family: 'Inter', sans-serif; font-size: 15px; font-weight: 600; margin-bottom: 24px; }
+        .footer-col ul li { margin-bottom: 12px; }
+        .footer-col a { font-size: 14px; color: rgba(255,255,255,0.6); }
+        .footer-col a:hover { color: white; }
+        .footer-bottom { display: flex; justify-content: space-between; align-items: center; padding-top: 30px; }
+        .footer-bottom p { font-size: 13px; color: rgba(255,255,255,0.5); }
+        .footer-bottom a { color: var(--primary-light); }
+        @media (max-width: 1024px) { .about-story .container { grid-template-columns: 1fr; } .about-img { max-width: 500px; margin: 0 auto 40px; } .values-grid { grid-template-columns: repeat(2, 1fr); } .team-grid { grid-template-columns: repeat(2, 1fr); } .stats-grid { grid-template-columns: repeat(2, 1fr); } .footer-top { grid-template-columns: 1fr 1fr; } }
+        @media (max-width: 768px) { .nav-menu { position: fixed; top: 0; right: -100%; width: 280px; height: 100vh; flex-direction: column; justify-content: center; background: var(--white); box-shadow: var(--shadow-lg); transition: right 0.3s; z-index: 1001; } .nav-menu.active { right: 0; } .nav-cta { display: none; } .nav-toggle { display: flex; } .values-grid, .team-grid { grid-template-columns: 1fr; } .stats-grid { grid-template-columns: 1fr 1fr; gap: 40px; } .footer-top { grid-template-columns: 1fr; } .footer-bottom { flex-direction: column; gap: 12px; text-align: center; } }
+    </style>
+</head>
+<body>
+    <!-- NAVIGATION: Update logo text and links -->
+    <nav class="navbar" id="navbar">
+        <div class="container nav-container">
+            <a href="index.html" class="nav-logo">Business<span>Pro</span></a> <!-- CHANGE: Your brand name -->
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="about.html" class="nav-link active">About</a></li>
+                <li><a href="services.html" class="nav-link">Services</a></li>
+                <li><a href="testimonials.html" class="nav-link">Testimonials</a></li>
+                <li><a href="contact.html" class="nav-link">Contact</a></li>
+            </ul>
+            <a href="contact.html" class="nav-cta">Get Started</a> <!-- CHANGE: CTA text -->
+            <button class="nav-toggle" id="navToggle" aria-label="Menu"><span></span><span></span><span></span></button>
+        </div>
+    </nav>
+
+    <!-- PAGE HEADER: Update title and description -->
+    <header class="page-header">
+        <div class="container">
+            <div class="page-badge"><i class="fas fa-building"></i> About Us</div>
+            <h1 class="page-title">Who We Are</h1> <!-- CHANGE: Page title -->
+            <p class="page-desc">A team of dedicated professionals committed to helping businesses achieve exceptional growth and success.</p> <!-- CHANGE: Description -->
+        </div>
+    </header>
+
+    <!-- OUR STORY SECTION: Update image, years, and text -->
+    <section class="about-story">
+        <div class="container">
+            <div class="about-img">
+                <!-- CHANGE: Replace image URL (600x500px recommended) -->
+                <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=600&h=500&fit=crop" alt="Our Team">
+                <div class="about-badge-box">
+                    <div class="about-badge-number">15+</div> <!-- CHANGE: Years in business -->
+                    <div class="about-badge-text">Years of Excellence</div>
+                </div>
+            </div>
+            <div class="about-content">
+                <div class="section-badge"><i class="fas fa-history"></i> Our Story</div>
+                <h2>Building Success Stories Since 2009</h2> <!-- CHANGE: Your headline -->
+                <p>Founded with a vision to transform how businesses approach growth and innovation, BusinessPro has evolved into a leading consulting firm trusted by organizations across industries.</p> <!-- CHANGE: Your story -->
+                <p>Our journey began with a simple belief: every business, regardless of size, deserves access to world-class strategic guidance. Today, we've helped over 500 companies achieve their goals and unlock their full potential.</p> <!-- CHANGE -->
+                <p>We combine deep industry expertise with innovative methodologies to deliver solutions that drive real, measurable results. Our commitment to excellence and client success remains at the heart of everything we do.</p> <!-- CHANGE -->
+            </div>
+        </div>
+    </section>
+
+    <!-- VALUES SECTION: Update icons, titles, descriptions -->
+    <section class="values-section">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-badge"><i class="fas fa-heart"></i> Our Values</div>
+                <h2 class="section-title">What Drives Us</h2> <!-- CHANGE: Section title -->
+                <p class="section-desc">The principles that guide our work and relationships with clients.</p> <!-- CHANGE -->
+            </div>
+            <div class="values-grid">
+                <div class="value-card">
+                    <div class="value-icon"><i class="fas fa-handshake"></i></div>
+                    <h3 class="value-title">Integrity</h3>
+                    <p class="value-desc">We operate with complete transparency and honesty in all our dealings.</p>
+                </div>
+                <div class="value-card">
+                    <div class="value-icon"><i class="fas fa-lightbulb"></i></div>
+                    <h3 class="value-title">Innovation</h3> <!-- CHANGE: Value title -->
+                    <p class="value-desc">We constantly seek new and better ways to solve business challenges.</p> <!-- CHANGE: Value description -->
+                </div>
+                <div class="value-card">
+                    <div class="value-icon"><i class="fas fa-trophy"></i></div> <!-- CHANGE: Icon from fontawesome.com -->
+                    <h3 class="value-title">Excellence</h3> <!-- CHANGE -->
+                    <p class="value-desc">We strive for the highest standards in everything we deliver.</p> <!-- CHANGE -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TEAM SECTION: Update photos, names, roles, social links -->
+    <section class="team-section">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-badge"><i class="fas fa-users"></i> Our Team</div>
+                <h2 class="section-title">Meet the Experts</h2> <!-- CHANGE -->
+                <p class="section-desc">Talented professionals dedicated to your success.</p> <!-- CHANGE -->
+            </div>
+            <div class="team-grid">
+                <!-- TEAM MEMBER 1: Update photo, name, role, social links -->
+                <div class="team-card">
+                    <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=400&h=350&fit=crop&crop=face" alt="John Smith" class="team-img"> <!-- CHANGE: Photo URL -->
+                    <h3 class="team-name">John Smith</h3> <!-- CHANGE: Name -->
+                    <p class="team-role">CEO & Founder</p> <!-- CHANGE: Role -->
+                    <div class="team-social">
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a> <!-- CHANGE: LinkedIn URL -->
+                        <a href="#"><i class="fab fa-twitter"></i></a> <!-- CHANGE: Twitter URL -->
+                    </div>
+                </div>
+                <!-- TEAM MEMBER 2 -->
+                <div class="team-card">
+                    <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&h=350&fit=crop&crop=face" alt="Sarah Johnson" class="team-img">
+                    <h3 class="team-name">Sarah Johnson</h3>
+                    <p class="team-role">Managing Director</p>
+                    <div class="team-social">
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+                <!-- TEAM MEMBER 3 -->
+                <div class="team-card">
+                    <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=350&fit=crop&crop=face" alt="Michael Chen" class="team-img">
+                    <h3 class="team-name">Michael Chen</h3>
+                    <p class="team-role">Strategy Director</p>
+                    <div class="team-social">
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+                <!-- TEAM MEMBER 4 -->
+                <div class="team-card">
+                    <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=400&h=350&fit=crop&crop=face" alt="Emily Davis" class="team-img">
+                    <h3 class="team-name">Emily Davis</h3>
+                    <p class="team-role">Operations Lead</p>
+                    <div class="team-social">
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="stats-section">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-item"><div class="stat-number">500+</div><div class="stat-label">Clients Worldwide</div></div>
+                <div class="stat-item"><div class="stat-number">15+</div><div class="stat-label">Years Experience</div></div>
+                <div class="stat-item"><div class="stat-number">50+</div><div class="stat-label">Expert Consultants</div></div>
+                <div class="stat-item"><div class="stat-number">98%</div><div class="stat-label">Client Satisfaction</div></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta">
+        <div class="container">
+            <h2>Ready to Work With Us?</h2>
+            <p>Let's discuss how we can help your business reach its full potential.</p>
+            <a href="contact.html" class="btn btn-primary"><span>Get in Touch</span><i class="fas fa-arrow-right"></i></a>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-top">
+                <div class="footer-brand">
+                    <a href="index.html" class="nav-logo">Business<span>Pro</span></a>
+                    <p class="footer-desc">Strategic consulting and business solutions that drive growth and deliver measurable results.</p>
+                    <div class="footer-social">
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col"><h4>Quick Links</h4><ul><li><a href="index.html">Home</a></li><li><a href="about.html">About Us</a></li><li><a href="services.html">Services</a></li><li><a href="testimonials.html">Testimonials</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+                <div class="footer-col"><h4>Services</h4><ul><li><a href="services.html">Business Strategy</a></li><li><a href="services.html">Management Consulting</a></li><li><a href="services.html">Digital Transformation</a></li><li><a href="services.html">Financial Advisory</a></li></ul></div>
+                <div class="footer-col"><h4>Contact</h4><ul><li><a href="mailto:info@businesspro.com">info@businesspro.com</a></li><li><a href="tel:+26777783823">+267 77 783 823</a></li><li><span style="color:rgba(255,255,255,0.6)">Gaborone, Botswana</span></li></ul></div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 BusinessPro. All rights reserved.</p>
+                <p>Template by <a href="mailto:futurifydesigns@gmail.com">Futurify Designs</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Navbar scroll effect
+        const navbar = document.querySelector('.navbar');
+        window.addEventListener('scroll', () => {
+            navbar.classList.toggle('scrolled', window.scrollY > 50);
+        });
+        
+        // Mobile menu toggle
+        const navToggle = document.querySelector('.nav-toggle');
+        const navMenu = document.querySelector('.nav-menu');
+        
+        if (navToggle && navMenu) {
+            navToggle.addEventListener('click', () => {
+                navToggle.classList.toggle('active');
+                navMenu.classList.toggle('active');
+            });
+            
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.addEventListener('click', () => {
+                    navToggle.cla
