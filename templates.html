@@ -103,6 +103,36 @@
         .nav-links a{color:#fff;text-decoration:none;font-size:16px;font-weight:700;transition:all 0.3s ease;position:relative}
         .nav-links a::after{content:'';position:absolute;bottom:-5px;left:0;width:0;height:2px;background:#fff;transition:width 0.3s ease}
         .nav-links a:hover::after,.nav-links a.active::after{width:100%}
+        
+        /* Hamburger Menu */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            z-index: 101;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: #fff;
+            margin: 3px 0;
+            transition: all 0.3s ease;
+            border-radius: 3px;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(8px, 8px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(8px, -8px);
+        }
+
         .mobile-menu-btn{display:none;background:none;border:none;color:#fff;font-size:24px;cursor:pointer;padding:5px}
         
         /* Business Hours Widget - Exact from pricing_f */
@@ -277,38 +307,57 @@
         
         /* Responsive - Mobile */
         @media(max-width:768px){
-            /* Navigation */
-            nav{padding:15px 20px}
-            .nav-container{position:relative}
-            .logo{font-size:18px}
-            .nav-links{
-                position:fixed;
-                top:60px;
-                left:0;
-                right:0;
-                background:rgba(10,10,18,0.98);
-                backdrop-filter:blur(20px);
-                flex-direction:column;
-                padding:25px 20px;
-                gap:0;
-                display:none;
-                border-bottom:1px solid rgba(139,92,246,0.2);
-                max-height:calc(100vh - 60px);
-                overflow-y:auto;
-                z-index:999
+            /* Navigation - Full Screen Overlay */
+            .hamburger {
+                display: flex !important;
             }
-            .nav-links.active{display:flex}
-            .nav-links li{width:100%;border-bottom:1px solid rgba(139,92,246,0.1)}
-            .nav-links li:last-child{border-bottom:none}
-            .nav-links a{
-                font-size:16px;
-                padding:15px 10px;
-                display:block;
-                width:100%;
-                text-align:center
+
+            .nav-links {
+                position: fixed !important;
+                top: 0 !important;
+                left: 0 !important;
+                width: 100% !important;
+                height: 100vh !important;
+                background: rgba(10, 10, 26, 0.98) !important;
+                backdrop-filter: blur(10px) !important;
+                flex-direction: column !important;
+                justify-content: center !important;
+                align-items: center !important;
+                gap: 0 !important;
+                transform: translateX(100%);
+                transition: transform 0.3s ease;
+                z-index: 100;
             }
-            .nav-links a::after{display:none}
-            .mobile-menu-btn{display:block;z-index:1000}
+
+            .nav-links.active {
+                transform: translateX(0);
+            }
+
+            .nav-links li, .nav-links a {
+                width: 100%;
+                text-align: center;
+            }
+
+            .nav-links li {
+                padding: 20px 0;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            }
+
+            .nav-links li:first-child {
+                border-top: 1px solid rgba(255, 255, 255, 0.1);
+            }
+
+            .nav-links a {
+                font-size: 24px !important;
+                font-weight: 600 !important;
+                display: block;
+                padding: 10px 0 !important;
+            }
+
+            .nav-links a::after {
+                display: none !important;
+            }
+            .mobile-menu-btn{display:none}
             
             /* Page Header */
             .page-header{margin-top:90px;margin-bottom:25px;padding:0 15px}
@@ -572,7 +621,11 @@
     <nav>
         <div class="nav-container">
             <a href="home f.html" class="logo">F</a>
-            <button class="mobile-menu-btn" onclick="toggleMobileMenu()"><i class="fas fa-bars"></i></button>
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
             <ul class="nav-links" id="navLinks">
                 <li><a href="home f.html">Home</a></li>
                 <li><a href="portfolio f.html">Portfolio</a></li>
@@ -1044,7 +1097,7 @@
                 <div class="footer-section">
                     <h4 class="footer-title">Get In Touch</h4>
                     <ul class="footer-links footer-contact">
-                        <li><i class="fas fa-envelope"></i> futurifydesigns@gmail.com</li>
+                        <li><i class="fas fa-envelope"></i> <a href="mailto:futurifydesigns@gmail.com" style="color: #fff;">futurifydesigns@gmail.com</a></li>
                         <li><i class="fas fa-phone"></i> +267 777 83823</li>
                         <li><i class="fas fa-map-marker-alt"></i> Gaborone, Botswana</li>
                     </ul>
@@ -1101,47 +1154,25 @@
             }
         })();
 
-        // Mobile menu toggle
-        function toggleMobileMenu() {
-            const navLinks = document.getElementById('navLinks');
-            const menuBtn = document.querySelector('.mobile-menu-btn i');
-            navLinks.classList.toggle('active');
-            
-            // Toggle icon between bars and X
-            if (navLinks.classList.contains('active')) {
-                menuBtn.classList.remove('fa-bars');
-                menuBtn.classList.add('fa-times');
-            } else {
-                menuBtn.classList.remove('fa-times');
-                menuBtn.classList.add('fa-bars');
-            }
-        }
-        
-        // Close mobile menu when clicking outside
-        document.addEventListener('click', function(e) {
-            const navLinks = document.getElementById('navLinks');
-            const menuBtn = document.querySelector('.mobile-menu-btn');
-            
-            if (navLinks.classList.contains('active') && 
-                !navLinks.contains(e.target) && 
-                !menuBtn.contains(e.target)) {
-                navLinks.classList.remove('active');
-                const icon = menuBtn.querySelector('i');
-                icon.classList.remove('fa-times');
-                icon.classList.add('fa-bars');
-            }
-        });
-        
-        // Close mobile menu when clicking a link
-        document.querySelectorAll('.nav-links a').forEach(link => {
-            link.addEventListener('click', function() {
-                const navLinks = document.getElementById('navLinks');
-                const menuBtn = document.querySelector('.mobile-menu-btn i');
-                navLinks.classList.remove('active');
-                menuBtn.classList.remove('fa-times');
-                menuBtn.classList.add('fa-bars');
+        // Hamburger Menu Toggle
+        const hamburger = document.getElementById('hamburger');
+        const navLinks = document.getElementById('navLinks');
+
+        if (hamburger && navLinks) {
+            hamburger.addEventListener('click', () => {
+                hamburger.classList.toggle('active');
+                navLinks.classList.toggle('active');
+                document.body.style.overflow = navLinks.classList.contains('active') ? 'hidden' : 'auto';
             });
-        });
+
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.addEventListener('click', () => {
+                    hamburger.classList.remove('active');
+                    navLinks.classList.remove('active');
+                    document.body.style.overflow = 'auto';
+                });
+            });
+        }
 
         // Business Hours Clock - Exact from pricing_f
         let lastNoticeHour = -1;
@@ -1429,13 +1460,29 @@
             // Open WhatsApp with message
             const whatsappUrl = 'https://wa.me/26777783823?text=' + encodeURIComponent(body);
             window.open(whatsappUrl, '_blank');
-
+            
             // Close modal
-            closeModal(type === 'diy' ? 'diyModal' : 'customModal');
-
+            closeModal(type + 'Modal');
+            
             // Reset form
-            e.target.reset();
+            document.getElementById(type + 'Form').reset();
+        }
+
+        // Widget toggle
+        function toggleWidget() {
+            document.getElementById('businessWidget').classList.toggle('collapsed');
         }
     </script>
+
+    <!-- WhatsApp Floating Button -->
+    <a href="https://wa.me/26777783823?text=Hi%20Futurify%20Designs!%20I'm%20interested%20in%20your%20website%20templates.%20Can%20we%20discuss?" 
+       class="whatsapp-button" 
+       target="_blank" 
+       rel="noopener noreferrer"
+       aria-label="Contact us on WhatsApp">
+        <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+            <path d="M16 0c-8.837 0-16 7.163-16 16 0 2.825 0.737 5.607 2.137 8.048l-2.137 7.952 8.194-2.116c2.366 1.288 5.040 1.968 7.806 1.968 8.837 0 16-7.163 16-16s-7.163-16-16-16zM16 29.467c-2.482 0-4.908-0.646-7.07-1.87l-0.507-0.292-5.252 1.356 1.384-5.157-0.32-0.523c-1.335-2.181-2.041-4.695-2.041-7.281 0-7.589 6.175-13.764 13.764-13.764s13.764 6.175 13.764 13.764-6.133 13.764-13.722 13.764zM21.448 18.24c-0.293-0.147-1.731-0.854-2-0.951-0.269-0.099-0.464-0.147-0.659 0.147s-0.757 0.951-0.928 1.146c-0.171 0.195-0.341 0.22-0.634 0.073-0.293-0.147-1.236-0.456-2.353-1.451-0.869-0.775-1.456-1.733-1.627-2.026s-0.018-0.451 0.129-0.597c0.132-0.132 0.293-0.342 0.439-0.513s0.195-0.293 0.293-0.488c0.099-0.195 0.049-0.366-0.024-0.513s-0.659-1.587-0.903-2.174c-0.238-0.571-0.48-0.494-0.659-0.503-0.171-0.008-0.366-0.010-0.561-0.010s-0.513 0.073-0.781 0.366c-0.269 0.293-1.024 1.001-1.024 2.442s1.048 2.833 1.194 3.028c0.147 0.195 2.065 3.153 5.003 4.421 0.699 0.301 1.244 0.481 1.668 0.615 0.703 0.223 1.342 0.191 1.847 0.116 0.564-0.084 1.731-0.708 1.975-1.391s0.244-1.27 0.171-1.391c-0.073-0.122-0.269-0.195-0.561-0.342z"/>
+        </svg>
+    </a>
 </body>
 </html>
