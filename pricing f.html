@@ -320,6 +320,7 @@
 
         .nav-links {
             display: flex;
+            display: flex;
             gap: 32px;
             list-style: none;
         }
@@ -348,6 +349,81 @@
         .nav-links a.active::after {
             width: 100%;
         }
+        /* Hamburger Menu */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            z-index: 101;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: #fff;
+            margin: 3px 0;
+            transition: all 0.3s ease;
+            border-radius: 3px;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(8px, 8px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(8px, -8px);
+        }
+
+        /* Mobile Navigation */
+        @media (max-width: 768px) {
+            .hamburger {
+                display: flex;
+            }
+
+            .nav-links {
+                position: fixed !important;
+                top: 0 !important;
+                left: 0 !important;
+                width: 100% !important;
+                height: 100vh !important;
+                background: rgba(10, 10, 26, 0.98) !important;
+                backdrop-filter: blur(10px) !important;
+                flex-direction: column !important;
+                justify-content: center !important;
+                align-items: center !important;
+                gap: 0 !important;
+                transform: translateX(100%);
+                transition: transform 0.3s ease;
+                z-index: 100;
+            }
+
+            .nav-links.active {
+                transform: translateX(0);
+            }
+
+            .nav-links a {
+                width: 100%;
+                text-align: center;
+                font-size: 24px !important;
+                font-weight: 600 !important;
+                display: block;
+                padding: 30px 0 !important;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            }
+
+            .nav-links a:first-child {
+                border-top: 1px solid rgba(255, 255, 255, 0.1);
+            }
+
+            .nav-links a::after {
+                display: none !important;
+            }
+        }
+
 
         /* Business Hours Clock */
         .business-hours-widget {
@@ -1272,22 +1348,37 @@
             }
         }
 
+        
+        /* Additional Mobile Fixes */
+        @media (max-width: 768px) {
+            .hamburger {
+                display: flex !important;
+                position: relative;
+            }
+            
+            nav {
+                padding: 15px 20px;
+            }
+            
+            .nav-container {
+                position: relative;
+            }
+        }
+
+        
+
         @media (max-width: 600px) {
             .nav {
+            nav { padding: 15px 20px; }
                 padding: 15px 20px;
             }
 
             .logo {
+            .hamburger { display: flex !important; }
                 font-size: 20px;
             }
 
-            .nav-links {
-                gap: 12px;
-            }
 
-            .nav-links a {
-                font-size: 13px;
-            }
         }
 
         /* Status Notice Modal */
@@ -1473,7 +1564,12 @@
     <nav>
       <div class="nav-container">
       <a href="home f.html" class="logo">F</a>
-        <div class="nav-links">
+        <div class="hamburger" id="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <div class="nav-links" id="navLinks">
             <a href="home f.html" class="nav-link">Home</a>
             <a href="portfolio f.html" class="nav-link">Portfolio</a>
             <a href="pricing f.html" class="nav-link active">Pricing</a>
@@ -1754,7 +1850,7 @@
                 <div class="footer-section">
                     <h4 class="footer-title">Get In Touch</h4>
                     <ul class="footer-contact">
-                        <li><i class="fas fa-envelope"></i> <a href="mailto:futurifydesigns@gmail.com" style="color: rgba(255,255,255,0.8); text-decoration: none;">futurifydesigns@gmail.com</a></li>
+                        <li><i class="fas fa-envelope"></i> <a href="/cdn-cgi/l/email-protection#7711020302051e110e1312041e10190437101a161e1b5914181a" style="color: rgba(255,255,255,0.8); text-decoration: none;"><span class="__cf_email__" data-cfemail="690f1c1d1c1b000f100d0c1a000e071a290e04080005470a0604">[email&#160;protected]</span></a></li>
                         <li><i class="fas fa-phone"></i> +267 777 83823</li>
                         <li><i class="fas fa-map-marker-alt"></i> Gaborone, Botswana</li>
                     </ul>
@@ -1802,8 +1898,29 @@
         </svg>
     </a>
 
-    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-        // Currency conversion rates (relative to BWP) - fallback rates
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+                // Hamburger Menu Toggle
+        const hamburger = document.getElementById('hamburger');
+        const navLinks = document.getElementById('navLinks');
+
+        if (hamburger && navLinks) {
+            hamburger.addEventListener('click', () => {
+                hamburger.classList.toggle('active');
+                navLinks.classList.toggle('active');
+                document.body.style.overflow = navLinks.classList.contains('active') ? 'hidden' : 'auto';
+            });
+
+            // Close menu when clicking on a link
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.addEventListener('click', () => {
+                    hamburger.classList.remove('active');
+                    navLinks.classList.remove('active');
+                    document.body.style.overflow = 'auto';
+                });
+            });
+        }
+
+// Currency conversion rates (relative to BWP) - fallback rates
         let conversionRates = {
             BWP: 1,
             USD: 0.073,      // 1 BWP ≈ 0.073 USD
@@ -1886,8 +2003,8 @@
                 
                 return true;
             } catch (error) {
-                console.error('Error fetching exchange rates:', error);
-                document.getElementById('rateValue').textContent = 'Using fallback rates';
+                // Exchange rates API unavailable, using fallback rates
+                document.getElementById('rateValue').textContent = 'Live rates unavailable';
                 return false;
             }
         }
@@ -1958,7 +2075,7 @@
                     // If API fails, still update prices with fallback rates
                     updatePrices();
                 }
-            });
+            }).catch(err => { console.warn("Exchange rate fetch error (using fallback rates)"); updatePrices(); });
         }
 
         // Call initializeCurrency after DOM is loaded
@@ -2278,13 +2395,13 @@
 
         // Refresh exchange rates when button is clicked
         document.getElementById('refreshRate').addEventListener('click', function() {
-            this.classList.add('spinning');
-            fetchExchangeRates().then(() => {
-                setTimeout(() => {
-                    this.classList.remove('spinning');
-                }, 500);
-            });
+        
+            updatePrices();
         });
+
+        // Initialize
+        createParticles();
+        updatePrices();
     </script>
 </body>
 </html>

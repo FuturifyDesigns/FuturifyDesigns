@@ -318,6 +318,7 @@
 
         .nav-links {
             display: flex;
+            display: flex;
             gap: 32px;
             list-style: none;
         }
@@ -346,6 +347,88 @@
         .nav-links a.active::after {
             width: 100%;
         }
+        /* Hamburger Menu */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            z-index: 101;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: #fff;
+            margin: 3px 0;
+            transition: all 0.3s ease;
+            border-radius: 3px;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(8px, 8px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(8px, -8px);
+        }
+
+        /* Mobile Navigation */
+        @media (max-width: 768px) {
+            .hamburger {
+                display: flex;
+            }
+
+            .nav-links {
+                position: fixed !important;
+                top: 0 !important;
+                left: 0 !important;
+                width: 100% !important;
+                height: 100vh !important;
+                background: rgba(10, 10, 26, 0.98) !important;
+                backdrop-filter: blur(10px) !important;
+                flex-direction: column !important;
+                justify-content: center !important;
+                align-items: center !important;
+                gap: 0 !important;
+                transform: translateX(100%);
+                transition: transform 0.3s ease;
+                z-index: 100;
+            }
+
+            .nav-links.active {
+                transform: translateX(0);
+            }
+
+            .nav-links li, .nav-links a {
+                width: 100%;
+                text-align: center;
+            }
+
+            .nav-links li {
+                padding: 20px 0;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            }
+
+            .nav-links li:first-child {
+                border-top: 1px solid rgba(255, 255, 255, 0.1);
+            }
+
+            .nav-links a {
+                font-size: 24px !important;
+                font-weight: 600 !important;
+                display: block;
+                padding: 10px 0 !important;
+            }
+
+            .nav-links a::after {
+                display: none !important;
+            }
+        }
+
 
         /* Contact Container - Fixed overflow */
         .contact-container {
@@ -1571,22 +1654,37 @@
             }
         }
 
+        
+        /* Additional Mobile Fixes */
+        @media (max-width: 768px) {
+            .hamburger {
+                display: flex !important;
+                position: relative;
+            }
+            
+            nav {
+                padding: 15px 20px;
+            }
+            
+            .nav-container {
+                position: relative;
+            }
+        }
+
+        
+
         @media (max-width: 600px) {
             nav {
+            nav { padding: 15px 20px; }
                 padding: 15px 20px;
             }
 
             .logo {
+            .hamburger { display: flex !important; }
                 font-size: 20px;
             }
 
-            .nav-links {
-                gap: 12px;
-            }
 
-            .nav-links a {
-                font-size: 13px;
-            }
 
             .page-title h1 {
                 font-size: 28px;
@@ -1722,7 +1820,12 @@
     <nav>
         <div class="nav-container">
             <a href="home f.html" class="logo">F</a>
-            <ul class="nav-links">
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul class="nav-links" id="navLinks">
                 <li><a href="home f.html">Home</a></li>
                 <li><a href="portfolio f.html">Portfolio</a></li>
                 <li><a href="pricing f.html">Pricing</a></li>
@@ -1859,7 +1962,7 @@
                     <div class="file-note">
                         <i class="fas fa-info-circle"></i>
                         <p><strong>Have reference files or website concepts?</strong><br>
-                        Please send them as a separate email to <a href="mailto:futurifydesigns@gmail.com" style="color: #fff; text-decoration: none; font-weight: 600;">futurifydesigns@gmail.com</a> after submitting this form.</p>
+                        Please send them as a separate email to <a href="/cdn-cgi/l/email-protection#1d7b6869686f747b6479786e747a736e5d7a707c7471337e7270" style="color: #fff; text-decoration: none; font-weight: 600;"><span class="__cf_email__" data-cfemail="2a4c5f5e5f58434c534e4f59434d44596a4d474b434604494547">[email&#160;protected]</span></a> after submitting this form.</p>
                     </div>
                     
                     <button type="submit" class="submit-button" id="submitButton" disabled>Submit Quote Request</button>
@@ -1879,7 +1982,7 @@
                     
                     <div class="info-item">
                         <i class="fas fa-envelope"></i>
-                        <a href="mailto:futurifydesigns@gmail.com">futurifydesigns@gmail.com</a>
+                        <a href="/cdn-cgi/l/email-protection#ff998a8b8a8d9699869b9a8c9698918cbf98929e9693d19c9092"><span class="__cf_email__" data-cfemail="accad9d8d9dec5cad5c8c9dfc5cbc2dfeccbc1cdc5c082cfc3c1">[email&#160;protected]</span></a>
                     </div>
 
                     <div class="info-item">
@@ -1943,7 +2046,7 @@
                 <div class="footer-section">
                     <h4 class="footer-title">Get In Touch</h4>
                     <ul class="footer-contact">
-                        <li><i class="fas fa-envelope"></i> <a href="mailto:futurifydesigns@gmail.com">futurifydesigns@gmail.com</a></li>
+                        <li><i class="fas fa-envelope"></i> <a href="/cdn-cgi/l/email-protection#e781929392958e819e8382948e808994a7808a868e8bc984888a"><span class="__cf_email__" data-cfemail="31574445444358574855544258565f4271565c50585d1f525e5c">[email&#160;protected]</span></a></li>
                         <li><i class="fas fa-phone"></i> +267 777 83823</li>
                         <li><i class="fas fa-map-marker-alt"></i> Gaborone, Botswana</li>
                     </ul>
@@ -2001,8 +2104,29 @@
         </div>
     </div>
 
-    <script>
-        // UPDATED: Google Apps Script Web App URL
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+                // Hamburger Menu Toggle
+        const hamburger = document.getElementById('hamburger');
+        const navLinks = document.getElementById('navLinks');
+
+        if (hamburger && navLinks) {
+            hamburger.addEventListener('click', () => {
+                hamburger.classList.toggle('active');
+                navLinks.classList.toggle('active');
+                document.body.style.overflow = navLinks.classList.contains('active') ? 'hidden' : 'auto';
+            });
+
+            // Close menu when clicking on a link
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.addEventListener('click', () => {
+                    hamburger.classList.remove('active');
+                    navLinks.classList.remove('active');
+                    document.body.style.overflow = 'auto';
+                });
+            });
+        }
+
+// UPDATED: Google Apps Script Web App URL
         const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwYCFOTXCniVvCBSk0rzgZhe7osPgKTMySc6AVWI8YZLqFfqkHM0MhTYjziw2eHmbaN/exec';
 
         // Currency conversion rates (relative to BWP) - fallback rates
@@ -2088,8 +2212,8 @@
                 
                 return true;
             } catch (error) {
-                console.error('Error fetching exchange rates:', error);
-                document.getElementById('rateValue').textContent = 'Using fallback rates';
+                // Exchange rates API unavailable, using fallback rates
+                document.getElementById('rateValue').textContent = 'Live rates unavailable';
                 return false;
             }
         }
@@ -2625,7 +2749,7 @@
                     // If API fails, still update display with fallback rates
                     updateRateDisplay();
                 }
-            });
+            }).catch(err => { console.warn("Exchange rate fetch error (using fallback rates)"); updatePrices(); });
             
             // Add budget validation on input
             const budgetInput = document.getElementById('budget');
@@ -2977,19 +3101,11 @@
         }
         
         // Reset activity on user interaction
-        ['mousedown', 'mousemove', 'keypress', 'scroll', 'touchstart', 'click'].forEach(function(event) {
-            document.addEventListener(event, resetSession, true);
-        });
+        document.addEventListener('click', resetSession);
+        document.addEventListener('scroll', resetSession);
+        document.addEventListener('keydown', resetSession);
         
-        // Start the session timer
-        resetSession();
-
-        // Show WhatsApp button after page loads
-        setTimeout(function() {
-            if (document.getElementById('whatsappButton')) {
-                document.getElementById('whatsappButton').style.display = 'flex';
-            }
-        }, 3000);
+        resetSession(); // Start the timer
     </script>
 </body>
 </html>
