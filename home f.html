@@ -340,7 +340,6 @@
 
         .nav-links {
             display: flex;
-            display: flex;
             gap: 32px;
             list-style: none;
         }
@@ -401,7 +400,7 @@
         /* Mobile Navigation */
         @media (max-width: 768px) {
             .hamburger {
-                display: flex;
+                display: flex !important;
             }
 
             .nav-links {
@@ -877,37 +876,22 @@
             }
         }
 
-        
-        /* Additional Mobile Fixes */
-        @media (max-width: 768px) {
-            .hamburger {
-                display: flex !important;
-                position: relative;
-            }
-            
-            nav {
-                padding: 15px 20px;
-            }
-            
-            .nav-container {
-                position: relative;
-            }
-        }
-
-        
-
         @media (max-width: 600px) {
             nav {
-            nav { padding: 15px 20px; }
                 padding: 15px 20px;
             }
 
             .logo {
-            .hamburger { display: flex !important; }
                 font-size: 20px;
             }
 
+            .nav-links {
+                gap: 12px;
+            }
 
+            .nav-links a {
+                font-size: 13px;
+            }
 
             .footer-content {
                 grid-template-columns: 1fr;
@@ -1602,6 +1586,30 @@
         </footer>
     </div>
 
+    <script>
+        // Hamburger Menu Toggle
+        const hamburger = document.getElementById('hamburger');
+        const navLinks = document.getElementById('navLinks');
+
+        if (hamburger && navLinks) {
+            hamburger.addEventListener('click', () => {
+                hamburger.classList.toggle('active');
+                navLinks.classList.toggle('active');
+                document.body.style.overflow = navLinks.classList.contains('active') ? 'hidden' : 'auto';
+            });
+
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.addEventListener('click', () => {
+                    hamburger.classList.remove('active');
+                    navLinks.classList.remove('active');
+                    document.body.style.overflow = 'auto';
+                });
+            });
+        }
+    </script>
+
+
+
     <!-- WhatsApp Button -->
     <a href="https://wa.me/26777783823?text=Hi%20Futurify%20Designs!%20I'm%20interested%20in%20your%20web%20design%20services.%20Can%20we%20discuss%3F" 
        target="_blank" 
@@ -1664,28 +1672,8 @@
         <div class="notification-author" id="notificationAuthor"></div>
     </div>
 
-        // Hamburger Menu Toggle
-        const hamburger = document.getElementById('hamburger');
-        const navLinks = document.getElementById('navLinks');
-
-        if (hamburger && navLinks) {
-            hamburger.addEventListener('click', () => {
-                hamburger.classList.toggle('active');
-                navLinks.classList.toggle('active');
-                document.body.style.overflow = navLinks.classList.contains('active') ? 'hidden' : 'auto';
-            });
-
-            // Close menu when clicking on a link
-            document.querySelectorAll('.nav-links a').forEach(link => {
-                link.addEventListener('click', () => {
-                    hamburger.classList.remove('active');
-                    navLinks.classList.remove('active');
-                    document.body.style.overflow = 'auto';
-                });
-            });
-        }
-
-// Create background particles
+    <script>
+        // Create background particles
         function createBackgroundParticles() {
             const particlesBg = document.getElementById('particles-bg');
             const particleCount = 50;
@@ -2061,4 +2049,17 @@
             };
             declineBtn.onmouseover = function() { 
                 this.style.background = 'rgba(255,255,255,0.2)'; 
-                this.style.borde
+                this.style.borderColor = '#fff';
+            }
+            declineBtn.onmouseover = function() { 
+                this.style.background = 'rgba(255,255,255,0.2)'; 
+                this.style.borderColor = '#fff';
+            };
+            declineBtn.onmouseout = function() { 
+                this.style.background = 'transparent'; 
+                this.style.borderColor = 'rgba(255,255,255,0.6)';
+            };
+        }
+    </script>
+</body>
+</html>

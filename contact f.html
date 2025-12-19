@@ -318,7 +318,6 @@
 
         .nav-links {
             display: flex;
-            display: flex;
             gap: 32px;
             list-style: none;
         }
@@ -379,7 +378,7 @@
         /* Mobile Navigation */
         @media (max-width: 768px) {
             .hamburger {
-                display: flex;
+                display: flex !important;
             }
 
             .nav-links {
@@ -1654,37 +1653,22 @@
             }
         }
 
-        
-        /* Additional Mobile Fixes */
-        @media (max-width: 768px) {
-            .hamburger {
-                display: flex !important;
-                position: relative;
-            }
-            
-            nav {
-                padding: 15px 20px;
-            }
-            
-            .nav-container {
-                position: relative;
-            }
-        }
-
-        
-
         @media (max-width: 600px) {
             nav {
-            nav { padding: 15px 20px; }
                 padding: 15px 20px;
             }
 
             .logo {
-            .hamburger { display: flex !important; }
                 font-size: 20px;
             }
 
+            .nav-links {
+                gap: 12px;
+            }
 
+            .nav-links a {
+                font-size: 13px;
+            }
 
             .page-title h1 {
                 font-size: 28px;
@@ -1962,7 +1946,7 @@
                     <div class="file-note">
                         <i class="fas fa-info-circle"></i>
                         <p><strong>Have reference files or website concepts?</strong><br>
-                        Please send them as a separate email to <a href="/cdn-cgi/l/email-protection#1d7b6869686f747b6479786e747a736e5d7a707c7471337e7270" style="color: #fff; text-decoration: none; font-weight: 600;"><span class="__cf_email__" data-cfemail="2a4c5f5e5f58434c534e4f59434d44596a4d474b434604494547">[email&#160;protected]</span></a> after submitting this form.</p>
+                        Please send them as a separate email to <a href="mailto:futurifydesigns@gmail.com" style="color: inherit; text-decoration: none;">futurifydesigns@gmail.com</a> after submitting this form.</p>
                     </div>
                     
                     <button type="submit" class="submit-button" id="submitButton" disabled>Submit Quote Request</button>
@@ -2104,29 +2088,8 @@
         </div>
     </div>
 
-            <script>
-        // Hamburger Menu Toggle
-        const hamburger = document.getElementById('hamburger');
-        const navLinks = document.getElementById('navLinks');
-
-        if (hamburger && navLinks) {
-            hamburger.addEventListener('click', () => {
-                hamburger.classList.toggle('active');
-                navLinks.classList.toggle('active');
-                document.body.style.overflow = navLinks.classList.contains('active') ? 'hidden' : 'auto';
-            });
-
-            // Close menu when clicking on a link
-            document.querySelectorAll('.nav-links a').forEach(link => {
-                link.addEventListener('click', () => {
-                    hamburger.classList.remove('active');
-                    navLinks.classList.remove('active');
-                    document.body.style.overflow = 'auto';
-                });
-            });
-        }
-
-// UPDATED: Google Apps Script Web App URL
+    <script>
+        // UPDATED: Google Apps Script Web App URL
         const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwYCFOTXCniVvCBSk0rzgZhe7osPgKTMySc6AVWI8YZLqFfqkHM0MhTYjziw2eHmbaN/exec';
 
         // Currency conversion rates (relative to BWP) - fallback rates
@@ -2213,7 +2176,7 @@
                 return true;
             } catch (error) {
                 // Exchange rates API unavailable, using fallback rates
-                document.getElementById('rateValue').textContent = 'Live rates unavailable';
+                document.getElementById('rateValue').textContent = 'Using fallback rates';
                 return false;
             }
         }
@@ -2749,7 +2712,7 @@
                     // If API fails, still update display with fallback rates
                     updateRateDisplay();
                 }
-            }).catch(err => { console.warn("Exchange rate fetch error (using fallback rates)"); updatePrices(); });
+            });
             
             // Add budget validation on input
             const budgetInput = document.getElementById('budget');
@@ -3105,7 +3068,7 @@
         document.addEventListener('scroll', resetSession);
         document.addEventListener('keydown', resetSession);
         
-        resetSession(); // Start the timer
+        resetSession();
     </script>
 </body>
 </html>

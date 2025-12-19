@@ -308,7 +308,6 @@
 
         .nav-links {
             display: flex;
-            display: flex;
             gap: 32px;
             list-style: none;
         }
@@ -369,7 +368,7 @@
         /* Mobile Navigation */
         @media (max-width: 768px) {
             .hamburger {
-                display: flex;
+                display: flex !important;
             }
 
             .nav-links {
@@ -1035,37 +1034,22 @@
             }
         }
 
-        
-        /* Additional Mobile Fixes */
-        @media (max-width: 768px) {
-            .hamburger {
-                display: flex !important;
-                position: relative;
-            }
-            
-            nav {
-                padding: 15px 20px;
-            }
-            
-            .nav-container {
-                position: relative;
-            }
-        }
-
-        
-
         @media (max-width: 600px) {
             nav {
-            nav { padding: 15px 20px; }
                 padding: 15px 20px;
             }
 
             .logo {
-            .hamburger { display: flex !important; }
                 font-size: 20px;
             }
 
+            .nav-links {
+                gap: 12px;
+            }
 
+            .nav-links a {
+                font-size: 13px;
+            }
 
             .page-title h1 {
                 font-size: 20px;
@@ -2089,28 +2073,8 @@
         </div>
     </footer>
 
-        // Hamburger Menu Toggle
-        const hamburger = document.getElementById('hamburger');
-        const navLinks = document.getElementById('navLinks');
-
-        if (hamburger && navLinks) {
-            hamburger.addEventListener('click', () => {
-                hamburger.classList.toggle('active');
-                navLinks.classList.toggle('active');
-                document.body.style.overflow = navLinks.classList.contains('active') ? 'hidden' : 'auto';
-            });
-
-            // Close menu when clicking on a link
-            document.querySelectorAll('.nav-links a').forEach(link => {
-                link.addEventListener('click', () => {
-                    hamburger.classList.remove('active');
-                    navLinks.classList.remove('active');
-                    document.body.style.overflow = 'auto';
-                });
-            });
-        }
-
-// Create floating particles
+    <script>
+        // Create floating particles
         function createParticles() {
             const particlesContainer = document.getElementById('particles');
             const particleCount = 50;
@@ -2781,4 +2745,13 @@
 
         // Close notice window
         function closeNotice() {
-            const overlay = document.getElementById('noticeOverla
+            const overlay = document.getElementById('noticeOverlay');
+            const notice = document.getElementById('statusNotice');
+            if (overlay && notice) {
+                overlay.style.display = 'none';
+                notice.style.display = 'none';
+            }
+        }
+    </script>
+</body>
+</html>

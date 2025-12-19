@@ -320,7 +320,6 @@
 
         .nav-links {
             display: flex;
-            display: flex;
             gap: 32px;
             list-style: none;
         }
@@ -381,7 +380,7 @@
         /* Mobile Navigation */
         @media (max-width: 768px) {
             .hamburger {
-                display: flex;
+                display: flex !important;
             }
 
             .nav-links {
@@ -405,18 +404,25 @@
                 transform: translateX(0);
             }
 
-            .nav-links a {
+            .nav-links li, .nav-links a {
                 width: 100%;
                 text-align: center;
-                font-size: 24px !important;
-                font-weight: 600 !important;
-                display: block;
-                padding: 30px 0 !important;
+            }
+
+            .nav-links li {
+                padding: 20px 0;
                 border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             }
 
-            .nav-links a:first-child {
+            .nav-links li:first-child {
                 border-top: 1px solid rgba(255, 255, 255, 0.1);
+            }
+
+            .nav-links a {
+                font-size: 24px !important;
+                font-weight: 600 !important;
+                display: block;
+                padding: 10px 0 !important;
             }
 
             .nav-links a::after {
@@ -1348,37 +1354,22 @@
             }
         }
 
-        
-        /* Additional Mobile Fixes */
-        @media (max-width: 768px) {
-            .hamburger {
-                display: flex !important;
-                position: relative;
-            }
-            
-            nav {
-                padding: 15px 20px;
-            }
-            
-            .nav-container {
-                position: relative;
-            }
-        }
-
-        
-
         @media (max-width: 600px) {
             .nav {
-            nav { padding: 15px 20px; }
                 padding: 15px 20px;
             }
 
             .logo {
-            .hamburger { display: flex !important; }
                 font-size: 20px;
             }
 
+            .nav-links {
+                gap: 12px;
+            }
 
+            .nav-links a {
+                font-size: 13px;
+            }
         }
 
         /* Status Notice Modal */
@@ -1898,29 +1889,8 @@
         </svg>
     </a>
 
-            <script>
-        // Hamburger Menu Toggle
-        const hamburger = document.getElementById('hamburger');
-        const navLinks = document.getElementById('navLinks');
-
-        if (hamburger && navLinks) {
-            hamburger.addEventListener('click', () => {
-                hamburger.classList.toggle('active');
-                navLinks.classList.toggle('active');
-                document.body.style.overflow = navLinks.classList.contains('active') ? 'hidden' : 'auto';
-            });
-
-            // Close menu when clicking on a link
-            document.querySelectorAll('.nav-links a').forEach(link => {
-                link.addEventListener('click', () => {
-                    hamburger.classList.remove('active');
-                    navLinks.classList.remove('active');
-                    document.body.style.overflow = 'auto';
-                });
-            });
-        }
-
-// Currency conversion rates (relative to BWP) - fallback rates
+    <script>
+        // Currency conversion rates (relative to BWP) - fallback rates
         let conversionRates = {
             BWP: 1,
             USD: 0.073,      // 1 BWP ≈ 0.073 USD
@@ -2004,7 +1974,7 @@
                 return true;
             } catch (error) {
                 // Exchange rates API unavailable, using fallback rates
-                document.getElementById('rateValue').textContent = 'Live rates unavailable';
+                document.getElementById('rateValue').textContent = 'Using fallback rates';
                 return false;
             }
         }
@@ -2075,7 +2045,7 @@
                     // If API fails, still update prices with fallback rates
                     updatePrices();
                 }
-            }).catch(err => { console.warn("Exchange rate fetch error (using fallback rates)"); updatePrices(); });
+            });
         }
 
         // Call initializeCurrency after DOM is loaded
@@ -2396,11 +2366,15 @@
         // Refresh exchange rates when button is clicked
         document.getElementById('refreshRate').addEventListener('click', function() {
         
-            updatePrices();
+            fetchExchangeRates().then(success => {
+                if (success) {
+                    updatePrices();
+                } else {
+                    updatePrices();
+                }
+            }).catch(err => { updatePrices(); });
         });
 
-        // Initialize
-        createParticles();
         updatePrices();
     </script>
 </body>
