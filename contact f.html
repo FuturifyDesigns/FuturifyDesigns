@@ -2116,8 +2116,6 @@
         const packageRanges = {
             'Starter Package': { min: 2200, max: 2800 },
             'Business Custom Site': { min: 4000, max: 5500 },
-            'Advanced Custom Site': { min: 7500, max: 10000 },
-            'Full Web System / Dashboard App': { min: 10000, max: 18000 },
             'Custom Project': { min: 0, max: Infinity } // No limits for custom
         };
 
@@ -2293,47 +2291,6 @@
                         'Google Maps integration',
                         'Analytics setup',
                         'Contact forms & email integration'
-                    ]
-                },
-                'advanced': {
-                    id: 'advanced',
-                    name: 'Advanced Custom Site',
-                    price: 'P7,500 - P10,000',
-                    minPriceBWP: 7500,
-                    maxPriceBWP: 10000,
-                    currency: selectedCurrency,
-                    currencySymbol: currencySymbols[selectedCurrency],
-                    convertedMin: Math.round(convertFromBWP(7500, selectedCurrency)),
-                    convertedMax: Math.round(convertFromBWP(10000, selectedCurrency)),
-                    features: [
-                        'E-commerce store (up to 300 products)',
-                        'Booking/reservation system',
-                        'User login/registration',
-                        'Payment gateway integration',
-                        'Inventory & order management',
-                        'Customer notifications',
-                        'Admin dashboard with analytics'
-                    ]
-                },
-                'full-system': {
-                    id: 'full-system',
-                    name: 'Full Web System / Dashboard App',
-                    price: 'P10,000 - P18,000',
-                    minPriceBWP: 10000,
-                    maxPriceBWP: 18000,
-                    currency: selectedCurrency,
-                    currencySymbol: currencySymbols[selectedCurrency],
-                    convertedMin: Math.round(convertFromBWP(10000, selectedCurrency)),
-                    convertedMax: Math.round(convertFromBWP(18000, selectedCurrency)),
-                    features: [
-                        'Custom admin dashboard',
-                        'User accounts & role management',
-                        'Database-driven functionality',
-                        'Data visualization & charts',
-                        'CRUD operations (Create, Read, Update, Delete)',
-                        'User authentication & security',
-                        'CSV/Excel data export',
-                        'Responsive admin interface'
                     ]
                 },
                 'custom': {
@@ -3020,20 +2977,19 @@
         }
         
         // Reset activity on user interaction
-        ['mousedown', 'mousemove', 'keypress', 'scroll', 'touchstart'].forEach(function(event) {
+        ['mousedown', 'mousemove', 'keypress', 'scroll', 'touchstart', 'click'].forEach(function(event) {
             document.addEventListener(event, resetSession, true);
         });
         
-        // Initialize session timer
+        // Start the session timer
         resetSession();
 
-        // Refresh exchange rates when button is clicked
-        document.getElementById('refreshRate').addEventListener('click', function() {
-            fetchExchangeRates();
-        });
-
-        // Auto-refresh exchange rates every 30 minutes
-        setInterval(fetchExchangeRates, 30 * 60 * 1000);
+        // Show WhatsApp button after page loads
+        setTimeout(function() {
+            if (document.getElementById('whatsappButton')) {
+                document.getElementById('whatsappButton').style.display = 'flex';
+            }
+        }, 3000);
     </script>
 </body>
 </html>
