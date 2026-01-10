@@ -1,4 +1,18 @@
 User-agent: *
 Allow: /
 
+# Ensure Google can access favicon and images
+User-agent: Googlebot-Image
+Allow: /favicon.ico
+Allow: /logo-512.png
+Allow: /*.png
+Allow: /*.jpg
+Allow: /*.jpeg
+Allow: /*.gif
+Allow: /*.svg
+Allow: /*.ico
+
+User-agent: Googlebot
+Allow: /
+
 Sitemap: https://futurifydesigns.com/sitemap.xml
