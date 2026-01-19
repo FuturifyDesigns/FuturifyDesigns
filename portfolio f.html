@@ -188,7 +188,7 @@
         }
 
         .disclaimer-button {
-            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 15%, #e9ecef 30%, #dee2e6 45%, #adb5bd 60%, #6c757d 75%, #495057 85%, #343a40 95%, #000000 100%);
+            background: linear-gradient(135deg, #495057 0%, #343a40 50%, #212529 100%);
             color: white;
             border: none;
             padding: 14px 40px;
@@ -199,12 +199,13 @@
             display: block;
             margin: 0 auto;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
         }
 
         .disclaimer-button:hover {
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+            background: linear-gradient(135deg, #343a40 0%, #212529 50%, #000000 100%);
         }
 
         .disclaimer-note {
@@ -1680,14 +1681,14 @@
             <div class="disclaimer-icon">
                 <i class="fas fa-info-circle"></i>
             </div>
-            <h2 class="disclaimer-title">Demo Portfolio Notice</h2>
+            <h2 class="disclaimer-title">Portfolio Notice</h2>
             <p class="disclaimer-text">
-                The following project demonstrations are designed to showcase front end design capabilities, user interface aesthetics, and interactive elements. Please note that certain backend functionalities, server side operations, or database integrations may be simulated or non functional in these demonstrations.
+                Welcome to the Futurify Designs portfolio! Some of the projects showcased here are fully functional and live websites, while others are demo showcases designed to highlight the design skills and capabilities brought by Futurify Designs.
             </p>
             <p class="disclaimer-text">
-                These projects represent visual design concepts and are intended for portfolio presentation purposes.
+                Please note that demo projects may have simulated backend functionalities or non-functional features, as they are intended for visual presentation purposes.
             </p>
-            <button class="disclaimer-button" id="disclaimerButton">I Understand</button>
+            <button class="disclaimer-button" id="disclaimerButton">Continue to Portfolio</button>
             <p class="disclaimer-note">Click to continue to portfolio</p>
         </div>
     </div>
@@ -1932,6 +1933,37 @@
                     </a>
                 </div>
             </div>
+
+            <!-- MyUB Project -->
+            <div class="project-card" data-project="myub">
+                <div class="project-thumbnail">
+                    <div class="slideshow-container">
+                        <img src="screen_1.png" class="slideshow-image active" alt="MyUB Login">
+                        <img src="screen_2.png" class="slideshow-image" alt="MyUB GPA Calculator">
+                        <img src="screen_3.png" class="slideshow-image" alt="MyUB Profile">
+                    </div>
+                    <div class="video-overlay"></div>
+                    <div class="play-button"></div>
+                    <div class="video-progress"></div>
+                    <div class="video-frame"></div>
+                    <div class="scanline"></div>
+                    <div class="recording-dot"></div>
+                    <span class="project-badge">Education</span>
+                </div>
+                <div class="project-content">
+                    <h3 class="project-title">MyUB</h3>
+                    <p class="project-description">A student companion portal to help guide students by tracking their school progress, GPA calculations, and academic journey.</p>
+                    <div class="project-tags">
+                        <span class="project-tag">Student Portal</span>
+                        <span class="project-tag">Dashboard</span>
+                        <span class="project-tag">Education</span>
+                    </div>
+                    <a href="index.html" class="view-demo-btn" target="_blank">
+                        <span>View Demo</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -1959,7 +1991,7 @@
                 <div class="footer-section">
                     <h4 class="footer-title">Get In Touch</h4>
                     <ul class="footer-contact">
-                        <li><i class="fas fa-envelope"></i> <a href="mailto:futurifydesigns@gmail.com" style="color: inherit; text-decoration: none;">futurifydesigns@gmail.com</a></li>
+                        <li><i class="fas fa-envelope"></i> <a href="/cdn-cgi/l/email-protection#a8cedddcdddac1ced1cccddbc1cfc6dbe8cfc5c9c1c486cbc7c5" style="color: inherit; text-decoration: none;"><span class="__cf_email__" data-cfemail="c8aebdbcbdbaa1aeb1acadbba1afa6bb88afa5a9a1a4e6aba7a5">[email&#160;protected]</span></a></li>
                         <li><i class="fas fa-phone"></i> +267 777 83823</li>
                         <li><i class="fas fa-map-marker-alt"></i> Gaborone, Botswana</li>
                     </ul>
@@ -1995,7 +2027,7 @@
         </div>
     </footer>
 
-    <script>
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
         // Hamburger Menu Toggle
         const hamburger = document.getElementById('hamburger');
         const navLinks = document.getElementById('navLinks');
@@ -2596,11 +2628,37 @@
         }
         
         // Reset session on user activity
-        document.addEventListener('click', resetSession);
+        document.addEventListener('mousemove', resetSession);
+        document.addEventListener('keypress', resetSession);
         document.addEventListener('scroll', resetSession);
-        document.addEventListener('keydown', resetSession);
-        
+        document.addEventListener('click', resetSession);
         resetSession();
+
+        // Slideshow functionality for project cards
+        document.querySelectorAll('.project-card').forEach(function(card) {
+            var images = card.querySelectorAll('.slideshow-image');
+            var currentIndex = 0;
+            var interval;
+
+            function showNextImage() {
+                images[currentIndex].classList.remove('active');
+                currentIndex = (currentIndex + 1) % images.length;
+                images[currentIndex].classList.add('active');
+            }
+
+            card.addEventListener('mouseenter', function() {
+                interval = setInterval(showNextImage, 1500);
+            });
+
+            card.addEventListener('mouseleave', function() {
+                clearInterval(interval);
+                images.forEach(function(img, index) {
+                    img.classList.remove('active');
+                    if (index === 0) img.classList.add('active');
+                });
+                currentIndex = 0;
+            });
+        });
     </script>
 </body>
 </html>
