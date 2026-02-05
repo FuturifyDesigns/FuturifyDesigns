@@ -589,6 +589,8 @@
         .currency-selector {
             text-align: center;
             margin-bottom: 40px;
+            position: relative;
+            z-index: 50;
         }
 
         .currency-label {
@@ -620,6 +622,110 @@
             padding-right: 40px;
             min-width: 280px;
             max-width: 350px;
+        }
+
+        /* Custom Dropdown Wrapper */
+        .custom-dropdown {
+            position: relative;
+            display: inline-block;
+            min-width: 280px;
+            max-width: 350px;
+        }
+
+        .custom-dropdown-selected {
+            padding: 14px 40px 14px 28px;
+            font-size: 16px;
+            border-radius: 12px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            color: #fff;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Poppins', sans-serif;
+            position: relative;
+            width: 100%;
+            text-align: left;
+        }
+
+        .custom-dropdown-selected::after {
+            content: '';
+            position: absolute;
+            right: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 0;
+            height: 0;
+            border-left: 6px solid transparent;
+            border-right: 6px solid transparent;
+            border-top: 6px solid #fff;
+            transition: transform 0.3s ease;
+        }
+
+        .custom-dropdown.open .custom-dropdown-selected::after {
+            transform: translateY(-50%) rotate(180deg);
+        }
+
+        .custom-dropdown-selected:hover {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(255, 255, 255, 0.5);
+            box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2);
+        }
+
+        .custom-dropdown-options {
+            position: absolute;
+            top: calc(100% + 5px);
+            left: 0;
+            width: 100%;
+            max-height: 300px;
+            overflow-y: auto;
+            background: rgba(26, 26, 46, 0.98);
+            backdrop-filter: blur(20px);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 12px;
+            z-index: 1000;
+            display: none;
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+        }
+
+        .custom-dropdown.open .custom-dropdown-options {
+            display: block;
+        }
+
+        .custom-dropdown-option {
+            padding: 12px 20px;
+            color: #fff;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background 0.2s ease;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .custom-dropdown-option:first-child {
+            border-radius: 10px 10px 0 0;
+        }
+
+        .custom-dropdown-option:last-child {
+            border-radius: 0 0 10px 10px;
+        }
+
+        .custom-dropdown-option:hover {
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .custom-dropdown-option.selected {
+            background: rgba(168, 237, 234, 0.2);
+        }
+
+        .custom-dropdown-options::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .custom-dropdown-options::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 4px;
         }
 
         .currency-dropdown option {
@@ -744,6 +850,67 @@
             right: 20px;
             font-size: 24px;
             opacity: 0.3;
+        }
+
+        .pricing-card.app-dev-card {
+            border-color: rgba(239, 68, 68, 0.5);
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.15), rgba(185, 28, 28, 0.08));
+            box-shadow: 0 8px 32px rgba(239, 68, 68, 0.25);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .pricing-card.app-dev-card:hover {
+            border-color: rgba(239, 68, 68, 0.8);
+            box-shadow: 0 16px 48px rgba(239, 68, 68, 0.35);
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.2), rgba(185, 28, 28, 0.12));
+        }
+
+        .pricing-card.app-dev-card::before {
+            content: '📱';
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 24px;
+            opacity: 0.4;
+        }
+
+        .pricing-card.app-dev-card .features-list li::before {
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.3), rgba(239, 68, 68, 0.5));
+            border: 1px solid rgba(239, 68, 68, 0.3);
+        }
+
+        .app-dev-btn {
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.4), rgba(185, 28, 28, 0.3)) !important;
+            border-color: rgba(239, 68, 68, 0.6) !important;
+        }
+
+        .app-dev-btn:hover {
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.6), rgba(185, 28, 28, 0.4)) !important;
+            box-shadow: 0 8px 24px rgba(239, 68, 68, 0.4) !important;
+        }
+
+        .app-dev-price {
+            font-size: 18px !important;
+            background: linear-gradient(135deg, #ef4444, #f87171);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* App Development Section */
+        .app-dev-section {
+            margin-top: 35px;
+            margin-bottom: 35px;
+        }
+
+        .app-dev-section .section-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 20px;
+            text-align: center;
+            text-shadow: 0 0 20px rgba(239, 68, 68, 0.3);
         }
 
         .pricing-card.templates-card {
@@ -1526,6 +1693,16 @@
                 padding: 12px 35px 12px 16px;
             }
 
+            .custom-dropdown {
+                min-width: 100%;
+                max-width: 100%;
+            }
+
+            .custom-dropdown-selected {
+                font-size: 14px;
+                padding: 12px 35px 12px 16px;
+            }
+
             .currency-selector {
                 padding: 0 10px;
             }
@@ -1605,28 +1782,53 @@
         <!-- Currency Selector -->
         <div class="currency-selector">
             <div class="currency-label">Select Your Currency:</div>
-            <select class="currency-dropdown" id="currencySelect" onchange="updatePrices()">
-                <option value="BWP">🇧🇼 Botswana Pula (BWP)</option>
-                <option value="USD">🇺🇸 US Dollar (USD)</option>
-                <option value="ZAR">🇿🇦 South African Rand (ZAR)</option>
-                <option value="EUR">🇪🇺 Euro (EUR)</option>
-                <option value="GBP">🇬🇧 British Pound (GBP)</option>
-                <option value="CAD">🇨🇦 Canadian Dollar (CAD)</option>
-                <option value="AUD">🇦🇺 Australian Dollar (AUD)</option>
-                <option value="NGN">🇳🇬 Nigerian Naira (NGN)</option>
-                <option value="KES">🇰🇪 Kenyan Shilling (KES)</option>
-                <option value="GHS">🇬🇭 Ghanaian Cedi (GHS)</option>
-                <option value="TZS">🇹🇿 Tanzanian Shilling (TZS)</option>
-                <option value="UGX">🇺🇬 Ugandan Shilling (UGX)</option>
-                <option value="ZMW">🇿🇲 Zambian Kwacha (ZMW)</option>
-                <option value="MWK">🇲🇼 Malawian Kwacha (MWK)</option>
-                <option value="NAD">🇳🇦 Namibian Dollar (NAD)</option>
-                <option value="INR">🇮🇳 Indian Rupee (INR)</option>
-                <option value="CNY">🇨🇳 Chinese Yuan (CNY)</option>
-                <option value="JPY">🇯🇵 Japanese Yen (JPY)</option>
-                <option value="AED">🇦🇪 UAE Dirham (AED)</option>
-                <option value="SAR">🇸🇦 Saudi Riyal (SAR)</option>
-            </select>
+            <div class="custom-dropdown" id="currencyDropdown">
+                <div class="custom-dropdown-selected" onclick="toggleDropdown()">🇧🇼 Botswana Pula (BWP)</div>
+                <div class="custom-dropdown-options">
+                    <div class="custom-dropdown-option selected" data-value="BWP">🇧🇼 Botswana Pula (BWP)</div>
+                    <div class="custom-dropdown-option" data-value="USD">🇺🇸 US Dollar (USD)</div>
+                    <div class="custom-dropdown-option" data-value="ZAR">🇿🇦 South African Rand (ZAR)</div>
+                    <div class="custom-dropdown-option" data-value="EUR">🇪🇺 Euro (EUR)</div>
+                    <div class="custom-dropdown-option" data-value="GBP">🇬🇧 British Pound (GBP)</div>
+                    <div class="custom-dropdown-option" data-value="CAD">🇨🇦 Canadian Dollar (CAD)</div>
+                    <div class="custom-dropdown-option" data-value="AUD">🇦🇺 Australian Dollar (AUD)</div>
+                    <div class="custom-dropdown-option" data-value="NGN">🇳🇬 Nigerian Naira (NGN)</div>
+                    <div class="custom-dropdown-option" data-value="KES">🇰🇪 Kenyan Shilling (KES)</div>
+                    <div class="custom-dropdown-option" data-value="GHS">🇬🇭 Ghanaian Cedi (GHS)</div>
+                    <div class="custom-dropdown-option" data-value="TZS">🇹🇿 Tanzanian Shilling (TZS)</div>
+                    <div class="custom-dropdown-option" data-value="UGX">🇺🇬 Ugandan Shilling (UGX)</div>
+                    <div class="custom-dropdown-option" data-value="ZMW">🇿🇲 Zambian Kwacha (ZMW)</div>
+                    <div class="custom-dropdown-option" data-value="MWK">🇲🇼 Malawian Kwacha (MWK)</div>
+                    <div class="custom-dropdown-option" data-value="NAD">🇳🇦 Namibian Dollar (NAD)</div>
+                    <div class="custom-dropdown-option" data-value="INR">🇮🇳 Indian Rupee (INR)</div>
+                    <div class="custom-dropdown-option" data-value="CNY">🇨🇳 Chinese Yuan (CNY)</div>
+                    <div class="custom-dropdown-option" data-value="JPY">🇯🇵 Japanese Yen (JPY)</div>
+                    <div class="custom-dropdown-option" data-value="AED">🇦🇪 UAE Dirham (AED)</div>
+                    <div class="custom-dropdown-option" data-value="SAR">🇸🇦 Saudi Riyal (SAR)</div>
+                </div>
+                <select class="currency-dropdown" id="currencySelect" style="display:none;">
+                    <option value="BWP">🇧🇼 Botswana Pula (BWP)</option>
+                    <option value="USD">🇺🇸 US Dollar (USD)</option>
+                    <option value="ZAR">🇿🇦 South African Rand (ZAR)</option>
+                    <option value="EUR">🇪🇺 Euro (EUR)</option>
+                    <option value="GBP">🇬🇧 British Pound (GBP)</option>
+                    <option value="CAD">🇨🇦 Canadian Dollar (CAD)</option>
+                    <option value="AUD">🇦🇺 Australian Dollar (AUD)</option>
+                    <option value="NGN">🇳🇬 Nigerian Naira (NGN)</option>
+                    <option value="KES">🇰🇪 Kenyan Shilling (KES)</option>
+                    <option value="GHS">🇬🇭 Ghanaian Cedi (GHS)</option>
+                    <option value="TZS">🇹🇿 Tanzanian Shilling (TZS)</option>
+                    <option value="UGX">🇺🇬 Ugandan Shilling (UGX)</option>
+                    <option value="ZMW">🇿🇲 Zambian Kwacha (ZMW)</option>
+                    <option value="MWK">🇲🇼 Malawian Kwacha (MWK)</option>
+                    <option value="NAD">🇳🇦 Namibian Dollar (NAD)</option>
+                    <option value="INR">🇮🇳 Indian Rupee (INR)</option>
+                    <option value="CNY">🇨🇳 Chinese Yuan (CNY)</option>
+                    <option value="JPY">🇯🇵 Japanese Yen (JPY)</option>
+                    <option value="AED">🇦🇪 UAE Dirham (AED)</option>
+                    <option value="SAR">🇸🇦 Saudi Riyal (SAR)</option>
+                </select>
+            </div>
             
             <!-- Exchange Rate Info -->
             <div class="exchange-rate-info" id="exchangeRateInfo">
@@ -1653,11 +1855,14 @@
 
                 <div class="recurring-prices">
                     <div class="recurring-item">
-                        <span class="recurring-label">Hosting and maintenance (per month):</span>
-                        <span class="recurring-price" data-min="400" data-max="600"><span class="currency-symbol">P</span><span class="price-value">350</span></span>
+                        <span class="recurring-label">Hosting & Maintenance (per month):</span>
+                        <span class="recurring-price" data-min="350" data-max="350"><span class="currency-symbol">P</span><span class="price-value">350</span></span>
                     </div>
-                    
+                </div>
+
                 <ul class="features-list">
+                    <li>Custom site</li>
+                    <li>Domain included</li>
                     <li>3-5 responsive pages</li>
                     <li>Mobile friendly design</li>
                     <li>Contact form integration</li>
@@ -1676,16 +1881,19 @@
                 
                 <div class="price-section">
                     <div class="price-label">One-time Setup</div>
-                    <div class="price" data-min="4000" data-max="5500"><span class="currency-symbol">P</span><span class="price-value">4,000 - 5,500</span></div>
+                    <div class="price" data-min="4000" data-max="5000"><span class="currency-symbol">P</span><span class="price-value">4,000 - 5,000</span></div>
                 </div>
 
                 <div class="recurring-prices">
                     <div class="recurring-item">
-                        <span class="recurring-label">Hosting and maintenance (per month):</span>
-                        <span class="recurring-price" data-min="600" data-max="800"><span class="currency-symbol">P</span><span class="price-value">450</span></span>
+                        <span class="recurring-label">Hosting & Maintenance (per month):</span>
+                        <span class="recurring-price" data-min="400" data-max="400"><span class="currency-symbol">P</span><span class="price-value">400</span></span>
                     </div>
+                </div>
 
                 <ul class="features-list">
+                    <li>Custom site</li>
+                    <li>Domain included</li>
                     <li>6-10 responsive pages</li>
                     <li>Admin dashboard for content management</li>
                     <li>Advanced SEO optimization</li>
@@ -1695,7 +1903,7 @@
                     <li>Contact forms & email integration</li>
                 </ul>
 
-                <a href="#" class="cta-button" onclick="selectPackage('business', 4000, 5500, event)">Get Started</a>
+                <a href="#" class="cta-button" onclick="selectPackage('business', 4000, 5000, event)">Get Started</a>
             </div>
 
             <!-- Website Templates -->
@@ -1752,22 +1960,57 @@
             </div>
         </div>
 
+        <!-- App Development Section -->
+        <div class="app-dev-section">
+            <h2 class="section-title">📱 App Development</h2>
+            <div class="pricing-card app-dev-card">
+                <div class="package-name">Mobile App Development</div>
+                <div class="package-description">We also build mobile apps! From concept to launch, we'll develop your app and publish it to the Google Play Store using our developer account — so you don't have to worry about the technical setup.</div>
+                
+                <div class="price-section">
+                    <div class="price-label">Starting From</div>
+                    <div class="price" data-min="4000" data-max="8000"><span class="currency-symbol">P</span><span class="price-value">4,000 - 8,000</span></div>
+                </div>
+
+                <div class="recurring-prices">
+                    <div class="recurring-item">
+                        <span class="recurring-label">Maintenance & Support (per month):</span>
+                        <span class="recurring-price" data-min="300" data-max="300"><span class="currency-symbol">P</span><span class="price-value">300</span></span>
+                    </div>
+                </div>
+
+                <ul class="features-list">
+                    <li>Cross-platform app (Android & iOS)</li>
+                    <li>Custom UI/UX design</li>
+                    <li>User authentication & profiles</li>
+                    <li>Push notifications</li>
+                    <li>Database & API integration</li>
+                    <li>Payment gateway integration</li>
+                    <li>Admin dashboard / backend panel</li>
+                    <li>Published to Google Play Store via our developer account</li>
+                    <li>App Store submission support</li>
+                    <li>Post-launch bug fixes & support</li>
+                </ul>
+
+                <a href="#" class="cta-button app-dev-btn" onclick="selectPackage('appdev', 4000, 8000, event)">Discuss Your App →</a>
+            </div>
+        </div>
+
         <!-- Optional Add-ons -->
         <div class="addons-section">
             <h2 class="addons-title">Optional Add-ons</h2>
             <div class="addons-grid">
-                
                 <div class="addon-item">
-                    <div class="addon-name"> Google Business Setup</div>
-                    <div class="addon-price" data-min="400" data-max="800"><span class="currency-symbol">P</span><span class="price-value">300</span></div>
+                    <div class="addon-name">Google Business Setup</div>
+                    <div class="addon-price" data-min="300" data-max="300"><span class="currency-symbol">P</span><span class="price-value">300</span></div>
                 </div>
                 <div class="addon-item">
                     <div class="addon-name">Content Writing & Branding</div>
-                    <div class="addon-price" data-min="300" data-max="600"><span class="currency-symbol">P</span><span class="price-value">400</span></div>
+                    <div class="addon-price" data-min="250" data-max="250"><span class="currency-symbol">P</span><span class="price-value">250</span></div>
                 </div>
                 <div class="addon-item">
                     <div class="addon-name">Logo & Graphics Design</div>
-                    <div class="addon-price" data-min="200" data-max="400"><span class="currency-symbol">P</span><span class="price-value">200</span></div>
+                    <div class="addon-price" data-min="200" data-max="200"><span class="currency-symbol">P</span><span class="price-value">200</span></div>
                 </div>
             </div>
         </div>
@@ -1857,7 +2100,7 @@
         </div>
     </footer>
 
-    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+    <script>
         // Hamburger Menu Toggle
         const hamburger = document.getElementById('hamburger');
         const navLinks = document.getElementById('navLinks');
@@ -1894,6 +2137,46 @@
     </a>
 
     <script>
+        // Custom Dropdown Functionality
+        function toggleDropdown() {
+            const dropdown = document.getElementById('currencyDropdown');
+            dropdown.classList.toggle('open');
+        }
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function(e) {
+            const dropdown = document.getElementById('currencyDropdown');
+            if (!dropdown.contains(e.target)) {
+                dropdown.classList.remove('open');
+            }
+        });
+
+        // Handle option selection
+        document.querySelectorAll('.custom-dropdown-option').forEach(option => {
+            option.addEventListener('click', function() {
+                const value = this.getAttribute('data-value');
+                const text = this.textContent;
+                const dropdown = document.getElementById('currencyDropdown');
+                const hiddenSelect = document.getElementById('currencySelect');
+                
+                // Update display
+                dropdown.querySelector('.custom-dropdown-selected').textContent = text;
+                
+                // Update hidden select
+                hiddenSelect.value = value;
+                
+                // Update selected class
+                dropdown.querySelectorAll('.custom-dropdown-option').forEach(opt => opt.classList.remove('selected'));
+                this.classList.add('selected');
+                
+                // Close dropdown
+                dropdown.classList.remove('open');
+                
+                // Trigger price update
+                updatePrices();
+            });
+        });
+
         // Currency conversion rates (relative to BWP) - fallback rates
         let conversionRates = {
             BWP: 1,
@@ -2024,7 +2307,11 @@
                 
                 const valueEl = el.querySelector('.price-value');
                 if (valueEl) {
-                    valueEl.textContent = `${convertedMin.toLocaleString()} - ${convertedMax.toLocaleString()}`;
+                    if (convertedMin === convertedMax) {
+                        valueEl.textContent = convertedMin.toLocaleString();
+                    } else {
+                        valueEl.textContent = `${convertedMin.toLocaleString()} - ${convertedMax.toLocaleString()}`;
+                    }
                 }
             });
 
@@ -2036,9 +2323,17 @@
         function initializeCurrency() {
             const savedCurrency = sessionStorage.getItem('selectedCurrency');
             const currencySelect = document.getElementById('currencySelect');
+            const dropdown = document.getElementById('currencyDropdown');
             
             if (savedCurrency && currencySelect) {
                 currencySelect.value = savedCurrency;
+                // Sync custom dropdown
+                const matchingOption = dropdown.querySelector(`.custom-dropdown-option[data-value="${savedCurrency}"]`);
+                if (matchingOption) {
+                    dropdown.querySelector('.custom-dropdown-selected').textContent = matchingOption.textContent;
+                    dropdown.querySelectorAll('.custom-dropdown-option').forEach(opt => opt.classList.remove('selected'));
+                    matchingOption.classList.add('selected');
+                }
             }
             
             // Fetch current exchange rates and then update prices
@@ -2107,6 +2402,21 @@
                         'Specialized functionality',
                         'Transparent pricing breakdown',
                         'Ongoing support options'
+                    ]
+                },
+                'appdev': {
+                    name: 'Mobile App Development',
+                    features: [
+                        'Cross-platform app (Android & iOS)',
+                        'Custom UI/UX design',
+                        'User authentication & profiles',
+                        'Push notifications',
+                        'Database & API integration',
+                        'Payment gateway integration',
+                        'Admin dashboard / backend panel',
+                        'Published to Google Play Store via our developer account',
+                        'App Store submission support',
+                        'Post-launch bug fixes & support'
                     ]
                 }
             };
@@ -2370,7 +2680,7 @@
         // Refresh exchange rates when button is clicked
         document.getElementById('refreshRate').addEventListener('click', function() {
             fetchExchangeRates().then(success => {
-                if (success) {
+                        if (success) {
                     updatePrices();
                 } else {
                     updatePrices();
