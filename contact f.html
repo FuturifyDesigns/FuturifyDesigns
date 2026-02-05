@@ -2226,7 +2226,8 @@
         // Package price ranges in BWP
         const packageRanges = {
             'Starter Package': { min: 2200, max: 2800 },
-            'Business Custom Site': { min: 4000, max: 5500 },
+            'Business Custom Site': { min: 4000, max: 5000 },
+            'Mobile App Development': { min: 4000, max: 8000 },
             'Custom Project': { min: 0, max: Infinity } // No limits for custom
         };
 
@@ -2387,13 +2388,13 @@
                 'business': {
                     id: 'business',
                     name: 'Business Custom Site',
-                    price: 'P4,000 - P5,500',
+                    price: 'P4,000 - P5,000',
                     minPriceBWP: 4000,
-                    maxPriceBWP: 5500,
+                    maxPriceBWP: 5000,
                     currency: selectedCurrency,
                     currencySymbol: currencySymbols[selectedCurrency],
                     convertedMin: Math.round(convertFromBWP(4000, selectedCurrency)),
-                    convertedMax: Math.round(convertFromBWP(5500, selectedCurrency)),
+                    convertedMax: Math.round(convertFromBWP(5000, selectedCurrency)),
                     features: [
                         '6-10 responsive pages',
                         'Admin dashboard for content management',
@@ -2423,6 +2424,29 @@
                         'Specialized functionality',
                         'Transparent pricing breakdown',
                         'Ongoing support options'
+                    ]
+                },
+                'appdev': {
+                    id: 'appdev',
+                    name: 'Mobile App Development',
+                    price: 'P4,000 - P8,000',
+                    minPriceBWP: 4000,
+                    maxPriceBWP: 8000,
+                    currency: selectedCurrency,
+                    currencySymbol: currencySymbols[selectedCurrency],
+                    convertedMin: Math.round(convertFromBWP(4000, selectedCurrency)),
+                    convertedMax: Math.round(convertFromBWP(8000, selectedCurrency)),
+                    features: [
+                        'Cross-platform app (Android & iOS)',
+                        'Custom UI/UX design',
+                        'User authentication & profiles',
+                        'Push notifications',
+                        'Database & API integration',
+                        'Payment gateway integration',
+                        'Admin dashboard / backend panel',
+                        'Published to Google Play Store',
+                        'App Store submission support',
+                        'Post-launch bug fixes & support'
                     ]
                 }
             };
