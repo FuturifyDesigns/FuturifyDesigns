@@ -33,7 +33,7 @@ a{color:inherit;text-decoration:none;}
 .opening-overlay{position:fixed;inset:0;z-index:10000;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;}
 .opening-overlay.out{animation:ooWipe 0.8s var(--ease) forwards;pointer-events:none;}
 @keyframes ooWipe{from{clip-path:inset(0 0 0% 0)}to{clip-path:inset(0 0 100% 0)}}
-.oo-word{font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(48px,10vw,120px);color:var(--fg);letter-spacing:-.03em;white-space:nowrap;overflow:hidden;}
+.oo-word{font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(48px,10vw,120px);color:var(--fg);letter-spacing:-.03em;overflow:visible;word-wrap:break-word;text-align:center;}
 .oo-word .oo-char{display:inline-block;transform:translateY(115%);opacity:0;}
 .oo-foot{position:absolute;bottom:clamp(26px,4.5vh,48px);left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:10px;}
 .oo-barwrap{width:clamp(130px,24vw,200px);height:1px;background:var(--dim);overflow:hidden;}
@@ -41,14 +41,14 @@ a{color:inherit;text-decoration:none;}
 .oo-pct{font-family:'DM Mono',monospace;font-size:clamp(9px,1vw,11px);letter-spacing:.2em;color:var(--muted);}
 
 /* NAV */
-nav{position:fixed;top:0;left:0;width:100%;padding:22px 48px;display:flex;justify-content:space-between;align-items:center;z-index:1000;background:rgba(6,6,6,0.6);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--dim);}
+nav{position:fixed;top:0;left:0;width:100%;padding:22px 48px;display:flex;justify-content:space-between;align-items:center;z-index:9990;background:rgba(6,6,6,0.6);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--dim);}
 .nav-logo{font-family:'Syne',sans-serif;font-weight:800;font-size:20px;letter-spacing:.04em;color:var(--fg);}
 .nav-links{display:flex;gap:32px;list-style:none;}
 .nav-links a{font-family:'DM Mono',monospace;font-size:13px;font-weight:400;color:var(--muted);letter-spacing:.06em;text-transform:uppercase;position:relative;transition:color .3s;}
 .nav-links a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:1.5px;background:var(--accent);transition:width .35s var(--ease);}
 .nav-links a:hover,.nav-links a.active{color:var(--fg);}
 .nav-links a:hover::after,.nav-links a.active::after{width:100%;}
-.hamburger{display:none;flex-direction:column;cursor:pointer;z-index:1001;gap:5px;}
+.hamburger{display:none;flex-direction:column;cursor:pointer;z-index:9995;gap:5px;}
 .hamburger span{width:24px;height:2px;background:var(--fg);transition:all .3s var(--ease);}
 .hamburger.active span:nth-child(1){transform:rotate(45deg) translate(5px,5px);}
 .hamburger.active span:nth-child(2){opacity:0;}
@@ -56,7 +56,7 @@ nav{position:fixed;top:0;left:0;width:100%;padding:22px 48px;display:flex;justif
 @media(max-width:900px){
     nav{padding:16px 20px;}
     .hamburger{display:flex !important;}
-    .nav-links{position:fixed;inset:0;background:rgba(6,6,6,0.97);backdrop-filter:blur(16px);flex-direction:column;align-items:center;justify-content:center;gap:0;transform:translateX(100%);transition:transform .4s var(--ease);padding:80px 0 40px;overflow-y:auto;}
+    .nav-links{position:fixed;inset:0;background:rgba(6,6,6,0.98);backdrop-filter:blur(16px);flex-direction:column;align-items:center;justify-content:center;gap:0;transform:translateX(100%);transition:transform .4s var(--ease);z-index:9990;padding:100px 20px 60px;overflow-y:auto;}
     .nav-links.active{transform:translateX(0);}
     .nav-links li{padding:20px 0;border-bottom:1px solid var(--dim);width:100%;text-align:center;}
     .nav-links a{font-size:18px !important;}
@@ -358,7 +358,7 @@ footer{border-top:1px solid var(--dim);padding:clamp(44px,6vh,72px) clamp(22px,4
 }
 
 @media(max-width:480px){
-    .oo-word{font-size:clamp(28px,8vw,48px) !important;}
+    .oo-word{font-size:clamp(24px,7vw,40px) !important;white-space:normal !important;text-align:center !important;max-width:90vw !important;overflow:visible !important;line-height:1.15 !important;}
 }
 </style>
 </head>
