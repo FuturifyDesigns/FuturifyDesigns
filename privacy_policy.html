@@ -23,9 +23,6 @@ a{color:inherit;text-decoration:none;}
 ::selection{background:var(--accent);color:var(--bg);}
 
 /* CURSOR */
-#smokeCanvas{position:fixed;top:0;left:0;width:100%;height:100%;z-index:9998;pointer-events:none;}
-@media(pointer:coarse){#smokeCanvas{display:none;}}
-
 /* CANVAS */
 #bgCanvas{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;}
 
@@ -303,7 +300,6 @@ footer{border-top:1px solid var(--dim);padding:clamp(44px,6vh,72px) clamp(22px,4
 </head>
 <body>
 </div>
-<canvas id="smokeCanvas"></canvas>
 <canvas id="bgCanvas"></canvas>
 
 <!-- Opening -->
@@ -616,20 +612,6 @@ footer{border-top:1px solid var(--dim);padding:clamp(44px,6vh,72px) clamp(22px,4
 <script>
 (function(){
 'use strict';
-
-/* ── SMOKE CURSOR ── */
-(function(){
-    if(!matchMedia('(pointer:fine)').matches) return;
-    var sc=document.getElementById('smokeCanvas');
-    var sctx=sc.getContext('2d');
-    var W,H; function rs(){W=sc.width=innerWidth;H=sc.height=innerHeight;} rs(); addEventListener('resize',rs);
-    var mx=-100,my=-100;
-    document.addEventListener('mousemove',function(e){mx=e.clientX;my=e.clientY;});
-    var particles=[];
-    function emit(){if(mx<0)return;for(var i=0;i<2;i++){particles.push({x:mx+(Math.random()-0.5)*4,y:my+(Math.random()-0.5)*4,vx:(Math.random()-0.5)*1.2,vy:(Math.random()-0.5)*1.2-0.5,r:Math.random()*16+6,life:1,decay:0.012+Math.random()*0.01,cr:200,cg:241,cb:53});}}
-    function draw(){sctx.clearRect(0,0,W,H);for(var i=particles.length-1;i>=0;i--){var p=particles[i];p.x+=p.vx;p.y+=p.vy;p.vx*=0.98;p.vy*=0.98;p.r*=0.995;p.life-=p.decay;if(p.life<=0){particles.splice(i,1);continue;}var a=p.life*0.25;var g=sctx.createRadialGradient(p.x,p.y,0,p.x,p.y,p.r);g.addColorStop(0,"rgba("+p.cr+","+p.cg+","+p.cb+","+a+")");g.addColorStop(1,"rgba("+p.cr+","+p.cg+","+p.cb+",0)");sctx.fillStyle=g;sctx.fillRect(p.x-p.r,p.y-p.r,p.r*2,p.r*2);}emit();requestAnimationFrame(draw);}
-    draw();
-})();
 
 /* ── BACKGROUND CANVAS ── */
 var cv=document.getElementById('bgCanvas'),cx=cv.getContext('2d'),cW,cH;

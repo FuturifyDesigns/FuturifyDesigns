@@ -23,9 +23,6 @@ a{color:inherit;text-decoration:none;}
 ::selection{background:var(--accent);color:var(--bg);}
 
 /* CURSOR */
-#smokeCanvas{position:fixed;top:0;left:0;width:100%;height:100%;z-index:9998;pointer-events:none;}
-@media(pointer:coarse){#smokeCanvas{display:none;}}
-
 /* CANVAS */
 #bgCanvas{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;}
 
@@ -221,6 +218,9 @@ footer{border-top:1px solid var(--dim);padding:clamp(44px,6vh,72px) clamp(22px,4
 /* Staggered card reveals */
 .reveal-card{opacity:0;transform:translateY(50px) scale(0.96);transition:opacity .6s var(--ease),transform .8s var(--ease);}
 .reveal-card.visible{opacity:1;transform:translateY(0) scale(1);}
+.template-card-actions{display:flex;gap:10px;margin-top:16px;padding-top:16px;border-top:1px solid var(--dim);}
+.template-demo-btn{flex:1;text-align:center;padding:12px 16px;background:var(--accent);color:var(--bg);font-family:'Syne',sans-serif;font-weight:700;font-size:12px;letter-spacing:.04em;text-transform:uppercase;border:none;cursor:pointer;transition:all .3s var(--ease);}
+.template-demo-btn:hover{background:var(--fg);}
 .pricing-grid .reveal-card:nth-child(1){transition-delay:0s;}
 .pricing-grid .reveal-card:nth-child(2){transition-delay:.12s;}
 .pricing-grid .reveal-card:nth-child(3){transition-delay:.24s;}
@@ -303,7 +303,6 @@ footer{border-top:1px solid var(--dim);padding:clamp(44px,6vh,72px) clamp(22px,4
 </head>
 <body>
 </div>
-<canvas id="smokeCanvas"></canvas>
 <canvas id="bgCanvas"></canvas>
 
 <!-- Opening -->
@@ -370,6 +369,9 @@ footer{border-top:1px solid var(--dim);padding:clamp(44px,6vh,72px) clamp(22px,4
                 <div><div style="font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);">DIY</div><div style="font-weight:700;"><span class="currency-symbol">P</span><span class="price-single" data-value="150">150</span></div></div>
                 <div><div style="font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);">Done-For-You</div><div style="font-weight:700;color:var(--accent);"><span class="currency-symbol">P</span><span class="price-single" data-value="800">800</span></div></div>
             </div>
+            <div class="template-card-actions">
+                <a href="demos/starter-landing/" target="_blank" rel="noopener noreferrer" class="template-demo-btn">View Site</a>
+            </div>
         </div>
     </div>
 
@@ -384,6 +386,9 @@ footer{border-top:1px solid var(--dim);padding:clamp(44px,6vh,72px) clamp(22px,4
                 <div><div style="font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);">DIY</div><div style="font-weight:700;"><span class="currency-symbol">P</span><span class="price-single" data-value="250">250</span></div></div>
                 <div><div style="font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);">Done-For-You</div><div style="font-weight:700;color:var(--accent);"><span class="currency-symbol">P</span><span class="price-single" data-value="1000">1000</span></div></div>
             </div>
+            <div class="template-card-actions">
+                <a href="demos/portfolio-pro/" target="_blank" rel="noopener noreferrer" class="template-demo-btn">View Site</a>
+            </div>
         </div>
     </div>
 
@@ -396,6 +401,9 @@ footer{border-top:1px solid var(--dim);padding:clamp(44px,6vh,72px) clamp(22px,4
             <div style="display:flex;justify-content:space-between;align-items:center;padding-top:16px;border-top:1px solid var(--dim);">
                 <div><div style="font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);">DIY</div><div style="font-weight:700;"><span class="currency-symbol">P</span><span class="price-single" data-value="300">300</span></div></div>
                 <div><div style="font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);">Done-For-You</div><div style="font-weight:700;color:var(--accent);"><span class="currency-symbol">P</span><span class="price-single" data-value="1200">1200</span></div></div>
+            </div>
+            <div class="template-card-actions">
+                <a href="demos/business-starter/" target="_blank" rel="noopener noreferrer" class="template-demo-btn">View Site</a>
             </div>
         </div>
     </div>
@@ -410,6 +418,9 @@ footer{border-top:1px solid var(--dim);padding:clamp(44px,6vh,72px) clamp(22px,4
                 <div><div style="font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);">DIY</div><div style="font-weight:700;"><span class="currency-symbol">P</span><span class="price-single" data-value="200">200</span></div></div>
                 <div><div style="font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);">Done-For-You</div><div style="font-weight:700;color:var(--accent);"><span class="currency-symbol">P</span><span class="price-single" data-value="900">900</span></div></div>
             </div>
+            <div class="template-card-actions">
+                <a href="demos/starter-food/" target="_blank" rel="noopener noreferrer" class="template-demo-btn">View Site</a>
+            </div>
         </div>
     </div>
 
@@ -422,6 +433,9 @@ footer{border-top:1px solid var(--dim);padding:clamp(44px,6vh,72px) clamp(22px,4
             <div style="display:flex;justify-content:space-between;align-items:center;padding-top:16px;border-top:1px solid var(--dim);">
                 <div><div style="font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);">DIY</div><div style="font-weight:700;"><span class="currency-symbol">P</span><span class="price-single" data-value="350">350</span></div></div>
                 <div><div style="font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);">Done-For-You</div><div style="font-weight:700;color:var(--accent);"><span class="currency-symbol">P</span><span class="price-single" data-value="1500">1500</span></div></div>
+            </div>
+            <div class="template-card-actions">
+                <a href="demos/service-pro/" target="_blank" rel="noopener noreferrer" class="template-demo-btn">View Site</a>
             </div>
         </div>
     </div>
@@ -500,20 +514,6 @@ footer{border-top:1px solid var(--dim);padding:clamp(44px,6vh,72px) clamp(22px,4
 <script>
 (function(){
 'use strict';
-
-/* ── SMOKE CURSOR ── */
-(function(){
-    if(!matchMedia('(pointer:fine)').matches) return;
-    var sc=document.getElementById('smokeCanvas');
-    var sctx=sc.getContext('2d');
-    var W,H; function rs(){W=sc.width=innerWidth;H=sc.height=innerHeight;} rs(); addEventListener('resize',rs);
-    var mx=-100,my=-100;
-    document.addEventListener('mousemove',function(e){mx=e.clientX;my=e.clientY;});
-    var particles=[];
-    function emit(){if(mx<0)return;for(var i=0;i<2;i++){particles.push({x:mx+(Math.random()-0.5)*4,y:my+(Math.random()-0.5)*4,vx:(Math.random()-0.5)*1.2,vy:(Math.random()-0.5)*1.2-0.5,r:Math.random()*16+6,life:1,decay:0.012+Math.random()*0.01,cr:200,cg:241,cb:53});}}
-    function draw(){sctx.clearRect(0,0,W,H);for(var i=particles.length-1;i>=0;i--){var p=particles[i];p.x+=p.vx;p.y+=p.vy;p.vx*=0.98;p.vy*=0.98;p.r*=0.995;p.life-=p.decay;if(p.life<=0){particles.splice(i,1);continue;}var a=p.life*0.25;var g=sctx.createRadialGradient(p.x,p.y,0,p.x,p.y,p.r);g.addColorStop(0,"rgba("+p.cr+","+p.cg+","+p.cb+","+a+")");g.addColorStop(1,"rgba("+p.cr+","+p.cg+","+p.cb+",0)");sctx.fillStyle=g;sctx.fillRect(p.x-p.r,p.y-p.r,p.r*2,p.r*2);}emit();requestAnimationFrame(draw);}
-    draw();
-})();
 
 /* ── BACKGROUND CANVAS ── */
 var cv=document.getElementById('bgCanvas'),cx=cv.getContext('2d'),cW,cH;
