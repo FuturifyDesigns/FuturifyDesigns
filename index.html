@@ -47,10 +47,6 @@
             color:var(--fg);
         }
 
-        /* ── CURSOR — Canvas 2D smoke trail ── */
-        
-        #smokeCanvas { position:fixed; top:0; left:0; width:100%; height:100%; z-index:9998; pointer-events:none; }
-
         /* ── CANVAS ───────────────────────────────── */
         #cv { position:fixed; inset:0; z-index:1; width:100%; height:100%; }
 
@@ -159,7 +155,7 @@
             font-family:'Syne',sans-serif;
             font-size:clamp(10px,1.05vw,13px); font-weight:700;
             letter-spacing:.07em; text-transform:uppercase;
-            cursor:none; flex-shrink:0;
+            cursor:pointer; flex-shrink:0;
             transform:translateY(48px); opacity:0;
             position:relative;
         }
@@ -309,7 +305,6 @@
 </div>
 
 
-<canvas id="smokeCanvas"></canvas>
 <canvas id="cv"></canvas>
 <div id="grain"></div>
 
@@ -462,37 +457,6 @@
         const vg=ctx.createRadialGradient(W/2,H/2,H*.18,W/2,H/2,H*.8);
         vg.addColorStop(0,'rgba(0,0,0,0)'); vg.addColorStop(1,'rgba(6,6,6,0.86)');
         ctx.fillStyle=vg; ctx.fillRect(0,0,W,H);
-    }
-    draw();
-})();
-
-/* ── CURSOR — Canvas 2D smoke trail ── */
-(function(){
-    if(!matchMedia("(pointer:fine)").matches) return;
-    var sc = document.getElementById("smokeCanvas");
-    var sctx = sc.getContext("2d");
-    var W,H; function rs(){ W=sc.width=innerWidth; H=sc.height=innerHeight; } rs(); addEventListener("resize",rs);
-    var mx=-100,my=-100;
-    document.addEventListener("mousemove",function(e){mx=e.clientX;my=e.clientY;});
-    var particles=[];
-    function emit(){
-        if(mx<0) return;
-        for(var i=0;i<2;i++){
-            particles.push({x:mx+(Math.random()-0.5)*4,y:my+(Math.random()-0.5)*4,vx:(Math.random()-0.5)*1.2,vy:(Math.random()-0.5)*1.2-0.5,r:Math.random()*16+6,life:1,decay:0.012+Math.random()*0.01,cr:200,cg:241,cb:53});
-        }
-    }
-    function draw(){
-        sctx.clearRect(0,0,W,H);
-        for(var i=particles.length-1;i>=0;i--){
-            var p=particles[i]; p.x+=p.vx; p.y+=p.vy; p.vx*=0.98; p.vy*=0.98; p.r*=0.995; p.life-=p.decay;
-            if(p.life<=0){particles.splice(i,1);continue;}
-            var a=p.life*0.25;
-            var g=sctx.createRadialGradient(p.x,p.y,0,p.x,p.y,p.r);
-            g.addColorStop(0,"rgba("+p.cr+","+p.cg+","+p.cb+","+a+")");
-            g.addColorStop(1,"rgba("+p.cr+","+p.cg+","+p.cb+",0)");
-            sctx.fillStyle=g; sctx.fillRect(p.x-p.r,p.y-p.r,p.r*2,p.r*2);
-        }
-        emit(); requestAnimationFrame(draw);
     }
     draw();
 })();
