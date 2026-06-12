@@ -3,6 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+    <meta http-equiv="Permissions-Policy" content="geolocation=(), microphone=(), camera=(), payment=()">
+    <script src="js/security.js" defer></script>
     <title>Pricing - Futurify Designs</title>
     <link rel="icon" href="favicon.ico" sizes="48x48">
     <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
@@ -624,7 +628,7 @@ var currencySymbols={BWP:'P',USD:'$',ZAR:'R',EUR:'\u20ac',GBP:'\u00a3',CAD:'C$',
 var EXCHANGE_API_URL='https://api.exchangerate-api.com/v4/latest/BWP';
 var lastRateUpdate=null;
 
-async function fetchExchangeRates(){try{document.getElementById('rateValue').textContent='Loading...';var r=await fetch(EXCHANGE_API_URL);if(!r.ok)throw new Error();var d=await r.json();Object.keys(conversionRates).forEach(function(c){if(d.rates[c])conversionRates[c]=d.rates[c];});lastRateUpdate=new Date();updateRateDisplay();var sc=document.getElementById('currencySelect').value;if(sc&&sc!=='BWP')updatePrices();return true;}catch(e){document.getElementById('rateValue').textContent='Using fallback rates';return false;}}
+async function fetchExchangeRates(){try{document.getElementById('rateValue').textContent='Loading...';var fetchFn=window.FuturifySecurity?function(){return window.FuturifySecurity.secureFetch(EXCHANGE_API_URL,{},'exchange_rates',20,300000);}:function(){return fetch(EXCHANGE_API_URL);};var r=await fetchFn();if(!r.ok)throw new Error();var d=await r.json();Object.keys(conversionRates).forEach(function(c){if(d.rates[c])conversionRates[c]=d.rates[c];});lastRateUpdate=new Date();updateRateDisplay();var sc=document.getElementById('currencySelect').value;if(sc&&sc!=='BWP')updatePrices();return true;}catch(e){document.getElementById('rateValue').textContent='Using fallback rates';return false;}}
 function updateRateDisplay(){var sc=document.getElementById('currencySelect').value;var rv=conversionRates[sc];if(sc==='BWP'){document.getElementById('rateValue').textContent='Base currency';document.getElementById('rateUpdate').textContent='';}else{document.getElementById('rateValue').textContent='1 BWP = '+rv.toFixed(4)+' '+sc;if(lastRateUpdate){var td=Math.floor((new Date()-lastRateUpdate)/60000);document.getElementById('rateUpdate').textContent='('+td+' min ago)';}}}
 function updatePrices(){var sc=document.getElementById('currencySelect').value;var rate=conversionRates[sc];var sym=currencySymbols[sc];sessionStorage.setItem('selectedCurrency',sc);document.querySelectorAll('.currency-symbol').forEach(function(el){el.textContent=sym;});document.querySelectorAll('[data-min]').forEach(function(el){var mn=parseFloat(el.getAttribute('data-min'));var mx=parseFloat(el.getAttribute('data-max'));var cmn=Math.round(mn*rate);var cmx=Math.round(mx*rate);var ve=el.querySelector('.price-value');if(ve){if(cmn===cmx)ve.textContent=cmn.toLocaleString();else ve.textContent=cmn.toLocaleString()+' - '+cmx.toLocaleString();}});updateRateDisplay();}
 function initializeCurrency(){var sv=sessionStorage.getItem('selectedCurrency');var cs=document.getElementById('currencySelect');var dd=document.getElementById('currencyDropdown');if(sv&&cs){cs.value=sv;var mo=dd.querySelector('.custom-dropdown-option[data-value="'+sv+'"]');if(mo){dd.querySelector('.custom-dropdown-selected').textContent=sv;dd.querySelectorAll('.custom-dropdown-option').forEach(function(o){o.classList.remove('selected');});mo.classList.add('selected');}}fetchExchangeRates().then(function(){updatePrices();});}

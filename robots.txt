@@ -1,5 +1,12 @@
 User-agent: *
 Allow: /
+Disallow: /demos/
+Disallow: /aquaworld/
+Disallow: /bitemasters/
+Disallow: /fashionbloom/
+Disallow: /luxe/
+Disallow: /mindease/
+Disallow: /nexus/
 
 # Ensure Google can access favicon and images
 User-agent: Googlebot-Image

@@ -3,6 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+    <meta http-equiv="Permissions-Policy" content="geolocation=(), microphone=(), camera=(), payment=()">
+    <script src="js/security.js" defer></script>
+
     <title>Futurify Designs — Crafting Tomorrow's Digital Experiences</title>
     <meta name="description" content="Futurify Designs — Professional web development and digital solutions in Gaborone, Botswana. We craft tomorrow's digital experiences with innovative design and cutting-edge technology.">
     <link rel="icon" href="favicon.ico" sizes="48x48">
@@ -10,20 +15,20 @@
     <link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
     <link rel="apple-touch-icon" href="logo-512.png">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://futurfydesigns.com/">
+    <meta property="og:url" content="https://futurifydesigns.com/">
     <meta property="og:title" content="Futurify Designs — Crafting Digital Experiences">
     <meta property="og:description" content="Professional web development and digital solutions in Gaborone, Botswana.">
-    <meta property="og:image" content="https://futurfydesigns.com/logo-512.png">
+    <meta property="og:image" content="https://futurifydesigns.com/logo-512.png">
     <meta property="og:site_name" content="Futurify Designs">
     <meta name="twitter:card" content="summary">
     <meta name="twitter:title" content="Futurify Designs — Crafting Digital Experiences">
     <meta name="twitter:description" content="Professional web development and digital solutions in Gaborone, Botswana">
-    <meta name="twitter:image" content="https://futurfydesigns.com/logo-512.png">
+    <meta name="twitter:image" content="https://futurifydesigns.com/logo-512.png">
     <script type="application/ld+json">{
         "@context":"https://schema.org","@type":"Organization",
         "name":"Futurify Designs","alternateName":"Futurify",
-        "url":"https://futurfydesigns.com","logo":"https://futurfydesigns.com/logo-512.png",
-        "image":"https://futurfydesigns.com/logo-512.png",
+        "url":"https://futurifydesigns.com","logo":"https://futurifydesigns.com/logo-512.png",
+        "image":"https://futurifydesigns.com/logo-512.png",
         "description":"Professional web development and digital solutions company based in Gaborone, Botswana.",
         "address":{"@type":"PostalAddress","addressLocality":"Gaborone","addressRegion":"Gaborone","addressCountry":"BW"},
         "contactPoint":{"@type":"ContactPoint","contactType":"Customer Service","areaServed":"BW"},
@@ -1981,7 +1986,7 @@ function showWa(){ document.getElementById('wa-btn').style.display='flex'; }
    COOKIE BANNER
 ══════════════════════════════════════════ */
 function getCookie(n){ const m=document.cookie.match('(^|;)\\s*'+n+'\\s*=\\s*([^;]+)'); return m?m.pop():''; }
-function setCookieV(n,v,d){ const e=new Date(); e.setTime(e.getTime()+d*864e5); document.cookie=`${n}=${v};expires=${e.toUTCString()};path=/;SameSite=Lax`; }
+function setCookieV(n,v,d){ const e=new Date(); e.setTime(e.getTime()+d*864e5); const secure=location.protocol==='https:'?';Secure':''; document.cookie=`${n}=${v};expires=${e.toUTCString()};path=/;SameSite=Lax${secure}`; }
 
 function showCookieBanner(){
     if(!getCookie('futurify_cookie_consent')){

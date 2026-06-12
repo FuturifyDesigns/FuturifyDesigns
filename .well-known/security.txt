@@ -1,0 +1,6 @@
+Contact: mailto:futurifydesigns@gmail.com
+Contact: https://futurifydesigns.com/contact%20f.html
+Expires: 2027-06-12T00:00:00.000Z
+Preferred-Languages: en
+Canonical: https://futurifydesigns.com/.well-known/security.txt
+Policy: https://futurifydesigns.com/privacy_policy.html

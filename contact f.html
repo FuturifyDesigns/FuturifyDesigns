@@ -3,7 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+    <meta http-equiv="Permissions-Policy" content="geolocation=(), microphone=(), camera=(), payment=()">
     <title>Contact - Futurify Designs</title>
+    <script src="js/security.js" defer></script>
     <link rel="icon" href="favicon.ico" sizes="48x48">
     <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
@@ -22,6 +26,7 @@ html::-webkit-scrollbar{width:6px;}html::-webkit-scrollbar-track{background:tran
 body{background:var(--bg);color:var(--fg);font-family:'Syne',sans-serif;overflow-x:hidden;}
 a{color:inherit;text-decoration:none;}
 ::selection{background:var(--accent);color:var(--bg);}
+.hp-field{position:absolute;left:-9999px;width:1px;height:1px;opacity:0;pointer-events:none;overflow:hidden;}
 
 /* CURSOR */
 /* CANVAS */
@@ -470,7 +475,11 @@ footer{border-top:1px solid var(--dim);padding:clamp(44px,6vh,72px) clamp(22px,4
                     <p>Sending your message...</p>
                 </div>
 
-                <form id="quoteForm">
+                <form id="quoteForm" data-honeypot="true" novalidate>
+                    <div class="hp-field" aria-hidden="true">
+                        <label for="website">Website</label>
+                        <input type="text" id="website" name="website" tabindex="-1" autocomplete="off" inputmode="none">
+                    </div>
                     <div class="form-group">
                         <label class="form-label" for="name">Full Name</label>
                         <input type="text" id="name" name="name" class="form-input" placeholder="Your full name" required>
@@ -749,7 +758,9 @@ const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwYCFOTXCniVv
                 // Show loading state
                 document.getElementById('rateValue').innerHTML = '<span class="rate-loading"></span>';
                 
-                const response = await fetch(EXCHANGE_API_URL);
+                const response = window.FuturifySecurity
+                    ? await window.FuturifySecurity.secureFetch(EXCHANGE_API_URL, {}, 'exchange_rates', 20, 300000)
+                    : await fetch(EXCHANGE_API_URL);
                 if (!response.ok) {
                     throw new Error('Failed to fetch exchange rates');
                 }
@@ -1143,6 +1154,20 @@ const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwYCFOTXCniVv
         // Form submission handling with AJAX
         document.getElementById('quoteForm').addEventListener('submit', async function(e) {
             e.preventDefault();
+
+            const sec = window.FuturifySecurity;
+            if (sec) {
+                if (!sec.checkHoneypot(document.getElementById('website'))) return false;
+                if (!sec.checkFormTiming(this, 3000)) {
+                    alert('Please wait a moment before submitting.');
+                    return false;
+                }
+                const rl = sec.rateLimit('contact_form', 3, 900000);
+                if (!rl.allowed) {
+                    alert('Too many submissions. Please try again in ' + rl.retryAfterSec + ' seconds.');
+                    return false;
+                }
+            }
             
             const selectedPackage = sessionStorage.getItem('selectedPackage');
             
@@ -1191,31 +1216,17 @@ const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwYCFOTXCniVv
             
             try {
                 const packageData = JSON.parse(selectedPackage);
-                
-                // Debug logging
-                console.log('📦 Package Data:', packageData);
-                console.log('📦 Package Fields:', {
-                    name: packageData.name,
-                    price: packageData.price,
-                    currency: packageData.currency,
-                    currencySymbol: packageData.currencySymbol,
-                    convertedMin: packageData.convertedMin,
-                    convertedMax: packageData.convertedMax,
-                    minPriceBWP: packageData.minPriceBWP,
-                    maxPriceBWP: packageData.maxPriceBWP,
-                    id: packageData.id
-                });
-                
                 const selectedCurrency = sessionStorage.getItem('selectedCurrency') || 'BWP';
                 const budgetInBWP = convertToBWP(budgetValue, selectedCurrency);
                 
                 const formData = new FormData();
                 
-                // Add form fields
-                formData.append('name', document.getElementById('name').value);
-                formData.append('email', document.getElementById('email').value);
-                formData.append('phone', document.getElementById('phone').value);
-                formData.append('message', document.getElementById('message').value);
+                // Add form fields (sanitized)
+                const sanitize = sec ? sec.sanitizeInput.bind(sec) : function(v, n) { return String(v || '').trim().slice(0, n || 5000); };
+                formData.append('name', sanitize(document.getElementById('name').value, 120));
+                formData.append('email', sanitize(document.getElementById('email').value, 254));
+                formData.append('phone', sanitize(document.getElementById('phone').value, 30));
+                formData.append('message', sanitize(document.getElementById('message').value, 5000));
                 formData.append('selectedPackage', packageData.name || '');
                 
                 // Add package price with currency information - with safety checks
@@ -1240,10 +1251,9 @@ const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwYCFOTXCniVv
                 formData.append('budgetInPula', Math.round(budgetInBWP));
                 
                 // Send to Google Apps Script
-                const response = await fetch(GOOGLE_SCRIPT_URL, {
-                    method: 'POST',
-                    body: formData
-                });
+                const response = sec
+                    ? await sec.secureFetch(GOOGLE_SCRIPT_URL, { method: 'POST', body: formData }, 'contact_submit', 5, 900000)
+                    : await fetch(GOOGLE_SCRIPT_URL, { method: 'POST', body: formData });
                 
                 const result = await response.json();
                 
@@ -1270,17 +1280,11 @@ const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwYCFOTXCniVv
                 }
                 
             } catch (error) {
-                console.error('Form submission error:', error);
-                console.error('Error details:', {
-                    message: error.message,
-                    stack: error.stack,
-                    name: error.name
-                });
-                
-                // Show more detailed error message
                 let errorMessage = 'Sorry, there was an error submitting your request.\n\n';
-                
-                if (error.message.includes('Failed to fetch')) {
+
+                if (error.message && error.message.indexOf('RATE_LIMIT:') === 0) {
+                    errorMessage = 'Too many requests. Please wait ' + error.message.split(':')[1] + ' seconds and try again.';
+                } else if (error.message.includes('Failed to fetch')) {
                     errorMessage += 'Network error: Could not reach the server. Please check:\n';
                     errorMessage += '1. Your internet connection\n';
                     errorMessage += '2. Google Apps Script deployment settings\n';
