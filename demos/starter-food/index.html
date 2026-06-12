@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Savanna Kitchen | Authentic African Cuisine</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary: #8B4513;
+            --primary-dark: #6B3410;
+            --gold: #D4A574;
+            --dark: #2C1810;
+            --light: #FDF8F3;
+            --text: #4A4A4A;
+            --text-light: #777;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Montserrat', sans-serif; color: var(--text); line-height: 1.6; overflow-x: hidden; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        
+        /* NAVIGATION */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(20px);
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+            z-index: 1000;
+            padding: 15px 0;
+        }
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--dark);
+            text-decoration: none;
+        }
+        .logo span { color: var(--primary); }
+        .nav-links {
+            display: flex;
+            gap: 35px;
+            list-style: none;
+            align-items: center;
+        }
+        .nav-links a {
+            color: var(--text);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: color 0.3s;
+        }
+        .nav-links a:hover, .nav-links a.active { color: var(--primary); }
+        .nav-btn {
+            background: var(--primary);
+            color: #fff !important;
+            padding: 12px 25px;
+            border-radius: 0;
+        }
+        .nav-btn:hover { background: var(--primary-dark); }
+        .mobile-menu {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: var(--dark);
+            z-index: 1001;
+            padding: 5px;
+        }
+        
+        /* BUTTONS */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 16px 35px;
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-decoration: none;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            font-family: inherit;
+        }
+        .btn-primary { background: var(--primary); color: #fff; }
+        .btn-primary:hover { background: var(--primary-dark); }
+        .btn-outline { background: transparent; border: 2px solid var(--primary); color: var(--primary); }
+        .btn-outline:hover { background: var(--primary); color: #fff; }
+        
+        /* SECTIONS */
+        .section { padding: 100px 0; }
+        .section-header { text-align: center; margin-bottom: 60px; }
+        .section-label {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            color: var(--gold);
+            margin-bottom: 15px;
+        }
+        .section-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 48px;
+            font-weight: 700;
+            color: var(--dark);
+        }
+        
+        /* HERO SECTION */
+        .hero {
+            min-height: 100vh;
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), 
+                        url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=1400&h=900&fit=crop') center/cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: #fff;
+        }
+        .hero-content { max-width: 800px; padding: 20px; }
+        .hero-label {
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            color: var(--gold);
+            margin-bottom: 20px;
+        }
+        .hero h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 72px;
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 25px;
+        }
+        .hero p {
+            font-size: 20px;
+            opacity: 0.9;
+            margin-bottom: 40px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .hero-buttons { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; }
+        
+        /* FEATURED DISHES */
+        .featured-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+        .dish-card {
+            background: #fff;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+        .dish-card:hover { transform: translateY(-10px); }
+        .dish-card img { width: 100%; height: 250px; object-fit: cover; }
+        .dish-card-content { padding: 30px; }
+        .dish-card h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 10px;
+        }
+        .dish-card p { font-size: 14px; color: var(--text-light); margin-bottom: 15px; }
+        .price {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        
+        /* CTA */
+        .cta {
+            background: linear-gradient(rgba(139,69,19,0.95), rgba(139,69,19,0.95)),
+                        url('https://images.unsplash.com/photo-1466978913421-dad2ebd01d17?w=1400&h=500&fit=crop') center/cover;
+            padding: 100px 0;
+            text-align: center;
+            color: #fff;
+        }
+        .cta h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+        .cta p { font-size: 18px; margin-bottom: 35px; opacity: 0.95; }
+        
+        /* FOOTER */
+        footer { background: var(--dark); color: #fff; padding: 80px 0 30px; }
+        .footer-content { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 60px; margin-bottom: 60px; }
+        .footer-brand .logo { color: #fff; display: inline-block; margin-bottom: 20px; }
+        .footer-brand p { color: rgba(255,255,255,0.7); font-size: 15px; margin-bottom: 25px; }
+        .footer-social { display: flex; gap: 12px; flex-wrap: wrap; }
+        .footer-social a {
+            width: 42px;
+            height: 42px;
+            background: rgba(255,255,255,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            text-decoration: none;
+        }
+        .footer-social a:hover { background: var(--primary); }
+        .footer-section h4 {
+            font-size: 14px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 25px;
+        }
+        .footer-links { list-style: none; }
+        .footer-links li { margin-bottom: 12px; color: rgba(255,255,255,0.7); font-size: 15px; }
+        .footer-links a { color: rgba(255,255,255,0.7); text-decoration: none; }
+        .footer-links a:hover { color: var(--gold); }
+        .footer-bottom {
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 30px;
+            text-align: center;
+        }
+        .footer-bottom p { color: rgba(255,255,255,0.6); font-size: 14px; margin-bottom: 5px; }
+        .footer-bottom a { color: var(--gold); text-decoration: none; }
+        
+        /* RESPONSIVE */
+        @media (max-width: 992px) {
+            .hero h1 { font-size: 52px; }
+            .featured-grid { grid-template-columns: repeat(2, 1fr); }
+            .footer-content { grid-template-columns: repeat(2, 1fr); }
+            .section-title { font-size: 42px; }
+        }
+        
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: fixed;
+                top: 70px;
+                left: 0;
+                right: 0;
+                background: #fff;
+                flex-direction: column;
+                padding: 30px 20px;
+                gap: 20px;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+                max-height: calc(100vh - 70px);
+                overflow-y: auto;
+            }
+            .nav-links.active { display: flex; }
+            .nav-links a {
+                width: 100%;
+                padding: 10px 0;
+                font-size: 16px;
+            }
+            .mobile-menu { display: block; }
+            .hero { min-height: 100vh; padding: 80px 20px 20px; }
+            .hero h1 { font-size: 36px; }
+            .hero p { font-size: 16px; }
+            .hero-buttons {
+                flex-direction: column;
+                align-items: stretch;
+                max-width: 300px;
+                margin: 0 auto;
+            }
+            .featured-grid { grid-template-columns: 1fr; }
+            .section { padding: 60px 0; }
+            .section-title { font-size: 32px; }
+            .cta h2 { font-size: 32px; }
+            .footer-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+                gap: 40px;
+            }
+            .footer-social { justify-content: center; }
+        }
+        
+        @media (max-width: 480px) {
+            .hero h1 { font-size: 28px; }
+            .section-title { font-size: 28px; }
+            .btn { padding: 14px 25px; font-size: 12px; }
+        }
+    </style>
+</head>
+<body>
+    <!-- NAVIGATION -->
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="logo">Savanna <span>Kitchen</span></a>
+            <button class="mobile-menu" onclick="toggleMenu()">
+                <i class="fas fa-bars"></i>
+            </button>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html" class="active">Home</a></li>
+                <li><a href="menu.html">Menu</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="gallery.html">Gallery</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="contact.html" class="nav-btn">Book a Table</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-label">Welcome to Savanna Kitchen</div>
+            <h1>Authentic African Flavors</h1>
+            <p>Experience the rich tastes of Africa with traditional dishes made from fresh, local ingredients.</p>
+            <div class="hero-buttons">
+                <a href="menu.html" class="btn btn-primary">Explore Menu <i class="fas fa-arrow-right"></i></a>
+                <a href="contact.html" class="btn btn-outline">Reserve Table</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- FEATURED DISHES -->
+    <section class="section" style="background: var(--light);">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-label">Our Specialties</div>
+                <h2 class="section-title">Featured Dishes</h2>
+            </div>
+            
+            <div class="featured-grid">
+                <!-- DISH 1 -->
+                <div class="dish-card">
+                    <img src="peri-peri-chicken.jpg" alt="Peri-Peri Chicken" loading="lazy">
+                    <div class="dish-card-content">
+                        <h3>Peri-Peri Chicken</h3>
+                        <p>Grilled chicken marinated in spicy peri-peri sauce.</p>
+                        <span class="price">P95</span>
+                    </div>
+                </div>
+                
+                <!-- DISH 2 -->
+                <div class="dish-card">
+                    <img src="seswaa.webp" alt="Seswaa" loading="lazy">
+                    <div class="dish-card-content">
+                        <h3>Seswaa</h3>
+                        <p>Traditional slow-cooked beef, shredded and tender.</p>
+                        <span class="price">P85</span>
+                    </div>
+                </div>
+                
+                <!-- DISH 3 -->
+                <div class="dish-card">
+                    <img src="vegetable-curry.jpg" alt="Vegetable Curry" loading="lazy">
+                    <div class="dish-card-content">
+                        <h3>Vegetable Curry</h3>
+                        <p>Rich, aromatic curry with seasonal vegetables.</p>
+                        <span class="price">P65</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div style="text-align:center;margin-top:50px">
+                <a href="menu.html" class="btn btn-outline">View Full Menu</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA SECTION -->
+    <section class="cta">
+        <div class="container">
+            <h2>Reserve Your Table</h2>
+            <p>Join us for an unforgettable dining experience.</p>
+            <a href="contact.html" class="btn btn-primary">Book Now <i class="fas fa-arrow-right"></i></a>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <a href="index.html" class="logo">Savanna <span>Kitchen</span></a>
+                    <p>Experience authentic African cuisine in Gaborone.</p>
+                    <div class="footer-social">
+                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Pages</h4>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="menu.html">Menu</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="gallery.html">Gallery</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Hours</h4>
+                    <ul class="footer-links">
+                        <li>Mon-Sat: 11AM-10PM</li>
+                        <li>Sunday: 12PM-8PM</li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Contact</h4>
+                    <ul class="footer-links">
+                        <li><a href="tel:+2673XXXXXX">+267 3XX XXXX</a></li>
+                        <li><a href="mailto:info@savannakitchen.com">info@savannakitchen.com</a></li>
+                        <li>Gaborone, Botswana</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 Savanna Kitchen. All rights reserved.</p>
+                <p>Template by <a href="mailto:futurifydesigns@gmail.com">Futurify Designs</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Toggle mobile menu
+        function toggleMenu() {
+            const navLinks = document.getElementById('navLinks');
+            navLinks.classList.toggle('active');
+        }
+
+        // Close menu when clicking outside
+        document.addEventListener('click', function(event) {
+            const nav = document.querySelector('nav');
+            const navLinks = document.getElementById('navLinks');
+            const mobileMenu = document.querySelector('.mobile-menu');
+            
+            if (!nav.contains(event.target)) {
+                navLinks.classList.remove('active');
+            }
+        });
+
+        // Close menu when clicking a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', function() {
+                document.getElementById('navLinks').classList.remove('active');
+            });
+        });
+
+        // Change hamburger icon when menu is open
+        const observer = new MutationObserver(function(mutations) {
+            mutations.forEach(function(mutation) {
+                if (mutation.attributeName === "class") {
+                    const navLinks = document.getElementById('navLinks');
+                    const icon = document.querySelector('.mobile-menu i');
+                    if (navLinks.classList.contains('active')) {
+                        icon.classList.remove('fa-bars');
+                        icon.classList.add('fa-times');
+                    } else {
+                        icon.classList.remove('fa-times');
+                        icon.classList.add('fa-bars');
+                    }
+                }
+            });
+        });
+
+        observer.observe(document.getElementById('navLinks'), {
+            attributes: true
+        });
+    </script>
+</body>
+</html>

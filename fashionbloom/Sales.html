@@ -1,0 +1,2160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fashion Bloom – Grand Summer Sale</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Cormorant+Garamond:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --gold: #d4af37;
+            --light-gold: #f4d03f;
+            --black: #0a0a0a;
+            --cream: #e4d5b7;
+            --dark-gray: #1a1a1a;
+            --sale-red: #c62828;
+            --sale-pink: #e91e63;
+        }
+
+        * {
+      -webkit-tap-highlight-color: transparent;
+      -webkit-touch-callout: none;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--black);
+            color: var(--cream);
+            font-family: 'Cormorant Garamond', serif;
+            overflow-x: hidden;
+            font-size: 16px;
+        }
+
+
+    /* Remove tap highlight and focus outline on all interactive elements */
+    a, button, input, select, textarea, [role="button"] {
+      -webkit-tap-highlight-color: transparent;
+      -webkit-touch-callout: none;
+      -webkit-user-select: none;
+      user-select: none;
+      outline: none;
+    }
+
+    button:focus, a:focus, input:focus, select:focus, textarea:focus {
+      outline: none;
+    }
+        /* Header Styles */
+        header {
+            background: rgba(10, 10, 10, 0.9);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 40px;
+            box-shadow: 0 2px 10px rgba(212, 175, 55, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(5px);
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--gold);
+            text-decoration: none;
+            position: relative;
+            transition: all 0.4s ease;
+        }
+
+        .logo:hover {
+            text-shadow: 0 0 10px var(--gold), 0 0 30px rgba(212, 175, 55, 0.4);
+        }
+
+        .logo:hover::after {
+            content: '✨';
+            position: absolute;
+            right: -20px;
+            animation: sparkle 1s infinite alternate;
+        }
+
+        @keyframes sparkle {
+            0% { opacity: 0; transform: scale(0.5); }
+            100% { opacity: 1; transform: scale(1.3) rotate(15deg); }
+        }
+
+        nav a {
+            color: var(--cream);
+            text-decoration: none;
+            margin-left: 25px;
+            font-weight: 500;
+            position: relative;
+            transition: all 0.3s ease;
+            padding: 6px 10px;
+            border-radius: 4px;
+            font-size: 0.95rem;
+        }
+
+        nav a.active {
+            color: var(--gold);
+            background: rgba(212, 175, 55, 0.1);
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gold);
+            transition: width 0.3s ease;
+        }
+
+        nav a:hover, nav a.active {
+            color: var(--gold);
+            background: rgba(212, 175, 55, 0.1);
+        }
+
+        nav a:hover::after, nav a.active::after {
+            width: 100%;
+        }
+
+        /* Sale Hero Section */
+        .sale-hero {
+            height: 70vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(rgba(10, 10, 10, 0.6), rgba(10, 10, 10, 0.6)), 
+                        url('https://images.unsplash.com/photo-1520367445093-50dc08a59d9d?auto=format&fit=crop&w=1600&q=80');
+            background-size: cover;
+            background-position: center;
+            will-change: transform;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            padding: 35px 40px;
+            background: rgba(10, 10, 10, 0.85);
+            border-radius: 20px;
+            backdrop-filter: blur(15px);
+            border: 2px solid rgba(212, 175, 55, 0.3);
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6);
+            max-width: 800px;
+            margin: 0 auto;
+            transform: translateY(0);
+            transition: all 0.5s ease;
+        }
+
+        .hero-content:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 35px 70px rgba(212, 175, 55, 0.2);
+        }
+
+        .hero-content h1 {
+            font-size: 3.2rem;
+            color: var(--gold);
+            font-family: 'Playfair Display', serif;
+            margin-bottom: 20px;
+            text-shadow: 0 4px 15px rgba(0, 0, 0, 0.8);
+            position: relative;
+        }
+
+        .hero-content .sale-tag {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--sale-red), var(--sale-pink));
+            color: white;
+            padding: 10px 25px;
+            border-radius: 35px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            transform: rotate(-3deg);
+            animation: pulse 2s infinite;
+            box-shadow: 0 8px 20px rgba(198, 40, 40, 0.5);
+        }
+
+        @keyframes pulse {
+            0% { transform: rotate(-3deg) scale(1); }
+            50% { transform: rotate(-3deg) scale(1.1); }
+            100% { transform: rotate(-3deg) scale(1); }
+        }
+
+        .hero-content p {
+            font-size: 1.05rem;
+            color: var(--cream);
+            max-width: 600px;
+            margin: 0 auto 25px;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
+            line-height: 1.6;
+        }
+
+        .countdown {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+        }
+
+        .countdown-item {
+            background: rgba(212, 175, 55, 0.15);
+            border: 2px solid rgba(212, 175, 55, 0.3);
+            border-radius: 12px;
+            padding: 15px;
+            min-width: 75px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .countdown-item:hover {
+            background: rgba(212, 175, 55, 0.25);
+            transform: translateY(-5px);
+        }
+
+        .countdown-number {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--gold);
+            margin-bottom: 6px;
+        }
+
+        .countdown-label {
+            font-size: 0.85rem;
+            color: var(--cream);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 14px 35px;
+            background: linear-gradient(135deg, var(--gold), var(--light-gold));
+            color: var(--black);
+            border: none;
+            border-radius: 35px;
+            font-size: 1.05rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 12px 35px rgba(212, 175, 55, 0.4);
+        }
+
+        .btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 18px 45px rgba(212, 175, 55, 0.6);
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            transition: 0.5s;
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        /* Sale Categories - Fixed Grid Layout */
+        .sale-categories {
+            padding: 70px 40px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 2.8rem;
+            text-align: center;
+            margin-bottom: 60px;
+            color: var(--gold);
+            font-family: 'Playfair Display', serif;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+            box-shadow: 0 2px 10px rgba(212, 175, 55, 0.5);
+        }
+
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: repeat(3, 350px);
+            gap: 25px;
+            margin-bottom: 80px;
+        }
+
+        /* Specific grid placements to eliminate gaps */
+        .category-card:nth-child(1) { /* Women's Collection */
+            grid-column: 1 / 3; /* Spans 2 columns */
+            grid-row: 1;
+        }
+
+        .category-card:nth-child(2) { /* Men's Collection */
+            grid-column: 3;
+            grid-row: 1;
+        }
+
+        .category-card:nth-child(3) { /* Accessories */
+            grid-column: 1;
+            grid-row: 2;
+        }
+
+        .category-card:nth-child(4) { /* Evening Wear */
+            grid-column: 2;
+            grid-row: 2;
+        }
+
+        .category-card:nth-child(5) { /* Bridal Collection */
+            grid-column: 3;
+            grid-row: 2;
+        }
+
+        .category-card:nth-child(6) { /* Summer Essentials */
+            grid-column: 1 / 4; /* Spans all 3 columns */
+            grid-row: 3;
+            height: 300px; /* Smaller height for full-width card */
+        }
+
+        .category-card {
+            position: relative;
+            border-radius: 15px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            border: 2px solid rgba(212, 175, 55, 0.2);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+            will-change: transform;
+        }
+
+        .category-card:hover {
+            transform: translateY(-12px) scale(1.02);
+            box-shadow: 0 25px 50px rgba(212, 175, 55, 0.25);
+            border-color: rgba(212, 175, 55, 0.5);
+        }
+
+        .category-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+            filter: brightness(0.8);
+        }
+
+        .category-card:hover .category-image {
+            transform: scale(1.08);
+            filter: brightness(1);
+        }
+
+        .category-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                to top,
+                rgba(10, 10, 10, 0.9) 0%,
+                rgba(26, 26, 26, 0.6) 50%,
+                rgba(10, 10, 10, 0.3) 100%
+            );
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 30px;
+            transition: all 0.4s ease;
+        }
+
+        .category-card:hover .category-overlay {
+            background: linear-gradient(
+                to top,
+                rgba(10, 10, 10, 0.95) 0%,
+                rgba(212, 175, 55, 0.15) 50%,
+                rgba(10, 10, 10, 0.5) 100%
+            );
+        }
+
+        .category-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--gold);
+            font-family: 'Playfair Display', serif;
+            margin-bottom: 12px;
+            text-shadow: 0 4px 15px rgba(0, 0, 0, 0.8);
+            transform: translateY(20px);
+            transition: all 0.4s ease;
+        }
+
+        /* Larger titles for featured cards */
+        .category-card:nth-child(1) .category-title,
+        .category-card:nth-child(6) .category-title {
+            font-size: 2.2rem;
+        }
+
+        .category-card:hover .category-title {
+            transform: translateY(0);
+            text-shadow: 0 0 25px rgba(212, 175, 55, 0.6);
+        }
+
+        .category-discount {
+            font-size: 1.2rem;
+            color: var(--sale-pink);
+            font-weight: 700;
+            margin-bottom: 15px;
+            transform: translateY(20px);
+            transition: all 0.4s ease 0.1s;
+        }
+
+        /* Larger discounts for featured cards */
+        .category-card:nth-child(1) .category-discount,
+        .category-card:nth-child(6) .category-discount {
+            font-size: 1.35rem;
+        }
+
+        .category-card:hover .category-discount {
+            transform: translateY(0);
+        }
+
+        .category-btn {
+            align-self: flex-start;
+            padding: 10px 22px;
+            background: transparent;
+            color: var(--gold);
+            border: 2px solid var(--gold);
+            border-radius: 25px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            transform: translateY(20px);
+            opacity: 0;
+            transition: all 0.4s ease 0.2s;
+        }
+
+        .category-card:hover .category-btn {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .category-btn:hover {
+            background: var(--gold);
+            color: var(--black);
+            box-shadow: 0 0 25px rgba(212, 175, 55, 0.6);
+            transform: translateY(-3px);
+        }
+
+        /* Featured Sale Items */
+        .featured-sale {
+            padding: 70px 40px;
+            background: linear-gradient(rgba(10, 10, 10, 0.9), rgba(10, 10, 10, 0.9)), 
+                        url('https://images.unsplash.com/photo-1551232864-3f0890e580d9?auto=format&fit=crop&w=1600&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            position: relative;
+        }
+
+        .featured-sale::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(198, 40, 40, 0.08), rgba(212, 175, 55, 0.15));
+            pointer-events: none;
+        }
+
+        .featured-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .product-card {
+            background: rgba(26, 26, 26, 0.85);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+            position: relative;
+            border: 2px solid rgba(212, 175, 55, 0.2);
+            will-change: transform;
+        }
+
+        .product-card:hover {
+            transform: translateY(-12px);
+            box-shadow: 0 20px 50px rgba(212, 175, 55, 0.3);
+            border-color: rgba(212, 175, 55, 0.5);
+        }
+
+        .product-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, var(--sale-red), var(--sale-pink));
+            color: white;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            z-index: 2;
+            box-shadow: 0 5px 15px rgba(198, 40, 40, 0.5);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 320px;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .product-card:hover .product-image {
+            transform: scale(1.05);
+        }
+
+        .product-info {
+            padding: 25px;
+        }
+
+        .product-title {
+            font-size: 1.2rem;
+            color: var(--cream);
+            margin-bottom: 12px;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .product-price {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 15px;
+        }
+
+        .current-price {
+            font-size: 1.2rem;
+            color: var(--gold);
+            font-weight: 700;
+        }
+
+        .original-price {
+            font-size: 1.05rem;
+            color: #777;
+            text-decoration: line-through;
+        }
+
+        .product-rating {
+            color: var(--gold);
+            margin-bottom: 15px;
+            font-size: 0.95rem;
+        }
+
+        .product-btn {
+            display: inline-block;
+            padding: 10px 22px;
+            background: var(--gold);
+            color: var(--black);
+            border: none;
+            border-radius: 25px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .product-btn:hover {
+            background: var(--light-gold);
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.6);
+            transform: translateY(-3px);
+        }
+
+        /* Flash Sale Banner */
+        .flash-sale {
+            padding: 80px 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, #1a1a1a, #2d2d2d);
+        }
+
+        .flash-sale::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(198, 40, 40, 0.08), rgba(233, 30, 99, 0.08));
+            z-index: -1;
+        }
+
+        .flash-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .flash-content h2 {
+            font-size: 3.2rem;
+            color: var(--gold);
+            margin-bottom: 20px;
+            font-family: 'Playfair Display', serif;
+            text-shadow: 0 4px 15px rgba(0, 0, 0, 0.8);
+        }
+
+        .flash-content p {
+            font-size: 1.2rem;
+            color: var(--cream);
+            margin-bottom: 35px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.5;
+        }
+
+        /* Sale Ribbon */
+        .sale-ribbon {
+            position: fixed;
+            top: 100px;
+            right: -80px;
+            width: 280px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--sale-red), var(--sale-pink));
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.05rem;
+            font-weight: 700;
+            transform: rotate(45deg);
+            box-shadow: 0 8px 20px rgba(198, 40, 40, 0.5);
+            z-index: 99;
+            letter-spacing: 1px;
+        }
+
+        /* Optimized sparkle effects - reduced frequency */
+        .sparkle-click {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: var(--gold);
+            border-radius: 50%;
+            pointer-events: none;
+            opacity: 0.8;
+            animation: sparkleFade 0.6s ease-out forwards;
+            box-shadow: 0 0 8px 1px rgba(212, 175, 55, 0.5);
+        }
+
+        @keyframes sparkleFade {
+            0% { transform: scale(0.5); opacity: 1; }
+            100% { transform: scale(2); opacity: 0; }
+        }
+
+        .floating-sparkle {
+            position: fixed;
+            width: 4px;
+            height: 4px;
+            background: var(--gold);
+            border-radius: 50%;
+            pointer-events: none;
+            opacity: 0;
+            z-index: 10;
+            box-shadow: 0 0 8px 1px rgba(212, 175, 55, 0.7);
+            animation: floatSparkle 4s ease-in-out infinite;
+        }
+
+        @keyframes floatSparkle {
+            0% { transform: translateY(0) scale(0.5); opacity: 0; }
+            20% { opacity: 0.8; }
+            50% { transform: translateY(-25px) scale(1); }
+            80% { opacity: 0.8; }
+            100% { transform: translateY(-50px) scale(0.5); opacity: 0; }
+        }
+
+        /* Testimonials */
+        .testimonials {
+            padding: 70px 40px;
+            background: var(--dark-gray);
+        }
+
+        .testimonial-slider {
+            max-width: 1000px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .testimonial {
+            background: rgba(17, 17, 17, 0.8);
+            padding: 35px;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+            margin: 20px;
+            border: 2px solid rgba(212, 175, 55, 0.2);
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            position: absolute;
+            width: 100%;
+            left: 0;
+            top: 0;
+            text-align: center;
+        }
+
+        .testimonial.active {
+            opacity: 1;
+            position: relative;
+        }
+
+        .testimonial img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--gold);
+            margin-bottom: 20px;
+        }
+
+        .testimonial p {
+            font-size: 1.05rem;
+            font-style: italic;
+            margin-bottom: 20px;
+            color: var(--cream);
+            line-height: 1.5;
+        }
+
+        .testimonial h4 {
+            color: var(--gold);
+            font-size: 1.2rem;
+            margin-bottom: 6px;
+        }
+
+        .testimonial span {
+            color: #999;
+            font-size: 0.95rem;
+        }
+
+        /* Newsletter */
+        .newsletter {
+            padding: 70px 20px;
+            text-align: center;
+            background: linear-gradient(rgba(10, 10, 10, 0.9), rgba(10, 10, 10, 0.9)), 
+                        url('https://images.unsplash.com/photo-1529139574466-a303027c1d8b?auto=format&fit=crop&w=1200&q=80');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .newsletter h2 {
+            color: var(--gold);
+            font-size: 2.4rem;
+            margin-bottom: 20px;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .newsletter p {
+            color: var(--cream);
+            font-size: 1.05rem;
+            max-width: 600px;
+            margin: 0 auto 30px;
+            line-height: 1.5;
+        }
+
+        .newsletter-form {
+            display: flex;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .newsletter-form input {
+            flex: 1;
+            padding: 14px;
+            border: none;
+            border-radius: 25px 0 0 25px;
+            font-size: 0.95rem;
+            background: rgba(255, 255, 255, 0.9);
+        }
+
+        .newsletter-form button {
+            padding: 14px 25px;
+            background: var(--gold);
+            color: var(--black);
+            border: none;
+            border-radius: 0 25px 25px 0;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .newsletter-form button:hover {
+            background: var(--light-gold);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 50px 30px;
+            background-color: #111;
+            color: var(--cream);
+            font-size: 0.9rem;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            max-width: 1200px;
+            margin: 0 auto 40px;
+            text-align: left;
+        }
+
+        .footer-column {
+            flex: 1;
+            min-width: 200px;
+            margin: 0 20px 30px;
+        }
+
+        .footer-column h3 {
+            color: var(--gold);
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            font-family: 'Playfair Display', serif;
+            position: relative;
+            display: inline-block;
+            transition: color 0.3s ease;
+            cursor: pointer;
+        }
+
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -5px;
+            width: 0%;
+            height: 2px;
+            background-color: var(--gold);
+            transition: width 0.3s ease;
+        }
+
+        .footer-column h3:hover {
+            color: var(--light-gold);
+        }
+
+        .footer-column h3:hover::after {
+            width: 100%;
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-column ul li a {
+            color: var(--cream);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            position: relative;
+            display: inline-block;
+            font-size: 0.9rem;
+        }
+
+        .footer-column ul li a::before {
+            content: '✨';
+            position: absolute;
+            left: -20px;
+            opacity: 0;
+            animation: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .footer-column ul li a:hover {
+            color: var(--gold);
+            transform: translateX(5px) scale(1.05);
+        }
+
+        .footer-column ul li a:hover::before {
+            opacity: 1;
+            animation: sparkleFixed 1.5s infinite alternate;
+        }
+
+        @keyframes sparkleFixed {
+            0% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.2) rotate(10deg); opacity: 1; }
+            100% { transform: scale(1); opacity: 0.5; }
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+
+        .social-links a {
+            display: inline-block;
+            width: 35px;
+            height: 35px;
+            background: rgba(212, 175, 55, 0.1);
+            border-radius: 50%;
+            margin: 0 8px;
+            color: var(--gold);
+            text-align: center;
+            line-height: 35px;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .social-links a:hover {
+            background: var(--gold);
+            color: var(--black);
+            transform: translateY(-3px);
+        }
+
+        .copyright {
+            color: #999;
+            font-size: 0.8rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .categories-grid {
+                grid-template-columns: repeat(2, 1fr);
+                grid-template-rows: repeat(3, 320px);
+            }
+            
+            .category-card:nth-child(1) { grid-column: 1 / 3; grid-row: 1; }
+            .category-card:nth-child(2) { grid-column: 1; grid-row: 2; }
+            .category-card:nth-child(3) { grid-column: 2; grid-row: 2; }
+            .category-card:nth-child(4) { grid-column: 1; grid-row: 3; }
+            .category-card:nth-child(5) { grid-column: 2; grid-row: 3; }
+            .category-card:nth-child(6) { grid-column: 1 / 3; grid-row: 4; height: 300px; }
+        }
+
+        @media (max-width: 768px) {
+            header {
+                padding: 12px 20px;
+                flex-direction: column;
+            }
+
+            nav {
+                margin-top: 12px;
+            }
+
+            nav a {
+                margin: 0 8px;
+                font-size: 0.9rem;
+            }
+
+            .logo {
+                font-size: 1.25rem;
+            }
+
+            .sale-hero {
+                height: 60vh;
+            }
+
+            .hero-content {
+                padding: 25px;
+            }
+
+            .hero-content h1 {
+                font-size: 2.2rem;
+            }
+
+            .hero-content .sale-tag {
+                font-size: 1rem;
+                padding: 8px 20px;
+            }
+
+            .hero-content p {
+                font-size: 1rem;
+            }
+
+            .countdown {
+                flex-wrap: wrap;
+                gap: 12px;
+            }
+
+            .countdown-item {
+                min-width: 60px;
+                padding: 12px;
+            }
+
+            .countdown-number {
+                font-size: 1.35rem;
+            }
+
+            .countdown-label {
+                font-size: 0.75rem;
+            }
+
+            .section-title {
+                font-size: 2.2rem;
+            }
+
+            .categories-grid {
+                grid-template-columns: 1fr;
+                grid-template-rows: repeat(6, 280px);
+                gap: 20px;
+            }
+
+            .category-card:nth-child(1),
+            .category-card:nth-child(2),
+            .category-card:nth-child(3),
+            .category-card:nth-child(4),
+            .category-card:nth-child(5),
+            .category-card:nth-child(6) {
+                grid-column: 1;
+                grid-row: auto;
+                height: 280px;
+            }
+
+            .category-title {
+                font-size: 1.35rem;
+            }
+
+            .category-card:nth-child(1) .category-title,
+            .category-card:nth-child(6) .category-title {
+                font-size: 1.7rem;
+            }
+
+            .flash-content h2 {
+                font-size: 2.2rem;
+            }
+
+            .flash-content p {
+                font-size: 1.05rem;
+            }
+
+            .footer-column {
+                min-width: 100%;
+                margin-bottom: 25px;
+            }
+
+            .sale-ribbon {
+                top: 70px;
+                right: -70px;
+                width: 200px;
+                height: 35px;
+                font-size: 0.9rem;
+            }
+
+            .newsletter-form {
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            .newsletter-form input {
+                border-radius: 25px;
+            }
+
+            .newsletter-form button {
+                border-radius: 25px;
+            }
+
+            .products-grid {
+                grid-template-columns: 1fr;
+                gap: 25px;
+            }
+
+            .product-image {
+                height: 280px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-content {
+                padding: 20px;
+            }
+
+            .hero-content h1 {
+                font-size: 1.8rem;
+            }
+
+            .countdown-item {
+                min-width: 50px;
+                padding: 8px;
+            }
+
+            .countdown-number {
+                font-size: 1.2rem;
+            }
+
+            .btn {
+                padding: 10px 25px;
+                font-size: 0.95rem;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+
+            .categories-grid {
+                grid-template-rows: repeat(6, 250px);
+            }
+
+            .category-card {
+                height: 250px !important;
+            }
+
+            .category-title {
+                font-size: 1.2rem;
+            }
+
+            .category-card:nth-child(1) .category-title,
+            .category-card:nth-child(6) .category-title {
+                font-size: 1.35rem;
+            }
+
+            .category-discount {
+                font-size: 1.05rem;
+            }
+        }
+
+        /* === Popup Modal Styling === */
+        .popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(10, 10, 10, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            backdrop-filter: blur(5px);
+        }
+
+        .popup-content {
+            background: linear-gradient(145deg, #111, #1a1a1a);
+            border: 2px solid var(--gold);
+            border-radius: 20px;
+            padding: 25px;
+            max-width: 550px;
+            width: 90%;
+            position: relative;
+            text-align: center;
+            box-shadow: 
+                0 0 40px rgba(212, 175, 55, 0.4),
+                inset 0 1px 5px rgba(255, 255, 255, 0.1);
+            animation: elegantZoomIn 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .popup-slideshow {
+            position: relative;
+            height: 340px;
+            width: 100%;
+            overflow: hidden;
+            border-radius: 20px;
+            margin-bottom: 20px;
+            background: linear-gradient(45deg, #1a1a1a, #2d2d2d);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 
+                inset 0 0 50px rgba(0, 0, 0, 0.5),
+                0 0 30px rgba(212, 175, 55, 0.2);
+        }
+
+        .popup-slide-bg {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: blur(25px) brightness(0.2);
+            z-index: 0;
+            border-radius: 20px;
+            opacity: 0;
+            transition: opacity 2s ease-in-out;
+            transform: scale(1.1);
+        }
+
+        .popup-slide {
+            width: 280px;
+            height: 300px;
+            object-fit: cover;
+            object-position: center;
+            border-radius: 25px;
+            position: absolute;
+            z-index: 1;
+            transition: all 2s cubic-bezier(0.4, 0, 0.2, 1);
+            opacity: 0;
+            box-shadow: 
+                0 15px 35px rgba(0, 0, 0, 0.6),
+                0 0 25px rgba(212, 175, 55, 0.4),
+                inset 0 2px 5px rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(212, 175, 55, 0.3);
+            transform: perspective(1000px) rotateX(5deg) rotateY(-2deg) scale(0.95);
+            image-rendering: crisp-edges;
+        }
+
+        .popup-slide.active,
+        .popup-slide-bg.active {
+            opacity: 1;
+        }
+
+        .popup-slide:hover {
+            transform: perspective(1000px) rotateX(2deg) rotateY(-1deg) scale(1.02);
+            box-shadow: 
+                0 20px 45px rgba(0, 0, 0, 0.8),
+                0 0 35px rgba(212, 175, 55, 0.6),
+                inset 0 2px 8px rgba(255, 255, 255, 0.15);
+        }
+
+        .popup-info h3 {
+            font-size: 1.35rem;
+            color: var(--cream);
+            margin-bottom: 10px;
+        }
+
+        .popup-info p {
+            font-size: 1.2rem;
+            color: var(--gold);
+            font-weight: 500;
+            margin-bottom: 20px;
+        }
+
+        .popup-info del {
+            color: #777;
+            margin-left: 8px;
+            font-size: 1rem;
+        }
+
+        .popup-info .btn {
+            display: inline-block;
+            padding: 10px 25px;
+            background: transparent;
+            color: var(--gold);
+            border: 2px solid var(--gold);
+            border-radius: 30px;
+            font-size: 1rem;
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .popup-info .btn:hover {
+            background: var(--gold);
+            color: var(--black);
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
+        }
+
+        .close-popup {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            font-size: 1.25rem;
+            color: var(--gold);
+            cursor: pointer;
+            background: #111;
+            border: 2px solid var(--gold);
+            border-radius: 50%;
+            padding: 8px;
+            z-index: 2;
+            transition: transform 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .close-popup:hover {
+            transform: rotate(180deg) scale(1.2);
+            color: var(--cream);
+            box-shadow: 0 0 10px var(--gold);
+        }
+
+        /* Sparkle bubble animation around popup box outline */
+        .popup-sparkle {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background: var(--gold);
+            border-radius: 50%;
+            opacity: 0.9;
+            pointer-events: none;
+            animation: outlineSparkleAnim 2.5s ease-out forwards;
+            z-index: 10;
+        }
+
+        @keyframes outlineSparkleAnim {
+            0% {
+                transform: scale(0.5);
+                opacity: 0.6;
+            }
+            50% {
+                transform: scale(1.2);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(0.3);
+                opacity: 0;
+            }
+        }
+
+        @keyframes elegantZoomIn {
+            0% {
+                transform: scale(0.3) rotate(-10deg);
+                opacity: 0;
+            }
+            50% {
+                transform: scale(1.05) rotate(2deg);
+                opacity: 0.8;
+            }
+            100% {
+                transform: scale(1) rotate(0deg);
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <a class="logo" href="index.html">FASHION BLOOM</a>
+        <nav>
+            <a href="Fashion homepage.html">Home</a>
+            <a href="Collections.html">Collections</a>
+            <a href="Sales.html" class="active">Sales</a>
+            <a href="About Us.html">About</a>
+        </nav>
+    </header>
+
+    <!-- Sale Ribbon -->
+    <div class="sale-ribbon">GRAND SUMMER SALE</div>
+
+    <!-- Sale Hero -->
+    <section class="sale-hero">
+        <div class="hero-content">
+            <div class="sale-tag">UP TO 50% OFF</div>
+            <h1>Grand Summer Sale</h1>
+            <p>Limited time only! Shop our most exclusive pieces at unprecedented prices. Don't miss this golden opportunity to elevate your wardrobe.</p>
+            
+            <div class="countdown">
+                <div class="countdown-item">
+                    <div class="countdown-number" id="days">07</div>
+                    <div class="countdown-label">Days</div>
+                </div>
+                <div class="countdown-item">
+                    <div class="countdown-number" id="hours">23</div>
+                    <div class="countdown-label">Hours</div>
+                </div>
+                <div class="countdown-item">
+                    <div class="countdown-number" id="minutes">45</div>
+                    <div class="countdown-label">Minutes</div>
+                </div>
+                <div class="countdown-item">
+                    <div class="countdown-number" id="seconds">30</div>
+                    <div class="countdown-label">Seconds</div>
+                </div>
+            </div>
+            
+            <a href="#featured" class="btn">Shop Now</a>
+        </div>
+    </section>
+
+    <!-- Sale Categories -->
+    <section class="sale-categories">
+        <h2 class="section-title">Sale Categories</h2>
+        
+        <div class="categories-grid">
+            <!-- Women's Collection - Featured (spans 2 columns) -->
+            <div class="category-card">
+                <img src= "womans_collection.jpg" alt="Women's Collection" class="category-image">
+                <div class="category-overlay">
+                    <h3 class="category-title">Women's Collection</h3>
+                    <div class="category-discount">Up to 50% Off</div>
+                    <a href="#" class="category-btn">Shop Now</a>
+                </div>
+            </div>
+            
+            <!-- Men's Collection -->
+            <div class="category-card">
+                <img src= "men's collection.jpeg" alt="Men's Collection" class="category-image">
+                <div class="category-overlay">
+                    <h3 class="category-title">Men's Collection</h3>
+                    <div class="category-discount">Up to 40% Off</div>
+                    <a href="#" class="category-btn">Shop Now</a>
+                </div>
+            </div>
+            
+            <!-- Accessories -->
+            <div class="category-card">
+                <img src= "Luxary accessories.jpg" alt="Accessories" class="category-image">
+                <div class="category-overlay">
+                    <h3 class="category-title">Luxury Accessories</h3>
+                    <div class="category-discount">Up to 35% Off</div>
+                    <a href="#" class="category-btn">Shop Now</a>
+                </div>
+            </div>
+            
+            <!-- Evening Wear -->
+            <div class="category-card">
+                <img src="evening elegance.webp" alt="Evening Wear" class="category-image">
+                <div class="category-overlay">
+                    <h3 class="category-title">Evening Elegance</h3>
+                    <div class="category-discount">Up to 45% Off</div>
+                    <a href="#" class="category-btn">Shop Now</a>
+                </div>
+            </div>
+            
+            <!-- Bridal Collection -->
+            <div class="category-card">
+                <img src="Bridal Dreams.png" alt="Bridal Collection" class="category-image">
+                <div class="category-overlay">
+                    <h3 class="category-title">Bridal Dreams</h3>
+                    <div class="category-discount">Up to 30% Off</div>
+                    <a href="#" class="category-btn">Shop Now</a>
+                </div>
+            </div>
+            
+            <!-- Summer Essentials - Featured (spans all 3 columns) -->
+            <div class="category-card">
+                <img src="Summer essenstials.webp" alt="Summer Essentials" class="category-image">
+                <div class="category-overlay">
+                    <h3 class="category-title">Summer Essentials</h3>
+                    <div class="category-discount">Up to 60% Off</div>
+                    <a href="#" class="category-btn">Shop Now</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Sale Items -->
+    <section class="featured-sale" id="featured">
+        <div class="featured-container">
+            <h2 class="section-title">Featured Sale Items</h2>
+            
+            <div class="products-grid">
+                <!-- Product 1 -->
+                <div class="product-card">
+                    <div class="product-badge">50% OFF</div>
+                    <img src= "Evening gown.webp" alt="Silk Evening Gown" class="product-image">
+                    <div class="product-info">
+                        <h3 class="product-title">Silk Evening Gown</h3>
+                        <div class="product-price">
+                            <span class="current-price">$149.99</span>
+                            <span class="original-price">$299.99</span>
+                        </div>
+                        <div class="product-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                        <a href="#" class="product-btn">Add to Cart</a>
+                    </div>
+                </div>
+                
+                <!-- Product 2 -->
+                <div class="product-card">
+                    <div class="product-badge">40% OFF</div>
+                    <img src="Mens leather j.webp" alt="Leather Jacket" class="product-image">
+                    <div class="product-info">
+                        <h3 class="product-title">Men's Leather Jacket</h3>
+                        <div class="product-price">
+                            <span class="current-price">$179.99</span>
+                            <span class="original-price">$299.99</span>
+                        </div>
+                        <div class="product-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="far fa-star"></i>
+                        </div>
+                        <a href="#" class="product-btn">Add to Cart</a>
+                    </div>
+                </div>
+                
+                <!-- Product 3 -->
+                <div class="product-card">
+                    <div class="product-badge">35% OFF</div>
+                    <img src="designer handbag.jpg" alt="Designer Handbag" class="product-image">
+                    <div class="product-info">
+                        <h3 class="product-title">Designer Handbag</h3>
+                        <div class="product-price">
+                            <span class="current-price">$259.99</span>
+                            <span class="original-price">$399.99</span>
+                        </div>
+                        <div class="product-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <a href="#" class="product-btn">Add to Cart</a>
+                    </div>
+                </div>
+                
+                <!-- Product 4 -->
+                <div class="product-card">
+                    <div class="product-badge">60% OFF</div>
+                    <img src="Floral dress.webp" alt="Summer Dress" class="product-image">
+                    <div class="product-info">
+                        <h3 class="product-title">Floral Summer Dress</h3>
+                        <div class="product-price">
+                            <span class="current-price">$59.99</span>
+                            <span class="original-price">$149.99</span>
+                        </div>
+                        <div class="product-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                        <a href="#" class="product-btn">Add to Cart</a>
+                    </div>
+                </div>
+                
+                <!-- Product 5 -->
+                <div class="product-card">
+                    <div class="product-badge">45% OFF</div>
+                    <img src="linen suit.jpg" alt="Linen Suit" class="product-image">
+                    <div class="product-info">
+                        <h3 class="product-title">Men's Linen Suit</h3>
+                        <div class="product-price">
+                            <span class="current-price">$219.99</span>
+                            <span class="original-price">$399.99</span>
+                        </div>
+                        <div class="product-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="far fa-star"></i>
+                        </div>
+                        <a href="#" class="product-btn">Add to Cart</a>
+                    </div>
+                </div>
+                
+                <!-- Product 6 -->
+                <div class="product-card">
+                    <div class="product-badge">30% OFF</div>
+                    <img src="printed scarf.webp" alt="Silk Scarf" class="product-image">
+                    <div class="product-info">
+                        <h3 class="product-title">Printed Silk Scarf</h3>
+                        <div class="product-price">
+                            <span class="current-price">$34.99</span>
+                            <span class="original-price">$49.99</span>
+                        </div>
+                        <div class="product-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <a href="#" class="product-btn">Add to Cart</a>
+                    </div>
+                </div>
+                
+                <!-- Product 7 -->
+                <div class="product-card">
+                    <div class="product-badge">55% OFF</div>
+                    <img src="vintage gold.jpg" alt="Vintage Watch" class="product-image">
+                    <div class="product-info">
+                        <h3 class="product-title">Vintage Gold Watch</h3>
+                        <div class="product-price">
+                            <span class="current-price">$189.99</span>
+                            <span class="original-price">$419.99</span>
+                        </div>
+                        <div class="product-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                        <a href="#" class="product-btn">Add to Cart</a>
+                    </div>
+                </div>
+                
+                <!-- Product 8 -->
+                <div class="product-card">
+                    <div class="product-badge">42% OFF</div>
+                    <img src="cashmere sweater.webp" alt="Cashmere Sweater" class="product-image">
+                    <div class="product-info">
+                        <h3 class="product-title">Cashmere Sweater</h3>
+                        <div class="product-price">
+                            <span class="current-price">$139.99</span>
+                            <span class="original-price">$239.99</span>
+                        </div>
+                        <div class="product-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <a href="#" class="product-btn">Add to Cart</a>
+                    </div>
+                </div>
+                
+                <!-- Product 9 -->
+                <div class="product-card">
+                    <div class="product-badge">38% OFF</div>
+                    <img src="sunglasses.jpg" alt="Designer Sunglasses" class="product-image">
+                    <div class="product-info">
+                        <h3 class="product-title">Designer Sunglasses</h3>
+                        <div class="product-price">
+                            <span class="current-price">$124.99</span>
+                            <span class="original-price">$199.99</span>
+                        </div>
+                        <div class="product-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="far fa-star"></i>
+                        </div>
+                        <a href="#" class="product-btn">Add to Cart</a>
+                    </div>
+                </div>
+                
+                <!-- Product 10 -->
+                <div class="product-card">
+                    <div class="product-badge">47% OFF</div>
+                    <img src="pearl necklace.jpg" alt="Pearl Necklace" class="product-image">
+                    <div class="product-info">
+                        <h3 class="product-title">Pearl Necklace Set</h3>
+                        <div class="product-price">
+                            <span class="current-price">$89.99</span>
+                            <span class="original-price">$169.99</span>
+                        </div>
+                        <div class="product-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <a href="#" class="product-btn">Add to Cart</a>
+                    </div>
+                </div>
+                
+                <!-- Product 11 -->
+                <div class="product-card">
+                    <div class="product-badge">52% OFF</div>
+                    <img src="premium business shirt.jfif" alt="Business Shirt" class="product-image">
+                    <div class="product-info">
+                        <h3 class="product-title">Premium Business Shirt</h3>
+                        <div class="product-price">
+                            <span class="current-price">$67.99</span>
+                            <span class="original-price">$139.99</span>
+                        </div>
+                        <div class="product-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                        <a href="#" class="product-btn">Add to Cart</a>
+                    </div>
+                </div>
+                
+                <!-- Product 12 -->
+                <div class="product-card">
+                    <div class="product-badge">33% OFF</div>
+                    <img src="leather ankle boots.jpg" alt="Ankle Boots" class="product-image">
+                    <div class="product-info">
+                        <h3 class="product-title">Leather Ankle Boots</h3>
+                        <div class="product-price">
+                            <span class="current-price">$109.99</span>
+                            <span class="original-price">$164.99</span>
+                        </div>
+                        <div class="product-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="far fa-star"></i>
+                        </div>
+                        <a href="#" class="product-btn">Add to Cart</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Flash Sale Banner -->
+    <section class="flash-sale">
+        <div class="flash-content">
+            <h2>Flash Sale Starts Tomorrow!</h2>
+            <p>Be the first to shop our exclusive 24-hour flash sale with discounts up to 70% on selected items. Set your reminders now!</p>
+            <a href="#" class="btn">Notify Me</a>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="testimonials">
+        <h2 class="section-title">What Our Customers Say</h2>
+        
+        <div class="testimonial-slider">
+            <div class="testimonial active">
+                <img src="https://randomuser.me/api/portraits/women/32.jpg" alt="Sarah J.">
+                <p>"I got the silk evening gown during this sale and it's absolutely stunning! The quality is exceptional and the price was unbelievable. Fashion Bloom never disappoints!"</p>
+                <h4>Sarah J.</h4>
+                <span>Verified Customer</span>
+            </div>
+            
+            <div class="testimonial">
+                <img src="https://randomuser.me/api/portraits/men/45.jpg" alt="Michael T.">
+                <p>"The leather jacket I bought is worth every penny. The craftsmanship is top-notch and the 40% discount made it a steal. Will definitely shop the sales again!"</p>
+                <h4>Michael T.</h4>
+                <span>Verified Customer</span>
+            </div>
+            
+            <div class="testimonial">
+                <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Emily R.">
+                <p>"I've been waiting for this sale to get the designer handbag I've been eyeing. The 35% discount made it possible, and it arrived in perfect condition. So happy!"</p>
+                <h4>Emily R.</h4>
+                <span>Verified Customer</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter -->
+    <section class="newsletter">
+        <h2>Join Our Fashion Circle</h2>
+        <p>Subscribe to get exclusive sale alerts, early access to promotions, and a special 10% off your first order.</p>
+        <form class="newsletter-form">
+            <input type="email" placeholder="Your email address" required>
+            <button type="submit">Subscribe</button>
+        </form>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>Shop</h3>
+                <ul>
+                    <li><a href="#">Women's Collection</a></li>
+                    <li><a href="#">Men's Collection</a></li>
+                    <li><a href="#">Accessories</a></li>
+                    <li><a href="#">New Arrivals</a></li>
+                    <li><a href="Sales.html">Sale Items</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Customer Service</h3>
+                <ul>
+                    <li><a href="#">Contact Us</a></li>
+                    <li><a href="#">FAQs</a></li>
+                    <li><a href="#">Shipping & Returns</a></li>
+                    <li><a href="#">Size Guide</a></li>
+                    <li><a href="#">Track Order</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>About Fashion Bloom</h3>
+                <ul>
+                    <li><a href="#">Our Story</a></li>
+                    <li><a href="#">Sustainability</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="#">Press</a></li>
+                    <li><a href="#">Store Locations</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="social-links">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-pinterest"></i></a>
+            <a href="#"><i class="fab fa-youtube"></i></a>
+        </div>
+        
+        <div class="copyright">
+            <p>&copy; 2025 Fashion Bloom. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- POPUP MODAL START -->
+    <div class="popup-overlay" id="popup" style="display: none;">
+        <div class="popup-content">
+            <button class="close-popup" onclick="closePopup()">✖</button>
+            <div class="popup-slideshow">
+                <img class="popup-slide-bg active" src="https://images.unsplash.com/photo-1542272604-787c3835535d?auto=format&fit=crop&w=800&q=80"/>
+                <img class="popup-slide-bg" src="https://images.unsplash.com/photo-1542272604-787c3835535d?auto=format&fit=crop&w=800&q=80"/>
+                <img class="popup-slide active" src="https://images.unsplash.com/photo-1542272604-787c3835535d?auto=format&fit=crop&w=800&q=80"/>
+                <img class="popup-slide" src="https://images.unsplash.com/photo-1542272604-787c3835535d?auto=format&fit=crop&w=800&q=80"/>
+            </div>
+            <div class="popup-info">
+                <h3>Product Name</h3>
+                <p>$0.00</p>
+                <a class="btn" href="#">Add to Cart</a>
+            </div>
+        </div>
+    </div>
+    <!-- POPUP MODAL END -->
+
+    <script>
+        // Performance optimized variables
+        let sparklePool = [];
+        let activeSparkles = 0;
+        const maxSparkles = 20;
+        let popupInterval;
+        let sparkleLoop;
+        let testimonialInterval;
+        let currentTestimonial = 0;
+        
+        // Optimized countdown timer
+        function updateCountdown() {
+            const now = new Date();
+            const endDate = new Date();
+            endDate.setDate(now.getDate() + 7);
+            endDate.setHours(23, 45, 0, 0);
+            
+            const diff = endDate - now;
+            
+            if (diff <= 0) {
+                document.getElementById('days').textContent = '00';
+                document.getElementById('hours').textContent = '00';
+                document.getElementById('minutes').textContent = '00';
+                document.getElementById('seconds').textContent = '00';
+                return;
+            }
+            
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+            
+            document.getElementById('days').textContent = days.toString().padStart(2, '0');
+            document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
+            document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
+            document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
+        }
+        
+        // Optimized testimonial slider
+        function showTestimonial(index) {
+            const testimonials = document.querySelectorAll('.testimonial');
+            testimonials.forEach((testimonial, i) => {
+                testimonial.classList.toggle('active', i === index);
+            });
+            currentTestimonial = index;
+        }
+        
+        function nextTestimonial() {
+            const testimonials = document.querySelectorAll('.testimonial');
+            const nextIndex = (currentTestimonial + 1) % testimonials.length;
+            showTestimonial(nextIndex);
+        }
+        
+        // Optimized sparkle creation with object pooling
+        function createSparkle(x, y, options = {}) {
+            if (activeSparkles >= maxSparkles) return;
+            
+            let sparkle;
+            if (sparklePool.length > 0) {
+                sparkle = sparklePool.pop();
+            } else {
+                sparkle = document.createElement('div');
+                sparkle.className = 'sparkle-click';
+            }
+            
+            const size = options.size || (4 + Math.random() * 8);
+            sparkle.style.left = x + 'px';
+            sparkle.style.top = y + 'px';
+            sparkle.style.width = size + 'px';
+            sparkle.style.height = size + 'px';
+            sparkle.style.background = options.color || 'var(--gold)';
+            sparkle.style.animationDelay = (options.delay || Math.random() * 0.3) + 's';
+            
+            document.body.appendChild(sparkle);
+            activeSparkles++;
+            
+            setTimeout(() => {
+                if (sparkle.parentNode) {
+                    sparkle.parentNode.removeChild(sparkle);
+                    sparklePool.push(sparkle);
+                    activeSparkles--;
+                }
+            }, 600);
+        }
+        
+        // Optimized click effects - reduced frequency
+        function handleClick(e) {
+            // Only create sparkles for specific elements to reduce lag
+            const target = e.target;
+            if (target.closest('.category-btn') || target.closest('.product-btn') || target.closest('nav a')) {
+                const sparkleCount = Math.min(5, Math.random() * 8);
+                for (let i = 0; i < sparkleCount; i++) {
+                    setTimeout(() => {
+                        createSparkle(
+                            e.clientX + (Math.random() * 40 - 20),
+                            e.clientY + (Math.random() * 40 - 20),
+                            {
+                                delay: Math.random() * 0.2,
+                                size: 3 + Math.random() * 6,
+                                color: Math.random() > 0.5 ? 'var(--gold)' : 'var(--light-gold)'
+                            }
+                        );
+                    }, i * 50);
+                }
+            }
+        }
+        
+        // Optimized floating sparkles - much reduced frequency
+        function createFloatingSparkle() {
+            if (activeSparkles >= maxSparkles || Math.random() > 0.3) return;
+            
+            const sparkle = document.createElement('div');
+            sparkle.className = 'floating-sparkle';
+            sparkle.style.left = Math.random() * window.innerWidth + 'px';
+            sparkle.style.top = Math.random() * window.innerHeight + 'px';
+            
+            const size = 3 + Math.random() * 3;
+            sparkle.style.width = size + 'px';
+            sparkle.style.height = size + 'px';
+            
+            document.body.appendChild(sparkle);
+            activeSparkles++;
+            
+            setTimeout(() => {
+                if (sparkle.parentNode) {
+                    sparkle.parentNode.removeChild(sparkle);
+                    activeSparkles--;
+                }
+            }, 4000);
+        }
+        
+        // Category button handlers
+        function setupCategoryButtons() {
+            document.querySelectorAll('.category-btn').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    
+                    // Smooth scroll to featured section
+                    setTimeout(() => {
+                        const featuredSection = document.getElementById('featured');
+                        if (featuredSection) {
+                            featuredSection.scrollIntoView({
+                                behavior: 'smooth',
+                                block: 'start'
+                            });
+                        }
+                    }, 100);
+                });
+            });
+        }
+        
+        // Product button handlers with popup
+        function setupProductButtons() {
+            document.querySelectorAll('.product-btn').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    
+                    const productCard = button.closest('.product-card');
+                    if (productCard) {
+                        openProductPopup(productCard);
+                    }
+                });
+            });
+        }
+        
+        // Optimized popup functionality
+        function openProductPopup(productCard) {
+            const popup = document.getElementById('popup');
+            const popupInfo = popup.querySelector('.popup-info');
+            
+            // Get product details
+            const productName = productCard.querySelector('.product-title')?.textContent.trim() || 'Product';
+            const currentPrice = productCard.querySelector('.current-price')?.textContent.trim() || '$0.00';
+            const originalPrice = productCard.querySelector('.original-price')?.textContent.trim();
+            
+            let priceHTML = currentPrice;
+            if (originalPrice) {
+                priceHTML = `${currentPrice} <del>${originalPrice}</del>`;
+            }
+            
+            // Update popup content
+            popupInfo.querySelector('h3').textContent = productName;
+            popupInfo.querySelector('p').innerHTML = priceHTML;
+            
+            // Set product image
+            const productImage = productCard.querySelector('.product-image');
+            if (productImage) {
+                const popupSlides = popup.querySelectorAll('.popup-slide');
+                const popupSlideBgs = popup.querySelectorAll('.popup-slide-bg');
+                
+                popupSlides.forEach(slide => slide.src = productImage.src);
+                popupSlideBgs.forEach(slide => slide.src = productImage.src);
+            }
+            
+            // Show popup
+            popup.style.display = 'flex';
+            
+            // Start reduced sparkle animation
+            clearInterval(sparkleLoop);
+            sparkleLoop = setInterval(createPopupSparkle, 300); // Reduced frequency
+        }
+        
+        function closePopup() {
+            const popup = document.getElementById('popup');
+            popup.style.display = 'none';
+            clearInterval(popupInterval);
+            clearInterval(sparkleLoop);
+        }
+        
+        // Optimized popup sparkles
+        function createPopupSparkle() {
+            if (activeSparkles >= maxSparkles) return;
+            
+            const sparkle = document.createElement('div');
+            sparkle.className = 'popup-sparkle';
+            const popupBox = document.querySelector('.popup-content');
+            const overlay = document.querySelector('.popup-overlay');
+            
+            if (!popupBox || !overlay) return;
+            
+            const bounds = popupBox.getBoundingClientRect();
+            const side = Math.floor(Math.random() * 4);
+            let x = 0, y = 0;
+            const offset = 10 + Math.random() * 20;
+            
+            switch(side) {
+                case 0: x = bounds.left + Math.random() * bounds.width; y = bounds.top - offset; break;
+                case 1: x = bounds.right + offset; y = bounds.top + Math.random() * bounds.height; break;
+                case 2: x = bounds.left + Math.random() * bounds.width; y = bounds.bottom + offset; break;
+                case 3: x = bounds.left - offset; y = bounds.top + Math.random() * bounds.height; break;
+            }
+            
+            sparkle.style.left = x + 'px';
+            sparkle.style.top = y + 'px';
+            
+            const size = 5 + Math.random() * 4;
+            sparkle.style.width = size + 'px';
+            sparkle.style.height = size + 'px';
+            
+            overlay.appendChild(sparkle);
+            activeSparkles++;
+            
+            setTimeout(() => {
+                if (sparkle.parentNode) {
+                    sparkle.parentNode.removeChild(sparkle);
+                    activeSparkles--;
+                }
+            }, 2500);
+        }
+        
+        // Optimized scroll animations with throttling
+        let scrollTimeout;
+        function handleScroll() {
+            if (scrollTimeout) return;
+            scrollTimeout = setTimeout(() => {
+                const scrolled = window.pageYOffset;
+                const hero = document.querySelector('.sale-hero');
+                if (hero && scrolled < window.innerHeight) {
+                    hero.style.transform = `translateY(${scrolled * 0.2}px)`;
+                }
+                scrollTimeout = null;
+            }, 16); // ~60fps
+        }
+        
+        // Optimized intersection observer
+        function setupScrollAnimations() {
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.1
+            };
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                        observer.unobserve(entry.target); // Stop observing once animated
+                    }
+                });
+            }, observerOptions);
+            
+            // Observe cards with staggered animation setup
+            document.querySelectorAll('.category-card, .product-card').forEach((card, index) => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                card.style.transition = `opacity 0.6s ease ${Math.min(index * 0.1, 1)}s, transform 0.6s ease ${Math.min(index * 0.1, 1)}s`;
+                observer.observe(card);
+            });
+        }
+        
+        // Initialize everything when DOM is loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            // Start timers
+            setInterval(updateCountdown, 1000);
+            updateCountdown();
+            
+            testimonialInterval = setInterval(nextTestimonial, 5000);
+            
+            // Setup event handlers
+            setupCategoryButtons();
+            setupProductButtons();
+            setupScrollAnimations();
+            
+            // Add optimized event listeners
+            document.addEventListener('click', handleClick);
+            window.addEventListener('scroll', handleScroll, { passive: true });
+            
+            // Close popup handlers
+            const popup = document.getElementById('popup');
+            popup.addEventListener('click', (e) => {
+                if (e.target === popup) closePopup();
+            });
+            
+            // Reduced floating sparkles - much less frequent
+            setInterval(createFloatingSparkle, 2000); // Much less frequent
+            
+            // Initial sparkles
+            for (let i = 0; i < 3; i++) {
+                setTimeout(createFloatingSparkle, Math.random() * 1000);
+            }
+        });
+        
+        // Cleanup on page unload
+        window.addEventListener('beforeunload', () => {
+            clearInterval(testimonialInterval);
+            clearInterval(popupInterval);
+            clearInterval(sparkleLoop);
+        });
+    </script>
+</body>
+</html>
