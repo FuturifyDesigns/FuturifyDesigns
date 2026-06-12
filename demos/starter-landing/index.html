@@ -65,7 +65,7 @@
         }
         
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        html { scroll-behavior: smooth; }
+        html { scroll-behavior: smooth; scroll-padding-top: var(--nav-height); }
         body { font-family: 'DM Sans', sans-serif; font-size: 16px; line-height: 1.6; color: var(--text); background: var(--bg); }
         img { max-width: 100%; height: auto; display: block; }
         a { text-decoration: none; color: inherit; }
@@ -527,11 +527,39 @@
             .footer-grid { grid-template-columns: 1fr 1fr; }
         }
         
-        @media (max-width: 768px) {
+
+        .nav-menu.active {
+            display: flex !important;
+            position: fixed;
+            top: var(--nav-height);
+            left: 0;
+            right: 0;
+            flex-direction: column;
+            gap: 0;
+            background: white;
+            padding: 16px 24px 24px;
+            box-shadow: 0 12px 30px rgba(0,0,0,0.12);
+            z-index: 999;
+        }
+        .nav-menu.active .nav-link {
+            padding: 14px 0;
+            border-bottom: 1px solid var(--border);
+            width: 100%;
+        }
+        .nav-menu.active .nav-cta {
+            margin-top: 16px;
+            text-align: center;
+            justify-content: center;
+        }
+
+        @media (max-width: 1024px) {
             .nav-menu { display: none; }
             .nav-cta { display: none; }
             .nav-toggle { display: block; }
-            .hero { padding: 100px 0 60px; min-height: auto; }
+        }
+
+        @media (max-width: 768px) {
+            .hero { padding: calc(var(--nav-height) + 32px) 0 60px; min-height: auto; }
             .hero-image { height: 350px; }
             .features-grid { grid-template-columns: 1fr; }
             .about-img { height: 350px; }
@@ -862,5 +890,21 @@
             </div>
         </div>
     </footer>
+
+    <script>
+        (function() {
+            const toggle = document.querySelector('.nav-toggle');
+            const menu = document.querySelector('.nav-menu');
+            if (!toggle || !menu) return;
+            toggle.addEventListener('click', function() {
+                menu.classList.toggle('active');
+            });
+            menu.querySelectorAll('a').forEach(function(link) {
+                link.addEventListener('click', function() {
+                    menu.classList.remove('active');
+                });
+            });
+        })();
+    </script>
 </body>
 </html>

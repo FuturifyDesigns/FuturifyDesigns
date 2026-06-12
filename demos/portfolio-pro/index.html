@@ -71,10 +71,11 @@
             --shadow: 0 4px 20px rgba(0,0,0,0.08);    /* Subtle shadow */
             --shadow-lg: 0 20px 40px rgba(0,0,0,0.12); /* Larger shadow */
             --radius: 16px;           /* Border radius for cards */
+            --nav-height: 68px;
             --transition: all 0.4s ease; /* Animation speed */
         }
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-        html { scroll-behavior: smooth; overflow-x: hidden; }
+        html { scroll-behavior: smooth; overflow-x: hidden; scroll-padding-top: var(--nav-height); }
         body { font-family: 'Sora', sans-serif; font-size: 16px; line-height: 1.7; color: var(--text); background: var(--bg); overflow-x: hidden; -webkit-tap-highlight-color: transparent; }
         img { max-width: 100%; height: auto; display: block; }
         a { text-decoration: none; color: inherit; transition: var(--transition); }
@@ -168,7 +169,7 @@
             overflow: hidden;
         }
 
-        @media (max-width: 768px) {
+        @media (max-width: 1024px) {
             .nav-menu { display: none; }
             .nav-cta { display: none; }
             .nav-toggle { display: flex; }
@@ -269,7 +270,7 @@
         }
         @media (max-width: 768px) {
             .container { padding: 0 16px; }
-            .hero { min-height: auto; padding: 100px 0 60px; }
+            .hero { min-height: auto; padding: calc(var(--nav-height) + 32px) 0 60px; }
             .hero-title { font-size: 32px; }
             .hero-desc { font-size: 15px; }
             .hero-buttons { flex-direction: column; width: 100%; }

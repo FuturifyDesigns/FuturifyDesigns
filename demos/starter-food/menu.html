@@ -24,7 +24,7 @@
         .nav-btn { background: var(--primary); color: #fff !important; padding: 12px 25px; }
         .mobile-menu { display: none; background: none; border: none; font-size: 24px; cursor: pointer; color: var(--dark); padding: 5px; z-index: 1001; }
         
-        .page-header { padding: 160px 0 80px; background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=1400&h=600&fit=crop') center/cover; text-align: center; color: #fff; }
+        .page-header { padding: calc(var(--nav-height) + 98px) 0 80px; background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=1400&h=600&fit=crop') center/cover; text-align: center; color: #fff; }
         .page-header h1 { font-family: 'Cormorant Garamond', serif; font-size: 56px; font-weight: 700; margin-bottom: 15px; }
         .page-header p { font-size: 18px; opacity: 0.9; }
         
@@ -64,12 +64,12 @@
             .footer-content { grid-template-columns: repeat(2, 1fr); }
         }
         @media (max-width: 768px) {
-            .nav-links { display: none; position: fixed; top: 70px; left: 0; right: 0; background: #fff; flex-direction: column; padding: 30px 20px; gap: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); max-height: calc(100vh - 70px); overflow-y: auto; }
+            .nav-links { display: none; position: fixed; top: var(--nav-height); left: 0; right: 0; background: #fff; flex-direction: column; padding: 30px 20px; gap: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); max-height: calc(100vh - 70px); overflow-y: auto; }
             .nav-links.active { display: flex; }
             .nav-links a { width: 100%; padding: 10px 0; font-size: 16px; }
             .mobile-menu { display: block; }
             .page-header h1 { font-size: 36px; }
-            .page-header { padding: 140px 0 60px; }
+            .page-header { padding: calc(var(--nav-height) + 78px) 0 60px; }
             .section { padding: 60px 0; }
             .category-title { font-size: 28px; }
             .menu-item { flex-direction: column; }
