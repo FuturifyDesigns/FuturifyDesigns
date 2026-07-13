@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+    <meta http-equiv="Permissions-Policy" content="geolocation=(), microphone=(), camera=(), payment=()">
+    <script src="/js/security.js" defer></script>
+
+    <title>Page Not Found — Futurify Designs</title>
+    <meta name="description" content="The page you're looking for doesn't exist. Return to Futurify Designs.">
+    <link rel="icon" href="/favicon.ico" sizes="48x48">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png">
+    <link rel="apple-touch-icon" href="/logo-512.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --bg: #060606;
+            --fg: #f2ede5;
+            --accent: #c8f135;
+            --muted: rgba(242,237,229,0.38);
+            --dim: rgba(242,237,229,0.12);
+            --ease: cubic-bezier(0.76,0,0.24,1);
+        }
+        *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+        html { scroll-behavior:smooth; }
+        body {
+            min-height:100vh;
+            background:var(--bg);
+            color:var(--fg);
+            font-family:'Syne',sans-serif;
+            overflow-x:hidden;
+        }
+        a { color:inherit; text-decoration:none; }
+        ::selection { background:var(--accent); color:var(--bg); }
+
+        #bgCanvas {
+            position:fixed;
+            inset:0;
+            z-index:0;
+            pointer-events:none;
+        }
+
+        #grain {
+            position:fixed;
+            inset:0;
+            z-index:1;
+            pointer-events:none;
+            opacity:.035;
+            background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E");
+            background-size:200px;
+        }
+
+        nav {
+            position:fixed;
+            top:0;
+            left:0;
+            width:100%;
+            padding:22px 48px;
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            z-index:100;
+            background:rgba(6,6,6,0.6);
+            backdrop-filter:blur(14px);
+            -webkit-backdrop-filter:blur(14px);
+            border-bottom:1px solid var(--dim);
+        }
+        .nav-logo {
+            font-weight:800;
+            font-size:20px;
+            letter-spacing:.04em;
+        }
+        .nav-links {
+            display:flex;
+            gap:32px;
+            list-style:none;
+        }
+        .nav-links a {
+            font-family:'DM Mono',monospace;
+            font-size:13px;
+            color:var(--muted);
+            letter-spacing:.06em;
+            text-transform:uppercase;
+            transition:color .3s;
+        }
+        .nav-links a:hover { color:var(--fg); }
+
+        main {
+            position:relative;
+            z-index:2;
+            min-height:100vh;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            padding:120px clamp(24px,6vw,80px) 80px;
+        }
+
+        .content {
+            width:100%;
+            max-width:760px;
+            text-align:center;
+        }
+
+        .label {
+            font-family:'DM Mono',monospace;
+            font-size:clamp(10px,1.1vw,13px);
+            color:var(--muted);
+            letter-spacing:.16em;
+            text-transform:uppercase;
+            margin-bottom:24px;
+        }
+        .label span { color:var(--accent); }
+
+        .code {
+            font-weight:800;
+            font-size:clamp(96px,22vw,220px);
+            line-height:.9;
+            letter-spacing:-.05em;
+            color:transparent;
+            -webkit-text-stroke:1.5px rgba(242,237,229,0.18);
+            margin-bottom:8px;
+            position:relative;
+        }
+        .code::after {
+            content:'404';
+            position:absolute;
+            inset:0;
+            color:var(--accent);
+            opacity:.12;
+            transform:translate(8px,8px);
+            -webkit-text-stroke:0;
+        }
+
+        h1 {
+            font-weight:800;
+            font-size:clamp(28px,5vw,56px);
+            letter-spacing:-.03em;
+            line-height:1.05;
+            margin-bottom:20px;
+        }
+
+        .desc {
+            font-family:'DM Mono',monospace;
+            font-size:clamp(13px,1.2vw,15px);
+            color:var(--muted);
+            line-height:1.8;
+            max-width:520px;
+            margin:0 auto 12px;
+        }
+
+        .path {
+            display:inline-block;
+            margin:20px auto 36px;
+            padding:10px 16px;
+            border:1px solid var(--dim);
+            font-family:'DM Mono',monospace;
+            font-size:clamp(11px,1vw,12px);
+            color:var(--muted);
+            letter-spacing:.04em;
+            word-break:break-all;
+            max-width:100%;
+        }
+        .path strong { color:var(--fg); font-weight:400; }
+
+        .actions {
+            display:flex;
+            gap:14px;
+            justify-content:center;
+            flex-wrap:wrap;
+            margin-bottom:48px;
+        }
+
+        .btn {
+            display:inline-flex;
+            align-items:center;
+            gap:10px;
+            font-family:'Syne',sans-serif;
+            font-weight:700;
+            font-size:14px;
+            letter-spacing:.04em;
+            text-transform:uppercase;
+            padding:14px 28px;
+            transition:all .35s var(--ease);
+            position:relative;
+            overflow:hidden;
+        }
+        .btn-primary {
+            background:var(--accent);
+            color:var(--bg);
+        }
+        .btn-primary::before {
+            content:'';
+            position:absolute;
+            inset:0;
+            background:var(--fg);
+            transform:translateX(-101%);
+            transition:transform .4s var(--ease);
+        }
+        .btn-primary:hover::before { transform:translateX(0); }
+        .btn-primary span,
+        .btn-primary i { position:relative; z-index:1; }
+        .btn-primary i { transition:transform .3s; }
+        .btn-primary:hover i { transform:translateX(4px); }
+
+        .btn-ghost {
+            border:1px solid var(--dim);
+            color:var(--fg);
+        }
+        .btn-ghost:hover {
+            border-color:var(--accent);
+            color:var(--accent);
+        }
+
+        .quick-links {
+            display:flex;
+            gap:clamp(16px,3vw,32px);
+            justify-content:center;
+            flex-wrap:wrap;
+        }
+        .quick-links a {
+            font-family:'DM Mono',monospace;
+            font-size:12px;
+            color:var(--muted);
+            letter-spacing:.08em;
+            text-transform:uppercase;
+            transition:color .3s;
+        }
+        .quick-links a:hover { color:var(--accent); }
+
+        @media (max-width:900px) {
+            nav { padding:16px 20px; }
+            .nav-links { display:none; }
+        }
+    </style>
+</head>
+<body>
+    <canvas id="bgCanvas"></canvas>
+    <div id="grain"></div>
+
+    <nav>
+        <a href="/home%20f.html" class="nav-logo">Futurify</a>
+        <ul class="nav-links">
+            <li><a href="/home%20f.html">Home</a></li>
+            <li><a href="/portfolio%20f.html">Portfolio</a></li>
+            <li><a href="/pricing%20f.html">Pricing</a></li>
+            <li><a href="/about%20f.html">About</a></li>
+            <li><a href="/contact%20f.html">Contact</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <div class="content">
+            <div class="label">✦ <span>Error</span> — Page Not Found</div>
+            <div class="code" aria-hidden="true">404</div>
+            <h1>This page drifted off course</h1>
+            <p class="desc">The link may be broken, the page may have moved, or the URL was typed incorrectly. Let's get you back on track.</p>
+            <div class="path" id="missingPath" hidden><strong>Requested:</strong> <span id="pathValue"></span></div>
+            <div class="actions">
+                <a href="/home%20f.html" class="btn btn-primary"><span>Back to Home</span><i class="fas fa-arrow-right"></i></a>
+                <a href="/portfolio%20f.html" class="btn btn-ghost">View Portfolio</a>
+            </div>
+            <div class="quick-links">
+                <a href="/pricing%20f.html">Pricing</a>
+                <a href="/about%20f.html">About</a>
+                <a href="/contact%20f.html">Contact</a>
+                <a href="/templates.html">Templates</a>
+            </div>
+        </div>
+    </main>
+
+    <script>
+    (function () {
+        'use strict';
+
+        var path = window.location.pathname + window.location.search + window.location.hash;
+        if (path && path !== '/' && path !== '/404.html') {
+            var pathEl = document.getElementById('missingPath');
+            var valueEl = document.getElementById('pathValue');
+            if (pathEl && valueEl) {
+                valueEl.textContent = path;
+                pathEl.hidden = false;
+            }
+        }
+
+        var canvas = document.getElementById('bgCanvas');
+        if (!canvas) return;
+        var ctx = canvas.getContext('2d');
+        var particles = [];
+        var w, h, mouse = { x: -9999, y: -9999 };
+
+        function resize() {
+            w = canvas.width = window.innerWidth;
+            h = canvas.height = window.innerHeight;
+        }
+
+        function seed() {
+            particles = [];
+            var count = Math.min(90, Math.floor((w * h) / 18000));
+            for (var i = 0; i < count; i++) {
+                particles.push({
+                    x: Math.random() * w,
+                    y: Math.random() * h,
+                    vx: (Math.random() - 0.5) * 0.35,
+                    vy: (Math.random() - 0.5) * 0.35,
+                    r: Math.random() * 1.4 + 0.4
+                });
+            }
+        }
+
+        function draw() {
+            ctx.clearRect(0, 0, w, h);
+            ctx.fillStyle = 'rgba(200,241,53,0.55)';
+            for (var i = 0; i < particles.length; i++) {
+                var p = particles[i];
+                p.x += p.vx;
+                p.y += p.vy;
+                if (p.x < 0 || p.x > w) p.vx *= -1;
+                if (p.y < 0 || p.y > h) p.vy *= -1;
+
+                var dx = mouse.x - p.x;
+                var dy = mouse.y - p.y;
+                var dist = Math.sqrt(dx * dx + dy * dy);
+                if (dist < 120) {
+                    p.x -= dx * 0.015;
+                    p.y -= dy * 0.015;
+                }
+
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+                ctx.fill();
+            }
+            requestAnimationFrame(draw);
+        }
+
+        resize();
+        seed();
+        draw();
+        window.addEventListener('resize', function () {
+            resize();
+            seed();
+        });
+        window.addEventListener('mousemove', function (e) {
+            mouse.x = e.clientX;
+            mouse.y = e.clientY;
+        });
+    })();
+    </script>
+</body>
+</html>
