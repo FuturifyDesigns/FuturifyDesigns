@@ -118,6 +118,8 @@ nav{position:fixed;top:0;left:0;width:100%;padding:22px 48px;display:flex;justif
 .section-title{font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(20px,2.5vw,28px);margin-bottom:24px;}
 .app-dev-card{border-color:rgba(200,241,53,0.2);}
 .app-dev-card::before{content:'';position:absolute;top:0;left:0;width:100%;height:3px;background:linear-gradient(90deg,var(--accent),transparent);}
+.budget-card{border-color:rgba(200,241,53,0.2);}
+.budget-card::before{content:'';position:absolute;top:0;left:0;width:100%;height:3px;background:linear-gradient(90deg,var(--accent),transparent);}
 
 /* ADDONS */
 .addons-section{max-width:1200px;margin:0 auto 60px;padding:0 clamp(24px,6vw,80px);}
@@ -401,8 +403,8 @@ footer{border-top:1px solid var(--dim);padding:clamp(44px,6vh,72px) clamp(22px,4
     <!-- Section label marquee -->
     <div class="section-label-wrap">
         <div class="section-label-track" id="pricingMarquee">
-            <span>Web Development</span><span class="accent">✦</span><span>Custom Sites</span><span class="accent">↗</span><span>Templates</span><span class="accent">◈</span><span>App Development</span><span class="accent">⊕</span>
-            <span>Web Development</span><span class="accent">✦</span><span>Custom Sites</span><span class="accent">↗</span><span>Templates</span><span class="accent">◈</span><span>App Development</span><span class="accent">⊕</span>
+            <span>Web Development</span><span class="accent">✦</span><span>Custom Sites</span><span class="accent">↗</span><span>Your Budget</span><span class="accent">◈</span><span>App Development</span><span class="accent">⊕</span>
+            <span>Web Development</span><span class="accent">✦</span><span>Custom Sites</span><span class="accent">↗</span><span>Your Budget</span><span class="accent">◈</span><span>App Development</span><span class="accent">⊕</span>
         </div>
     </div>
 
@@ -411,7 +413,7 @@ footer{border-top:1px solid var(--dim);padding:clamp(44px,6vh,72px) clamp(22px,4
             <div class="package-name">Starter Custom Site</div>
             <div class="package-description">Perfect for small businesses and startups looking to establish their online presence.</div>
             <div class="price-section"><div class="price-label">One-time Setup</div><div class="price" data-min="2200" data-max="2800"><span class="currency-symbol">P</span><span class="price-value">2,200 - 2,800</span></div></div>
-            <div class="recurring-prices"><div class="recurring-item"><span class="recurring-label">Hosting & Maintenance /mo:</span><span class="recurring-price" data-min="350" data-max="350"><span class="currency-symbol">P</span><span class="price-value">350</span></span></div></div>
+            <div class="recurring-prices"><div class="recurring-item"><span class="recurring-label">Hosting & Maintenance /mo:</span><span class="recurring-price" data-min="100" data-max="100"><span class="currency-symbol">P</span><span class="price-value">100</span></span></div></div>
             <ul class="features-list"><li>Custom site</li><li>Domain included</li><li>3-5 responsive pages</li><li>Mobile friendly design</li><li>Contact form integration</li><li>Basic SEO setup</li><li>Social media links</li><li>SSL certificate included</li></ul>
             <a href="#" class="cta-button" onclick="selectPackage('starter',2200,2800,event)">Get Started</a>
         </div>
@@ -420,26 +422,22 @@ footer{border-top:1px solid var(--dim);padding:clamp(44px,6vh,72px) clamp(22px,4
             <div class="package-name">Business Custom Site</div>
             <div class="package-description">Ideal for growing businesses that need more functionality and professional features.</div>
             <div class="price-section"><div class="price-label">One-time Setup</div><div class="price" data-min="4000" data-max="5000"><span class="currency-symbol">P</span><span class="price-value">4,000 - 5,000</span></div></div>
-            <div class="recurring-prices"><div class="recurring-item"><span class="recurring-label">Hosting & Maintenance /mo:</span><span class="recurring-price" data-min="400" data-max="400"><span class="currency-symbol">P</span><span class="price-value">400</span></span></div></div>
+            <div class="recurring-prices"><div class="recurring-item"><span class="recurring-label">Hosting & Maintenance /mo:</span><span class="recurring-price" data-min="150" data-max="150"><span class="currency-symbol">P</span><span class="price-value">150</span></span></div></div>
             <ul class="features-list"><li>Custom site</li><li>Domain included</li><li>6-10 responsive pages</li><li>Admin dashboard for content management</li><li>Advanced SEO optimization</li><li>Blog/News section</li><li>Google Maps integration</li><li>Analytics setup</li><li>Contact forms & email integration</li></ul>
             <a href="#" class="cta-button" onclick="selectPackage('business',4000,5000,event)">Get Started</a>
         </div>
+    </div>
 
-        <div class="pricing-card reveal-card">
-            <div class="package-name">Website Templates</div>
-            <div class="package-description">Ready made, professional templates. Customize yourself or let us do it for you.</div>
-            <div class="price-section"><div class="price-label">DIY Download</div><div class="price"><span class="currency-symbol">P</span><span class="price-value">150 - 350</span></div></div>
-            <div class="recurring-prices"><div class="recurring-item"><span class="recurring-label">Done-For-You:</span><span class="recurring-price"><span class="currency-symbol">P</span><span class="price-value">800 - 1,500</span></span></div></div>
-            <ul class="features-list"><li>5 premium templates</li><li>1-5 pages per template</li><li>Mobile responsive</li><li>Easy to customize</li><li>Instant download (DIY)</li><li>Full customization available</li></ul>
-            <a href="templates.html" class="cta-button">Browse Templates</a>
-        </div>
+    <div class="section-divider reveal"></div>
 
-        <div class="pricing-card reveal-card">
-            <div class="package-name">Custom Project</div>
-            <div class="package-description">Have something unique in mind? Let us create a tailored solution just for you.</div>
-            <div class="price-section"><div class="price-label">Pricing</div><div class="price custom-price">Contact for Quote</div></div>
-            <ul class="features-list"><li>Tailored to your exact needs</li><li>Detailed project analysis</li><li>Custom feature development</li><li>Flexible scope & timeline</li><li>Third party integrations</li><li>Specialized functionality</li><li>Transparent pricing breakdown</li><li>Ongoing support options</li></ul>
-            <a href="#" class="cta-button" onclick="selectPackage('custom',0,0,event)">Discuss Your Project</a>
+    <!-- Budget -->
+    <div class="app-dev-section">
+        <div class="pricing-card budget-card reveal-card">
+            <div class="package-name">Prices Too Much for You?</div>
+            <div class="package-description">No problem — tell us what you can afford and we'll build a plan that works for your budget.</div>
+            <div class="price-section"><div class="price-label">Pricing</div><div class="price custom-price">Give Us Your Budget</div></div>
+            <ul class="features-list"><li>Flexible scope tailored to your budget</li><li>Honest advice on what's possible</li><li>Phased delivery options</li><li>Essential features prioritized</li><li>Room to grow over time</li><li>No pressure — just a conversation</li></ul>
+            <a href="#" class="cta-button" onclick="selectPackage('budget',0,0,event)">Share Your Budget</a>
         </div>
     </div>
 
@@ -452,21 +450,9 @@ footer{border-top:1px solid var(--dim);padding:clamp(44px,6vh,72px) clamp(22px,4
             <div class="package-name">Mobile App Development</div>
             <div class="package-description">From concept to launch — we develop your app and publish it to the Google Play Store.</div>
             <div class="price-section"><div class="price-label">Starting From</div><div class="price" data-min="4000" data-max="8000"><span class="currency-symbol">P</span><span class="price-value">4,000 - 8,000</span></div></div>
-            <div class="recurring-prices"><div class="recurring-item"><span class="recurring-label">Maintenance & Support /mo:</span><span class="recurring-price" data-min="300" data-max="300"><span class="currency-symbol">P</span><span class="price-value">300</span></span></div></div>
+            <div class="recurring-prices"><div class="recurring-item"><span class="recurring-label">Maintenance & Support /mo:</span><span class="recurring-price" data-min="200" data-max="200"><span class="currency-symbol">P</span><span class="price-value">200</span></span></div></div>
             <ul class="features-list"><li>Cross-platform app (Android & iOS)</li><li>Custom UI/UX design</li><li>User authentication & profiles</li><li>Push notifications</li><li>Database & API integration</li><li>Payment gateway integration</li><li>Admin dashboard / backend panel</li><li>Published to Google Play Store</li><li>App Store submission support</li><li>Post-launch bug fixes & support</li></ul>
             <a href="#" class="cta-button" onclick="selectPackage('appdev',4000,8000,event)">Discuss Your App</a>
-        </div>
-    </div>
-
-    <div class="section-divider reveal"></div>
-
-    <!-- Addons -->
-    <div class="addons-section">
-        <h2 class="addons-title">Optional Add-ons</h2>
-        <div class="addons-grid">
-            <div class="addon-item reveal"><div class="addon-name">Google Business Setup</div><div class="addon-price" data-min="300" data-max="300"><span class="currency-symbol">P</span><span class="price-value">300</span></div></div>
-            <div class="addon-item reveal"><div class="addon-name">Content Writing & Branding</div><div class="addon-price" data-min="250" data-max="250"><span class="currency-symbol">P</span><span class="price-value">250</span></div></div>
-            <div class="addon-item reveal"><div class="addon-name">Logo & Graphics Design</div><div class="addon-price" data-min="200" data-max="200"><span class="currency-symbol">P</span><span class="price-value">200</span></div></div>
         </div>
     </div>
 
@@ -635,7 +621,7 @@ function initializeCurrency(){var sv=sessionStorage.getItem('selectedCurrency');
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',initializeCurrency);else initializeCurrency();
 document.getElementById('refreshRate').addEventListener('click',function(){fetchExchangeRates().then(function(){updatePrices();});});
 
-function selectPackage(pid,mn,mx,e){e.preventDefault();var sc=document.getElementById('currencySelect').value;var rate=conversionRates[sc];var sym=currencySymbols[sc];var cmn=Math.round(mn*rate);var cmx=Math.round(mx*rate);var pm={'starter':{name:'Starter Custom Site',features:['3-5 responsive pages','Mobile-friendly design','Contact form integration','Basic SEO setup','Social media links','SSL certificate included']},'business':{name:'Business Custom Site',features:['6-10 responsive pages','Admin dashboard','Advanced SEO optimization','Blog/News section','Google Maps integration','Analytics setup','Contact forms & email integration']},'custom':{name:'Custom Project',features:['Tailored to your exact needs','Detailed project analysis','Custom feature development','Flexible scope & timeline','Third-party integrations','Specialized functionality','Transparent pricing breakdown','Ongoing support options']},'appdev':{name:'Mobile App Development',features:['Cross-platform app (Android & iOS)','Custom UI/UX design','User authentication & profiles','Push notifications','Database & API integration','Payment gateway integration','Admin dashboard','Published to Google Play Store','App Store submission support','Post-launch bug fixes & support']}};var pd={id:pid,name:pm[pid].name,minPrice:mn,maxPrice:mx,convertedMin:cmn,convertedMax:cmx,currency:sc,currencySymbol:sym,features:pm[pid].features};sessionStorage.setItem('selectedPackage',JSON.stringify(pd));window.location.href='contact f.html';}
+function selectPackage(pid,mn,mx,e){e.preventDefault();var sc=document.getElementById('currencySelect').value;var rate=conversionRates[sc];var sym=currencySymbols[sc];var cmn=Math.round(mn*rate);var cmx=Math.round(mx*rate);var pm={'starter':{name:'Starter Custom Site',features:['3-5 responsive pages','Mobile-friendly design','Contact form integration','Basic SEO setup','Social media links','SSL certificate included']},'business':{name:'Business Custom Site',features:['6-10 responsive pages','Admin dashboard','Advanced SEO optimization','Blog/News section','Google Maps integration','Analytics setup','Contact forms & email integration']},'budget':{name:'Prices Too Much for You?',features:['Flexible scope tailored to your budget','Honest advice on what\'s possible','Phased delivery options','Essential features prioritized','Room to grow over time','No pressure — just a conversation']},'appdev':{name:'Mobile App Development',features:['Cross-platform app (Android & iOS)','Custom UI/UX design','User authentication & profiles','Push notifications','Database & API integration','Payment gateway integration','Admin dashboard','Published to Google Play Store','App Store submission support','Post-launch bug fixes & support']}};var pd={id:pid,name:pm[pid].name,minPrice:mn,maxPrice:mx,convertedMin:cmn,convertedMax:cmx,currency:sc,currencySymbol:sym,features:pm[pid].features};sessionStorage.setItem('selectedPackage',JSON.stringify(pd));window.location.href='contact f.html';}
 window.selectPackage=selectPackage;
 
 /* ── BUSINESS HOURS ── */

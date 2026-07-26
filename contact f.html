@@ -815,7 +815,7 @@ const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwYCFOTXCniVv
             'Starter Package': { min: 2200, max: 2800 },
             'Business Custom Site': { min: 4000, max: 5000 },
             'Mobile App Development': { min: 4000, max: 8000 },
-            'Custom Project': { min: 0, max: Infinity } // No limits for custom
+            'Prices Too Much for You?': { min: 0, max: Infinity }
         };
 
         
@@ -871,8 +871,8 @@ const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwYCFOTXCniVv
                 return false;
             }
             
-            // Custom project has no limits
-            if (packageData.id === 'custom') {
+            // Budget inquiry has no limits
+            if (packageData.id === 'budget') {
                 budgetError.style.display = 'none';
                 budgetInput.style.borderColor = 'rgba(255, 255, 255, 0.2)';
                 
@@ -968,10 +968,10 @@ const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwYCFOTXCniVv
                         'Contact forms & email integration'
                     ]
                 },
-                'custom': {
-                    id: 'custom',
-                    name: 'Custom Project',
-                    price: 'Contact for Quote',
+                'budget': {
+                    id: 'budget',
+                    name: 'Prices Too Much for You?',
+                    price: 'Give Us Your Budget',
                     minPriceBWP: 0,
                     maxPriceBWP: 0,
                     currency: selectedCurrency,
@@ -979,14 +979,12 @@ const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwYCFOTXCniVv
                     convertedMin: 0,
                     convertedMax: 0,
                     features: [
-                        'Tailored to your exact needs',
-                        'Detailed project analysis',
-                        'Custom feature development',
-                        'Flexible scope & timeline',
-                        'Third-party integrations',
-                        'Specialized functionality',
-                        'Transparent pricing breakdown',
-                        'Ongoing support options'
+                        'Flexible scope tailored to your budget',
+                        'Honest advice on what\'s possible',
+                        'Phased delivery options',
+                        'Essential features prioritized',
+                        'Room to grow over time',
+                        'No pressure — just a conversation'
                     ]
                 },
                 'appdev': {
@@ -1075,8 +1073,8 @@ const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwYCFOTXCniVv
                 // Unlock budget field with min/max validation
                 if (budgetInput) {
                     budgetInput.disabled = false;
-                    // For custom projects, no range restriction
-                    if (packageData.id === 'custom') {
+                    // For budget inquiries, no range restriction
+                    if (packageData.id === 'budget') {
                         budgetInput.placeholder = 'Enter your budget';
                         budgetInput.removeAttribute('min');
                         budgetInput.removeAttribute('max');
@@ -1094,8 +1092,8 @@ const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwYCFOTXCniVv
                 document.getElementById('selectedTitle').textContent = packageData.name;
                 
                 // Display price in selected currency
-                if (packageData.id === 'custom') {
-                    document.getElementById('selectedPrice').textContent = 'Contact for Quote';
+                if (packageData.id === 'budget') {
+                    document.getElementById('selectedPrice').textContent = 'Give Us Your Budget';
                 } else {
                     document.getElementById('selectedPrice').textContent = 
                         `${packageData.currencySymbol}${packageData.convertedMin.toLocaleString()} - ${packageData.currencySymbol}${packageData.convertedMax.toLocaleString()}`;
