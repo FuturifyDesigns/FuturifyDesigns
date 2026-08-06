@@ -544,6 +544,132 @@
             .work-visit { padding:7px 12px; font-size:8px; }
         }
 
+        /* ── TESTIMONIALS ───────────────────────────── */
+        .testimonials-sec {
+            padding:0 clamp(22px,4.5vw,52px) clamp(64px,9vh,104px);
+            position:relative;
+        }
+        .testimonials-sec::before {
+            content:'';
+            position:absolute;
+            top:10%;
+            right:clamp(22px,6vw,80px);
+            width:min(42vw,320px);
+            height:min(42vw,320px);
+            border-radius:50%;
+            background:radial-gradient(circle, rgba(200,241,53,0.07) 0%, transparent 68%);
+            pointer-events:none;
+        }
+        .testimonial-featured {
+            position:relative;
+            padding:clamp(28px,4vh,48px) 0 clamp(36px,5vh,56px);
+            border-bottom:1px solid var(--dim);
+            margin-bottom:clamp(28px,4vh,44px);
+        }
+        .testimonial-featured .tq {
+            font-family:'Syne',sans-serif;
+            font-weight:800;
+            font-size:clamp(64px,10vw,120px);
+            line-height:0.7;
+            color:var(--accent);
+            opacity:0.35;
+            margin-bottom:clamp(12px,2vh,20px);
+            user-select:none;
+        }
+        .testimonial-featured blockquote {
+            font-size:clamp(18px,2.4vw,30px);
+            font-weight:600;
+            letter-spacing:-.02em;
+            line-height:1.45;
+            max-width:920px;
+            margin:0 0 clamp(20px,3vh,32px);
+            color:var(--fg);
+        }
+        .testimonial-featured .tf-meta {
+            display:flex;
+            flex-wrap:wrap;
+            align-items:center;
+            gap:12px 20px;
+        }
+        .tf-name {
+            font-weight:700;
+            font-size:clamp(14px,1.3vw,16px);
+            letter-spacing:-.01em;
+        }
+        .tf-role {
+            font-family:'DM Mono',monospace;
+            font-size:clamp(10px,1vw,12px);
+            color:var(--muted);
+            letter-spacing:.06em;
+        }
+        .tf-badge {
+            font-family:'DM Mono',monospace;
+            font-size:clamp(9px,0.95vw,11px);
+            letter-spacing:.12em;
+            text-transform:uppercase;
+            color:var(--accent);
+            border:1px solid rgba(200,241,53,0.35);
+            padding:6px 12px;
+        }
+        .testimonials-grid {
+            display:grid;
+            grid-template-columns:repeat(3,1fr);
+            gap:1px;
+            background:var(--dim);
+        }
+        .testimonial-item {
+            background:var(--bg);
+            padding:clamp(22px,3vh,36px) clamp(18px,2.2vw,28px);
+            display:flex;
+            flex-direction:column;
+            gap:16px;
+            min-height:100%;
+            transition:background .35s;
+        }
+        .testimonial-item:hover {
+            background:rgba(200,241,53,0.03);
+        }
+        .testimonial-item .stars {
+            display:flex;
+            gap:4px;
+            color:var(--accent);
+            font-size:11px;
+            letter-spacing:0.08em;
+        }
+        .testimonial-item p {
+            font-family:'DM Mono',monospace;
+            font-size:clamp(11px,1.05vw,13px);
+            line-height:1.75;
+            color:var(--muted);
+            flex:1;
+        }
+        .testimonial-item .ti-foot {
+            display:flex;
+            flex-direction:column;
+            gap:4px;
+            padding-top:14px;
+            border-top:1px solid var(--dim);
+        }
+        .testimonial-item .ti-name {
+            font-weight:700;
+            font-size:clamp(13px,1.2vw,15px);
+            letter-spacing:-.01em;
+        }
+        .testimonial-item .ti-role {
+            font-family:'DM Mono',monospace;
+            font-size:clamp(9px,0.95vw,11px);
+            color:var(--accent);
+            letter-spacing:.08em;
+            text-transform:uppercase;
+        }
+        @media(max-width:900px) {
+            .testimonials-grid { grid-template-columns:repeat(2,1fr); }
+        }
+        @media(max-width:560px) {
+            .testimonials-grid { grid-template-columns:1fr; }
+            .testimonial-featured blockquote { font-size:clamp(16px,5.5vw,22px); }
+        }
+
         /* ── FOOTER ─────────────────────────────────── */
         footer {
             border-top:1px solid var(--dim);
@@ -1194,6 +1320,74 @@
             <a href="portfolio f.html" class="btn-pill btn-pill-light work-more">
                 See More <i class="fas fa-arrow-right"></i>
             </a>
+        </div>
+    </section>
+
+    <div class="section-divider" style="margin-top:0"></div>
+
+    <!-- Testimonials -->
+    <section class="testimonials-sec" id="testimonials">
+        <div class="sec-head reveal">
+            <div>
+                <div class="sec-label">Client Voices</div>
+                <h2 class="sec-title">What Clients Say About Working With Us</h2>
+            </div>
+            <p class="sec-sub">Real feedback from founders and teams across Botswana who trusted Futurify with their websites and apps.</p>
+        </div>
+
+        <div class="testimonial-featured reveal">
+            <div class="tq">"</div>
+            <blockquote>
+                Futurify Designs was recommended to us when we need a website and an app for our company. Futurify Design is hands on, patient enough to get as many information as possible in order to do a good job and delivers so far so promptly. The outcome of the project we gave Futurify Design is excellent and very informative artistic design. We surely will not hesitate to recommend FD for more recognitions.
+            </blockquote>
+            <div class="tf-meta">
+                <span class="tf-name">Sam Akinsola</span>
+                <span class="tf-role">CEO · Market Sphere Group</span>
+                <span class="tf-badge">Website + App</span>
+            </div>
+        </div>
+
+        <div class="testimonials-grid">
+            <div class="testimonial-item reveal">
+                <div class="stars">★★★★★</div>
+                <p>"From the first consultation to launch, Futurify understood our brand. The site feels trustworthy and modern — exactly what our finance business needed."</p>
+                <div class="ti-foot">
+                    <span class="ti-name">Thabo Molefe</span>
+                    <span class="ti-role">Director · Gaborone</span>
+                </div>
+            </div>
+            <div class="testimonial-item reveal reveal-delay-1">
+                <div class="stars">★★★★★</div>
+                <p>"Our platform looks sharp and works smoothly on every phone. Clients find what they need faster than ever. Highly recommend working with this team."</p>
+                <div class="ti-foot">
+                    <span class="ti-name">Keitumetse Dube</span>
+                    <span class="ti-role">Founder · Maun</span>
+                </div>
+            </div>
+            <div class="testimonial-item reveal reveal-delay-2">
+                <div class="stars">★★★★★</div>
+                <p>"They turned our store into a premium online experience. Inquiries went up within weeks of going live. Clean design, zero fluff."</p>
+                <div class="ti-foot">
+                    <span class="ti-name">Lebogang Kgosi</span>
+                    <span class="ti-role">Owner · Gaborone</span>
+                </div>
+            </div>
+            <div class="testimonial-item reveal">
+                <div class="stars">★★★★★</div>
+                <p>"Patient, clear communication, and a site that finally matches how serious our business is. Futurify delivers — on time and on brand."</p>
+                <div class="ti-foot">
+                    <span class="ti-name">Mpho Sekai</span>
+                    <span class="ti-role">Managing Partner · Lobatse</span>
+                </div>
+            </div>
+            <div class="testimonial-item reveal reveal-delay-1">
+                <div class="stars">★★★★★</div>
+                <p>"We needed more than a pretty page — we needed something that converts. Futurify built a site our clients actually enjoy using. Outstanding work."</p>
+                <div class="ti-foot">
+                    <span class="ti-name">Boitumelo Ncube</span>
+                    <span class="ti-role">CEO · Francistown</span>
+                </div>
+            </div>
         </div>
     </section>
 
