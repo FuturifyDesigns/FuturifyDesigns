@@ -107,6 +107,9 @@ nav{position:fixed;top:0;left:0;width:100%;padding:22px 48px;display:flex;justif
 .recurring-item{display:flex;align-items:center;justify-content:space-between;gap:12px;}
 .recurring-label{font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);}
 .recurring-price{font-family:'Syne',sans-serif;font-weight:700;font-size:14px;}
+.quarterly-tag{display:flex;align-items:center;gap:8px;margin:-8px 0 20px;padding:10px 12px;border:1px solid var(--dim);font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);}
+.quarterly-tag i{color:var(--accent);font-size:13px;}
+.quarterly-price{font-family:'Syne',sans-serif;font-size:13px;font-weight:700;color:var(--fg);margin-left:auto;white-space:nowrap;}
 .features-list{list-style:none;margin-bottom:24px;}
 .features-list li{font-family:'DM Mono',monospace;font-size:12px;color:var(--muted);line-height:1.7;padding:4px 0;padding-left:20px;position:relative;}
 .features-list li::before{content:'✦';position:absolute;left:0;color:var(--accent);font-size:9px;}
@@ -385,6 +388,7 @@ footer{border-top:1px solid var(--dim);padding:clamp(44px,6vh,72px) clamp(22px,4
             <div class="package-description">Perfect for small businesses and startups to establish their online presence.</div>
             <div class="price-section"><div class="price-label">One-time Setup</div><div class="price" data-min="1500" data-max="1500"><span class="currency-symbol">P</span><span class="price-value">1,500</span></div></div>
             <div class="recurring-prices"><div class="recurring-item"><span class="recurring-label">Hosting &amp; Maintenance /mo:</span><span class="recurring-price" data-min="100" data-max="100"><span class="currency-symbol">P</span><span class="price-value">100</span></span></div></div>
+            <div class="quarterly-tag"><i class="far fa-calendar-alt"></i><span>Quarterly option (3 months)</span><span class="quarterly-price" data-min="300" data-max="300"><span class="currency-symbol">P</span><span class="price-value">300</span></span></div>
             <ul class="features-list"><li>Custom site with domain included</li><li>3 responsive pages</li><li>Mobile friendly design</li><li>Contact form integration</li><li>Basic designs</li><li>Basic SEO &amp; social media links</li><li>SSL certificate included</li></ul>
             <a href="#" class="cta-button" onclick="selectPackage('starter',1500,1500,event)">Get Started</a>
         </div>
@@ -394,6 +398,7 @@ footer{border-top:1px solid var(--dim);padding:clamp(44px,6vh,72px) clamp(22px,4
             <div class="package-description">Ideal for growing businesses that need more functionality and professional features.</div>
             <div class="price-section"><div class="price-label">One-time Setup</div><div class="price" data-min="3000" data-max="3000"><span class="currency-symbol">P</span><span class="price-value">3,000</span></div></div>
             <div class="recurring-prices"><div class="recurring-item"><span class="recurring-label">Hosting &amp; Maintenance /mo:</span><span class="recurring-price" data-min="150" data-max="150"><span class="currency-symbol">P</span><span class="price-value">150</span></span></div></div>
+            <div class="quarterly-tag"><i class="far fa-calendar-alt"></i><span>Quarterly option (3 months)</span><span class="quarterly-price" data-min="450" data-max="450"><span class="currency-symbol">P</span><span class="price-value">450</span></span></div>
             <ul class="features-list"><li>Custom site + domain included</li><li>3 - 5 responsive pages</li><li>Admin dashboard for CMS</li><li>Advanced SEO + Blog section</li><li>Advanced designs</li><li>Google Maps &amp; Analytics setup</li><li>Contact forms &amp; email integration</li></ul>
             <a href="#" class="cta-button" onclick="selectPackage('business',3000,3000,event)">Get Started</a>
         </div>
@@ -408,6 +413,7 @@ footer{border-top:1px solid var(--dim);padding:clamp(44px,6vh,72px) clamp(22px,4
             <div class="package-description">From concept to launch, developed and published to the Google Play Store.</div>
             <div class="price-section"><div class="price-label">Starting From</div><div class="price" data-min="5000" data-max="5000"><span class="currency-symbol">P</span><span class="price-value">5,000</span></div></div>
             <div class="recurring-prices"><div class="recurring-item"><span class="recurring-label">Maintenance &amp; Support /mo:</span><span class="recurring-price" data-min="200" data-max="200"><span class="currency-symbol">P</span><span class="price-value">200</span></span></div></div>
+            <div class="quarterly-tag"><i class="far fa-calendar-alt"></i><span>Quarterly option (3 months)</span><span class="quarterly-price" data-min="600" data-max="600"><span class="currency-symbol">P</span><span class="price-value">600</span></span></div>
             <ul class="features-list"><li>Build exclusively for Android</li><li>Custom UI/UX design</li><li>User auth &amp; profiles</li><li>Push notifications</li><li>Admin dashboard / backend</li><li>Published to Play Store</li><li>Database &amp; API integration</li><li>Post-launch bug fixes &amp; support</li></ul>
             <a href="#" class="cta-button" onclick="selectPackage('appdev',5000,5000,event)">Discuss Your App</a>
         </div>
