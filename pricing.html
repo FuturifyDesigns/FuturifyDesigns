@@ -7,6 +7,7 @@
     <meta name="referrer" content="strict-origin-when-cross-origin">
     <meta http-equiv="Permissions-Policy" content="geolocation=(), microphone=(), camera=(), payment=()">
     <script src="js/security.js" defer></script>
+    <script src="js/cms-cloud.js" defer></script>
     <title>Pricing - Futurify Designs</title>
     <link rel="icon" href="favicon.ico" sizes="48x48">
     <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
@@ -74,52 +75,35 @@ nav{position:fixed;top:0;left:0;width:100%;padding:22px 48px;display:flex;justif
 .hero-title .word:hover{color:var(--accent);}
 .hero-sub{font-family:'DM Mono',monospace;font-size:clamp(13px,1.2vw,15px);color:var(--muted);max-width:560px;line-height:1.7;margin-top:24px;}
 
-/* CURRENCY SELECTOR */
-.currency-section{position:relative;z-index:10;padding:0 clamp(24px,6vw,80px);margin-bottom:48px;}
-.currency-bar{display:flex;align-items:center;gap:20px;flex-wrap:wrap;}
-.currency-label{font-family:'DM Mono',monospace;font-size:12px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;}
-.custom-dropdown{position:relative;min-width:260px;z-index:60;}
-.custom-dropdown-selected{font-family:'DM Mono',monospace;font-size:13px;color:var(--fg);background:var(--bg);border:1px solid var(--dim);padding:10px 16px;cursor:pointer;transition:border-color .3s;display:flex;align-items:center;justify-content:space-between;}
-.custom-dropdown-selected::after{content:'▾';margin-left:8px;color:var(--accent);}
-.custom-dropdown-selected:hover{border-color:var(--accent);}
-.custom-dropdown-options{position:absolute;top:100%;left:0;right:0;background:var(--bg);border:1px solid var(--dim);border-top:none;max-height:0;overflow:hidden;transition:max-height .3s var(--ease);z-index:100;}
-.custom-dropdown.open .custom-dropdown-options{max-height:300px;overflow-y:auto;}
-.custom-dropdown-option{font-family:'DM Mono',monospace;font-size:12px;color:var(--muted);padding:10px 16px;cursor:pointer;transition:all .2s;}
-.custom-dropdown-option:hover,.custom-dropdown-option.selected{color:var(--fg);background:rgba(200,241,53,0.06);}
-.exchange-rate-info{font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
-.refresh-rate{background:none;border:1px solid var(--dim);color:var(--muted);width:28px;height:28px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:11px;transition:all .3s;}
-.refresh-rate:hover{border-color:var(--accent);color:var(--accent);}
-
 /* PRICING CARDS */
 .pricing-section{position:relative;z-index:1;padding:0 clamp(24px,6vw,80px) 80px;}
-.pricing-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;max-width:1200px;margin:0 auto 60px;}
-.pricing-card{background:rgba(242,237,229,0.02);border:1px solid var(--dim);padding:clamp(28px,3vw,40px);position:relative;transition:all .4s var(--ease);}
+.pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;max-width:1280px;margin:0 auto 60px;}
+.pricing-card{background:linear-gradient(180deg,rgba(255,255,255,0.98),rgba(246,240,231,0.97));border:1px solid rgba(90,57,12,0.14);border-radius:28px;padding:clamp(28px,3vw,40px);position:relative;transition:all .4s var(--ease);color:#111;box-shadow:0 24px 60px rgba(0,0,0,0.2);}
 .pricing-card:hover{border-color:rgba(200,241,53,0.25);transform:translateY(-4px);}
-.pricing-card.featured{border-color:rgba(200,241,53,0.3);}
-.pricing-card.featured::before{content:'';position:absolute;top:0;left:0;width:100%;height:3px;background:var(--accent);}
-.package-name{font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(18px,2vw,24px);margin-bottom:8px;}
-.package-description{font-family:'DM Mono',monospace;font-size:12px;color:var(--muted);line-height:1.7;margin-bottom:20px;}
+.pricing-card.featured{transform:translateY(-10px);}
+.pricing-card.featured::before{content:'Best Seller';position:absolute;top:-18px;left:50%;transform:translateX(-50%);background:#0d9a42;color:#fff;padding:10px 26px;font:800 12px 'Syne',sans-serif;text-transform:uppercase;letter-spacing:.08em;clip-path:polygon(6% 0,94% 0,100% 50%,94% 100%,6% 100%,0 50%);}
+.package-kicker{font-family:'DM Mono',monospace;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#8b5a09;margin-bottom:18px;}
+.package-name{font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(28px,2.8vw,42px);margin-bottom:12px;line-height:1.06;}
+.package-description{font-family:'DM Mono',monospace;font-size:15px;color:#3d3327;line-height:1.85;margin-bottom:26px;}
 .price-section{margin-bottom:16px;}
-.price-label{font-family:'DM Mono',monospace;font-size:10px;color:var(--accent);letter-spacing:.14em;text-transform:uppercase;margin-bottom:6px;}
-.price{font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(24px,3vw,36px);letter-spacing:-.02em;}
-.price.custom-price{font-size:clamp(16px,2vw,22px);color:var(--accent);}
-.recurring-prices{margin-bottom:20px;padding:12px 0;border-top:1px solid var(--dim);border-bottom:1px solid var(--dim);}
-.recurring-item{display:flex;align-items:center;justify-content:space-between;gap:12px;}
-.recurring-label{font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);}
-.recurring-price{font-family:'Syne',sans-serif;font-weight:700;font-size:14px;}
+.price-label{font-family:'DM Mono',monospace;font-size:10px;color:#8b5a09;letter-spacing:.14em;text-transform:uppercase;margin-bottom:6px;}
+.price{font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(44px,5vw,66px);letter-spacing:-.04em;line-height:1;}
+.recurring-prices{margin-bottom:22px;display:flex;justify-content:space-between;gap:12px;background:#111;color:#fff;border-radius:12px;padding:12px 14px;}
+.recurring-label{font-family:'DM Mono',monospace;font-size:12px;color:rgba(255,255,255,0.86);}
+.recurring-price{font-family:'Syne',sans-serif;font-weight:700;font-size:16px;color:#f3b340;}
 .features-list{list-style:none;margin-bottom:24px;}
-.features-list li{font-family:'DM Mono',monospace;font-size:12px;color:var(--muted);line-height:1.7;padding:4px 0;padding-left:20px;position:relative;}
-.features-list li::before{content:'✦';position:absolute;left:0;color:var(--accent);font-size:9px;}
-.cta-button{display:inline-block;width:100%;text-align:center;padding:14px 24px;background:var(--accent);color:var(--bg);font-family:'Syne',sans-serif;font-weight:700;font-size:13px;letter-spacing:.04em;text-transform:uppercase;border:none;cursor:pointer;transition:all .3s var(--ease);}
-.cta-button:hover{background:var(--fg);}
+.features-list li{font-family:'DM Mono',monospace;font-size:14px;color:#2e241a;line-height:1.85;padding:4px 0 4px 26px;position:relative;}
+.features-list li::before{content:'✓';position:absolute;left:0;color:#8b5a09;font-size:14px;font-weight:700;}
+.alt-box{border:1px solid rgba(90,57,12,0.22);border-radius:16px;padding:16px 18px;font-family:'DM Mono',monospace;color:#2e241a;line-height:1.6;background:rgba(255,255,255,0.64);}
+.alt-box strong{display:block;font-family:'Syne',sans-serif;font-size:17px;}
+.cta-button{display:inline-block;width:100%;text-align:center;padding:16px 24px;background:#111;color:#f3b340;font-family:'Syne',sans-serif;font-weight:700;font-size:13px;letter-spacing:.04em;text-transform:uppercase;border:none;border-radius:14px;cursor:pointer;transition:all .3s var(--ease);}
+.cta-button:hover{background:#222;}
 
 /* APP DEV SECTION */
-.app-dev-section{max-width:1200px;margin:0 auto 60px;padding:0 clamp(24px,6vw,80px);}
+.app-dev-section{max-width:1280px;margin:0 auto 60px;padding:0 clamp(24px,6vw,80px);}
 .section-title{font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(20px,2.5vw,28px);margin-bottom:24px;}
 .app-dev-card{border-color:rgba(200,241,53,0.2);}
 .app-dev-card::before{content:'';position:absolute;top:0;left:0;width:100%;height:3px;background:linear-gradient(90deg,var(--accent),transparent);}
-.budget-card{border-color:rgba(200,241,53,0.2);}
-.budget-card::before{content:'';position:absolute;top:0;left:0;width:100%;height:3px;background:linear-gradient(90deg,var(--accent),transparent);}
 
 /* ADDONS */
 .addons-section{max-width:1200px;margin:0 auto 60px;padding:0 clamp(24px,6vw,80px);}
@@ -347,55 +331,9 @@ footer{border-top:1px solid var(--dim);padding:clamp(44px,6vh,72px) clamp(22px,4
 <!-- Hero -->
 <section class="hero">
     <div class="hero-label">✦ <span>Pricing</span> — Transparent & Fair</div>
-    <h1 class="hero-title"><span class="word">Transparent </span><span class="word">Pricing</span></h1>
-    <p class="hero-sub">Professional website solutions tailored for small to medium-sized businesses. We specialize in creating efficient, scalable websites that grow with your business.</p>
+    <h1 class="hero-title"><span class="word">Professional </span><span class="word">Web</span> <span class="word">&amp; App</span> <span class="word">Solutions</span></h1>
+    <p class="hero-sub">We help businesses grow with modern, reliable and affordable digital solutions. Browse the updated packages below and request your quote when you're ready.</p>
 </section>
-
-<!-- Currency Selector -->
-<div class="currency-section">
-    <div class="currency-bar">
-        <span class="currency-label">Currency:</span>
-        <div class="custom-dropdown" id="currencyDropdown">
-            <div class="custom-dropdown-selected" onclick="toggleDropdown()">BWP</div>
-            <div class="custom-dropdown-options">
-                <div class="custom-dropdown-option selected" data-value="BWP">BWP — Botswana Pula</div>
-                <div class="custom-dropdown-option" data-value="USD">USD — US Dollar</div>
-                <div class="custom-dropdown-option" data-value="ZAR">ZAR — South African Rand</div>
-                <div class="custom-dropdown-option" data-value="EUR">EUR — Euro</div>
-                <div class="custom-dropdown-option" data-value="GBP">GBP — British Pound</div>
-                <div class="custom-dropdown-option" data-value="CAD">CAD — Canadian Dollar</div>
-                <div class="custom-dropdown-option" data-value="AUD">AUD — Australian Dollar</div>
-                <div class="custom-dropdown-option" data-value="NGN">NGN — Nigerian Naira</div>
-                <div class="custom-dropdown-option" data-value="KES">KES — Kenyan Shilling</div>
-                <div class="custom-dropdown-option" data-value="GHS">GHS — Ghanaian Cedi</div>
-                <div class="custom-dropdown-option" data-value="TZS">TZS — Tanzanian Shilling</div>
-                <div class="custom-dropdown-option" data-value="UGX">UGX — Ugandan Shilling</div>
-                <div class="custom-dropdown-option" data-value="ZMW">ZMW — Zambian Kwacha</div>
-                <div class="custom-dropdown-option" data-value="MWK">MWK — Malawian Kwacha</div>
-                <div class="custom-dropdown-option" data-value="NAD">NAD — Namibian Dollar</div>
-                <div class="custom-dropdown-option" data-value="INR">INR — Indian Rupee</div>
-                <div class="custom-dropdown-option" data-value="CNY">CNY — Chinese Yuan</div>
-                <div class="custom-dropdown-option" data-value="JPY">JPY — Japanese Yen</div>
-                <div class="custom-dropdown-option" data-value="AED">AED — UAE Dirham</div>
-                <div class="custom-dropdown-option" data-value="SAR">SAR — Saudi Riyal</div>
-            </div>
-            <select class="currency-dropdown" id="currencySelect" style="display:none;">
-                <option value="BWP">BWP</option><option value="USD">USD</option><option value="ZAR">ZAR</option>
-                <option value="EUR">EUR</option><option value="GBP">GBP</option><option value="CAD">CAD</option>
-                <option value="AUD">AUD</option><option value="NGN">NGN</option><option value="KES">KES</option>
-                <option value="GHS">GHS</option><option value="TZS">TZS</option><option value="UGX">UGX</option>
-                <option value="ZMW">ZMW</option><option value="MWK">MWK</option><option value="NAD">NAD</option>
-                <option value="INR">INR</option><option value="CNY">CNY</option><option value="JPY">JPY</option>
-                <option value="AED">AED</option><option value="SAR">SAR</option>
-            </select>
-        </div>
-        <div class="exchange-rate-info">
-            <span id="rateValue">Loading...</span>
-            <span id="rateUpdate"></span>
-            <button class="refresh-rate" id="refreshRate" title="Refresh"><i class="fas fa-sync-alt"></i></button>
-        </div>
-    </div>
-</div>
 
 <!-- Pricing Cards -->
 <div class="pricing-section">
@@ -403,58 +341,44 @@ footer{border-top:1px solid var(--dim);padding:clamp(44px,6vh,72px) clamp(22px,4
     <!-- Section label marquee -->
     <div class="section-label-wrap">
         <div class="section-label-track" id="pricingMarquee">
-            <span>Web Development</span><span class="accent">✦</span><span>Custom Sites</span><span class="accent">↗</span><span>Your Budget</span><span class="accent">◈</span><span>App Development</span><span class="accent">⊕</span>
-            <span>Web Development</span><span class="accent">✦</span><span>Custom Sites</span><span class="accent">↗</span><span>Your Budget</span><span class="accent">◈</span><span>App Development</span><span class="accent">⊕</span>
+            <span>Web Development</span><span class="accent">✦</span><span>Custom Sites</span><span class="accent">↗</span><span>App Development</span><span class="accent">◈</span><span>Growth Ready</span><span class="accent">⊕</span>
+            <span>Web Development</span><span class="accent">✦</span><span>Custom Sites</span><span class="accent">↗</span><span>App Development</span><span class="accent">◈</span><span>Growth Ready</span><span class="accent">⊕</span>
         </div>
     </div>
 
     <div class="pricing-grid">
         <div class="pricing-card reveal-card">
-            <div class="package-name">Starter Custom Site</div>
-            <div class="package-description">Perfect for small businesses and startups looking to establish their online presence.</div>
-            <div class="price-section"><div class="price-label">One-time Setup</div><div class="price" data-min="2200" data-max="2800"><span class="currency-symbol">P</span><span class="price-value">2,200 - 2,800</span></div></div>
-            <div class="recurring-prices"><div class="recurring-item"><span class="recurring-label">Hosting & Maintenance /mo:</span><span class="recurring-price" data-min="100" data-max="100"><span class="currency-symbol">P</span><span class="price-value">100</span></span></div></div>
-            <ul class="features-list"><li>Custom site</li><li>Domain included</li><li>3-5 responsive pages</li><li>Mobile friendly design</li><li>Contact form integration</li><li>Basic SEO setup</li><li>Social media links</li><li>SSL certificate included</li></ul>
-            <a href="#" class="cta-button" onclick="selectPackage('starter',2200,2800,event)">Get Started</a>
+            <div class="package-kicker">Starter Custom Site</div>
+            <div class="package-name">Small Business Starter</div>
+            <div class="package-description">Perfect for small businesses and startups to establish their online presence.</div>
+            <div class="price-section"><div class="price">P1,500</div></div>
+            <div class="recurring-prices"><span class="recurring-label">Hosting &amp; Maintenance</span><span class="recurring-price">P100/month</span></div>
+            <ul class="features-list"><li>Custom site with domain included</li><li>3 responsive pages</li><li>Mobile friendly design</li><li>Contact form integration</li><li>Basic designs</li><li>Basic SEO &amp; social media links</li><li>SSL certificate included</li></ul>
+            <div class="alt-box">Alternatively, you can pay <strong>P300 for 3 months</strong></div>
         </div>
 
         <div class="pricing-card featured reveal-card">
-            <div class="package-name">Business Custom Site</div>
+            <div class="package-kicker">Business Custom Site</div>
+            <div class="package-name">Growing Business</div>
             <div class="package-description">Ideal for growing businesses that need more functionality and professional features.</div>
-            <div class="price-section"><div class="price-label">One-time Setup</div><div class="price" data-min="4000" data-max="5000"><span class="currency-symbol">P</span><span class="price-value">4,000 - 5,000</span></div></div>
-            <div class="recurring-prices"><div class="recurring-item"><span class="recurring-label">Hosting & Maintenance /mo:</span><span class="recurring-price" data-min="150" data-max="150"><span class="currency-symbol">P</span><span class="price-value">150</span></span></div></div>
-            <ul class="features-list"><li>Custom site</li><li>Domain included</li><li>6-10 responsive pages</li><li>Admin dashboard for content management</li><li>Advanced SEO optimization</li><li>Blog/News section</li><li>Google Maps integration</li><li>Analytics setup</li><li>Contact forms & email integration</li></ul>
-            <a href="#" class="cta-button" onclick="selectPackage('business',4000,5000,event)">Get Started</a>
+            <div class="price-section"><div class="price">P3,000</div></div>
+            <div class="recurring-prices"><span class="recurring-label">Hosting &amp; Maintenance</span><span class="recurring-price">P150/month</span></div>
+            <ul class="features-list"><li>Custom site + domain included</li><li>3 - 5 responsive pages</li><li>Admin dashboard for CMS</li><li>Advanced SEO + Blog section</li><li>Advanced designs</li><li>Google Maps &amp; Analytics setup</li><li>Contact forms &amp; email integration</li></ul>
+            <div class="alt-box">Alternatively, you can pay <strong>P450 for 3 months</strong></div>
         </div>
-    </div>
 
-    <div class="section-divider reveal"></div>
-
-    <!-- Budget -->
-    <div class="app-dev-section">
-        <div class="pricing-card budget-card reveal-card">
-            <div class="package-name">Prices Too Much for You?</div>
-            <div class="package-description">No problem — tell us what you can afford and we'll build a plan that works for your budget.</div>
-            <div class="price-section"><div class="price-label">Pricing</div><div class="price custom-price">Give Us Your Budget</div></div>
-            <ul class="features-list"><li>Flexible scope tailored to your budget</li><li>Honest advice on what's possible</li><li>Phased delivery options</li><li>Essential features prioritized</li><li>Room to grow over time</li><li>No pressure — just a conversation</li></ul>
-            <a href="#" class="cta-button" onclick="selectPackage('budget',0,0,event)">Share Your Budget</a>
-        </div>
-    </div>
-
-    <div class="section-divider reveal"></div>
-
-    <!-- App Development -->
-    <div class="app-dev-section">
-        <h2 class="section-title">App Development</h2>
         <div class="pricing-card app-dev-card reveal-card">
+            <div class="package-kicker">Mobile App</div>
             <div class="package-name">Mobile App Development</div>
-            <div class="package-description">From concept to launch — we develop your app and publish it to the Google Play Store.</div>
-            <div class="price-section"><div class="price-label">Starting From</div><div class="price" data-min="4000" data-max="8000"><span class="currency-symbol">P</span><span class="price-value">4,000 - 8,000</span></div></div>
-            <div class="recurring-prices"><div class="recurring-item"><span class="recurring-label">Maintenance & Support /mo:</span><span class="recurring-price" data-min="200" data-max="200"><span class="currency-symbol">P</span><span class="price-value">200</span></span></div></div>
-            <ul class="features-list"><li>Cross-platform app (Android & iOS)</li><li>Custom UI/UX design</li><li>User authentication & profiles</li><li>Push notifications</li><li>Database & API integration</li><li>Payment gateway integration</li><li>Admin dashboard / backend panel</li><li>Published to Google Play Store</li><li>App Store submission support</li><li>Post-launch bug fixes & support</li></ul>
-            <a href="#" class="cta-button" onclick="selectPackage('appdev',4000,8000,event)">Discuss Your App</a>
+            <div class="package-description">From concept to launch, developed and published to the Google Play Store.</div>
+            <div class="price-section"><div class="price">P5,000</div></div>
+            <div class="recurring-prices"><span class="recurring-label">Maintenance &amp; Support</span><span class="recurring-price">P200/month</span></div>
+            <ul class="features-list"><li>Build exclusively for Android</li><li>Custom UI/UX design</li><li>User auth &amp; profiles</li><li>Push notifications</li><li>Admin dashboard / backend</li><li>Published to Play Store</li><li>Database &amp; API integration</li><li>Post-launch bug fixes &amp; support</li></ul>
+            <div class="alt-box">Alternatively, you can pay <strong>P600 for 3 months</strong></div>
         </div>
     </div>
+
+    <div data-cms-custom-sections="pricing"></div>
 
     <!-- Disclaimer -->
     <div class="pricing-disclaimer reveal">
@@ -602,27 +526,6 @@ document.querySelectorAll('.hero-title .word').forEach(function(word){
         },30);
     });
 });
-
-/* ── CURRENCY CONVERSION (from original) ── */
-function toggleDropdown(){document.getElementById('currencyDropdown').classList.toggle('open');}
-window.toggleDropdown=toggleDropdown;
-document.addEventListener('click',function(e){var dd=document.getElementById('currencyDropdown');if(!dd.contains(e.target))dd.classList.remove('open');});
-document.querySelectorAll('.custom-dropdown-option').forEach(function(opt){opt.addEventListener('click',function(){var val=this.getAttribute('data-value');var txt=this.textContent;var dd=document.getElementById('currencyDropdown');var hs=document.getElementById('currencySelect');dd.querySelector('.custom-dropdown-selected').textContent=val;hs.value=val;dd.querySelectorAll('.custom-dropdown-option').forEach(function(o){o.classList.remove('selected');});this.classList.add('selected');dd.classList.remove('open');updatePrices();});});
-
-var conversionRates={BWP:1,USD:0.073,ZAR:1.35,EUR:0.067,GBP:0.057,CAD:0.10,AUD:0.11,NGN:115,KES:9.4,GHS:1.15,TZS:195,UGX:270,ZMW:2.0,MWK:127,NAD:1.35,INR:6.1,CNY:0.53,JPY:11.3,AED:0.27,SAR:0.27};
-var currencySymbols={BWP:'P',USD:'$',ZAR:'R',EUR:'\u20ac',GBP:'\u00a3',CAD:'C$',AUD:'A$',NGN:'\u20a6',KES:'KSh',GHS:'\u20b5',TZS:'TSh',UGX:'USh',ZMW:'ZK',MWK:'MK',NAD:'N$',INR:'\u20b9',CNY:'\u00a5',JPY:'\u00a5',AED:'AED',SAR:'SAR'};
-var EXCHANGE_API_URL='https://api.exchangerate-api.com/v4/latest/BWP';
-var lastRateUpdate=null;
-
-async function fetchExchangeRates(){try{document.getElementById('rateValue').textContent='Loading...';var fetchFn=window.FuturifySecurity?function(){return window.FuturifySecurity.secureFetch(EXCHANGE_API_URL,{},'exchange_rates',20,300000);}:function(){return fetch(EXCHANGE_API_URL);};var r=await fetchFn();if(!r.ok)throw new Error();var d=await r.json();Object.keys(conversionRates).forEach(function(c){if(d.rates[c])conversionRates[c]=d.rates[c];});lastRateUpdate=new Date();updateRateDisplay();var sc=document.getElementById('currencySelect').value;if(sc&&sc!=='BWP')updatePrices();return true;}catch(e){document.getElementById('rateValue').textContent='Using fallback rates';return false;}}
-function updateRateDisplay(){var sc=document.getElementById('currencySelect').value;var rv=conversionRates[sc];if(sc==='BWP'){document.getElementById('rateValue').textContent='Base currency';document.getElementById('rateUpdate').textContent='';}else{document.getElementById('rateValue').textContent='1 BWP = '+rv.toFixed(4)+' '+sc;if(lastRateUpdate){var td=Math.floor((new Date()-lastRateUpdate)/60000);document.getElementById('rateUpdate').textContent='('+td+' min ago)';}}}
-function updatePrices(){var sc=document.getElementById('currencySelect').value;var rate=conversionRates[sc];var sym=currencySymbols[sc];sessionStorage.setItem('selectedCurrency',sc);document.querySelectorAll('.currency-symbol').forEach(function(el){el.textContent=sym;});document.querySelectorAll('[data-min]').forEach(function(el){var mn=parseFloat(el.getAttribute('data-min'));var mx=parseFloat(el.getAttribute('data-max'));var cmn=Math.round(mn*rate);var cmx=Math.round(mx*rate);var ve=el.querySelector('.price-value');if(ve){if(cmn===cmx)ve.textContent=cmn.toLocaleString();else ve.textContent=cmn.toLocaleString()+' - '+cmx.toLocaleString();}});updateRateDisplay();}
-function initializeCurrency(){var sv=sessionStorage.getItem('selectedCurrency');var cs=document.getElementById('currencySelect');var dd=document.getElementById('currencyDropdown');if(sv&&cs){cs.value=sv;var mo=dd.querySelector('.custom-dropdown-option[data-value="'+sv+'"]');if(mo){dd.querySelector('.custom-dropdown-selected').textContent=sv;dd.querySelectorAll('.custom-dropdown-option').forEach(function(o){o.classList.remove('selected');});mo.classList.add('selected');}}fetchExchangeRates().then(function(){updatePrices();});}
-if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',initializeCurrency);else initializeCurrency();
-document.getElementById('refreshRate').addEventListener('click',function(){fetchExchangeRates().then(function(){updatePrices();});});
-
-function selectPackage(pid,mn,mx,e){e.preventDefault();var sc=document.getElementById('currencySelect').value;var rate=conversionRates[sc];var sym=currencySymbols[sc];var cmn=Math.round(mn*rate);var cmx=Math.round(mx*rate);var pm={'starter':{name:'Starter Custom Site',features:['3-5 responsive pages','Mobile-friendly design','Contact form integration','Basic SEO setup','Social media links','SSL certificate included']},'business':{name:'Business Custom Site',features:['6-10 responsive pages','Admin dashboard','Advanced SEO optimization','Blog/News section','Google Maps integration','Analytics setup','Contact forms & email integration']},'budget':{name:'Prices Too Much for You?',features:['Flexible scope tailored to your budget','Honest advice on what\'s possible','Phased delivery options','Essential features prioritized','Room to grow over time','No pressure — just a conversation']},'appdev':{name:'Mobile App Development',features:['Cross-platform app (Android & iOS)','Custom UI/UX design','User authentication & profiles','Push notifications','Database & API integration','Payment gateway integration','Admin dashboard','Published to Google Play Store','App Store submission support','Post-launch bug fixes & support']}};var pd={id:pid,name:pm[pid].name,minPrice:mn,maxPrice:mx,convertedMin:cmn,convertedMax:cmx,currency:sc,currencySymbol:sym,features:pm[pid].features};sessionStorage.setItem('selectedPackage',JSON.stringify(pd));window.location.href='contact.html';}
-window.selectPackage=selectPackage;
 
 /* ── BUSINESS HOURS ── */
 var widgetOpen=true,lastNoticeHour=-1;

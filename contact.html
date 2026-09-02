@@ -8,6 +8,7 @@
     <meta http-equiv="Permissions-Policy" content="geolocation=(), microphone=(), camera=(), payment=()">
     <title>Contact - Futurify Designs</title>
     <script src="js/security.js" defer></script>
+    <script src="js/cms-cloud.js" defer></script>
     <link rel="icon" href="favicon.ico" sizes="48x48">
     <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
@@ -812,10 +813,9 @@ const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwYCFOTXCniVv
 
         // Package price ranges in BWP
         const packageRanges = {
-            'Starter Package': { min: 2200, max: 2800 },
-            'Business Custom Site': { min: 4000, max: 5000 },
-            'Mobile App Development': { min: 4000, max: 8000 },
-            'Prices Too Much for You?': { min: 0, max: Infinity }
+            'Small Business Starter': { min: 1500, max: 1500 },
+            'Growing Business': { min: 3000, max: 3000 },
+            'Mobile App Development': { min: 5000, max: 5000 }
         };
 
         
@@ -931,82 +931,62 @@ const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwYCFOTXCniVv
             const packageMap = {
                 'starter': {
                     id: 'starter',
-                    name: 'Starter Custom Site',
-                    price: 'P2,200 - P2,800',
-                    minPriceBWP: 2200,
-                    maxPriceBWP: 2800,
+                    name: 'Small Business Starter',
+                    price: 'P1,500',
+                    minPriceBWP: 1500,
+                    maxPriceBWP: 1500,
                     currency: selectedCurrency,
                     currencySymbol: currencySymbols[selectedCurrency],
-                    convertedMin: Math.round(convertFromBWP(2200, selectedCurrency)),
-                    convertedMax: Math.round(convertFromBWP(2800, selectedCurrency)),
+                    convertedMin: Math.round(convertFromBWP(1500, selectedCurrency)),
+                    convertedMax: Math.round(convertFromBWP(1500, selectedCurrency)),
                     features: [
-                        '3-5 responsive pages',
-                        'Mobile-friendly design',
+                        'Custom site with domain included',
+                        '3 responsive pages',
+                        'Mobile friendly design',
                         'Contact form integration',
-                        'Basic SEO setup',
-                        'Social media links',
+                        'Basic designs',
+                        'Basic SEO & social media links',
                         'SSL certificate included'
                     ]
                 },
                 'business': {
                     id: 'business',
-                    name: 'Business Custom Site',
-                    price: 'P4,000 - P5,000',
-                    minPriceBWP: 4000,
-                    maxPriceBWP: 5000,
+                    name: 'Growing Business',
+                    price: 'P3,000',
+                    minPriceBWP: 3000,
+                    maxPriceBWP: 3000,
                     currency: selectedCurrency,
                     currencySymbol: currencySymbols[selectedCurrency],
-                    convertedMin: Math.round(convertFromBWP(4000, selectedCurrency)),
-                    convertedMax: Math.round(convertFromBWP(5000, selectedCurrency)),
+                    convertedMin: Math.round(convertFromBWP(3000, selectedCurrency)),
+                    convertedMax: Math.round(convertFromBWP(3000, selectedCurrency)),
                     features: [
-                        '6-10 responsive pages',
-                        'Admin dashboard for content management',
-                        'Advanced SEO optimization',
-                        'Blog/News section',
-                        'Google Maps integration',
-                        'Analytics setup',
+                        'Custom site + domain included',
+                        '3 - 5 responsive pages',
+                        'Admin dashboard for CMS',
+                        'Advanced SEO + Blog section',
+                        'Advanced designs',
+                        'Google Maps & Analytics setup',
                         'Contact forms & email integration'
-                    ]
-                },
-                'budget': {
-                    id: 'budget',
-                    name: 'Prices Too Much for You?',
-                    price: 'Give Us Your Budget',
-                    minPriceBWP: 0,
-                    maxPriceBWP: 0,
-                    currency: selectedCurrency,
-                    currencySymbol: currencySymbols[selectedCurrency],
-                    convertedMin: 0,
-                    convertedMax: 0,
-                    features: [
-                        'Flexible scope tailored to your budget',
-                        'Honest advice on what\'s possible',
-                        'Phased delivery options',
-                        'Essential features prioritized',
-                        'Room to grow over time',
-                        'No pressure — just a conversation'
                     ]
                 },
                 'appdev': {
                     id: 'appdev',
                     name: 'Mobile App Development',
-                    price: 'P4,000 - P8,000',
-                    minPriceBWP: 4000,
-                    maxPriceBWP: 8000,
+                    price: 'P5,000',
+                    minPriceBWP: 5000,
+                    maxPriceBWP: 5000,
                     currency: selectedCurrency,
                     currencySymbol: currencySymbols[selectedCurrency],
-                    convertedMin: Math.round(convertFromBWP(4000, selectedCurrency)),
-                    convertedMax: Math.round(convertFromBWP(8000, selectedCurrency)),
+                    convertedMin: Math.round(convertFromBWP(5000, selectedCurrency)),
+                    convertedMax: Math.round(convertFromBWP(5000, selectedCurrency)),
                     features: [
-                        'Cross-platform app (Android & iOS)',
+                        'Build exclusively for Android',
                         'Custom UI/UX design',
-                        'User authentication & profiles',
+                        'User auth & profiles',
                         'Push notifications',
+                        'Admin dashboard / backend',
+                        'Published to Play Store',
                         'Database & API integration',
-                        'Payment gateway integration',
-                        'Admin dashboard / backend panel',
-                        'Published to Google Play Store',
-                        'App Store submission support',
                         'Post-launch bug fixes & support'
                     ]
                 }
@@ -1092,10 +1072,11 @@ const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwYCFOTXCniVv
                 document.getElementById('selectedTitle').textContent = packageData.name;
                 
                 // Display price in selected currency
-                if (packageData.id === 'budget') {
-                    document.getElementById('selectedPrice').textContent = 'Give Us Your Budget';
+                if (packageData.convertedMin === packageData.convertedMax) {
+                    document.getElementById('selectedPrice').textContent =
+                        `${packageData.currencySymbol}${packageData.convertedMin.toLocaleString()}`;
                 } else {
-                    document.getElementById('selectedPrice').textContent = 
+                    document.getElementById('selectedPrice').textContent =
                         `${packageData.currencySymbol}${packageData.convertedMin.toLocaleString()} - ${packageData.currencySymbol}${packageData.convertedMax.toLocaleString()}`;
                 }
                 
