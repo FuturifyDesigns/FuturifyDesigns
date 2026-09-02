@@ -75,32 +75,46 @@ nav{position:fixed;top:0;left:0;width:100%;padding:22px 48px;display:flex;justif
 .hero-title .word:hover{color:var(--accent);}
 .hero-sub{font-family:'DM Mono',monospace;font-size:clamp(13px,1.2vw,15px);color:var(--muted);max-width:560px;line-height:1.7;margin-top:24px;}
 
+/* CURRENCY SELECTOR */
+.currency-section{position:relative;z-index:10;padding:0 clamp(24px,6vw,80px);margin-bottom:48px;}
+.currency-bar{display:flex;align-items:center;gap:20px;flex-wrap:wrap;}
+.currency-label{font-family:'DM Mono',monospace;font-size:12px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;}
+.custom-dropdown{position:relative;min-width:260px;z-index:60;}
+.custom-dropdown-selected{font-family:'DM Mono',monospace;font-size:13px;color:var(--fg);background:var(--bg);border:1px solid var(--dim);padding:10px 16px;cursor:pointer;transition:border-color .3s;display:flex;align-items:center;justify-content:space-between;}
+.custom-dropdown-selected::after{content:'▾';margin-left:8px;color:var(--accent);}
+.custom-dropdown-selected:hover{border-color:var(--accent);}
+.custom-dropdown-options{position:absolute;top:100%;left:0;right:0;background:var(--bg);border:1px solid var(--dim);border-top:none;max-height:0;overflow:hidden;transition:max-height .3s var(--ease);z-index:100;}
+.custom-dropdown.open .custom-dropdown-options{max-height:300px;overflow-y:auto;}
+.custom-dropdown-option{font-family:'DM Mono',monospace;font-size:12px;color:var(--muted);padding:10px 16px;cursor:pointer;transition:all .2s;}
+.custom-dropdown-option:hover,.custom-dropdown-option.selected{color:var(--fg);background:rgba(200,241,53,0.06);}
+.exchange-rate-info{font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+.refresh-rate{background:none;border:1px solid var(--dim);color:var(--muted);width:28px;height:28px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:11px;transition:all .3s;}
+.refresh-rate:hover{border-color:var(--accent);color:var(--accent);}
+
 /* PRICING CARDS */
 .pricing-section{position:relative;z-index:1;padding:0 clamp(24px,6vw,80px) 80px;}
-.pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;max-width:1280px;margin:0 auto 60px;}
-.pricing-card{background:linear-gradient(180deg,rgba(255,255,255,0.98),rgba(246,240,231,0.97));border:1px solid rgba(90,57,12,0.14);border-radius:28px;padding:clamp(28px,3vw,40px);position:relative;transition:all .4s var(--ease);color:#111;box-shadow:0 24px 60px rgba(0,0,0,0.2);}
+.pricing-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;max-width:1200px;margin:0 auto 60px;}
+.pricing-card{background:rgba(242,237,229,0.02);border:1px solid var(--dim);padding:clamp(28px,3vw,40px);position:relative;transition:all .4s var(--ease);}
 .pricing-card:hover{border-color:rgba(200,241,53,0.25);transform:translateY(-4px);}
-.pricing-card.featured{transform:translateY(-10px);}
-.pricing-card.featured::before{content:'Best Seller';position:absolute;top:-18px;left:50%;transform:translateX(-50%);background:#0d9a42;color:#fff;padding:10px 26px;font:800 12px 'Syne',sans-serif;text-transform:uppercase;letter-spacing:.08em;clip-path:polygon(6% 0,94% 0,100% 50%,94% 100%,6% 100%,0 50%);}
-.package-kicker{font-family:'DM Mono',monospace;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#8b5a09;margin-bottom:18px;}
-.package-name{font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(28px,2.8vw,42px);margin-bottom:12px;line-height:1.06;}
-.package-description{font-family:'DM Mono',monospace;font-size:15px;color:#3d3327;line-height:1.85;margin-bottom:26px;}
+.pricing-card.featured{border-color:rgba(200,241,53,0.3);}
+.pricing-card.featured::before{content:'';position:absolute;top:0;left:0;width:100%;height:3px;background:var(--accent);}
+.package-name{font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(18px,2vw,24px);margin-bottom:8px;}
+.package-description{font-family:'DM Mono',monospace;font-size:12px;color:var(--muted);line-height:1.7;margin-bottom:20px;}
 .price-section{margin-bottom:16px;}
-.price-label{font-family:'DM Mono',monospace;font-size:10px;color:#8b5a09;letter-spacing:.14em;text-transform:uppercase;margin-bottom:6px;}
-.price{font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(44px,5vw,66px);letter-spacing:-.04em;line-height:1;}
-.recurring-prices{margin-bottom:22px;display:flex;justify-content:space-between;gap:12px;background:#111;color:#fff;border-radius:12px;padding:12px 14px;}
-.recurring-label{font-family:'DM Mono',monospace;font-size:12px;color:rgba(255,255,255,0.86);}
-.recurring-price{font-family:'Syne',sans-serif;font-weight:700;font-size:16px;color:#f3b340;}
+.price-label{font-family:'DM Mono',monospace;font-size:10px;color:var(--accent);letter-spacing:.14em;text-transform:uppercase;margin-bottom:6px;}
+.price{font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(24px,3vw,36px);letter-spacing:-.02em;}
+.recurring-prices{margin-bottom:20px;padding:12px 0;border-top:1px solid var(--dim);border-bottom:1px solid var(--dim);}
+.recurring-item{display:flex;align-items:center;justify-content:space-between;gap:12px;}
+.recurring-label{font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);}
+.recurring-price{font-family:'Syne',sans-serif;font-weight:700;font-size:14px;}
 .features-list{list-style:none;margin-bottom:24px;}
-.features-list li{font-family:'DM Mono',monospace;font-size:14px;color:#2e241a;line-height:1.85;padding:4px 0 4px 26px;position:relative;}
-.features-list li::before{content:'✓';position:absolute;left:0;color:#8b5a09;font-size:14px;font-weight:700;}
-.alt-box{border:1px solid rgba(90,57,12,0.22);border-radius:16px;padding:16px 18px;font-family:'DM Mono',monospace;color:#2e241a;line-height:1.6;background:rgba(255,255,255,0.64);}
-.alt-box strong{display:block;font-family:'Syne',sans-serif;font-size:17px;}
-.cta-button{display:inline-block;width:100%;text-align:center;padding:16px 24px;background:#111;color:#f3b340;font-family:'Syne',sans-serif;font-weight:700;font-size:13px;letter-spacing:.04em;text-transform:uppercase;border:none;border-radius:14px;cursor:pointer;transition:all .3s var(--ease);}
-.cta-button:hover{background:#222;}
+.features-list li{font-family:'DM Mono',monospace;font-size:12px;color:var(--muted);line-height:1.7;padding:4px 0;padding-left:20px;position:relative;}
+.features-list li::before{content:'✦';position:absolute;left:0;color:var(--accent);font-size:9px;}
+.cta-button{display:inline-block;width:100%;text-align:center;padding:14px 24px;background:var(--accent);color:var(--bg);font-family:'Syne',sans-serif;font-weight:700;font-size:13px;letter-spacing:.04em;text-transform:uppercase;border:none;cursor:pointer;transition:all .3s var(--ease);}
+.cta-button:hover{background:var(--fg);}
 
 /* APP DEV SECTION */
-.app-dev-section{max-width:1280px;margin:0 auto 60px;padding:0 clamp(24px,6vw,80px);}
+.app-dev-section{max-width:1200px;margin:0 auto 60px;padding:0 clamp(24px,6vw,80px);}
 .section-title{font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(20px,2.5vw,28px);margin-bottom:24px;}
 .app-dev-card{border-color:rgba(200,241,53,0.2);}
 .app-dev-card::before{content:'';position:absolute;top:0;left:0;width:100%;height:3px;background:linear-gradient(90deg,var(--accent),transparent);}
@@ -335,6 +349,25 @@ footer{border-top:1px solid var(--dim);padding:clamp(44px,6vh,72px) clamp(22px,4
     <p class="hero-sub">We help businesses grow with modern, reliable and affordable digital solutions. Browse the updated packages below and request your quote when you're ready.</p>
 </section>
 
+<!-- Currency Selector -->
+<div class="currency-section">
+    <div class="currency-bar">
+        <span class="currency-label">Currency:</span>
+        <div class="custom-dropdown" id="currencyDropdown">
+            <div class="custom-dropdown-selected" onclick="toggleDropdown()">BWP</div>
+            <div class="custom-dropdown-options">
+                <div class="custom-dropdown-option selected" data-value="BWP">BWP — Botswana Pula</div>
+                <div class="custom-dropdown-option" data-value="USD">USD — US Dollar</div>
+                <div class="custom-dropdown-option" data-value="ZAR">ZAR — South African Rand</div>
+                <div class="custom-dropdown-option" data-value="EUR">EUR — Euro</div>
+                <div class="custom-dropdown-option" data-value="GBP">GBP — British Pound</div>
+            </div>
+            <select class="currency-dropdown" id="currencySelect" style="display:none;"><option value="BWP">BWP</option><option value="USD">USD</option><option value="ZAR">ZAR</option><option value="EUR">EUR</option><option value="GBP">GBP</option></select>
+        </div>
+        <div class="exchange-rate-info"><span id="rateValue">Base currency</span><span id="rateUpdate"></span><button class="refresh-rate" id="refreshRate" title="Refresh"><i class="fas fa-sync-alt"></i></button></div>
+    </div>
+</div>
+
 <!-- Pricing Cards -->
 <div class="pricing-section">
 
@@ -348,33 +381,35 @@ footer{border-top:1px solid var(--dim);padding:clamp(44px,6vh,72px) clamp(22px,4
 
     <div class="pricing-grid">
         <div class="pricing-card reveal-card">
-            <div class="package-kicker">Starter Custom Site</div>
             <div class="package-name">Small Business Starter</div>
             <div class="package-description">Perfect for small businesses and startups to establish their online presence.</div>
-            <div class="price-section"><div class="price">P1,500</div></div>
-            <div class="recurring-prices"><span class="recurring-label">Hosting &amp; Maintenance</span><span class="recurring-price">P100/month</span></div>
+            <div class="price-section"><div class="price-label">One-time Setup</div><div class="price" data-min="1500" data-max="1500"><span class="currency-symbol">P</span><span class="price-value">1,500</span></div></div>
+            <div class="recurring-prices"><div class="recurring-item"><span class="recurring-label">Hosting &amp; Maintenance /mo:</span><span class="recurring-price" data-min="100" data-max="100"><span class="currency-symbol">P</span><span class="price-value">100</span></span></div></div>
             <ul class="features-list"><li>Custom site with domain included</li><li>3 responsive pages</li><li>Mobile friendly design</li><li>Contact form integration</li><li>Basic designs</li><li>Basic SEO &amp; social media links</li><li>SSL certificate included</li></ul>
-            <div class="alt-box">Alternatively, you can pay <strong>P300 for 3 months</strong></div>
+            <a href="#" class="cta-button" onclick="selectPackage('starter',1500,1500,event)">Get Started</a>
         </div>
 
         <div class="pricing-card featured reveal-card">
-            <div class="package-kicker">Business Custom Site</div>
             <div class="package-name">Growing Business</div>
             <div class="package-description">Ideal for growing businesses that need more functionality and professional features.</div>
-            <div class="price-section"><div class="price">P3,000</div></div>
-            <div class="recurring-prices"><span class="recurring-label">Hosting &amp; Maintenance</span><span class="recurring-price">P150/month</span></div>
+            <div class="price-section"><div class="price-label">One-time Setup</div><div class="price" data-min="3000" data-max="3000"><span class="currency-symbol">P</span><span class="price-value">3,000</span></div></div>
+            <div class="recurring-prices"><div class="recurring-item"><span class="recurring-label">Hosting &amp; Maintenance /mo:</span><span class="recurring-price" data-min="150" data-max="150"><span class="currency-symbol">P</span><span class="price-value">150</span></span></div></div>
             <ul class="features-list"><li>Custom site + domain included</li><li>3 - 5 responsive pages</li><li>Admin dashboard for CMS</li><li>Advanced SEO + Blog section</li><li>Advanced designs</li><li>Google Maps &amp; Analytics setup</li><li>Contact forms &amp; email integration</li></ul>
-            <div class="alt-box">Alternatively, you can pay <strong>P450 for 3 months</strong></div>
+            <a href="#" class="cta-button" onclick="selectPackage('business',3000,3000,event)">Get Started</a>
         </div>
+    </div>
 
+    <div class="section-divider reveal"></div>
+
+    <div class="app-dev-section">
+        <h2 class="section-title">App Development</h2>
         <div class="pricing-card app-dev-card reveal-card">
-            <div class="package-kicker">Mobile App</div>
             <div class="package-name">Mobile App Development</div>
             <div class="package-description">From concept to launch, developed and published to the Google Play Store.</div>
-            <div class="price-section"><div class="price">P5,000</div></div>
-            <div class="recurring-prices"><span class="recurring-label">Maintenance &amp; Support</span><span class="recurring-price">P200/month</span></div>
+            <div class="price-section"><div class="price-label">Starting From</div><div class="price" data-min="5000" data-max="5000"><span class="currency-symbol">P</span><span class="price-value">5,000</span></div></div>
+            <div class="recurring-prices"><div class="recurring-item"><span class="recurring-label">Maintenance &amp; Support /mo:</span><span class="recurring-price" data-min="200" data-max="200"><span class="currency-symbol">P</span><span class="price-value">200</span></span></div></div>
             <ul class="features-list"><li>Build exclusively for Android</li><li>Custom UI/UX design</li><li>User auth &amp; profiles</li><li>Push notifications</li><li>Admin dashboard / backend</li><li>Published to Play Store</li><li>Database &amp; API integration</li><li>Post-launch bug fixes &amp; support</li></ul>
-            <div class="alt-box">Alternatively, you can pay <strong>P600 for 3 months</strong></div>
+            <a href="#" class="cta-button" onclick="selectPackage('appdev',5000,5000,event)">Discuss Your App</a>
         </div>
     </div>
 
@@ -526,6 +561,19 @@ document.querySelectorAll('.hero-title .word').forEach(function(word){
         },30);
     });
 });
+
+/* ── CURRENCY CONVERSION ── */
+function toggleDropdown(){document.getElementById('currencyDropdown').classList.toggle('open');}
+window.toggleDropdown=toggleDropdown;
+var conversionRates={BWP:1,USD:0.073,ZAR:1.35,EUR:0.067,GBP:0.057};
+var currencySymbols={BWP:'P',USD:'$',ZAR:'R',EUR:'€',GBP:'£'};
+function updatePrices(){var sc=document.getElementById('currencySelect').value,rate=conversionRates[sc],sym=currencySymbols[sc];sessionStorage.setItem('selectedCurrency',sc);document.querySelectorAll('.currency-symbol').forEach(function(el){el.textContent=sym;});document.querySelectorAll('[data-min]').forEach(function(el){var min=Math.round(parseFloat(el.getAttribute('data-min'))*rate),max=Math.round(parseFloat(el.getAttribute('data-max'))*rate),value=el.querySelector('.price-value');if(value)value.textContent=min===max?min.toLocaleString():min.toLocaleString()+' - '+max.toLocaleString();});document.getElementById('rateValue').textContent=sc==='BWP'?'Base currency':'1 BWP = '+rate.toFixed(4)+' '+sc;}
+document.querySelectorAll('.custom-dropdown-option').forEach(function(opt){opt.addEventListener('click',function(){var value=this.getAttribute('data-value'),dropdown=document.getElementById('currencyDropdown');document.getElementById('currencySelect').value=value;dropdown.querySelector('.custom-dropdown-selected').textContent=value;dropdown.querySelectorAll('.custom-dropdown-option').forEach(function(item){item.classList.remove('selected');});this.classList.add('selected');dropdown.classList.remove('open');updatePrices();});});
+document.addEventListener('click',function(e){var dropdown=document.getElementById('currencyDropdown');if(dropdown&&!dropdown.contains(e.target))dropdown.classList.remove('open');});
+document.getElementById('refreshRate').addEventListener('click',updatePrices);
+function selectPackage(id,min,max,event){event.preventDefault();var currency=document.getElementById('currencySelect').value,rate=conversionRates[currency],packages={starter:{name:'Small Business Starter',features:['3 responsive pages','Mobile friendly design','Contact form integration','Basic designs','Basic SEO & social media links','SSL certificate included']},business:{name:'Growing Business',features:['3 - 5 responsive pages','Admin dashboard for CMS','Advanced SEO + Blog section','Advanced designs','Google Maps & Analytics setup','Contact forms & email integration']},appdev:{name:'Mobile App Development',features:['Build exclusively for Android','Custom UI/UX design','User auth & profiles','Push notifications','Admin dashboard / backend','Published to Play Store','Database & API integration','Post-launch bug fixes & support']}};sessionStorage.setItem('selectedPackage',JSON.stringify({id:id,name:packages[id].name,minPrice:min,maxPrice:max,convertedMin:Math.round(min*rate),convertedMax:Math.round(max*rate),currency:currency,currencySymbol:currencySymbols[currency],features:packages[id].features}));window.location.href='contact.html';}
+window.selectPackage=selectPackage;
+updatePrices();
 
 /* ── BUSINESS HOURS ── */
 var widgetOpen=true,lastNoticeHour=-1;
