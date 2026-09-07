@@ -10,6 +10,7 @@
     <script src="js/cms-cloud.js" defer></script>
 
     <title>Terms of Service - Futurify Designs</title>
+    <link rel="stylesheet" href="css/brand.css">
     <link rel="icon" href="favicon.ico" sizes="48x48">
     <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
@@ -21,10 +22,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <style>
-:root{--bg:#060606;--fg:#f2ede5;--accent:#c8f135;--muted:rgba(242,237,229,0.38);--dim:rgba(242,237,229,0.12);--ease:cubic-bezier(0.76,0,0.24,1);--ease-out:cubic-bezier(0.16,1,0.3,1);}
+:root{--bg:#0a0a0a;--fg:#f3eee4;--accent:#c9a24b;--muted:rgba(242,237,229,0.38);--dim:rgba(242,237,229,0.12);--ease:cubic-bezier(0.76,0,0.24,1);--ease-out:cubic-bezier(0.16,1,0.3,1);}
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
-html{scroll-behavior:smooth;scrollbar-width:thin;scrollbar-color:rgba(200,241,53,0.3) transparent;}
-html::-webkit-scrollbar{width:6px;}html::-webkit-scrollbar-track{background:transparent;}html::-webkit-scrollbar-thumb{background:rgba(200,241,53,0.3);border-radius:3px;}
+html{scroll-behavior:smooth;scrollbar-width:thin;scrollbar-color:rgba(201,162,75,0.3) transparent;}
+html::-webkit-scrollbar{width:6px;}html::-webkit-scrollbar-track{background:transparent;}html::-webkit-scrollbar-thumb{background:rgba(201,162,75,0.3);border-radius:3px;}
 body{background:var(--bg);color:var(--fg);font-family:'Syne',sans-serif;overflow-x:hidden;}
 a{color:inherit;text-decoration:none;}
 ::selection{background:var(--accent);color:var(--bg);}
@@ -87,7 +88,7 @@ nav{position:fixed;top:0;left:0;width:100%;padding:22px 48px;display:flex;justif
 .custom-dropdown-options{position:absolute;top:100%;left:0;right:0;background:var(--bg);border:1px solid var(--dim);border-top:none;max-height:0;overflow:hidden;transition:max-height .3s var(--ease);z-index:100;}
 .custom-dropdown.open .custom-dropdown-options{max-height:300px;overflow-y:auto;}
 .custom-dropdown-option{font-family:'DM Mono',monospace;font-size:12px;color:var(--muted);padding:10px 16px;cursor:pointer;transition:all .2s;}
-.custom-dropdown-option:hover,.custom-dropdown-option.selected{color:var(--fg);background:rgba(200,241,53,0.06);}
+.custom-dropdown-option:hover,.custom-dropdown-option.selected{color:var(--fg);background:rgba(201,162,75,0.06);}
 .exchange-rate-info{font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
 .refresh-rate{background:none;border:1px solid var(--dim);color:var(--muted);width:28px;height:28px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:11px;transition:all .3s;}
 .refresh-rate:hover{border-color:var(--accent);color:var(--accent);}
@@ -96,8 +97,8 @@ nav{position:fixed;top:0;left:0;width:100%;padding:22px 48px;display:flex;justif
 .pricing-section{position:relative;z-index:1;padding:0 clamp(24px,6vw,80px) 80px;}
 .pricing-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;max-width:1200px;margin:0 auto 60px;}
 .pricing-card{background:rgba(242,237,229,0.02);border:1px solid var(--dim);padding:clamp(28px,3vw,40px);position:relative;transition:all .4s var(--ease);}
-.pricing-card:hover{border-color:rgba(200,241,53,0.25);transform:translateY(-4px);}
-.pricing-card.featured{border-color:rgba(200,241,53,0.3);}
+.pricing-card:hover{border-color:rgba(201,162,75,0.25);transform:translateY(-4px);}
+.pricing-card.featured{border-color:rgba(201,162,75,0.3);}
 .pricing-card.featured::before{content:'';position:absolute;top:0;left:0;width:100%;height:3px;background:var(--accent);}
 .package-name{font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(18px,2vw,24px);margin-bottom:8px;}
 .package-description{font-family:'DM Mono',monospace;font-size:12px;color:var(--muted);line-height:1.7;margin-bottom:20px;}
@@ -118,7 +119,7 @@ nav{position:fixed;top:0;left:0;width:100%;padding:22px 48px;display:flex;justif
 /* APP DEV SECTION */
 .app-dev-section{max-width:1200px;margin:0 auto 60px;padding:0 clamp(24px,6vw,80px);}
 .section-title{font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(20px,2.5vw,28px);margin-bottom:24px;}
-.app-dev-card{border-color:rgba(200,241,53,0.2);}
+.app-dev-card{border-color:rgba(201,162,75,0.2);}
 .app-dev-card::before{content:'';position:absolute;top:0;left:0;width:100%;height:3px;background:linear-gradient(90deg,var(--accent),transparent);}
 
 /* ADDONS */
@@ -126,7 +127,7 @@ nav{position:fixed;top:0;left:0;width:100%;padding:22px 48px;display:flex;justif
 .addons-title{font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(18px,2vw,24px);margin-bottom:20px;}
 .addons-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
 .addon-item{border:1px solid var(--dim);padding:20px;display:flex;justify-content:space-between;align-items:center;transition:border-color .3s;}
-.addon-item:hover{border-color:rgba(200,241,53,0.25);}
+.addon-item:hover{border-color:rgba(201,162,75,0.25);}
 .addon-name{font-family:'DM Mono',monospace;font-size:13px;color:var(--fg);}
 .addon-price{font-family:'Syne',sans-serif;font-weight:700;font-size:16px;color:var(--accent);}
 
@@ -145,7 +146,7 @@ nav{position:fixed;top:0;left:0;width:100%;padding:22px 48px;display:flex;justif
 /* BUSINESS HOURS */
 #biz-widget{position:fixed;top:clamp(70px,10vh,100px);right:0;z-index:200;display:flex;}
 .biz-tab{writing-mode:vertical-rl;padding:clamp(12px,1.5vh,18px) clamp(8px,1vw,12px);background:var(--dim);border:1px solid var(--dim);border-right:none;font-family:'DM Mono',monospace;font-size:clamp(8px,0.9vw,10px);letter-spacing:.18em;text-transform:uppercase;color:var(--muted);cursor:pointer;transition:background .3s;display:flex;flex-direction:column;align-items:center;gap:6px;backdrop-filter:blur(10px);}
-.biz-tab:hover{background:rgba(200,241,53,0.08);}
+.biz-tab:hover{background:rgba(201,162,75,0.08);}
 .biz-panel{background:rgba(6,6,6,0.92);border:1px solid var(--dim);border-right:none;padding:clamp(16px,2vh,24px) clamp(14px,1.5vw,22px);min-width:160px;text-align:center;backdrop-filter:blur(20px);transition:transform .4s var(--ease),opacity .4s;transform:translateX(100%);opacity:0;}
 #biz-widget.open .biz-panel{transform:translateX(0);opacity:1;}
 .biz-clock{font-family:'DM Mono',monospace;font-size:clamp(18px,2vw,24px);letter-spacing:.1em;color:var(--fg);margin-bottom:10px;}
@@ -250,7 +251,7 @@ footer{border-top:1px solid var(--dim);padding:clamp(44px,6vh,72px) clamp(22px,4
 .section-label-track span.accent{color:var(--accent);opacity:.35;}
 
 /* Pricing card hover glow */
-.pricing-card::after{content:'';position:absolute;inset:-1px;background:linear-gradient(135deg,rgba(200,241,53,0.08),transparent 60%);opacity:0;transition:opacity .4s;pointer-events:none;}
+.pricing-card::after{content:'';position:absolute;inset:-1px;background:linear-gradient(135deg,rgba(201,162,75,0.08),transparent 60%);opacity:0;transition:opacity .4s;pointer-events:none;}
 .pricing-card:hover::after{opacity:1;}
 
 /* ABOUT-SPECIFIC */
@@ -267,7 +268,7 @@ footer{border-top:1px solid var(--dim);padding:clamp(44px,6vh,72px) clamp(22px,4
 
 .services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:32px;}
 .service-item{border:1px solid var(--dim);padding:clamp(20px,2.5vw,32px);position:relative;transition:all .4s var(--ease);overflow:hidden;}
-.service-item:hover{border-color:rgba(200,241,53,0.25);transform:translateY(-3px);}
+.service-item:hover{border-color:rgba(201,162,75,0.25);transform:translateY(-3px);}
 .service-item::after{content:'';position:absolute;top:0;left:0;width:100%;height:2px;background:var(--accent);transform:scaleX(0);transform-origin:left;transition:transform .4s var(--ease);}
 .service-item:hover::after{transform:scaleX(1);}
 .si-num{font-family:'DM Mono',monospace;font-size:10px;color:var(--accent);letter-spacing:.15em;display:block;margin-bottom:12px;}
@@ -306,13 +307,9 @@ footer{border-top:1px solid var(--dim);padding:clamp(44px,6vh,72px) clamp(22px,4
 </style>
 </head>
 <body>
-</div>
 <canvas id="bgCanvas"></canvas>
 
-<!-- Opening -->
-<div class="opening-overlay" id="openingOverlay">
-    <div class="oo-word" id="ooWord"></div>
-    <div class="oo-foot">
+<div class="oo-foot">
         <div class="oo-barwrap"><div class="oo-barfill" id="ooBar"></div></div>
         <div class="oo-pct" id="ooPct">000</div>
     </div>
@@ -320,7 +317,7 @@ footer{border-top:1px solid var(--dim);padding:clamp(44px,6vh,72px) clamp(22px,4
 
 <!-- Nav -->
 <nav>
-    <a href="home.html" class="nav-logo">Futurify</a>
+    <a href="home.html" class="nav-logo"><img src="logo-f-nav.png" alt="" class="nav-logo-img" style="width:28px;height:28px;object-fit:contain"><span class="nav-wordmark">Futurify</span></a>
     <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
     <ul class="nav-links" id="navLinks">
         <li><a href="home.html">Home</a></li>
@@ -928,7 +925,7 @@ function showExit(){
     if(shown||!armed)return;shown=true;
     var d=document.createElement('div');d.id='exitPopup';
     d.style.cssText='position:fixed;inset:0;z-index:300000;background:rgba(6,6,6,0.88);backdrop-filter:blur(12px);display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .3s;';
-    d.innerHTML='<div style="background:#060606;border:1px solid rgba(242,237,229,0.12);max-width:480px;width:90%;padding:48px 36px;text-align:center;position:relative;transform:translateY(20px);transition:transform .4s cubic-bezier(0.16,1,0.3,1);"><div style="position:absolute;top:0;left:0;width:100%;height:3px;background:#c8f135;"></div><p style="font-family:DM Mono,monospace;font-size:13px;color:rgba(242,237,229,0.38);margin-bottom:16px;">Hey, thanks for stopping by <em style="color:#c8f135;">Futurify</em></p><p style="font-family:DM Mono,monospace;font-size:14px;color:#f2ede5;line-height:1.7;margin-bottom:28px;">Before you leave, why not take a look at what we have built? From sleek portfolios to full e-commerce platforms.</p><div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;"><a href="portfolio.html" style="padding:14px 28px;background:#c8f135;color:#060606;font-family:Syne,sans-serif;font-weight:700;font-size:13px;letter-spacing:.04em;text-transform:uppercase;text-decoration:none;">See Our Work</a><button id="exitDismiss" style="padding:14px 28px;background:none;border:1px solid rgba(242,237,229,0.12);color:rgba(242,237,229,0.38);font-family:DM Mono,monospace;font-size:12px;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;">Maybe Later</button></div></div>';
+    d.innerHTML='<div style="background:#060606;border:1px solid rgba(242,237,229,0.12);max-width:480px;width:90%;padding:48px 36px;text-align:center;position:relative;transform:translateY(20px);transition:transform .4s cubic-bezier(0.16,1,0.3,1);"><div style="position:absolute;top:0;left:0;width:100%;height:3px;background:#c9a24b;"></div><p style="font-family:DM Mono,monospace;font-size:13px;color:rgba(242,237,229,0.38);margin-bottom:16px;">Hey, thanks for stopping by <em style="color:#c9a24b;">Futurify</em></p><p style="font-family:DM Mono,monospace;font-size:14px;color:#f2ede5;line-height:1.7;margin-bottom:28px;">Before you leave, why not take a look at what we have built? From sleek portfolios to full e-commerce platforms.</p><div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;"><a href="portfolio.html" style="padding:14px 28px;background:#c9a24b;color:#060606;font-family:Syne,sans-serif;font-weight:700;font-size:13px;letter-spacing:.04em;text-transform:uppercase;text-decoration:none;">See Our Work</a><button id="exitDismiss" style="padding:14px 28px;background:none;border:1px solid rgba(242,237,229,0.12);color:rgba(242,237,229,0.38);font-family:DM Mono,monospace;font-size:12px;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;">Maybe Later</button></div></div>';
     document.body.appendChild(d);
     requestAnimationFrame(function(){d.style.opacity='1';d.querySelector('div').style.transform='translateY(0)';});
     document.getElementById('exitDismiss').addEventListener('click',function(){d.style.opacity='0';setTimeout(function(){d.remove();},300);});

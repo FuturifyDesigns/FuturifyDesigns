@@ -8,6 +8,7 @@
     <meta http-equiv="Permissions-Policy" content="geolocation=(), microphone=(), camera=(), payment=()">
     <script src="js/security.js" defer></script>
     <script src="js/cms-cloud.js" defer></script>
+    <script src="js/site-common.js" defer></script>
 
     <title>Templates - Futurify Designs</title>
     <link rel="icon" href="favicon.ico" sizes="48x48">
@@ -16,16 +17,14 @@
     <link rel="apple-touch-icon" href="logo-512.png">
     <meta property="og:title" content="Pricing - Futurify Designs">
     <meta property="og:description" content="Learn about Leon Maunge and Futurify Designs - crafting digital experiences from Gaborone, Botswana.">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/brand.css">
 <style>
-:root{--bg:#060606;--fg:#f2ede5;--accent:#c8f135;--muted:rgba(242,237,229,0.38);--dim:rgba(242,237,229,0.12);--ease:cubic-bezier(0.76,0,0.24,1);--ease-out:cubic-bezier(0.16,1,0.3,1);}
+:root{--bg:#0a0a0a;--fg:#f3eee4;--accent:#c9a24b;--muted:rgba(243,238,228,0.52);--dim:rgba(243,238,228,0.08);--ease:cubic-bezier(0.76,0,0.24,1);--ease-out:cubic-bezier(0.16,1,0.3,1);}
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
-html{scroll-behavior:smooth;scrollbar-width:thin;scrollbar-color:rgba(200,241,53,0.3) transparent;}
-html::-webkit-scrollbar{width:6px;}html::-webkit-scrollbar-track{background:transparent;}html::-webkit-scrollbar-thumb{background:rgba(200,241,53,0.3);border-radius:3px;}
-body{background:var(--bg);color:var(--fg);font-family:'Syne',sans-serif;overflow-x:hidden;}
+html{scroll-behavior:smooth;scrollbar-width:thin;scrollbar-color:rgba(201,162,75,0.3) transparent;}
+html::-webkit-scrollbar{width:6px;}html::-webkit-scrollbar-track{background:transparent;}html::-webkit-scrollbar-thumb{background:rgba(201,162,75,0.3);border-radius:3px;}
+body{background:var(--bg);color:var(--fg);font-family:var(--font-body),'Outfit',sans-serif;overflow-x:hidden;}
 a{color:inherit;text-decoration:none;}
 ::selection{background:var(--accent);color:var(--bg);}
 
@@ -37,18 +36,18 @@ a{color:inherit;text-decoration:none;}
 .opening-overlay{position:fixed;inset:0;z-index:10000;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;}
 .opening-overlay.out{animation:ooWipe 0.8s var(--ease) forwards;pointer-events:none;}
 @keyframes ooWipe{from{clip-path:inset(0 0 0% 0)}to{clip-path:inset(0 0 100% 0)}}
-.oo-word{font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(48px,10vw,120px);color:var(--fg);letter-spacing:-.03em;overflow:visible;word-wrap:break-word;text-align:center;}
+.oo-word{font-family:'Cormorant Garamond',serif;font-weight:800;font-size:clamp(48px,10vw,120px);color:var(--fg);letter-spacing:-.03em;overflow:visible;word-wrap:break-word;text-align:center;}
 .oo-word .oo-char{display:inline-block;transform:translateY(115%);opacity:0;}
 .oo-foot{position:absolute;bottom:clamp(26px,4.5vh,48px);left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:10px;}
 .oo-barwrap{width:clamp(130px,24vw,200px);height:1px;background:var(--dim);overflow:hidden;}
 .oo-barfill{height:100%;width:0%;background:var(--accent);}
-.oo-pct{font-family:'DM Mono',monospace;font-size:clamp(9px,1vw,11px);letter-spacing:.2em;color:var(--muted);}
+.oo-pct{font-family:'Outfit',sans-serif;font-size:clamp(9px,1vw,11px);letter-spacing:.2em;color:var(--muted);}
 
 /* NAV */
-nav{position:fixed;top:0;left:0;width:100%;padding:22px 48px;display:flex;justify-content:space-between;align-items:center;z-index:9990;background:rgba(6,6,6,0.6);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--dim);}
-.nav-logo{font-family:'Syne',sans-serif;font-weight:800;font-size:20px;letter-spacing:.04em;color:var(--fg);}
+nav{position:fixed;top:0;left:0;width:100%;padding:22px 48px;display:flex;justify-content:space-between;align-items:center;z-index:9990;background:rgba(10,10,10,0.78);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--dim);}
+.nav-logo{display:inline-flex;align-items:center;gap:10px;font-family:'Outfit',sans-serif;font-weight:600;font-size:14px;letter-spacing:.18em;text-transform:uppercase;color:var(--fg);}
 .nav-links{display:flex;gap:32px;list-style:none;}
-.nav-links a{font-family:'DM Mono',monospace;font-size:13px;font-weight:400;color:var(--muted);letter-spacing:.06em;text-transform:uppercase;position:relative;transition:color .3s;}
+.nav-links a{font-family:'Outfit',sans-serif;font-size:13px;font-weight:400;color:var(--muted);letter-spacing:.06em;text-transform:uppercase;position:relative;transition:color .3s;}
 .nav-links a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:1.5px;background:var(--accent);transition:width .35s var(--ease);}
 .nav-links a:hover,.nav-links a.active{color:var(--fg);}
 .nav-links a:hover::after,.nav-links a.active::after{width:100%;}
@@ -60,7 +59,7 @@ nav{position:fixed;top:0;left:0;width:100%;padding:22px 48px;display:flex;justif
 @media(max-width:900px){
     nav{padding:16px 20px;}
     .hamburger{display:flex !important;}
-    .nav-links{position:fixed;inset:0;background:rgba(6,6,6,0.98);backdrop-filter:blur(16px);flex-direction:column;align-items:center;justify-content:flex-start;gap:0;transform:translateX(100%);transition:transform .4s var(--ease);z-index:9990;padding:100px 20px 60px;overflow-y:auto;}
+    .nav-links{position:fixed;inset:0;background:rgba(10,10,10,0.98);backdrop-filter:blur(16px);flex-direction:column;align-items:center;justify-content:flex-start;gap:0;transform:translateX(100%);transition:transform .4s var(--ease);z-index:9990;padding:100px 20px 60px;overflow-y:auto;}
     .nav-links.active{transform:translateX(0);}
     .nav-links li{padding:20px 0;border-bottom:1px solid var(--dim);width:100%;text-align:center;}
     .nav-links a{font-size:18px !important;}
@@ -69,26 +68,26 @@ nav{position:fixed;top:0;left:0;width:100%;padding:22px 48px;display:flex;justif
 
 /* HERO */
 .hero{position:relative;z-index:1;min-height:60vh;display:flex;flex-direction:column;justify-content:center;padding:clamp(120px,15vh,180px) clamp(24px,6vw,80px) clamp(40px,6vh,80px);}
-.hero-label{font-family:'DM Mono',monospace;font-size:clamp(11px,1.2vw,13px);color:var(--muted);text-transform:uppercase;letter-spacing:.14em;margin-bottom:24px;}
+.hero-label{font-family:'Outfit',sans-serif;font-size:clamp(11px,1.2vw,13px);color:var(--muted);text-transform:uppercase;letter-spacing:.14em;margin-bottom:24px;}
 .hero-label span{color:var(--accent);}
-.hero-title{font-weight:800;font-size:clamp(36px,6vw,80px);line-height:1.05;letter-spacing:-.03em;max-width:800px;}
+.hero-title{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:clamp(36px,6vw,80px);line-height:1.05;letter-spacing:-.03em;max-width:800px;}
 .hero-title .word{display:inline-block;cursor:default;transition:color .2s;}
 .hero-title .word:hover{color:var(--accent);}
-.hero-sub{font-family:'DM Mono',monospace;font-size:clamp(13px,1.2vw,15px);color:var(--muted);max-width:560px;line-height:1.7;margin-top:24px;}
+.hero-sub{font-family:'Outfit',sans-serif;font-size:clamp(13px,1.2vw,15px);color:var(--muted);max-width:560px;line-height:1.7;margin-top:24px;}
 
 /* CURRENCY SELECTOR */
 .currency-section{position:relative;z-index:10;padding:0 clamp(24px,6vw,80px);margin-bottom:48px;}
 .currency-bar{display:flex;align-items:center;gap:20px;flex-wrap:wrap;}
-.currency-label{font-family:'DM Mono',monospace;font-size:12px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;}
+.currency-label{font-family:'Outfit',sans-serif;font-size:12px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;}
 .custom-dropdown{position:relative;min-width:260px;z-index:60;}
-.custom-dropdown-selected{font-family:'DM Mono',monospace;font-size:13px;color:var(--fg);background:var(--bg);border:1px solid var(--dim);padding:10px 16px;cursor:pointer;transition:border-color .3s;display:flex;align-items:center;justify-content:space-between;}
+.custom-dropdown-selected{font-family:'Outfit',sans-serif;font-size:13px;color:var(--fg);background:var(--bg);border:1px solid var(--dim);padding:10px 16px;cursor:pointer;transition:border-color .3s;display:flex;align-items:center;justify-content:space-between;}
 .custom-dropdown-selected::after{content:'▾';margin-left:8px;color:var(--accent);}
 .custom-dropdown-selected:hover{border-color:var(--accent);}
 .custom-dropdown-options{position:absolute;top:100%;left:0;right:0;background:var(--bg);border:1px solid var(--dim);border-top:none;max-height:0;overflow:hidden;transition:max-height .3s var(--ease);z-index:100;}
 .custom-dropdown.open .custom-dropdown-options{max-height:300px;overflow-y:auto;}
-.custom-dropdown-option{font-family:'DM Mono',monospace;font-size:12px;color:var(--muted);padding:10px 16px;cursor:pointer;transition:all .2s;}
-.custom-dropdown-option:hover,.custom-dropdown-option.selected{color:var(--fg);background:rgba(200,241,53,0.06);}
-.exchange-rate-info{font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+.custom-dropdown-option{font-family:'Outfit',sans-serif;font-size:12px;color:var(--muted);padding:10px 16px;cursor:pointer;transition:all .2s;}
+.custom-dropdown-option:hover,.custom-dropdown-option.selected{color:var(--fg);background:rgba(201,162,75,0.06);}
+.exchange-rate-info{font-family:'Outfit',sans-serif;font-size:11px;color:var(--muted);display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
 .refresh-rate{background:none;border:1px solid var(--dim);color:var(--muted);width:28px;height:28px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:11px;transition:all .3s;}
 .refresh-rate:hover{border-color:var(--accent);color:var(--accent);}
 
@@ -96,60 +95,60 @@ nav{position:fixed;top:0;left:0;width:100%;padding:22px 48px;display:flex;justif
 .pricing-section{position:relative;z-index:1;padding:0 clamp(24px,6vw,80px) 80px;}
 .pricing-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;max-width:1200px;margin:0 auto 60px;}
 .pricing-card{background:rgba(242,237,229,0.02);border:1px solid var(--dim);padding:clamp(28px,3vw,40px);position:relative;transition:all .4s var(--ease);}
-.pricing-card:hover{border-color:rgba(200,241,53,0.25);transform:translateY(-4px);}
-.pricing-card.featured{border-color:rgba(200,241,53,0.3);}
+.pricing-card:hover{border-color:rgba(201,162,75,0.25);transform:translateY(-4px);}
+.pricing-card.featured{border-color:rgba(201,162,75,0.3);}
 .pricing-card.featured::before{content:'';position:absolute;top:0;left:0;width:100%;height:3px;background:var(--accent);}
-.package-name{font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(18px,2vw,24px);margin-bottom:8px;}
-.package-description{font-family:'DM Mono',monospace;font-size:12px;color:var(--muted);line-height:1.7;margin-bottom:20px;}
+.package-name{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:clamp(18px,2vw,24px);margin-bottom:8px;}
+.package-description{font-family:'Outfit',sans-serif;font-size:12px;color:var(--muted);line-height:1.7;margin-bottom:20px;}
 .price-section{margin-bottom:16px;}
-.price-label{font-family:'DM Mono',monospace;font-size:10px;color:var(--accent);letter-spacing:.14em;text-transform:uppercase;margin-bottom:6px;}
-.price{font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(24px,3vw,36px);letter-spacing:-.02em;}
+.price-label{font-family:'Outfit',sans-serif;font-size:10px;color:var(--accent);letter-spacing:.14em;text-transform:uppercase;margin-bottom:6px;}
+.price{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:clamp(24px,3vw,36px);letter-spacing:-.02em;}
 .price.custom-price{font-size:clamp(16px,2vw,22px);color:var(--accent);}
 .recurring-prices{margin-bottom:20px;padding:12px 0;border-top:1px solid var(--dim);border-bottom:1px solid var(--dim);}
 .recurring-item{display:flex;align-items:center;justify-content:space-between;gap:12px;}
-.recurring-label{font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);}
-.recurring-price{font-family:'Syne',sans-serif;font-weight:700;font-size:14px;}
+.recurring-label{font-family:'Outfit',sans-serif;font-size:11px;color:var(--muted);}
+.recurring-price{font-family:'Outfit',sans-serif;font-weight:700;font-size:14px;}
 .features-list{list-style:none;margin-bottom:24px;}
-.features-list li{font-family:'DM Mono',monospace;font-size:12px;color:var(--muted);line-height:1.7;padding:4px 0;padding-left:20px;position:relative;}
+.features-list li{font-family:'Outfit',sans-serif;font-size:12px;color:var(--muted);line-height:1.7;padding:4px 0;padding-left:20px;position:relative;}
 .features-list li::before{content:'✦';position:absolute;left:0;color:var(--accent);font-size:9px;}
-.cta-button{display:inline-block;width:100%;text-align:center;padding:14px 24px;background:var(--accent);color:var(--bg);font-family:'Syne',sans-serif;font-weight:700;font-size:13px;letter-spacing:.04em;text-transform:uppercase;border:none;cursor:pointer;transition:all .3s var(--ease);}
+.cta-button{display:inline-block;width:100%;text-align:center;padding:14px 24px;background:var(--accent);color:var(--bg);font-family:'Outfit',sans-serif;font-weight:700;font-size:13px;letter-spacing:.04em;text-transform:uppercase;border:none;cursor:pointer;transition:all .3s var(--ease);}
 .cta-button:hover{background:var(--fg);}
 
 /* APP DEV SECTION */
 .app-dev-section{max-width:1200px;margin:0 auto 60px;padding:0 clamp(24px,6vw,80px);}
-.section-title{font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(20px,2.5vw,28px);margin-bottom:24px;}
-.app-dev-card{border-color:rgba(200,241,53,0.2);}
+.section-title{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:clamp(20px,2.5vw,28px);margin-bottom:24px;}
+.app-dev-card{border-color:rgba(201,162,75,0.2);}
 .app-dev-card::before{content:'';position:absolute;top:0;left:0;width:100%;height:3px;background:linear-gradient(90deg,var(--accent),transparent);}
 
 /* ADDONS */
 .addons-section{max-width:1200px;margin:0 auto 60px;padding:0 clamp(24px,6vw,80px);}
-.addons-title{font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(18px,2vw,24px);margin-bottom:20px;}
+.addons-title{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:clamp(18px,2vw,24px);margin-bottom:20px;}
 .addons-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
 .addon-item{border:1px solid var(--dim);padding:20px;display:flex;justify-content:space-between;align-items:center;transition:border-color .3s;}
-.addon-item:hover{border-color:rgba(200,241,53,0.25);}
-.addon-name{font-family:'DM Mono',monospace;font-size:13px;color:var(--fg);}
-.addon-price{font-family:'Syne',sans-serif;font-weight:700;font-size:16px;color:var(--accent);}
+.addon-item:hover{border-color:rgba(201,162,75,0.25);}
+.addon-name{font-family:'Outfit',sans-serif;font-size:13px;color:var(--fg);}
+.addon-price{font-family:'Outfit',sans-serif;font-weight:700;font-size:16px;color:var(--accent);}
 
 /* DISCLAIMER */
 .pricing-disclaimer{max-width:1200px;margin:0 auto 60px;padding:clamp(24px,3vw,36px);padding-left:clamp(48px,6vw,80px);border:1px solid var(--dim);border-left:3px solid var(--accent);position:relative;}
 .disclaimer-title{font-weight:700;font-size:16px;margin-bottom:12px;}
-.disclaimer-text{font-family:'DM Mono',monospace;font-size:12px;color:var(--muted);line-height:1.7;margin-bottom:10px;}
+.disclaimer-text{font-family:'Outfit',sans-serif;font-size:12px;color:var(--muted);line-height:1.7;margin-bottom:10px;}
 .disclaimer-text strong{color:var(--fg);}
 
 /* FINAL CTA */
 .final-cta{text-align:center;padding:clamp(60px,10vh,100px) clamp(24px,6vw,80px);position:relative;z-index:1;}
 .final-cta h2{font-weight:800;font-size:clamp(28px,4vw,48px);letter-spacing:-.03em;margin-bottom:16px;}
-.final-cta p{font-family:'DM Mono',monospace;font-size:14px;color:var(--muted);margin-bottom:28px;}
+.final-cta p{font-family:'Outfit',sans-serif;font-size:14px;color:var(--muted);margin-bottom:28px;}
 .final-cta .cta-button{width:auto;display:inline-block;padding:16px 40px;}
 
 /* BUSINESS HOURS */
 #biz-widget{position:fixed;top:clamp(70px,10vh,100px);right:0;z-index:200;display:flex;}
-.biz-tab{writing-mode:vertical-rl;padding:clamp(12px,1.5vh,18px) clamp(8px,1vw,12px);background:var(--dim);border:1px solid var(--dim);border-right:none;font-family:'DM Mono',monospace;font-size:clamp(8px,0.9vw,10px);letter-spacing:.18em;text-transform:uppercase;color:var(--muted);cursor:pointer;transition:background .3s;display:flex;flex-direction:column;align-items:center;gap:6px;backdrop-filter:blur(10px);}
-.biz-tab:hover{background:rgba(200,241,53,0.08);}
+.biz-tab{writing-mode:vertical-rl;padding:clamp(12px,1.5vh,18px) clamp(8px,1vw,12px);background:var(--dim);border:1px solid var(--dim);border-right:none;font-family:'Outfit',sans-serif;font-size:clamp(8px,0.9vw,10px);letter-spacing:.18em;text-transform:uppercase;color:var(--muted);cursor:pointer;transition:background .3s;display:flex;flex-direction:column;align-items:center;gap:6px;backdrop-filter:blur(10px);}
+.biz-tab:hover{background:rgba(201,162,75,0.08);}
 .biz-panel{background:rgba(6,6,6,0.92);border:1px solid var(--dim);border-right:none;padding:clamp(16px,2vh,24px) clamp(14px,1.5vw,22px);min-width:160px;text-align:center;backdrop-filter:blur(20px);transition:transform .4s var(--ease),opacity .4s;transform:translateX(100%);opacity:0;}
 #biz-widget.open .biz-panel{transform:translateX(0);opacity:1;}
-.biz-clock{font-family:'DM Mono',monospace;font-size:clamp(18px,2vw,24px);letter-spacing:.1em;color:var(--fg);margin-bottom:10px;}
-.biz-status{font-family:'DM Mono',monospace;font-size:clamp(9px,1vw,11px);letter-spacing:.14em;text-transform:uppercase;padding:5px 12px;border-radius:20px;}
+.biz-clock{font-family:'Outfit',sans-serif;font-size:clamp(18px,2vw,24px);letter-spacing:.1em;color:var(--fg);margin-bottom:10px;}
+.biz-status{font-family:'Outfit',sans-serif;font-size:clamp(9px,1vw,11px);letter-spacing:.14em;text-transform:uppercase;padding:5px 12px;border-radius:20px;}
 .biz-status.s-open{background:rgba(17,153,142,.2);color:#38ef7d;border:1px solid rgba(17,153,142,.4);}
 .biz-status.s-closing{background:rgba(245,87,108,.15);color:#f5576c;border:1px solid rgba(245,87,108,.3);}
 .biz-status.s-closed{background:rgba(78,84,200,.15);color:#8f94fb;border:1px solid rgba(78,84,200,.3);}
@@ -165,8 +164,8 @@ nav{position:fixed;top:0;left:0;width:100%;padding:22px 48px;display:flex;justif
 .notice-modal.show{opacity:1;transform:translate(-50%,-50%) scale(1);pointer-events:all;}
 .notice-modal .n-icon{font-size:48px;margin-bottom:16px;}
 .notice-modal .n-title{font-weight:800;font-size:20px;margin-bottom:8px;}
-.notice-modal .n-msg{font-family:'DM Mono',monospace;font-size:13px;color:var(--muted);line-height:1.7;margin-bottom:24px;}
-.notice-modal .n-close{padding:12px 28px;background:transparent;color:var(--fg);border:1px solid var(--dim);font-family:'DM Mono',monospace;font-size:12px;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;transition:all .3s;}
+.notice-modal .n-msg{font-family:'Outfit',sans-serif;font-size:13px;color:var(--muted);line-height:1.7;margin-bottom:24px;}
+.notice-modal .n-close{padding:12px 28px;background:transparent;color:var(--fg);border:1px solid var(--dim);font-family:'Outfit',sans-serif;font-size:12px;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;transition:all .3s;}
 .notice-modal .n-close:hover{border-color:var(--accent);color:var(--accent);}
 
 /* NOTIFICATION QUOTES */
@@ -176,8 +175,8 @@ nav{position:fixed;top:0;left:0;width:100%;padding:22px 48px;display:flex;justif
 .notif-close{position:absolute;top:8px;right:8px;background:none;border:none;color:var(--muted);font-size:20px;cursor:pointer;width:32px;height:32px;display:flex;align-items:center;justify-content:center;transition:color .3s;}
 .notif-close:hover{color:var(--fg);}
 .notif-icon{font-size:28px;margin-bottom:8px;}
-.notif-text{font-family:'DM Mono',monospace;font-size:13px;color:var(--fg);line-height:1.6;font-style:italic;margin-bottom:8px;}
-.notif-author{font-family:'DM Mono',monospace;font-size:11px;color:var(--accent);text-align:right;}
+.notif-text{font-family:'Outfit',sans-serif;font-size:13px;color:var(--fg);line-height:1.6;font-style:italic;margin-bottom:8px;}
+.notif-author{font-family:'Outfit',sans-serif;font-size:11px;color:var(--accent);text-align:right;}
 @media(max-width:768px){.notif{right:auto;left:-100%;max-width:calc(100% - 30px);}.notif.show{left:15px;right:auto;}}
 
 /* SESSION MODAL */
@@ -185,29 +184,29 @@ nav{position:fixed;top:0;left:0;width:100%;padding:22px 48px;display:flex;justif
 .session-box{background:var(--bg);border:1px solid var(--dim);padding:48px 36px;text-align:center;max-width:480px;width:100%;position:relative;}
 .session-box::before{content:'';position:absolute;top:0;left:0;width:100%;height:3px;background:var(--accent);}
 .session-box h2{font-weight:800;font-size:22px;margin-bottom:12px;color:var(--accent);}
-.session-box p{font-family:'DM Mono',monospace;font-size:13px;color:var(--muted);line-height:1.7;margin-bottom:28px;}
-.session-box button{padding:14px 36px;background:var(--accent);color:var(--bg);font-family:'Syne',sans-serif;font-weight:700;font-size:13px;letter-spacing:.06em;text-transform:uppercase;border:none;cursor:pointer;transition:background .3s;}
+.session-box p{font-family:'Outfit',sans-serif;font-size:13px;color:var(--muted);line-height:1.7;margin-bottom:28px;}
+.session-box button{padding:14px 36px;background:var(--accent);color:var(--bg);font-family:'Outfit',sans-serif;font-weight:700;font-size:13px;letter-spacing:.06em;text-transform:uppercase;border:none;cursor:pointer;transition:background .3s;}
 .session-box button:hover{background:var(--fg);}
 
 /* FOOTER — matches home_f */
 footer{border-top:1px solid var(--dim);padding:clamp(44px,6vh,72px) clamp(22px,4.5vw,52px) clamp(28px,3vh,40px);position:relative;z-index:1;}
 .footer-top{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:clamp(24px,4vw,52px);margin-bottom:clamp(32px,5vh,52px);}
-.footer-brand{font-size:clamp(18px,2vw,26px);font-weight:800;letter-spacing:-.03em;line-height:1;margin-bottom:10px;}
+.footer-brand{display:inline-flex;align-items:center;gap:10px;font-size:clamp(14px,1.4vw,16px);font-weight:600;letter-spacing:.18em;text-transform:uppercase;line-height:1;margin-bottom:10px;}
 .footer-tagline{font-size:clamp(13px,1.2vw,15px);font-weight:600;margin-bottom:8px;}
-.footer-desc{font-family:'DM Mono',monospace;font-size:clamp(9px,1vw,11px);line-height:1.8;color:var(--muted);}
-.footer-col h4{font-family:'DM Mono',monospace;font-size:clamp(9px,1vw,10px);letter-spacing:.2em;text-transform:uppercase;color:var(--accent);margin-bottom:clamp(12px,2vh,20px);}
+.footer-desc{font-family:'Outfit',sans-serif;font-size:clamp(9px,1vw,11px);line-height:1.8;color:var(--muted);}
+.footer-col h4{font-family:'Outfit',sans-serif;font-size:clamp(9px,1vw,10px);letter-spacing:.2em;text-transform:uppercase;color:var(--accent);margin-bottom:clamp(12px,2vh,20px);}
 .footer-col ul{list-style:none;display:flex;flex-direction:column;gap:8px;}
-.footer-col a{font-family:'DM Mono',monospace;font-size:clamp(10px,1vw,12px);color:var(--muted);text-decoration:none;display:inline-block;transition:color .3s,transform .3s;}
+.footer-col a{font-family:'Outfit',sans-serif;font-size:clamp(10px,1vw,12px);color:var(--muted);text-decoration:none;display:inline-block;transition:color .3s,transform .3s;}
 .footer-col a:hover{color:var(--fg);transform:translateX(4px);}
-.footer-col li{font-family:'DM Mono',monospace;font-size:clamp(10px,1vw,12px);color:var(--muted);display:flex;align-items:center;gap:8px;}
+.footer-col li{font-family:'Outfit',sans-serif;font-size:clamp(10px,1vw,12px);color:var(--muted);display:flex;align-items:center;gap:8px;}
 .footer-col li i{color:var(--accent);width:14px;flex-shrink:0;}
 .footer-socials{display:flex;gap:10px;margin-top:clamp(12px,2vh,20px);flex-wrap:wrap;}
 .footer-social-link{width:34px;height:34px;border:1px solid var(--dim);border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:13px;text-decoration:none;transition:all .3s;}
 .footer-social-link:hover{border-color:var(--accent);color:var(--accent);}
 .footer-bottom{border-top:1px solid var(--dim);padding-top:clamp(20px,3vh,32px);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;}
-.footer-copy{font-family:'DM Mono',monospace;font-size:clamp(9px,1vw,11px);color:var(--muted);}
+.footer-copy{font-family:'Outfit',sans-serif;font-size:clamp(9px,1vw,11px);color:var(--muted);}
 .footer-legal{display:flex;gap:20px;}
-.footer-legal a{font-family:'DM Mono',monospace;font-size:clamp(9px,1vw,11px);color:var(--muted);text-decoration:none;transition:color .3s;}
+.footer-legal a{font-family:'Outfit',sans-serif;font-size:clamp(9px,1vw,11px);color:var(--muted);text-decoration:none;transition:color .3s;}
 .footer-legal a:hover{color:var(--fg);}
 @media(max-width:900px){.footer-top{grid-template-columns:1fr 1fr;}}
 @media(max-width:520px){.footer-top{grid-template-columns:1fr;}.footer-bottom{flex-direction:column;align-items:flex-start;}}
@@ -226,7 +225,7 @@ footer{border-top:1px solid var(--dim);padding:clamp(44px,6vh,72px) clamp(22px,4
 .reveal-card{opacity:0;transform:translateY(50px) scale(0.96);transition:opacity .6s var(--ease),transform .8s var(--ease);}
 .reveal-card.visible{opacity:1;transform:translateY(0) scale(1);}
 .template-card-actions{display:flex;gap:10px;margin-top:16px;padding-top:16px;border-top:1px solid var(--dim);}
-.template-demo-btn{flex:1;text-align:center;padding:12px 16px;background:var(--accent);color:var(--bg);font-family:'Syne',sans-serif;font-weight:700;font-size:12px;letter-spacing:.04em;text-transform:uppercase;border:none;cursor:pointer;transition:all .3s var(--ease);}
+.template-demo-btn{flex:1;text-align:center;padding:12px 16px;background:var(--accent);color:var(--bg);font-family:'Outfit',sans-serif;font-weight:700;font-size:12px;letter-spacing:.04em;text-transform:uppercase;border:none;cursor:pointer;transition:all .3s var(--ease);}
 .template-demo-btn:hover{background:var(--fg);}
 .pricing-grid .reveal-card:nth-child(1){transition-delay:0s;}
 .pricing-grid .reveal-card:nth-child(2){transition-delay:.12s;}
@@ -249,44 +248,44 @@ footer{border-top:1px solid var(--dim);padding:clamp(44px,6vh,72px) clamp(22px,4
 /* Horizontal scroll marquee for section labels */
 .section-label-wrap{position:relative;z-index:1;overflow:hidden;padding:clamp(24px,4vh,48px) 0;border-top:1px solid var(--dim);border-bottom:1px solid var(--dim);margin-bottom:clamp(40px,6vh,60px);}
 .section-label-track{display:flex;white-space:nowrap;will-change:transform;}
-.section-label-track span{font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(24px,4vw,48px);letter-spacing:-.02em;color:var(--dim);padding:0 32px;flex-shrink:0;}
+.section-label-track span{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:clamp(24px,4vw,48px);letter-spacing:-.02em;color:var(--dim);padding:0 32px;flex-shrink:0;}
 .section-label-track span.accent{color:var(--accent);opacity:.35;}
 
 /* Pricing card hover glow */
-.pricing-card::after{content:'';position:absolute;inset:-1px;background:linear-gradient(135deg,rgba(200,241,53,0.08),transparent 60%);opacity:0;transition:opacity .4s;pointer-events:none;}
+.pricing-card::after{content:'';position:absolute;inset:-1px;background:linear-gradient(135deg,rgba(201,162,75,0.08),transparent 60%);opacity:0;transition:opacity .4s;pointer-events:none;}
 .pricing-card:hover::after{opacity:1;}
 
 /* ABOUT-SPECIFIC */
 .story-block{padding:clamp(32px,4vw,48px);border:1px solid var(--dim);margin-bottom:0;}
-.story-label{font-family:'DM Mono',monospace;font-size:clamp(10px,1vw,13px);color:var(--accent);letter-spacing:.2em;text-transform:uppercase;margin-bottom:24px;display:flex;align-items:center;gap:12px;}
+.story-label{font-family:'Outfit',sans-serif;font-size:clamp(10px,1vw,13px);color:var(--accent);letter-spacing:.2em;text-transform:uppercase;margin-bottom:24px;display:flex;align-items:center;gap:12px;}
 .story-label::after{content:'';flex:1;max-width:60px;height:1px;background:var(--accent);opacity:.4;}
 .story-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,3vw,48px);}
-.story-text p{font-family:'DM Mono',monospace;font-size:clamp(12px,1.1vw,14px);color:var(--muted);line-height:1.8;margin-bottom:16px;}
+.story-text p{font-family:'Outfit',sans-serif;font-size:clamp(12px,1.1vw,14px);color:var(--muted);line-height:1.8;margin-bottom:16px;}
 .story-text strong{color:var(--fg);}
 
 .services-header{margin-bottom:clamp(28px,4vh,48px);}
-.services-label{font-family:'DM Mono',monospace;font-size:clamp(10px,1vw,13px);color:var(--accent);letter-spacing:.2em;text-transform:uppercase;display:block;margin-bottom:12px;}
-.services-sub{font-family:'DM Mono',monospace;font-size:clamp(13px,1.2vw,15px);color:var(--muted);line-height:1.7;max-width:600px;}
+.services-label{font-family:'Outfit',sans-serif;font-size:clamp(10px,1vw,13px);color:var(--accent);letter-spacing:.2em;text-transform:uppercase;display:block;margin-bottom:12px;}
+.services-sub{font-family:'Outfit',sans-serif;font-size:clamp(13px,1.2vw,15px);color:var(--muted);line-height:1.7;max-width:600px;}
 
 .services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:32px;}
 .service-item{border:1px solid var(--dim);padding:clamp(20px,2.5vw,32px);position:relative;transition:all .4s var(--ease);overflow:hidden;}
-.service-item:hover{border-color:rgba(200,241,53,0.25);transform:translateY(-3px);}
+.service-item:hover{border-color:rgba(201,162,75,0.25);transform:translateY(-3px);}
 .service-item::after{content:'';position:absolute;top:0;left:0;width:100%;height:2px;background:var(--accent);transform:scaleX(0);transform-origin:left;transition:transform .4s var(--ease);}
 .service-item:hover::after{transform:scaleX(1);}
-.si-num{font-family:'DM Mono',monospace;font-size:10px;color:var(--accent);letter-spacing:.15em;display:block;margin-bottom:12px;}
-.service-item h3{font-family:'Syne',sans-serif;font-weight:700;font-size:clamp(14px,1.3vw,17px);margin-bottom:8px;}
-.service-item p{font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);line-height:1.7;}
+.si-num{font-family:'Outfit',sans-serif;font-size:10px;color:var(--accent);letter-spacing:.15em;display:block;margin-bottom:12px;}
+.service-item h3{font-family:'Outfit',sans-serif;font-weight:700;font-size:clamp(14px,1.3vw,17px);margin-bottom:8px;}
+.service-item p{font-family:'Outfit',sans-serif;font-size:11px;color:var(--muted);line-height:1.7;}
 
-.integration-note{font-family:'DM Mono',monospace;font-size:12px;color:var(--muted);line-height:1.8;border:1px solid var(--dim);border-left:3px solid var(--accent);padding:20px 24px;}
+.integration-note{font-family:'Outfit',sans-serif;font-size:12px;color:var(--muted);line-height:1.8;border:1px solid var(--dim);border-left:3px solid var(--accent);padding:20px 24px;}
 .integration-note strong{color:var(--fg);}
 
 .duo-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;}
 .duo-card{border:1px solid var(--dim);padding:clamp(28px,3vw,40px);}
-.duo-label{font-family:'DM Mono',monospace;font-size:clamp(10px,1vw,13px);color:var(--accent);letter-spacing:.2em;text-transform:uppercase;margin-bottom:20px;}
+.duo-label{font-family:'Outfit',sans-serif;font-size:clamp(10px,1vw,13px);color:var(--accent);letter-spacing:.2em;text-transform:uppercase;margin-bottom:20px;}
 .skills-list{display:flex;flex-wrap:wrap;gap:8px;}
-.skill-tag{font-family:'DM Mono',monospace;font-size:11px;color:var(--fg);letter-spacing:.06em;padding:8px 16px;border:1px solid var(--dim);transition:all .3s;}
+.skill-tag{font-family:'Outfit',sans-serif;font-size:11px;color:var(--fg);letter-spacing:.06em;padding:8px 16px;border:1px solid var(--dim);transition:all .3s;}
 .skill-tag:hover{border-color:var(--accent);color:var(--accent);}
-.duo-text p{font-family:'DM Mono',monospace;font-size:clamp(12px,1.1vw,14px);color:var(--muted);line-height:1.8;margin-bottom:14px;}
+.duo-text p{font-family:'Outfit',sans-serif;font-size:clamp(12px,1.1vw,14px);color:var(--muted);line-height:1.8;margin-bottom:14px;}
 .duo-text strong{color:var(--fg);}
 
 @media(max-width:768px){
@@ -309,13 +308,9 @@ footer{border-top:1px solid var(--dim);padding:clamp(44px,6vh,72px) clamp(22px,4
 </style>
 </head>
 <body>
-</div>
 <canvas id="bgCanvas"></canvas>
 
-<!-- Opening -->
-<div class="opening-overlay" id="openingOverlay">
-    <div class="oo-word" id="ooWord"></div>
-    <div class="oo-foot">
+<div class="oo-foot">
         <div class="oo-barwrap"><div class="oo-barfill" id="ooBar"></div></div>
         <div class="oo-pct" id="ooPct">000</div>
     </div>
@@ -323,7 +318,10 @@ footer{border-top:1px solid var(--dim);padding:clamp(44px,6vh,72px) clamp(22px,4
 
 <!-- Nav -->
 <nav>
-    <a href="home.html" class="nav-logo">Futurify</a>
+    <a href="home.html" class="nav-logo">
+  <img src="logo-f-nav.png" alt="" class="nav-logo-img" style="width:28px;height:28px;object-fit:contain">
+  <span class="nav-wordmark">Futurify</span>
+</a>
     <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
     <ul class="nav-links" id="navLinks">
         <li><a href="home.html">Home</a></li>
@@ -367,14 +365,14 @@ footer{border-top:1px solid var(--dim);padding:clamp(44px,6vh,72px) clamp(22px,4
 <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:24px;max-width:1200px;margin:0 auto;">
 
     <div class="reveal-card" style="border:1px solid var(--dim);overflow:hidden;transition:all .4s var(--ease);">
-        <div style="height:200px;overflow:hidden;position:relative;"><img src="starter-landing.png" alt="Starter Landing" style="width:100%;height:100%;object-fit:cover;" onerror="this.src='https://placehold.co/400x250/060606/c8f135?text=Starter+Landing'"></div>
+        <div style="height:200px;overflow:hidden;position:relative;"><img src="starter-landing.png" alt="Starter Landing" style="width:100%;height:100%;object-fit:cover;" onerror="this.src='https://placehold.co/400x250/0a0a0a/c9a24b?text=Starter+Landing'"></div>
         <div style="padding:24px;">
-            <div style="font-family:'DM Mono',monospace;font-size:10px;color:var(--accent);letter-spacing:.15em;margin-bottom:8px;">LANDING · 1 PAGE</div>
+            <div style="font-family:'Outfit',sans-serif;font-size:10px;color:var(--accent);letter-spacing:.15em;margin-bottom:8px;">LANDING · 1 PAGE</div>
             <h3 style="font-weight:700;font-size:18px;margin-bottom:8px;">Starter Landing</h3>
-            <p style="font-family:'DM Mono',monospace;font-size:12px;color:var(--muted);line-height:1.7;margin-bottom:16px;">Clean, minimal landing page perfect for startups, apps, or product launches.</p>
+            <p style="font-family:'Outfit',sans-serif;font-size:12px;color:var(--muted);line-height:1.7;margin-bottom:16px;">Clean, minimal landing page perfect for startups, apps, or product launches.</p>
             <div style="display:flex;justify-content:space-between;align-items:center;padding-top:16px;border-top:1px solid var(--dim);">
-                <div><div style="font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);">DIY</div><div style="font-weight:700;"><span class="currency-symbol">P</span><span class="price-single" data-value="150">150</span></div></div>
-                <div><div style="font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);">Done-For-You</div><div style="font-weight:700;color:var(--accent);"><span class="currency-symbol">P</span><span class="price-single" data-value="800">800</span></div></div>
+                <div><div style="font-family:'Outfit',sans-serif;font-size:10px;color:var(--muted);">DIY</div><div style="font-weight:700;"><span class="currency-symbol">P</span><span class="price-single" data-value="150">150</span></div></div>
+                <div><div style="font-family:'Outfit',sans-serif;font-size:10px;color:var(--muted);">Done-For-You</div><div style="font-weight:700;color:var(--accent);"><span class="currency-symbol">P</span><span class="price-single" data-value="800">800</span></div></div>
             </div>
             <div class="template-card-actions">
                 <a href="demos/starter-landing/" target="_blank" rel="noopener noreferrer" class="template-demo-btn">View Site</a>
@@ -382,16 +380,16 @@ footer{border-top:1px solid var(--dim);padding:clamp(44px,6vh,72px) clamp(22px,4
         </div>
     </div>
 
-    <div class="reveal-card" style="border:1px solid rgba(200,241,53,0.3);overflow:hidden;transition:all .4s var(--ease);position:relative;">
+    <div class="reveal-card" style="border:1px solid rgba(201,162,75,0.3);overflow:hidden;transition:all .4s var(--ease);position:relative;">
         <div style="position:absolute;top:0;left:0;width:100%;height:3px;background:var(--accent);z-index:2;"></div>
-        <div style="height:200px;overflow:hidden;position:relative;"><img src="portfolio-pro.png" alt="Portfolio Pro" style="width:100%;height:100%;object-fit:cover;" onerror="this.src='https://placehold.co/400x250/060606/c8f135?text=Portfolio+Pro'"></div>
+        <div style="height:200px;overflow:hidden;position:relative;"><img src="portfolio-pro.png" alt="Portfolio Pro" style="width:100%;height:100%;object-fit:cover;" onerror="this.src='https://placehold.co/400x250/0a0a0a/c9a24b?text=Portfolio+Pro'"></div>
         <div style="padding:24px;">
-            <div style="font-family:'DM Mono',monospace;font-size:10px;color:var(--accent);letter-spacing:.15em;margin-bottom:8px;">PORTFOLIO · 3 PAGES · POPULAR</div>
+            <div style="font-family:'Outfit',sans-serif;font-size:10px;color:var(--accent);letter-spacing:.15em;margin-bottom:8px;">PORTFOLIO · 3 PAGES · POPULAR</div>
             <h3 style="font-weight:700;font-size:18px;margin-bottom:8px;">Portfolio Pro</h3>
-            <p style="font-family:'DM Mono',monospace;font-size:12px;color:var(--muted);line-height:1.7;margin-bottom:16px;">Showcase your work with this elegant portfolio template with gallery and contact form.</p>
+            <p style="font-family:'Outfit',sans-serif;font-size:12px;color:var(--muted);line-height:1.7;margin-bottom:16px;">Showcase your work with this elegant portfolio template with gallery and contact form.</p>
             <div style="display:flex;justify-content:space-between;align-items:center;padding-top:16px;border-top:1px solid var(--dim);">
-                <div><div style="font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);">DIY</div><div style="font-weight:700;"><span class="currency-symbol">P</span><span class="price-single" data-value="250">250</span></div></div>
-                <div><div style="font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);">Done-For-You</div><div style="font-weight:700;color:var(--accent);"><span class="currency-symbol">P</span><span class="price-single" data-value="1000">1000</span></div></div>
+                <div><div style="font-family:'Outfit',sans-serif;font-size:10px;color:var(--muted);">DIY</div><div style="font-weight:700;"><span class="currency-symbol">P</span><span class="price-single" data-value="250">250</span></div></div>
+                <div><div style="font-family:'Outfit',sans-serif;font-size:10px;color:var(--muted);">Done-For-You</div><div style="font-weight:700;color:var(--accent);"><span class="currency-symbol">P</span><span class="price-single" data-value="1000">1000</span></div></div>
             </div>
             <div class="template-card-actions">
                 <a href="demos/portfolio-pro/" target="_blank" rel="noopener noreferrer" class="template-demo-btn">View Site</a>
@@ -400,14 +398,14 @@ footer{border-top:1px solid var(--dim);padding:clamp(44px,6vh,72px) clamp(22px,4
     </div>
 
     <div class="reveal-card" style="border:1px solid var(--dim);overflow:hidden;transition:all .4s var(--ease);">
-        <div style="height:200px;overflow:hidden;"><img src="business-starter.png" alt="Business Starter" style="width:100%;height:100%;object-fit:cover;" onerror="this.src='https://placehold.co/400x250/060606/c8f135?text=Business+Starter'"></div>
+        <div style="height:200px;overflow:hidden;"><img src="business-starter.png" alt="Business Starter" style="width:100%;height:100%;object-fit:cover;" onerror="this.src='https://placehold.co/400x250/0a0a0a/c9a24b?text=Business+Starter'"></div>
         <div style="padding:24px;">
-            <div style="font-family:'DM Mono',monospace;font-size:10px;color:var(--accent);letter-spacing:.15em;margin-bottom:8px;">BUSINESS · 4 PAGES</div>
+            <div style="font-family:'Outfit',sans-serif;font-size:10px;color:var(--accent);letter-spacing:.15em;margin-bottom:8px;">BUSINESS · 4 PAGES</div>
             <h3 style="font-weight:700;font-size:18px;margin-bottom:8px;">Business Starter</h3>
-            <p style="font-family:'DM Mono',monospace;font-size:12px;color:var(--muted);line-height:1.7;margin-bottom:16px;">Professional business website with services, about, and contact sections.</p>
+            <p style="font-family:'Outfit',sans-serif;font-size:12px;color:var(--muted);line-height:1.7;margin-bottom:16px;">Professional business website with services, about, and contact sections.</p>
             <div style="display:flex;justify-content:space-between;align-items:center;padding-top:16px;border-top:1px solid var(--dim);">
-                <div><div style="font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);">DIY</div><div style="font-weight:700;"><span class="currency-symbol">P</span><span class="price-single" data-value="300">300</span></div></div>
-                <div><div style="font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);">Done-For-You</div><div style="font-weight:700;color:var(--accent);"><span class="currency-symbol">P</span><span class="price-single" data-value="1200">1200</span></div></div>
+                <div><div style="font-family:'Outfit',sans-serif;font-size:10px;color:var(--muted);">DIY</div><div style="font-weight:700;"><span class="currency-symbol">P</span><span class="price-single" data-value="300">300</span></div></div>
+                <div><div style="font-family:'Outfit',sans-serif;font-size:10px;color:var(--muted);">Done-For-You</div><div style="font-weight:700;color:var(--accent);"><span class="currency-symbol">P</span><span class="price-single" data-value="1200">1200</span></div></div>
             </div>
             <div class="template-card-actions">
                 <a href="demos/business-starter/" target="_blank" rel="noopener noreferrer" class="template-demo-btn">View Site</a>
@@ -416,14 +414,14 @@ footer{border-top:1px solid var(--dim);padding:clamp(44px,6vh,72px) clamp(22px,4
     </div>
 
     <div class="reveal-card" style="border:1px solid var(--dim);overflow:hidden;transition:all .4s var(--ease);">
-        <div style="height:200px;overflow:hidden;"><img src="starter-food.png" alt="Starter Food" style="width:100%;height:100%;object-fit:cover;" onerror="this.src='https://placehold.co/400x250/060606/c8f135?text=Starter+Food'"></div>
+        <div style="height:200px;overflow:hidden;"><img src="starter-food.png" alt="Starter Food" style="width:100%;height:100%;object-fit:cover;" onerror="this.src='https://placehold.co/400x250/0a0a0a/c9a24b?text=Starter+Food'"></div>
         <div style="padding:24px;">
-            <div style="font-family:'DM Mono',monospace;font-size:10px;color:var(--accent);letter-spacing:.15em;margin-bottom:8px;">FOOD · 2 PAGES</div>
+            <div style="font-family:'Outfit',sans-serif;font-size:10px;color:var(--accent);letter-spacing:.15em;margin-bottom:8px;">FOOD · 2 PAGES</div>
             <h3 style="font-weight:700;font-size:18px;margin-bottom:8px;">Starter Food</h3>
-            <p style="font-family:'DM Mono',monospace;font-size:12px;color:var(--muted);line-height:1.7;margin-bottom:16px;">Delicious restaurant template with menu display and reservation features.</p>
+            <p style="font-family:'Outfit',sans-serif;font-size:12px;color:var(--muted);line-height:1.7;margin-bottom:16px;">Delicious restaurant template with menu display and reservation features.</p>
             <div style="display:flex;justify-content:space-between;align-items:center;padding-top:16px;border-top:1px solid var(--dim);">
-                <div><div style="font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);">DIY</div><div style="font-weight:700;"><span class="currency-symbol">P</span><span class="price-single" data-value="200">200</span></div></div>
-                <div><div style="font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);">Done-For-You</div><div style="font-weight:700;color:var(--accent);"><span class="currency-symbol">P</span><span class="price-single" data-value="900">900</span></div></div>
+                <div><div style="font-family:'Outfit',sans-serif;font-size:10px;color:var(--muted);">DIY</div><div style="font-weight:700;"><span class="currency-symbol">P</span><span class="price-single" data-value="200">200</span></div></div>
+                <div><div style="font-family:'Outfit',sans-serif;font-size:10px;color:var(--muted);">Done-For-You</div><div style="font-weight:700;color:var(--accent);"><span class="currency-symbol">P</span><span class="price-single" data-value="900">900</span></div></div>
             </div>
             <div class="template-card-actions">
                 <a href="demos/starter-food/" target="_blank" rel="noopener noreferrer" class="template-demo-btn">View Site</a>
@@ -432,14 +430,14 @@ footer{border-top:1px solid var(--dim);padding:clamp(44px,6vh,72px) clamp(22px,4
     </div>
 
     <div class="reveal-card" style="border:1px solid var(--dim);overflow:hidden;transition:all .4s var(--ease);">
-        <div style="height:200px;overflow:hidden;"><img src="service-pro.png" alt="Service Pro" style="width:100%;height:100%;object-fit:cover;" onerror="this.src='https://placehold.co/400x250/060606/c8f135?text=Service+Pro'"></div>
+        <div style="height:200px;overflow:hidden;"><img src="service-pro.png" alt="Service Pro" style="width:100%;height:100%;object-fit:cover;" onerror="this.src='https://placehold.co/400x250/0a0a0a/c9a24b?text=Service+Pro'"></div>
         <div style="padding:24px;">
-            <div style="font-family:'DM Mono',monospace;font-size:10px;color:var(--accent);letter-spacing:.15em;margin-bottom:8px;">BUSINESS · 5 PAGES</div>
+            <div style="font-family:'Outfit',sans-serif;font-size:10px;color:var(--accent);letter-spacing:.15em;margin-bottom:8px;">BUSINESS · 5 PAGES</div>
             <h3 style="font-weight:700;font-size:18px;margin-bottom:8px;">Service Pro</h3>
-            <p style="font-family:'DM Mono',monospace;font-size:12px;color:var(--muted);line-height:1.7;margin-bottom:16px;">Professional service business template with pricing tables and testimonials.</p>
+            <p style="font-family:'Outfit',sans-serif;font-size:12px;color:var(--muted);line-height:1.7;margin-bottom:16px;">Professional service business template with pricing tables and testimonials.</p>
             <div style="display:flex;justify-content:space-between;align-items:center;padding-top:16px;border-top:1px solid var(--dim);">
-                <div><div style="font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);">DIY</div><div style="font-weight:700;"><span class="currency-symbol">P</span><span class="price-single" data-value="350">350</span></div></div>
-                <div><div style="font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);">Done-For-You</div><div style="font-weight:700;color:var(--accent);"><span class="currency-symbol">P</span><span class="price-single" data-value="1500">1500</span></div></div>
+                <div><div style="font-family:'Outfit',sans-serif;font-size:10px;color:var(--muted);">DIY</div><div style="font-weight:700;"><span class="currency-symbol">P</span><span class="price-single" data-value="350">350</span></div></div>
+                <div><div style="font-family:'Outfit',sans-serif;font-size:10px;color:var(--muted);">Done-For-You</div><div style="font-weight:700;color:var(--accent);"><span class="currency-symbol">P</span><span class="price-single" data-value="1500">1500</span></div></div>
             </div>
             <div class="template-card-actions">
                 <a href="demos/service-pro/" target="_blank" rel="noopener noreferrer" class="template-demo-btn">View Site</a>
@@ -451,8 +449,8 @@ footer{border-top:1px solid var(--dim);padding:clamp(44px,6vh,72px) clamp(22px,4
 
 <div class="reveal" style="text-align:center;padding:clamp(60px,10vh,100px) 0;">
     <h2 style="font-weight:800;font-size:clamp(24px,3.5vw,40px);margin-bottom:16px;">Need Something Custom?</h2>
-    <p style="font-family:'DM Mono',monospace;font-size:14px;color:var(--muted);margin-bottom:28px;">Can not find what you are looking for? We build custom websites tailored to your exact needs.</p>
-    <a href="contact.html" style="display:inline-block;padding:16px 40px;background:var(--accent);color:var(--bg);font-family:Syne,sans-serif;font-weight:700;font-size:13px;letter-spacing:.04em;text-transform:uppercase;text-decoration:none;transition:background .3s;">Get a Custom Quote</a>
+    <p style="font-family:'Outfit',sans-serif;font-size:14px;color:var(--muted);margin-bottom:28px;">Can not find what you are looking for? We build custom websites tailored to your exact needs.</p>
+    <a href="contact.html" style="display:inline-block;padding:16px 40px;background:var(--accent);color:var(--bg);font-family:Outfit,sans-serif;font-weight:700;font-size:13px;letter-spacing:.04em;text-transform:uppercase;text-decoration:none;transition:background .3s;">Get a Custom Quote</a>
 </div>
 
 </section>
@@ -460,7 +458,7 @@ footer{border-top:1px solid var(--dim);padding:clamp(44px,6vh,72px) clamp(22px,4
 <footer class="reveal">
     <div class="footer-top">
         <div>
-            <div class="footer-brand">Futurify</div>
+            <div class="footer-brand"><img src="logo-f-nav.png" alt="" class="footer-brand-img" style="width:26px;height:26px;object-fit:contain;display:inline-block;vertical-align:middle;margin-right:8px"><span>Futurify</span></div>
             <div class="footer-tagline">Crafting Tomorrow's Digital Experiences</div>
             <div class="footer-desc">Professional web development and digital design in Gaborone, Botswana.</div>
             <div class="footer-socials">
@@ -525,7 +523,7 @@ footer{border-top:1px solid var(--dim);padding:clamp(44px,6vh,72px) clamp(22px,4
 /* ── BACKGROUND CANVAS ── */
 var cv=document.getElementById('bgCanvas'),cx=cv.getContext('2d'),cW,cH;
 function cvR(){cW=cv.width=innerWidth;cH=cv.height=innerHeight;} cvR(); addEventListener('resize',cvR);
-var blobs=[];for(var i=0;i<4;i++)blobs.push({x:Math.random()*2000,y:Math.random()*1200,r:200+Math.random()*200,vx:(Math.random()-0.5)*0.4,vy:(Math.random()-0.5)*0.4,hue:i%2===0?'200,241,53':'242,237,229'});
+var blobs=[];for(var i=0;i<4;i++)blobs.push({x:Math.random()*2000,y:Math.random()*1200,r:200+Math.random()*200,vx:(Math.random()-0.5)*0.4,vy:(Math.random()-0.5)*0.4,hue:i%2===0?'201,162,75':'242,237,229'});
 var bpts=[];for(var i=0;i<60;i++)bpts.push({x:Math.random()*2000,y:Math.random()*1200,vx:(Math.random()-0.5)*0.3,vy:(Math.random()-0.5)*0.3,r:Math.random()*1.5+0.3,a:Math.random()*0.4+0.1});
 function drawBg(){cx.clearRect(0,0,cW,cH);blobs.forEach(function(b){b.x+=b.vx;b.y+=b.vy;if(b.x<-b.r)b.x=cW+b.r;if(b.x>cW+b.r)b.x=-b.r;if(b.y<-b.r)b.y=cH+b.r;if(b.y>cH+b.r)b.y=-b.r;var g=cx.createRadialGradient(b.x,b.y,0,b.x,b.y,b.r);g.addColorStop(0,'rgba('+b.hue+',0.04)');g.addColorStop(1,'rgba(6,6,6,0)');cx.fillStyle=g;cx.fillRect(0,0,cW,cH);});bpts.forEach(function(p){p.x+=p.vx;p.y+=p.vy;if(p.x<0)p.x=cW;if(p.x>cW)p.x=0;if(p.y<0)p.y=cH;if(p.y>cH)p.y=0;cx.beginPath();cx.arc(p.x,p.y,p.r,0,Math.PI*2);cx.fillStyle='rgba(242,237,229,'+p.a+')';cx.fill();});requestAnimationFrame(drawBg);}
 drawBg();
@@ -643,8 +641,8 @@ setTimeout(function(){armed=true;},4000);
 function showExit(){
     if(shown||!armed)return;shown=true;
     var d=document.createElement('div');d.id='exitPopup';
-    d.style.cssText='position:fixed;inset:0;z-index:300000;background:rgba(6,6,6,0.88);backdrop-filter:blur(12px);display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .3s;';
-    d.innerHTML='<div style="background:#060606;border:1px solid rgba(242,237,229,0.12);max-width:480px;width:90%;padding:48px 36px;text-align:center;position:relative;transform:translateY(20px);transition:transform .4s cubic-bezier(0.16,1,0.3,1);"><div style="position:absolute;top:0;left:0;width:100%;height:3px;background:#c8f135;"></div><p style="font-family:DM Mono,monospace;font-size:13px;color:rgba(242,237,229,0.38);margin-bottom:16px;">Hey, thanks for stopping by <em style="color:#c8f135;">Futurify</em></p><p style="font-family:DM Mono,monospace;font-size:14px;color:#f2ede5;line-height:1.7;margin-bottom:28px;">Before you leave, why not take a look at what we have built? From sleek portfolios to full e-commerce platforms.</p><div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;"><a href="portfolio.html" style="padding:14px 28px;background:#c8f135;color:#060606;font-family:Syne,sans-serif;font-weight:700;font-size:13px;letter-spacing:.04em;text-transform:uppercase;text-decoration:none;">See Our Work</a><button id="exitDismiss" style="padding:14px 28px;background:none;border:1px solid rgba(242,237,229,0.12);color:rgba(242,237,229,0.38);font-family:DM Mono,monospace;font-size:12px;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;">Maybe Later</button></div></div>';
+    d.style.cssText='position:fixed;inset:0;z-index:300000;background:rgba(10,10,10,0.88);backdrop-filter:blur(12px);display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .3s;';
+    d.innerHTML='<div style="background:#0a0a0a;border:1px solid rgba(242,237,229,0.12);max-width:480px;width:90%;padding:48px 36px;text-align:center;position:relative;transform:translateY(20px);transition:transform .4s cubic-bezier(0.16,1,0.3,1);"><div style="position:absolute;top:0;left:0;width:100%;height:3px;background:#c9a24b;"></div><p style="font-family:Outfit,sans-serif;font-size:13px;color:rgba(242,237,229,0.38);margin-bottom:16px;">Hey, thanks for stopping by <em style="color:#c9a24b;">Futurify</em></p><p style="font-family:Outfit,sans-serif;font-size:14px;color:#f2ede5;line-height:1.7;margin-bottom:28px;">Before you leave, why not take a look at what we have built? From sleek portfolios to full e-commerce platforms.</p><div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;"><a href="portfolio.html" style="padding:14px 28px;background:#c9a24b;color:#060606;font-family:Outfit,sans-serif;font-weight:700;font-size:13px;letter-spacing:.04em;text-transform:uppercase;text-decoration:none;">See Our Work</a><button id="exitDismiss" style="padding:14px 28px;background:none;border:1px solid rgba(242,237,229,0.12);color:rgba(242,237,229,0.38);font-family:Outfit,sans-serif;font-size:12px;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;">Maybe Later</button></div></div>';
     document.body.appendChild(d);
     requestAnimationFrame(function(){d.style.opacity='1';d.querySelector('div').style.transform='translateY(0)';});
     document.getElementById('exitDismiss').addEventListener('click',function(){d.style.opacity='0';setTimeout(function(){d.remove();},300);});
