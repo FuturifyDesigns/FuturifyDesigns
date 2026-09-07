@@ -50,9 +50,11 @@ html {
   scrollbar-width: thin;
   scrollbar-color: rgba(201, 162, 75, 0.35) transparent;
   -webkit-text-size-adjust: 100%;
+  overflow-x: hidden;
+  max-width: 100%;
 }
 
-html::-webkit-scrollbar { width: 6px; }
+html::-webkit-scrollbar { width: 6px; height: 0; }
 html::-webkit-scrollbar-track { background: transparent; }
 html::-webkit-scrollbar-thumb {
   background: rgba(201, 162, 75, 0.35);
@@ -69,6 +71,7 @@ body {
   font-weight: 400;
   line-height: 1.6;
   overflow-x: hidden;
+  max-width: 100%;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-tap-highlight-color: transparent;
