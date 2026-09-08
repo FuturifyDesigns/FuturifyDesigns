@@ -19,7 +19,8 @@
     <meta property="og:title" content="Futurify Designs — Crafting Digital Experiences">
     <meta property="og:description" content="Professional web development and digital solutions in Gaborone, Botswana.">
     <meta property="og:image" content="https://futurifydesigns.com/logo-f-gold.png">
-    <meta http-equiv="refresh" content="4;url=home.html">
+    <meta http-equiv="refresh" content="0;url=home.html">
+    <script>window.location.replace('home.html');</script>
     <link rel="stylesheet" href="css/brand.css">
     <style>
         html, body {
@@ -146,9 +147,7 @@
             done = true;
             window.location.replace('home.html');
         }
-        setTimeout(go, 2500);
-        // Absolute failsafe — never hang on splash
-        setTimeout(go, 4000);
+        go();
     })();
     </script>
 </body>
