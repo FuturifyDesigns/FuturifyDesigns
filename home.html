@@ -12,9 +12,12 @@
 
     <title>Futurify Designs — Digital Studio in Gaborone</title>
     <meta name="description" content="Futurify Designs crafts professional websites, platforms, and apps for businesses across Botswana and beyond.">
-    <link rel="icon" href="favicon.ico" sizes="48x48">
+    <link rel="icon" href="favicon.ico" sizes="any">
+    <link rel="icon" type="image/png" sizes="48x48" href="favicon-48.png">
     <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
-    <link rel="apple-touch-icon" href="logo-f-nav.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <link rel="manifest" href="site.webmanifest">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://futurifydesigns.com/">
     <meta property="og:title" content="Futurify Designs — Digital Studio in Gaborone">
@@ -735,6 +738,25 @@
         var active = 0;
         var slideIdx = 0;
         var timer = null;
+        var warmed = Object.create(null);
+
+        function warmProjectVideo(url) {
+            try {
+                var id = new URL(url, location.href).searchParams.get('id');
+                if (!id || warmed[id] || !/^[a-z0-9-]+$/i.test(id)) return;
+                warmed[id] = true;
+                var href = 'videos/' + id + '.mp4';
+                var link = document.createElement('link');
+                link.rel = 'prefetch';
+                link.as = 'video';
+                link.href = href;
+                link.type = 'video/mp4';
+                document.head.appendChild(link);
+                if (window.fetch) {
+                    fetch(href, { credentials: 'same-origin', priority: 'low' }).catch(function () {});
+                }
+            } catch (e) {}
+        }
 
         WORK.forEach(function (item, i) {
             var btn = document.createElement('button');
@@ -764,6 +786,7 @@
             nameEl.textContent = item.name;
             tagsEl.textContent = item.tags;
             visitEl.href = item.url;
+            warmProjectVideo(item.url);
             picker.querySelectorAll('.work-pick').forEach(function (el, idx) {
                 el.classList.toggle('active', idx === active);
             });

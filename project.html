@@ -12,9 +12,40 @@
 
     <title>Project — Futurify Designs</title>
     <meta name="description" content="Project details from Futurify Designs.">
-    <link rel="icon" href="favicon.ico" sizes="48x48">
+    <script>
+    (function () {
+        var m = /[?&]id=([^&]+)/.exec(location.search);
+        if (!m) return;
+        var id = decodeURIComponent(m[1].replace(/\+/g, ' '));
+        if (!/^[a-z0-9-]+$/i.test(id)) return;
+        window.__projectId = id;
+        var videoHref = 'videos/' + id + '.mp4';
+        var posters = {
+            ping: 'ping_showcase.png',
+            'marketsphere-app': 'marketsphere_app_showcase.png'
+        };
+        window.__projectPoster = posters[id] || ('thumb-' + id + '.jpg');
+        function preload(as, href, type) {
+            var l = document.createElement('link');
+            l.rel = 'preload';
+            l.as = as;
+            l.href = href;
+            if (type) l.type = type;
+            document.head.appendChild(l);
+        }
+        preload('video', videoHref, 'video/mp4');
+        preload('image', window.__projectPoster);
+        if (window.fetch) {
+            fetch(videoHref, { credentials: 'same-origin', priority: 'high' }).catch(function () {});
+        }
+    })();
+    </script>
+    <link rel="icon" href="favicon.ico" sizes="any">
+    <link rel="icon" type="image/png" sizes="48x48" href="favicon-48.png">
     <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
-    <link rel="apple-touch-icon" href="logo-f-nav.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <link rel="manifest" href="site.webmanifest">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="css/brand.css">
     <style>
@@ -312,9 +343,19 @@
 
         <div class="detail-layout" id="detailContent" hidden>
             <div class="detail-media" id="detailMedia">
-                <video id="detailVideo" autoplay muted loop playsinline preload="metadata" hidden></video>
+                <video id="detailVideo" autoplay muted loop playsinline preload="auto" hidden></video>
                 <img id="detailImage" alt="" hidden>
             </div>
+            <script>
+            (function () {
+                var id = window.__projectId;
+                var video = document.getElementById('detailVideo');
+                if (!id || !video) return;
+                if (window.__projectPoster) video.poster = window.__projectPoster;
+                video.src = 'videos/' + id + '.mp4';
+                video.load();
+            })();
+            </script>
             <div class="detail-info">
                 <div class="detail-kicker" id="detailType">Project</div>
                 <h1 id="detailTitle">Project</h1>
@@ -608,14 +649,28 @@
             image.alt = project.title;
             video.hidden = true;
             video.removeAttribute('src');
+            video.removeAttribute('poster');
         } else {
             video.hidden = false;
             image.hidden = true;
             image.removeAttribute('src');
-            video.src = project.video;
+            if (window.__projectPoster) video.poster = window.__projectPoster;
+            if (video.getAttribute('src') !== project.video) {
+                video.src = project.video;
+                video.load();
+            }
             video.setAttribute('aria-label', project.title + ' preview slideshow');
-            var play = video.play();
-            if (play && typeof play.catch === 'function') play.catch(function () {});
+
+            function tryPlay() {
+                var play = video.play();
+                if (play && typeof play.catch === 'function') play.catch(function () {});
+            }
+            if (video.readyState >= 3) {
+                tryPlay();
+            } else {
+                video.addEventListener('canplay', tryPlay, { once: true });
+                tryPlay();
+            }
         }
     })();
     </script>

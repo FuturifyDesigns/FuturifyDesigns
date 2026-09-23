@@ -12,9 +12,12 @@
 
     <title>Portfolio — Futurify Designs</title>
     <meta name="description" content="Selected websites, apps, and templates by Futurify Designs — digital studio in Gaborone, Botswana.">
-    <link rel="icon" href="favicon.ico" sizes="48x48">
+    <link rel="icon" href="favicon.ico" sizes="any">
+    <link rel="icon" type="image/png" sizes="48x48" href="favicon-48.png">
     <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
-    <link rel="apple-touch-icon" href="logo-f-nav.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <link rel="manifest" href="site.webmanifest">
     <meta property="og:type" content="website">
     <meta property="og:title" content="Portfolio — Futurify Designs">
     <meta property="og:description" content="Selected websites, apps, and templates crafted in Botswana.">
@@ -527,6 +530,42 @@
             });
         });
 
+        /* Warm project videos on hover/focus so View Details plays sooner */
+        var warmed = Object.create(null);
+        function warmProjectVideo(id) {
+            if (!id || warmed[id] || !/^[a-z0-9-]+$/i.test(id)) return;
+            warmed[id] = true;
+            var href = 'videos/' + id + '.mp4';
+            var link = document.createElement('link');
+            link.rel = 'prefetch';
+            link.as = 'video';
+            link.href = href;
+            link.type = 'video/mp4';
+            document.head.appendChild(link);
+            if (window.fetch) {
+                fetch(href, { credentials: 'same-origin', priority: 'low' }).catch(function () {});
+            }
+        }
+        function idFromHref(href) {
+            try {
+                return new URL(href, location.href).searchParams.get('id');
+            } catch (e) {
+                return null;
+            }
+        }
+        document.querySelectorAll('a[href*="project.html?id="]').forEach(function (a) {
+            var warm = function () { warmProjectVideo(idFromHref(a.getAttribute('href'))); };
+            a.addEventListener('pointerenter', warm, { passive: true });
+            a.addEventListener('focus', warm, { passive: true });
+            a.addEventListener('touchstart', warm, { passive: true });
+        });
+        cards.forEach(function (card) {
+            var link = card.querySelector('a[href*="project.html?id="]');
+            if (!link) return;
+            card.addEventListener('pointerenter', function () {
+                warmProjectVideo(idFromHref(link.getAttribute('href')));
+            }, { passive: true });
+        });
     })();
     </script>
 </body>
