@@ -90,6 +90,7 @@
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: clamp(16px, 2vw, 24px);
+            width: 100%;
         }
 
         .project-card {
@@ -98,6 +99,7 @@
             overflow: hidden;
             display: flex;
             flex-direction: column;
+            min-width: 0;
             transition: transform 0.35s var(--ease), border-color 0.35s, box-shadow 0.35s;
         }
         .project-card:hover {
@@ -114,20 +116,14 @@
             background: #121212;
             border-bottom: 1px solid var(--gold-border);
         }
-        .project-cover .proj-slide {
-            position: absolute;
-            inset: 0;
+        .project-cover img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            opacity: 0;
-            transition: opacity 0.8s ease;
+            display: block;
+            transition: transform 0.6s var(--ease);
         }
-        .project-cover .proj-slide.active { opacity: 1; }
-        .project-card:hover .project-cover .proj-slide.active { transform: scale(1.03); }
-        .project-cover .proj-slide {
-            transition: opacity 0.8s ease, transform 0.6s var(--ease);
-        }
+        .project-card:hover .project-cover img { transform: scale(1.04); }
 
         .project-body {
             padding: clamp(18px, 2vw, 24px);
@@ -253,6 +249,11 @@
             .project-grid { grid-template-columns: 1fr; }
             .footer-grid { grid-template-columns: 1fr; }
             .project-body .btn { width: 100%; justify-content: center; }
+            .filter-bar { gap: 6px; }
+            .filter-pill { padding: 9px 14px; font-size: 10px; }
+            .portfolio-wrap {
+                padding: 0 max(16px, var(--space-x)) clamp(48px, 8vh, 80px);
+            }
         }
     </style>
 </head>
@@ -294,221 +295,159 @@
             <div class="project-grid" id="projectGrid">
                 <!-- Websites -->
                 <article class="project-card reveal" data-category="websites">
-                    <div class="project-cover">
-                        <img src="mainpageaqua.png" class="proj-slide active" alt="AquaWorld" loading="lazy">
-                        <img src="secondpageaqua.png" class="proj-slide" alt="AquaWorld" loading="lazy">
-                        <img src="lastpageaqua.png" class="proj-slide" alt="AquaWorld" loading="lazy">
-                    </div>
+                    <div class="project-cover"><img src="thumb-aquaworld.jpg" alt="AquaWorld" loading="lazy"></div>
                     <div class="project-body">
                         <div class="project-tags"><span>Website</span><span>Nature</span></div>
                         <h3>AquaWorld</h3>
-                        <a href="aquaworld/" target="_blank" rel="noopener noreferrer" class="btn btn-ghost">View Site <i class="fas fa-arrow-right"></i></a>
+                        <a href="project.html?id=aquaworld" class="btn btn-ghost">View Details <i class="fas fa-arrow-right"></i></a>
                     </div>
                 </article>
                 <article class="project-card reveal" data-category="websites">
-                    <div class="project-cover">
-                        <img src="mainpagebitemasters.png" class="proj-slide active" alt="Bitemaster" loading="lazy">
-                        <img src="secondpagebitemasters.png" class="proj-slide" alt="Bitemaster" loading="lazy">
-                        <img src="lastpagebitemasters.png" class="proj-slide" alt="Bitemaster" loading="lazy">
-                    </div>
+                    <div class="project-cover"><img src="thumb-bitemasters.jpg" alt="Bitemaster" loading="lazy"></div>
                     <div class="project-body">
                         <div class="project-tags"><span>Website</span><span>Food</span></div>
                         <h3>Bitemaster</h3>
-                        <a href="bitemasters/" target="_blank" rel="noopener noreferrer" class="btn btn-ghost">View Site <i class="fas fa-arrow-right"></i></a>
+                        <a href="project.html?id=bitemasters" class="btn btn-ghost">View Details <i class="fas fa-arrow-right"></i></a>
                     </div>
                 </article>
                 <article class="project-card reveal" data-category="websites">
-                    <div class="project-cover">
-                        <img src="mainpagefashionbloom.png" class="proj-slide active" alt="Fashion Bloom" loading="lazy">
-                        <img src="secondpagefashionbloom.png" class="proj-slide" alt="Fashion Bloom" loading="lazy">
-                        <img src="lastpagefashionbloom.png" class="proj-slide" alt="Fashion Bloom" loading="lazy">
-                    </div>
+                    <div class="project-cover"><img src="thumb-fashionbloom.jpg" alt="Fashion Bloom" loading="lazy"></div>
                     <div class="project-body">
                         <div class="project-tags"><span>Website</span><span>Fashion</span></div>
                         <h3>Fashion Bloom</h3>
-                        <a href="fashionbloom/" target="_blank" rel="noopener noreferrer" class="btn btn-ghost">View Site <i class="fas fa-arrow-right"></i></a>
+                        <a href="project.html?id=fashionbloom" class="btn btn-ghost">View Details <i class="fas fa-arrow-right"></i></a>
                     </div>
                 </article>
                 <article class="project-card reveal" data-category="websites">
-                    <div class="project-cover">
-                        <img src="mainpageluxe.png" class="proj-slide active" alt="Luxe" loading="lazy">
-                        <img src="secondpageluxe.png" class="proj-slide" alt="Luxe" loading="lazy">
-                        <img src="lastpageluxe.png" class="proj-slide" alt="Luxe" loading="lazy">
-                    </div>
+                    <div class="project-cover"><img src="thumb-luxe.jpg" alt="Luxe" loading="lazy"></div>
                     <div class="project-body">
                         <div class="project-tags"><span>Website</span><span>E-commerce</span></div>
                         <h3>Luxe</h3>
-                        <a href="luxe/" target="_blank" rel="noopener noreferrer" class="btn btn-ghost">View Site <i class="fas fa-arrow-right"></i></a>
+                        <a href="project.html?id=luxe" class="btn btn-ghost">View Details <i class="fas fa-arrow-right"></i></a>
                     </div>
                 </article>
                 <article class="project-card reveal" data-category="websites">
-                    <div class="project-cover">
-                        <img src="mainpagenexus.png" class="proj-slide active" alt="Nexus" loading="lazy">
-                        <img src="secondpagenexus.png" class="proj-slide" alt="Nexus" loading="lazy">
-                        <img src="lastpagenexus.png" class="proj-slide" alt="Nexus" loading="lazy">
-                    </div>
+                    <div class="project-cover"><img src="thumb-nexus.jpg" alt="Nexus" loading="lazy"></div>
                     <div class="project-body">
                         <div class="project-tags"><span>Website</span><span>Retail</span></div>
                         <h3>Nexus</h3>
-                        <a href="nexus/" target="_blank" rel="noopener noreferrer" class="btn btn-ghost">View Site <i class="fas fa-arrow-right"></i></a>
+                        <a href="project.html?id=nexus" class="btn btn-ghost">View Details <i class="fas fa-arrow-right"></i></a>
                     </div>
                 </article>
                 <article class="project-card reveal" data-category="websites">
-                    <div class="project-cover">
-                        <img src="mainpagemindease.png" class="proj-slide active" alt="MindEase" loading="lazy">
-                        <img src="secondpagemindease.png" class="proj-slide" alt="MindEase" loading="lazy">
-                        <img src="lastpagemindease.png" class="proj-slide" alt="MindEase" loading="lazy">
-                    </div>
+                    <div class="project-cover"><img src="thumb-mindease.jpg" alt="MindEase" loading="lazy"></div>
                     <div class="project-body">
                         <div class="project-tags"><span>Website</span><span>Wellness</span></div>
                         <h3>MindEase</h3>
-                        <a href="mindease/" target="_blank" rel="noopener noreferrer" class="btn btn-ghost">View Site <i class="fas fa-arrow-right"></i></a>
+                        <a href="project.html?id=mindease" class="btn btn-ghost">View Details <i class="fas fa-arrow-right"></i></a>
                     </div>
                 </article>
                 <article class="project-card reveal" data-category="websites">
-                    <div class="project-cover">
-                        <img src="screen_1.png" class="proj-slide active" alt="MyUB" loading="lazy">
-                        <img src="screen_2.png" class="proj-slide" alt="MyUB" loading="lazy">
-                        <img src="screen_3.png" class="proj-slide" alt="MyUB" loading="lazy">
-                    </div>
+                    <div class="project-cover"><img src="thumb-myub.jpg" alt="MyUB" loading="lazy"></div>
                     <div class="project-body">
                         <div class="project-tags"><span>Website</span><span>Campus</span></div>
                         <h3>MyUB</h3>
-                        <a href="https://myub.online" target="_blank" rel="noopener noreferrer" class="btn btn-ghost">View Site <i class="fas fa-arrow-right"></i></a>
+                        <a href="project.html?id=myub" class="btn btn-ghost">View Details <i class="fas fa-arrow-right"></i></a>
                     </div>
                 </article>
                 <article class="project-card reveal" data-category="websites">
-                    <div class="project-cover">
-                        <img src="mainpagetlo.png" class="proj-slide active" alt="Ntlo" loading="lazy">
-                        <img src="secondpagetlo.png" class="proj-slide" alt="Ntlo" loading="lazy">
-                        <img src="lastpagetlo.png" class="proj-slide" alt="Ntlo" loading="lazy">
-                    </div>
+                    <div class="project-cover"><img src="thumb-ntlo.jpg" alt="Ntlo" loading="lazy"></div>
                     <div class="project-body">
                         <div class="project-tags"><span>Website</span><span>Housing</span></div>
                         <h3>Ntlo</h3>
-                        <a href="https://ntlo.online" target="_blank" rel="noopener noreferrer" class="btn btn-ghost">View Site <i class="fas fa-arrow-right"></i></a>
+                        <a href="project.html?id=ntlo" class="btn btn-ghost">View Details <i class="fas fa-arrow-right"></i></a>
                     </div>
                 </article>
                 <article class="project-card reveal" data-category="websites">
-                    <div class="project-cover">
-                        <img src="mainpagemosasana.png" class="proj-slide active" alt="Mosasana Capital" loading="lazy">
-                        <img src="secondpagemosasana.png" class="proj-slide" alt="Mosasana Capital" loading="lazy">
-                        <img src="lastpagemosasana.png" class="proj-slide" alt="Mosasana Capital" loading="lazy">
-                    </div>
+                    <div class="project-cover"><img src="thumb-mosasana.jpg" alt="Mosasana Capital" loading="lazy"></div>
                     <div class="project-body">
                         <div class="project-tags"><span>Website</span><span>Finance</span></div>
                         <h3>Mosasana Capital</h3>
-                        <a href="https://mosasanacapital.com" target="_blank" rel="noopener noreferrer" class="btn btn-ghost">View Site <i class="fas fa-arrow-right"></i></a>
+                        <a href="project.html?id=mosasana" class="btn btn-ghost">View Details <i class="fas fa-arrow-right"></i></a>
                     </div>
                 </article>
                 <article class="project-card reveal" data-category="websites">
-                    <div class="project-cover">
-                        <img src="mainpagemarketsphere.png" class="proj-slide active" alt="Market Sphere Group" loading="lazy">
-                        <img src="secondpagemarketsphere.png" class="proj-slide" alt="Market Sphere Group" loading="lazy">
-                        <img src="thirdpagemarketsphere.png" class="proj-slide" alt="Market Sphere Group" loading="lazy">
-                        <img src="lastpagemarketsphere.png" class="proj-slide" alt="Market Sphere Group" loading="lazy">
-                    </div>
+                    <div class="project-cover"><img src="thumb-marketsphere.jpg" alt="Market Sphere Group" loading="lazy"></div>
                     <div class="project-body">
                         <div class="project-tags"><span>Website</span><span>Marketplace</span></div>
                         <h3>Market Sphere Group</h3>
-                        <a href="https://marketspheregroup.com" target="_blank" rel="noopener noreferrer" class="btn btn-ghost">View Site <i class="fas fa-arrow-right"></i></a>
+                        <a href="project.html?id=marketsphere" class="btn btn-ghost">View Details <i class="fas fa-arrow-right"></i></a>
                     </div>
                 </article>
                 <article class="project-card reveal" data-category="websites">
-                    <div class="project-cover">
-                        <img src="mainpagebaakanya.png" class="proj-slide active" alt="Baakanya" loading="lazy">
-                        <img src="secondpagebaakanya.png" class="proj-slide" alt="Baakanya" loading="lazy">
-                        <img src="thirdpagebaakanya.png" class="proj-slide" alt="Baakanya" loading="lazy">
-                        <img src="lastpagebaakanya.png" class="proj-slide" alt="Baakanya" loading="lazy">
-                    </div>
+                    <div class="project-cover"><img src="thumb-baakanya.jpg" alt="Baakanya" loading="lazy"></div>
                     <div class="project-body">
                         <div class="project-tags"><span>Website</span><span>Documents</span></div>
                         <h3>Baakanya</h3>
-                        <a href="https://baakanya.co.bw" target="_blank" rel="noopener noreferrer" class="btn btn-ghost">View Site <i class="fas fa-arrow-right"></i></a>
+                        <a href="project.html?id=baakanya" class="btn btn-ghost">View Details <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </article>
+                <article class="project-card reveal" data-category="websites">
+                    <div class="project-cover"><img src="thumb-compustar.jpg" alt="Compustar Botswana" loading="lazy"></div>
+                    <div class="project-body">
+                        <div class="project-tags"><span>Website</span><span>Tech</span></div>
+                        <h3>Compustar Botswana</h3>
+                        <a href="project.html?id=compustar" class="btn btn-ghost">View Details <i class="fas fa-arrow-right"></i></a>
                     </div>
                 </article>
 
                 <!-- Templates -->
                 <article class="project-card reveal" data-category="templates">
-                    <div class="project-cover">
-                        <img src="mainpagestartup.png" class="proj-slide active" alt="StartUp" loading="lazy">
-                        <img src="secondpagestartup.png" class="proj-slide" alt="StartUp" loading="lazy">
-                        <img src="lastpagestartup.png" class="proj-slide" alt="StartUp" loading="lazy">
-                    </div>
+                    <div class="project-cover"><img src="thumb-startup.jpg" alt="StartUp" loading="lazy"></div>
                     <div class="project-body">
                         <div class="project-tags"><span>Template</span><span>Landing</span></div>
                         <h3>StartUp</h3>
-                        <a href="demos/starter-landing/index.html" target="_blank" rel="noopener noreferrer" class="btn btn-ghost">View Site <i class="fas fa-arrow-right"></i></a>
+                        <a href="project.html?id=startup" class="btn btn-ghost">View Details <i class="fas fa-arrow-right"></i></a>
                     </div>
                 </article>
                 <article class="project-card reveal" data-category="templates">
-                    <div class="project-cover">
-                        <img src="mainpageportfoliopro.png" class="proj-slide active" alt="Portfolio Pro" loading="lazy">
-                        <img src="secondpageportfoliopro.png" class="proj-slide" alt="Portfolio Pro" loading="lazy">
-                        <img src="lastpageportfoliopro.png" class="proj-slide" alt="Portfolio Pro" loading="lazy">
-                    </div>
+                    <div class="project-cover"><img src="thumb-portfoliopro.jpg" alt="Portfolio Pro" loading="lazy"></div>
                     <div class="project-body">
                         <div class="project-tags"><span>Template</span><span>Portfolio</span></div>
                         <h3>Portfolio Pro</h3>
-                        <a href="demos/portfolio-pro/index.html" target="_blank" rel="noopener noreferrer" class="btn btn-ghost">View Site <i class="fas fa-arrow-right"></i></a>
+                        <a href="project.html?id=portfoliopro" class="btn btn-ghost">View Details <i class="fas fa-arrow-right"></i></a>
                     </div>
                 </article>
                 <article class="project-card reveal" data-category="templates">
-                    <div class="project-cover">
-                        <img src="mainpagebusinesspro.png" class="proj-slide active" alt="BusinessPro" loading="lazy">
-                        <img src="secondpagebusinesspro.png" class="proj-slide" alt="BusinessPro" loading="lazy">
-                        <img src="lastpagebusinesspro.png" class="proj-slide" alt="BusinessPro" loading="lazy">
-                    </div>
+                    <div class="project-cover"><img src="thumb-businesspro.jpg" alt="BusinessPro" loading="lazy"></div>
                     <div class="project-body">
                         <div class="project-tags"><span>Template</span><span>Business</span></div>
                         <h3>BusinessPro</h3>
-                        <a href="demos/business-starter/index.html" target="_blank" rel="noopener noreferrer" class="btn btn-ghost">View Site <i class="fas fa-arrow-right"></i></a>
+                        <a href="project.html?id=businesspro" class="btn btn-ghost">View Details <i class="fas fa-arrow-right"></i></a>
                     </div>
                 </article>
                 <article class="project-card reveal" data-category="templates">
-                    <div class="project-cover">
-                        <img src="mainpagesavannakitchen.png" class="proj-slide active" alt="Savanna Kitchen" loading="lazy">
-                        <img src="secondpagesavannakitchen.png" class="proj-slide" alt="Savanna Kitchen" loading="lazy">
-                        <img src="lastpagesavannakitchen.png" class="proj-slide" alt="Savanna Kitchen" loading="lazy">
-                    </div>
+                    <div class="project-cover"><img src="thumb-savannakitchen.jpg" alt="Savanna Kitchen" loading="lazy"></div>
                     <div class="project-body">
                         <div class="project-tags"><span>Template</span><span>Food</span></div>
                         <h3>Savanna Kitchen</h3>
-                        <a href="demos/starter-food/index.html" target="_blank" rel="noopener noreferrer" class="btn btn-ghost">View Site <i class="fas fa-arrow-right"></i></a>
+                        <a href="project.html?id=savannakitchen" class="btn btn-ghost">View Details <i class="fas fa-arrow-right"></i></a>
                     </div>
                 </article>
                 <article class="project-card reveal" data-category="templates">
-                    <div class="project-cover">
-                        <img src="mainpagecleanpro.png" class="proj-slide active" alt="CleanPro" loading="lazy">
-                        <img src="secondpagecleanpro.png" class="proj-slide" alt="CleanPro" loading="lazy">
-                        <img src="lastpagecleanpro.png" class="proj-slide" alt="CleanPro" loading="lazy">
-                    </div>
+                    <div class="project-cover"><img src="thumb-cleanpro.jpg" alt="CleanPro" loading="lazy"></div>
                     <div class="project-body">
                         <div class="project-tags"><span>Template</span><span>Service</span></div>
                         <h3>CleanPro</h3>
-                        <a href="demos/service-pro/index.html" target="_blank" rel="noopener noreferrer" class="btn btn-ghost">View Site <i class="fas fa-arrow-right"></i></a>
+                        <a href="project.html?id=cleanpro" class="btn btn-ghost">View Details <i class="fas fa-arrow-right"></i></a>
                     </div>
                 </article>
 
                 <!-- Apps -->
                 <article class="project-card reveal" data-category="apps">
-                    <div class="project-cover">
-                        <img src="ping_showcase.png" class="proj-slide active" alt="Ping" loading="lazy">
-                    </div>
+                    <div class="project-cover"><img src="ping_showcase.png" alt="Ping" loading="lazy"></div>
                     <div class="project-body">
                         <div class="project-tags"><span>App</span><span>Android</span></div>
                         <h3>Ping</h3>
-                        <a href="https://play.google.com/store/apps/details?id=com.ping.bw" target="_blank" rel="noopener noreferrer" class="btn btn-ghost">View Site <i class="fas fa-arrow-right"></i></a>
+                        <a href="project.html?id=ping" class="btn btn-ghost">View Details <i class="fas fa-arrow-right"></i></a>
                     </div>
                 </article>
                 <article class="project-card reveal" data-category="apps">
-                    <div class="project-cover">
-                        <img src="marketsphere_app_showcase.png" class="proj-slide active" alt="Market Sphere App" loading="lazy">
-                    </div>
+                    <div class="project-cover"><img src="marketsphere_app_showcase.png" alt="Market Sphere App" loading="lazy"></div>
                     <div class="project-body">
                         <div class="project-tags"><span>App</span><span>Marketplace</span></div>
                         <h3>Market Sphere App</h3>
-                        <a href="https://marketspheregroup.com/app" target="_blank" rel="noopener noreferrer" class="btn btn-ghost">View Site <i class="fas fa-arrow-right"></i></a>
+                        <a href="project.html?id=marketsphere-app" class="btn btn-ghost">View Details <i class="fas fa-arrow-right"></i></a>
                     </div>
                 </article>
             </div>
@@ -588,16 +527,6 @@
             });
         });
 
-        document.querySelectorAll('.project-cover').forEach(function (cover, i) {
-            var slides = cover.querySelectorAll('.proj-slide');
-            if (slides.length < 2) return;
-            var idx = 0;
-            setInterval(function () {
-                slides[idx].classList.remove('active');
-                idx = (idx + 1) % slides.length;
-                slides[idx].classList.add('active');
-            }, 2800 + (i % 5) * 200);
-        });
     })();
     </script>
 </body>

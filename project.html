@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+    <meta http-equiv="Permissions-Policy" content="geolocation=(), microphone=(), camera=(), payment=()">
+    <script src="js/security.js" defer></script>
+    <script src="js/cms-cloud.js" defer></script>
+    <script src="js/site-common.js" defer></script>
+
+    <title>Project — Futurify Designs</title>
+    <meta name="description" content="Project details from Futurify Designs.">
+    <link rel="icon" href="favicon.ico" sizes="48x48">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+    <link rel="apple-touch-icon" href="logo-f-nav.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/brand.css">
+    <style>
+        .detail-page {
+            min-height: 100vh;
+            padding: calc(var(--nav-h) + clamp(28px, 5vh, 48px)) var(--space-x) clamp(48px, 8vh, 96px);
+            background:
+                radial-gradient(ellipse 55% 40% at 10% 20%, rgba(201,162,75,0.08), transparent 65%),
+                radial-gradient(ellipse 40% 35% at 90% 70%, rgba(201,162,75,0.05), transparent 70%),
+                linear-gradient(180deg, #0a0a0a 0%, #0d0c0a 100%);
+            overflow-x: hidden;
+            max-width: 100%;
+        }
+
+        .detail-back {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: clamp(28px, 4vh, 40px);
+            transition: color 0.3s;
+        }
+        .detail-back:hover { color: var(--gold); }
+        .detail-back i { font-size: 10px; }
+
+        .detail-layout {
+            display: grid;
+            grid-template-columns: minmax(0, 1.45fr) minmax(0, 0.75fr);
+            gap: clamp(28px, 4vw, 48px);
+            align-items: start;
+            max-width: 1320px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .detail-media {
+            position: relative;
+            border: 1px solid var(--gold-border);
+            background: #0e0e0e;
+            overflow: hidden;
+            isolation: isolate;
+            width: 100%;
+            max-width: 100%;
+            transform: translateZ(0);
+            backface-visibility: hidden;
+            contain: layout paint;
+        }
+        .detail-media::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            box-shadow: inset 0 0 0 1px rgba(201,162,75,0.08);
+            z-index: 2;
+        }
+        .detail-media video,
+        .detail-media img {
+            display: block;
+            width: 100%;
+            max-width: 100%;
+            height: auto;
+            aspect-ratio: 16 / 10;
+            object-fit: cover;
+            object-position: center center;
+            background: #111;
+            transform: translateZ(0);
+            backface-visibility: hidden;
+        }
+        .detail-media img[hidden],
+        .detail-media video[hidden] {
+            display: none !important;
+        }
+        .detail-media.is-phone { background: #0a0a0a; }
+
+        .detail-info {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+            padding: clamp(8px, 1.5vw, 12px) 0;
+            min-width: 0;
+        }
+        .detail-kicker {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--gold);
+        }
+        .detail-kicker::before {
+            content: '';
+            width: 22px;
+            height: 1px;
+            background: var(--gold);
+            flex-shrink: 0;
+        }
+        .detail-info h1 {
+            font-size: clamp(32px, 5vw, 56px);
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            line-height: 1.05;
+            overflow-wrap: anywhere;
+            word-break: break-word;
+        }
+        .detail-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .detail-tags span {
+            font-size: 10px;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--gold);
+            border: 1px solid var(--gold-border);
+            padding: 5px 10px;
+        }
+        .detail-desc {
+            font-size: clamp(15px, 1.35vw, 17px);
+            font-weight: 300;
+            color: var(--text-muted);
+            line-height: 1.75;
+            max-width: 42ch;
+        }
+        .detail-meta {
+            display: grid;
+            gap: 14px;
+            padding: 20px 0;
+            border-top: 1px solid var(--gold-border);
+            border-bottom: 1px solid var(--gold-border);
+        }
+        .detail-meta-row {
+            display: grid;
+            grid-template-columns: 110px minmax(0, 1fr);
+            gap: 12px;
+            font-size: 13px;
+        }
+        .detail-meta-row dt {
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            font-size: 10px;
+            color: var(--gold);
+            font-weight: 500;
+            padding-top: 2px;
+        }
+        .detail-meta-row dd {
+            color: var(--text-muted);
+            font-weight: 300;
+            overflow-wrap: anywhere;
+        }
+        .detail-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 8px;
+        }
+        .detail-actions .btn { max-width: 100%; }
+
+        .site-footer {
+            border-top: 1px solid var(--gold-border);
+            padding: clamp(40px, 6vh, 64px) var(--space-x) max(28px, env(safe-area-inset-bottom, 0px) + 28px);
+        }
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            gap: 16px;
+            flex-wrap: wrap;
+            font-size: 12px;
+            color: var(--text-muted);
+            max-width: 1280px;
+            margin: 0 auto;
+        }
+        .footer-bottom a { margin-left: 18px; }
+        .footer-bottom a:hover { color: var(--gold); }
+
+        .detail-missing {
+            max-width: 520px;
+            margin: 10vh auto;
+            text-align: center;
+            padding: 0 8px;
+        }
+        .detail-missing h1 { font-size: clamp(28px, 6vw, 36px); margin-bottom: 12px; }
+        .detail-missing p { color: var(--text-muted); margin-bottom: 24px; font-weight: 300; }
+
+        @media (max-width: 1100px) {
+            .detail-layout {
+                grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.95fr);
+                gap: 24px;
+            }
+        }
+
+        @media (max-width: 900px) {
+            .detail-page {
+                padding: calc(var(--nav-h) + 20px) var(--space-x) clamp(40px, 7vh, 72px);
+            }
+            .detail-layout {
+                grid-template-columns: 1fr;
+                gap: 24px;
+            }
+            .detail-info { order: 2; }
+            .detail-media { order: 1; }
+            .detail-desc { max-width: none; }
+            .detail-media video,
+            .detail-media img {
+                aspect-ratio: 16 / 10;
+                min-height: 0;
+                height: auto;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .detail-page {
+                padding: calc(var(--nav-h) + 16px) max(16px, var(--space-x)) calc(40px + env(safe-area-inset-bottom, 0px));
+            }
+            .detail-back {
+                margin-bottom: 20px;
+                font-size: 10px;
+            }
+            .detail-info {
+                gap: 14px;
+                padding: 0;
+            }
+            .detail-info h1 {
+                font-size: clamp(28px, 9vw, 36px);
+            }
+            .detail-desc {
+                font-size: 15px;
+                line-height: 1.7;
+            }
+            .detail-meta {
+                padding: 16px 0;
+                gap: 12px;
+            }
+            .detail-meta-row {
+                grid-template-columns: 1fr;
+                gap: 4px;
+            }
+            .detail-actions {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .detail-actions .btn {
+                width: 100%;
+                justify-content: center;
+            }
+            .detail-media video,
+            .detail-media img {
+                aspect-ratio: 16 / 11;
+            }
+            .footer-bottom {
+                flex-direction: column;
+                gap: 10px;
+            }
+            .footer-bottom a { margin-left: 0; margin-right: 14px; }
+        }
+
+        @media (max-width: 380px) {
+            .detail-tags span {
+                font-size: 9px;
+                padding: 4px 8px;
+            }
+            .detail-media video,
+            .detail-media img {
+                aspect-ratio: 4 / 3;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="site-nav" aria-label="Primary">
+        <a href="home.html" class="nav-logo">
+            <img src="logo-f-nav.png" alt="" class="nav-logo-img">
+            <span class="nav-wordmark">Futurify</span>
+        </a>
+        <button class="hamburger" id="hamburger" aria-label="Menu" type="button">
+            <span></span><span></span><span></span>
+        </button>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="home.html">Home</a></li>
+            <li><a href="portfolio.html" class="active">Portfolio</a></li>
+            <li><a href="pricing.html">Pricing</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+    </nav>
+
+    <main class="detail-page" id="detailRoot">
+        <a href="portfolio.html" class="detail-back"><i class="fas fa-arrow-left"></i> Back to portfolio</a>
+
+        <div class="detail-layout" id="detailContent" hidden>
+            <div class="detail-media" id="detailMedia">
+                <video id="detailVideo" autoplay muted loop playsinline preload="metadata" hidden></video>
+                <img id="detailImage" alt="" hidden>
+            </div>
+            <div class="detail-info">
+                <div class="detail-kicker" id="detailType">Project</div>
+                <h1 id="detailTitle">Project</h1>
+                <div class="detail-tags" id="detailTags"></div>
+                <p class="detail-desc" id="detailDesc"></p>
+                <dl class="detail-meta" id="detailMeta"></dl>
+                <div class="detail-actions">
+                    <a id="detailCta" class="btn btn-primary" target="_blank" rel="noopener noreferrer">View Site <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="detail-missing" id="detailMissing" hidden>
+            <h1>Project not found</h1>
+            <p>That portfolio item doesn’t exist or the link is incomplete.</p>
+            <a href="portfolio.html" class="btn btn-primary">Back to Portfolio</a>
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-bottom">
+            <div>&copy; 2026 Futurify Designs. All rights reserved.</div>
+            <div>
+                <a href="privacy_policy.html">Privacy Policy</a>
+                <a href="terms_of_service.html">Terms of Service</a>
+            </div>
+        </div>
+    </footer>
+
+    <a class="wa-btn" href="https://wa.me/26777783823" target="_blank" rel="noopener" aria-label="Chat on WhatsApp"><i class="fab fa-whatsapp"></i></a>
+
+    <script>
+    (function () {
+        var PROJECTS = {
+            aquaworld: {
+                title: 'AquaWorld',
+                type: 'Website',
+                tags: ['Website', 'Nature', 'Interactive'],
+                video: 'videos/aquaworld.mp4',
+                phone: false,
+                url: 'aquaworld/',
+                cta: 'View Site',
+                industry: 'Ocean education',
+                summary: 'An immersive nature site that invites visitors to explore the ocean through soft motion, clear storytelling, and a calm visual system built for discovery.'
+            },
+            bitemasters: {
+                title: 'Bitemaster',
+                type: 'Website',
+                tags: ['Website', 'Food', 'Ordering'],
+                video: 'videos/bitemasters.mp4',
+                phone: false,
+                url: 'bitemasters/',
+                cta: 'View Site',
+                industry: 'Food & hospitality',
+                summary: 'A bold food brand website focused on appetite appeal, fast browsing, and a clean path from menu discovery to action.'
+            },
+            fashionbloom: {
+                title: 'Fashion Bloom',
+                type: 'Website',
+                tags: ['Website', 'Fashion', 'Editorial'],
+                video: 'videos/fashionbloom.mp4',
+                phone: false,
+                url: 'fashionbloom/',
+                cta: 'View Site',
+                industry: 'Fashion retail',
+                summary: 'An editorial fashion presence with refined typography, product-forward layout, and a polished browsing experience for modern apparel brands.'
+            },
+            luxe: {
+                title: 'Luxe',
+                type: 'Website',
+                tags: ['Website', 'E-commerce', 'Luxury'],
+                video: 'videos/luxe.mp4',
+                phone: false,
+                url: 'luxe/',
+                cta: 'View Site',
+                industry: 'Luxury retail',
+                summary: 'A premium e-commerce experience designed around restraint, product focus, and a high-trust shopping journey for elevated brands.'
+            },
+            nexus: {
+                title: 'Nexus',
+                type: 'Website',
+                tags: ['Website', 'Retail', 'Catalog'],
+                video: 'videos/nexus.mp4',
+                phone: false,
+                url: 'nexus/',
+                cta: 'View Site',
+                industry: 'Retail',
+                summary: 'A retail storefront built for clarity — structured navigation, confident product presentation, and a smooth path to conversion.'
+            },
+            mindease: {
+                title: 'MindEase',
+                type: 'Website',
+                tags: ['Website', 'Wellness', 'Calm'],
+                video: 'videos/mindease.mp4',
+                phone: false,
+                url: 'mindease/',
+                cta: 'View Site',
+                industry: 'Wellness',
+                summary: 'A wellness brand site with soft rhythm, reassuring copy hierarchy, and a tranquil interface that supports trust and calm engagement.'
+            },
+            myub: {
+                title: 'MyUB',
+                type: 'Website',
+                tags: ['Website', 'Campus', 'Platform'],
+                video: 'videos/myub.mp4',
+                phone: false,
+                url: 'https://myub.online',
+                cta: 'View Site',
+                industry: 'Campus platform',
+                summary: 'A campus-focused digital platform designed for students and community — practical navigation, clear services, and a modern university-ready feel.'
+            },
+            ntlo: {
+                title: 'Ntlo',
+                type: 'Website',
+                tags: ['Website', 'Housing', 'Listings'],
+                video: 'videos/ntlo.mp4',
+                phone: false,
+                url: 'https://ntlo.online',
+                cta: 'View Site',
+                industry: 'Housing',
+                summary: 'A housing platform that makes property browsing feel simple and trustworthy, with clean listing layouts and a confident Botswana-ready brand.'
+            },
+            mosasana: {
+                title: 'Mosasana Capital',
+                type: 'Website',
+                tags: ['Website', 'Finance', 'Corporate'],
+                video: 'videos/mosasana.mp4',
+                phone: false,
+                url: 'https://mosasanacapital.com',
+                cta: 'View Site',
+                industry: 'Finance',
+                summary: 'A corporate finance website built for credibility — structured content, refined visuals, and a professional tone suited to investment conversations.'
+            },
+            marketsphere: {
+                title: 'Market Sphere Group',
+                type: 'Website',
+                tags: ['Website', 'Marketplace', 'Business'],
+                video: 'videos/marketsphere.mp4',
+                phone: false,
+                url: 'https://marketspheregroup.com',
+                cta: 'View Site',
+                industry: 'Marketplace',
+                summary: 'A marketplace brand site that communicates scale and clarity, guiding visitors through offerings with a strong commercial narrative.'
+            },
+            baakanya: {
+                title: 'Baakanya',
+                type: 'Website',
+                tags: ['Website', 'Documents', 'Services'],
+                video: 'videos/baakanya.mp4',
+                phone: false,
+                url: 'https://baakanya.co.bw',
+                cta: 'View Site',
+                industry: 'Document services',
+                summary: 'A service website designed for clarity and conversion — straightforward offers, trustworthy presentation, and an easy path to get started.'
+            },
+            compustar: {
+                title: 'Compustar Botswana',
+                type: 'Website',
+                tags: ['Website', 'Tech', 'Retail'],
+                video: 'videos/compustar.mp4',
+                phone: false,
+                url: 'https://compustar.co.bw',
+                cta: 'View Site',
+                industry: 'Tech retail & support',
+                summary: 'A bold tech brand site for Compustar Botswana — computers, security, and networking — built to feel hands-on, local, and ready for repairs, support, and sales.'
+            },
+            startup: {
+                title: 'StartUp',
+                type: 'Template',
+                tags: ['Template', 'Landing', 'Launch'],
+                video: 'videos/startup.mp4',
+                phone: false,
+                url: 'demos/starter-landing/index.html',
+                cta: 'View Site',
+                industry: 'Ready-made template',
+                summary: 'A launch-ready landing template for startups — strong hero presence, clear value props, and a structure that ships fast without looking generic.'
+            },
+            portfoliopro: {
+                title: 'Portfolio Pro',
+                type: 'Template',
+                tags: ['Template', 'Portfolio', 'Creative'],
+                video: 'videos/portfoliopro.mp4',
+                phone: false,
+                url: 'demos/portfolio-pro/index.html',
+                cta: 'View Site',
+                industry: 'Ready-made template',
+                summary: 'A creative portfolio template built to showcase work with polish — expressive layout, clean case sections, and a memorable first impression.'
+            },
+            businesspro: {
+                title: 'BusinessPro',
+                type: 'Template',
+                tags: ['Template', 'Business', 'Corporate'],
+                video: 'videos/businesspro.mp4',
+                phone: false,
+                url: 'demos/business-starter/index.html',
+                cta: 'View Site',
+                industry: 'Ready-made template',
+                summary: 'A corporate business template with professional structure — services, trust signals, and contact flow ready for SMEs and growing brands.'
+            },
+            savannakitchen: {
+                title: 'Savanna Kitchen',
+                type: 'Template',
+                tags: ['Template', 'Food', 'Restaurant'],
+                video: 'videos/savannakitchen.mp4',
+                phone: false,
+                url: 'demos/starter-food/index.html',
+                cta: 'View Site',
+                industry: 'Ready-made template',
+                summary: 'A food and restaurant template with warm atmosphere, menu-friendly layout, and a welcoming digital presence for hospitality brands.'
+            },
+            cleanpro: {
+                title: 'CleanPro',
+                type: 'Template',
+                tags: ['Template', 'Service', 'Local'],
+                video: 'videos/cleanpro.mp4',
+                phone: false,
+                url: 'demos/service-pro/index.html',
+                cta: 'View Site',
+                industry: 'Ready-made template',
+                summary: 'A local service template designed for trust and bookings — clear offers, practical sections, and a confident call-to-action path.'
+            },
+            ping: {
+                title: 'Ping',
+                type: 'App',
+                tags: ['App', 'Android', 'Mobile'],
+                video: 'videos/ping.mp4',
+                phone: true,
+                url: 'https://play.google.com/store/apps/details?id=com.ping.bw',
+                cta: 'Download App',
+                industry: 'Mobile app',
+                summary: 'A mobile app experience focused on speed and clarity — designed for everyday use with a clean interface and a straightforward download path.'
+            },
+            'marketsphere-app': {
+                title: 'Market Sphere App',
+                type: 'App',
+                tags: ['App', 'Marketplace', 'Mobile'],
+                video: 'videos/marketsphere-app.mp4',
+                phone: true,
+                url: 'https://marketspheregroup.com/app',
+                cta: 'Download App',
+                industry: 'Marketplace app',
+                summary: 'The mobile companion to Market Sphere Group — built for on-the-go marketplace browsing with a focused, app-native presentation.'
+            }
+        };
+
+        var params = new URLSearchParams(window.location.search);
+        var id = (params.get('id') || '').toLowerCase();
+        var project = PROJECTS[id];
+
+        var content = document.getElementById('detailContent');
+        var missing = document.getElementById('detailMissing');
+
+        if (!project) {
+            missing.hidden = false;
+            return;
+        }
+
+        content.hidden = false;
+        document.title = project.title + ' — Futurify Designs';
+        document.querySelector('meta[name="description"]').setAttribute(
+            'content',
+            project.summary
+        );
+
+        document.getElementById('detailType').textContent = project.type;
+        document.getElementById('detailTitle').textContent = project.title;
+        document.getElementById('detailDesc').textContent = project.summary;
+
+        var tagsEl = document.getElementById('detailTags');
+        tagsEl.innerHTML = project.tags.map(function (t) {
+            return '<span>' + t + '</span>';
+        }).join('');
+
+        var metaEl = document.getElementById('detailMeta');
+        metaEl.innerHTML =
+            '<div class="detail-meta-row"><dt>Category</dt><dd>' + project.type + '</dd></div>' +
+            '<div class="detail-meta-row"><dt>Focus</dt><dd>' + project.industry + '</dd></div>';
+
+        var cta = document.getElementById('detailCta');
+        cta.href = project.url;
+        cta.innerHTML = project.cta + ' <i class="fas fa-arrow-right"></i>';
+
+        var media = document.getElementById('detailMedia');
+        if (project.phone) media.classList.add('is-phone');
+
+        var video = document.getElementById('detailVideo');
+        var image = document.getElementById('detailImage');
+        if (project.image) {
+            image.hidden = false;
+            image.src = project.image;
+            image.alt = project.title;
+            video.hidden = true;
+            video.removeAttribute('src');
+        } else {
+            video.hidden = false;
+            image.hidden = true;
+            image.removeAttribute('src');
+            video.src = project.video;
+            video.setAttribute('aria-label', project.title + ' preview slideshow');
+            var play = video.play();
+            if (play && typeof play.catch === 'function') play.catch(function () {});
+        }
+    })();
+    </script>
+</body>
+</html>
