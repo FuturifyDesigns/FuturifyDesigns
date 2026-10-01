@@ -19,7 +19,6 @@
         var id = decodeURIComponent(m[1].replace(/\+/g, ' '));
         if (!/^[a-z0-9-]+$/i.test(id)) return;
         window.__projectId = id;
-        var hasVideo = id !== 'realmetrics';
         var videoHref = 'videos/' + id + '.mp4';
         var posters = {
             ping: 'ping_showcase.png',
@@ -34,9 +33,9 @@
             if (type) l.type = type;
             document.head.appendChild(l);
         }
-        if (hasVideo) preload('video', videoHref, 'video/mp4');
+        preload('video', videoHref, 'video/mp4');
         preload('image', window.__projectPoster);
-        if (hasVideo && window.fetch) {
+        if (window.fetch) {
             fetch(videoHref, { credentials: 'same-origin', priority: 'high' }).catch(function () {});
         }
     })();
@@ -351,7 +350,7 @@
             (function () {
                 var id = window.__projectId;
                 var video = document.getElementById('detailVideo');
-                if (!id || !video || id === 'realmetrics') return;
+                if (!id || !video) return;
                 if (window.__projectPoster) video.poster = window.__projectPoster;
                 video.src = 'videos/' + id + '.mp4';
                 video.load();
@@ -527,7 +526,7 @@
                 title: 'Real Metrics Holdings',
                 type: 'Website',
                 tags: ['Website', 'Real Estate', 'Property'],
-                image: 'thumb-realmetrics.jpg',
+                video: 'videos/realmetrics.mp4',
                 phone: false,
                 url: 'https://realmetricsholdings.com',
                 cta: 'View Site',
