@@ -11,7 +11,7 @@
     <script src="js/site-common.js" defer></script>
 
     <title>About — Futurify Designs</title>
-    <meta name="description" content="Meet Leon Maunge, founder of Futurify Designs — digital studio in Gaborone, Botswana.">
+    <meta name="description" content="Meet Leon Maunge and Laura Abbey, the team behind Futurify Designs — a digital studio in Gaborone, Botswana.">
     <link rel="icon" href="favicon.ico" sizes="any">
     <link rel="icon" type="image/png" sizes="48x48" href="favicon-48.png">
     <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
@@ -20,7 +20,7 @@
     <link rel="manifest" href="site.webmanifest">
     <meta property="og:type" content="website">
     <meta property="og:title" content="About — Futurify Designs">
-    <meta property="og:description" content="Leon Maunge crafts websites, platforms, and apps from Gaborone, Botswana.">
+    <meta property="og:description" content="Meet the team building clear, professional websites, platforms, and apps at Futurify Designs in Gaborone, Botswana.">
     <meta property="og:image" content="https://futurifydesigns.com/logo-f-gold.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="css/brand.css">
@@ -126,6 +126,72 @@
         }
         .story-copy p strong { color: var(--text); font-weight: 500; }
         .story-copy p:last-child { margin-bottom: 0; }
+
+        .team-intro {
+            max-width: 62ch;
+            margin-bottom: clamp(24px, 4vh, 36px);
+        }
+        .team-intro p {
+            color: var(--text-muted);
+            font-weight: 300;
+            line-height: 1.7;
+            margin-top: 12px;
+        }
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: clamp(16px, 2vw, 24px);
+        }
+        .team-card {
+            position: relative;
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: clamp(18px, 2.5vw, 28px);
+            align-items: start;
+            border: 1px solid var(--gold-border);
+            padding: clamp(24px, 3vw, 36px);
+            background: rgba(18,18,18,0.55);
+            overflow: hidden;
+        }
+        .team-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, var(--gold), transparent 72%);
+        }
+        .team-initials {
+            width: clamp(54px, 6vw, 70px);
+            aspect-ratio: 1;
+            display: grid;
+            place-items: center;
+            border: 1px solid var(--gold-border);
+            color: var(--gold);
+            font-family: var(--font-display);
+            font-size: clamp(20px, 2.4vw, 28px);
+            font-style: italic;
+            background: rgba(201,162,75,0.06);
+        }
+        .team-role {
+            color: var(--gold);
+            font-size: 10px;
+            font-weight: 500;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+        .team-card h3 {
+            font-size: clamp(23px, 2.8vw, 32px);
+            margin-bottom: 10px;
+        }
+        .team-card p {
+            color: var(--text-muted);
+            font-size: 14px;
+            font-weight: 300;
+            line-height: 1.7;
+        }
 
         .services-block { margin-bottom: clamp(40px, 6vh, 64px); }
         .services-block:last-child { margin-bottom: 0; }
@@ -295,13 +361,15 @@
 
         @media (max-width: 900px) {
             .story-grid,
-            .duo-grid { grid-template-columns: 1fr; }
+            .duo-grid,
+            .team-grid { grid-template-columns: 1fr; }
             .svc-grid { grid-template-columns: 1fr 1fr; }
             .footer-grid { grid-template-columns: 1fr 1fr; }
         }
         @media (max-width: 600px) {
             .svc-grid,
             .footer-grid { grid-template-columns: 1fr; }
+            .team-card { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -326,14 +394,14 @@
     <main>
         <section class="page-hero">
             <div class="hero-kicker">About</div>
-            <h1>Leon <em>Maunge</em></h1>
-            <p class="lead">Founder of Futurify Designs — building clear, professional digital experiences for businesses from Gaborone, Botswana.</p>
+            <h1>Built <em>together</em></h1>
+            <p class="lead">Leon Maunge and Laura Abbey are building Futurify Designs around one shared goal: helping ambitious businesses show up online with confidence.</p>
         </section>
 
         <section class="section section-tight">
             <div class="story-grid reveal">
                 <aside class="story-meta">
-                    <div class="label">Profile</div>
+                    <div class="label">Studio profile</div>
                     <dl>
                         <div>
                             <dt>Based</dt>
@@ -341,7 +409,7 @@
                         </div>
                         <div>
                             <dt>Role</dt>
-                            <dd>Founder &amp; Developer</dd>
+                            <dd>Creative &amp; Technical Team</dd>
                         </div>
                         <div>
                             <dt>Focus</dt>
@@ -349,25 +417,51 @@
                         </div>
                         <div>
                             <dt>Approach</dt>
-                            <dd>Clarity · Craft · Delivery</dd>
+                            <dd>Clarity · Care · Delivery</dd>
                         </div>
                     </dl>
                 </aside>
                 <div class="story-copy">
-                    <div class="sec-label">Introduction</div>
-                    <h2 class="sec-title" style="margin-bottom:20px">Building presence that earns trust</h2>
-                    <p>I’m <strong>Leon Maunge</strong>, founder of <strong>Futurify Designs</strong>. I create websites, platforms, and apps for businesses that want to look as serious as they are — clean design, solid engineering, and delivery you can rely on.</p>
-                    <p>My vision for this business is simple: help brands across Botswana and beyond show up online with confidence. Every project should feel intentional — clear structure, thoughtful interaction, and a result that works for real customers, not just a portfolio shot.</p>
-                    <p>Futurify Designs is growing from a focused studio into a full digital partner. Whether you need a business site, an e-commerce experience, or an Android app, the goal is the same: presence that earns trust and supports growth.</p>
+                    <div class="sec-label">Our story</div>
+                    <h2 class="sec-title" style="margin-bottom:20px">Two people, one clear direction</h2>
+                    <p><strong>Futurify Designs</strong> is led by <strong>Leon Maunge</strong> and <strong>Laura Abbey</strong>. Leon brings the design and development focus, while Laura supports the studio’s organisation, communication, and client experience. Together, we turn ideas into digital work that feels thoughtful, professional, and dependable.</p>
+                    <p>Our shared goal is to help businesses across Botswana and beyond show up online with confidence. Every project should have clear structure, purposeful interaction, and a result that works for real customers—not simply something made to fill a portfolio.</p>
+                    <p>We are growing Futurify from a focused studio into a trusted digital partner for websites, platforms, e-commerce, and mobile experiences. The work may change from project to project, but the promise stays the same: clear collaboration, careful craft, and delivery that supports lasting growth.</p>
                 </div>
             </div>
             <div data-cms-custom-sections="about"></div>
         </section>
 
+        <section class="section section-tight" aria-labelledby="team-title">
+            <div class="team-intro reveal">
+                <div class="sec-label">Our team</div>
+                <h2 class="sec-title" id="team-title">The people behind Futurify</h2>
+                <p>A close partnership combining creative and technical execution with the support that keeps every project clear, organised, and moving forward.</p>
+            </div>
+            <div class="team-grid">
+                <article class="team-card reveal">
+                    <div class="team-initials" aria-hidden="true">LM</div>
+                    <div>
+                        <div class="team-role">Founder &amp; Developer</div>
+                        <h3>Leon Maunge</h3>
+                        <p>Leads Futurify’s creative and technical work, shaping digital ideas into polished websites, platforms, and product experiences.</p>
+                    </div>
+                </article>
+                <article class="team-card reveal">
+                    <div class="team-initials" aria-hidden="true">LA</div>
+                    <div>
+                        <div class="team-role">Co-Founder &amp; Studio Assistant</div>
+                        <h3>Laura Abbey</h3>
+                        <p>Supports the studio’s coordination, communication, and day-to-day organisation, helping projects and client relationships stay on track.</p>
+                    </div>
+                </article>
+            </div>
+        </section>
+
         <section class="section">
             <div class="services-block">
                 <div class="services-head reveal">
-                    <div class="sec-label">What I create</div>
+                    <div class="sec-label">What we create</div>
                     <h2 class="sec-title">Sites that look as serious as the business behind them</h2>
                     <p>Focused builds for brands that need presence, clarity, and conversion — without the clutter.</p>
                 </div>
@@ -414,10 +508,10 @@
                     </div>
                 </article>
                 <article class="duo-card reveal">
-                    <div class="sec-label">Vision</div>
+                    <div class="sec-label">Our vision</div>
                     <div class="duo-text">
-                        <p><strong>Futurify Designs</strong> exists to give businesses a digital presence that feels premium, clear, and ready for growth — without unnecessary complexity.</p>
-                        <p>The long-term vision is a full design and development studio: reliable delivery, strong craft, and partnerships that help brands look their best online across Botswana and beyond.</p>
+                        <p><strong>Futurify Designs</strong> exists to give businesses a digital presence that feels premium, clear, and ready for growth—without unnecessary complexity.</p>
+                        <p>Our long-term goal is to build a full design and development studio known for reliable delivery, strong craft, and genuine partnerships that help brands thrive across Botswana and beyond.</p>
                     </div>
                 </article>
             </div>
@@ -426,7 +520,7 @@
         <section class="cta-band reveal">
             <div class="sec-label" style="justify-content:center;display:flex">Next step</div>
             <h2>Let’s build something lasting</h2>
-            <p>Whether you need a business site, platform, or Android app — tell me what you’re aiming for and I’ll map the path.</p>
+            <p>Whether you need a business site, platform, or Android app—tell us what you’re aiming for and we’ll map the path together.</p>
             <a href="contact.html" class="btn btn-primary">Get in Touch</a>
         </section>
     </main>
