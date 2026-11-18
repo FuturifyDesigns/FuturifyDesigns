@@ -10,7 +10,7 @@
     <script src="js/cms-cloud.js" defer></script>
     <script src="js/site-common.js" defer></script>
 
-    <title>Project — Futurify Designs</title>
+    <title>Project - Futurify Designs</title>
     <meta name="description" content="Project details from Futurify Designs.">
     <script>
     (function () {
@@ -22,8 +22,11 @@
         var videoHref = 'videos/' + id + '.mp4';
         var posters = {
             ping: 'ping_showcase.png',
-            'marketsphere-app': 'marketsphere_app_showcase.png'
+            'marketsphere-app': 'marketsphere_app_showcase.png',
+            nakolive: 'NakoLive Transport Network Thumbnail.png',
+            prestige: 'Prestige Botswana Sunset Safari.png'
         };
+        var imageOnly = id === 'nakolive' || id === 'prestige';
         window.__projectPoster = posters[id] || ('thumb-' + id + '.jpg');
         function preload(as, href, type) {
             var l = document.createElement('link');
@@ -33,9 +36,9 @@
             if (type) l.type = type;
             document.head.appendChild(l);
         }
-        preload('video', videoHref, 'video/mp4');
+        if (!imageOnly) preload('video', videoHref, 'video/mp4');
         preload('image', window.__projectPoster);
-        if (window.fetch) {
+        if (!imageOnly && window.fetch) {
             fetch(videoHref, { credentials: 'same-origin', priority: 'high' }).catch(function () {});
         }
     })();
@@ -370,7 +373,7 @@
 
         <div class="detail-missing" id="detailMissing" hidden>
             <h1>Project not found</h1>
-            <p>That portfolio item doesn’t exist or the link is incomplete.</p>
+            <p>That portfolio item doesn't exist or the link is incomplete.</p>
             <a href="portfolio.html" class="btn btn-primary">Back to Portfolio</a>
         </div>
     </main>
@@ -443,7 +446,7 @@
                 url: 'nexus/',
                 cta: 'View Site',
                 industry: 'Retail',
-                summary: 'A retail storefront built for clarity — structured navigation, confident product presentation, and a smooth path to conversion.'
+                summary: 'A retail storefront built for clarity - structured navigation, confident product presentation, and a smooth path to conversion.'
             },
             mindease: {
                 title: 'MindEase',
@@ -465,7 +468,7 @@
                 url: 'https://myub.online',
                 cta: 'View Site',
                 industry: 'Campus platform',
-                summary: 'A campus-focused digital platform designed for students and community — practical navigation, clear services, and a modern university-ready feel.'
+                summary: 'A campus-focused digital platform designed for students and community - practical navigation, clear services, and a modern university-ready feel.'
             },
             ntlo: {
                 title: 'Ntlo',
@@ -487,7 +490,7 @@
                 url: 'https://mosasanacapital.com',
                 cta: 'View Site',
                 industry: 'Finance',
-                summary: 'A corporate finance website built for credibility — structured content, refined visuals, and a professional tone suited to investment conversations.'
+                summary: 'A corporate finance website built for credibility - structured content, refined visuals, and a professional tone suited to investment conversations.'
             },
             marketsphere: {
                 title: 'Market Sphere Group',
@@ -509,7 +512,7 @@
                 url: 'https://baakanya.co.bw',
                 cta: 'View Site',
                 industry: 'Document services',
-                summary: 'A service website designed for clarity and conversion — straightforward offers, trustworthy presentation, and an easy path to get started.'
+                summary: 'A service website designed for clarity and conversion - straightforward offers, trustworthy presentation, and an easy path to get started.'
             },
             compustar: {
                 title: 'Compustar Botswana',
@@ -520,7 +523,7 @@
                 url: 'https://compustar.co.bw',
                 cta: 'View Site',
                 industry: 'Tech retail & support',
-                summary: 'A bold tech brand site for Compustar Botswana — computers, security, and networking — built to feel hands-on, local, and ready for repairs, support, and sales.'
+                summary: 'A bold tech brand site for Compustar Botswana - computers, security, and networking - built to feel hands-on, local, and ready for repairs, support, and sales.'
             },
             realmetrics: {
                 title: 'Real Metrics Holdings',
@@ -542,7 +545,18 @@
                 url: 'https://aditona.com',
                 cta: 'View Site',
                 industry: 'Events, creative & golf',
-                summary: 'A refined corporate website for Aditona Group — uniting Event Solutions, Creative & Marketing, Golf Solutions, and Procurement under one clear, premium brand from brief to delivery.'
+                summary: 'A refined corporate website for Aditona Group - uniting Event Solutions, Creative & Marketing, Golf Solutions, and Procurement under one clear, premium brand from brief to delivery.'
+            },
+            prestige: {
+                title: 'Prestige Destination Tours',
+                type: 'Website',
+                tags: ['Website', 'Travel', 'Safari'],
+                image: 'Prestige Botswana Sunset Safari.png',
+                phone: false,
+                url: 'https://prestigetours.co.bw',
+                cta: 'View Site',
+                industry: 'Botswana destination tours',
+                summary: 'A premium travel website for tailored Botswana journeys, bringing together private safaris, river cruises, destination discovery, and shuttle planning in an elegant editorial experience.'
             },
             startup: {
                 title: 'StartUp',
@@ -553,7 +567,7 @@
                 url: 'demos/starter-landing/index.html',
                 cta: 'View Site',
                 industry: 'Ready-made template',
-                summary: 'A launch-ready landing template for startups — strong hero presence, clear value props, and a structure that ships fast without looking generic.'
+                summary: 'A launch-ready landing template for startups - strong hero presence, clear value props, and a structure that ships fast without looking generic.'
             },
             portfoliopro: {
                 title: 'Portfolio Pro',
@@ -564,7 +578,7 @@
                 url: 'demos/portfolio-pro/index.html',
                 cta: 'View Site',
                 industry: 'Ready-made template',
-                summary: 'A creative portfolio template built to showcase work with polish — expressive layout, clean case sections, and a memorable first impression.'
+                summary: 'A creative portfolio template built to showcase work with polish - expressive layout, clean case sections, and a memorable first impression.'
             },
             businesspro: {
                 title: 'BusinessPro',
@@ -575,7 +589,7 @@
                 url: 'demos/business-starter/index.html',
                 cta: 'View Site',
                 industry: 'Ready-made template',
-                summary: 'A corporate business template with professional structure — services, trust signals, and contact flow ready for SMEs and growing brands.'
+                summary: 'A corporate business template with professional structure - services, trust signals, and contact flow ready for SMEs and growing brands.'
             },
             savannakitchen: {
                 title: 'Savanna Kitchen',
@@ -597,7 +611,7 @@
                 url: 'demos/service-pro/index.html',
                 cta: 'View Site',
                 industry: 'Ready-made template',
-                summary: 'A local service template designed for trust and bookings — clear offers, practical sections, and a confident call-to-action path.'
+                summary: 'A local service template designed for trust and bookings - clear offers, practical sections, and a confident call-to-action path.'
             },
             ping: {
                 title: 'Ping',
@@ -608,7 +622,7 @@
                 url: 'https://play.google.com/store/apps/details?id=com.ping.bw',
                 cta: 'Download App',
                 industry: 'Mobile app',
-                summary: 'A mobile app experience focused on speed and clarity — designed for everyday use with a clean interface and a straightforward download path.'
+                summary: 'A mobile app experience focused on speed and clarity - designed for everyday use with a clean interface and a straightforward download path.'
             },
             'marketsphere-app': {
                 title: 'Market Sphere App',
@@ -619,7 +633,18 @@
                 url: 'https://marketspheregroup.com/app',
                 cta: 'Download App',
                 industry: 'Marketplace app',
-                summary: 'The mobile companion to Market Sphere Group — built for on-the-go marketplace browsing with a focused, app-native presentation.'
+                summary: 'The mobile companion to Market Sphere Group - built for on-the-go marketplace browsing with a focused, app-native presentation.'
+            },
+            nakolive: {
+                title: 'NakoLive Transport Network',
+                type: 'App',
+                tags: ['App', 'Transport', 'Mobile'],
+                image: 'NakoLive Transport Network Thumbnail.png',
+                phone: true,
+                url: 'https://nakolive.co.bw',
+                cta: 'View App',
+                industry: 'Local transport network',
+                summary: 'A transport network experience for Botswana, helping passengers explore taxi, kombi, and bus routes while giving approved drivers a portal to register and share their location.'
             }
         };
 
@@ -636,7 +661,7 @@
         }
 
         content.hidden = false;
-        document.title = project.title + ' — Futurify Designs';
+        document.title = project.title + ' - Futurify Designs';
         document.querySelector('meta[name="description"]').setAttribute(
             'content',
             project.summary
@@ -657,8 +682,12 @@
             '<div class="detail-meta-row"><dt>Focus</dt><dd>' + project.industry + '</dd></div>';
 
         var cta = document.getElementById('detailCta');
-        cta.href = project.url;
-        cta.innerHTML = project.cta + ' <i class="fas fa-arrow-right"></i>';
+        if (project.url) {
+            cta.href = project.url;
+            cta.innerHTML = project.cta + ' <i class="fas fa-arrow-right"></i>';
+        } else {
+            cta.hidden = true;
+        }
 
         var media = document.getElementById('detailMedia');
         if (project.phone) media.classList.add('is-phone');
@@ -698,3 +727,4 @@
     </script>
 </body>
 </html>
+
