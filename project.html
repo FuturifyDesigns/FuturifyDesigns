@@ -799,6 +799,31 @@
             var mainImage = document.getElementById('detailGalleryMain');
             var mockupScreen = document.getElementById('detailMockupScreen');
             var thumbs = document.getElementById('detailGalleryThumbs');
+            var currentSlide = 0;
+            var slideTimer;
+            var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+            function scheduleNextSlide() {
+                clearTimeout(slideTimer);
+                if (reduceMotion || document.hidden || project.screenshots.length < 2) return;
+                slideTimer = setTimeout(function () {
+                    showSlide((currentSlide + 1) % project.screenshots.length);
+                }, 3500);
+            }
+
+            function showSlide(index) {
+                currentSlide = index;
+                var shot = project.screenshots[index];
+                mainImage.src = shot.src;
+                mainImage.alt = shot.alt;
+                if (!project.phone) mockupScreen.style.backgroundImage = 'url("' + shot.src + '")';
+                thumbs.querySelectorAll('button').forEach(function (button, i) {
+                    if (i === index) button.setAttribute('aria-current', 'true');
+                    else button.removeAttribute('aria-current');
+                });
+                scheduleNextSlide();
+            }
+
             project.screenshots.forEach(function (shot, index) {
                 var button = document.createElement('button');
                 button.type = 'button';
@@ -806,17 +831,15 @@
                 var thumb = document.createElement('img');
                 thumb.src = shot.src;
                 thumb.alt = '';
-                thumb.loading = 'lazy';
+                thumb.loading = 'eager';
                 button.appendChild(thumb);
-                button.addEventListener('click', function () {
-                    mainImage.src = shot.src;
-                    mainImage.alt = shot.alt;
-                    if (!project.phone) mockupScreen.style.backgroundImage = 'url("' + shot.src + '")';
-                    thumbs.querySelectorAll('button').forEach(function (b) { b.removeAttribute('aria-current'); });
-                    button.setAttribute('aria-current', 'true');
-                });
+                button.addEventListener('click', function () { showSlide(index); });
                 thumbs.appendChild(button);
-                if (index === 0) button.click();
+            });
+            showSlide(0);
+            document.addEventListener('visibilitychange', function () {
+                if (document.hidden) clearTimeout(slideTimer);
+                else scheduleNextSlide();
             });
         } else if (project.image) {
             image.hidden = false;
