@@ -22,8 +22,11 @@
         var videoHref = 'videos/' + id + '.mp4';
         var posters = {
             ping: 'ping_showcase.png',
-            'marketsphere-app': 'marketsphere_app_showcase.png'
+            'marketsphere-app': 'marketsphere_app_showcase.png',
+            nakolive: 'portfolio-media/nakolive-passenger.jpg',
+            prestige: 'portfolio-media/prestige-home.png'
         };
+        var imageOnly = id === 'nakolive' || id === 'prestige';
         window.__projectPoster = posters[id] || ('thumb-' + id + '.jpg');
         function preload(as, href, type) {
             var l = document.createElement('link');
@@ -33,9 +36,9 @@
             if (type) l.type = type;
             document.head.appendChild(l);
         }
-        preload('video', videoHref, 'video/mp4');
+        if (!imageOnly) preload('video', videoHref, 'video/mp4');
         preload('image', window.__projectPoster);
-        if (window.fetch) {
+        if (!imageOnly && window.fetch) {
             fetch(videoHref, { credentials: 'same-origin', priority: 'high' }).catch(function () {});
         }
     })();
@@ -122,6 +125,62 @@
         .detail-media video[hidden] {
             display: none !important;
         }
+        .detail-gallery[hidden] { display: none !important; }
+        .detail-gallery-main {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 360px;
+            background: #111;
+        }
+        .detail-gallery .detail-gallery-main img {
+            width: 100%;
+            height: auto;
+            aspect-ratio: 16 / 9;
+            object-fit: contain;
+        }
+        .detail-gallery.is-phone .detail-gallery-main {
+            min-height: 620px;
+            padding: 24px;
+            background: radial-gradient(circle at 50% 35%, #163d69, #080d17 75%);
+        }
+        .detail-gallery.is-phone .detail-gallery-main img {
+            width: auto;
+            max-width: 100%;
+            height: min(62vh, 620px);
+            aspect-ratio: auto;
+            border: 5px solid #20252c;
+            border-radius: 24px;
+            box-shadow: 0 18px 42px rgba(0,0,0,.4);
+        }
+        .detail-gallery-thumbs {
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            padding: 12px;
+            border-top: 1px solid var(--gold-border);
+        }
+        .detail-gallery-thumbs button {
+            flex: 0 0 92px;
+            height: 64px;
+            padding: 0;
+            overflow: hidden;
+            border: 1px solid var(--gold-border);
+            background: #151515;
+            cursor: pointer;
+            opacity: .65;
+        }
+        .detail-gallery-thumbs button[aria-current="true"] {
+            border-color: var(--gold);
+            opacity: 1;
+        }
+        .detail-gallery .detail-gallery-thumbs img {
+            width: 100%;
+            height: 100%;
+            aspect-ratio: auto;
+            object-fit: cover;
+        }
+        .detail-gallery.is-phone .detail-gallery-thumbs button { flex-basis: 58px; height: 92px; }
         .detail-media.is-phone { background: #0a0a0a; }
 
         .detail-info {
@@ -263,6 +322,9 @@
         }
 
         @media (max-width: 600px) {
+            .detail-gallery-main { min-height: 200px; }
+            .detail-gallery.is-phone .detail-gallery-main { min-height: 420px; padding: 16px; }
+            .detail-gallery.is-phone .detail-gallery-main img { height: min(58vh, 500px); }
             .detail-page {
                 padding: calc(var(--nav-h) + 16px) max(16px, var(--space-x)) calc(40px + env(safe-area-inset-bottom, 0px));
             }
@@ -345,12 +407,16 @@
             <div class="detail-media" id="detailMedia">
                 <video id="detailVideo" autoplay muted loop playsinline preload="auto" hidden></video>
                 <img id="detailImage" alt="" hidden>
+                <div class="detail-gallery" id="detailGallery" hidden>
+                    <div class="detail-gallery-main"><img id="detailGalleryMain" alt=""></div>
+                    <div class="detail-gallery-thumbs" id="detailGalleryThumbs" aria-label="Project screenshots"></div>
+                </div>
             </div>
             <script>
             (function () {
                 var id = window.__projectId;
                 var video = document.getElementById('detailVideo');
-                if (!id || !video) return;
+                if (!id || !video || id === 'nakolive' || id === 'prestige') return;
                 if (window.__projectPoster) video.poster = window.__projectPoster;
                 video.src = 'videos/' + id + '.mp4';
                 video.load();
@@ -544,6 +610,19 @@
                 industry: 'Events, creative & golf',
                 summary: 'A refined corporate website for Aditona Group — uniting Event Solutions, Creative & Marketing, Golf Solutions, and Procurement under one clear, premium brand from brief to delivery.'
             },
+            prestige: {
+                title: 'Prestige Destination Tours',
+                type: 'Website',
+                tags: ['Website', 'Travel', 'Safari'],
+                screenshots: [
+                    { src: 'portfolio-media/prestige-home.png', alt: 'Prestige home page with Botswana safari at sunset' },
+                    { src: 'portfolio-media/prestige-destinations.png', alt: 'Prestige destinations page showing Chobe, Okavango and Victoria Falls' },
+                    { src: 'portfolio-media/prestige-experiences.png', alt: 'Prestige experiences page with river cruise' }
+                ],
+                phone: false,
+                industry: 'Botswana destination tours',
+                summary: 'A premium travel website for tailored Botswana journeys, bringing together private safaris, river cruises, destination discovery, and shuttle planning in an elegant editorial experience.'
+            },
             startup: {
                 title: 'StartUp',
                 type: 'Template',
@@ -620,6 +699,20 @@
                 cta: 'Download App',
                 industry: 'Marketplace app',
                 summary: 'The mobile companion to Market Sphere Group — built for on-the-go marketplace browsing with a focused, app-native presentation.'
+            },
+            nakolive: {
+                title: 'NakoLive Transport Network',
+                type: 'App',
+                tags: ['App', 'Transport', 'Mobile'],
+                screenshots: [
+                    { src: 'portfolio-media/nakolive-passenger.jpg', alt: 'NakoLive passenger route and transport selection' },
+                    { src: 'portfolio-media/nakolive-map.jpg', alt: 'NakoLive route map and station details' },
+                    { src: 'portfolio-media/nakolive-driver.jpg', alt: 'NakoLive driver portal sign in' },
+                    { src: 'portfolio-media/nakolive-splash.jpg', alt: 'NakoLive app launch screen' }
+                ],
+                phone: true,
+                industry: 'Local transport network',
+                summary: 'A transport network experience for Botswana, helping passengers explore taxi, kombi, and bus routes while giving approved drivers a portal to register and share their location.'
             }
         };
 
@@ -657,15 +750,46 @@
             '<div class="detail-meta-row"><dt>Focus</dt><dd>' + project.industry + '</dd></div>';
 
         var cta = document.getElementById('detailCta');
-        cta.href = project.url;
-        cta.innerHTML = project.cta + ' <i class="fas fa-arrow-right"></i>';
+        if (project.url) {
+            cta.href = project.url;
+            cta.innerHTML = project.cta + ' <i class="fas fa-arrow-right"></i>';
+        } else {
+            cta.hidden = true;
+        }
 
         var media = document.getElementById('detailMedia');
         if (project.phone) media.classList.add('is-phone');
 
         var video = document.getElementById('detailVideo');
         var image = document.getElementById('detailImage');
-        if (project.image) {
+        var gallery = document.getElementById('detailGallery');
+        if (project.screenshots) {
+            video.hidden = true;
+            video.removeAttribute('src');
+            image.hidden = true;
+            gallery.hidden = false;
+            if (project.phone) gallery.classList.add('is-phone');
+            var mainImage = document.getElementById('detailGalleryMain');
+            var thumbs = document.getElementById('detailGalleryThumbs');
+            project.screenshots.forEach(function (shot, index) {
+                var button = document.createElement('button');
+                button.type = 'button';
+                button.setAttribute('aria-label', 'Show screenshot ' + (index + 1) + ': ' + shot.alt);
+                var thumb = document.createElement('img');
+                thumb.src = shot.src;
+                thumb.alt = '';
+                thumb.loading = 'lazy';
+                button.appendChild(thumb);
+                button.addEventListener('click', function () {
+                    mainImage.src = shot.src;
+                    mainImage.alt = shot.alt;
+                    thumbs.querySelectorAll('button').forEach(function (b) { b.removeAttribute('aria-current'); });
+                    button.setAttribute('aria-current', 'true');
+                });
+                thumbs.appendChild(button);
+                if (index === 0) button.click();
+            });
+        } else if (project.image) {
             image.hidden = false;
             image.src = project.image;
             image.alt = project.title;
