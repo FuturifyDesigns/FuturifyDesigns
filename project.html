@@ -127,32 +127,52 @@
         }
         .detail-gallery[hidden] { display: none !important; }
         .detail-gallery-main {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            min-height: 360px;
+            position: relative;
+            aspect-ratio: 1672 / 940;
             background: #111;
         }
-        .detail-gallery .detail-gallery-main img {
+        .detail-gallery .mockup-base {
             width: 100%;
-            height: auto;
-            aspect-ratio: 16 / 9;
-            object-fit: contain;
+            height: 100%;
+            aspect-ratio: 1672 / 940;
+            object-fit: cover;
         }
-        .detail-gallery.is-phone .detail-gallery-main {
-            min-height: 620px;
-            padding: 24px;
-            background: radial-gradient(circle at 50% 35%, #163d69, #080d17 75%);
+        .mockup-screen {
+            position: absolute;
+            left: 24.9%;
+            top: 16.9%;
+            width: 50.1%;
+            height: 52.1%;
+            overflow: hidden;
+            border-radius: 1.5% / 2.5%;
+            background-color: #151515;
+            background-position: center;
+            background-size: cover;
         }
-        .detail-gallery.is-phone .detail-gallery-main img {
-            width: auto;
-            max-width: 100%;
-            height: min(62vh, 620px);
+        .mockup-screen::before {
+            content: '';
+            position: absolute;
+            inset: -12px;
+            background: inherit;
+            filter: blur(12px) brightness(.6);
+        }
+        .detail-gallery .mockup-screen img {
+            position: relative;
+            width: 100%;
+            height: 100%;
             aspect-ratio: auto;
-            border: 5px solid #20252c;
-            border-radius: 24px;
-            box-shadow: 0 18px 42px rgba(0,0,0,.4);
+            object-fit: contain;
+            background: transparent;
         }
+        .detail-gallery.is-phone .mockup-screen {
+            left: 40%;
+            top: 9.9%;
+            width: 19.2%;
+            height: 71.8%;
+            border-radius: 8% / 3.8%;
+            background: #07101a;
+        }
+        .detail-gallery.is-phone .mockup-screen::before { display: none; }
         .detail-gallery-thumbs {
             display: flex;
             gap: 10px;
@@ -322,9 +342,6 @@
         }
 
         @media (max-width: 600px) {
-            .detail-gallery-main { min-height: 200px; }
-            .detail-gallery.is-phone .detail-gallery-main { min-height: 420px; padding: 16px; }
-            .detail-gallery.is-phone .detail-gallery-main img { height: min(58vh, 500px); }
             .detail-page {
                 padding: calc(var(--nav-h) + 16px) max(16px, var(--space-x)) calc(40px + env(safe-area-inset-bottom, 0px));
             }
@@ -408,7 +425,10 @@
                 <video id="detailVideo" autoplay muted loop playsinline preload="auto" hidden></video>
                 <img id="detailImage" alt="" hidden>
                 <div class="detail-gallery" id="detailGallery" hidden>
-                    <div class="detail-gallery-main"><img id="detailGalleryMain" alt=""></div>
+                    <div class="detail-gallery-main">
+                        <img class="mockup-base" id="detailMockupBase" alt="">
+                        <div class="mockup-screen" id="detailMockupScreen"><img id="detailGalleryMain" alt=""></div>
+                    </div>
                     <div class="detail-gallery-thumbs" id="detailGalleryThumbs" aria-label="Project screenshots"></div>
                 </div>
             </div>
@@ -773,7 +793,11 @@
             image.hidden = true;
             gallery.hidden = false;
             if (project.phone) gallery.classList.add('is-phone');
+            document.getElementById('detailMockupBase').src = project.phone
+                ? 'portfolio-media/mockup-phone.png'
+                : 'portfolio-media/mockup-website.png';
             var mainImage = document.getElementById('detailGalleryMain');
+            var mockupScreen = document.getElementById('detailMockupScreen');
             var thumbs = document.getElementById('detailGalleryThumbs');
             project.screenshots.forEach(function (shot, index) {
                 var button = document.createElement('button');
@@ -787,6 +811,7 @@
                 button.addEventListener('click', function () {
                     mainImage.src = shot.src;
                     mainImage.alt = shot.alt;
+                    if (!project.phone) mockupScreen.style.backgroundImage = 'url("' + shot.src + '")';
                     thumbs.querySelectorAll('button').forEach(function (b) { b.removeAttribute('aria-current'); });
                     button.setAttribute('aria-current', 'true');
                 });

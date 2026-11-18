@@ -587,7 +587,7 @@
                     <div class="sec-label">Selected Work</div>
                     <h2 class="sec-title">Projects I’m proud of</h2>
                 </div>
-                <p class="sec-sub">A focused look at live client work across finance, housing, retail, and marketplaces.</p>
+                <p class="sec-sub">A focused look at live client work across travel, finance, retail, and marketplaces.</p>
             </div>
             <div class="work-layout reveal">
                 <div class="work-stage" id="workStage">
@@ -721,7 +721,7 @@
     (function () {
         var WORK = [
             { name: 'MyUB', num: '01 — Project', tags: 'campus · education · botswana', url: 'project.html?id=myub', slides: ['thumb-myub.jpg'] },
-            { name: 'Ntlo', num: '02 — Project', tags: 'student housing · campus · web app', url: 'project.html?id=ntlo', slides: ['thumb-ntlo.jpg'] },
+            { name: 'Prestige Destination Tours', num: '02 — Project', tags: 'travel · safaris · botswana', url: 'project.html?id=prestige', slides: ['Prestige Botswana Sunset Safari.png'] },
             { name: 'Mosasana Capital', num: '03 — Project', tags: 'finance · loans · fintech', url: 'project.html?id=mosasana', slides: ['thumb-mosasana.jpg'] },
             { name: 'Market Sphere Group', num: '04 — Project', tags: 'marketplace · services · botswana', url: 'project.html?id=marketsphere', slides: ['thumb-marketsphere.jpg'] },
             { name: 'Baakanya', num: '05 — Project', tags: 'documents · saas · botswana', url: 'project.html?id=baakanya', slides: ['thumb-baakanya.jpg'] }
@@ -743,7 +743,7 @@
         function warmProjectVideo(url) {
             try {
                 var id = new URL(url, location.href).searchParams.get('id');
-                if (!id || warmed[id] || !/^[a-z0-9-]+$/i.test(id)) return;
+                if (!id || id === 'prestige' || warmed[id] || !/^[a-z0-9-]+$/i.test(id)) return;
                 warmed[id] = true;
                 var href = 'videos/' + id + '.mp4';
                 var link = document.createElement('link');
